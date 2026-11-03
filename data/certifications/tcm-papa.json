@@ -1,0 +1,42 @@
+{
+  "id": "tcm-papa",
+  "name": "Practical AI Pentest Associate",
+  "provider": "TCM Security",
+  "code": "PAPA",
+  "type": "certification",
+  "category": "AI security",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 249,
+    "basis": "Training + exam",
+    "note": ""
+  },
+  "exam": {
+    "minutes": null,
+    "style": "practical",
+    "format": "Unproctored practical application assessment: two days testing, then two days for the report; one free retake and 12-month training access listed."
+  },
+  "scope": "Agent application testing, prompt injection, data exposure, output handling, excessive agency and retrieval-related attacks.",
+  "requirements": "",
+  "ai_policy": "Current issuer FAQ permits AI-based tools; follow the current exam rules and reporting requirements.",
+  "caveats": [
+    "Issuer advertises 20% for qualifying students/teachers and other groups, subject to proof/approval. $249 becomes $199.20 before tax if approved; not account-verified."
+  ],
+  "skills": [
+    "ai-security",
+    "security",
+    "llm-apps"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [],
+  "sources": [
+    "Y04"
+  ],
+  "reports": [
+    "W01"
+  ],
+  "checked_on": "2026-10-27"
+}

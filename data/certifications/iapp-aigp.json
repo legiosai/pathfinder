@@ -1,0 +1,38 @@
+{
+  "id": "iapp-aigp",
+  "name": "IAPP Artificial Intelligence Governance Professional (AIGP)",
+  "provider": "IAPP",
+  "code": "AIGP",
+  "type": "certification",
+  "category": "AI security",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Exam only",
+    "note": "Current store pricing did not render in this check. Historical launch prices and third-party quotes were not treated as a current payable fee; maintenance costs also need checking."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "Current fee and delivery details were not fully verified."
+  },
+  "scope": "Responsible AI governance, legal and framework context, lifecycle risk and organizational implementation.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "governance"
+  ],
+  "roles": [
+    "governance",
+    "business"
+  ],
+  "domains": [],
+  "sources": [
+    "X18",
+    "X19"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

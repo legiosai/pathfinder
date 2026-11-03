@@ -1,0 +1,41 @@
+{
+  "id": "offsec-osai",
+  "name": "AI Red Teamer",
+  "provider": "OffSec",
+  "code": "OSAI / AI-300",
+  "type": "certification",
+  "category": "AI security",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": 1749,
+    "basis": "Course bundle, from",
+    "note": ""
+  },
+  "exam": {
+    "minutes": null,
+    "style": "practical",
+    "format": "Current course page starts at $1,749 and describes a 24-hour practical exam. FAQ requires report submission within the following 24 hours."
+  },
+  "scope": "Advanced AI red teaming across LLMs, multi-agent systems, RAG, embeddings and infrastructure.",
+  "requirements": "",
+  "ai_policy": "Official exam guide explicitly encourages AI/LLM use under its rules; external human assistance and confidentiality restrictions still apply.",
+  "caveats": [],
+  "skills": [
+    "ai-security",
+    "security"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [],
+  "sources": [
+    "Y13",
+    "Y14"
+  ],
+  "reports": [
+    "W07",
+    "W08"
+  ],
+  "checked_on": "2026-10-27"
+}

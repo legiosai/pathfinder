@@ -1,0 +1,41 @@
+{
+  "id": "databricks-genai-engineer",
+  "name": "Databricks Certified Generative AI Engineer Associate",
+  "provider": "Databricks",
+  "code": "GenAI Engineer",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 200,
+    "basis": "Exam only",
+    "note": "USD list price before tax; practice/compute costs are separate."
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "45 scored questions with possible unscored items, 90 minutes, two-year validity; six months of relevant hands-on experience recommended."
+  },
+  "scope": "End-to-end generative AI applications on Databricks.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "data",
+    "rag",
+    "llm-apps",
+    "python",
+    "evaluation"
+  ],
+  "roles": [
+    "developer",
+    "data-engineer"
+  ],
+  "domains": [],
+  "sources": [
+    "X09"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

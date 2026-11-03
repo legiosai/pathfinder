@@ -1,0 +1,39 @@
+{
+  "id": "nvidia-nca-ads",
+  "name": "Accelerated Data Science",
+  "provider": "NVIDIA",
+  "code": "NCA-ADS",
+  "type": "certification",
+  "category": "ML foundations",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 125,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 60,
+    "style": "knowledge",
+    "format": "50–60 questions listed; 60 minutes. Lab metadata: Not listed in reviewed metadata."
+  },
+  "scope": "GPU-accelerated data science fundamentals.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "data",
+    "ml-foundations",
+    "python"
+  ],
+  "roles": [
+    "data-engineer",
+    "ml-engineer"
+  ],
+  "domains": [],
+  "sources": [
+    "N20"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

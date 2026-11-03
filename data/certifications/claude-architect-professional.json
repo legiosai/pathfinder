@@ -1,0 +1,77 @@
+{
+  "id": "claude-architect-professional",
+  "name": "Claude Architect Professional",
+  "provider": "Anthropic",
+  "code": "CCAR-P",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "professional",
+  "status": "restricted",
+  "fee": {
+    "usd": 175,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Reviewed guide copy: 63 questions, 120 minutes; 12-month validity.",
+    "questions": "63",
+    "passing": "720 scaled (100–1,000)",
+    "validity": "12 months"
+  },
+  "scope": "Solution architecture; Models / prompts / context; Integration; Evaluation / optimization; Governance / risk; Stakeholders / lifecycle; Operational enablement",
+  "requirements": "Restricted to Claude Partner Network organizations: registration needs a company email domain recognized on the partner record. A personal Claude subscription is not enough.",
+  "ai_policy": "The reviewed Claude certification rules prohibit AI assistance during the closed-book exam.",
+  "caveats": [],
+  "skills": [
+    "architecture",
+    "agents",
+    "evaluation",
+    "governance",
+    "llm-apps"
+  ],
+  "roles": [
+    "architect"
+  ],
+  "domains": [
+    {
+      "name": "End-to-end solution architecture",
+      "weight": 17
+    },
+    {
+      "name": "Models, prompts and context",
+      "weight": 13
+    },
+    {
+      "name": "Enterprise integration",
+      "weight": 19
+    },
+    {
+      "name": "Evaluation, tests and optimization",
+      "weight": 16
+    },
+    {
+      "name": "Governance, safety and risk",
+      "weight": 14
+    },
+    {
+      "name": "Stakeholders and lifecycle",
+      "weight": 14
+    },
+    {
+      "name": "Developer productivity and operational enablement",
+      "weight": 7
+    }
+  ],
+  "sources": [
+    "C03",
+    "C08"
+  ],
+  "reports": [
+    "R11",
+    "R12"
+  ],
+  "checked_on": "2026-10-27",
+  "domains_note": "Weights from a reviewed v1.0 guide (July 2026); the canonical file was not reachable, so confirm them in the current official guide."
+}

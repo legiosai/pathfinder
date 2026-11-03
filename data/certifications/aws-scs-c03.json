@@ -1,0 +1,38 @@
+{
+  "id": "aws-scs-c03",
+  "name": "AWS Certified Security – Specialty (SCS-C03)",
+  "provider": "AWS",
+  "code": "SCS-C03",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 300,
+    "basis": "Exam only",
+    "note": "USD list price. A qualifying unused AWS exam discount could reduce it to $150; not account-verified."
+  },
+  "exam": {
+    "minutes": 170,
+    "style": "knowledge",
+    "format": "65 questions, 170 minutes, three-year validity. AWS's intended audience has five years in IT security and two securing AWS workloads; no prior certification is required."
+  },
+  "scope": "Securing AWS workloads: identity and access, data protection, detection, incident response and infrastructure security.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "aws",
+    "security",
+    "identity"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [],
+  "sources": [
+    "X14"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

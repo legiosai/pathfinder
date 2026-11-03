@@ -1,0 +1,38 @@
+{
+  "id": "securiti-ai-governance",
+  "name": "AI Security & Governance",
+  "provider": "Securiti",
+  "code": "Course certificate",
+  "type": "course",
+  "category": "AI security",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 0,
+    "basis": "Free course",
+    "note": ""
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "Course certificate with eight modules/quizzes and a final assessment. Provider estimates 2–2.5 hours for the course; that is not a personal exam-preparation estimate."
+  },
+  "scope": "AI discovery, risk assessment, data relationships, input/output controls and governance.",
+  "requirements": "",
+  "ai_policy": "Review the course's assessment instructions; completion time does not imply unaided applied mastery.",
+  "caveats": [],
+  "skills": [
+    "governance",
+    "ai-security"
+  ],
+  "roles": [
+    "governance",
+    "business"
+  ],
+  "domains": [],
+  "sources": [
+    "Y12"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

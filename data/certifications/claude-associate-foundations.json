@@ -1,0 +1,75 @@
+{
+  "id": "claude-associate-foundations",
+  "name": "Claude Associate Foundations",
+  "provider": "Anthropic",
+  "code": "CCAO-F",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "entry",
+  "status": "restricted",
+  "fee": {
+    "usd": 99,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Reviewed guide copy: 60 questions, 120 minutes; 12-month validity.",
+    "questions": "60",
+    "passing": "720 scaled (100–1,000)",
+    "validity": "12 months"
+  },
+  "scope": "Prompting / task execution; Output checks; Product / model choice; Workflow design; Configuration / knowledge; Governance / responsible use; Troubleshooting",
+  "requirements": "Restricted to Claude Partner Network organizations: registration needs a company email domain recognized on the partner record. A personal Claude subscription is not enough.",
+  "ai_policy": "The reviewed Claude certification rules prohibit AI assistance during the closed-book exam.",
+  "caveats": [],
+  "skills": [
+    "prompting",
+    "llm-apps",
+    "governance"
+  ],
+  "roles": [
+    "business"
+  ],
+  "domains": [
+    {
+      "name": "Prompting and task execution",
+      "weight": 14
+    },
+    {
+      "name": "Checking and validating outputs",
+      "weight": 21
+    },
+    {
+      "name": "Choosing products and models",
+      "weight": 12
+    },
+    {
+      "name": "Workflow and solution choices",
+      "weight": 16
+    },
+    {
+      "name": "Configuration and knowledge sources",
+      "weight": 12
+    },
+    {
+      "name": "Governance and responsible use",
+      "weight": 15
+    },
+    {
+      "name": "Troubleshooting and improvement",
+      "weight": 10
+    }
+  ],
+  "sources": [
+    "C03",
+    "C08"
+  ],
+  "reports": [
+    "R05",
+    "R06"
+  ],
+  "checked_on": "2026-10-27",
+  "domains_note": "Weights from a reviewed v1.0 guide (July 2026); the canonical file was not reachable, so confirm them in the current official guide."
+}

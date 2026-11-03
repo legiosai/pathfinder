@@ -1,0 +1,41 @@
+{
+  "id": "aws-saa",
+  "name": "AWS Certified Solutions Architect – Associate",
+  "provider": "AWS",
+  "code": "SAA",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 150,
+    "basis": "Exam only",
+    "note": "USD list price; an eligible unused certification discount could reduce it to $75, but the benefit was not checked."
+  },
+  "exam": {
+    "minutes": 130,
+    "style": "knowledge",
+    "format": "65 questions, 130 minutes, three-year validity; AWS recommends at least one year designing AWS solutions."
+  },
+  "scope": "Designing secure, resilient, high-performing and cost-optimized architectures on AWS.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "aws",
+    "architecture",
+    "networking",
+    "security"
+  ],
+  "roles": [
+    "architect",
+    "platform"
+  ],
+  "domains": [],
+  "sources": [
+    "X13",
+    "X14"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

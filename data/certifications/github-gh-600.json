@@ -1,0 +1,47 @@
+{
+  "id": "github-gh-600",
+  "name": "Agentic AI Developer",
+  "provider": "GitHub",
+  "code": "GH-600",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Proctored 120-minute assessment; the issuer says interactive components may occur."
+  },
+  "scope": "Agent architecture, tool use, memory/state, evaluation, multi-agent coordination and accountability inside production SDLC workflows.",
+  "requirements": "",
+  "ai_policy": "Check the current exam resource policy. A coding-agent certification does not itself permit AI during the assessment.",
+  "caveats": [],
+  "skills": [
+    "agents",
+    "devops",
+    "evaluation",
+    "llm-apps"
+  ],
+  "roles": [
+    "developer"
+  ],
+  "domains": [],
+  "sources": [
+    "Y02",
+    "Y03"
+  ],
+  "reports": [
+    "U01",
+    "V01",
+    "V02",
+    "V03",
+    "V04",
+    "V07"
+  ],
+  "checked_on": "2026-10-27"
+}

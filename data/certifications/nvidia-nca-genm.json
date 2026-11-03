@@ -1,0 +1,40 @@
+{
+  "id": "nvidia-nca-genm",
+  "name": "Generative AI Multimodal",
+  "provider": "NVIDIA",
+  "code": "NCA-GENM",
+  "type": "certification",
+  "category": "ML foundations",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 125,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 60,
+    "style": "knowledge",
+    "format": "50–60 questions listed; 60 minutes. Lab metadata: Not listed in reviewed metadata."
+  },
+  "scope": "Multimodal generative AI fundamentals.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "multimodal",
+    "ml-foundations"
+  ],
+  "roles": [
+    "ml-engineer",
+    "developer"
+  ],
+  "domains": [],
+  "sources": [
+    "N11"
+  ],
+  "reports": [
+    "E02"
+  ],
+  "checked_on": "2026-10-27"
+}

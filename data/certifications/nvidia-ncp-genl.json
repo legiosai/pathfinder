@@ -1,0 +1,39 @@
+{
+  "id": "nvidia-ncp-genl",
+  "name": "Generative AI LLMs",
+  "provider": "NVIDIA",
+  "code": "NCP-GENL",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 200,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "60–70 questions listed; 120 minutes. Lab metadata: Not listed in reviewed metadata."
+  },
+  "scope": "Advanced LLM development, customization and deployment.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "llm-apps",
+    "deep-learning",
+    "evaluation",
+    "gpu-infra"
+  ],
+  "roles": [
+    "ml-engineer"
+  ],
+  "domains": [],
+  "sources": [
+    "N12"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "google-agentic-architect",
+  "name": "Google Cloud Professional Agentic Architect",
+  "provider": "Google Cloud",
+  "code": "PAA",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "professional",
+  "status": "upcoming",
+  "fee": {
+    "usd": 200,
+    "basis": "Announced retail",
+    "note": "Announced retail price, not a verified available appointment. The $120 beta registration closed on 30 September 2026."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "Official FAQ announces GA in mid-November 2026, with a two-hour proctored exam plus required separate hands-on labs. Passing the exam alone does not earn the credential."
+  },
+  "scope": "Designing agentic systems on Google Cloud.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "gcp",
+    "agents",
+    "architecture"
+  ],
+  "roles": [
+    "architect"
+  ],
+  "domains": [],
+  "sources": [
+    "X16",
+    "X17"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

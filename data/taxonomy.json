@@ -1,0 +1,58 @@
+{
+  "levels": [
+    { "id": "entry", "label": "Entry", "hours": [10, 25] },
+    { "id": "associate", "label": "Associate", "hours": [25, 45] },
+    { "id": "professional", "label": "Professional", "hours": [40, 80] },
+    { "id": "expert", "label": "Expert", "hours": [80, 160] }
+  ],
+  "hours_note": "Rough planning ranges by level, not measured averages or issuer figures. Your own baseline matters more: take a diagnostic first and adjust.",
+  "statuses": [
+    { "id": "available", "label": "Open registration" },
+    { "id": "restricted", "label": "Restricted eligibility" },
+    { "id": "upcoming", "label": "Announced, not open yet" }
+  ],
+  "styles": [
+    { "id": "knowledge", "label": "Question-based exam" },
+    { "id": "practical", "label": "Hands-on / practical" },
+    { "id": "hybrid", "label": "Questions plus labs" }
+  ],
+  "roles": [
+    { "id": "developer", "label": "Software developer" },
+    { "id": "architect", "label": "Solutions architect" },
+    { "id": "ml-engineer", "label": "ML engineer" },
+    { "id": "data-engineer", "label": "Data engineer" },
+    { "id": "platform", "label": "Platform / DevOps" },
+    { "id": "security", "label": "Security" },
+    { "id": "governance", "label": "Risk & governance" },
+    { "id": "business", "label": "Business / non-technical" }
+  ],
+  "skills": [
+    { "id": "llm-apps", "label": "LLM applications" },
+    { "id": "agents", "label": "AI agents" },
+    { "id": "mcp", "label": "Model Context Protocol" },
+    { "id": "prompting", "label": "Prompting & context" },
+    { "id": "rag", "label": "Retrieval (RAG)" },
+    { "id": "evaluation", "label": "Evaluation & testing" },
+    { "id": "ml-foundations", "label": "ML foundations" },
+    { "id": "deep-learning", "label": "Deep learning & training" },
+    { "id": "multimodal", "label": "Multimodal AI" },
+    { "id": "data", "label": "Data engineering" },
+    { "id": "python", "label": "Python" },
+    { "id": "architecture", "label": "Solution architecture" },
+    { "id": "aws", "label": "AWS" },
+    { "id": "azure", "label": "Azure" },
+    { "id": "gcp", "label": "Google Cloud" },
+    { "id": "oci", "label": "Oracle Cloud" },
+    { "id": "kubernetes", "label": "Kubernetes & containers" },
+    { "id": "iac", "label": "Infrastructure as code" },
+    { "id": "devops", "label": "CI/CD & dev workflows" },
+    { "id": "observability", "label": "Observability" },
+    { "id": "gpu-infra", "label": "GPU & AI infrastructure" },
+    { "id": "networking", "label": "Networking" },
+    { "id": "security", "label": "Security engineering" },
+    { "id": "identity", "label": "Identity & access" },
+    { "id": "ai-security", "label": "AI security & red teaming" },
+    { "id": "governance", "label": "AI governance & risk" },
+    { "id": "simulation", "label": "3D & simulation" }
+  ]
+}

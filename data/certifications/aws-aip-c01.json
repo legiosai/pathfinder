@@ -1,0 +1,45 @@
+{
+  "id": "aws-aip-c01",
+  "name": "AWS Certified Generative AI Developer – Professional (AIP-C01)",
+  "provider": "AWS",
+  "code": "AIP-C01",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 300,
+    "basis": "Exam only",
+    "note": "USD list price. An unused eligible AWS certification benefit could reduce the exam fee; no voucher was checked."
+  },
+  "exam": {
+    "minutes": 180,
+    "style": "knowledge",
+    "format": "75 questions, 180 minutes. AWS targets production developers with two years of application experience and one year implementing GenAI."
+  },
+  "scope": "Building, deploying and troubleshooting production generative AI applications on AWS.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "aws",
+    "llm-apps",
+    "rag",
+    "agents",
+    "evaluation",
+    "architecture"
+  ],
+  "roles": [
+    "developer",
+    "architect"
+  ],
+  "domains": [],
+  "sources": [
+    "X03",
+    "X04"
+  ],
+  "reports": [
+    "X23"
+  ],
+  "checked_on": "2026-10-27"
+}
