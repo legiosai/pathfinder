@@ -13,6 +13,7 @@ const KEYS = {
   confidence: 'pathfinder:confidence:',
   theme: 'pathfinder:theme',
   plans: 'pathfinder:plans',
+  motion: 'pathfinder:motion',
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -326,6 +327,9 @@ function renderList() {
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
   $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
   $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores });
+  const hint = $('#q-hint');
+  hint.hidden = !q;
+  if (q) hint.textContent = t('hero.matches', { n: list.length });
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
     : `<p class="empty">${t('list.empty')}</p>`;
@@ -856,6 +860,25 @@ function bind() {
 
   $('#filters').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
+  $('#q').addEventListener('input', renderList);
+  $('#q').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    showResults();
+  });
+  $('#q-hint').addEventListener('click', showResults);
+  $('#mq-toggle').addEventListener('click', () => {
+    const paused = !$('#marquee').classList.contains('paused');
+    setMotionPaused(paused);
+    store.set(KEYS.motion, paused ? 'paused' : 'moving');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
+    if (e.target.closest('input, textarea, select, [contenteditable]')) return;
+    if ($('#view-list').hidden) return;
+    e.preventDefault();
+    $('#q').focus();
+  });
   $('#for-me').addEventListener('click', () => setProfileOpen($('#profile').hidden));
   $('#profile').addEventListener('change', () => {
     readProfile();
@@ -1066,6 +1089,57 @@ async function share(id) {
   copy(url, button);
 }
 
+// ---------- hero ----------
+/** Faint contour lines around two summits, with the dashed trail climbing to the right-hand one. */
+function renderHeroArt() {
+  const ring = (cx, cy, k, step, i, cls = '') => {
+    const pts = [];
+    for (let a = 0; a <= 72; a++) {
+      const th = (a / 72) * Math.PI * 2;
+      const r = k * step * (1 + 0.13 * Math.sin(3 * th + k * 0.6) + 0.07 * Math.cos(5 * th - k));
+      pts.push(`${(cx + Math.cos(th) * r * 1.35).toFixed(1)},${(cy + Math.sin(th) * r).toFixed(1)}`);
+    }
+    return `<path pathLength="1" style="--k:${i}"${cls ? ` class="${cls}"` : ''} d="M${pts.join('L')}Z"/>`;
+  };
+  let out = '';
+  for (let k = 1; k <= 11; k++) out += ring(1075, 64, k, 30, k, k === 2 || k === 3 ? 'hi' : '');
+  for (let k = 1; k <= 7; k++) out += ring(70, 330, k, 30, k + 3);
+  out += '<path class="trail" pathLength="1" d="M1215 520 C 1150 470, 1185 400, 1125 350 S 1005 280, 1040 200 S 1100 120, 1075 64"/>';
+  out += '<circle class="peak" cx="1075" cy="64" r="6"/>';
+  $('#hero-topo').innerHTML = out;
+}
+
+/** Every certification as a badge, split over two rows that drift in opposite directions.
+ *  Each row holds its set twice so the -50% shift loops without a seam. */
+function renderMarquee() {
+  const byProvider = new Map();
+  for (const c of DATA.certifications) byProvider.set(c.provider, [...(byProvider.get(c.provider) || []), c]);
+  const groups = [...byProvider.values()].sort((a, b) => b.length - a.length);
+  // Deal one per provider per round so neighbours rarely share an issuer colour.
+  const order = [];
+  for (let round = 0; order.length < DATA.certifications.length; round++) for (const g of groups) if (g[round]) order.push(g[round]);
+  const rows = [[], []];
+  order.forEach((c, i) => rows[i % 2].push(c));
+  rows.forEach((row, r) => {
+    // Mouse shortcuts only: the same links follow in the list, so the rows stay out of the tab order.
+    const set = row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false })}</a>`).join('');
+    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 3.6 : 3.1)).toFixed(1)}s"><div class="mq-set">${set}</div><div class="mq-set mq-copy">${set}</div></div>`;
+  });
+}
+
+function setMotionPaused(paused) {
+  $('#marquee').classList.toggle('paused', paused);
+  const button = $('#mq-toggle');
+  button.setAttribute('aria-pressed', String(paused));
+  $('use', button).setAttribute('href', paused ? '#i-play' : '#i-pause');
+}
+
+function showResults() {
+  const head = $('#list-head');
+  const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  head.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+}
+
 // ---------- language ----------
 function buildLabels() {
   LABELS = {};
@@ -1130,12 +1204,13 @@ async function init() {
     all.map((c) => ({ id: c.id, name: c.name, code: c.code, provider: c.provider, category: `${c.category} ${t(`cat.${c.category}`)}`, skills: DATA.taxonomy.skills.filter((s) => c.skills.includes(s.id)).map((s) => `${s.label} ${label('skills', s)}`).join(' '), scope: c.scope })),
     {
       keys: [{ name: 'name', weight: 3 }, { name: 'code', weight: 3 }, { name: 'provider', weight: 2 }, { name: 'skills', weight: 1.5 }, 'category', 'scope'],
-      threshold: 0.34,
+      threshold: 0.25,
       ignoreLocation: true,
     },
   );
-  const featured = ['claude-architect-foundations', 'nvidia-nca-genl', 'aws-aif-c01', 'google-agentic-architect', 'lf-mcpa', 'databricks-genai-engineer', 'redhat-ex267', 'github-gh-600'].filter((id) => BY_ID.has(id));
-  $('#floaters').innerHTML = featured.map((id, i) => `<a href="#cert?id=${id}" class="floater f${i}" title="${esc(BY_ID.get(id).name)}">${badge(BY_ID.get(id), 76)}</a>`).join('');
+  renderHeroArt();
+  renderMarquee();
+  setMotionPaused(store.get(KEYS.motion, false) === 'paused');
 
   renderSiteText();
   fillProfile();
