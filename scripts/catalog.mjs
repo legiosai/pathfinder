@@ -6,6 +6,8 @@ const LEVELS = ['entry', 'associate', 'professional', 'expert'];
 const STATUSES = ['available', 'restricted', 'upcoming'];
 const STYLES = ['knowledge', 'practical', 'hybrid'];
 const TYPES = ['certification', 'certificate', 'microcredential', 'course'];
+const PREP_KINDS = ['official-guide', 'course', 'docs', 'practice'];
+const PREP_COSTS = ['free', 'paid'];
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const ID = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
@@ -96,6 +98,13 @@ export function validate({ certifications, sources, reports, taxonomy }) {
     for (const r of c.reports || []) if (!reportIds.has(r)) err(w, `unknown report ${r}`);
     if (!DATE.test(c.checked_on || '')) err(w, 'checked_on must be YYYY-MM-DD');
     if (!Array.isArray(c.caveats)) err(w, 'caveats must be a list');
+    if (!Array.isArray(c.prep)) err(w, 'prep must be a list (empty is fine)');
+    for (const p of c.prep || []) {
+      if (!str(p.title) || !p.title) err(w, 'each prep resource needs a title');
+      if (!isUrl(p.url)) err(w, `bad prep url ${p.url}`);
+      if (!PREP_KINDS.includes(p.kind)) err(w, `prep kind must be one of ${PREP_KINDS.join(', ')}`);
+      if (!PREP_COSTS.includes(p.cost)) err(w, `prep cost must be one of ${PREP_COSTS.join(', ')}`);
+    }
     if (!Array.isArray(c.domains)) err(w, 'domains must be a list');
     if (c.domains && c.domains.length) {
       const sum = c.domains.reduce((t, d) => t + d.weight, 0);

@@ -1,8 +1,13 @@
 import { emptyProfile, rank, LEVELS } from './lib/match.js';
-import { buildPlan, estimateHours, toICS, toMarkdown } from './lib/planner.js';
+import { buildPlan, estimateHours, planTopics, toICS, toMarkdown } from './lib/planner.js';
 
 const MAX_COMPARE = 4;
-const KEYS = { profile: 'pathfinder:profile', compare: 'pathfinder:compare', progress: 'pathfinder:progress:' };
+const KEYS = {
+  profile: 'pathfinder:profile',
+  compare: 'pathfinder:compare',
+  progress: 'pathfinder:progress:',
+  confidence: 'pathfinder:confidence:',
+};
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -258,6 +263,17 @@ function domainsHtml(cert) {
     .join('')}</ul>`;
 }
 
+const PREP_LABEL = { 'official-guide': 'Official guide', course: 'Course', docs: 'Docs', practice: 'Practice' };
+
+function prepHtml(cert) {
+  if (!cert.prep || !cert.prep.length) return '';
+  return `<ul class="refs prep">${cert.prep
+    .map(
+      (r) => `<li><span class="tag">${esc(PREP_LABEL[r.kind] || r.kind)}${r.cost === 'paid' ? ' · paid' : ''}</span> <a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>${r.note ? `<small>${esc(r.note)}</small>` : ''}</li>`,
+    )
+    .join('')}</ul>`;
+}
+
 function renderCompare() {
   const certs = compare.map((id) => BY_ID.get(id)).filter(Boolean);
   const body = $('#compare-body');
@@ -334,6 +350,7 @@ function openDetail(id) {
     ${c.ai_policy ? `<div class="section-label">AI during the exam</div><p>${esc(c.ai_policy)}</p>` : ''}
     ${c.domains.length ? `<div class="section-label">Exam domains</div>${domainsHtml(c)}<p><small>${esc(c.domains_note || '')}</small></p>` : ''}
     ${c.caveats.length ? `<div class="section-label">Caveats</div>${c.caveats.map((x) => `<p class="note">${esc(x)}</p>`).join('')}` : ''}
+    ${c.prep && c.prep.length ? `<div class="section-label">Prepare with</div>${prepHtml(c)}` : ''}
     <div class="section-label">Sources (checked ${esc(c.checked_on)})</div>
     <ul class="refs">${sources
       .map((s) => `<li><a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a>${s.note ? `<small>${esc(s.note)}</small>` : ''}</li>`)
@@ -388,6 +405,35 @@ function setEstimate() {
   $('#hours-hint').textContent = `Suggested ${est.hours} h for your profile (range ${est.low}–${est.high} h for ${LABELS[cert.level]} level). A rough guess: adjust it after your baseline session.`;
 }
 
+function confidenceKey(id) {
+  return `${KEYS.confidence}${id}`;
+}
+
+function renderConfidence() {
+  const cert = BY_ID.get($('#plan-form').cert.value);
+  const { topics } = planTopics(cert);
+  const saved = store.get(confidenceKey(cert.id), {});
+  $('#confidence-rows').innerHTML = topics
+    .map((t, i) => {
+      const current = saved[t.name] || 3;
+      const options = [1, 2, 3, 4, 5]
+        .map(
+          (n) => `<label><input type="radio" name="conf-${i}" value="${n}" data-topic="${esc(t.name)}" ${n === current ? 'checked' : ''}><span>${n}</span></label>`,
+        )
+        .join('');
+      return `<div class="conf-row"><span class="conf-name">${esc(t.name)}</span><div class="scale" role="radiogroup" aria-label="Confidence in ${esc(t.name)}">${options}</div></div>`;
+    })
+    .join('');
+}
+
+function readConfidence() {
+  const out = {};
+  $$('#confidence-rows input:checked').forEach((i) => {
+    if (i.value !== '3') out[i.dataset.topic] = Number(i.value);
+  });
+  return out;
+}
+
 function enterPlan(params) {
   const f = $('#plan-form');
   const id = params.get('cert');
@@ -404,12 +450,14 @@ function enterPlan(params) {
   if (params.get('start')) f.start.value = params.get('start');
   if (params.get('len')) f.sessionMinutes.value = params.get('len');
   if (params.get('time')) f.startTime.value = params.get('time');
+  if (params.get('exam')) f.targetDate.value = params.get('exam');
   if (params.get('days')) {
     const days = params.get('days').split(',');
     $$('input[name="days"]', f).forEach((i) => (i.checked = days.includes(i.value)));
   }
   f.dataset.init = '1';
   setEstimate();
+  renderConfidence();
   renderPlan();
 }
 
@@ -421,6 +469,7 @@ function planParams() {
     start: f.start.value,
     len: f.sessionMinutes.value,
     time: f.startTime.value,
+    exam: f.targetDate.value,
     days: $$('input[name="days"]:checked', f).map((i) => i.value).join(','),
   };
 }
@@ -440,6 +489,8 @@ function renderPlan() {
       days,
       sessionMinutes: Number(f.sessionMinutes.value),
       startTime: f.startTime.value || '19:00',
+      confidence: readConfidence(),
+      targetDate: f.targetDate.value || null,
     });
   } catch (err) {
     currentPlan = null;
@@ -482,6 +533,8 @@ function renderPlan() {
       </div>
     </div>
     <div class="progress"><div class="meter" aria-label="Progress"><i style="width:${pct}%"></i></div><small>${done.size} of ${p.sessions.length} done</small></div>
+    ${deadlineHtml(p)}
+    ${cert.prep && cert.prep.length ? `<details class="resources"><summary>Resources for this exam (${cert.prep.length})</summary>${prepHtml(cert)}</details>` : ''}
     ${p.inferredTopics ? '<p class="note">This certification has no published domain weights in the catalog, so topics were read from its scope summary. Replace them with the official exam objectives.</p>' : ''}
     <p class="hint">Book the exam only after the last mock goes well. Progress is saved in this browser.</p>
     ${items}`;
@@ -498,12 +551,28 @@ function renderPlan() {
     }),
   );
   $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(p), 'text/calendar'));
-  $('#dl-md').addEventListener('click', () => download(`${p.cert.id}-plan.md`, toMarkdown(p), 'text/markdown'));
+  $('#dl-md').addEventListener('click', () =>
+    download(`${p.cert.id}-plan.md`, toMarkdown(p, { resources: cert.prep || [] }), 'text/markdown'),
+  );
   $('#print-plan').addEventListener('click', () => window.print());
   $('#copy-plan').addEventListener('click', (e) => {
     const link = `${location.origin}${location.pathname}#plan?${new URLSearchParams(planParams())}`;
     copy(link, e.currentTarget);
   });
+}
+
+function deadlineHtml(p) {
+  const d = p.deadline;
+  if (!d) return '';
+  if (d.fits) {
+    return `<p class="ok">Fits before your exam on ${esc(d.targetDate)}: ${d.needed} sessions on ${d.available} available study days, so ${d.spare} spare day${d.spare === 1 ? '' : 's'} for buffer.</p>`;
+  }
+  const fixes = [];
+  if (d.suggestedMinutes) fixes.push(`use ${d.suggestedMinutes}-minute sessions`);
+  fixes.push('add study days');
+  fixes.push(`move the exam to ${esc(p.examDate)} or later`);
+  const list = `${fixes.slice(0, -1).join(', ')} or ${fixes.at(-1)}`;
+  return `<p class="note">Does not fit before ${esc(d.targetDate)}: ${d.needed} sessions are needed and there are ${d.available} study days. To fix it, ${list}.</p>`;
 }
 
 function download(name, text, type) {
@@ -580,7 +649,14 @@ function bind() {
     if (e.target.name === 'cert') {
       hoursTouched = false;
       setEstimate();
+      renderConfidence();
     }
+    renderPlan();
+  });
+  $('#confidence').addEventListener('change', (e) => {
+    if (!e.target.dataset.topic) return;
+    const cert = $('#plan-form').cert.value;
+    store.set(confidenceKey(cert), readConfidence());
     renderPlan();
   });
 

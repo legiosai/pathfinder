@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { allocate, buildPlan, estimateHours, planTopics, studyDates, toICS, toMarkdown } from '../site/lib/planner.js';
+import { allocate, buildPlan, countStudyDays, estimateHours, planTopics, studyDates, toICS, toMarkdown } from '../site/lib/planner.js';
 
 const cert = {
   id: 'demo',
@@ -74,4 +74,34 @@ test('markdown export lists every session as a checkbox', () => {
   const md = toMarkdown(p);
   assert.equal((md.match(/^- \[ \]/gm) || []).length, p.sessions.length);
   assert.match(md, /DMO-1/);
+});
+
+test('low confidence pulls sessions toward a topic', () => {
+  const even = buildPlan({ cert, hours: 30, start: '2026-11-02', days: [1, 3, 5], sessionMinutes: 90 });
+  const weak = buildPlan({ cert, hours: 30, start: '2026-11-02', days: [1, 3, 5], sessionMinutes: 90, confidence: { Prompts: 1, Agents: 5 } });
+  const count = (p, topic) => p.sessions.filter((s) => s.topic === topic).length;
+  assert.ok(count(weak, 'Prompts') > count(even, 'Prompts'));
+  assert.ok(count(weak, 'Agents') < count(even, 'Agents'));
+});
+
+test('deadline check reports fit, spare days and a fix', () => {
+  const roomy = buildPlan({ cert, hours: 12, start: '2026-11-02', days: [1, 2, 3, 4, 5], sessionMinutes: 90, targetDate: '2026-12-31' });
+  assert.equal(roomy.deadline.fits, true);
+  assert.ok(roomy.deadline.spare > 0);
+  const tight = buildPlan({ cert, hours: 30, start: '2026-11-02', days: [6], sessionMinutes: 60, targetDate: '2026-11-30' });
+  assert.equal(tight.deadline.fits, false);
+  assert.equal(tight.deadline.available, 4);
+  assert.ok(tight.deadline.suggestedMinutes === null || tight.deadline.suggestedMinutes > 60);
+});
+
+test('countStudyDays counts the chosen weekdays before the end date', () => {
+  // Mondays and Wednesdays from Mon 2 Nov up to (not including) Mon 16 Nov 2026.
+  assert.equal(countStudyDays('2026-11-02', '2026-11-16', [1, 3]), 4);
+});
+
+test('markdown export can include resources', () => {
+  const p = buildPlan({ cert, hours: 10, start: '2026-11-02', days: [1, 4], sessionMinutes: 60 });
+  const md = toMarkdown(p, { resources: [{ title: 'Guide', url: 'https://example.com/g', cost: 'free' }] });
+  assert.match(md, /## Resources/);
+  assert.match(md, /\[Guide\]\(https:\/\/example.com\/g\)/);
 });

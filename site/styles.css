@@ -384,7 +384,7 @@ dialog::backdrop { background: rgb(0 0 0 / 0.45); }
 }
 
 @media print {
-  .top, .foot, .plan-form, .actions, .skip, .intro p { display: none !important; }
+  .top, .foot, .plan-form, .confidence, .resources, .actions, .skip, .intro p { display: none !important; }
   body { background: #fff; color: #000; }
   main { padding: 0; }
   .view:not(#view-plan) { display: none !important; }
@@ -395,3 +395,23 @@ dialog::backdrop { background: rgb(0 0 0 / 0.45); }
 .muted { color: var(--muted); }
 .sub { color: var(--muted); font-size: 0.85rem; }
 .detail-actions { margin-top: 16px; }
+
+/* Confidence and deadline */
+.confidence { margin-bottom: 16px; }
+.confidence summary { cursor: pointer; font-weight: 600; }
+.confidence summary small { display: block; font-weight: 400; color: var(--muted); margin-top: 2px; }
+#confidence-rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 8px 20px; margin-top: 12px; }
+.conf-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 0.9rem; }
+.conf-name { min-width: 0; }
+.scale { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+.scale label { position: relative; }
+.scale input { position: absolute; opacity: 0; inset: 0; margin: 0; width: 100%; height: 100%; cursor: pointer; }
+.scale span { display: block; width: 32px; padding: 4px 0; text-align: center; font-size: 0.85rem; border-left: 1px solid var(--line); background: var(--bg); }
+.scale label:first-child span { border-left: 0; }
+.scale input:checked + span { background: var(--accent); color: var(--accent-ink); }
+.scale input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ok { background: var(--accent-soft); color: var(--text); padding: 8px 12px; border-radius: 8px; font-size: 0.9rem; }
+.resources { margin: 8px 0 12px; }
+.resources summary { cursor: pointer; color: var(--muted); font-size: 0.9rem; padding: 4px 0; }
+.refs.prep { list-style: none; padding-left: 0; }
+.refs.prep .tag { margin-right: 4px; }

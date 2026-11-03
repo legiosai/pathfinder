@@ -40,3 +40,12 @@ test('the public data carries no private or personal markers', async () => {
   const site = await readFile(new URL('../site/app.js', import.meta.url), 'utf8');
   assert.doesNotMatch(site, /https?:\/\/(?!legiosai\.github\.io|github\.com\/legiosai)[a-z]/i, 'no external calls from the app');
 });
+
+test('the Claude exams carry the official guide as a resource and official weights', async () => {
+  const data = await loadCatalog(root);
+  for (const id of ['claude-architect-foundations', 'claude-developer-foundations', 'claude-architect-professional', 'claude-associate-foundations']) {
+    const c = data.certifications.find((x) => x.id === id);
+    assert.equal(c.prep[0].kind, 'official-guide', id);
+    assert.match(c.domains_note, /official exam guide/, id);
+  }
+});

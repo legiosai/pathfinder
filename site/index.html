@@ -129,12 +129,17 @@
         </select>
       </label>
       <label class="field">Start time <input type="time" name="startTime" value="19:00" required></label>
+      <label class="field">Exam date (optional) <input type="date" name="targetDate"></label>
       <fieldset class="days">
         <legend>Study days</legend>
         <div class="chips" id="days"></div>
       </fieldset>
       <p class="hint" id="hours-hint"></p>
     </form>
+    <details class="panel confidence" id="confidence" open>
+      <summary>How confident are you in each topic? <small>1 = new to me, 5 = I could teach it. Weak topics get more sessions.</small></summary>
+      <div id="confidence-rows"></div>
+    </details>
     <div id="plan-output" aria-live="polite"></div>
   </section>
 
