@@ -28,11 +28,29 @@
   "roles": [
     "platform"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Install and Deploy",
+      "weight": 31
+    },
+    {
+      "name": "Administration",
+      "weight": 23
+    },
+    {
+      "name": "Workload Management",
+      "weight": 23
+    },
+    {
+      "name": "Troubleshooting and Optimization",
+      "weight": 23
+    }
+  ],
   "sources": [
     "N16"
   ],
   "reports": [],
   "checked_on": "2026-10-27",
-  "prep": []
+  "prep": [],
+  "domains_note": "Weights from NVIDIA's NCP-AIO exam page (Exam Preparation Topics, Exam Weight per section), read 2026-11-03. These are topic weights; the page separately says the multiple-choice and hands-on lab sections are each worth 50% of the score."
 }

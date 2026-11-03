@@ -29,7 +29,28 @@
     "developer",
     "platform"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Application Design and Build",
+      "weight": 20
+    },
+    {
+      "name": "Application Deployment",
+      "weight": 20
+    },
+    {
+      "name": "Application Observability and Maintenance",
+      "weight": 15
+    },
+    {
+      "name": "Application Environment, Configuration and Security",
+      "weight": 25
+    },
+    {
+      "name": "Services and Networking",
+      "weight": 20
+    }
+  ],
   "sources": [
     "X15"
   ],
@@ -42,5 +63,6 @@
       "kind": "official-guide",
       "cost": "free"
     }
-  ]
+  ],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-03."
 }

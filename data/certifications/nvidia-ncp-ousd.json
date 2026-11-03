@@ -28,11 +28,45 @@
   "roles": [
     "developer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Composition",
+      "weight": 23
+    },
+    {
+      "name": "Content Aggregation",
+      "weight": 10
+    },
+    {
+      "name": "Customizing USD",
+      "weight": 6
+    },
+    {
+      "name": "Data Exchange",
+      "weight": 15
+    },
+    {
+      "name": "Data Modeling",
+      "weight": 13
+    },
+    {
+      "name": "Debugging and Troubleshooting",
+      "weight": 11
+    },
+    {
+      "name": "Pipeline Development",
+      "weight": 14
+    },
+    {
+      "name": "Visualization",
+      "weight": 8
+    }
+  ],
   "sources": [
     "N21"
   ],
   "reports": [],
   "checked_on": "2026-10-27",
-  "prep": []
+  "prep": [],
+  "domains_note": "Weights from NVIDIA's NCP-OUSD exam page Exam Blueprint table, read 2026-11-03. The linked study guide PDF gives the same weights."
 }

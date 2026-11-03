@@ -20,7 +20,9 @@
   "scope": "Designing, building and operating agentic AI systems.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "NVIDIA's exam page and its study guide PDF list the same ten areas with different weights (they add up to 98% and 92%), so no split is shown here."
+  ],
   "skills": [
     "agents",
     "llm-apps",

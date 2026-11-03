@@ -30,11 +30,46 @@
     "data-engineer",
     "ml-engineer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Data Manipulation and Preparation",
+      "weight": 23
+    },
+    {
+      "name": "Machine Learning With RAPIDS",
+      "weight": 16
+    },
+    {
+      "name": "Data Science Pipelines and Workflow Automation",
+      "weight": 13
+    },
+    {
+      "name": "Descriptive Analysis and Visualization",
+      "weight": 13
+    },
+    {
+      "name": "Foundations of Accelerated Data Science",
+      "weight": 12
+    },
+    {
+      "name": "Introductory MLOps Practices",
+      "weight": 10
+    },
+    {
+      "name": "Advanced Data Structures",
+      "weight": 7
+    },
+    {
+      "name": "Software and Environment Management",
+      "weight": 6
+    }
+  ],
   "sources": [
-    "N20"
+    "N20",
+    "Z06"
   ],
   "reports": [],
   "checked_on": "2026-10-27",
-  "prep": []
+  "prep": [],
+  "domains_note": "Weights from NVIDIA's NVIDIA-Certified Associate: Accelerated Data Science Exam Study Guide (PDF linked from the exam page), read 2026-11-03. The exam page blueprint table shows the same eight weights (it spells one domain 'Advance Data Structures')."
 }

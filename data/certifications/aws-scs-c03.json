@@ -29,11 +29,38 @@
   "roles": [
     "security"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Detection",
+      "weight": 16
+    },
+    {
+      "name": "Incident Response",
+      "weight": 14
+    },
+    {
+      "name": "Infrastructure Security",
+      "weight": 18
+    },
+    {
+      "name": "Identity and Access Management",
+      "weight": 20
+    },
+    {
+      "name": "Data Protection",
+      "weight": 18
+    },
+    {
+      "name": "Security Foundations and Governance",
+      "weight": 14
+    }
+  ],
   "sources": [
-    "X14"
+    "X14",
+    "Z02"
   ],
   "reports": [],
   "checked_on": "2026-10-27",
-  "prep": []
+  "prep": [],
+  "domains_note": "Weights from the AWS Certification Exam Guide (SCS-C03), read 2026-11-03."
 }

@@ -30,7 +30,32 @@
   "roles": [
     "developer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Prepare agent architecture and SDLC processes",
+      "weight": 17.5
+    },
+    {
+      "name": "Implement tool use and environment interaction",
+      "weight": 22.5
+    },
+    {
+      "name": "Manage memory, state, and execution",
+      "weight": 12.5
+    },
+    {
+      "name": "Perform evaluation, error analysis, and tuning",
+      "weight": 17.5
+    },
+    {
+      "name": "Orchestrate multi-agent coordination",
+      "weight": 17.5
+    },
+    {
+      "name": "Implement guardrails and accountability",
+      "weight": 12.5
+    }
+  ],
   "sources": [
     "Y02",
     "Y03"
@@ -57,5 +82,6 @@
       "kind": "course",
       "cost": "free"
     }
-  ]
+  ],
+  "domains_note": "Weights are midpoints of the published ranges (15–20%, 20–25%, 10–15%, 15–20%, 15–20%, 10–15%) from the Microsoft Learn GH-600 study guide (page updated 2026-05-13), read 2026-11-03."
 }

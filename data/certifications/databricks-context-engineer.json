@@ -31,7 +31,36 @@
     "data-engineer",
     "developer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Foundations of Context Engineering",
+      "weight": 16
+    },
+    {
+      "name": "System Prompt and Instruction Design",
+      "weight": 9
+    },
+    {
+      "name": "Knowledge Retrieval and Genie Configuration",
+      "weight": 20
+    },
+    {
+      "name": "Memory Architecture with Lakebase and MLflow",
+      "weight": 18
+    },
+    {
+      "name": "Tool Design, MCP, and Agent Context",
+      "weight": 13
+    },
+    {
+      "name": "Context Compression and Compaction",
+      "weight": 11
+    },
+    {
+      "name": "Multi-Agent and Long-Horizon Task Design",
+      "weight": 13
+    }
+  ],
   "sources": [
     "X08",
     "X24"
@@ -49,5 +78,6 @@
       "cost": "free",
       "note": "Free and paid courses, including exam preparation."
     }
-  ]
+  ],
+  "domains_note": "Weights from the Databricks Certified Context Engineer Associate exam guide (exam guide updated July 29, 2026), linked from the live listing, read 2026-11-03."
 }

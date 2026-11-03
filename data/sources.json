@@ -411,5 +411,54 @@
     "url": "https://www.linuxfoundation.org/press/agentic-ai-foundation-launches-mcpa-certification-to-validate-mcp-expertise",
     "kind": "Issuer announcement / duration conflict",
     "note": "Read 27 Oct 2026; release dated 14 Sep says 120 minutes while the current product listing says 90. Preserve the conflict; current signed-in appointment not checked."
+  },
+  {
+    "id": "Z01",
+    "title": "AWS · SAA-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Domain weights read 2026-11-03."
+  },
+  {
+    "id": "Z02",
+    "title": "AWS · SCS-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/security-specialty-03/security-specialty-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Domain weights read 2026-11-03."
+  },
+  {
+    "id": "Z03",
+    "title": "Databricks · Generative AI Engineer Associate exam guide",
+    "url": "https://www.databricks.com/sites/default/files/2026-10/databricks-certified-gen-ai-associate-exam-guide-august-2026.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Domain weights read 2026-11-03."
+  },
+  {
+    "id": "Z04",
+    "title": "Google Cloud · Professional Agentic Architect exam guide",
+    "url": "https://services.google.com/fh/files/misc/professional_agentic_architect_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Domain weights read 2026-11-03."
+  },
+  {
+    "id": "Z05",
+    "title": "IAPP · AIGP Body of Knowledge and Exam Blueprint v2.1 (PDF)",
+    "url": "https://assets.contentstack.io/v3/assets/bltd4dd5b2d705252bc/blt0d33152fd20bc134/AIGP_Cert%20BOK.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-03. Gives a question range per domain (I 16–20, II 19–23, III 21–25, IV 21–25), not fixed weights."
+  },
+  {
+    "id": "Z06",
+    "title": "NVIDIA · NCA-ADS Exam Study Guide (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/328u55865k15h7h0r28e70o023andi0r.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Domain weights read 2026-11-03."
+  },
+  {
+    "id": "Z07",
+    "title": "OffSec · OSAI Exam Guide",
+    "url": "https://help.offsec.com/hc/en-us/articles/46593096734612-OSAI-Exam-Guide",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-03. Practical exam scored in points per target; pass at 75 of 100. No per-domain weights."
   }
 ]
