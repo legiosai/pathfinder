@@ -15,7 +15,7 @@
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "Reviewed guide copy: 63 questions, 120 minutes; 12-month validity.",
+    "format": "63 multiple-choice and multiple-response items in 120 minutes, proctored online or at a Pearson VUE test center. 12-month validity; on-time renewal is a free, non-proctored assessment.",
     "questions": "63",
     "passing": "720 scaled (100–1,000)",
     "validity": "12 months"
@@ -23,7 +23,9 @@
   "scope": "Solution architecture; Models / prompts / context; Integration; Evaluation / optimization; Governance / risk; Stakeholders / lifecycle; Operational enablement",
   "requirements": "Restricted to Claude Partner Network organizations: registration needs a company email domain recognized on the partner record. A personal Claude subscription is not enough.",
   "ai_policy": "The reviewed Claude certification rules prohibit AI assistance during the closed-book exam.",
-  "caveats": [],
+  "caveats": [
+    "Retakes need a wait of 14, 30 and then 90 days after each failed attempt, with at most four attempts in 12 months; each attempt pays the fee."
+  ],
   "skills": [
     "architecture",
     "agents",
@@ -36,42 +38,77 @@
   ],
   "domains": [
     {
-      "name": "End-to-end solution architecture",
+      "name": "Solution Design & Architecture",
       "weight": 17
     },
     {
-      "name": "Models, prompts and context",
+      "name": "Claude Models, Prompting & Context Engineering",
       "weight": 13
     },
     {
-      "name": "Enterprise integration",
+      "name": "Integration",
       "weight": 19
     },
     {
-      "name": "Evaluation, tests and optimization",
+      "name": "Evaluation, Testing & Optimization",
       "weight": 16
     },
     {
-      "name": "Governance, safety and risk",
+      "name": "Governance, Safety & Risk Management",
       "weight": 14
     },
     {
-      "name": "Stakeholders and lifecycle",
+      "name": "Stakeholder Communication & Lifecycle Management",
       "weight": 14
     },
     {
-      "name": "Developer productivity and operational enablement",
+      "name": "Developer Productivity & Operational Enablement",
       "weight": 7
     }
   ],
   "sources": [
+    "C07",
     "C03",
-    "C08"
+    "C08",
+    "C16"
   ],
   "reports": [
     "R11",
     "R12"
   ],
-  "checked_on": "2026-10-27",
-  "domains_note": "Weights from a reviewed v1.0 guide (July 2026); the canonical file was not reachable, so confirm them in the current official guide."
+  "checked_on": "2026-11-03",
+  "domains_note": "Weights from the official exam guide v1.0 (effective July 2026), linked from the certification page.",
+  "prep": [
+    {
+      "title": "Official exam guide (on the certification page)",
+      "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Objectives, sample questions and preparation exercises. Read it first."
+    },
+    {
+      "title": "Building effective agents (Anthropic engineering)",
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Effective context engineering for AI agents (Anthropic engineering)",
+      "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Building with the Claude API",
+      "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Claude Code in Action",
+      "url": "https://anthropic.skilljar.com/claude-code-in-action",
+      "kind": "course",
+      "cost": "free"
+    }
+  ]
 }

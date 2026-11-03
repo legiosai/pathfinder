@@ -41,5 +41,19 @@
     "U03",
     "X22"
   ],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "AI-103 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: preparing for AI-103 (video)",
+      "url": "https://www.youtube.com/watch?v=BEUoruZBHgc",
+      "kind": "course",
+      "cost": "free"
+    }
+  ]
 }

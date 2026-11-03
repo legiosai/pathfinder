@@ -15,7 +15,7 @@
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "Reviewed guide copy: 60 questions, 120 minutes; 12-month validity.",
+    "format": "60 multiple-choice and multiple-response items in 120 minutes, proctored online or at a Pearson VUE test center. 12-month validity; on-time renewal is a free, non-proctored assessment. Each sitting draws 4 scenarios from a bank of 6.",
     "questions": "60",
     "passing": "720 scaled (100–1,000)",
     "validity": "12 months"
@@ -23,7 +23,9 @@
   "scope": "Agent architecture; Tools / MCP; Claude Code workflows; Prompts / output structure; Context / reliability",
   "requirements": "Restricted to Claude Partner Network organizations: registration needs a company email domain recognized on the partner record. A personal Claude subscription is not enough.",
   "ai_policy": "The reviewed Claude certification rules prohibit AI assistance during the closed-book exam.",
-  "caveats": [],
+  "caveats": [
+    "Retakes need a wait of 14, 30 and then 90 days after each failed attempt, with at most four attempts in 12 months; each attempt pays the fee."
+  ],
   "skills": [
     "agents",
     "mcp",
@@ -37,29 +39,31 @@
   ],
   "domains": [
     {
-      "name": "Agent architecture and orchestration",
+      "name": "Agentic Architecture & Orchestration",
       "weight": 27
     },
     {
-      "name": "Tools and MCP integration",
+      "name": "Tool Design & MCP Integration",
       "weight": 18
     },
     {
-      "name": "Claude Code configuration and workflows",
+      "name": "Claude Code Configuration & Workflows",
       "weight": 20
     },
     {
-      "name": "Prompting and structured output",
+      "name": "Prompt Engineering & Structured Output",
       "weight": 20
     },
     {
-      "name": "Context handling and reliability",
+      "name": "Context Management & Reliability",
       "weight": 15
     }
   ],
   "sources": [
+    "C01",
     "C03",
-    "C08"
+    "C08",
+    "C16"
   ],
   "reports": [
     "E03",
@@ -70,6 +74,87 @@
     "R09",
     "R10"
   ],
-  "checked_on": "2026-10-27",
-  "domains_note": "Weights from a reviewed v1.0 guide (July 2026); the canonical file was not reachable, so confirm them in the current official guide."
+  "checked_on": "2026-11-03",
+  "domains_note": "Weights from the official exam guide v1.0 (effective July 2026), linked from the certification page.",
+  "prep": [
+    {
+      "title": "Official exam guide (on the certification page)",
+      "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Objectives, sample questions and preparation exercises. Read it first."
+    },
+    {
+      "title": "Anthropic Academy: Building with the Claude API",
+      "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Claude Code in Action",
+      "url": "https://anthropic.skilljar.com/claude-code-in-action",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Introduction to Model Context Protocol",
+      "url": "https://anthropic.skilljar.com/introduction-to-model-context-protocol",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Introduction to subagents",
+      "url": "https://anthropic.skilljar.com/introduction-to-subagents",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Introduction to agent skills",
+      "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Claude Agent SDK documentation",
+      "url": "https://code.claude.com/docs/en/agent-sdk/overview",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Claude Code documentation: memory, skills, subagents, hooks, MCP, headless",
+      "url": "https://code.claude.com/docs/en/overview",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Tool use with Claude",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Message Batches API",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/batch-processing",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Building effective agents (Anthropic engineering)",
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "How we built our multi-agent research system (Anthropic engineering)",
+      "url": "https://www.anthropic.com/research/multi-agent-research-system",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Writing tools for agents (Anthropic engineering)",
+      "url": "https://www.anthropic.com/research/writing-tools-for-agents",
+      "kind": "docs",
+      "cost": "free"
+    }
+  ]
 }

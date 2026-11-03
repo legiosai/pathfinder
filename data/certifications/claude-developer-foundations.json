@@ -15,7 +15,7 @@
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "Reviewed guide copy: 53 questions, 120 minutes; 12-month validity.",
+    "format": "53 multiple-choice and multiple-response items in 120 minutes, proctored online or at a Pearson VUE test center. 12-month validity; on-time renewal is a free, non-proctored assessment.",
     "questions": "53",
     "passing": "720 scaled (100–1,000)",
     "validity": "12 months"
@@ -23,7 +23,9 @@
   "scope": "Agents / workflows; Application integration; Claude Code; Evaluation / debugging; Model choice / optimization; Prompts / context; Safety; Tools / MCP",
   "requirements": "Restricted to Claude Partner Network organizations: registration needs a company email domain recognized on the partner record. A personal Claude subscription is not enough.",
   "ai_policy": "The reviewed Claude certification rules prohibit AI assistance during the closed-book exam.",
-  "caveats": [],
+  "caveats": [
+    "Retakes need a wait of 14, 30 and then 90 days after each failed attempt, with at most four attempts in 12 months; each attempt pays the fee."
+  ],
   "skills": [
     "llm-apps",
     "agents",
@@ -36,27 +38,27 @@
   ],
   "domains": [
     {
-      "name": "Application development and integration",
+      "name": "Applications and Integration",
       "weight": 33.1
     },
     {
-      "name": "Model choice and optimization",
+      "name": "Model Selection and Optimization",
       "weight": 16.8
     },
     {
-      "name": "Agents and workflows",
+      "name": "Agents and Workflows",
       "weight": 14.7
     },
     {
-      "name": "Prompts and context",
+      "name": "Prompt and Context Engineering",
       "weight": 11.0
     },
     {
-      "name": "Tools and MCP",
+      "name": "Tools and MCPs",
       "weight": 10.6
     },
     {
-      "name": "Security and safety",
+      "name": "Security and Safety",
       "weight": 8.1
     },
     {
@@ -64,18 +66,77 @@
       "weight": 3.1
     },
     {
-      "name": "Evaluation, testing and debugging",
+      "name": "Eval, Testing, and Debugging",
       "weight": 2.6
     }
   ],
   "sources": [
+    "C06",
     "C03",
-    "C08"
+    "C08",
+    "C16"
   ],
   "reports": [
     "E08",
     "R07"
   ],
-  "checked_on": "2026-10-27",
-  "domains_note": "Weights from a reviewed v1.0 guide (July 2026); the canonical file was not reachable, so confirm them in the current official guide."
+  "checked_on": "2026-11-03",
+  "domains_note": "Weights from the official exam guide v1.0 (effective July 2026), linked from the certification page.",
+  "prep": [
+    {
+      "title": "Official exam guide (on the certification page)",
+      "url": "https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Objectives, sample questions and preparation exercises. Read it first."
+    },
+    {
+      "title": "Anthropic Academy: Building with the Claude API",
+      "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Claude Platform 101",
+      "url": "https://anthropic.skilljar.com/claude-platform-101",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Introduction to Model Context Protocol",
+      "url": "https://anthropic.skilljar.com/introduction-to-model-context-protocol",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Model Context Protocol, Advanced Topics",
+      "url": "https://anthropic.skilljar.com/model-context-protocol-advanced-topics",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Claude Agent SDK documentation",
+      "url": "https://code.claude.com/docs/en/agent-sdk/overview",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Tool use with Claude",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Structured outputs",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/structured-outputs",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Prompt engineering overview",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview",
+      "kind": "docs",
+      "cost": "free"
+    }
+  ]
 }

@@ -33,5 +33,13 @@
     "X12"
   ],
   "reports": [],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "Terraform Associate (004) tutorials",
+      "url": "https://developer.hashicorp.com/terraform/tutorials/certification-004",
+      "kind": "course",
+      "cost": "free"
+    }
+  ]
 }

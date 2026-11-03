@@ -42,5 +42,32 @@
     "V05",
     "V06"
   ],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "Model Context Protocol specification (latest)",
+      "url": "https://modelcontextprotocol.io/specification/latest",
+      "kind": "docs",
+      "cost": "free",
+      "note": "The exam listing references specification version 2026-07-28."
+    },
+    {
+      "title": "Model Context Protocol documentation",
+      "url": "https://modelcontextprotocol.io/docs/getting-started/intro",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Introduction to Model Context Protocol",
+      "url": "https://anthropic.skilljar.com/introduction-to-model-context-protocol",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Anthropic Academy: Model Context Protocol, Advanced Topics",
+      "url": "https://anthropic.skilljar.com/model-context-protocol-advanced-topics",
+      "kind": "course",
+      "cost": "free"
+    }
+  ]
 }
