@@ -1,6 +1,6 @@
 import { emptyProfile, rank } from './lib/match.js';
 import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
-import { providerMark, providerColor, badge, donut, hbars, columns } from './visuals.js';
+import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
@@ -108,13 +108,13 @@ function ring(value, size = 40, cls = '', label = '') {
 
 function dbar(cert, big = false) {
   return `<div class="dbar${big ? ' lg' : ''}" role="img" aria-label="${esc(t('donut.aria'))}">${cert.domains
-    .map((d, i) => `<span style="flex:${d.weight};background:var(--d${(i % 8) + 1})" title="${esc(d.name)}: ${d.weight}%"></span>`)
+    .map((d, i) => `<span style="flex:${d.weight};background:${domainColor(i)}" title="${esc(d.name)}: ${d.weight}%"></span>`)
     .join('')}</div>`;
 }
 
 function legend(cert) {
   return `<ul class="legend">${cert.domains
-    .map((d, i) => `<li><span class="sw" style="background:var(--d${(i % 8) + 1})"></span><span>${esc(d.name)}</span><b>${d.weight}%</b></li>`)
+    .map((d, i) => `<li><span class="sw" style="background:${domainColor(i)}"></span><span>${esc(d.name)}</span><b>${d.weight}%</b></li>`)
     .join('')}</ul>`;
 }
 
@@ -710,7 +710,7 @@ function renderPlan() {
   const byTopic = new Map();
   for (const s of p.sessions) if (s.topic) byTopic.set(s.topic, (byTopic.get(s.topic) || 0) + s.minutes);
   const topicRows = p.topics
-    .map((tp, i) => ({ label: lib(tp), value: Math.round(((byTopic.get(tp) || 0) / 60) * 10) / 10, color: `var(--d${(i % 8) + 1})` }))
+    .map((tp, i) => ({ label: lib(tp), value: Math.round(((byTopic.get(tp) || 0) / 60) * 10) / 10, color: domainColor(i) }))
     .filter((r) => r.value > 0);
   const weekRows = [...weeks].map(([w, items], i) => ({
     label: t('plan.wk', { n: i + 1 }),

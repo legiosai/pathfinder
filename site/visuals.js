@@ -75,6 +75,10 @@ export function badge(cert, size = 64, { label = true } = {}) {
   </svg>`;
 }
 
+// Eight categorical hues in a fixed order. A ninth domain onward gets a neutral grey rather than a
+// repeated hue, so no two domains look related; names and weights stay in the legend as text.
+export const domainColor = (i) => (i < 8 ? `var(--d${i + 1})` : 'var(--d-rest)');
+
 /** Donut of domain weights with a centre label. Colours follow the --dN categorical order. */
 export function donut(domains, size = 168, { label = 'domains', aria = 'Exam domain weights' } = {}) {
   const r = 62;
@@ -85,7 +89,7 @@ export function donut(domains, size = 168, { label = 'domains', aria = 'Exam dom
   const segs = domains
     .map((d, i) => {
       const len = (d.weight / total) * c;
-      const seg = `<circle class="seg" data-i="${i}" cx="80" cy="80" r="${r}" stroke="var(--d${(i % 8) + 1})" stroke-dasharray="${Math.max(0, len - gap)} ${c}" stroke-dashoffset="${-offset}"><title>${esc(d.name)}: ${d.weight}%</title></circle>`;
+      const seg = `<circle class="seg" data-i="${i}" cx="80" cy="80" r="${r}" stroke="${domainColor(i)}" stroke-dasharray="${Math.max(0, len - gap)} ${c}" stroke-dashoffset="${-offset}"><title>${esc(d.name)}: ${d.weight}%</title></circle>`;
       offset += len;
       return seg;
     })

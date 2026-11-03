@@ -77,7 +77,7 @@ if (!id) {
       <div class="who">${providerMark(c.provider, 44)}<span>${esc(c.provider)} · ${esc(c.code)}</span></div>
       <h1 class="${c.name.length > 48 ? 'long' : ''}">${esc(c.name)}</h1>
       <div class="facts">${facts.map(([i, t]) => `<span class="fact">${icon(i)}${esc(t)}</span>`).join('')}</div>
-      ${c.domains.length ? `<div class="dbar">${c.domains.map((d, i) => `<span style="flex:${d.weight};background:${D[i % 8]}"></span>`).join('')}</div>` : ''}
+      ${c.domains.length ? `<div class="dbar">${c.domains.map((d, i) => `<span style="flex:${d.weight};background:${D[i] || '#8c877d'}"></span>`).join('')}</div>` : ''}
     </div>`;
 }
 await document.fonts.ready;
