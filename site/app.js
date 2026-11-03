@@ -1,5 +1,5 @@
-import { emptyProfile, rank, LEVELS } from './lib/match.js';
-import { buildPlan, estimateHours, planTopics, toICS, toMarkdown } from './lib/planner.js';
+import { emptyProfile, rank } from './lib/match.js';
+import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_LABEL, KIND_DETAIL } from './lib/planner.js';
 
 const MAX_COMPARE = 4;
 const KEYS = {
@@ -12,7 +12,7 @@ const KEYS = {
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-// ---------- storage (never required: private windows can throw) ----------
+// Storage is optional: private windows can throw, and the page still works.
 const store = {
   get(key, fallback) {
     try {
@@ -26,15 +26,16 @@ const store = {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch {
-      /* storage unavailable: the page still works for this visit */
+      /* not saved this visit */
     }
   },
 };
 
-// ---------- helpers ----------
 const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ESC[c]);
 const safeUrl = (u) => (/^https?:\/\//i.test(u || '') ? u : '#');
+const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
+const ext = (url, text) => `<a href="${esc(safeUrl(url))}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
 
 let DATA = null;
 let BY_ID = new Map();
@@ -42,195 +43,180 @@ let LABELS = {};
 let profile = emptyProfile();
 let compare = [];
 
+// ---------- formatting ----------
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+function utc(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d));
+}
+
+function day(iso, { weekday = true, year = false } = {}) {
+  const d = utc(iso);
+  return `${weekday ? `${DAYS[d.getUTCDay()]} ` : ''}${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}${year ? ` ${d.getUTCFullYear()}` : ''}`;
+}
+
+function span(a, b) {
+  const x = utc(a);
+  const y = utc(b);
+  if (x.getUTCMonth() === y.getUTCMonth()) return `${x.getUTCDate()}–${y.getUTCDate()} ${MONTHS[y.getUTCMonth()]}`;
+  return `${day(a, { weekday: false })} – ${day(b, { weekday: false })}`;
+}
+
+function len(m) {
+  if (m < 60) return `${m} min`;
+  return `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60}` : ''}`;
+}
+
 function fee(cert) {
   const usd = cert.fee.usd;
-  if (usd == null) return 'Regional price';
+  if (usd == null) return 'Varies';
   if (usd === 0) return 'Free';
   return `US$${usd % 1 ? usd.toFixed(2) : usd}`;
 }
 
 function duration(cert) {
   const m = cert.exam.minutes;
-  if (!m) return cert.exam.style === 'practical' ? 'Practical' : 'Not published';
-  return m >= 60 ? `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ''}` : `${m} min`;
+  if (!m) return cert.exam.style === 'practical' ? 'Practical' : '—';
+  return len(m);
 }
 
-function tags(cert) {
-  const out = [
-    `<span class="tag">${esc(LABELS[cert.level])}</span>`,
-    `<span class="tag">${esc(fee(cert))}</span>`,
-    `<span class="tag">${esc(duration(cert))}</span>`,
-    `<span class="tag">${esc(LABELS[cert.exam.style])}</span>`,
-  ];
-  if (cert.status !== 'available') out.push(`<span class="tag ${cert.status}">${esc(LABELS[cert.status])}</span>`);
-  return out.join('');
-}
-
-function actions(cert, { detail = true } = {}) {
-  const inCompare = compare.includes(cert.id);
-  const full = !inCompare && compare.length >= MAX_COMPARE;
-  return `<div class="actions">
-    ${detail ? `<button type="button" data-act="detail" data-id="${esc(cert.id)}">Details</button>` : ''}
-    <button type="button" data-act="compare" data-id="${esc(cert.id)}" class="${inCompare ? 'on' : ''}" aria-pressed="${inCompare}" ${full ? 'disabled title="Compare holds four at most"' : ''}>${inCompare ? 'In compare' : 'Compare'}</button>
-    <button type="button" data-act="plan" data-id="${esc(cert.id)}">Plan</button>
-  </div>`;
-}
-
-function card(cert, result) {
-  const score = result
-    ? `<div class="score"><b>${result.score}</b><small>match</small></div>`
-    : '';
-  const why = result && result.reasons.length
-    ? `<ul class="reasons">${result.reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>`
-    : '';
-  const warn = result && result.warnings.length
-    ? `<ul class="warnings">${result.warnings.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>`
-    : '';
-  const excluded = result && result.excluded ? `<p class="excluded-note">${esc(result.excluded)}</p>` : '';
-  return `<article class="card${result && result.excluded ? ' excluded' : ''}">
-    <div class="card-head">
-      <div class="card-title">
-        <h3>${esc(cert.name)}</h3>
-        <div class="sub">${esc(cert.provider)} · ${esc(cert.code)}</div>
-      </div>
-      ${score}
-    </div>
-    ${result ? `<div class="meter" aria-hidden="true"><i style="width:${result.score}%"></i></div>` : ''}
-    <div class="meta">${tags(cert)}</div>
-    <p>${esc(cert.scope)}</p>
-    ${excluded}${why}${warn}
-    ${actions(cert)}
-  </article>`;
-}
+const FLAG = { restricted: 'Restricted', upcoming: 'Not open yet' };
 
 // ---------- routing ----------
 function parseHash() {
   const raw = location.hash.replace(/^#/, '');
   const [name, query = ''] = raw.split('?');
-  return { name: name || 'match', params: new URLSearchParams(query) };
+  return { name, params: new URLSearchParams(query) };
 }
 
-function go(name, params) {
-  const q = params ? `?${new URLSearchParams(params)}` : '';
-  location.hash = `${name}${q}`;
-}
-
+const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', cert: 'cert', compare: 'compare', plan: 'plan', about: 'about' };
 let lastView = null;
+let lastCert = null;
+let listScroll = 0;
 
 function route() {
   const { name, params } = parseHash();
-  const view = ['match', 'browse', 'compare', 'plan', 'about', 'cert'].includes(name) ? name : 'match';
-  const shown = view === 'cert' ? 'browse' : view;
-  if (shown !== lastView) window.scrollTo(0, 0);
-  lastView = shown;
-  $$('.view').forEach((v) => (v.hidden = v.id !== `view-${shown}`));
+  let view = VIEWS[name] || 'list';
+  const certId = params.get('id');
+  if (view === 'cert' && !BY_ID.has(certId)) view = 'list';
+
+  if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
+  $$('.view').forEach((v) => (v.hidden = v.id !== `view-${view}`));
   $$('nav a').forEach((a) => {
-    if (a.dataset.route === shown) a.setAttribute('aria-current', 'page');
+    const current = a.dataset.route === (view === 'cert' ? 'list' : view);
+    if (current) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
-  if (shown === 'match') renderMatch();
-  if (shown === 'browse') renderBrowse();
-  if (shown === 'compare') {
+
+  if (view === 'list') {
+    if (name === 'match') setProfileOpen(true);
+    renderList();
+  }
+  if (view === 'cert') renderCert(certId);
+  if (view === 'compare') {
     const ids = (params.get('ids') || '').split(',').filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE);
     if (ids.length) setCompare(ids);
     renderCompare();
   }
-  if (shown === 'plan') enterPlan(params);
-  if (view === 'cert' && BY_ID.has(params.get('id'))) openDetail(params.get('id'));
-  document.title = shown === 'match' ? 'pathfinder' : `${shown[0].toUpperCase()}${shown.slice(1)} · pathfinder`;
+  if (view === 'plan') enterPlan(params);
+
+  const moved = view !== lastView || (view === 'cert' && certId !== lastCert);
+  if (moved) window.scrollTo(0, view === 'list' ? listScroll : 0);
+  lastView = view;
+  lastCert = view === 'cert' ? certId : null;
+
+  const titles = { list: 'pathfinder', compare: 'Compare', plan: 'Study plan', about: 'About' };
+  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : view === 'list' ? 'pathfinder' : `${titles[view]} · pathfinder`;
 }
 
-// ---------- compare list ----------
+// ---------- compare ----------
 function setCompare(ids) {
   compare = ids;
   store.set(KEYS.compare, compare);
-  const c = $('#compare-count');
-  c.textContent = compare.length;
-  c.hidden = compare.length === 0;
+  $('#compare-count').textContent = compare.length;
+  $('#nav-compare').hidden = compare.length === 0;
 }
 
 function toggleCompare(id) {
   if (compare.includes(id)) setCompare(compare.filter((x) => x !== id));
   else if (compare.length < MAX_COMPARE) setCompare([...compare, id]);
-  refreshCurrent();
 }
 
-function refreshCurrent() {
-  const { name } = parseHash();
-  if (name === 'match' || !name) renderMatch();
-  else if (name === 'browse' || name === 'cert') renderBrowse();
-  else if (name === 'compare') renderCompare();
+function compareButton(cert) {
+  const inCompare = compare.includes(cert.id);
+  const full = !inCompare && compare.length >= MAX_COMPARE;
+  return `<button type="button" data-act="compare" data-id="${esc(cert.id)}" aria-pressed="${inCompare}" ${full ? 'disabled title="Compare holds four at most"' : ''}>${inCompare ? 'Added to compare' : 'Compare'}</button>`;
 }
 
-// ---------- match ----------
-function chipHtml(name, id, label, checked) {
-  return `<label class="chip"><input type="checkbox" name="${name}" value="${esc(id)}" ${checked ? 'checked' : ''}><span>${esc(label)}</span></label>`;
+// ---------- list ----------
+function chip(name, value, label, checked) {
+  return `<label class="chip"><input type="checkbox" name="${name}" value="${esc(value)}" ${checked ? 'checked' : ''}><span>${esc(label)}</span></label>`;
 }
 
-function fillProfileForm() {
+function profileActive() {
+  return profile.roles.length + profile.known.length + profile.want.length > 0;
+}
+
+function fillProfile() {
   const t = DATA.taxonomy;
-  $('#roles').innerHTML = t.roles.map((r) => chipHtml('roles', r.id, r.label, profile.roles.includes(r.id))).join('');
-  $('#known').innerHTML = t.skills.map((s) => chipHtml('known', s.id, s.label, profile.known.includes(s.id))).join('');
-  $('#want').innerHTML = t.skills.map((s) => chipHtml('want', s.id, s.label, profile.want.includes(s.id))).join('');
-  const f = $('#profile-form');
-  $$('input[name="experience"]', f).forEach((r) => (r.checked = r.value === profile.experience));
-  f.budget.value = profile.budget ?? '';
-  f.style.value = profile.style;
-  f.includeRestricted.checked = profile.includeRestricted;
+  $('#want').innerHTML = t.skills.map((s) => chip('want', s.id, s.label, profile.want.includes(s.id))).join('');
+  $('#known').innerHTML = t.skills.map((s) => chip('known', s.id, s.label, profile.known.includes(s.id))).join('');
+  $('#roles').innerHTML = t.roles.map((r) => chip('roles', r.id, r.label, profile.roles.includes(r.id))).join('');
+  $$('#experience input').forEach((r) => (r.checked = r.value === profile.experience));
+  updateForMe();
 }
 
-function readProfileForm() {
-  const f = $('#profile-form');
+function readProfile() {
+  const f = $('#profile');
   const checked = (name) => $$(`input[name="${name}"]:checked`, f).map((i) => i.value);
-  const budget = f.budget.value.trim();
   profile = {
+    ...profile,
     roles: checked('roles'),
     known: checked('known'),
     want: checked('want'),
     experience: ($('input[name="experience"]:checked', f) || {}).value || 'some',
-    budget: budget === '' ? null : Math.max(0, Number(budget)),
-    style: f.style.value,
-    includeRestricted: f.includeRestricted.checked,
   };
   store.set(KEYS.profile, profile);
+  updateForMe();
 }
 
-function renderMatch() {
-  const results = rank(DATA.certifications, profile, LABELS);
-  const shown = results.filter((r) => !r.excluded);
-  const hidden = results.filter((r) => r.excluded);
-  const empty = !profile.roles.length && !profile.known.length && !profile.want.length;
-  const top = shown.slice(0, 10);
-  const rest = shown.slice(10);
-  const head = `<div class="results-head"><span>${empty ? 'Pick a role and some skills to personalize the ranking.' : `${shown.length} matches, best first`}</span></div>`;
-  const list = (rs) => rs.map((r) => card(BY_ID.get(r.id), r)).join('');
-  $('#match-results').innerHTML =
-    head +
-    (top.length ? list(top) : '<p class="empty">Nothing fits these filters. Raise the budget or include restricted credentials.</p>') +
-    (rest.length ? `<details class="more"><summary>Show ${rest.length} more</summary><div class="results">${list(rest)}</div></details>` : '') +
-    (hidden.length ? `<details class="more"><summary>${hidden.length} left out by budget or eligibility</summary><div class="results">${list(hidden)}</div></details>` : '');
+function updateForMe() {
+  const n = profile.roles.length + profile.known.length + profile.want.length;
+  $('#for-me').textContent = n ? `For me · ${n}` : 'For me';
 }
 
-// ---------- browse ----------
+function setProfileOpen(open) {
+  $('#profile').hidden = !open;
+  $('#for-me').setAttribute('aria-expanded', String(open));
+}
+
 function fillFilters() {
   const f = $('#filters');
   const opt = (v, l) => `<option value="${esc(v)}">${esc(l)}</option>`;
   const providers = [...new Set(DATA.certifications.map((c) => c.provider))].sort();
-  f.provider.innerHTML = opt('', 'All') + providers.map((p) => opt(p, p)).join('');
-  f.level.innerHTML = opt('', 'All') + DATA.taxonomy.levels.map((l) => opt(l.id, l.label)).join('');
-  f.status.innerHTML = opt('', 'All') + DATA.taxonomy.statuses.map((s) => opt(s.id, s.label)).join('');
-  f.style.innerHTML = opt('', 'All') + DATA.taxonomy.styles.map((s) => opt(s.id, s.label)).join('');
+  f.provider.innerHTML = opt('', 'All providers') + providers.map((p) => opt(p, p)).join('');
+  f.level.innerHTML = opt('', 'All levels') + DATA.taxonomy.levels.map((l) => opt(l.id, l.label)).join('');
 }
 
-function renderBrowse() {
+function scoring() {
+  // Filters handle price; restricted credentials stay listed with a flag.
+  if (!profileActive()) return null;
+  const results = rank(DATA.certifications, { ...profile, budget: null, includeRestricted: true, style: 'any' }, LABELS);
+  return new Map(results.map((r) => [r.id, r]));
+}
+
+function renderList() {
   const f = $('#filters');
   const q = f.q.value.trim().toLowerCase();
-  const maxFee = f.maxFee.value.trim() === '' ? null : Number(f.maxFee.value);
-  let list = DATA.certifications.filter((c) => {
+  const maxFee = f.price.value === '' ? null : Number(f.price.value);
+  const scores = scoring();
+  const all = DATA.certifications;
+  let list = all.filter((c) => {
     if (f.provider.value && c.provider !== f.provider.value) return false;
     if (f.level.value && c.level !== f.level.value) return false;
-    if (f.status.value && c.status !== f.status.value) return false;
-    if (f.style.value && c.exam.style !== f.style.value) return false;
     if (maxFee != null && (c.fee.usd == null || c.fee.usd > maxFee)) return false;
     if (q) {
       const hay = [c.name, c.code, c.provider, c.scope, c.category, ...c.skills.map((s) => LABELS[s])].join(' ').toLowerCase();
@@ -238,142 +224,147 @@ function renderBrowse() {
     }
     return true;
   });
-  const by = f.sort.value;
-  const num = (v) => (v == null ? Infinity : v);
-  list = list.sort((a, b) => {
-    if (by === 'fee') return num(a.fee.usd) - num(b.fee.usd) || a.name.localeCompare(b.name);
-    if (by === 'minutes') return num(a.exam.minutes) - num(b.exam.minutes) || a.name.localeCompare(b.name);
-    if (by === 'level') return LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level) || a.name.localeCompare(b.name);
-    return a.name.localeCompare(b.name);
-  });
-  $('#browse-summary').textContent = `${list.length} of ${DATA.certifications.length} certifications from ${new Set(DATA.certifications.map((c) => c.provider)).size} providers. Provider facts checked ${DATA.checked_range}.`;
-  $('#browse-results').innerHTML = list.length
-    ? list.map((c) => card(c)).join('')
-    : '<p class="empty">No certification matches these filters.</p>';
+  list = list.sort((a, b) =>
+    scores ? scores.get(b.id).score - scores.get(a.id).score || a.name.localeCompare(b.name) : a.name.localeCompare(b.name),
+  );
+
+  const count = list.length === all.length ? `${all.length} certifications` : `${list.length} of ${all.length}`;
+  const head = $('#list-head');
+  head.classList.toggle('scored', Boolean(scores));
+  head.innerHTML = `<span>${count}${scores ? ', best match first' : ''}</span><span class="col">Level</span><span class="col">Price</span><span class="col">Exam</span>${scores ? '<span class="col score">Match</span>' : ''}`;
+  $('#certs').classList.toggle('scored', Boolean(scores));
+  $('#certs').innerHTML = list.length
+    ? list
+        .map(
+          (c) => `<li class="cert-row"><a href="#cert?id=${esc(c.id)}">
+            <span class="name"><b>${esc(c.name)}</b><small>${esc(c.provider)} · ${esc(c.code)}${FLAG[c.status] ? `<span class="flag">${FLAG[c.status]}</span>` : ''}</small></span>
+            <span class="cell level">${esc(LABELS[c.level])}</span>
+            <span class="cell price">${esc(fee(c))}</span>
+            <span class="cell len">${esc(duration(c))}</span>
+            ${scores ? `<span class="cell score" title="Match score">${scores.get(c.id).score}</span>` : ''}
+          </a></li>`,
+        )
+        .join('')
+    : '<li class="empty">Nothing matches. Try fewer filters.</li>';
 }
 
-// ---------- compare ----------
-function domainsHtml(cert) {
-  if (!cert.domains.length) return '<span class="muted">Not in the catalog yet</span>';
+// ---------- certification page ----------
+const PREP_LABEL = { 'official-guide': 'Official guide', course: 'Course', docs: 'Docs', practice: 'Practice' };
+
+function domainsHtml(cert, { bars = true } = {}) {
   const max = Math.max(...cert.domains.map((d) => d.weight));
   return `<ul class="domains">${cert.domains
     .map(
-      (d) => `<li><span>${esc(d.name)}</span><span>${d.weight}%</span><div class="meter"><i style="width:${(d.weight / max) * 100}%"></i></div></li>`,
+      (d) => `<li><span>${esc(d.name)}</span>${bars ? `<span class="bar"><i style="width:${(d.weight / max) * 100}%"></i></span>` : ''}<span class="pct">${d.weight}%</span></li>`,
     )
     .join('')}</ul>`;
 }
-
-const PREP_LABEL = { 'official-guide': 'Official guide', course: 'Course', docs: 'Docs', practice: 'Practice' };
 
 function prepHtml(cert) {
-  if (!cert.prep || !cert.prep.length) return '';
-  return `<ul class="refs prep">${cert.prep
+  return `<ul class="links">${cert.prep
     .map(
-      (r) => `<li><span class="tag">${esc(PREP_LABEL[r.kind] || r.kind)}${r.cost === 'paid' ? ' · paid' : ''}</span> <a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>${r.note ? `<small>${esc(r.note)}</small>` : ''}</li>`,
+      (r) => `<li><span class="kind">${esc(PREP_LABEL[r.kind] || r.kind)}${r.cost === 'paid' ? ', paid' : ''}</span><span>${ext(r.url, r.title)}${r.note ? `<small>${esc(r.note)}</small>` : ''}</span></li>`,
     )
     .join('')}</ul>`;
 }
 
+function renderCert(id) {
+  const c = BY_ID.get(id);
+  const sources = c.sources.map((s) => DATA.sources[s]).filter(Boolean);
+  const reports = c.reports.map((r) => DATA.reports[r]).filter(Boolean);
+  const official = sources[0];
+  const fact = (label, value) => (value ? `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>` : '');
+  const scores = scoring();
+  const mine = scores && scores.get(c.id);
+  const notes = [
+    c.requirements && c.status === 'restricted' ? c.requirements : null,
+    c.exam.format,
+    c.fee.note,
+    c.ai_policy ? `AI during the exam: ${c.ai_policy}` : null,
+    ...c.caveats,
+  ].filter(Boolean);
+
+  $('#cert-body').innerHTML = `
+    <a class="back" href="#">← Certifications</a>
+    <p class="eyebrow">${esc(c.provider)} · ${esc(c.code)}</p>
+    <h1>${esc(c.name)}</h1>
+    <p class="lede">${esc(c.scope)}</p>
+    <div class="cert-actions">
+      <a class="btn primary" href="#plan?cert=${esc(c.id)}">Plan your study</a>
+      ${compareButton(c)}
+      ${official ? `<a class="btn" href="${esc(safeUrl(official.url))}" target="_blank" rel="noopener noreferrer">Issuer page ↗</a>` : ''}
+    </div>
+    <dl class="facts">
+      ${fact('Price', `${fee(c)}${c.fee.basis ? ` · ${c.fee.basis}` : ''}`)}
+      ${fact('Exam', duration(c))}
+      ${fact('Questions', c.exam.questions)}
+      ${fact('Passing score', c.exam.passing)}
+      ${fact('Valid for', c.exam.validity)}
+      ${fact('Level', LABELS[c.level])}
+      ${fact('Format', LABELS[c.exam.style])}
+      ${fact('Registration', LABELS[c.status])}
+    </dl>
+    ${mine ? `<section class="block"><h2>For you · ${mine.score}/100</h2><ul class="why">${mine.reasons.map((r) => `<li>${esc(r)}</li>`).join('')}${mine.warnings.map((w) => `<li class="warn">${esc(w)}</li>`).join('')}</ul></section>` : ''}
+    ${c.domains.length ? `<section class="block"><h2>Exam domains</h2>${domainsHtml(c)}${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>` : ''}
+    ${c.prep && c.prep.length ? `<section class="block"><h2>Prepare with</h2>${prepHtml(c)}</section>` : ''}
+    ${notes.length ? `<section class="block"><h2>Good to know</h2>${notes.map((n) => `<p>${esc(n)}</p>`).join('')}</section>` : ''}
+    <section class="block">
+      <details class="more"><summary>Sources, checked ${esc(day(c.checked_on, { weekday: false, year: true }))}</summary>
+        <ul class="links">${sources.map((s) => `<li><span class="kind">${esc((s.kind || '').split(' / ')[0])}</span><span>${ext(s.url, s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}</span></li>`).join('')}</ul>
+      </details>
+      ${reports.length ? `<details class="more"><summary>What candidates report (${reports.length})</summary>
+        <p class="hint">Self-reported. Useful for how people prepared, not for pass rates.</p>
+        ${reports.map((r) => `<div class="report">${ext(r.url, r.title)} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p>${r.effort ? `<p>Effort: ${esc(r.effort)}</p>` : ''}</div>`).join('')}
+      </details>` : ''}
+    </section>`;
+}
+
+// ---------- compare page ----------
 function renderCompare() {
   const certs = compare.map((id) => BY_ID.get(id)).filter(Boolean);
   const body = $('#compare-body');
   if (!certs.length) {
-    body.innerHTML = '<p class="empty">Nothing to compare yet. Use the Compare button on any certification.</p>';
+    body.innerHTML = '<p class="empty">Nothing here yet. Open a certification and choose Compare.</p>';
     return;
   }
   const link = `${location.origin}${location.pathname}#compare?ids=${certs.map((c) => c.id).join(',')}`;
   const rows = [
-    ['Provider', (c) => esc(c.provider)],
-    ['Code', (c) => esc(c.code)],
+    ['Price', (c) => esc(fee(c))],
+    ['Exam', (c) => esc(duration(c))],
+    ['Questions', (c) => esc(c.exam.questions || '—')],
+    ['Passing score', (c) => esc(c.exam.passing || '—')],
+    ['Valid for', (c) => esc(c.exam.validity || '—')],
     ['Level', (c) => esc(LABELS[c.level])],
-    ['Registration', (c) => esc(LABELS[c.status]) + (c.requirements ? `<br><small>${esc(c.requirements)}</small>` : '')],
-    ['Fee', (c) => `${esc(fee(c))}<br><small>${esc(c.fee.basis)}</small>`],
-    ['Exam length', (c) => esc(duration(c))],
-    ['Assessment', (c) => esc(LABELS[c.exam.style])],
-    ['Questions', (c) => esc(c.exam.questions || 'See format')],
-    ['Passing score', (c) => esc(c.exam.passing || 'Not in catalog')],
-    ['Validity', (c) => esc(c.exam.validity || 'Not in catalog')],
-    ['Format', (c) => esc(c.exam.format)],
-    ['Scope', (c) => esc(c.scope)],
-    ['Domains', (c) => domainsHtml(c)],
-    ['AI during exam', (c) => esc(c.ai_policy || 'Check issuer rules')],
-    ['Skills', (c) => esc(c.skills.map((s) => LABELS[s]).join(', '))],
-    ['Checked on', (c) => esc(c.checked_on)],
+    ['Format', (c) => esc(LABELS[c.exam.style])],
+    ['Registration', (c) => esc(LABELS[c.status])],
+    ['Domains', (c) => (c.domains.length ? domainsHtml(c, { bars: false }) : '—')],
+    ['AI in the exam', (c) => esc(c.ai_policy || '—')],
+    ['Checked', (c) => esc(day(c.checked_on, { weekday: false, year: true }))],
   ];
   body.innerHTML = `
-    <div class="share"><button type="button" id="copy-compare">Copy link</button><code>${esc(link)}</code></div>
+    <div class="compare-tools">
+      <button type="button" class="text" id="copy-compare">Copy link</button>
+      <button type="button" class="text" id="clear-compare">Clear</button>
+    </div>
     <div class="table-wrap"><table class="compare">
       <thead><tr><th scope="col"><span class="sr">Field</span></th>${certs
         .map(
-          (c) => `<th scope="col">${esc(c.name)}<div class="actions">
-            <button type="button" data-act="detail" data-id="${esc(c.id)}">Details</button>
-            <button type="button" data-act="plan" data-id="${esc(c.id)}">Plan</button>
-            <button type="button" data-act="compare" data-id="${esc(c.id)}">Remove</button></div></th>`,
+          (c) => `<th scope="col"><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a><small>${esc(c.provider)} · ${esc(c.code)}</small>
+            <button type="button" class="text" data-act="compare" data-id="${esc(c.id)}">Remove</button></th>`,
         )
         .join('')}</tr></thead>
-      <tbody>${rows
-        .map(([label, fn]) => `<tr><th scope="row">${label}</th>${certs.map((c) => `<td>${fn(c)}</td>`).join('')}</tr>`)
-        .join('')}</tbody>
+      <tbody>${rows.map(([label, fn]) => `<tr><th scope="row">${label}</th>${certs.map((c) => `<td>${fn(c)}</td>`).join('')}</tr>`).join('')}</tbody>
     </table></div>`;
   $('#copy-compare').addEventListener('click', (e) => copy(link, e.currentTarget));
-}
-
-// ---------- detail dialog ----------
-let openId = null;
-
-function openDetail(id) {
-  const c = BY_ID.get(id);
-  if (!c) return;
-  openId = id;
-  const sources = c.sources.map((s) => DATA.sources[s]).filter(Boolean);
-  const reports = c.reports.map((r) => DATA.reports[r]).filter(Boolean);
-  const fact = (label, value) => (value ? `<div class="fact"><span>${label}</span><b>${esc(value)}</b></div>` : '');
-  $('#detail-body').innerHTML = `
-    <div class="dialog-head">
-      <div><h2 id="detail-title">${esc(c.name)}</h2><div class="sub">${esc(c.provider)} · ${esc(c.code)} · ${esc(c.category)}</div></div>
-      <button type="button" data-act="close" aria-label="Close">Close</button>
-    </div>
-    <div class="facts">
-      ${fact('Fee', `${fee(c)} · ${c.fee.basis}`)}
-      ${fact('Exam length', duration(c))}
-      ${fact('Assessment', LABELS[c.exam.style])}
-      ${fact('Level', LABELS[c.level])}
-      ${fact('Questions', c.exam.questions)}
-      ${fact('Passing score', c.exam.passing)}
-      ${fact('Validity', c.exam.validity)}
-      ${fact('Registration', LABELS[c.status])}
-    </div>
-    <p>${esc(c.scope)}</p>
-    ${c.requirements ? `<p class="note">${esc(c.requirements)}</p>` : ''}
-    <div class="section-label">Format</div><p>${esc(c.exam.format)}</p>
-    ${c.fee.note ? `<div class="section-label">About the fee</div><p>${esc(c.fee.note)}</p>` : ''}
-    ${c.ai_policy ? `<div class="section-label">AI during the exam</div><p>${esc(c.ai_policy)}</p>` : ''}
-    ${c.domains.length ? `<div class="section-label">Exam domains</div>${domainsHtml(c)}<p><small>${esc(c.domains_note || '')}</small></p>` : ''}
-    ${c.caveats.length ? `<div class="section-label">Caveats</div>${c.caveats.map((x) => `<p class="note">${esc(x)}</p>`).join('')}` : ''}
-    ${c.prep && c.prep.length ? `<div class="section-label">Prepare with</div>${prepHtml(c)}` : ''}
-    <div class="section-label">Sources (checked ${esc(c.checked_on)})</div>
-    <ul class="refs">${sources
-      .map((s) => `<li><a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a>${s.note ? `<small>${esc(s.note)}</small>` : ''}</li>`)
-      .join('')}</ul>
-    ${reports.length ? `<div class="section-label">Candidate reports (${reports.length})</div>
-      <p><small>Self-reported experiences. They show how people prepared; they do not set a pass rate.</small></p>
-      ${reports
-        .map(
-          (r) => `<div class="report"><a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a> <small>· ${esc(r.platform)}</small>
-          <p>${esc(r.summary)}</p>
-          ${r.effort ? `<p><small>Effort: ${esc(r.effort)}</small></p>` : ''}
-          ${r.background ? `<p><small>Background: ${esc(r.background)}</small></p>` : ''}
-          ${r.limitations ? `<p><small>Limits: ${esc(r.limitations)}</small></p>` : ''}</div>`,
-        )
-        .join('')}`
-      : ''}
-    <div class="detail-actions">${actions(c, { detail: false })}</div>`;
-  const dlg = $('#detail');
-  if (!dlg.open) dlg.showModal();
+  $('#clear-compare').addEventListener('click', () => {
+    setCompare([]);
+    renderCompare();
+  });
 }
 
 // ---------- plan ----------
 let hoursTouched = false;
+let suggested = null;
 
 function todayLocal() {
   const d = new Date();
@@ -383,16 +374,14 @@ function todayLocal() {
 function fillPlanForm() {
   const f = $('#plan-form');
   const groups = {};
-  for (const c of [...DATA.certifications].sort((a, b) => a.name.localeCompare(b.name))) {
-    (groups[c.provider] ||= []).push(c);
-  }
+  for (const c of [...DATA.certifications].sort((a, b) => a.name.localeCompare(b.name))) (groups[c.provider] ||= []).push(c);
   f.cert.innerHTML = Object.keys(groups)
     .sort()
     .map((p) => `<optgroup label="${esc(p)}">${groups[p].map((c) => `<option value="${esc(c.id)}">${esc(c.name)} (${esc(c.code)})</option>`).join('')}</optgroup>`)
     .join('');
-  const names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const order = [1, 2, 3, 4, 5, 6, 0];
-  $('#days').innerHTML = order.map((d) => chipHtml('days', d, names[d], [1, 3, 5, 6].includes(d))).join('');
+  $('#days').innerHTML = [1, 2, 3, 4, 5, 6, 0]
+    .map((d) => `<label title="${DAY_NAMES[d]}"><input type="checkbox" name="days" value="${d}" aria-label="${DAY_NAMES[d]}" ${[1, 3, 5, 6].includes(d) ? 'checked' : ''}><span>${DAYS[d]}</span></label>`)
+    .join('');
   f.start.value = todayLocal();
 }
 
@@ -401,8 +390,16 @@ function setEstimate() {
   const cert = BY_ID.get(f.cert.value);
   const levelHours = Object.fromEntries(DATA.taxonomy.levels.map((l) => [l.id, l.hours]));
   const est = estimateHours(cert, profile, levelHours);
+  suggested = est.hours;
   if (!hoursTouched) f.hours.value = est.hours;
-  $('#hours-hint').textContent = `Suggested ${est.hours} h for your profile (range ${est.low}–${est.high} h for ${LABELS[cert.level]} level). A rough guess: adjust it after your baseline session.`;
+  updateHint();
+}
+
+function updateHint() {
+  const f = $('#plan-form');
+  const cert = BY_ID.get(f.cert.value);
+  const off = Number(f.hours.value) !== suggested;
+  $('#hours-hint').innerHTML = `Suggested: ${suggested} h for ${esc(LABELS[cert.level].toLowerCase())} level${off ? ` · <button type="button" class="text" data-act="use-hours">use it</button>` : ''}`;
 }
 
 function confidenceKey(id) {
@@ -417,13 +414,13 @@ function renderConfidence() {
     .map((t, i) => {
       const current = saved[t.name] || 3;
       const options = [1, 2, 3, 4, 5]
-        .map(
-          (n) => `<label><input type="radio" name="conf-${i}" value="${n}" data-topic="${esc(t.name)}" ${n === current ? 'checked' : ''}><span>${n}</span></label>`,
-        )
+        .map((n) => `<label><input type="radio" name="conf-${i}" value="${n}" data-topic="${esc(t.name)}" ${n === current ? 'checked' : ''}><span>${n}</span></label>`)
         .join('');
-      return `<div class="conf-row"><span class="conf-name">${esc(t.name)}</span><div class="scale" role="radiogroup" aria-label="Confidence in ${esc(t.name)}">${options}</div></div>`;
+      return `<div class="conf-row"><span>${esc(t.name)}</span><div class="scale" role="radiogroup" aria-label="Confidence in ${esc(t.name)}">${options}</div></div>`;
     })
     .join('');
+  const rated = Object.keys(saved).length;
+  $('#confidence summary').textContent = rated ? `Rate your topics · ${rated} rated` : 'Rate your topics';
 }
 
 function readConfidence() {
@@ -474,15 +471,27 @@ function planParams() {
   };
 }
 
-let currentPlan = null;
+function deadlineLine(p) {
+  const d = p.deadline;
+  if (!d) return `Earliest exam: ${day(p.examDate)}.`;
+  if (d.fits) {
+    return `<span class="ok">Fits before your exam on ${day(d.targetDate)}${d.spare ? `, ${d.spare} spare day${d.spare === 1 ? '' : 's'}` : ''}.</span>`;
+  }
+  const fixes = [];
+  if (d.suggestedMinutes) fixes.push(`${len(d.suggestedMinutes)} sessions`);
+  fixes.push('more days');
+  fixes.push(`an exam on ${day(p.examDate)} or later`);
+  return `<span class="bad">Does not fit before ${day(d.targetDate)}: ${d.needed} sessions, ${d.available} study days. Try ${fixes.slice(0, -1).join(', ')} or ${fixes.at(-1)}.</span>`;
+}
 
 function renderPlan() {
   const f = $('#plan-form');
   const out = $('#plan-output');
   const cert = BY_ID.get(f.cert.value);
   const days = $$('input[name="days"]:checked', f).map((i) => Number(i.value));
+  let p;
   try {
-    currentPlan = buildPlan({
+    p = buildPlan({
       cert,
       hours: Number(f.hours.value),
       start: f.start.value || todayLocal(),
@@ -493,86 +502,79 @@ function renderPlan() {
       targetDate: f.targetDate.value || null,
     });
   } catch (err) {
-    currentPlan = null;
-    out.innerHTML = `<p class="empty">${esc(err.message)}</p>`;
+    out.innerHTML = `<p class="empty">${esc(err.message)}.</p>`;
     return;
   }
-  const p = currentPlan;
   const progressKey = `${KEYS.progress}${p.cert.id}:${p.sessions[0].date}`;
   const done = new Set(store.get(progressKey, []));
-  // Calendar weeks, Monday first, counted from the week the plan starts in.
-  const first = new Date(`${p.sessions[0].date}T00:00:00Z`);
+
+  // Calendar weeks, Monday first.
+  const first = utc(p.sessions[0].date);
   const monday = new Date(first);
   monday.setUTCDate(first.getUTCDate() - ((first.getUTCDay() + 6) % 7));
   const weeks = new Map();
   for (const s of p.sessions) {
-    const week = Math.floor((new Date(`${s.date}T00:00:00Z`) - monday) / (7 * 86400000)) + 1;
-    if (!weeks.has(week)) weeks.set(week, []);
-    weeks.get(week).push(s);
+    const w = Math.floor((utc(s.date) - monday) / (7 * 86400000));
+    if (!weeks.has(w)) weeks.set(w, []);
+    weeks.get(w).push(s);
   }
-  const sessionHtml = (s) => `<li class="session${done.has(s.n) ? ' done' : ''}" data-kind="${s.kind}">
-        <input type="checkbox" data-n="${s.n}" aria-label="Mark session ${s.n} done" ${done.has(s.n) ? 'checked' : ''}>
-        <span class="when">${s.weekday} ${s.date}</span>
-        <span class="what"><b>${esc(s.title)}</b><p>${esc(s.detail)}</p></span>
-        <span class="len">${s.minutes} min</span></li>`;
-  const items = [...weeks]
-    .map(([w, list]) => `<h3 class="week">Week ${w}</h3><ol class="sessions">${list.map(sessionHtml).join('')}</ol>`)
+  const iso = (dt) => dt.toISOString().slice(0, 10);
+  const weekRange = (w) => {
+    const a = new Date(monday);
+    a.setUTCDate(monday.getUTCDate() + w * 7);
+    const b = new Date(a);
+    b.setUTCDate(a.getUTCDate() + 6);
+    return span(iso(a), iso(b));
+  };
+  const row = (s) => `<li class="session${done.has(s.n) ? ' done' : ''}" data-kind="${s.kind}">
+      <input type="checkbox" data-n="${s.n}" aria-label="Session ${s.n} done" ${done.has(s.n) ? 'checked' : ''}>
+      <span class="when">${day(s.date)}</span>
+      <span class="what"><span class="kind">${KIND_LABEL[s.kind]}</span>${esc(cap(s.name))}</span>
+      <span class="len">${len(s.minutes)}</span></li>`;
+  const list = [...weeks]
+    .map(([w, items], i) => `<h3 class="week">Week ${i + 1} · ${weekRange(w)}</h3><ol class="sessions">${items.map(row).join('')}</ol>`)
     .join('');
-  const pct = Math.round((done.size / p.sessions.length) * 100);
+  const last = p.sessions.at(-1).date;
+  const kinds = [...new Set(p.sessions.map((s) => s.kind))];
+  const mockDetail = p.sessions.find((s) => s.kind === 'mock')?.detail;
+
   out.innerHTML = `
-    <div class="plan-summary">
-      <div class="stat"><b>${p.sessions.length}</b><span>sessions</span></div>
-      <div class="stat"><b>${p.hours} h</b><span>planned</span></div>
-      <div class="stat"><b>${p.weeks}</b><span>week${p.weeks === 1 ? '' : 's'}</span></div>
-      <div class="stat"><b>${p.examDate}</b><span>earliest exam date</span></div>
-      <div class="actions">
-        <button type="button" id="dl-ics" class="primary">Add to calendar (.ics)</button>
-        <button type="button" id="dl-md">Download .md</button>
-        <button type="button" id="copy-plan">Copy link</button>
-        <button type="button" id="print-plan">Print</button>
+    <div class="plan-head">
+      <div>
+        <h2>${p.sessions.length} sessions · ${p.hours} h</h2>
+        <p>${day(p.sessions[0].date)} to ${day(last)}. ${deadlineLine(p)}</p>
+      </div>
+      <div class="plan-actions">
+        <button type="button" class="primary" id="dl-ics">Add to calendar</button>
+        <button type="button" class="text" id="dl-md">Markdown</button>
+        <button type="button" class="text" id="copy-plan">Copy link</button>
+        <button type="button" class="text" id="print-plan">Print</button>
       </div>
     </div>
-    <div class="progress"><div class="meter" aria-label="Progress"><i style="width:${pct}%"></i></div><small>${done.size} of ${p.sessions.length} done</small></div>
-    ${deadlineHtml(p)}
-    ${cert.prep && cert.prep.length ? `<details class="resources"><summary>Resources for this exam (${cert.prep.length})</summary>${prepHtml(cert)}</details>` : ''}
-    ${p.inferredTopics ? '<p class="note">This certification has no published domain weights in the catalog, so topics were read from its scope summary. Replace them with the official exam objectives.</p>' : ''}
-    <p class="hint">Book the exam only after the last mock goes well. Progress is saved in this browser.</p>
-    ${items}`;
-  $$('#plan-output input[type="checkbox"]').forEach((box) =>
+    <div class="progress" aria-hidden="true"><i style="width:${Math.round((done.size / p.sessions.length) * 100)}%"></i></div>
+    <p class="progress-label">${done.size} of ${p.sessions.length} done</p>
+    ${p.inferredTopics ? '<p class="note">No official domains in the catalog for this one, so topics come from its summary. Swap in the issuer\'s objectives.</p>' : ''}
+    ${list}
+    <details class="more keys"><summary>What each session is</summary>
+      <dl>${kinds.map((k) => `<dt>${KIND_LABEL[k]}</dt><dd>${esc(k === 'mock' ? mockDetail : KIND_DETAIL[k])}</dd>`).join('')}</dl>
+    </details>
+    ${cert.prep && cert.prep.length ? `<details class="more"><summary>Resources (${cert.prep.length})</summary>${prepHtml(cert)}</details>` : ''}`;
+
+  $$('#plan-output .session input').forEach((box) =>
     box.addEventListener('change', () => {
       const n = Number(box.dataset.n);
       if (box.checked) done.add(n);
       else done.delete(n);
       store.set(progressKey, [...done]);
       box.closest('.session').classList.toggle('done', box.checked);
-      const pctNow = Math.round((done.size / p.sessions.length) * 100);
-      $('#plan-output .progress i').style.width = `${pctNow}%`;
-      $('#plan-output .progress small').textContent = `${done.size} of ${p.sessions.length} done`;
+      $('#plan-output .progress i').style.width = `${Math.round((done.size / p.sessions.length) * 100)}%`;
+      $('#plan-output .progress-label').textContent = `${done.size} of ${p.sessions.length} done`;
     }),
   );
   $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(p), 'text/calendar'));
-  $('#dl-md').addEventListener('click', () =>
-    download(`${p.cert.id}-plan.md`, toMarkdown(p, { resources: cert.prep || [] }), 'text/markdown'),
-  );
+  $('#dl-md').addEventListener('click', () => download(`${p.cert.id}-plan.md`, toMarkdown(p, { resources: cert.prep || [] }), 'text/markdown'));
   $('#print-plan').addEventListener('click', () => window.print());
-  $('#copy-plan').addEventListener('click', (e) => {
-    const link = `${location.origin}${location.pathname}#plan?${new URLSearchParams(planParams())}`;
-    copy(link, e.currentTarget);
-  });
-}
-
-function deadlineHtml(p) {
-  const d = p.deadline;
-  if (!d) return '';
-  if (d.fits) {
-    return `<p class="ok">Fits before your exam on ${esc(d.targetDate)}: ${d.needed} sessions on ${d.available} available study days, so ${d.spare} spare day${d.spare === 1 ? '' : 's'} for buffer.</p>`;
-  }
-  const fixes = [];
-  if (d.suggestedMinutes) fixes.push(`use ${d.suggestedMinutes}-minute sessions`);
-  fixes.push('add study days');
-  fixes.push(`move the exam to ${esc(p.examDate)} or later`);
-  const list = `${fixes.slice(0, -1).join(', ')} or ${fixes.at(-1)}`;
-  return `<p class="note">Does not fit before ${esc(d.targetDate)}: ${d.needed} sessions are needed and there are ${d.available} study days. To fix it, ${list}.</p>`;
+  $('#copy-plan').addEventListener('click', (e) => copy(`${location.origin}${location.pathname}#plan?${new URLSearchParams(planParams())}`, e.currentTarget));
 }
 
 function download(name, text, type) {
@@ -600,47 +602,33 @@ function bind() {
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-act]');
     if (!btn) return;
-    const id = btn.dataset.id;
-    if (btn.dataset.act === 'detail') openDetail(id);
     if (btn.dataset.act === 'compare') {
-      toggleCompare(id);
-      if ($('#detail').open) openDetail(openId);
+      toggleCompare(btn.dataset.id);
+      const { name, params } = parseHash();
+      if (name === 'cert') renderCert(params.get('id'));
+      if (name === 'compare') renderCompare();
     }
-    if (btn.dataset.act === 'plan') {
-      $('#detail').close();
+    if (btn.dataset.act === 'use-hours') {
       hoursTouched = false;
-      go('plan', { cert: id });
+      $('#plan-form').hours.value = suggested;
+      updateHint();
+      renderPlan();
     }
-    if (btn.dataset.act === 'close') $('#detail').close();
-  });
-  const dlg = $('#detail');
-  dlg.addEventListener('click', (e) => {
-    if (e.target === dlg) dlg.close();
-  });
-  dlg.addEventListener('close', () => {
-    if (parseHash().name === 'cert') history.replaceState(null, '', '#browse');
   });
 
-  const pf = $('#profile-form');
-  pf.addEventListener('change', () => {
-    readProfileForm();
-    renderMatch();
-  });
-  pf.addEventListener('input', (e) => {
-    if (e.target.name === 'budget') {
-      readProfileForm();
-      renderMatch();
-    }
+  $('#filters').addEventListener('input', renderList);
+  $('#filters').addEventListener('submit', (e) => e.preventDefault());
+  $('#for-me').addEventListener('click', () => setProfileOpen($('#profile').hidden));
+  $('#profile').addEventListener('change', () => {
+    readProfile();
+    renderList();
   });
   $('#reset-profile').addEventListener('click', () => {
     profile = emptyProfile();
     store.set(KEYS.profile, profile);
-    fillProfileForm();
-    renderMatch();
+    fillProfile();
+    renderList();
   });
-
-  $('#filters').addEventListener('input', renderBrowse);
-  $('#filters').addEventListener('submit', (e) => e.preventDefault());
 
   const plan = $('#plan-form');
   plan.addEventListener('submit', (e) => e.preventDefault());
@@ -651,12 +639,15 @@ function bind() {
       setEstimate();
       renderConfidence();
     }
+    updateHint();
     renderPlan();
   });
   $('#confidence').addEventListener('change', (e) => {
     if (!e.target.dataset.topic) return;
     const cert = $('#plan-form').cert.value;
     store.set(confidenceKey(cert), readConfidence());
+    const rated = Object.keys(readConfidence()).length;
+    $('#confidence summary').textContent = rated ? `Rate your topics · ${rated} rated` : 'Rate your topics';
     renderPlan();
   });
 
@@ -669,24 +660,26 @@ async function init() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     DATA = await res.json();
   } catch (err) {
-    $('#loading').textContent = `Could not load the catalog (${err.message}). Reload the page to try again.`;
+    $('#loading').textContent = `Could not load the catalog (${err.message}). Reload to try again.`;
     return;
   }
   DATA.reports = Object.fromEntries(DATA.reports.map((r) => [r.id, r]));
   BY_ID = new Map(DATA.certifications.map((c) => [c.id, c]));
   const t = DATA.taxonomy;
   for (const group of [t.levels, t.statuses, t.styles, t.roles, t.skills]) for (const x of group) LABELS[x.id] = x.label;
+  const providers = new Set(DATA.certifications.map((c) => c.provider)).size;
   const dates = DATA.certifications.map((c) => c.checked_on).sort();
-  DATA.checked_range = dates[0] === dates.at(-1) ? `on ${dates[0]}` : `between ${dates[0]} and ${dates.at(-1)}`;
+  const checked = dates[0] === dates.at(-1) ? `on ${day(dates[0], { weekday: false, year: true })}` : `between ${day(dates[0], { weekday: false, year: true })} and ${day(dates.at(-1), { weekday: false, year: true })}`;
 
   profile = { ...emptyProfile(), ...store.get(KEYS.profile, {}) };
   setCompare(store.get(KEYS.compare, []).filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE));
 
-  $('#hours-note').textContent = t.hours_note + ' Ranges: ' + t.levels.map((l) => `${l.label} ${l.hours[0]}–${l.hours[1]} h`).join(', ') + '.';
-  $('#data-note').textContent = `The catalog lists ${DATA.certifications.length} certifications from ${new Set(DATA.certifications.map((c) => c.provider)).size} providers, with ${Object.keys(DATA.sources).length} issuer and reference sources and ${Object.keys(DATA.reports).length} candidate reports. Facts were checked ${DATA.checked_range}.`;
-  $('#foot-data').textContent = `Catalog built ${DATA.generated_on}`;
+  $('#list-lede').textContent = `${DATA.certifications.length} certifications from ${providers} providers. Prices and exam facts from the issuers, with a study planner for each.`;
+  $('#hours-note').textContent = `${t.hours_note} Ranges: ${t.levels.map((l) => `${l.label.toLowerCase()} ${l.hours[0]}–${l.hours[1]} h`).join(', ')}.`;
+  $('#data-note').textContent = `${DATA.certifications.length} certifications from ${providers} providers, ${Object.keys(DATA.sources).length} sources and ${Object.keys(DATA.reports).length} candidate reports, checked ${checked}.`;
+  $('#foot-data').textContent = `Catalog ${day(DATA.generated_on, { weekday: false, year: true })}`;
 
-  fillProfileForm();
+  fillProfile();
   fillFilters();
   fillPlanForm();
   bind();

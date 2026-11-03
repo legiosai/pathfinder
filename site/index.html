@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>pathfinder</title>
-<meta name="description" content="Open-source tool to choose and prepare IT certifications: compare options for your profile and get a study plan.">
+<meta name="description" content="Compare IT certifications and plan your study. Open source.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
@@ -13,159 +13,123 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
-  <div class="top-inner">
-    <a class="brand" href="#match" aria-label="pathfinder home">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 20 L10 8 L14 14 L20 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="4" r="2" fill="currentColor"/></svg>
-      <span>pathfinder</span>
-    </a>
-    <nav aria-label="Sections">
-      <a href="#match" data-route="match">Match</a>
-      <a href="#browse" data-route="browse">Browse</a>
-      <a href="#compare" data-route="compare">Compare <span class="count" id="compare-count" hidden></span></a>
-      <a href="#plan" data-route="plan">Plan</a>
-      <a href="#about" data-route="about">About</a>
-    </nav>
-  </div>
+  <a class="brand" href="#">pathfinder</a>
+  <nav aria-label="Sections">
+    <a href="#" data-route="list">Certifications</a>
+    <a href="#plan" data-route="plan">Plan</a>
+    <a href="#compare" data-route="compare" id="nav-compare" hidden>Compare <span id="compare-count"></span></a>
+    <a href="#about" data-route="about">About</a>
+  </nav>
 </header>
 
 <main id="main">
-  <p class="loading" id="loading">Loading the catalog…</p>
+  <p class="loading" id="loading">Loading…</p>
 
-  <section id="view-match" class="view" hidden>
-    <div class="intro">
-      <h1>Find a certification that fits you</h1>
-      <p>Tell pathfinder what you do and what you want to learn. It ranks the catalog and explains every score. Nothing leaves your browser.</p>
-    </div>
-    <div class="match-layout">
-      <form id="profile-form" class="panel profile" autocomplete="off">
-        <fieldset>
-          <legend>Your role</legend>
+  <section id="view-list" class="view" hidden>
+    <h1>Certifications</h1>
+    <p class="lede" id="list-lede"></p>
+
+    <form id="filters" class="filters" autocomplete="off" role="search">
+      <input type="search" name="q" placeholder="Search" aria-label="Search certifications">
+      <select name="provider" aria-label="Provider"></select>
+      <select name="level" aria-label="Level"></select>
+      <select name="price" aria-label="Price">
+        <option value="">Any price</option>
+        <option value="0">Free</option>
+        <option value="100">Up to US$100</option>
+        <option value="200">Up to US$200</option>
+        <option value="300">Up to US$300</option>
+      </select>
+      <button type="button" class="toggle" id="for-me" aria-expanded="false" aria-controls="profile">For me</button>
+    </form>
+
+    <form id="profile" class="profile" autocomplete="off" hidden>
+      <div class="profile-group">
+        <span class="label">I want to learn</span>
+        <div class="chips" id="want"></div>
+      </div>
+      <div class="profile-group">
+        <span class="label">I already use</span>
+        <div class="chips" id="known"></div>
+      </div>
+      <div class="profile-row">
+        <div class="profile-group">
+          <span class="label">My role</span>
           <div class="chips" id="roles"></div>
-        </fieldset>
-        <fieldset>
-          <legend>Skills you already use</legend>
-          <div class="chips" id="known"></div>
-        </fieldset>
-        <fieldset>
-          <legend>Skills you want to grow</legend>
-          <div class="chips" id="want"></div>
-        </fieldset>
-        <fieldset>
-          <legend>Experience in the field</legend>
-          <div class="radios">
-            <label><input type="radio" name="experience" value="new"> New to it</label>
-            <label><input type="radio" name="experience" value="some"> 1 to 3 years</label>
-            <label><input type="radio" name="experience" value="experienced"> 3+ years</label>
-          </div>
-        </fieldset>
-        <div class="row">
-          <label class="field">Budget (USD)
-            <input type="number" name="budget" min="0" step="10" placeholder="No limit" inputmode="numeric">
-          </label>
-          <label class="field">Assessment
-            <select name="style">
-              <option value="any">Any</option>
-              <option value="knowledge">Question-based</option>
-              <option value="practical">Hands-on</option>
-            </select>
-          </label>
         </div>
-        <label class="check"><input type="checkbox" name="includeRestricted"> Include credentials with restricted eligibility</label>
-        <button type="button" class="link" id="reset-profile">Reset profile</button>
-      </form>
-      <div class="results" id="match-results" aria-live="polite"></div>
-    </div>
+        <div class="profile-group">
+          <span class="label">Experience</span>
+          <div class="segmented" id="experience">
+            <label><input type="radio" name="experience" value="new"><span>New</span></label>
+            <label><input type="radio" name="experience" value="some"><span>1–3 years</span></label>
+            <label><input type="radio" name="experience" value="experienced"><span>3+ years</span></label>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="text" id="reset-profile">Clear</button>
+    </form>
+
+    <div class="list-head" id="list-head"></div>
+    <ol class="certs" id="certs"></ol>
   </section>
 
-  <section id="view-browse" class="view" hidden>
-    <div class="intro">
-      <h1>Browse the catalog</h1>
-      <p id="browse-summary"></p>
-    </div>
-    <form class="panel filters" id="filters" autocomplete="off">
-      <label class="field grow">Search
-        <input type="search" name="q" placeholder="Name, code, provider or topic">
-      </label>
-      <label class="field">Provider <select name="provider"></select></label>
-      <label class="field">Level <select name="level"></select></label>
-      <label class="field">Status <select name="status"></select></label>
-      <label class="field">Assessment <select name="style"></select></label>
-      <label class="field">Max fee (USD) <input type="number" name="maxFee" min="0" step="10" placeholder="Any" inputmode="numeric"></label>
-      <label class="field">Sort
-        <select name="sort">
-          <option value="name">Name</option>
-          <option value="fee">Fee</option>
-          <option value="minutes">Exam length</option>
-          <option value="level">Level</option>
-        </select>
-      </label>
-    </form>
-    <div class="grid" id="browse-results"></div>
+  <section id="view-cert" class="view" hidden>
+    <div id="cert-body"></div>
   </section>
 
   <section id="view-compare" class="view" hidden>
-    <div class="intro">
-      <h1>Compare</h1>
-      <p>Pick up to four certifications from Match or Browse. The link below keeps your selection, so you can share it.</p>
-    </div>
+    <h1>Compare</h1>
     <div id="compare-body"></div>
   </section>
 
   <section id="view-plan" class="view" hidden>
-    <div class="intro">
-      <h1>Study plan</h1>
-      <p>Turn a certification into dated sessions: a baseline, topic study weighted by the exam domains, practice, timed mocks and a final review. Export it to your calendar.</p>
-    </div>
-    <form class="panel plan-form" id="plan-form" autocomplete="off">
-      <label class="field grow">Certification <select name="cert" required></select></label>
-      <label class="field">Planned hours <input type="number" name="hours" min="2" max="400" step="1" required inputmode="numeric"></label>
-      <label class="field">Start date <input type="date" name="start" required></label>
-      <label class="field">Session length
+    <h1>Study plan</h1>
+    <form id="plan-form" class="plan-form" autocomplete="off">
+      <label class="field wide">Certification <select name="cert" required></select></label>
+      <label class="field">Start <input type="date" name="start" required></label>
+      <label class="field">Exam date <input type="date" name="targetDate"></label>
+      <label class="field">Hours <input type="number" name="hours" min="2" max="400" step="1" required inputmode="numeric"></label>
+      <label class="field">Session
         <select name="sessionMinutes">
           <option value="45">45 min</option>
-          <option value="60">60 min</option>
-          <option value="90" selected>90 min</option>
-          <option value="120">120 min</option>
+          <option value="60">1 h</option>
+          <option value="90" selected>1 h 30</option>
+          <option value="120">2 h</option>
         </select>
       </label>
-      <label class="field">Start time <input type="time" name="startTime" value="19:00" required></label>
-      <label class="field">Exam date (optional) <input type="date" name="targetDate"></label>
-      <fieldset class="days">
-        <legend>Study days</legend>
-        <div class="chips" id="days"></div>
+      <label class="field">Time <input type="time" name="startTime" value="19:00" required></label>
+      <fieldset class="field days">
+        <legend>Days</legend>
+        <div class="days-row" id="days"></div>
       </fieldset>
       <p class="hint" id="hours-hint"></p>
     </form>
-    <details class="panel confidence" id="confidence" open>
-      <summary>How confident are you in each topic? <small>1 = new to me, 5 = I could teach it. Weak topics get more sessions.</small></summary>
+    <details class="rate" id="confidence">
+      <summary>Rate your topics</summary>
+      <p class="hint">1 = new to me, 5 = I could teach it. Weaker topics get more sessions.</p>
       <div id="confidence-rows"></div>
     </details>
     <div id="plan-output" aria-live="polite"></div>
   </section>
 
   <section id="view-about" class="view prose" hidden>
-    <h1>About pathfinder</h1>
-    <p>pathfinder is an open-source tool for choosing and preparing IT certifications. It is a static page: your profile, shortlist and plan progress stay in your browser's local storage and are never sent anywhere.</p>
-    <h2>How the match score works</h2>
-    <p>Each certification gets up to 100 points: 45 for overlap with the skills you want to grow, 20 for your role, 20 for skills you already use, and 15 for how its level fits your experience. A different assessment style than the one you prefer costs 8 points. Over-budget and restricted credentials are listed separately. The score is a sorting aid. It is not a pass probability or a career prediction.</p>
-    <h2>How study hours are estimated</h2>
-    <p id="hours-note"></p>
-    <p>The range for each level moves toward its low end the more of the certification's skills you already use, and it grows by a quarter if you are new to the field. Treat it as a first guess. A diagnostic in your first session tells you more.</p>
-    <h2>Where the data comes from</h2>
+    <h1>About</h1>
+    <p>pathfinder helps you pick an IT certification and plan the study. It is open source and runs entirely in your browser: your choices and progress are stored on this device only.</p>
+    <h2>Data</h2>
     <p id="data-note"></p>
-    <p>Provider facts (fees, formats, domains) come from issuer pages, each linked from the certification's details with the date it was checked. Candidate reports are self-reported experiences. They show how others prepared and do not set a pass rate. Prices change and vary by country, so confirm everything with the issuer before you pay or book.</p>
-    <p>Certification names and codes belong to their issuers. pathfinder is not affiliated with any of them.</p>
+    <p>Prices, formats and exam domains come from the issuers' own pages, linked on each certification with the date they were checked. Prices change and vary by country, so confirm with the issuer before you pay.</p>
+    <h2>“For me” ranking</h2>
+    <p>Up to 100 points: 45 for the skills you want to learn, 20 for your role, 20 for the skills you already use and 15 for how the level fits your experience. It sorts the list. It does not predict a pass.</p>
+    <h2>Study hours</h2>
+    <p id="hours-note"></p>
     <h2>Contribute</h2>
-    <p>Corrections and new certifications are welcome. Each certification is one JSON file. See <a href="https://github.com/legiosai/pathfinder">the repository</a> and its contributing guide.</p>
+    <p>Each certification is one JSON file. Corrections are welcome on <a href="https://github.com/legiosai/pathfinder">GitHub</a>.</p>
+    <p class="muted">Certification names belong to their issuers. pathfinder is not affiliated with any of them.</p>
   </section>
 </main>
 
-<dialog id="detail" aria-labelledby="detail-title">
-  <div class="dialog-body" id="detail-body"></div>
-</dialog>
-
 <footer class="foot">
-  <span>pathfinder · MIT licensed · by <a href="https://github.com/legiosai">Legios</a></span>
+  <span>pathfinder · MIT · <a href="https://github.com/legiosai/pathfinder">GitHub</a></span>
   <span id="foot-data"></span>
 </footer>
 </body>

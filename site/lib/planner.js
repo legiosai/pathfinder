@@ -84,6 +84,26 @@ export function formatDate(dt) {
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+export const KIND_LABEL = {
+  baseline: 'Start',
+  learn: 'Learn',
+  practice: 'Practice',
+  mock: 'Mock',
+  review: 'Review',
+  remediate: 'Fix',
+  final: 'Final',
+};
+
+export const KIND_DETAIL = {
+  baseline: 'Read the official exam guide and take a short diagnostic.',
+  learn: 'Study from primary sources. Write down three questions you cannot answer yet.',
+  practice: 'Labs or scenario questions. Log each mistake and why it happened.',
+  mock: 'Full length, timed, no notes.',
+  review: 'Sort every miss by topic and cause. Re-study the two weakest topics.',
+  remediate: 'Work through the error log until similar questions come out right.',
+  final: 'Skim your notes. Check your ID, the exam rules and the proctoring system test.',
+};
+
 /** Next `n` dates on or after `start` that fall on one of `days` (0 = Sunday). */
 export function studyDates(start, days, n) {
   const want = new Set(days);
@@ -122,57 +142,29 @@ export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, start
   const practiceCount = Math.max(0, Math.round(flexible * 0.25));
   const remediationCount = Math.max(0, flexible - learnCount - practiceCount);
 
+  // `name` is what the session is about; `title` adds the kind for calendars and Markdown.
   const items = [];
-  items.push({
-    kind: 'baseline',
-    title: 'Baseline: exam guide and diagnostic',
-    detail: 'Read the official exam guide end to end, note every objective, and take a short diagnostic to find weak areas.',
-  });
+  const add = (kind, name, extra = {}) => items.push({ kind, name, title: `${KIND_LABEL[kind]}: ${name}`, detail: KIND_DETAIL[kind], ...extra });
+  add('baseline', 'guide and diagnostic');
   allocate(learnCount, topics).forEach((n, i) => {
-    for (let k = 1; k <= n; k++) {
-      items.push({
-        kind: 'learn',
-        topic: topics[i].name,
-        title: `Learn: ${topics[i].name}${n > 1 ? ` (${k}/${n})` : ''}`,
-        detail: 'Study this topic from primary sources. Close by writing three questions you could not answer yet.',
-      });
-    }
+    for (let k = 1; k <= n; k++) add('learn', `${topics[i].name}${n > 1 ? ` (${k}/${n})` : ''}`, { topic: topics[i].name });
   });
   allocate(practiceCount, topics).forEach((n, i) => {
-    for (let k = 1; k <= n; k++) {
-      items.push({
-        kind: 'practice',
-        topic: topics[i].name,
-        title: `Practice: ${topics[i].name}`,
-        detail: 'Hands-on lab or scenario questions. Log every mistake with the reason you made it.',
-      });
-    }
+    for (let k = 1; k <= n; k++) add('practice', topics[i].name, { topic: topics[i].name });
   });
-  const mock = (n) => ({
-    kind: 'mock',
+  const mock = (n) => add('mock', mockCount > 1 ? `full exam ${n}` : 'full exam', {
     minutes: examMinutes,
-    title: mockCount > 1 ? `Timed mock exam ${n}` : 'Timed full rehearsal',
-    detail: `Full-length and timed (${examMinutes} min), under exam conditions. No notes, no AI help.`,
+    detail: `Full length (${examMinutes} min), timed, no notes.`,
   });
-  const review = (n) => ({
-    kind: 'review',
-    title: mockCount > 1 ? `Review mock ${n}` : 'Review the rehearsal',
-    detail: 'Classify every miss by topic and cause, then re-study the two weakest topics.',
-  });
-  items.push(mock(1), review(1));
-  for (let k = 1; k <= remediationCount; k++) {
-    items.push({
-      kind: 'remediate',
-      title: `Close gaps (${k}/${remediationCount})`,
-      detail: 'Work through the error log: re-learn, then redo similar questions until you get them right.',
-    });
+  const review = (n) => add('review', mockCount > 1 ? `mock ${n}` : 'the mock');
+  mock(1);
+  review(1);
+  for (let k = 1; k <= remediationCount; k++) add('remediate', remediationCount > 1 ? `weak spots (${k}/${remediationCount})` : 'weak spots');
+  if (mockCount > 1) {
+    mock(2);
+    review(2);
   }
-  if (mockCount > 1) items.push(mock(2), review(2));
-  items.push({
-    kind: 'final',
-    title: 'Final review and exam logistics',
-    detail: 'Skim your notes and error log. Check ID, exam rules, system test for online proctoring, and the booking time.',
-  });
+  add('final', 'review and logistics');
 
   const dates = studyDates(start, days, items.length + 1);
   const sessions = items.map((it, i) => ({
