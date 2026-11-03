@@ -7,30 +7,100 @@
 <meta name="description" content="Compare IT certifications and plan your study. Open source.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script type="module" src="app.js"></script>
 </head>
 <body>
+<!-- Icons: Lucide v1.59.0 (ISC License, Copyright (c) 2026 Lucide Icons and Contributors). Full text in LICENSE-lucide.txt. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/> <rect width="7" height="7" x="14" y="3" rx="1"/> <rect width="7" height="7" x="14" y="14" rx="1"/> <rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/> <circle cx="18" cy="5" r="3"/></symbol>
+<symbol id="i-columns-3" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/> <path d="M9 3v18"/> <path d="M15 3v18"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <path d="M12 16v-4"/> <path d="M12 8h.01"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/> <circle cx="11" cy="11" r="8"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/> <path d="M19 12H5"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/> <path d="m12 5 7 7-7 7"/></symbol>
+<symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/> <path d="M10 14 21 3"/> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/> <path d="M12 5v14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/> <path d="m6 6 12 12"/></symbol>
+<symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><path d="M10 5H3"/> <path d="M12 19H3"/> <path d="M14 3v4"/> <path d="M16 17v4"/> <path d="M21 12h-9"/> <path d="M21 19h-5"/> <path d="M21 5h-7"/> <path d="M8 10v4"/> <path d="M8 12H3"/></symbol>
+<symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/> <rect width="16" height="12" x="4" y="8" rx="2"/> <path d="M2 14h2"/> <path d="M20 14h2"/> <path d="M15 13v2"/> <path d="M9 13v2"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+<symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/> <path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-brain-circuit" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/> <path d="M9 13a4.5 4.5 0 0 0 3-4"/> <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/> <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/> <path d="M6 18a4 4 0 0 1-1.967-.516"/> <path d="M12 13h4"/> <path d="M12 18h6a2 2 0 0 1 2 2v1"/> <path d="M12 8h8"/> <path d="M16 8V5a2 2 0 0 1 2-2"/> <circle cx="16" cy="13" r=".5"/> <circle cx="18" cy="3" r=".5"/> <circle cx="20" cy="21" r=".5"/> <circle cx="20" cy="8" r=".5"/></symbol>
+<symbol id="i-badge-dollar-sign" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/> <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/> <path d="M12 18V6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <path d="M12 6v6l4 2"/></symbol>
+<symbol id="i-list-checks" viewBox="0 0 24 24"><path d="M13 5h8"/> <path d="M13 12h8"/> <path d="M13 19h8"/> <path d="m3 17 2 2 4-4"/> <path d="m3 7 2 2 4-4"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <circle cx="12" cy="12" r="6"/> <circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v3"/> <path d="M16 2v3"/> <rect x="3" y="3" width="18" height="18" rx="2"/> <path d="M3 9h18"/> <path d="m9 15 2 2 4-4"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/> <path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+<symbol id="i-pen-line" viewBox="0 0 24 24"><path d="M13 21h8"/> <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/> <path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-clipboard-list" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/> <path d="M12 11h4"/> <path d="M12 16h4"/> <path d="M8 11h.01"/> <path d="M8 16h.01"/></symbol>
+<symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 5v16"/> <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></symbol>
+<symbol id="i-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/> <path d="M22 10v6"/> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+<symbol id="i-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/> <path d="M14 2v5a1 1 0 0 0 1 1h5"/> <path d="M10 9H8"/> <path d="M16 13H8"/> <path d="M16 17H8"/></symbol>
+<symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/> <path d="m2.5 21.5 1.4-1.4"/> <path d="m20.1 3.9 1.4-1.4"/> <path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/> <path d="m9.6 14.4 4.8-4.8"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></symbol>
+<symbol id="i-timer" viewBox="0 0 24 24"><line x1="10" x2="14" y1="2" y2="2"/> <line x1="12" x2="15" y1="14" y2="11"/> <circle cx="12" cy="14" r="8"/></symbol>
+<symbol id="i-scan-search" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/> <path d="M17 3h2a2 2 0 0 1 2 2v2"/> <path d="M21 17v2a2 2 0 0 1-2 2h-2"/> <path d="M7 21H5a2 2 0 0 1-2-2v-2"/> <circle cx="12" cy="12" r="3"/> <path d="m16 16-1.9-1.9"/></symbol>
+<symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/> <path d="M21 3v5h-5"/> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/> <path d="M8 16H3v5"/></symbol>
+<symbol id="i-calendar-plus" viewBox="0 0 24 24"><path d="M16 18h6"/> <path d="M16 2v3"/> <path d="M19 15v6"/> <path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/> <path d="M3 9h18"/> <path d="M8 2v3"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3"/> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/> <path d="m7 10 5 5 5-5"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+<symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/> <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/> <rect x="6" y="14" width="12" height="8" rx="1"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol>
+<symbol id="i-building-2" viewBox="0 0 24 24"><path d="M10 12h4"/> <path d="M10 8h4"/> <path d="M14 21v-3a2 2 0 0 0-4 0v3"/> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></symbol>
+<symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <path d="m16 9-5.5 5.5L8 12"/></symbol>
+<symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/> <path d="M12 9v4"/> <path d="M12 17h.01"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/> <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/> <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/> <path d="M4 22h16"/> <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/> <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></symbol>
+<symbol id="i-calendar-days" viewBox="0 0 24 24"><path d="M8 2v3"/> <path d="M16 2v3"/> <rect x="3" y="3" width="18" height="18" rx="2"/> <path d="M3 9h18"/> <path d="M8 13h.01"/> <path d="M12 13h.01"/> <path d="M16 13h.01"/> <path d="M8 17h.01"/> <path d="M12 17h.01"/> <path d="M16 17h.01"/></symbol>
+</svg>
 <a class="skip" href="#main">Skip to content</a>
+
 <header class="top">
-  <a class="brand" href="#">pathfinder</a>
-  <nav aria-label="Sections">
-    <a href="#" data-route="list">Certifications</a>
-    <a href="#plan" data-route="plan">Plan</a>
-    <a href="#compare" data-route="compare" id="nav-compare" hidden>Compare <span id="compare-count"></span></a>
-    <a href="#about" data-route="about">About</a>
-  </nav>
+  <div class="top-inner">
+    <a class="brand" href="#">
+      <span class="brand-mark" aria-hidden="true"><svg class="i"><use href="#i-route"/></svg></span>
+      pathfinder
+    </a>
+    <nav aria-label="Sections">
+      <a href="#" data-route="list"><svg class="i"><use href="#i-layout-grid"/></svg><span>Certifications</span></a>
+      <a href="#plan" data-route="plan"><svg class="i"><use href="#i-route"/></svg><span>Plan</span></a>
+      <a href="#compare" data-route="compare" id="nav-compare" hidden><svg class="i"><use href="#i-columns-3"/></svg><span>Compare</span><b id="compare-count"></b></a>
+      <a href="#about" data-route="about"><svg class="i"><use href="#i-info"/></svg><span>About</span></a>
+    </nav>
+  </div>
 </header>
 
 <main id="main">
   <p class="loading" id="loading">Loading…</p>
 
   <section id="view-list" class="view" hidden>
-    <h1>Certifications</h1>
-    <p class="lede" id="list-lede"></p>
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Pick a certification.<br>Plan the climb.</h1>
+        <p id="list-lede"></p>
+        <div class="hero-stats" id="hero-stats"></div>
+      </div>
+      <svg class="topo" viewBox="0 0 400 260" aria-hidden="true">
+        <path d="M40 210c40-60 110-40 150-90s30-90 90-90 90 50 80 100-60 80-120 90-160 40-200-10z"/>
+        <path d="M80 200c30-40 90-30 120-70s30-70 80-70 70 40 62 80-48 62-98 70-136 32-164-10z"/>
+        <path d="M120 188c22-26 66-22 90-50s24-52 62-52 52 30 46 60-36 46-74 52-102 22-124-10z"/>
+        <path d="M162 174c14-14 42-12 58-30s18-34 42-34 34 20 30 40-24 30-48 34-66 12-82-10z"/>
+        <path d="M204 160c8-6 22-6 30-14s10-18 22-18 18 10 16 20-12 16-24 18-34 6-44-6z"/>
+        <circle cx="252" cy="140" r="5" class="peak"/>
+        <path class="trail" d="M30 250c40-10 60-40 100-44s60 20 90 0 20-50 32-66"/>
+      </svg>
+    </div>
 
-    <form id="filters" class="filters" autocomplete="off" role="search">
-      <input type="search" name="q" placeholder="Search" aria-label="Search certifications">
+    <div class="cats" id="cats" role="group" aria-label="Category"></div>
+
+    <form id="filters" class="toolbar" autocomplete="off" role="search">
+      <label class="search"><svg class="i"><use href="#i-search"/></svg><input type="search" name="q" placeholder="Search name, code or topic" aria-label="Search certifications"></label>
       <select name="provider" aria-label="Provider"></select>
       <select name="level" aria-label="Level"></select>
       <select name="price" aria-label="Price">
@@ -40,21 +110,21 @@
         <option value="200">Up to US$200</option>
         <option value="300">Up to US$300</option>
       </select>
-      <button type="button" class="toggle" id="for-me" aria-expanded="false" aria-controls="profile">For me</button>
+      <button type="button" class="btn" id="for-me" aria-expanded="false" aria-controls="profile"><svg class="i"><use href="#i-sliders-horizontal"/></svg><span>For me</span></button>
     </form>
 
-    <form id="profile" class="profile" autocomplete="off" hidden>
+    <form id="profile" class="profile card" autocomplete="off" hidden>
       <div class="profile-group">
-        <span class="label">I want to learn</span>
+        <span class="label">What do you want to learn?</span>
         <div class="chips" id="want"></div>
       </div>
       <div class="profile-group">
-        <span class="label">I already use</span>
+        <span class="label">What do you already use?</span>
         <div class="chips" id="known"></div>
       </div>
       <div class="profile-row">
-        <div class="profile-group">
-          <span class="label">My role</span>
+        <div class="profile-group grow">
+          <span class="label">Your role</span>
           <div class="chips" id="roles"></div>
         </div>
         <div class="profile-group">
@@ -66,11 +136,11 @@
           </div>
         </div>
       </div>
-      <button type="button" class="text" id="reset-profile">Clear</button>
+      <button type="button" class="link" id="reset-profile">Clear all</button>
     </form>
 
-    <div class="list-head" id="list-head"></div>
-    <ol class="certs" id="certs"></ol>
+    <p class="result-count" id="list-head"></p>
+    <div class="grid" id="certs"></div>
   </section>
 
   <section id="view-cert" class="view" hidden>
@@ -78,13 +148,19 @@
   </section>
 
   <section id="view-compare" class="view" hidden>
-    <h1>Compare</h1>
+    <div class="page-head">
+      <span class="head-icon"><svg class="i"><use href="#i-columns-3"/></svg></span>
+      <h1>Compare</h1>
+    </div>
     <div id="compare-body"></div>
   </section>
 
   <section id="view-plan" class="view" hidden>
-    <h1>Study plan</h1>
-    <form id="plan-form" class="plan-form" autocomplete="off">
+    <div class="page-head">
+      <span class="head-icon"><svg class="i"><use href="#i-route"/></svg></span>
+      <h1>Study plan</h1>
+    </div>
+    <form id="plan-form" class="plan-form card" autocomplete="off">
       <label class="field wide">Certification <select name="cert" required></select></label>
       <label class="field">Start <input type="date" name="start" required></label>
       <label class="field">Exam date <input type="date" name="targetDate"></label>
@@ -99,37 +175,63 @@
       </label>
       <label class="field">Time <input type="time" name="startTime" value="19:00" required></label>
       <fieldset class="field days">
-        <legend>Days</legend>
+        <legend>Study days</legend>
         <div class="days-row" id="days"></div>
       </fieldset>
       <p class="hint" id="hours-hint"></p>
+      <details class="rate" id="confidence">
+        <summary><svg class="i"><use href="#i-gauge"/></svg><span>Rate your topics</span></summary>
+        <p class="hint">1 = new to me, 5 = I could teach it. Weaker topics get more sessions.</p>
+        <div id="confidence-rows"></div>
+      </details>
     </form>
-    <details class="rate" id="confidence">
-      <summary>Rate your topics</summary>
-      <p class="hint">1 = new to me, 5 = I could teach it. Weaker topics get more sessions.</p>
-      <div id="confidence-rows"></div>
-    </details>
     <div id="plan-output" aria-live="polite"></div>
   </section>
 
-  <section id="view-about" class="view prose" hidden>
-    <h1>About</h1>
-    <p>pathfinder helps you pick an IT certification and plan the study. It is open source and runs entirely in your browser: your choices and progress are stored on this device only.</p>
-    <h2>Data</h2>
-    <p id="data-note"></p>
-    <p>Prices, formats and exam domains come from the issuers' own pages, linked on each certification with the date they were checked. Prices change and vary by country, so confirm with the issuer before you pay.</p>
-    <h2>“For me” ranking</h2>
-    <p>Up to 100 points: 45 for the skills you want to learn, 20 for your role, 20 for the skills you already use and 15 for how the level fits your experience. It sorts the list. It does not predict a pass.</p>
-    <h2>Study hours</h2>
-    <p id="hours-note"></p>
-    <h2>Contribute</h2>
-    <p>Each certification is one JSON file. Corrections are welcome on <a href="https://github.com/legiosai/pathfinder">GitHub</a>.</p>
-    <p class="muted">Certification names belong to their issuers. pathfinder is not affiliated with any of them.</p>
+  <section id="view-about" class="view" hidden>
+    <div class="page-head">
+      <span class="head-icon"><svg class="i"><use href="#i-info"/></svg></span>
+      <h1>About</h1>
+    </div>
+    <div class="about-grid">
+      <article class="card about-card">
+        <span class="tile"><svg class="i"><use href="#i-route"/></svg></span>
+        <h2>What it is</h2>
+        <p>pathfinder helps you pick an IT certification and plan the study. It is open source and runs entirely in your browser: your choices and progress stay on this device.</p>
+      </article>
+      <article class="card about-card">
+        <span class="tile"><svg class="i"><use href="#i-file-text"/></svg></span>
+        <h2>Where the data comes from</h2>
+        <p id="data-note"></p>
+        <p>Prices change and vary by country. Confirm with the issuer before you pay.</p>
+      </article>
+      <article class="card about-card">
+        <span class="tile"><svg class="i"><use href="#i-gauge"/></svg></span>
+        <h2>Levels</h2>
+        <p>Levels use trail difficulty signs:</p>
+        <ul class="level-key" id="level-key"></ul>
+      </article>
+      <article class="card about-card">
+        <span class="tile"><svg class="i"><use href="#i-sliders-horizontal"/></svg></span>
+        <h2>“For me” score</h2>
+        <p>Up to 100 points: 45 for the skills you want to learn, 20 for your role, 20 for the skills you already use and 15 for how the level fits your experience. It sorts the list. It does not predict a pass.</p>
+      </article>
+      <article class="card about-card">
+        <span class="tile"><svg class="i"><use href="#i-clock"/></svg></span>
+        <h2>Study hours</h2>
+        <p id="hours-note"></p>
+      </article>
+      <article class="card about-card">
+        <span class="tile"><svg class="i"><use href="#i-plus"/></svg></span>
+        <h2>Contribute</h2>
+        <p>Each certification is one JSON file. Corrections are welcome on <a href="https://github.com/legiosai/pathfinder">GitHub</a>. Names belong to their issuers; pathfinder is not affiliated with any of them.</p>
+      </article>
+    </div>
   </section>
 </main>
 
 <footer class="foot">
-  <span>pathfinder · MIT · <a href="https://github.com/legiosai/pathfinder">GitHub</a></span>
+  <span>pathfinder · MIT · <a href="https://github.com/legiosai/pathfinder">GitHub</a> · icons by <a href="https://lucide.dev">Lucide</a></span>
   <span id="foot-data"></span>
 </footer>
 </body>

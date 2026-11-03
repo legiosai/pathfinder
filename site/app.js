@@ -35,26 +35,90 @@ const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ESC[c]);
 const safeUrl = (u) => (/^https?:\/\//i.test(u || '') ? u : '#');
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
-const ext = (url, text) => `<a href="${esc(safeUrl(url))}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
+const ext = (url, html, cls = '') => `<a class="${cls}" href="${esc(safeUrl(url))}" target="_blank" rel="noopener noreferrer">${html}</a>`;
 
 let DATA = null;
 let BY_ID = new Map();
 let LABELS = {};
 let profile = emptyProfile();
 let compare = [];
+let activeCat = '';
+
+// ---------- visual vocabulary ----------
+const icon = (name) => `<svg class="i" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+
+const CATS = {
+  'AI engineering': { icon: 'bot', c: '--cat-ai' },
+  'ML foundations': { icon: 'brain-circuit', c: '--cat-ml' },
+  'AI security': { icon: 'shield-check', c: '--cat-sec' },
+  'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
+};
+const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
+const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;
+const catTile = (c, size = '') => tile(catOf(c).icon, catOf(c).c, size);
+
+// Levels as trail difficulty signs.
+const SIGN = {
+  entry: '<svg viewBox="0 0 14 14" aria-hidden="true"><circle class="entry" cx="7" cy="7" r="6"/></svg>',
+  associate: '<svg viewBox="0 0 14 14" aria-hidden="true"><rect class="associate" x="1.5" y="1.5" width="11" height="11" rx="1.5"/></svg>',
+  professional: '<svg viewBox="0 0 14 14" aria-hidden="true"><path class="professional" d="M7 .5 13.5 7 7 13.5.5 7z"/></svg>',
+  expert: '<svg class="two" viewBox="0 0 26 14" aria-hidden="true"><path class="expert" d="M7 .5 13.5 7 7 13.5.5 7zM19 .5 25.5 7 19 13.5 12.5 7z"/></svg>',
+};
+const lvl = (level) => `<span class="lvl">${SIGN[level] || ''}${esc(LABELS[level])}</span>`;
+
+const PREP = {
+  'official-guide': { icon: 'book-open', label: 'Official guide' },
+  course: { icon: 'graduation-cap', label: 'Course' },
+  docs: { icon: 'file-text', label: 'Docs' },
+  practice: { icon: 'dumbbell', label: 'Practice' },
+};
+
+const KIND = {
+  baseline: { icon: 'flag' },
+  learn: { icon: 'book-open', c: '--k-learn' },
+  practice: { icon: 'wrench', c: '--k-practice' },
+  mock: { icon: 'timer', c: '--k-mock' },
+  review: { icon: 'scan-search' },
+  remediate: { icon: 'refresh-cw' },
+  final: { icon: 'trophy' },
+};
+const kindStyle = (k) => (KIND[k].c ? `style="--kc:var(${KIND[k].c})"` : '');
+const kindN = (k) => (KIND[k].c ? '' : 'n');
+
+function ring(value, size = 40, cls = '', label = '') {
+  const r = size / 2 - 3;
+  const c = 2 * Math.PI * r;
+  return `<span class="ring ${cls}" ${label ? `aria-label="${esc(label)}" role="img"` : 'aria-hidden="true"'}>
+    <svg width="${size}" height="${size}"><circle class="track" cx="${size / 2}" cy="${size / 2}" r="${r}"/>${value > 0 ? `<circle class="val" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-dasharray="${(c * value) / 100} ${c}"/>` : ''}</svg>
+    <b>${Math.round(value)}${cls.includes('pct') ? '%' : ''}</b></span>`;
+}
+
+function dbar(cert, big = false) {
+  return `<div class="dbar${big ? ' lg' : ''}" role="img" aria-label="Exam domain weights">${cert.domains
+    .map((d, i) => `<span style="flex:${d.weight};background:var(--d${(i % 8) + 1})" title="${esc(d.name)}: ${d.weight}%"></span>`)
+    .join('')}</div>`;
+}
+
+function legend(cert) {
+  return `<ul class="legend">${cert.domains
+    .map((d, i) => `<li><span class="sw" style="background:var(--d${(i % 8) + 1})"></span><span>${esc(d.name)}</span><b>${d.weight}%</b></li>`)
+    .join('')}</ul>`;
+}
 
 // ---------- formatting ----------
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function utc(iso) {
-  const [y, m, d] = iso.split('-').map(Number);
+function utc(s) {
+  const [y, m, d] = s.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d));
 }
+const iso = (dt) => dt.toISOString().slice(0, 10);
 
-function day(iso, { weekday = true, year = false } = {}) {
-  const d = utc(iso);
+function day(s, { weekday = true, year = false } = {}) {
+  const d = utc(s);
   return `${weekday ? `${DAYS[d.getUTCDay()]} ` : ''}${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}${year ? ` ${d.getUTCFullYear()}` : ''}`;
 }
 
@@ -83,7 +147,8 @@ function duration(cert) {
   return len(m);
 }
 
-const FLAG = { restricted: 'Restricted', upcoming: 'Not open yet' };
+const FLAG = { restricted: ['lock', 'Restricted'], upcoming: ['clock', 'Not open yet'] };
+const flag = (c) => (FLAG[c.status] ? `<span class="pill warn">${icon(FLAG[c.status][0])}${FLAG[c.status][1]}</span>` : '');
 
 // ---------- routing ----------
 function parseHash() {
@@ -106,8 +171,7 @@ function route() {
   if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
   $$('.view').forEach((v) => (v.hidden = v.id !== `view-${view}`));
   $$('nav a').forEach((a) => {
-    const current = a.dataset.route === (view === 'cert' ? 'list' : view);
-    if (current) a.setAttribute('aria-current', 'page');
+    if (a.dataset.route === (view === 'cert' ? 'list' : view)) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
 
@@ -128,11 +192,11 @@ function route() {
   lastView = view;
   lastCert = view === 'cert' ? certId : null;
 
-  const titles = { list: 'pathfinder', compare: 'Compare', plan: 'Study plan', about: 'About' };
-  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : view === 'list' ? 'pathfinder' : `${titles[view]} · pathfinder`;
+  const titles = { compare: 'Compare', plan: 'Study plan', about: 'About' };
+  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : 'pathfinder';
 }
 
-// ---------- compare ----------
+// ---------- compare state ----------
 function setCompare(ids) {
   compare = ids;
   store.set(KEYS.compare, compare);
@@ -145,20 +209,12 @@ function toggleCompare(id) {
   else if (compare.length < MAX_COMPARE) setCompare([...compare, id]);
 }
 
-function compareButton(cert) {
-  const inCompare = compare.includes(cert.id);
-  const full = !inCompare && compare.length >= MAX_COMPARE;
-  return `<button type="button" data-act="compare" data-id="${esc(cert.id)}" aria-pressed="${inCompare}" ${full ? 'disabled title="Compare holds four at most"' : ''}>${inCompare ? 'Added to compare' : 'Compare'}</button>`;
-}
-
 // ---------- list ----------
 function chip(name, value, label, checked) {
   return `<label class="chip"><input type="checkbox" name="${name}" value="${esc(value)}" ${checked ? 'checked' : ''}><span>${esc(label)}</span></label>`;
 }
 
-function profileActive() {
-  return profile.roles.length + profile.known.length + profile.want.length > 0;
-}
+const profileCount = () => profile.roles.length + profile.known.length + profile.want.length;
 
 function fillProfile() {
   const t = DATA.taxonomy;
@@ -184,8 +240,8 @@ function readProfile() {
 }
 
 function updateForMe() {
-  const n = profile.roles.length + profile.known.length + profile.want.length;
-  $('#for-me').textContent = n ? `For me · ${n}` : 'For me';
+  const n = profileCount();
+  $('#for-me span').textContent = n ? `For me · ${n}` : 'For me';
 }
 
 function setProfileOpen(open) {
@@ -201,9 +257,21 @@ function fillFilters() {
   f.level.innerHTML = opt('', 'All levels') + DATA.taxonomy.levels.map((l) => opt(l.id, l.label)).join('');
 }
 
+function renderCats() {
+  const all = DATA.certifications;
+  const count = (cat) => all.filter((c) => c.category === cat).length;
+  const btn = (id, label, ic, color, n) =>
+    `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${activeCat === id}" style="--c:var(${color})">${tile(ic, color)}<span><b>${esc(label)}</b><small>${n}<span class="w"> certifications</span></small></span></button>`;
+  $('#cats').innerHTML =
+    btn('', 'Everything', 'layout-grid', '--accent', all.length) +
+    Object.entries(CATS)
+      .filter(([cat]) => count(cat))
+      .map(([cat, m]) => btn(cat, cat, m.icon, m.c, count(cat)))
+      .join('');
+}
+
 function scoring() {
-  // Filters handle price; restricted credentials stay listed with a flag.
-  if (!profileActive()) return null;
+  if (!profileCount()) return null;
   const results = rank(DATA.certifications, { ...profile, budget: null, includeRestricted: true, style: 'any' }, LABELS);
   return new Map(results.map((r) => [r.id, r]));
 }
@@ -215,6 +283,7 @@ function renderList() {
   const scores = scoring();
   const all = DATA.certifications;
   let list = all.filter((c) => {
+    if (activeCat && c.category !== activeCat) return false;
     if (f.provider.value && c.provider !== f.provider.value) return false;
     if (f.level.value && c.level !== f.level.value) return false;
     if (maxFee != null && (c.fee.usd == null || c.fee.usd > maxFee)) return false;
@@ -227,96 +296,120 @@ function renderList() {
   list = list.sort((a, b) =>
     scores ? scores.get(b.id).score - scores.get(a.id).score || a.name.localeCompare(b.name) : a.name.localeCompare(b.name),
   );
-
-  const count = list.length === all.length ? `${all.length} certifications` : `${list.length} of ${all.length}`;
-  const head = $('#list-head');
-  head.classList.toggle('scored', Boolean(scores));
-  head.innerHTML = `<span>${count}${scores ? ', best match first' : ''}</span><span class="col">Level</span><span class="col">Price</span><span class="col">Exam</span>${scores ? '<span class="col score">Match</span>' : ''}`;
-  $('#certs').classList.toggle('scored', Boolean(scores));
+  $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
+  $('#list-head').textContent = `${list.length === all.length ? `All ${all.length}` : `${list.length} of ${all.length}`} certifications${scores ? ', best match first' : ''}`;
   $('#certs').innerHTML = list.length
-    ? list
-        .map(
-          (c) => `<li class="cert-row"><a href="#cert?id=${esc(c.id)}">
-            <span class="name"><b>${esc(c.name)}</b><small>${esc(c.provider)} · ${esc(c.code)}${FLAG[c.status] ? `<span class="flag">${FLAG[c.status]}</span>` : ''}</small></span>
-            <span class="cell level">${esc(LABELS[c.level])}</span>
-            <span class="cell price">${esc(fee(c))}</span>
-            <span class="cell len">${esc(duration(c))}</span>
-            ${scores ? `<span class="cell score" title="Match score">${scores.get(c.id).score}</span>` : ''}
-          </a></li>`,
-        )
-        .join('')
-    : '<li class="empty">Nothing matches. Try fewer filters.</li>';
+    ? list.map((c) => card(c, scores && scores.get(c.id))).join('')
+    : '<p class="empty">Nothing matches. Try fewer filters.</p>';
+}
+
+function card(c, score) {
+  const inCompare = compare.includes(c.id);
+  const full = !inCompare && compare.length >= MAX_COMPARE;
+  return `<article class="card cert-card">
+    <div class="row">
+      ${catTile(c)}
+      <div class="top-right">
+        ${score ? ring(score.score, 40, '', `Match ${score.score} of 100`) : ''}
+        <button type="button" class="btn icon-btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" aria-label="${inCompare ? 'Remove from compare' : 'Add to compare'}" title="${inCompare ? 'In compare' : full ? 'Compare holds four' : 'Add to compare'}" ${full ? 'disabled' : ''}>${icon(inCompare ? 'check' : 'plus')}</button>
+      </div>
+    </div>
+    <div>
+      <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
+      <div class="who">${esc(c.provider)} · ${esc(c.code)} ${flag(c)}</div>
+    </div>
+    ${c.domains.length ? dbar(c) : ''}
+    <div class="facts-inline">
+      <span>${icon('badge-dollar-sign')}${esc(fee(c))}</span>
+      <span>${icon('clock')}${esc(duration(c))}</span>
+      ${lvl(c.level)}
+    </div>
+  </article>`;
 }
 
 // ---------- certification page ----------
-const PREP_LABEL = { 'official-guide': 'Official guide', course: 'Course', docs: 'Docs', practice: 'Practice' };
-
-function domainsHtml(cert, { bars = true } = {}) {
-  const max = Math.max(...cert.domains.map((d) => d.weight));
-  return `<ul class="domains">${cert.domains
-    .map(
-      (d) => `<li><span>${esc(d.name)}</span>${bars ? `<span class="bar"><i style="width:${(d.weight / max) * 100}%"></i></span>` : ''}<span class="pct">${d.weight}%</span></li>`,
-    )
-    .join('')}</ul>`;
-}
-
-function prepHtml(cert) {
-  return `<ul class="links">${cert.prep
-    .map(
-      (r) => `<li><span class="kind">${esc(PREP_LABEL[r.kind] || r.kind)}${r.cost === 'paid' ? ', paid' : ''}</span><span>${ext(r.url, r.title)}${r.note ? `<small>${esc(r.note)}</small>` : ''}</span></li>`,
-    )
-    .join('')}</ul>`;
-}
-
 function renderCert(id) {
   const c = BY_ID.get(id);
+  const color = catOf(c).c;
   const sources = c.sources.map((s) => DATA.sources[s]).filter(Boolean);
   const reports = c.reports.map((r) => DATA.reports[r]).filter(Boolean);
   const official = sources[0];
-  const fact = (label, value) => (value ? `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>` : '');
   const scores = scoring();
   const mine = scores && scores.get(c.id);
+  const inCompare = compare.includes(c.id);
+  const full = !inCompare && compare.length >= MAX_COMPARE;
+  const stat = (ic, label, value) =>
+    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b></div></div>` : '';
   const notes = [
-    c.requirements && c.status === 'restricted' ? c.requirements : null,
-    c.exam.format,
-    c.fee.note,
-    c.ai_policy ? `AI during the exam: ${c.ai_policy}` : null,
-    ...c.caveats,
+    c.requirements && c.status === 'restricted' ? ['lock', c.requirements] : null,
+    c.exam.format ? ['pen-line', c.exam.format] : null,
+    c.fee.note ? ['badge-dollar-sign', c.fee.note] : null,
+    c.ai_policy ? ['bot', `AI during the exam: ${c.ai_policy}`] : null,
+    ...c.caveats.map((x) => ['info', x]),
   ].filter(Boolean);
 
-  $('#cert-body').innerHTML = `
-    <a class="back" href="#">← Certifications</a>
-    <p class="eyebrow">${esc(c.provider)} · ${esc(c.code)}</p>
-    <h1>${esc(c.name)}</h1>
-    <p class="lede">${esc(c.scope)}</p>
-    <div class="cert-actions">
-      <a class="btn primary" href="#plan?cert=${esc(c.id)}">Plan your study</a>
-      ${compareButton(c)}
-      ${official ? `<a class="btn" href="${esc(safeUrl(official.url))}" target="_blank" rel="noopener noreferrer">Issuer page ↗</a>` : ''}
-    </div>
-    <dl class="facts">
-      ${fact('Price', `${fee(c)}${c.fee.basis ? ` · ${c.fee.basis}` : ''}`)}
-      ${fact('Exam', duration(c))}
-      ${fact('Questions', c.exam.questions)}
-      ${fact('Passing score', c.exam.passing)}
-      ${fact('Valid for', c.exam.validity)}
-      ${fact('Level', LABELS[c.level])}
-      ${fact('Format', LABELS[c.exam.style])}
-      ${fact('Registration', LABELS[c.status])}
-    </dl>
-    ${mine ? `<section class="block"><h2>For you · ${mine.score}/100</h2><ul class="why">${mine.reasons.map((r) => `<li>${esc(r)}</li>`).join('')}${mine.warnings.map((w) => `<li class="warn">${esc(w)}</li>`).join('')}</ul></section>` : ''}
-    ${c.domains.length ? `<section class="block"><h2>Exam domains</h2>${domainsHtml(c)}${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>` : ''}
-    ${c.prep && c.prep.length ? `<section class="block"><h2>Prepare with</h2>${prepHtml(c)}</section>` : ''}
-    ${notes.length ? `<section class="block"><h2>Good to know</h2>${notes.map((n) => `<p>${esc(n)}</p>`).join('')}</section>` : ''}
-    <section class="block">
-      <details class="more"><summary>Sources, checked ${esc(day(c.checked_on, { weekday: false, year: true }))}</summary>
-        <ul class="links">${sources.map((s) => `<li><span class="kind">${esc((s.kind || '').split(' / ')[0])}</span><span>${ext(s.url, s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}</span></li>`).join('')}</ul>
-      </details>
-      ${reports.length ? `<details class="more"><summary>What candidates report (${reports.length})</summary>
+  const left = [
+    c.domains.length
+      ? `<section class="card panel"><h2>${icon('layers')}Exam domains</h2>${dbar(c, true)}${legend(c)}${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>`
+      : '',
+    mine
+      ? `<section class="card panel"><h2>${icon('sliders-horizontal')}Why it fits you</h2><div class="for-you">${ring(mine.score, 76, 'lg', `Match ${mine.score} of 100`)}<ul class="why">${mine.reasons
+          .map((r) => `<li>${icon('circle-check')}<span>${esc(r)}</span></li>`)
+          .join('')}${mine.warnings.map((w) => `<li class="warn">${icon('triangle-alert')}<span>${esc(w)}</span></li>`).join('')}</ul></div></section>`
+      : '',
+    notes.length
+      ? `<section class="card panel"><h2>${icon('info')}Good to know</h2><ul class="notes">${notes.map(([ic, t]) => `<li>${icon(ic)}<span>${esc(t)}</span></li>`).join('')}</ul></section>`
+      : '',
+  ].join('');
+  const right = [
+    c.prep && c.prep.length
+      ? `<section class="card panel"><h2>${icon('graduation-cap')}Prepare with</h2><div class="resources">${c.prep
+          .map((r) => {
+            const k = PREP[r.kind] || { icon: 'file-text', label: r.kind };
+            return ext(
+              r.url,
+              `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="pill">${k.label} · ${r.cost === 'paid' ? 'Paid' : 'Free'}</span></span>`,
+              'res',
+            );
+          })
+          .join('')}</div></section>`
+      : '',
+    `<section class="card panel"><h2>${icon('file-text')}Sources</h2>
+      <p class="hint">Checked ${esc(day(c.checked_on, { weekday: false, year: true }))} against the issuer.</p>
+      <details class="more"><summary>${sources.length} source${sources.length === 1 ? '' : 's'}</summary>${sources
+        .map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src'))
+        .join('')}</details>
+      ${reports.length ? `<details class="more"><summary>${reports.length} candidate report${reports.length === 1 ? '' : 's'}</summary>
         <p class="hint">Self-reported. Useful for how people prepared, not for pass rates.</p>
-        ${reports.map((r) => `<div class="report">${ext(r.url, r.title)} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p>${r.effort ? `<p>Effort: ${esc(r.effort)}</p>` : ''}</div>`).join('')}
-      </details>` : ''}
-    </section>`;
+        ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
+    </section>`,
+  ].join('');
+
+  $('#cert-body').innerHTML = `
+    <a class="back" href="#">${icon('arrow-left')}All certifications</a>
+    <div class="card cert-hero">
+      ${catTile(c, 'lg')}
+      <div>
+        <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}${flag(c)}</p>
+        <h1>${esc(c.name)}</h1>
+        <p class="scope">${esc(c.scope)}</p>
+        <div class="cert-actions">
+          <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}Plan your study</a>
+          <button type="button" class="btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" ${full ? 'disabled title="Compare holds four"' : ''}>${icon(inCompare ? 'check' : 'columns-3')}${inCompare ? 'In compare' : 'Compare'}</button>
+          ${official ? ext(official.url, `${icon('external-link')}Issuer page`, 'btn') : ''}
+        </div>
+      </div>
+    </div>
+    <div class="stat-grid">
+      ${stat('badge-dollar-sign', 'Price', `${fee(c)}${c.fee.basis ? ` · ${c.fee.basis}` : ''}`)}
+      ${stat('clock', 'Exam length', duration(c))}
+      ${stat('list-checks', 'Questions', c.exam.questions)}
+      ${stat('target', 'Passing score', c.exam.passing)}
+      ${stat('calendar-check', 'Valid for', c.exam.validity)}
+      ${stat('pen-line', 'Format', LABELS[c.exam.style])}
+      ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', 'Registration', LABELS[c.status])}
+    </div>
+    <div class="cols"><div>${left}</div><div>${right}</div></div>`;
 }
 
 // ---------- compare page ----------
@@ -324,37 +417,34 @@ function renderCompare() {
   const certs = compare.map((id) => BY_ID.get(id)).filter(Boolean);
   const body = $('#compare-body');
   if (!certs.length) {
-    body.innerHTML = '<p class="empty">Nothing here yet. Open a certification and choose Compare.</p>';
+    body.innerHTML = '<p class="empty">Nothing here yet. Use the + on any certification to add it.</p>';
     return;
   }
   const link = `${location.origin}${location.pathname}#compare?ids=${certs.map((c) => c.id).join(',')}`;
-  const rows = [
-    ['Price', (c) => esc(fee(c))],
-    ['Exam', (c) => esc(duration(c))],
-    ['Questions', (c) => esc(c.exam.questions || '—')],
-    ['Passing score', (c) => esc(c.exam.passing || '—')],
-    ['Valid for', (c) => esc(c.exam.validity || '—')],
-    ['Level', (c) => esc(LABELS[c.level])],
-    ['Format', (c) => esc(LABELS[c.exam.style])],
-    ['Registration', (c) => esc(LABELS[c.status])],
-    ['Domains', (c) => (c.domains.length ? domainsHtml(c, { bars: false }) : '—')],
-    ['AI in the exam', (c) => esc(c.ai_policy || '—')],
-    ['Checked', (c) => esc(day(c.checked_on, { weekday: false, year: true }))],
-  ];
+  const row = (ic, label, value) => `<div class="cmp-row">${icon(ic)}<div><small>${label}</small>${value}</div></div>`;
   body.innerHTML = `
     <div class="compare-tools">
-      <button type="button" class="text" id="copy-compare">Copy link</button>
-      <button type="button" class="text" id="clear-compare">Clear</button>
+      <button type="button" class="btn" id="copy-compare">${icon('link')}Copy link</button>
+      <button type="button" class="btn" id="clear-compare">${icon('x')}Clear</button>
     </div>
-    <div class="table-wrap"><table class="compare">
-      <thead><tr><th scope="col"><span class="sr">Field</span></th>${certs
-        .map(
-          (c) => `<th scope="col"><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a><small>${esc(c.provider)} · ${esc(c.code)}</small>
-            <button type="button" class="text" data-act="compare" data-id="${esc(c.id)}">Remove</button></th>`,
-        )
-        .join('')}</tr></thead>
-      <tbody>${rows.map(([label, fn]) => `<tr><th scope="row">${label}</th>${certs.map((c) => `<td>${fn(c)}</td>`).join('')}</tr>`).join('')}</tbody>
-    </table></div>`;
+    <div class="cmp" style="--n:${certs.length}">${certs
+      .map(
+        (c) => `<article class="card cmp-col">
+          <div class="head">${catTile(c, 'sm')}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div></div>
+          ${row('badge-dollar-sign', 'Price', esc(fee(c)))}
+          ${row('clock', 'Exam length', esc(duration(c)))}
+          ${row('list-checks', 'Questions', esc(c.exam.questions || '—'))}
+          ${row('target', 'Passing score', esc(c.exam.passing || '—'))}
+          ${row('calendar-check', 'Valid for', esc(c.exam.validity || '—'))}
+          ${row('gauge', 'Level', lvl(c.level))}
+          ${row('pen-line', 'Format', esc(LABELS[c.exam.style]))}
+          ${row(c.status === 'restricted' ? 'lock' : 'clipboard-list', 'Registration', esc(LABELS[c.status]))}
+          ${row('layers', 'Domains', c.domains.length ? dbar(c) + legend(c) : '—')}
+          ${row('bot', 'AI in the exam', esc(c.ai_policy || '—'))}
+          <button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">Remove</button>
+        </article>`,
+      )
+      .join('')}</div>`;
   $('#copy-compare').addEventListener('click', (e) => copy(link, e.currentTarget));
   $('#clear-compare').addEventListener('click', () => {
     setCompare([]);
@@ -389,9 +479,8 @@ function setEstimate() {
   const f = $('#plan-form');
   const cert = BY_ID.get(f.cert.value);
   const levelHours = Object.fromEntries(DATA.taxonomy.levels.map((l) => [l.id, l.hours]));
-  const est = estimateHours(cert, profile, levelHours);
-  suggested = est.hours;
-  if (!hoursTouched) f.hours.value = est.hours;
+  suggested = estimateHours(cert, profile, levelHours).hours;
+  if (!hoursTouched) f.hours.value = suggested;
   updateHint();
 }
 
@@ -399,12 +488,10 @@ function updateHint() {
   const f = $('#plan-form');
   const cert = BY_ID.get(f.cert.value);
   const off = Number(f.hours.value) !== suggested;
-  $('#hours-hint').innerHTML = `Suggested: ${suggested} h for ${esc(LABELS[cert.level].toLowerCase())} level${off ? ` · <button type="button" class="text" data-act="use-hours">use it</button>` : ''}`;
+  $('#hours-hint').innerHTML = `Suggested: ${suggested} h for ${esc(LABELS[cert.level].toLowerCase())} level${off ? ` · <button type="button" class="link" data-act="use-hours">use it</button>` : ''}`;
 }
 
-function confidenceKey(id) {
-  return `${KEYS.confidence}${id}`;
-}
+const confidenceKey = (id) => `${KEYS.confidence}${id}`;
 
 function renderConfidence() {
   const cert = BY_ID.get($('#plan-form').cert.value);
@@ -419,8 +506,11 @@ function renderConfidence() {
       return `<div class="conf-row"><span>${esc(t.name)}</span><div class="scale" role="radiogroup" aria-label="Confidence in ${esc(t.name)}">${options}</div></div>`;
     })
     .join('');
-  const rated = Object.keys(saved).length;
-  $('#confidence summary').textContent = rated ? `Rate your topics · ${rated} rated` : 'Rate your topics';
+  setRatedLabel(Object.keys(saved).length);
+}
+
+function setRatedLabel(n) {
+  $('#confidence summary span').textContent = n ? `Rate your topics · ${n} rated` : 'Rate your topics';
 }
 
 function readConfidence() {
@@ -471,17 +561,52 @@ function planParams() {
   };
 }
 
-function deadlineLine(p) {
+function statusHtml(p) {
   const d = p.deadline;
-  if (!d) return `Earliest exam: ${day(p.examDate)}.`;
+  if (!d) return `<div class="status info">${icon('flag')}Keep this pace and you can sit the exam from ${day(p.examDate)}.</div>`;
   if (d.fits) {
-    return `<span class="ok">Fits before your exam on ${day(d.targetDate)}${d.spare ? `, ${d.spare} spare day${d.spare === 1 ? '' : 's'}` : ''}.</span>`;
+    return `<div class="status good">${icon('circle-check')}Fits before your exam on ${day(d.targetDate)}${d.spare ? `, with ${d.spare} spare day${d.spare === 1 ? '' : 's'}` : ''}.</div>`;
   }
   const fixes = [];
   if (d.suggestedMinutes) fixes.push(`${len(d.suggestedMinutes)} sessions`);
-  fixes.push('more days');
+  fixes.push('more study days');
   fixes.push(`an exam on ${day(p.examDate)} or later`);
-  return `<span class="bad">Does not fit before ${day(d.targetDate)}: ${d.needed} sessions, ${d.available} study days. Try ${fixes.slice(0, -1).join(', ')} or ${fixes.at(-1)}.</span>`;
+  return `<div class="status warn">${icon('triangle-alert')}Does not fit before ${day(d.targetDate)}: ${d.needed} sessions, ${d.available} study days. Try ${fixes.slice(0, -1).join(', ')} or ${fixes.at(-1)}.</div>`;
+}
+
+function monthsHtml(p, done) {
+  const byDate = new Map(p.sessions.map((s) => [s.date, s]));
+  const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
+  const first = utc(p.sessions[0].date);
+  const last = utc([p.sessions.at(-1).date, examDay].sort().at(-1));
+  const out = [];
+  let y = first.getUTCFullYear();
+  let m = first.getUTCMonth();
+  while (y < last.getUTCFullYear() || (y === last.getUTCFullYear() && m <= last.getUTCMonth())) {
+    const lead = (new Date(Date.UTC(y, m, 1)).getUTCDay() + 6) % 7;
+    const days = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    const cells = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map((d) => `<span class="dow">${d}</span>`);
+    for (let i = 0; i < lead; i++) cells.push('<span></span>');
+    for (let d = 1; d <= days; d++) {
+      const date = iso(new Date(Date.UTC(y, m, d)));
+      const s = byDate.get(date);
+      if (s) {
+        cells.push(`<span class="d s ${kindN(s.kind)}${done.has(s.n) ? ' done' : ''}" data-n="${s.n}" ${kindStyle(s.kind)} title="${esc(`${day(date)} · ${KIND_LABEL[s.kind]}: ${cap(s.name)}`)}">${icon(KIND[s.kind].icon)}</span>`);
+      } else if (date === examDay) {
+        cells.push(`<span class="d exam" title="${esc(`${day(date)} · Exam`)}">${icon('target')}</span>`);
+      } else {
+        cells.push(`<span class="d">${d}</span>`);
+      }
+    }
+    out.push(`<div class="card month"><h3>${MONTH_NAMES[m]} ${y}</h3><div class="mgrid">${cells.join('')}</div></div>`);
+    if (m === 11) {
+      y += 1;
+      m = 0;
+    } else {
+      m += 1;
+    }
+  }
+  return out.join('');
 }
 
 function renderPlan() {
@@ -507,6 +632,7 @@ function renderPlan() {
   }
   const progressKey = `${KEYS.progress}${p.cert.id}:${p.sessions[0].date}`;
   const done = new Set(store.get(progressKey, []));
+  const pct = () => Math.round((done.size / p.sessions.length) * 100);
 
   // Calendar weeks, Monday first.
   const first = utc(p.sessions[0].date);
@@ -518,7 +644,6 @@ function renderPlan() {
     if (!weeks.has(w)) weeks.set(w, []);
     weeks.get(w).push(s);
   }
-  const iso = (dt) => dt.toISOString().slice(0, 10);
   const weekRange = (w) => {
     const a = new Date(monday);
     a.setUTCDate(monday.getUTCDate() + w * 7);
@@ -526,49 +651,62 @@ function renderPlan() {
     b.setUTCDate(a.getUTCDate() + 6);
     return span(iso(a), iso(b));
   };
-  const row = (s) => `<li class="session${done.has(s.n) ? ' done' : ''}" data-kind="${s.kind}">
-      <input type="checkbox" data-n="${s.n}" aria-label="Session ${s.n} done" ${done.has(s.n) ? 'checked' : ''}>
-      <span class="when">${day(s.date)}</span>
-      <span class="what"><span class="kind">${KIND_LABEL[s.kind]}</span>${esc(cap(s.name))}</span>
-      <span class="len">${len(s.minutes)}</span></li>`;
-  const list = [...weeks]
-    .map(([w, items], i) => `<h3 class="week">Week ${i + 1} · ${weekRange(w)}</h3><ol class="sessions">${items.map(row).join('')}</ol>`)
-    .join('');
-  const last = p.sessions.at(-1).date;
+  const stop = (s) => `<li class="stop${done.has(s.n) ? ' done' : ''}" data-kind="${s.kind}">
+      <span class="node ${kindN(s.kind)}" ${kindStyle(s.kind)}>${icon(KIND[s.kind].icon)}</span>
+      <div class="card body">
+        <small>${day(s.date)} · ${KIND_LABEL[s.kind]}</small>
+        <b>${esc(cap(s.name))}</b>
+        <span class="len">${icon('clock')}${len(s.minutes)}</span>
+        <label class="check"><input type="checkbox" data-n="${s.n}" aria-label="Session ${s.n} done" ${done.has(s.n) ? 'checked' : ''}><span>${icon('check')}</span></label>
+      </div></li>`;
   const kinds = [...new Set(p.sessions.map((s) => s.kind))];
   const mockDetail = p.sessions.find((s) => s.kind === 'mock')?.detail;
+  const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
+  const summaryStat = (ic, label, value) => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${label}</small><b>${value}</b></div></div>`;
 
   out.innerHTML = `
-    <div class="plan-head">
-      <div>
-        <h2>${p.sessions.length} sessions · ${p.hours} h</h2>
-        <p>${day(p.sessions[0].date)} to ${day(last)}. ${deadlineLine(p)}</p>
-      </div>
-      <div class="plan-actions">
-        <button type="button" class="primary" id="dl-ics">Add to calendar</button>
-        <button type="button" class="text" id="dl-md">Markdown</button>
-        <button type="button" class="text" id="copy-plan">Copy link</button>
-        <button type="button" class="text" id="print-plan">Print</button>
-      </div>
+    <div class="plan-summary">
+      ${summaryStat('calendar-days', 'Sessions', p.sessions.length)}
+      ${summaryStat('clock', 'Study time', `${p.hours} h`)}
+      ${summaryStat('flag', 'From – to', `${day(p.sessions[0].date, { weekday: false })} – ${day(p.sessions.at(-1).date, { weekday: false })}`)}
+      ${summaryStat('target', p.deadline ? 'Exam' : 'Earliest exam', day(examDay))}
+      <div class="card progress-card" id="progress">${ring(pct(), 52, 'good pct', `${pct()}% done`)}<div><b id="progress-n">${done.size} of ${p.sessions.length}</b><small>sessions done</small></div></div>
     </div>
-    <div class="progress" aria-hidden="true"><i style="width:${Math.round((done.size / p.sessions.length) * 100)}%"></i></div>
-    <p class="progress-label">${done.size} of ${p.sessions.length} done</p>
+    ${statusHtml(p)}
+    <div class="plan-actions">
+      <button type="button" class="btn primary" id="dl-ics">${icon('calendar-plus')}Add to calendar</button>
+      <button type="button" class="btn" id="dl-md">${icon('download')}Markdown</button>
+      <button type="button" class="btn" id="copy-plan">${icon('link')}Copy link</button>
+      <button type="button" class="btn" id="print-plan">${icon('printer')}Print</button>
+    </div>
     ${p.inferredTopics ? '<p class="note">No official domains in the catalog for this one, so topics come from its summary. Swap in the issuer\'s objectives.</p>' : ''}
-    ${list}
-    <details class="more keys"><summary>What each session is</summary>
-      <dl>${kinds.map((k) => `<dt>${KIND_LABEL[k]}</dt><dd>${esc(k === 'mock' ? mockDetail : KIND_DETAIL[k])}</dd>`).join('')}</dl>
-    </details>
-    ${cert.prep && cert.prep.length ? `<details class="more"><summary>Resources (${cert.prep.length})</summary>${prepHtml(cert)}</details>` : ''}`;
+    <div class="months">${monthsHtml(p, done)}</div>
+    <ul class="kinds">${kinds.map((k) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${KIND_LABEL[k]}</li>`).join('')}<li><span class="k exam">${icon('target')}</span>Exam</li></ul>
+    ${[...weeks]
+      .map(([w, items], i) => `<h3 class="week">Week ${i + 1} <small>${weekRange(w)}</small></h3><ol class="trail">${items.map(stop).join('')}</ol>`)
+      .join('')}
+    <div class="plan-extra">
+      <section class="card panel"><h2>${icon('info')}What each session is</h2>
+        <dl class="keydl">${kinds.map((k) => `<dt><span class="kinds"><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span></span>${KIND_LABEL[k]}</dt><dd>${esc(k === 'mock' ? mockDetail : KIND_DETAIL[k])}</dd>`).join('')}</dl>
+      </section>
+      ${cert.prep && cert.prep.length ? `<section class="card panel"><h2>${icon('graduation-cap')}Resources</h2><div class="resources">${cert.prep
+        .map((r) => {
+          const k = PREP[r.kind] || { icon: 'file-text', label: r.kind };
+          return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="pill">${k.label} · ${r.cost === 'paid' ? 'Paid' : 'Free'}</span></span>`, 'res');
+        })
+        .join('')}</div></section>` : ''}
+    </div>`;
 
-  $$('#plan-output .session input').forEach((box) =>
+  $$('#plan-output .check input').forEach((box) =>
     box.addEventListener('change', () => {
       const n = Number(box.dataset.n);
       if (box.checked) done.add(n);
       else done.delete(n);
       store.set(progressKey, [...done]);
-      box.closest('.session').classList.toggle('done', box.checked);
-      $('#plan-output .progress i').style.width = `${Math.round((done.size / p.sessions.length) * 100)}%`;
-      $('#plan-output .progress-label').textContent = `${done.size} of ${p.sessions.length} done`;
+      box.closest('.stop').classList.toggle('done', box.checked);
+      $(`#plan-output .mgrid [data-n="${n}"]`)?.classList.toggle('done', box.checked);
+      $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', `${pct()}% done`);
+      $('#progress-n').textContent = `${done.size} of ${p.sessions.length}`;
     }),
   );
   $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(p), 'text/calendar'));
@@ -587,26 +725,34 @@ function download(name, text, type) {
 }
 
 async function copy(text, button) {
-  const before = button.textContent;
+  const before = button.innerHTML;
+  let ok = true;
   try {
     await navigator.clipboard.writeText(text);
-    button.textContent = 'Copied';
   } catch {
-    button.textContent = 'Copy failed';
+    ok = false;
   }
-  setTimeout(() => (button.textContent = before), 1500);
+  button.innerHTML = `${icon(ok ? 'check' : 'x')}${ok ? 'Copied' : 'Copy failed'}`;
+  setTimeout(() => (button.innerHTML = before), 1500);
 }
 
 // ---------- wiring ----------
 function bind() {
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-act]');
+    const btn = e.target.closest('button[data-act], button[data-cat]');
     if (!btn) return;
+    if (btn.dataset.cat !== undefined) {
+      activeCat = btn.dataset.cat;
+      renderList();
+      return;
+    }
     if (btn.dataset.act === 'compare') {
       toggleCompare(btn.dataset.id);
       const { name, params } = parseHash();
-      if (name === 'cert') renderCert(params.get('id'));
-      if (name === 'compare') renderCompare();
+      const view = VIEWS[name] || 'list';
+      if (view === 'cert') renderCert(params.get('id'));
+      if (view === 'compare') renderCompare();
+      if (view === 'list') renderList();
     }
     if (btn.dataset.act === 'use-hours') {
       hoursTouched = false;
@@ -633,6 +779,7 @@ function bind() {
   const plan = $('#plan-form');
   plan.addEventListener('submit', (e) => e.preventDefault());
   plan.addEventListener('input', (e) => {
+    if (e.target.dataset.topic) return;
     if (e.target.name === 'hours') hoursTouched = true;
     if (e.target.name === 'cert') {
       hoursTouched = false;
@@ -645,9 +792,9 @@ function bind() {
   $('#confidence').addEventListener('change', (e) => {
     if (!e.target.dataset.topic) return;
     const cert = $('#plan-form').cert.value;
-    store.set(confidenceKey(cert), readConfidence());
-    const rated = Object.keys(readConfidence()).length;
-    $('#confidence summary').textContent = rated ? `Rate your topics · ${rated} rated` : 'Rate your topics';
+    const rated = readConfidence();
+    store.set(confidenceKey(cert), rated);
+    setRatedLabel(Object.keys(rated).length);
     renderPlan();
   });
 
@@ -667,20 +814,32 @@ async function init() {
   BY_ID = new Map(DATA.certifications.map((c) => [c.id, c]));
   const t = DATA.taxonomy;
   for (const group of [t.levels, t.statuses, t.styles, t.roles, t.skills]) for (const x of group) LABELS[x.id] = x.label;
-  const providers = new Set(DATA.certifications.map((c) => c.provider)).size;
-  const dates = DATA.certifications.map((c) => c.checked_on).sort();
-  const checked = dates[0] === dates.at(-1) ? `on ${day(dates[0], { weekday: false, year: true })}` : `between ${day(dates[0], { weekday: false, year: true })} and ${day(dates.at(-1), { weekday: false, year: true })}`;
+  const all = DATA.certifications;
+  const providers = new Set(all.map((c) => c.provider)).size;
+  const free = all.filter((c) => c.fee.usd === 0).length;
+  const withPrep = all.filter((c) => c.prep && c.prep.length).length;
+  const dates = all.map((c) => c.checked_on).sort();
+  const fmt = (d) => day(d, { weekday: false, year: true });
+  const checked = dates[0] === dates.at(-1) ? `on ${fmt(dates[0])}` : `between ${fmt(dates[0])} and ${fmt(dates.at(-1))}`;
 
   profile = { ...emptyProfile(), ...store.get(KEYS.profile, {}) };
   setCompare(store.get(KEYS.compare, []).filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE));
 
-  $('#list-lede').textContent = `${DATA.certifications.length} certifications from ${providers} providers. Prices and exam facts from the issuers, with a study planner for each.`;
+  $('#list-lede').textContent = 'Compare prices, exam formats and domains, then turn any certification into a dated study plan.';
+  const heroStat = (ic, n, label) => `<span class="stat-chip">${tile(ic, '--accent', 'sm')}<span><b>${n}</b><small>${label}</small></span></span>`;
+  $('#hero-stats').innerHTML =
+    heroStat('layers', all.length, 'certifications') +
+    heroStat('building-2', providers, 'providers') +
+    heroStat('graduation-cap', withPrep, 'with prep guides') +
+    (free ? heroStat('badge-dollar-sign', free, 'free') : '');
+  $('#level-key').innerHTML = t.levels.map((l) => `<li>${lvl(l.id)}</li>`).join('');
   $('#hours-note').textContent = `${t.hours_note} Ranges: ${t.levels.map((l) => `${l.label.toLowerCase()} ${l.hours[0]}–${l.hours[1]} h`).join(', ')}.`;
-  $('#data-note').textContent = `${DATA.certifications.length} certifications from ${providers} providers, ${Object.keys(DATA.sources).length} sources and ${Object.keys(DATA.reports).length} candidate reports, checked ${checked}.`;
-  $('#foot-data').textContent = `Catalog ${day(DATA.generated_on, { weekday: false, year: true })}`;
+  $('#data-note').textContent = `${all.length} certifications from ${providers} providers, ${Object.keys(DATA.sources).length} sources and ${Object.keys(DATA.reports).length} candidate reports, checked ${checked}. Every fact links to the issuer's own page.`;
+  $('#foot-data').textContent = `Catalog ${fmt(DATA.generated_on)}`;
 
   fillProfile();
   fillFilters();
+  renderCats();
   fillPlanForm();
   bind();
   $('#loading').remove();

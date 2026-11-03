@@ -39,3 +39,5 @@ Corrections and new certifications are welcome. See [CONTRIBUTING.md](CONTRIBUTI
 ## License
 
 [MIT](LICENSE)
+
+Icons from [Lucide](https://lucide.dev) v1.59.0 (ISC, see `site/LICENSE-lucide.txt`). Headings use [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) (SIL Open Font License, see `site/fonts/OFL.txt`). Both are bundled, so the site makes no third-party requests.
