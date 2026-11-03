@@ -1,5 +1,8 @@
 import { emptyProfile, rank } from './lib/match.js';
 import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_LABEL, KIND_DETAIL } from './lib/planner.js';
+import { providerMark, providerColor, badge, donut, hbars, columns } from './visuals.js';
+import Fuse from './vendor/fuse.js';
+import confetti from './vendor/confetti.js';
 
 const MAX_COMPARE = 4;
 const KEYS = {
@@ -7,6 +10,7 @@ const KEYS = {
   compare: 'pathfinder:compare',
   progress: 'pathfinder:progress:',
   confidence: 'pathfinder:confidence:',
+  theme: 'pathfinder:theme',
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -43,6 +47,9 @@ let LABELS = {};
 let profile = emptyProfile();
 let compare = [];
 let activeCat = '';
+let activeProvider = '';
+let fuse = null;
+const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- visual vocabulary ----------
 const icon = (name) => `<svg class="i" aria-hidden="true"><use href="#i-${name}"/></svg>`;
@@ -163,6 +170,11 @@ let lastCert = null;
 let listScroll = 0;
 
 function route() {
+  if (document.startViewTransition && lastView !== null && !reducedMotion()) document.startViewTransition(renderRoute);
+  else renderRoute();
+}
+
+function renderRoute() {
   const { name, params } = parseHash();
   let view = VIEWS[name] || 'list';
   const certId = params.get('id');
@@ -252,8 +264,6 @@ function setProfileOpen(open) {
 function fillFilters() {
   const f = $('#filters');
   const opt = (v, l) => `<option value="${esc(v)}">${esc(l)}</option>`;
-  const providers = [...new Set(DATA.certifications.map((c) => c.provider))].sort();
-  f.provider.innerHTML = opt('', 'All providers') + providers.map((p) => opt(p, p)).join('');
   f.level.innerHTML = opt('', 'All levels') + DATA.taxonomy.levels.map((l) => opt(l.id, l.label)).join('');
 }
 
@@ -270,6 +280,14 @@ function renderCats() {
       .join('');
 }
 
+function renderProviders() {
+  const all = DATA.certifications;
+  const names = [...new Set(all.map((c) => c.provider))].sort((a, b) => all.filter((c) => c.provider === b).length - all.filter((c) => c.provider === a).length || a.localeCompare(b));
+  $('#providers').innerHTML = names
+    .map((n) => `<button type="button" class="prov" data-prov="${esc(n)}" aria-pressed="${activeProvider === n}">${providerMark(n)}<span>${esc(n)}</span><small>${all.filter((c) => c.provider === n).length}</small></button>`)
+    .join('');
+}
+
 function scoring() {
   if (!profileCount()) return null;
   const results = rank(DATA.certifications, { ...profile, budget: null, includeRestricted: true, style: 'any' }, LABELS);
@@ -282,33 +300,36 @@ function renderList() {
   const maxFee = f.price.value === '' ? null : Number(f.price.value);
   const scores = scoring();
   const all = DATA.certifications;
+  const hits = q ? new Map(fuse.search(q).map((r, i) => [r.item.id, i])) : null;
   let list = all.filter((c) => {
     if (activeCat && c.category !== activeCat) return false;
-    if (f.provider.value && c.provider !== f.provider.value) return false;
+    if (activeProvider && c.provider !== activeProvider) return false;
     if (f.level.value && c.level !== f.level.value) return false;
     if (maxFee != null && (c.fee.usd == null || c.fee.usd > maxFee)) return false;
-    if (q) {
-      const hay = [c.name, c.code, c.provider, c.scope, c.category, ...c.skills.map((s) => LABELS[s])].join(' ').toLowerCase();
-      if (!q.split(/\s+/).every((w) => hay.includes(w))) return false;
-    }
+    if (hits && !hits.has(c.id)) return false;
     return true;
   });
-  list = list.sort((a, b) =>
-    scores ? scores.get(b.id).score - scores.get(a.id).score || a.name.localeCompare(b.name) : a.name.localeCompare(b.name),
-  );
+  list = list.sort((a, b) => {
+    if (scores) return scores.get(b.id).score - scores.get(a.id).score || a.name.localeCompare(b.name);
+    if (hits) return hits.get(a.id) - hits.get(b.id);
+    return a.name.localeCompare(b.name);
+  });
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
+  $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
   $('#list-head').textContent = `${list.length === all.length ? `All ${all.length}` : `${list.length} of ${all.length}`} certifications${scores ? ', best match first' : ''}`;
   $('#certs').innerHTML = list.length
-    ? list.map((c) => card(c, scores && scores.get(c.id))).join('')
+    ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
     : '<p class="empty">Nothing matches. Try fewer filters.</p>';
 }
 
-function card(c, score) {
+const catPill = (c) => `<span class="pill catp" style="--c:var(${catOf(c).c})">${icon(catOf(c).icon)}${esc(c.category)}</span>`;
+
+function card(c, score, i = 0) {
   const inCompare = compare.includes(c.id);
   const full = !inCompare && compare.length >= MAX_COMPARE;
-  return `<article class="card cert-card">
+  return `<article class="card cert-card" style="--pc:${providerColor(c.provider)};--i:${Math.min(i, 14)}">
     <div class="row">
-      ${catTile(c)}
+      ${badge(c, 58)}
       <div class="top-right">
         ${score ? ring(score.score, 40, '', `Match ${score.score} of 100`) : ''}
         <button type="button" class="btn icon-btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" aria-label="${inCompare ? 'Remove from compare' : 'Add to compare'}" title="${inCompare ? 'In compare' : full ? 'Compare holds four' : 'Add to compare'}" ${full ? 'disabled' : ''}>${icon(inCompare ? 'check' : 'plus')}</button>
@@ -316,8 +337,9 @@ function card(c, score) {
     </div>
     <div>
       <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
-      <div class="who">${esc(c.provider)} · ${esc(c.code)} ${flag(c)}</div>
+      <div class="who">${esc(c.provider)} · ${esc(c.code)}</div>
     </div>
+    <div class="tags">${catPill(c)}${flag(c)}</div>
     ${c.domains.length ? dbar(c) : ''}
     <div class="facts-inline">
       <span>${icon('badge-dollar-sign')}${esc(fee(c))}</span>
@@ -350,7 +372,7 @@ function renderCert(id) {
 
   const left = [
     c.domains.length
-      ? `<section class="card panel"><h2>${icon('layers')}Exam domains</h2>${dbar(c, true)}${legend(c)}${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>`
+      ? `<section class="card panel"><h2>${icon('layers')}Exam domains</h2><div class="donut-wrap">${donut(c.domains)}${legend(c)}</div>${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>`
       : '',
     mine
       ? `<section class="card panel"><h2>${icon('sliders-horizontal')}Why it fits you</h2><div class="for-you">${ring(mine.score, 76, 'lg', `Match ${mine.score} of 100`)}<ul class="why">${mine.reasons
@@ -387,10 +409,10 @@ function renderCert(id) {
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}All certifications</a>
-    <div class="card cert-hero">
-      ${catTile(c, 'lg')}
+    <div class="card cert-hero" style="--pc:${providerColor(c.provider)}">
+      <div class="hero-badge">${badge(c, 128)}</div>
       <div>
-        <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}${flag(c)}</p>
+        <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}${catPill(c)}${flag(c)}</p>
         <h1>${esc(c.name)}</h1>
         <p class="scope">${esc(c.scope)}</p>
         <div class="cert-actions">
@@ -430,7 +452,7 @@ function renderCompare() {
     <div class="cmp" style="--n:${certs.length}">${certs
       .map(
         (c) => `<article class="card cmp-col">
-          <div class="head">${catTile(c, 'sm')}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div></div>
+          <div class="head">${badge(c, 46, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div></div>
           ${row('badge-dollar-sign', 'Price', esc(fee(c)))}
           ${row('clock', 'Exam length', esc(duration(c)))}
           ${row('list-checks', 'Questions', esc(c.exam.questions || '—'))}
@@ -662,6 +684,17 @@ function renderPlan() {
   const kinds = [...new Set(p.sessions.map((s) => s.kind))];
   const mockDetail = p.sessions.find((s) => s.kind === 'mock')?.detail;
   const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
+  const byTopic = new Map();
+  for (const s of p.sessions) if (s.topic) byTopic.set(s.topic, (byTopic.get(s.topic) || 0) + s.minutes);
+  const topicRows = p.topics
+    .map((t, i) => ({ label: t, value: Math.round(((byTopic.get(t) || 0) / 60) * 10) / 10, color: `var(--d${(i % 8) + 1})` }))
+    .filter((r) => r.value > 0);
+  const weekRows = [...weeks].map(([w, items], i) => ({
+    label: `W${i + 1}`,
+    value: Math.round((items.reduce((t, s) => t + s.minutes, 0) / 60) * 10) / 10,
+    title: `Week ${i + 1} (${weekRange(w)}): ${Math.round((items.reduce((t, s) => t + s.minutes, 0) / 60) * 10) / 10} h`,
+    mark: items.some((s) => s.kind === 'mock'),
+  }));
   const summaryStat = (ic, label, value) => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${label}</small><b>${value}</b></div></div>`;
 
   out.innerHTML = `
@@ -682,6 +715,10 @@ function renderPlan() {
     ${p.inferredTopics ? '<p class="note">No official domains in the catalog for this one, so topics come from its summary. Swap in the issuer\'s objectives.</p>' : ''}
     <div class="months">${monthsHtml(p, done)}</div>
     <ul class="kinds">${kinds.map((k) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${KIND_LABEL[k]}</li>`).join('')}<li><span class="k exam">${icon('target')}</span>Exam</li></ul>
+    <div class="plan-charts">
+      <section class="card panel"><h2>${icon('chart-bar')}Time by topic</h2>${hbars(topicRows)}</section>
+      <section class="card panel"><h2>${icon('chart-column')}Hours per week</h2>${columns(weekRows)}<p class="hint">Highlighted weeks include a timed mock.</p></section>
+    </div>
     ${[...weeks]
       .map(([w, items], i) => `<h3 class="week">Week ${i + 1} <small>${weekRange(w)}</small></h3><ol class="trail">${items.map(stop).join('')}</ol>`)
       .join('')}
@@ -707,12 +744,31 @@ function renderPlan() {
       $(`#plan-output .mgrid [data-n="${n}"]`)?.classList.toggle('done', box.checked);
       $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', `${pct()}% done`);
       $('#progress-n').textContent = `${done.size} of ${p.sessions.length}`;
+      const kind = p.sessions.find((s) => s.n === n)?.kind;
+      if (box.checked && (done.size === p.sessions.length || kind === 'final' || kind === 'mock')) celebrate(done.size === p.sessions.length ? 220 : 90);
     }),
   );
   $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(p), 'text/calendar'));
   $('#dl-md').addEventListener('click', () => download(`${p.cert.id}-plan.md`, toMarkdown(p, { resources: cert.prep || [] }), 'text/markdown'));
   $('#print-plan').addEventListener('click', () => window.print());
   $('#copy-plan').addEventListener('click', (e) => copy(`${location.origin}${location.pathname}#plan?${new URLSearchParams(planParams())}`, e.currentTarget));
+}
+
+function celebrate(count) {
+  if (reducedMotion()) return;
+  const css = getComputedStyle(document.documentElement);
+  const colors = ['--accent', '--k-learn', '--k-practice', '--k-mock', '--d4'].map((v) => css.getPropertyValue(v).trim()).filter(Boolean);
+  confetti({ particleCount: count, spread: 75, startVelocity: 38, origin: { y: 0.75 }, colors, disableForReducedMotion: true });
+}
+
+function effectiveTheme() {
+  return document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+}
+
+function setThemeButton() {
+  const dark = effectiveTheme() === 'dark';
+  $('#theme use').setAttribute('href', dark ? '#i-sun' : '#i-moon');
+  $('#theme').setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
 }
 
 function download(name, text, type) {
@@ -739,8 +795,13 @@ async function copy(text, button) {
 // ---------- wiring ----------
 function bind() {
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-act], button[data-cat]');
+    const btn = e.target.closest('button[data-act], button[data-cat], button[data-prov]');
     if (!btn) return;
+    if (btn.dataset.prov !== undefined) {
+      activeProvider = activeProvider === btn.dataset.prov ? '' : btn.dataset.prov;
+      renderList();
+      return;
+    }
     if (btn.dataset.cat !== undefined) {
       activeCat = btn.dataset.cat;
       renderList();
@@ -798,6 +859,14 @@ function bind() {
     renderPlan();
   });
 
+  $('#theme').addEventListener('click', () => {
+    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    store.set(KEYS.theme, next);
+    setThemeButton();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setThemeButton);
+
   window.addEventListener('hashchange', route);
 }
 
@@ -837,9 +906,22 @@ async function init() {
   $('#data-note').textContent = `${all.length} certifications from ${providers} providers, ${Object.keys(DATA.sources).length} sources and ${Object.keys(DATA.reports).length} candidate reports, checked ${checked}. Every fact links to the issuer's own page.`;
   $('#foot-data').textContent = `Catalog ${fmt(DATA.generated_on)}`;
 
+  fuse = new Fuse(
+    all.map((c) => ({ id: c.id, name: c.name, code: c.code, provider: c.provider, category: c.category, skills: c.skills.map((s) => LABELS[s]).join(' '), scope: c.scope })),
+    {
+      keys: [{ name: 'name', weight: 3 }, { name: 'code', weight: 3 }, { name: 'provider', weight: 2 }, { name: 'skills', weight: 1.5 }, 'category', 'scope'],
+      threshold: 0.34,
+      ignoreLocation: true,
+    },
+  );
+  const featured = ['claude-architect-foundations', 'nvidia-nca-genl', 'aws-aif-c01', 'google-agentic-architect', 'lf-mcpa', 'databricks-genai-engineer', 'redhat-ex267', 'github-gh-600'].filter((id) => BY_ID.has(id));
+  $('#floaters').innerHTML = featured.map((id, i) => `<a href="#cert?id=${id}" class="floater f${i}" title="${esc(BY_ID.get(id).name)}">${badge(BY_ID.get(id), 76)}</a>`).join('');
+
   fillProfile();
   fillFilters();
   renderCats();
+  renderProviders();
+  setThemeButton();
   fillPlanForm();
   bind();
   $('#loading').remove();

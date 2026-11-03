@@ -27,12 +27,13 @@ await writeFile(join(dist, '.nojekyll'), '');
 
 // GitHub Pages caches files for 10 minutes. Version the script, module and
 // stylesheet URLs so a returning visitor never mixes old and new files.
-const assets = ['app.js', 'styles.css', ...(await readdir(join(dist, 'lib'))).map((f) => `lib/${f}`)];
+const assets = ['app.js', 'styles.css', 'visuals.js'];
+for (const dir of ['lib', 'vendor']) for (const f of await readdir(join(dist, dir))) if (f.endsWith('.js')) assets.push(`${dir}/${f}`);
 const hash = createHash('sha256');
 for (const f of assets.sort()) hash.update(await readFile(join(dist, f)));
 const v = hash.digest('hex').slice(0, 10);
 await rewrite('index.html', [[/(src|href)="(app\.js|styles\.css)"/g, `$1="$2?v=${v}"`]]);
-await rewrite('app.js', [[/from '(\.\/lib\/[\w-]+\.js)'/g, `from '$1?v=${v}'`]]);
+await rewrite('app.js', [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
 
 async function rewrite(file, rules) {
   let text = await readFile(join(dist, file), 'utf8');
