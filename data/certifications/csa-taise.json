@@ -1,0 +1,41 @@
+{
+  "id": "csa-taise",
+  "name": "Trusted AI Safety Expert",
+  "provider": "Cloud Security Alliance",
+  "code": "TAISE",
+  "type": "certificate",
+  "category": "AI security",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 795,
+    "basis": "Training + exam",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Exam-based certificate. Issuer lists 60 questions, 120 minutes, two attempts and an 80% raw passing requirement; no exam-only purchase."
+  },
+  "scope": "AI architecture, use cases, ethics, lifecycle threats, governance, security and data privacy.",
+  "requirements": "",
+  "ai_policy": "Recheck current resource and delivery rules.",
+  "caveats": [],
+  "skills": [
+    "governance",
+    "ai-security"
+  ],
+  "roles": [
+    "governance",
+    "security"
+  ],
+  "domains": [],
+  "sources": [
+    "Y07"
+  ],
+  "reports": [
+    "W04",
+    "W05"
+  ],
+  "checked_on": "2026-10-27"
+}

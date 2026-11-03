@@ -1,0 +1,723 @@
+[
+  {
+    "id": "R01",
+    "platform": "Reddit",
+    "title": "Two weeks, daily study, and explanations",
+    "url": "https://www.reddit.com/r/AWSCertifications/comments/1uqlc2w/passed_aws_certified_ai_practitioner_aifc01_heres/",
+    "kind": "candidate",
+    "summary": "Claims a pass after a course and practice exams. Emphasizes service/use-case understanding and reviewing distractor explanations.",
+    "background": "Prior experience not specified",
+    "effort": "2 weeks at 1–2 hours/day; extra final review; no exact total",
+    "limitations": "Self-reported outcome and effort; course use does not establish that the course caused the pass. Do not turn daily hours into an exact total. Names commercial courses; author affiliation not stated. Promotional replies are excluded.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aif-c01"
+    ]
+  },
+  {
+    "id": "R02",
+    "platform": "Reddit",
+    "title": "AI-guided concepts, about an hour daily",
+    "url": "https://www.reddit.com/r/AWSCertifications/comments/1wsahm6/passed_aws_certified_ai_practitioner_aifc01/",
+    "kind": "candidate",
+    "summary": "Used Claude to work through the official guide concept by concept, alongside course material, notes, and Skill Builder practice.",
+    "background": "Reports seven years of work experience but new to AWS and AI",
+    "effort": "Started 4 September; about 1 hour/day; passed near 27 September; exact total not stated",
+    "limitations": "Illustrates AI-assisted study, not a controlled comparison proving AI reduces preparation time. Do not describe this as a one-day route. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aif-c01"
+    ]
+  },
+  {
+    "id": "R03",
+    "platform": "Reddit",
+    "title": "Cloud Practitioner did not make AIF automatic",
+    "url": "https://www.reddit.com/r/AWSCertifications/comments/1p41lbn/is_it_normal_to_fail_a_aws_exam/",
+    "kind": "failure",
+    "summary": "Reports failing AIF-C01 after assuming the easier Cloud Practitioner experience would transfer. A useful counterexample to pass-only stories.",
+    "background": "Cloud Practitioner holder",
+    "effort": "Rushed preparation; hours not reported",
+    "limitations": "One self-report; the date displays disagree. Retain the learning point, not a claim about current exam difficulty or failure rates. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aif-c01"
+    ]
+  },
+  {
+    "id": "R04",
+    "platform": "Reddit",
+    "title": "AI beginner reports a longer NVIDIA route",
+    "url": "https://www.reddit.com/r/nvidia/comments/1pcsliw/sharing_experience_on_the_ncagenl_certificate/",
+    "kind": "candidate",
+    "summary": "Claims a first-attempt pass. Found hands-on courses useful but emphasized wider reading and learning NVIDIA software roles.",
+    "background": "New to AI and LLMs",
+    "effort": "About 1.5 months; study hours not stated",
+    "limitations": "Predates the October 2026 preparation-reference update. Old course prices/availability and commenter mock endorsements are not current facts. OP has no verified affiliation; vendor-like and question-overlap comments were excluded.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "nvidia-nca-genl"
+    ]
+  },
+  {
+    "id": "R05",
+    "platform": "Reddit",
+    "title": "Associate pass through an employer",
+    "url": "https://www.reddit.com/r/claudeskills/comments/1xe28wz/officially_claude_certified_claude_certified/",
+    "kind": "candidate",
+    "summary": "Claims an Associate pass through an organization. Describes scenario-focused study; another commenter reports a weekend, which is separate evidence.",
+    "background": "Employer-arranged access; detailed baseline not stated",
+    "effort": "OP gives no preparation duration",
+    "limitations": "Do not assign the commenter’s weekend to the OP or generalize a pass percentage. Access anecdotes do not replace the official partner policy. Practice-site and sponsorship promotions in replies are excluded.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-associate-foundations"
+    ]
+  },
+  {
+    "id": "R06",
+    "platform": "Reddit",
+    "title": "Associate from a management-consulting perspective",
+    "url": "https://www.reddit.com/r/claudeskills/comments/1wpwv8r/just_gave_the_claude_associate_level/",
+    "kind": "candidate",
+    "summary": "Found it manageable with regular product use, official quizzes, and gap review. Considered the added value limited for an already-familiar user.",
+    "background": "Management consultant using Claude for research and presentations",
+    "effort": "No unambiguous study-hour total",
+    "limitations": "An ambiguous one-hour remark is not treated as preparation time. Career-value comments are personal opinions, not employment evidence. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-associate-foundations"
+    ]
+  },
+  {
+    "id": "R07",
+    "platform": "Reddit",
+    "title": "Experienced Developer candidate reports minimal review",
+    "url": "https://www.reddit.com/r/ClaudeAI/comments/1vzp37x/passed_the_claude_certified_developer_foundations/",
+    "kind": "candidate",
+    "summary": "Frames Developer as implementation-oriented, with API failure handling, model tradeoffs, tools, and output validation central to preparation.",
+    "background": "About four years architecting AI systems; regular Claude work",
+    "effort": "OP reply: 1–2 hours of exam-specific review",
+    "limitations": "The very short review excludes years of prior practice. Same author as R12; those are not independent candidates. Claims about live topic frequency are not blueprint facts. Author discloses AI editing; unrelated prep-product promotions in replies are excluded.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-developer-foundations"
+    ]
+  },
+  {
+    "id": "R08",
+    "platform": "Reddit",
+    "title": "Early Architect experience: production judgment",
+    "url": "https://www.reddit.com/r/ClaudeAI/comments/1sgn0cf/passed_anthropics_claude_certified_architect/",
+    "kind": "historical",
+    "summary": "Emphasizes architectural reasoning and explaining why plausible alternatives fail, rather than memorizing feature definitions.",
+    "background": "Reports production agent-system work and roughly a year of experience",
+    "effort": "No trustworthy total prep hours",
+    "limitations": "Historical platform, mock, fee, validity, result-delay, and retake details are superseded. Auto-generated thread summaries and promotional replies are excluded. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-foundations"
+    ]
+  },
+  {
+    "id": "R09",
+    "platform": "Reddit",
+    "title": "Second-attempt pass after focused repair",
+    "url": "https://www.reddit.com/r/ClaudeAI/comments/1w04zq6/passed_ccaf_on_my_second_attempt_sharing_what/",
+    "kind": "failure",
+    "summary": "Claims an initial 696 and later 809. Shifted from collecting resources to weak-domain practice and defending decisions against distractors.",
+    "background": "Detailed prior background not specified",
+    "effort": "About one month before first attempt; total hours and retake effort not stated",
+    "limitations": "Self-report, not verified score evidence. A later percentage breakdown sums above 100%, so no time allocation is inferred from it. Author discloses AI editing; named third-party banks were not audited.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-foundations"
+    ]
+  },
+  {
+    "id": "R10",
+    "platform": "Reddit",
+    "title": "Two weeks can still mean sixty hours",
+    "url": "https://www.reddit.com/r/ClaudeAI/comments/1u43exm/passed_the_claude_certified_architect_foundations/",
+    "kind": "candidate",
+    "summary": "Reports a pass after intensive scenario practice and method changes. Shows why a two-week headline cannot establish a low study-hour requirement.",
+    "background": "Quant/data/product background with a CS master’s; heavy Claude use, less systematic engineering practice",
+    "effort": "Approximately 60 hours over two weeks",
+    "limitations": "Promotes the author’s own study wiki; related Medium write-up is the same account, not independent confirmation. Older official-mock availability is not assumed current. Own study-wiki promotion and third-party bank mentions; no resource efficacy verification.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-foundations"
+    ]
+  },
+  {
+    "id": "R11",
+    "platform": "Reddit",
+    "title": "Professional felt less technically deep to a security architect",
+    "url": "https://www.reddit.com/r/Anthropic/comments/1ve5liq/passed_the_claude_certified_architect_professional/",
+    "kind": "candidate",
+    "summary": "Reports a pass and found Professional more oriented toward scoping, tradeoffs, and customer expectations than Foundations.",
+    "background": "Security/cloud/data/ML experience; reports twelve years in security",
+    "effort": "Total preparation time not stated",
+    "limitations": "Subjective difficulty from an experienced practitioner; it does not establish that Professional is easier for beginners or predict hiring outcomes. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-professional"
+    ]
+  },
+  {
+    "id": "R12",
+    "platform": "Reddit",
+    "title": "Professional versus Foundations: an experienced candidate’s view",
+    "url": "https://www.reddit.com/r/ClaudeAI/comments/1vrl9ng/passed_the_claude_certified_architect/",
+    "kind": "candidate",
+    "summary": "Found Professional easier than Foundations personally and emphasizes governance, security, decomposition, and tradeoff reasoning.",
+    "background": "Four to five years of AI systems work; daily production Claude use",
+    "effort": "No reliable total stated",
+    "limitations": "Same author as R07. No population difficulty estimate follows. The author criticizes unchecked AI-generated banks; thread bots and promotions are not independent evidence. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-professional"
+    ]
+  },
+  {
+    "id": "R13",
+    "platform": "Reddit",
+    "title": "One-day preparation claim: an outlier",
+    "url": "https://www.reddit.com/r/AWSCertifications/comments/1wujrme/passed_aws_certified_ai_practitioner_aifc01_in/",
+    "kind": "candidate",
+    "summary": "Claims a last-minute pass after accelerated course viewing and practice. Retained to show the optimistic tail of public reports.",
+    "background": "First AWS certification; earlier skill baseline not described",
+    "effort": "Almost one day; focused hours not reported",
+    "limitations": "Sparse background and no precise effort. It is not a safe schedule or evidence that a new learner can reliably pass in one day. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aif-c01"
+    ]
+  },
+  {
+    "id": "E01",
+    "platform": "Blog",
+    "title": "WellWells: terminology and software-role notes",
+    "url": "https://wellstsai.com/en/post/nvidia-nca-genl-exam-study-guide/",
+    "kind": "candidate",
+    "summary": "Personal pass narrative with revision notes.",
+    "background": "Detailed prior baseline not supplied",
+    "effort": "No preparation-hour total; twenty minutes refers to taking the exam",
+    "limitations": "Historical voucher and speed are not current offers or preparation-time evidence. Technical notes still need primary-source checking. Personal site; sponsorship link present; no affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "nvidia-nca-genl"
+    ]
+  },
+  {
+    "id": "E02",
+    "platform": "Blog",
+    "title": "Faye.ai: scarce multimodal-specific material",
+    "url": "https://xxiwosxx.tistory.com/177",
+    "kind": "candidate",
+    "summary": "Korean-language pass account; used AI to consolidate concepts and emphasized NVIDIA software.",
+    "background": "Working postgraduate learner; exact ML baseline unclear",
+    "effort": "Not stated",
+    "limitations": "Older report. Referenced question-video provenance is unverified and is not recommended here. No timing estimate follows. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "nvidia-nca-genm"
+    ]
+  },
+  {
+    "id": "E03",
+    "platform": "Blog",
+    "title": "Udacity: a practitioner’s six-week account",
+    "url": "https://www.udacity.com/blog/the-claude-certified-architect-exam-explained-by-someone-who-passed-it/",
+    "kind": "commercial",
+    "summary": "Describes scenario judgment and limitations of generated practice.",
+    "background": "CS/AI background and curriculum-development role",
+    "effort": "About six weeks; no focused-hour total",
+    "limitations": "Historical six-month validity/result-delay details are stale. Not evidence of current policy or course efficacy. Author develops curriculum for Udacity/Accenture; article markets a Nanodegree",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-foundations"
+    ]
+  },
+  {
+    "id": "E04",
+    "platform": "Blog",
+    "title": "Red Airship: an eight-person team account",
+    "url": "https://www.redairship.com/insights/cca-f-exam-guide",
+    "kind": "commercial",
+    "summary": "Employer reports eight passes and recommends practical work.",
+    "background": "Team of working engineers; individual baselines not detailed",
+    "effort": "States 20–30 hours, but its weekly arithmetic implies 10–18 hours",
+    "limitations": "Internal timing inconsistency; 24-hour rescheduling claim conflicts with provider’s 48-hour policy. Not a general pass rate. Services-marketing article and contact invitation",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-foundations"
+    ]
+  },
+  {
+    "id": "E05",
+    "platform": "Blog",
+    "title": "Infrastructure engineer’s six-week AWS account",
+    "url": "https://medium.com/@moinghori.it/how-i-passed-the-aws-certified-ai-practitioner-exam-a-fun-and-insightful-journey-c1ece9063019",
+    "kind": "candidate",
+    "summary": "Balances service exploration with conceptual study.",
+    "background": "Infrastructure/cloud engineer; not a data scientist",
+    "effort": "About six weeks; 1–2 hours weekdays and 3–4 hours weekends",
+    "limitations": "Older self-report; no exact hour total or current-format validation. Exploratory cloud usage can add separate costs. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aif-c01"
+    ]
+  },
+  {
+    "id": "E06",
+    "platform": "Blog",
+    "title": "Roman Gorge: daily experience still left gaps",
+    "url": "https://romangorge.com/claude-certified-architect-exam-analysis/",
+    "kind": "candidate",
+    "summary": "Reports a pass with stronger orchestration skills but weaker hooks/enforcement knowledge.",
+    "background": "Uses Claude in operational workflows",
+    "effort": "Not stated",
+    "limitations": "Useful self-assessment, not a timing study. Sweeping statements about preparation are opinions. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-architect-foundations"
+    ]
+  },
+  {
+    "id": "E07",
+    "platform": "Blog",
+    "title": "freeCodeCamp / Andrew Brown: AWS course",
+    "url": "https://www.freecodecamp.org/news/prepare-to-pass-the-aws-certified-ai-practitioner-certification",
+    "kind": "resource",
+    "summary": "Publisher offers a free video-learning route.",
+    "background": "Not a candidate report",
+    "effort": "Course runtime is not preparation effort",
+    "limitations": "Older content; select gap-relevant chapters and check the current AWS guide. No pass guarantee or full audit. Free publication; instructor is associated with ExamPro",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aif-c01"
+    ]
+  },
+  {
+    "id": "E08",
+    "platform": "Blog",
+    "title": "freeCodeCamp / Andrew Brown: Claude course",
+    "url": "https://www.freecodecamp.org/news/claude-certified-architect-foundations-prep-for-anthropic-s-new-certification-exam",
+    "kind": "resource",
+    "summary": "Hands-on video resource covering agent and API-related workflows.",
+    "background": "Not a candidate report",
+    "effort": "Publisher describes a 13-hour watch",
+    "limitations": "Watching is not mastery; examples can age. Publisher availability checked, not every exercise. Free video publication; instructor affiliation disclosed",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "claude-developer-foundations",
+      "claude-architect-foundations"
+    ]
+  },
+  {
+    "id": "E09",
+    "platform": "Blog",
+    "title": "Tutorials Dojo: optional paid practice catalog",
+    "url": "https://portal.tutorialsdojo.com/product-category/aws/aws-certified-ai-practitioner/",
+    "kind": "resource",
+    "summary": "Publisher lists practice exams, course, and study guide.",
+    "background": "Not a candidate report",
+    "effort": "Not applicable",
+    "limitations": "Catalog verified, not paid content or causal effectiveness. Check current price and guide alignment. Commercial publisher selling its own preparation products",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aif-c01"
+    ]
+  },
+  {
+    "id": "E10",
+    "platform": "LinkedIn",
+    "title": "Adrian Nickmehr: AI-assisted gap analysis",
+    "url": "https://www.linkedin.com/posts/nickmehr_nvidia-agenticai-aiengineering-activity-7511671256094560256-2TlG",
+    "kind": "candidate",
+    "summary": "Claims a first-attempt pass after AI-guided diagnosis, targeted sources, and exercises.",
+    "background": "Years building AI features and agent applications",
+    "effort": "A few weeks; hours not stated",
+    "limitations": "One experienced candidate’s self-report. No proof AI caused the result or a general preparation duration. No author affiliation verified",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "nvidia-ncp-aai"
+    ]
+  },
+  {
+    "id": "X20",
+    "platform": "Reddit",
+    "title": "Reddit · LangChain exam logistics and platform preparation",
+    "url": "https://www.reddit.com/r/LangChain/comments/1xbdzv2/langchain_certified_agent_engineer/",
+    "kind": "candidate",
+    "summary": "Read 27 Oct 2026. Self-report of result delay later resolved, remote-environment problems and LangSmith preparation. No total prep hours. Relative age and search dates differ; exact date unestablished. No protected item details retained.",
+    "background": "See source note; no common baseline inferred.",
+    "effort": "No total hours used for this comparison.",
+    "limitations": "Self-selected account/discussion; not independent credential verification or a preparation-time average.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "langchain-lcae"
+    ]
+  },
+  {
+    "id": "X21",
+    "platform": "Reddit",
+    "title": "Reddit · critical LangChain value discussion",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1vucmn3/is_langchain_certified_agent_engineer/",
+    "kind": "discussion",
+    "summary": "Read 27 Oct 2026. Candidate comments criticize LangSmith emphasis and question polish. Not controlled employer/hiring evidence or a provider-wide defect rate. Promotional/discount comments do not establish current policy.",
+    "background": "See source note; no common baseline inferred.",
+    "effort": "No total hours used for this comparison.",
+    "limitations": "Self-selected account/discussion; not independent credential verification or a preparation-time average.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "langchain-lcae"
+    ]
+  },
+  {
+    "id": "X22",
+    "platform": "Reddit",
+    "title": "Reddit · AI-103 pass by Microsoft Certified Trainer",
+    "url": "https://www.reddit.com/r/AzureCertification/comments/1wm3yrv/passed_ai103/",
+    "kind": "candidate",
+    "summary": "Read 27 Oct 2026. OP recommends repeated labs and actual product use; says a few weeks but cannot give hours and is a Microsoft Certified Trainer. No inference that a new Azure learner can match that calendar.",
+    "background": "See source note; no common baseline inferred.",
+    "effort": "No total hours used for this comparison.",
+    "limitations": "Self-selected account/discussion; not independent credential verification or a preparation-time average.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "microsoft-ai-103"
+    ]
+  },
+  {
+    "id": "X23",
+    "platform": "Reddit",
+    "title": "Reddit · AIP-C01 failed attempt despite commercial mock scores",
+    "url": "https://www.reddit.com/r/AWSCertifications/comments/1v1dgwc/i_failed_my_aipc01_generative_ai_developer/",
+    "kind": "failure",
+    "summary": "Read 27 Oct 2026. OP reports failure despite strong practice marks; no total preparation time used. Retain the counterexample, not course-quality claims, promotions or recalled protected items. One thread does not establish mock calibration or failure rates.",
+    "background": "See source note; no common baseline inferred.",
+    "effort": "No total hours used for this comparison.",
+    "limitations": "Self-selected account/discussion; not independent credential verification or a preparation-time average.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "aws-aip-c01"
+    ]
+  },
+  {
+    "id": "V01",
+    "platform": "Reddit",
+    "title": "GH-600 failed-attempt report after completing Microsoft Learn",
+    "url": "https://www.reddit.com/r/GithubCopilot/comments/1va2is6/failed_gh600_twice_looking_for_study_resources/",
+    "kind": "failure",
+    "summary": "The author reports two unsuccessful attempts and says the actual assessment required more application reasoning than expected after the official modules. This is a counterexample to treating completion of the learning path as sufficient readiness.",
+    "background": "Professional role, years of experience and prior GitHub certifications are not stated. Do not assume a beginner baseline.",
+    "effort": "Official Microsoft Learn modules completed; no preparation hours or reliable preparation calendar supplied. Failed-attempt count is self-reported, not a provider result record.",
+    "limitations": "Indexed thread text dates the original post 29 July 2026; the directly opened rendering shows a relative age. Full public post and relevant discussion were readable. No later outcome was verified, and this one account cannot estimate exam failure rates or course effectiveness. Bots and requests for recalled exam content were not retained.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "github-gh-600"
+    ]
+  },
+  {
+    "id": "V02",
+    "platform": "Blog",
+    "title": "GH-600 reflections from an agent builder sharing free labs",
+    "url": "https://sameeraman.github.io/blog/2026/08/09/gh600-exam-reflections/",
+    "kind": "candidate",
+    "summary": "A self-described successful candidate emphasizes building labs and reasoning about workflows, permissions, logs and implementation decisions. The useful preparation lesson is to practice actual engineering tasks rather than only reading definitions.",
+    "background": "Author reports professional and personal agent-system work, previous Copilot study and advanced-security knowledge. Also publishes the labs being recommended.",
+    "effort": "Course reading and self-built labs are described, but no total preparation hours are given. The interval between taking the exam and publishing is not study time.",
+    "limitations": "Article explicitly dated 9 August 2026 and publicly readable. Its 140-minute attempt description differs from the current issuer's 120-minute listing; appointment/form details are unverified. Its suggested prior-exam sequence is personal advice, not a verified mandatory prerequisite. The author promotes their own free labs, and their result was not independently verified. The author's separate LinkedIn announcement is not an additional independent candidate.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "github-gh-600"
+    ]
+  },
+  {
+    "id": "V03",
+    "platform": "LinkedIn",
+    "title": "GH-600 candidate emphasizes CI configuration and agent orchestration",
+    "url": "https://www.linkedin.com/posts/andycutler_copilot-activity-7501528689537359872-I9Ou",
+    "kind": "candidate",
+    "summary": "The author reports passing and highlights configuration of the software-delivery process and multi-agent orchestration. This supports investigating how agents operate within a development system rather than reducing the credential to prompting or code completion.",
+    "background": "Author describes having taken GH-600 and GH-300 and maintains a learning site. Professional role and years of experience were not established from this post.",
+    "effort": "No preparation hours or study calendar reported. Passing the previous evening is a result-timing statement, not preparation duration.",
+    "limitations": "Public post body and comments were directly readable. The page shows a relative age and an edited label; no exact publication date was established. The author promotes their own objective-to-course mapping. Their preference for GH-600 over GH-300 is personal opinion, not evidence of hiring value, comparative difficulty, or exam equivalence.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "github-gh-600"
+    ]
+  },
+  {
+    "id": "V04",
+    "platform": "LinkedIn",
+    "title": "Experienced candidate warns against copying a no-preparation exam marathon",
+    "url": "https://www.linkedin.com/posts/hosseinzahed_i-took-5-microsoft-exams-in-a-single-day-activity-7486735409419464704-9_MQ",
+    "kind": "candidate",
+    "summary": "The author reports passing GH-600 among several assessments without dedicated advance preparation, while explicitly recommending that other learners prepare properly and complete hands-on exercises. This illustrates how short exam-specific review can exclude a substantial existing knowledge base.",
+    "background": "Author claims existing Azure/GitHub knowledge and intentionally used the assessments to test that baseline. Role, years and all claimed outcomes were not independently checked.",
+    "effort": "No dedicated advance preparation reported. The long single-day exam session concerns assessment seat time, not a transferable preparation budget. Prior learning and professional practice are unquantified.",
+    "limitations": "The public post body was directly readable; it shows a relative month age and an edited label, not an exact date. This is an exceptional self-selected account and the author advises against copying the approach. It supplies no causal evidence that preparation is unnecessary and no per-exam readiness or hiring estimate.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "github-gh-600"
+    ]
+  },
+  {
+    "id": "V05",
+    "platform": "LinkedIn",
+    "title": "MCPA beta contributor describes protocol research; result unconfirmed",
+    "url": "https://uk.linkedin.com/in/nicolasvibert",
+    "kind": "candidate",
+    "summary": "A public indexed post describes contributing to and taking the MCPA beta after practical MCP networking/security lab work and study of protocol primitives. The author specifically says the result was not yet known and identifies response/error handling as an area needing more preparation.",
+    "background": "Experienced Kubernetes/networking educator and MCPA beta contributor. Reports building a practical MCP lab and researching protocol architecture; this is not a novice or independent exam-review baseline.",
+    "effort": "A period of summer MCP exploration is described without total study hours. The two-hour beta sitting mentioned by the author is assessment duration, not preparation time. No pass is asserted here.",
+    "limitations": "Limited access: the relevant post was readable in indexed public-profile excerpts; direct profile open returned LinkedIn 999 and a stable direct-post permalink was not retrieved. Relative ages are inconsistent across snapshots, so no exact publication date is inferred. A contributor badge is not a passing certification badge. Beta experience may differ from the live exam, and the contributor relationship limits independence.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "lf-mcpa"
+    ]
+  },
+  {
+    "id": "V06",
+    "platform": "Issuer",
+    "title": "MCPA live listing and conflicting launch-duration metadata",
+    "url": "https://training.linuxfoundation.org/certification/model-context-protocol-associate-mcpa/",
+    "kind": "resource",
+    "summary": "The current product listing describes protocol internals and implementation/security reasoning and lists a 90-minute proctored multiple-choice exam. It is a scope/logistics reference, not a candidate review or evidence of study time.",
+    "background": "Linux Foundation Education issuer page; no candidate experience or learner outcome is described.",
+    "effort": "No personal preparation duration established. The listed 90 minutes concerns the live assessment only.",
+    "limitations": "Current page directly read on 27 October 2026. The issuer's launch release dated 14 September 2026 says 120 minutes: https://www.linuxfoundation.org/press/agentic-ai-foundation-launches-mcpa-certification-to-validate-mcp-expertise . The sources therefore conflict. Keep the live 90-minute value labeled as current-listing metadata and recheck appointment terms. Do not resolve the discrepancy solely from a beta candidate's recollection or use either duration as a prep-hours estimate.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "lf-mcpa"
+    ]
+  },
+  {
+    "id": "V07",
+    "platform": "Issuer",
+    "title": "GH-600 current issuer scope and assessment listing",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/",
+    "kind": "resource",
+    "summary": "The current listing specifies a 120-minute proctored assessment and role scope spanning agent architecture, tool interaction, memory/state, evaluation, coordination and guardrails. This is the primary reference for interpreting older candidate reports.",
+    "background": "GitHub-maintained certification presented through Microsoft Learn; not a candidate account.",
+    "effort": "No total preparation time is promised. Assessment duration and learning-path viewing time are distinct from time to build fluency.",
+    "limitations": "Public listing directly read on 27 October 2026. It describes expected experience, not a mandatory GH-300 credential sequence. Region-specific pricing and appointment terms were not checked. Generic congratulations/credential UI does not establish that any source author has earned this certification.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "github-gh-600"
+    ]
+  },
+  {
+    "id": "W01",
+    "platform": "Blog",
+    "title": "How I Became a PAPA (Practical AI Pentest Associate) by TCM",
+    "url": "https://medium.com/@7s26simon/how-i-became-a-papa-practical-ai-pentest-associate-by-tcm-b7a109da8e97",
+    "kind": "candidate",
+    "summary": "The February 22, 2026 review reports a pass and values the progression from AI fundamentals to applied practice. The candidate recommends completing the foundational material first and practicing locally. Their main reservation is the hardware burden of local labs; this is one learner's experience, not a universal GPU requirement.",
+    "background": "Self-described continuing security learner whose public author bio lists prior offensive-security certifications, including OSCP. This is not a beginner-to-security baseline.",
+    "effort": "Purchased in late December 2025 and passed in early 2026; the pass date is imprecise. No focused preparation hours are reported. Assessment/report windows and the article's reading time are not study time.",
+    "limitations": "The author explicitly says the review was not sponsored, endorsed or compensated by TCM or an affiliate. It remains an unverified self-report from the early PAPA period; current lab delivery and hardware guidance require issuer confirmation.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "tcm-papa"
+    ]
+  },
+  {
+    "id": "W02",
+    "platform": "Blog",
+    "title": "[速報] 俺氏 OTCA に合格 — OTCA pass report",
+    "url": "https://zenn.dev/ntk221/articles/1d989765a06f32",
+    "kind": "candidate",
+    "summary": "The August 31, 2026 pass report describes using a commercial practice course, asking Claude to explain mistakes, and generating additional practice focused on weak areas. The author reports greater comfort reading OpenTelemetry material afterward. This is evidence of an AI-assisted study method, not proof that AI shortened preparation.",
+    "background": "Nearly three years of engineering, including Go/React and a Kubernetes-hosted product; approximately three months in an infrastructure role. Prior observability and OpenTelemetry reading, with limited practical OTel exposure.",
+    "effort": "No total study hours or preparation calendar are stated. Completing practice material is an activity description, not a time estimate.",
+    "limitations": "Original Japanese text was checked alongside the site's machine-translated English version. The post links a paid Udemy product; no sponsorship or issuer affiliation is disclosed. Self-reported pass, without independent verification. Assessment-specific recollections are excluded.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "lf-otca"
+    ]
+  },
+  {
+    "id": "W03",
+    "platform": "LinkedIn",
+    "title": "OTCA: first-attempt failure followed by a second-attempt pass",
+    "url": "https://www.linkedin.com/posts/ashok-m-%E0%AE%85%E0%AE%9A%E0%AF%8B%E0%AE%95%E0%AF%8D-%E0%AE%AE%E0%AF%82-bb5229154_otca-activity-7372157648672256000-uUtT",
+    "kind": "failure",
+    "summary": "A public candidate post reports failing first and passing on a second attempt after deeper conceptual review and guidance. The author found preparation difficult because the introductory course felt basic while the documentation was extensive, and supplemented with videos.",
+    "background": "Pursuing Golden Kubestronaut; the post does not establish years of work or prior OpenTelemetry proficiency.",
+    "effort": "No preparation hours, calendar duration, or interval between attempts is given.",
+    "limitations": "Public post only; no private profile or certificate inspected. Relative post age is not a reliable exact publication date. No commercial or issuer affiliation is disclosed in the post; that does not establish independence. Self-reported outcomes and subjective resource criticism do not establish a failure rate.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "lf-otca"
+    ]
+  },
+  {
+    "id": "W04",
+    "platform": "Blog",
+    "title": "TAISE (Trusted AI Safety Expert) Certification Review",
+    "url": "https://ethantroy.dev/guides/reviews/taise/",
+    "kind": "candidate",
+    "summary": "Updated February 16, 2026, this review reports a January pass and calls the material foundational. It values organized governance and risk vocabulary, while criticizing technical depth and value for a self-paying learner. Those are the author's judgments; current pricing and exam rules must come from CSA.",
+    "background": "The site identifies the author as a security writer. The review does not quantify prior AI/governance proficiency, so its beginner difficulty label cannot be transferred directly to another learner.",
+    "effort": "Explicit self-report of 5–10 study hours. No detailed time log or clear inclusion/exclusion of all training activities is supplied. This is one candidate's report, not a recommended preparation range.",
+    "limitations": "No issuer sponsorship is disclosed in this review. The site's AI policy says it uses AI in research, drafting and editing with human review: https://ethantroy.dev/ai-policy/. Results and effort remain unverified; do not treat its maintenance/format claims as current issuer facts.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "csa-taise"
+    ]
+  },
+  {
+    "id": "W05",
+    "platform": "LinkedIn",
+    "title": "TAISE pass announcement describing a challenging assessment",
+    "url": "https://www.linkedin.com/posts/windleriles_trusted-ai-safety-expert-taise-certificate-activity-7434242489273761792-F_Ux",
+    "kind": "candidate",
+    "summary": "This public pass announcement describes the assessment as very challenging, contrasting with the beginner judgment in W04. It is useful evidence that perceived difficulty varies; neither post establishes the typical difficulty or that the exam changed.",
+    "background": "The candidate mentions an AI audit credential as a future goal. The post gives no quantified work experience or AI baseline.",
+    "effort": "No study hours or calendar duration are reported.",
+    "limitations": "Short celebratory self-report, not a detailed review. The post inconsistently expands the credential name, so use CSA's official title. No issuer/commercial relationship is disclosed. Only public text was inspected; its linked credential and image were not used to authenticate identity or retain candidate identifiers. Exact post date is unresolved.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "csa-taise"
+    ]
+  },
+  {
+    "id": "W06",
+    "platform": "Reddit",
+    "title": "Anyone taken SANS SEC545 or sat the GAIPS cert? Looking for honest reviews",
+    "url": "https://www.reddit.com/r/GIAC/comments/1uglu33/anyone_taken_sans_sec545_genai_llm_app_security/",
+    "kind": "discussion",
+    "summary": "Mixed accounts: one early-course attendee found the material interesting but disorganized and more theory/tool focused than expected. A different commenter later reported passing, called it harder than their other SANS exams, and described time pressure. Keep those authors and outcomes separate.",
+    "background": "The later pass commenter reports prior SANS certifications. The early attendee's AI baseline is not specified. The original poster is requesting reviews, not reporting a pass.",
+    "effort": "No usable focused preparation-hour total is supplied by these candidates. Course attendance, studying updates and later result comments do not establish uninterrupted study duration.",
+    "limitations": "Anonymous, self-selected and unauthenticated comments; no commercial relationship disclosed. Some comments describe early course/exam versions. A cross-post and repeated comment elsewhere are not additional independent candidates. Relative ages do not establish exact dates; no recalled assessment details are retained.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "giac-gaips"
+    ]
+  },
+  {
+    "id": "W07",
+    "platform": "Blog",
+    "title": "OSAI: testing AI and learning to work with it",
+    "url": "https://deus-exmachina.io/posts/osai-review/",
+    "kind": "candidate",
+    "summary": "The October 4, 2026 review reports a pass and useful learning about AI systems and testing workflow. It praises the material but criticizes unreliable labs, contrived scenarios, and videos that add little to the written content. It recommends strong existing offensive-security foundations.",
+    "background": "Over ten years in offensive security and over a year using agentic coding tools before enrolling. This is an experienced practitioner's baseline.",
+    "effort": "Approximately four calendar months after enrollment. For roughly two months: 1–2 hours after work on weekdays; final month: 3–6 hours on weekdays. The author explicitly includes personal projects/tool development and warns against treating these hours as course duration. No total is calculated.",
+    "limitations": "One self-reported pass, not an expected timeline. No commercial or issuer affiliation is disclosed on this review page. It is explicitly spoiler-free. Lab complaints may describe an earlier course state and do not establish the frequency of issues for other learners.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "offsec-osai"
+    ]
+  },
+  {
+    "id": "W08",
+    "platform": "Blog",
+    "title": "OSAI Review — a failed attempt and critical value assessment",
+    "url": "https://injection.sh/injection-blog/OSAI-Review/",
+    "kind": "failure",
+    "summary": "The author reports failing while still praising the quality and relevance of the course. Their principal criticism is buggy labs and the cost/time tradeoff for an already experienced practitioner. This provides a counterweight to pass announcements; it does not establish that OSAI is poor value for everyone.",
+    "background": "Self-reported decade in the field, prior OSCP, current red-team work, and paid offensive-security educational content creation. Training was employer-funded; no employer name or operational information is retained.",
+    "effort": "Describes a 90-day course-access period and competing commitments; no focused study-hour total. A stated later wait to sit the assessment is scheduling time, not preparation time.",
+    "limitations": "Single unverified failure with a strongly opinionated assessment of value. Exact publication date was not established. No issuer sponsorship is disclosed. The linked article contains detailed assessment recollections; only the general outcome, learning experience and effort limits are retained here, not its exam narrative or instructions.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "offsec-osai"
+    ]
+  },
+  {
+    "id": "U01",
+    "platform": "YouTube",
+    "title": "Microsoft Reactor: GH-600 technical roadmap",
+    "url": "https://www.youtube.com/live/bgj20o0kYKg",
+    "kind": "resource",
+    "summary": "Microsoft's event page links this session as a technical roadmap for GitHub Agentic AI Developer preparation.",
+    "background": "Issuer-hosted educational session, not an independent candidate outcome.",
+    "effort": "Video runtime and total preparation effort were not established.",
+    "limitations": "The official event description and its View Now link were inspected; the YouTube body returned a cache miss. Full video content and exam coverage were not audited. Source event: https://www.microsoft.com/en-us/thesource-developer/Event/548/the-agentic-ai-developer-deep-dive-into-the-github-gh-600-certification",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "github-gh-600"
+    ]
+  },
+  {
+    "id": "U02",
+    "platform": "YouTube",
+    "title": "Microsoft Learn: preparing for AI-103",
+    "url": "https://www.youtube.com/watch?v=BEUoruZBHgc",
+    "kind": "resource",
+    "summary": "Provider exam-preparation session linked by Microsoft Learn's public event discussion; introduces the apps-and-agents exam and preparation resources.",
+    "background": "Microsoft learning resource; not a personal pass report.",
+    "effort": "Session duration is not total exam preparation time.",
+    "limitations": "Indexed video metadata and the provider's public LinkedIn reference were read. The video was not watched in full and direct fetch returned a cache miss. Old event voucher comments do not establish an active offer. Reference: https://www.linkedin.com/posts/microsoftlearn_ai-skills-are-moving-fast-and-certifications-activity-7464334637306335232-aHUV",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "microsoft-ai-103"
+    ]
+  },
+  {
+    "id": "U03",
+    "platform": "LinkedIn",
+    "title": "AI-103 failure after incomplete hands-on preparation",
+    "url": "https://www.linkedin.com/posts/cloudwithsunil_aiskillfest-ai103-microsoftazure-activity-7495689008707117056-B6pE",
+    "kind": "failure",
+    "summary": "A public candidate account describes an unsuccessful attempt after starting late and not completing most labs. The author identifies non-agent Azure AI services as weaker areas and recommends product practice.",
+    "background": "Cloud/Microsoft-oriented public author; exact practical baseline and independently verified result not established.",
+    "effort": "No total study hours given; calendar labels in the indexed post are relative and not converted to an exact date.",
+    "limitations": "Public indexed post body and resource comment read; no credential/result independently checked. Specific recalled exam content was excluded. Do not infer pass rates, required question counts, or a commercial-course effect from the account.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "microsoft-ai-103"
+    ]
+  },
+  {
+    "id": "Z01",
+    "platform": "Community",
+    "title": "Databricks Community: Context Engineer pass and learning takeaways",
+    "url": "https://community.databricks.com/t5/certifications/just-cleared-the-databricks-certified-context-engineer-associate/td-p/167687",
+    "kind": "candidate",
+    "summary": "The author reports passing and describes learning about retrieval, memory, tools, governance and evaluation. The useful takeaway is the relationship between context management and dependable agents, rather than prompting alone.",
+    "background": "No quantified prior experience or Databricks baseline in the original post.",
+    "effort": "No preparation hours or study calendar supplied.",
+    "limitations": "Original public post directly read; forum timestamp displayed 09-06-2026, with date convention not resolved. Short self-reported outcome, not independent result verification or a detailed review. A later comment endorsing commercial exam material was excluded. No issuer affiliation established.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "databricks-context-engineer"
+    ]
+  },
+  {
+    "id": "Z02",
+    "platform": "Reddit",
+    "title": "Context Engineer beta discussion: interest and skepticism",
+    "url": "https://www.reddit.com/r/databricks/comments/1toghcg/context_engineer_associate_beta_exam_free_attempt/",
+    "kind": "discussion",
+    "summary": "An early beta announcement drew both enthusiasm for governed agent context and skepticism about credential value. These are opinions about the offering; the retained comments do not report a completed exam attempt.",
+    "background": "Anonymous commenters with unspecified practical baselines.",
+    "effort": "No candidate preparation-hour evidence.",
+    "limitations": "Public thread and visible comments directly read. Search index dates the original post May 26, 2026; rendered relative ages differ. Historical summit/free-attempt details are not a current offer. Discussion does not establish hiring value, assessment depth or current rules.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "databricks-context-engineer"
+    ]
+  },
+  {
+    "id": "Z03",
+    "platform": "LinkedIn",
+    "title": "PTCA beta participant shares a later certification announcement",
+    "url": "https://www.linkedin.com/posts/rutvi-bheda_ptca-pytorch-certified-associate-was-issued-activity-7485709748529455104-gyDj",
+    "kind": "historical",
+    "summary": "The author describes taking the PyTorch associate assessment in a conference beta group and later receiving the credential. This adds an early outcome account, with limited relevance to current general-availability preparation.",
+    "background": "Conference attendee; no quantified prior Python, PyTorch or ML experience in this post.",
+    "effort": "No study hours or preparation calendar. Conference attendance is not equivalent to preparation time.",
+    "limitations": "Public post body directly read. Its relative age and reference to last October do not establish an exact attempt date. Beta delivery may differ from the current exam. No linked credential or candidate identifier was inspected or retained; the result is self-reported.",
+    "checked_on": "2026-10-27",
+    "certifications": [
+      "lf-ptca"
+    ]
+  }
+]

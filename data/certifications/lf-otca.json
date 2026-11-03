@@ -1,0 +1,40 @@
+{
+  "id": "lf-otca",
+  "name": "OpenTelemetry Certified Associate",
+  "provider": "Linux Foundation",
+  "code": "OTCA",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 250,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "Online proctored multiple-choice exam, 90 minutes; no formal prerequisites listed, two-year validity and a retake listed."
+  },
+  "scope": "Observability fundamentals, API/SDK, Collector and maintaining/debugging telemetry pipelines. This is an adjacent engineering credential, not an AI exam.",
+  "requirements": "",
+  "ai_policy": "Check the current exam resource rules; preparation includes unaided instrumentation and troubleshooting.",
+  "caveats": [],
+  "skills": [
+    "observability",
+    "devops"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [],
+  "sources": [
+    "Y06"
+  ],
+  "reports": [
+    "W02",
+    "W03"
+  ],
+  "checked_on": "2026-10-27"
+}

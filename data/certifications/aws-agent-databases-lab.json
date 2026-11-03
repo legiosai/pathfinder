@@ -1,0 +1,40 @@
+{
+  "id": "aws-agent-databases-lab",
+  "name": "AWS Databases for Agentic AI Demonstrated",
+  "provider": "AWS",
+  "code": "Agent databases",
+  "type": "microcredential",
+  "category": "AI engineering",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 0,
+    "basis": "Assessed lab",
+    "note": "Issuer announces free assessment access without a subscription; signed-in content was not tested."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "practical",
+    "format": "Timed AWS lab covering an agent's database, retrieval and memory layer; badge on passing."
+  },
+  "scope": "The database, retrieval and memory layer of an AI agent on AWS, in a timed hands-on lab.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "aws",
+    "data",
+    "agents",
+    "rag"
+  ],
+  "roles": [
+    "developer",
+    "data-engineer"
+  ],
+  "domains": [],
+  "sources": [
+    "X10"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

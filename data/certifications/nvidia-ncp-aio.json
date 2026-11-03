@@ -1,0 +1,37 @@
+{
+  "id": "nvidia-ncp-aio",
+  "name": "AI Operations",
+  "provider": "NVIDIA",
+  "code": "NCP-AIO",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 500,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "hybrid",
+    "format": "30 questions listed; 120 minutes. Lab metadata: Yes, explicitly listed."
+  },
+  "scope": "Operating and administering AI infrastructure.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "gpu-infra",
+    "kubernetes"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [],
+  "sources": [
+    "N16"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

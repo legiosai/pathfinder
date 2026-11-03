@@ -1,0 +1,39 @@
+{
+  "id": "oracle-1z0-1157",
+  "name": "Oracle Agentic AI Foundations Associate (1Z0-1157-26)",
+  "provider": "Oracle",
+  "code": "1Z0-1157-26",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 0,
+    "basis": "Exam only",
+    "note": "Oracle announces a free certification exam. Signed-in access and final account terms were not tested."
+  },
+  "exam": {
+    "minutes": 60,
+    "style": "knowledge",
+    "format": "Issuer announcement lists 40 questions and 60 minutes. MyLearn uses an exam-unproctored URL but also displays generic proctoring instructions; actual delivery controls remain unverified."
+  },
+  "scope": "Agentic AI foundations on Oracle Cloud Infrastructure (OCI).",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "oci",
+    "agents",
+    "llm-apps"
+  ],
+  "roles": [
+    "developer"
+  ],
+  "domains": [],
+  "sources": [
+    "X11",
+    "X25"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

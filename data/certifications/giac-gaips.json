@@ -1,0 +1,40 @@
+{
+  "id": "giac-gaips",
+  "name": "AI Platform Security",
+  "provider": "GIAC",
+  "code": "GAIPS",
+  "type": "certification",
+  "category": "AI security",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": 999,
+    "basis": "Exam attempt only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "hybrid",
+    "format": "Proctored 54-question, two-hour exam with CyberLive content described by the issuer. Current attempt terms govern the form."
+  },
+  "scope": "GenAI applications, agentic integrations, architecture, retrieval, model customization and development/deployment security.",
+  "requirements": "",
+  "ai_policy": "Confirm GIAC's current allowed-resource rules; do not infer AI permission from the AI subject.",
+  "caveats": [],
+  "skills": [
+    "ai-security",
+    "security"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [],
+  "sources": [
+    "Y08",
+    "Y09"
+  ],
+  "reports": [
+    "W06"
+  ],
+  "checked_on": "2026-10-27"
+}

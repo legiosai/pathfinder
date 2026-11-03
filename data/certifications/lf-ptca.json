@@ -1,0 +1,40 @@
+{
+  "id": "lf-ptca",
+  "name": "PyTorch Certified Associate",
+  "provider": "Linux Foundation",
+  "code": "PTCA",
+  "type": "certification",
+  "category": "ML foundations",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 250,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Online proctored multiple-choice exam, 120 minutes, two-year validity; no formal prerequisites listed."
+  },
+  "scope": "Fundamentals, model development, performance/optimization and data handling.",
+  "requirements": "",
+  "ai_policy": "Check the exam resource policy.",
+  "caveats": [],
+  "skills": [
+    "deep-learning",
+    "python",
+    "ml-foundations"
+  ],
+  "roles": [
+    "ml-engineer"
+  ],
+  "domains": [],
+  "sources": [
+    "Y05"
+  ],
+  "reports": [
+    "Z03"
+  ],
+  "checked_on": "2026-10-27"
+}

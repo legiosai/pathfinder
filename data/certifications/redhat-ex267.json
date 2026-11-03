@@ -1,0 +1,43 @@
+{
+  "id": "redhat-ex267",
+  "name": "Certified Developer in AI",
+  "provider": "Red Hat",
+  "code": "EX267",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional quote needed",
+    "note": ""
+  },
+  "exam": {
+    "minutes": null,
+    "style": "practical",
+    "format": "Performance-based exam. Current listing is based on OpenShift AI 3.3 and OpenShift Container Platform 4.20."
+  },
+  "scope": "Workbenches, connections, model serving/registry, monitoring, pipelines, evaluation, RAG and agents.",
+  "requirements": "",
+  "ai_policy": "Issuer says tasks should be performed without assistance; check the current exam resource rules.",
+  "caveats": [
+    "Official AI267LS course-subscription offer is 50% off local MSRP through 31 Dec 2026 and includes an exam attempt; regional checkout and final price not tested. It is not a 50% standalone-exam offer."
+  ],
+  "skills": [
+    "kubernetes",
+    "ml-foundations",
+    "rag",
+    "devops"
+  ],
+  "roles": [
+    "platform",
+    "ml-engineer"
+  ],
+  "domains": [],
+  "sources": [
+    "Y10",
+    "Y11"
+  ],
+  "reports": [],
+  "checked_on": "2026-10-27"
+}

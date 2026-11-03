@@ -1,0 +1,46 @@
+{
+  "id": "lf-mcpa",
+  "name": "Model Context Protocol Associate",
+  "provider": "Linux Foundation",
+  "code": "MCPA",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 250,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "Current live product listing: online proctored multiple-choice exam, 90 minutes, two-year validity and one retake. The issuer launch release says 120 minutes; confirm the current appointment terms."
+  },
+  "scope": "MCP fundamentals, architecture, interaction/execution, security/governance and use cases. The listing references specification version 2026-07-28.",
+  "requirements": "",
+  "ai_policy": "Exam resource rules must be checked before booking.",
+  "caveats": [
+    "Duration conflict: the current product listing says 90 minutes; the 14 September launch announcement says 120. The live listing is used here, but no signed-in appointment was checked. Beta anecdotes do not settle the current duration."
+  ],
+  "skills": [
+    "mcp",
+    "agents",
+    "llm-apps",
+    "security"
+  ],
+  "roles": [
+    "developer",
+    "architect"
+  ],
+  "domains": [],
+  "sources": [
+    "Y01",
+    "Y15"
+  ],
+  "reports": [
+    "V05",
+    "V06"
+  ],
+  "checked_on": "2026-10-27"
+}

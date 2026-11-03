@@ -1,0 +1,380 @@
+[
+  {
+    "id": "A01",
+    "title": "AWS · AI Practitioner alternative",
+    "url": "https://aws.amazon.com/certification/certified-ai-practitioner/",
+    "kind": "Provider / comparison",
+    "note": "Alternative path: published $100 exam fee and foundational AI/AWS scope."
+  },
+  {
+    "id": "A02",
+    "title": "AWS · Certification benefits",
+    "url": "https://aws.amazon.com/certification/benefits/",
+    "kind": "Provider / conditional benefit",
+    "note": "AWS advertises a 50% exam-discount benefit."
+  },
+  {
+    "id": "A03",
+    "title": "AWS · Current AIF-C01 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html",
+    "kind": "Provider guide / directly read",
+    "note": "Directly read on 27 October 2026: scope/exclusions, domain weights, 700 scaled passing score, and possible multiple-choice, multiple-response, ordering, and matching formats."
+  },
+  {
+    "id": "C03",
+    "title": "Anthropic · Four role-based Claude certifications",
+    "url": "https://claude.com/resources/articles/four-role-based-claude-certifications",
+    "kind": "Provider / directly read",
+    "note": "Official announcement dated 23 July 2026. Directly readable; explains role-based credentials, proctored delivery, and partner-network access."
+  },
+  {
+    "id": "C08",
+    "title": "Pearson · Anthropic certification program",
+    "url": "https://www.pearsonvue.com/us/en/anthropic.html",
+    "kind": "Exam provider / readable page snapshot",
+    "note": "Official delivery-provider page readable through an indexed/tracked reference; snapshot last updated 24 August 2026. Confirms four codes, partner program and scheduling information. It did not confirm the later content-revision lead."
+  },
+  {
+    "id": "N01",
+    "title": "NVIDIA · NCA-GENL exam page and current blueprint",
+    "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-associate/",
+    "kind": "Provider / verified",
+    "note": "Exam facts, five domain weights, current preparation links. Live page inspected on 27 Oct 2026; use this as the syllabus authority."
+  },
+  {
+    "id": "N10",
+    "title": "NVIDIA · NCA-AMAD AI Models and Application Development",
+    "url": "https://www.nvidia.com/en-us/learn/certification/ai-model-application-development-associate/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested."
+  },
+  {
+    "id": "N11",
+    "title": "NVIDIA · NCA-GENM Generative AI Multimodal",
+    "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-multimodal-associate/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N12",
+    "title": "NVIDIA · NCP-GENL Generative AI LLMs",
+    "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-professional/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N13",
+    "title": "NVIDIA · NCP-AAI Agentic AI",
+    "url": "https://www.nvidia.com/en-us/learn/certification/agentic-ai-professional/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N14",
+    "title": "NVIDIA · NCA-AIIO AI Infrastructure and Operations",
+    "url": "https://www.nvidia.com/en-us/learn/certification/ai-infrastructure-operations-associate/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N15",
+    "title": "NVIDIA · NCP-AII AI Infrastructure",
+    "url": "https://www.nvidia.com/en-us/learn/certification/ai-infrastructure-professional/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N16",
+    "title": "NVIDIA · NCP-AIO AI Operations",
+    "url": "https://www.nvidia.com/en-us/learn/certification/ai-operations-professional/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested."
+  },
+  {
+    "id": "N17",
+    "title": "NVIDIA · NCP-AIN AI Networking",
+    "url": "https://www.nvidia.com/en-us/learn/certification/ai-networking-professional/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N18",
+    "title": "NVIDIA · NCP-ARI AI Rack and Interconnect",
+    "url": "https://www.nvidia.com/en-us/learn/certification/ai-rack-and-interconnect-professional/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N19",
+    "title": "NVIDIA · NCP-ADS Accelerated Data Science",
+    "url": "https://www.nvidia.com/en-us/learn/certification/accelerated-data-science-professional/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N20",
+    "title": "NVIDIA · NCA-ADS Accelerated Data Science",
+    "url": "https://www.nvidia.com/en-us/learn/certification/accelerated-data-science-associate/",
+    "kind": "Provider / directly read",
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+  },
+  {
+    "id": "N21",
+    "title": "NVIDIA · NCP-OUSD OpenUSD Development",
+    "url": "https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/",
+    "kind": "Provider / catalog only; detail timeout",
+    "note": "Price/time from catalog; individual page timed out. Questions, lab and account availability unverified."
+  },
+  {
+    "id": "X01",
+    "title": "LangChain · Certified Agent Engineer exam",
+    "url": "https://academy.langchain.com/pages/certifications-lcae",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Current $99, 40 questions, 120 minutes, four lifecycle domains and 24-month validity; page labels preparation courses prerequisites and lists one free resit under conditions. Purchase/course-completion gate not tested."
+  },
+  {
+    "id": "X02",
+    "title": "LangChain · official exam rules",
+    "url": "https://support.langchain.com/articles/5297173898-what-is-the-langchain-certified-agent-engineer-exam",
+    "kind": "Provider / current page read",
+    "note": "Official support article read 27 Oct 2026; dated 14 Aug. Specified LangChain-owned resources allowed; AI assistants and general search prohibited. Course completion alone does not grant this certification."
+  },
+  {
+    "id": "X03",
+    "title": "AWS · Generative AI Developer Professional",
+    "url": "https://aws.amazon.com/certification/certified-generative-ai-developer-professional/",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. $300, 75 questions, 180 minutes; target experience and no required prior certification."
+  },
+  {
+    "id": "X04",
+    "title": "AWS · AIP-C01 current HTML exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-professional-01/ai-professional-01.html",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Integration/production scope and target experience; five domains include security, testing and efficiency. Model development/training is outside the target role. Scaled passing score is not a raw percentage."
+  },
+  {
+    "id": "X05",
+    "title": "Microsoft · Azure AI Apps and Agents Developer AI-103",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Current credential, Python/Foundry scope, 120-minute assessment, possible interactive components and country-based pricing."
+  },
+  {
+    "id": "X06",
+    "title": "Microsoft · AI-103 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",
+    "kind": "Provider / current page read",
+    "note": "Objective text read 27 Oct 2026 despite a generic authorization banner. Includes agents, operations/identity, vision, text/speech and extraction; objectives dated 16 Apr 2026. No account-only practice assessment was taken."
+  },
+  {
+    "id": "X07",
+    "title": "Microsoft · retired Azure AI Engineer credential",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Page explicitly marks the certification and renewal retired; older AI-102-only recommendations should not be used for a new booking."
+  },
+  {
+    "id": "X08",
+    "title": "Databricks · Context Engineer Associate",
+    "url": "https://www.databricks.com/learn/certification/context-engineer-associate",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Live listing: $200, 45 scored questions, possible unscored items, 90 minutes and two-year validity. Context/memory/retrieval/MCP/governance scope; six months of platform work recommended, not required. Account/practice access not tested."
+  },
+  {
+    "id": "X09",
+    "title": "Databricks · Generative AI Engineer Associate",
+    "url": "https://www.databricks.com/learn/certification/genai-engineer-associate",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026 at the current genai URL; guessed generative-ai URL returned 404. $200, 45 scored questions, 90 minutes, two-year validity, recommended hands-on experience; current app/RAG/deployment/evaluation scope."
+  },
+  {
+    "id": "X10",
+    "title": "AWS · free agent identity and database microcredentials",
+    "url": "https://aws.amazon.com/blogs/training-and-certification/prove-your-agentic-ai-skills-two-new-microcredentials-now-available/",
+    "kind": "Provider / current page read",
+    "note": "Official 29 Sep 2026 announcement read 27 Oct. Both are free timed assessed labs without subscription and award Credly badges. Separate from AWS Certification exams. Linked Skill Builder page required JavaScript; signed-in assessment access/time limits not tested."
+  },
+  {
+    "id": "X11",
+    "title": "Oracle · Agentic AI Foundations course and free exam",
+    "url": "https://blogs.oracle.com/oracleuniversity/oracle-agentic-ai-foundations-training-certification-now-available",
+    "kind": "Provider / current page read",
+    "note": "Official 22 Jun 2026 announcement read 27 Oct. Free 1Z0-1157-26 exam, 40 questions/60 minutes; course includes agents, MCP and Oracle-specific tools. Actual exam access and delivery controls not tested."
+  },
+  {
+    "id": "X12",
+    "title": "HashiCorp · Terraform Associate 004",
+    "url": "https://developer.hashicorp.com/certifications/terraform-associate",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. 004, Terraform 1.12, one-hour multiple-choice exam, two-year validity, $70.50 plus local taxes/fees; no free retake."
+  },
+  {
+    "id": "X13",
+    "title": "AWS · Solutions Architect Associate",
+    "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. $150, 65 questions/130 minutes, three-year validity and recommended AWS design experience. Personal next-exam discount not checked."
+  },
+  {
+    "id": "X14",
+    "title": "AWS · Security Specialty current listing",
+    "url": "https://aws.amazon.com/certification/certified-security-specialty/",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026; current guide search identifies SCS-C03. $300, 65 questions/170 minutes, three-year validity; target experience differs from mandatory eligibility. Page lists Spanish/Portuguese/Simplified Chinese retirement after 31 Dec 2026 and a conditional 50% next-exam benefit."
+  },
+  {
+    "id": "X15",
+    "title": "Linux Foundation · CKAD",
+    "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. $445 exam-only page, two-hour CLI performance exam, no formal prerequisites; two exam attempts and two simulator attempts listed. Checkout/promotion and timed Kubernetes baseline not tested."
+  },
+  {
+    "id": "X16",
+    "title": "Google Cloud · Professional Agentic Architect",
+    "url": "https://cloud.google.com/learn/certification/agentic-architect",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Page says GA registration opens mid-November; current beta metadata must not be passed off as bookable GA terms. Announced $200 retail price and two-part exam/lab structure. No appointment tested."
+  },
+  {
+    "id": "X17",
+    "title": "Google Cloud · Agentic Architect beta and GA FAQ",
+    "url": "https://support.google.com/cloud-certification/answer/18080541",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Beta registration/exam window closed 30 Sep. GA announced mid-November; two-hour proctored exam plus separate required labs."
+  },
+  {
+    "id": "X18",
+    "title": "IAPP · AI Governance Professional scope",
+    "url": "https://iapp.org/certify/aigp",
+    "kind": "Provider / current page read",
+    "note": "Read 27 Oct 2026. Issuer scope: responsible AI, legal/framework context and lifecycle governance."
+  },
+  {
+    "id": "X19",
+    "title": "IAPP · AIGP exam store",
+    "url": "https://store.iapp.org/aigp-exam/",
+    "kind": "Provider / price not retrievable",
+    "note": "Accessed 27 Oct 2026; price did not render in retrieved page. Historical launch pricing and third-party quotes are not a current payable quote. Recheck cost and current exam/maintenance terms."
+  },
+  {
+    "id": "X24",
+    "title": "Databricks · current-linked Context Engineer exam guide",
+    "url": "https://www.databricks.com/sites/default/files/2026-10/Databricks-Certified-Context-Engineer-Associate-Exam-Guide-August-2026.pdf",
+    "kind": "Provider / current page read",
+    "note": "Read official PDF text via live listing link on 27 Oct 2026. Filename says August, path October, internal publication/update table July 29; do not infer a new effective date from the filename. Confirms scored/unscored distinction and platform scope. No PDF republished."
+  },
+  {
+    "id": "X25",
+    "title": "Oracle · Agentic AI Foundations MyLearn exam page",
+    "url": "https://mylearn.oracle.com/ou/exam-unproctored/agentic-ai-foundations-associate-1z0-1157-26-new/163239/273973",
+    "kind": "Provider / delivery ambiguity",
+    "note": "Read 27 Oct 2026. Public page shows MCQs/60 minutes; exam-unproctored URL coexists with generic webcam/proctoring instructions. Account-specific delivery controls, certification issuance and signed-in access were not tested."
+  },
+  {
+    "id": "Y01",
+    "title": "Linux Foundation · MCPA",
+    "url": "https://training.linuxfoundation.org/certification/model-context-protocol-associate-mcpa/",
+    "kind": "Issuer page",
+    "note": "Read 27 Oct 2026: scope, $250, 90-minute MCQ exam, two-year validity, no formal prerequisites and current referenced protocol version."
+  },
+  {
+    "id": "Y02",
+    "title": "GitHub · Agentic AI Developer GH-600",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/",
+    "kind": "Issuer page",
+    "note": "Read 27 Oct 2026: current role, 120 minutes, proctored assessment and regional pricing. Generic page success UI is not an earned credential."
+  },
+  {
+    "id": "Y03",
+    "title": "GitHub · GH-600 guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-600",
+    "kind": "Issuer guide",
+    "note": "Objective text read 27 Oct 2026: SDLC, tools, state, evaluation, coordination and guardrails. Generic renewal text is not used as proof of this credential's exact renewal policy."
+  },
+  {
+    "id": "Y04",
+    "title": "TCM Security · PAPA",
+    "url": "https://certifications.tcm-sec.com/papa/",
+    "kind": "Issuer page",
+    "note": "Read 27 Oct 2026: $249 training/exam offer, two-day assessment plus two-day report, AI-tools permission and conditional 20% discounts. Account eligibility, coupon and checkout not tested."
+  },
+  {
+    "id": "Y05",
+    "title": "Linux Foundation · PTCA",
+    "url": "https://training.linuxfoundation.org/certification/pytorch-certified-associate-ptca/",
+    "kind": "Issuer page",
+    "note": "Read 27 Oct 2026: $250 exam-only, $299 pathway, 120-minute MCQ assessment and scope."
+  },
+  {
+    "id": "Y06",
+    "title": "Linux Foundation · OTCA",
+    "url": "https://training.linuxfoundation.org/certification/opentelemetry-certified-associate-otca/",
+    "kind": "Issuer page",
+    "note": "Read 27 Oct 2026: observability scope, $250, 90 minutes and no formal prerequisites. Adjacent engineering credential, not AI-specific."
+  },
+  {
+    "id": "Y07",
+    "title": "CSA · TAISE",
+    "url": "https://cloudsecurityalliance.org/education/taise",
+    "kind": "Issuer page",
+    "note": "Read/indexed issuer text 27 Oct 2026: $795 training-plus-exam only, 60 questions/120 minutes, 80% raw threshold and two attempts. No signed-in delivery flow tested."
+  },
+  {
+    "id": "Y08",
+    "title": "GIAC · AI Platform Security",
+    "url": "https://www.giac.org/certifications/ai-security-platform-security-gaips",
+    "kind": "Issuer page",
+    "note": "Read 27 Oct 2026: technical scope, 54 questions/two hours and CyberLive description. Actual account-specific exam form not tested."
+  },
+  {
+    "id": "Y09",
+    "title": "GIAC · pricing",
+    "url": "https://www.giac.org/pricing",
+    "kind": "Issuer pricing",
+    "note": "Read 27 Oct 2026: GAIPS attempt $999 before tax; training, optional practice and renewal costs are separate."
+  },
+  {
+    "id": "Y10",
+    "title": "Red Hat · EX267 Certified Developer in AI",
+    "url": "https://www.redhat.com/en/services/training/ex267-red-hat-certified-developer-in-ai",
+    "kind": "Issuer page",
+    "note": "Read 27 Oct 2026 via old URL redirect. Current title/scope and OpenShift versions; regional fee and exam duration not verified. AI267LS offer includes an attempt."
+  },
+  {
+    "id": "Y11",
+    "title": "Red Hat · AI267LS offer terms",
+    "url": "https://docs.redhat.com/en/documentation/red_hat_learning_subscription/1-latest/html/terms_and_conditions_for_ai267ls/index",
+    "kind": "Issuer offer terms",
+    "note": "Read 27 Oct 2026. 50% off AI267LS local MSRP from 1 Jul through 31 Dec 2026, full payment during promotion, no offer combinations; subject to change. Not a standalone-exam discount."
+  },
+  {
+    "id": "Y12",
+    "title": "Securiti · AI Security and Governance course",
+    "url": "https://education.securiti.ai/certifications/ai-governance/",
+    "kind": "Provider course page",
+    "note": "Read 27 Oct 2026: free course, eight modules/quizzes, final assessment and issuer-estimated 2–2.5-hour duration. No signed-in completion or badge earned."
+  },
+  {
+    "id": "Y13",
+    "title": "OffSec · AI-300 / OSAI",
+    "url": "https://www.offsec.com/courses/ai-300/",
+    "kind": "Issuer course/exam page",
+    "note": "Read 27 Oct 2026: course bundle starts at $1,749, 65 hours of content and 24-hour practical exam. Content duration is not total prep time."
+  },
+  {
+    "id": "Y14",
+    "title": "OffSec · OSAI exam FAQ",
+    "url": "https://help.offsec.com/hc/en-us/articles/46669767163156-OSAI-Advanced-AI-Red-Teaming-Exam-FAQ",
+    "kind": "Issuer policy",
+    "note": "Read 27 Oct 2026: AI/LLM use explicitly encouraged, proctored practical format, report deadline and confidentiality limits. Recheck current attempt rules."
+  },
+  {
+    "id": "Y15",
+    "title": "Linux Foundation · MCPA launch release",
+    "url": "https://www.linuxfoundation.org/press/agentic-ai-foundation-launches-mcpa-certification-to-validate-mcp-expertise",
+    "kind": "Issuer announcement / duration conflict",
+    "note": "Read 27 Oct 2026; release dated 14 Sep says 120 minutes while the current product listing says 90. Preserve the conflict; current signed-in appointment not checked."
+  }
+]

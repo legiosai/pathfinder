@@ -1,0 +1,45 @@
+{
+  "id": "microsoft-ai-103",
+  "name": "Microsoft Azure AI Apps and Agents Developer Associate (AI-103)",
+  "provider": "Microsoft",
+  "code": "AI-103",
+  "type": "certification",
+  "category": "AI engineering",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region. A US quote should not be applied automatically."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "120-minute assessment covering Foundry AI solutions, agents, vision, text/speech and information extraction; may include interactive components."
+  },
+  "scope": "Building AI apps and agents on Azure with Microsoft Foundry. It replaces the retired Azure AI Engineer credential.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "azure",
+    "llm-apps",
+    "agents",
+    "python"
+  ],
+  "roles": [
+    "developer"
+  ],
+  "domains": [],
+  "sources": [
+    "X05",
+    "X06",
+    "X07"
+  ],
+  "reports": [
+    "U02",
+    "U03",
+    "X22"
+  ],
+  "checked_on": "2026-10-27"
+}
