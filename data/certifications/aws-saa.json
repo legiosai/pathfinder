@@ -37,5 +37,19 @@
     "X14"
   ],
   "reports": [],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "SAA-C03 exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "AWS Skill Builder",
+      "url": "https://skillbuilder.aws/",
+      "kind": "course",
+      "cost": "free"
+    }
+  ]
 }

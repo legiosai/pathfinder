@@ -22,6 +22,7 @@ Thanks for helping keep the catalog accurate. Most contributions are data: a cor
 | `domains` | The official exam domains with their weights, plus `domains_note` saying where the weights come from. Leave empty if the issuer does not publish weights |
 | `skills`, `roles` | Ids from `data/taxonomy.json`. Add a new skill there if none fits |
 | `caveats` | Conflicts or doubts a reader should know, such as two issuer pages that disagree |
+| `prep` | Preparation resources: `title`, `url`, `kind` (`official-guide`, `course`, `docs` or `practice`) and `cost` (`free` or `paid`). Prefer issuer material; never link exam dumps |
 
 ## Rules for the data
 

@@ -39,5 +39,14 @@
     "X20",
     "X21"
   ],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "LangChain Academy",
+      "url": "https://academy.langchain.com/",
+      "kind": "course",
+      "cost": "free",
+      "note": "Free courses; the issuer also offers a practice assessment."
+    }
+  ]
 }

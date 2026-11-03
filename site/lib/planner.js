@@ -54,6 +54,14 @@ export function planTopics(cert) {
   };
 }
 
+// Self-rated confidence per topic (1 = new to me, 5 = could teach it) scales its share of study time.
+export const CONFIDENCE_FACTOR = { 1: 1.6, 2: 1.3, 3: 1, 4: 0.7, 5: 0.45 };
+
+/** Topic weights adjusted by confidence ratings keyed by topic name. Unrated topics count as 3. */
+export function weightTopics(topics, confidence = {}) {
+  return topics.map((t) => ({ ...t, weight: t.weight * (CONFIDENCE_FACTOR[confidence[t.name]] ?? 1) }));
+}
+
 /** Split `count` slots across topics by weight (largest remainder). */
 export function allocate(count, topics) {
   const total = topics.reduce((s, t) => s + t.weight, 0) || 1;
@@ -91,14 +99,16 @@ export function studyDates(start, days, n) {
 
 /**
  * Build a dated plan.
- * opts: { cert, hours, start, days, sessionMinutes, startTime }
- * Returns { cert, hours, sessionMinutes, startTime, inferredTopics, sessions[], examDate, weeks }
+ * opts: { cert, hours, start, days, sessionMinutes, startTime, confidence, targetDate }
+ * Returns { cert, hours, sessionMinutes, startTime, inferredTopics, topics, sessions[], examDate, weeks, deadline }
+ * `examDate` is the earliest date the pace allows; `deadline` compares it with `targetDate` when given.
  */
-export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, startTime = '19:00' }) {
+export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, startTime = '19:00', confidence = {}, targetDate = null }) {
   if (!(hours > 0)) throw new Error('Hours must be positive');
   if (!(sessionMinutes >= 15)) throw new Error('Sessions must be at least 15 minutes');
   const examMinutes = cert.exam.minutes || 90;
-  const { topics, inferred } = planTopics(cert);
+  const { topics: baseTopics, inferred } = planTopics(cert);
+  const topics = weightTopics(baseTopics, confidence);
 
   // Mocks run as long as the exam, so they get their own length.
   const mockCount = cert.exam.style === 'practical' ? 1 : 2;
@@ -181,10 +191,44 @@ export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, start
     sessionMinutes,
     startTime,
     inferredTopics: inferred,
+    topics: baseTopics.map((t) => t.name),
     sessions,
     examDate,
     weeks,
+    deadline: targetDate ? checkDeadline({ sessions, start, days, targetDate, sessionMinutes }) : null,
   };
+}
+
+/** Count study dates in [start, end) that fall on `days`. */
+export function countStudyDays(start, end, days) {
+  const want = new Set(days);
+  let n = 0;
+  for (const d = parseDate(start), stop = parseDate(end); d < stop; d.setUTCDate(d.getUTCDate() + 1)) {
+    if (want.has(d.getUTCDay())) n += 1;
+  }
+  return n;
+}
+
+/**
+ * Does the plan fit before a booked or target exam date?
+ * When it does not, suggests the session length that would make the regular sessions fit.
+ */
+export function checkDeadline({ sessions, start, days, targetDate, sessionMinutes }) {
+  const available = countStudyDays(start, targetDate, days);
+  const needed = sessions.length;
+  const fits = available >= needed;
+  let suggestedMinutes = null;
+  if (!fits) {
+    const fixed = sessions.filter((s) => s.kind === 'mock');
+    const regularMinutes = sessions.filter((s) => s.kind !== 'mock').reduce((t, s) => t + s.minutes, 0);
+    const slots = available - fixed.length;
+    if (slots > 0) {
+      const m = Math.ceil(regularMinutes / slots / 15) * 15;
+      suggestedMinutes = m <= 240 ? Math.max(m, sessionMinutes + 15) : null;
+    }
+  }
+  const weeks = Math.max(0, Math.round((parseDate(targetDate) - parseDate(start)) / (7 * 86400000) * 10) / 10);
+  return { targetDate, available, needed, fits, spare: available - needed, suggestedMinutes, weeks };
 }
 
 function fmtMinutes(m) {
@@ -193,7 +237,7 @@ function fmtMinutes(m) {
   return h ? (r ? `${h} h ${r} min` : `${h} h`) : `${r} min`;
 }
 
-export function toMarkdown(plan) {
+export function toMarkdown(plan, { resources = [] } = {}) {
   const lines = [
     `# Study plan: ${plan.cert.name} (${plan.cert.code})`,
     '',
@@ -201,6 +245,20 @@ export function toMarkdown(plan) {
     `Earliest exam date if you keep pace: **${plan.examDate}**. Book it only after the last mock goes well.`,
     '',
   ];
+  if (plan.deadline) {
+    const d = plan.deadline;
+    lines.push(
+      d.fits
+        ? `Target exam date ${d.targetDate}: fits, with ${d.spare} spare study day${d.spare === 1 ? '' : 's'} as buffer.`
+        : `Target exam date ${d.targetDate}: does not fit. ${d.needed} sessions are needed and only ${d.available} study days are available.`,
+      '',
+    );
+  }
+  if (resources.length) {
+    lines.push('## Resources', '');
+    for (const r of resources) lines.push(`- [${r.title}](${r.url})${r.cost === 'paid' ? ' (paid)' : ''}`);
+    lines.push('', '## Sessions', '');
+  }
   if (plan.inferredTopics) {
     lines.push('> Topics were read from the scope summary. Replace them with the official exam objectives.', '');
   }

@@ -21,6 +21,13 @@
     "note": "Directly read on 27 October 2026: scope/exclusions, domain weights, 700 scaled passing score, and possible multiple-choice, multiple-response, ordering, and matching formats."
   },
   {
+    "id": "C01",
+    "title": "Anthropic · Claude Certified Architect – Foundations exam page",
+    "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification",
+    "kind": "Provider / directly read",
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+  },
+  {
     "id": "C03",
     "title": "Anthropic · Four role-based Claude certifications",
     "url": "https://claude.com/resources/articles/four-role-based-claude-certifications",
@@ -28,11 +35,39 @@
     "note": "Official announcement dated 23 July 2026. Directly readable; explains role-based credentials, proctored delivery, and partner-network access."
   },
   {
+    "id": "C05",
+    "title": "Anthropic · Claude Certified Associate – Foundations exam page",
+    "url": "https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification",
+    "kind": "Provider / directly read",
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+  },
+  {
+    "id": "C06",
+    "title": "Anthropic · Claude Certified Developer – Foundations exam page",
+    "url": "https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification",
+    "kind": "Provider / directly read",
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+  },
+  {
+    "id": "C07",
+    "title": "Anthropic · Claude Certified Architect – Professional exam page",
+    "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification",
+    "kind": "Provider / directly read",
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+  },
+  {
     "id": "C08",
     "title": "Pearson · Anthropic certification program",
     "url": "https://www.pearsonvue.com/us/en/anthropic.html",
     "kind": "Exam provider / readable page snapshot",
     "note": "Official delivery-provider page readable through an indexed/tracked reference; snapshot last updated 24 August 2026. Confirms four codes, partner program and scheduling information. It did not confirm the later content-revision lead."
+  },
+  {
+    "id": "C16",
+    "title": "Anthropic Partner Academy · Claude certifications overview",
+    "url": "https://anthropic-partners.skilljar.com/page/partner-certifications",
+    "kind": "Provider / directly read",
+    "note": "Read 3 November 2026. Lists the four exams and links each official exam guide, terms and exam policy."
   },
   {
     "id": "N01",

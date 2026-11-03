@@ -37,5 +37,13 @@
     "W07",
     "W08"
   ],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "OffSec AI-300 course page",
+      "url": "https://www.offsec.com/courses/ai-300/",
+      "kind": "course",
+      "cost": "paid"
+    }
+  ]
 }

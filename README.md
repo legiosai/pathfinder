@@ -7,7 +7,8 @@ Open-source tool to choose and prepare IT certifications. Compare options for yo
 - **Match:** pick your role, the skills you use and the ones you want to grow. pathfinder ranks the catalog and explains every score.
 - **Browse:** search and filter by provider, level, registration status, assessment style and fee.
 - **Compare:** up to four certifications side by side: fee, format, passing score, validity, exam domains and AI rules. Share the link.
-- **Plan:** turn a certification into dated study sessions weighted by its exam domains, with timed mocks. Export to your calendar (`.ics`) or Markdown and tick sessions off as you go.
+- **Plan:** turn a certification into dated study sessions weighted by its exam domains and your confidence in each one, with timed mocks. Set your exam date to check the plan fits. Export to your calendar (`.ics`) or Markdown and tick sessions off as you go.
+- **Prepare:** official guides, courses and docs for 19 certifications, each link checked.
 
 It is a static page with no tracking and no backend. Your profile, shortlist and progress stay in your browser.
 

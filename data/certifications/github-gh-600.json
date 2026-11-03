@@ -43,5 +43,19 @@
     "V04",
     "V07"
   ],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "GH-600 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-600",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Reactor: GH-600 technical roadmap (video)",
+      "url": "https://www.youtube.com/live/bgj20o0kYKg",
+      "kind": "course",
+      "cost": "free"
+    }
+  ]
 }

@@ -64,5 +64,38 @@
     "R04"
   ],
   "checked_on": "2026-10-27",
-  "domains_note": "Weights from the live NVIDIA exam page."
+  "domains_note": "Weights from the live NVIDIA exam page.",
+  "prep": [
+    {
+      "title": "NVIDIA DLI: Rapid Application Development with LLMs (S-FX-26)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-26+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Linked from the exam page; 8 hours, US$90 when checked."
+    },
+    {
+      "title": "NVIDIA DLI open deep-learning materials",
+      "url": "https://github.com/NVDLI/fundamentals-of-deep-learning",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Hugging Face LLM course",
+      "url": "https://huggingface.co/learn/llm-course/en/chapter1/1",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "scikit-learn: common pitfalls and data leakage",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "kind": "docs",
+      "cost": "free"
+    },
+    {
+      "title": "scikit-learn: metrics and scoring",
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "kind": "docs",
+      "cost": "free"
+    }
+  ]
 }

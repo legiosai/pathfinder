@@ -40,5 +40,14 @@
     "Z01",
     "Z02"
   ],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "Databricks training",
+      "url": "https://www.databricks.com/learn/training/home",
+      "kind": "course",
+      "cost": "free",
+      "note": "Free and paid courses, including exam preparation."
+    }
+  ]
 }

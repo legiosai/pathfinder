@@ -34,5 +34,13 @@
     "X19"
   ],
   "reports": [],
-  "checked_on": "2026-10-27"
+  "checked_on": "2026-10-27",
+  "prep": [
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "docs",
+      "cost": "free"
+    }
+  ]
 }
