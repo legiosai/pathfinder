@@ -76,7 +76,7 @@ export function badge(cert, size = 64, { label = true } = {}) {
 }
 
 /** Donut of domain weights with a centre label. Colours follow the --dN categorical order. */
-export function donut(domains, size = 168) {
+export function donut(domains, size = 168, { label = 'domains', aria = 'Exam domain weights' } = {}) {
   const r = 62;
   const c = 2 * Math.PI * r;
   const total = domains.reduce((s, d) => s + d.weight, 0) || 1;
@@ -90,10 +90,10 @@ export function donut(domains, size = 168) {
       return seg;
     })
     .join('');
-  return `<svg class="donut" width="${size}" height="${size}" viewBox="0 0 160 160" role="img" aria-label="Exam domain weights">
+  return `<svg class="donut" width="${size}" height="${size}" viewBox="0 0 160 160" role="img" aria-label="${esc(aria)}">
     <g transform="rotate(-90 80 80)">${segs}</g>
     <text x="80" y="76" text-anchor="middle" class="donut-n">${domains.length}</text>
-    <text x="80" y="98" text-anchor="middle" class="donut-l">domains</text>
+    <text x="80" y="98" text-anchor="middle" class="donut-l">${esc(label)}</text>
   </svg>`;
 }
 
@@ -108,9 +108,9 @@ export function hbars(rows, unit = 'h') {
 }
 
 /** Vertical columns for one series: [{label, value, title, mark}] where mark highlights a column. */
-export function columns(rows, unit = 'h') {
+export function columns(rows, unit = 'h', aria = 'Study hours per week') {
   const max = Math.max(...rows.map((r) => r.value), 1);
-  return `<div class="cols-chart" role="img" aria-label="Study hours per week">${rows
+  return `<div class="cols-chart" role="img" aria-label="${esc(aria)}">${rows
     .map(
       (r) => `<div class="col${r.mark ? ' mark' : ''}" title="${esc(r.title || `${r.label}: ${r.value} ${unit}`)}"><b>${r.value}</b><span class="col-bar"><i style="height:${(r.value / max) * 100}%"></i></span><small>${esc(r.label)}</small></div>`,
     )

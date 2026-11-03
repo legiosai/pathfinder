@@ -105,3 +105,12 @@ test('markdown export can include resources', () => {
   assert.match(md, /## Resources/);
   assert.match(md, /\[Guide\]\(https:\/\/example.com\/g\)/);
 });
+
+test('markdown export takes a translated frame and keeps the rest', () => {
+  const p = buildPlan({ cert, hours: 10, start: '2026-11-02', days: [1, 4], sessionMinutes: 60 });
+  const md = toMarkdown(p, { resources: [{ title: 'Guide', url: 'https://example.com/g', cost: 'paid' }], text: { resources: 'Recursos', paid: ' (pago)', title: (x) => `# Plan: ${x.cert.code}` } });
+  assert.match(md, /^# Plan: /);
+  assert.match(md, /## Recursos/);
+  assert.match(md, /\(pago\)/);
+  assert.match(md, /## Sessions/);
+});

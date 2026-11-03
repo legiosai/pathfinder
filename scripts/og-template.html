@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og</title>
+<style>
+@font-face { font-family: "Bricolage"; src: url("fonts/bricolage-grotesque.woff2") format("woff2"); font-weight: 200 800; }
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1b1a17; background: #f5f3ee; position: relative; }
+.glow { position: absolute; inset: 0; background: radial-gradient(55% 75% at 92% 8%, color-mix(in srgb, var(--pc, #c2410c) 22%, transparent), transparent 70%), radial-gradient(40% 60% at 0% 100%, color-mix(in srgb, #c2410c 10%, transparent), transparent 70%); }
+.topo { position: absolute; right: -40px; bottom: -60px; width: 640px; opacity: 0.5; }
+.topo path { fill: none; stroke: #d9d3c5; stroke-width: 1.4; }
+.bar { position: absolute; left: 0; top: 0; right: 0; height: 10px; background: var(--pc, #c2410c); }
+.card { position: absolute; inset: 64px 72px 64px 72px; display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: center; }
+.badge-box { display: grid; place-items: center; filter: drop-shadow(0 18px 30px rgb(40 30 10 / 0.18)); }
+.who { display: flex; align-items: center; gap: 14px; font-size: 28px; color: #5f5c55; font-weight: 600; }
+.who svg { width: 44px; height: 44px; }
+h1 { font-family: "Bricolage", system-ui, sans-serif; font-weight: 750; font-size: 62px; line-height: 1.04; letter-spacing: -0.02em; margin: 18px 0 26px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+h1.long { font-size: 52px; }
+.facts { display: flex; flex-wrap: wrap; gap: 12px; }
+.fact { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 16px; background: #fff; font-size: 24px; font-weight: 650; box-shadow: 0 1px 2px rgb(40 30 10 / 0.06), 0 6px 18px rgb(40 30 10 / 0.06); }
+.fact svg { width: 24px; height: 24px; }
+.dbar { display: flex; gap: 4px; height: 16px; margin-top: 26px; border-radius: 8px; overflow: hidden; max-width: 640px; }
+.dbar span { display: block; height: 100%; border-radius: 3px; }
+.foot { position: absolute; left: 72px; right: 72px; bottom: 34px; display: flex; justify-content: space-between; align-items: center; font-size: 22px; color: #5f5c55; }
+.brand { display: inline-flex; align-items: center; gap: 12px; font-family: "Bricolage", system-ui, sans-serif; font-weight: 750; font-size: 30px; color: #1b1a17; }
+.brand img { width: 40px; height: 40px; }
+.home { position: absolute; inset: 44px 72px 100px 72px; display: grid; grid-template-columns: 1fr 440px; gap: 40px; align-items: center; }
+.home h1 { font-size: 74px; -webkit-line-clamp: 4; margin: 0 0 22px; }
+.home p { font-size: 27px; color: #5f5c55; margin: 0; line-height: 1.35; max-width: 560px; }
+.wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 14px; justify-items: center; margin-top: -30px; }
+.wall .badge { filter: drop-shadow(0 10px 18px rgb(40 30 10 / 0.16)); }
+.wall > :nth-child(3n+2) { transform: translateY(40px); }
+.i { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<div id="sprite" hidden></div>
+<div class="glow"></div>
+<svg class="topo" viewBox="0 0 400 260" aria-hidden="true">
+  <path d="M40 210c40-60 110-40 150-90s30-90 90-90 90 50 80 100-60 80-120 90-160 40-200-10z"/>
+  <path d="M80 200c30-40 90-30 120-70s30-70 80-70 70 40 62 80-48 62-98 70-136 32-164-10z"/>
+  <path d="M120 188c22-26 66-22 90-50s24-52 62-52 52 30 46 60-36 46-74 52-102 22-124-10z"/>
+  <path d="M162 174c14-14 42-12 58-30s18-34 42-34 34 20 30 40-24 30-48 34-66 12-82-10z"/>
+</svg>
+<div class="bar"></div>
+<main id="root"></main>
+<div class="foot"><span class="brand"><img src="icon.svg" alt="">pathfinder</span><span>legiosai.github.io/pathfinder</span></div>
+<script type="module">
+import { badge, providerMark, providerColor } from './visuals.js';
+const D = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#6250d6', '#e34948'];
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const icon = (n) => `<svg class="i" viewBox="0 0 24 24"><use href="#i-${n}"/></svg>`;
+const [catalog, html] = await Promise.all([fetch('catalog.json').then((r) => r.json()), fetch('index.html').then((r) => r.text())]);
+const sprite = html.match(/<svg[^>]*style="display:none"[^>]*>[\s\S]*?<\/svg>/) || html.match(/<svg[^>]*aria-hidden="true"[^>]*>\s*<symbol[\s\S]*?<\/svg>/);
+document.getElementById('sprite').innerHTML = sprite ? sprite[0] : '';
+const id = new URLSearchParams(location.search).get('id');
+const root = document.getElementById('root');
+const levels = Object.fromEntries(catalog.taxonomy.levels.map((l) => [l.id, l.label]));
+if (!id) {
+  const featured = ['claude-architect-foundations', 'nvidia-nca-genl', 'aws-aif-c01', 'google-agentic-architect', 'lf-mcpa', 'databricks-genai-engineer', 'redhat-ex267', 'github-gh-600', 'microsoft-ai-103'];
+  const certs = featured.map((f) => catalog.certifications.find((c) => c.id === f)).filter(Boolean);
+  root.className = 'home';
+  root.innerHTML = `<div><h1>Pick a certification. Plan the climb.</h1><p>${catalog.certifications.length} IT certifications, each one a dated study plan away.</p></div><div class="wall">${certs.map((c) => badge(c, 116, { label: false })).join('')}</div>`;
+} else {
+  const c = catalog.certifications.find((x) => x.id === id);
+  document.body.style.setProperty('--pc', providerColor(c.provider));
+  const usd = c.fee.usd;
+  const fee = usd == null ? 'Price varies' : usd === 0 ? 'Free' : `US$${usd % 1 ? usd.toFixed(2) : usd}`;
+  const m = c.exam.minutes;
+  const len = m ? (m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60}` : ''}`) : c.exam.style === 'practical' ? 'Practical' : '';
+  const facts = [['badge-dollar-sign', fee], ['clock', len], ['gauge', levels[c.level]], c.domains.length ? ['layers', `${c.domains.length} domains`] : null].filter((f) => f && f[1]);
+  root.className = 'card';
+  root.innerHTML = `<div class="badge-box">${badge(c, 280, { label: false })}</div>
+    <div>
+      <div class="who">${providerMark(c.provider, 44)}<span>${esc(c.provider)} · ${esc(c.code)}</span></div>
+      <h1 class="${c.name.length > 48 ? 'long' : ''}">${esc(c.name)}</h1>
+      <div class="facts">${facts.map(([i, t]) => `<span class="fact">${icon(i)}${esc(t)}</span>`).join('')}</div>
+      ${c.domains.length ? `<div class="dbar">${c.domains.map((d, i) => `<span style="flex:${d.weight};background:${D[i % 8]}"></span>`).join('')}</div>` : ''}
+    </div>`;
+}
+await document.fonts.ready;
+document.title = 'ready';
+</script>
+</body>
+</html>
