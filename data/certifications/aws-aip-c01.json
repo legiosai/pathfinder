@@ -33,7 +33,28 @@
     "developer",
     "architect"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Foundation Model Integration, Data Management, and Compliance",
+      "weight": 31
+    },
+    {
+      "name": "Implementation and Integration",
+      "weight": 26
+    },
+    {
+      "name": "AI Safety, Security, and Governance",
+      "weight": 20
+    },
+    {
+      "name": "Operational Efficiency and Optimization for GenAI Applications",
+      "weight": 12
+    },
+    {
+      "name": "Testing, Validation, and Troubleshooting",
+      "weight": 11
+    }
+  ],
   "sources": [
     "X03",
     "X04"
@@ -42,5 +63,6 @@
     "X23"
   ],
   "checked_on": "2026-10-27",
-  "prep": []
+  "prep": [],
+  "domains_note": "Weights from the AWS Certification Exam Guide (AIP-C01), read 2026-11-03."
 }

@@ -29,7 +29,24 @@
   "roles": [
     "ml-engineer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "PyTorch Fundamentals",
+      "weight": 38
+    },
+    {
+      "name": "Model Development",
+      "weight": 20
+    },
+    {
+      "name": "Performance & Optimization",
+      "weight": 26
+    },
+    {
+      "name": "Data Handling",
+      "weight": 16
+    }
+  ],
   "sources": [
     "Y05"
   ],
@@ -37,5 +54,6 @@
     "Z03"
   ],
   "checked_on": "2026-10-27",
-  "prep": []
+  "prep": [],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-03."
 }

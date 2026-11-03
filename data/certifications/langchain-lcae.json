@@ -30,7 +30,24 @@
   "roles": [
     "developer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Building Agents",
+      "weight": 25
+    },
+    {
+      "name": "Testing Agents",
+      "weight": 25
+    },
+    {
+      "name": "Deploying Agents",
+      "weight": 25
+    },
+    {
+      "name": "Monitoring Agents",
+      "weight": 25
+    }
+  ],
   "sources": [
     "X01",
     "X02"
@@ -48,5 +65,6 @@
       "cost": "free",
       "note": "Free courses; the issuer also offers a practice assessment."
     }
-  ]
+  ],
+  "domains_note": "Weights from the LangChain Academy LCAE exam page ('Domains covered'), read 2026-11-03; the exam guide PDF linked there gives the same split (10 questions, 25% of score per domain)."
 }

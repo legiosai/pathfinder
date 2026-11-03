@@ -29,7 +29,48 @@
     "governance",
     "security"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Introduction to AI",
+      "weight": 10
+    },
+    {
+      "name": "Generative AI Architecture and Design",
+      "weight": 10
+    },
+    {
+      "name": "Generative AI Use Cases and Applications",
+      "weight": 10
+    },
+    {
+      "name": "Ethics, Transparency, and Explainability in AI",
+      "weight": 10
+    },
+    {
+      "name": "AI Model Lifecycle and Threat Taxonomy",
+      "weight": 10
+    },
+    {
+      "name": "Model Governance, Risk Management, and Compliance",
+      "weight": 10
+    },
+    {
+      "name": "Introduction to AI Security and Safety",
+      "weight": 10
+    },
+    {
+      "name": "Cloud and AI Security",
+      "weight": 10
+    },
+    {
+      "name": "Data Security and Privacy AI Systems",
+      "weight": 10
+    },
+    {
+      "name": "Continuous Learning and Adaption",
+      "weight": 10
+    }
+  ],
   "sources": [
     "Y07"
   ],
@@ -45,5 +86,6 @@
       "kind": "docs",
       "cost": "free"
     }
-  ]
+  ],
+  "domains_note": "Converted from item counts on the CSA TAISE page (Exam Details: '60 multiple-choice questions (6 per module)'; Exam Modules: 10 modules), read 2026-11-03. 6/60 = 10% per module, exact. Module names as the issuer writes them (including 'Data Security and Privacy AI Systems' and 'Continuous Learning and Adaption')."
 }

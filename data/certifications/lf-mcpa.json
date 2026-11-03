@@ -33,7 +33,28 @@
     "developer",
     "architect"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "MCP Fundamentals",
+      "weight": 16
+    },
+    {
+      "name": "Architecture & Components",
+      "weight": 14
+    },
+    {
+      "name": "Interactions & Execution",
+      "weight": 26
+    },
+    {
+      "name": "Security & Governance",
+      "weight": 24
+    },
+    {
+      "name": "Use Cases & Ecosystem",
+      "weight": 20
+    }
+  ],
   "sources": [
     "Y01",
     "Y15"
@@ -69,5 +90,6 @@
       "kind": "course",
       "cost": "free"
     }
-  ]
+  ],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-03."
 }

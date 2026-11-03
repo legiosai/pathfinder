@@ -29,12 +29,35 @@
   "roles": [
     "architect"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Building agents using low-code tools",
+      "weight": 13
+    },
+    {
+      "name": "Using coding agents for application development",
+      "weight": 17
+    },
+    {
+      "name": "Developing custom agents",
+      "weight": 33
+    },
+    {
+      "name": "Evaluating and deploying agentic workflows",
+      "weight": 22
+    },
+    {
+      "name": "Securing and governing agentic workflows",
+      "weight": 15
+    }
+  ],
   "sources": [
     "X16",
-    "X17"
+    "X17",
+    "Z04"
   ],
   "reports": [],
   "checked_on": "2026-10-27",
-  "prep": []
+  "prep": [],
+  "domains_note": "Weights from the Google Cloud Professional Agentic Architect exam guide linked from the certification page, read 2026-11-03. Google marks each weight as approximate (~) and they cover the multiple-choice exam only; the required hands-on labs are separate and unweighted. The page still describes the beta; GA opens mid-November 2026, so recheck the guide at GA."
 }

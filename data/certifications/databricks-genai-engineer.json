@@ -32,9 +32,35 @@
     "developer",
     "data-engineer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Design Applications",
+      "weight": 14
+    },
+    {
+      "name": "Data Preparation",
+      "weight": 14
+    },
+    {
+      "name": "Application Development",
+      "weight": 30
+    },
+    {
+      "name": "Assembling and Deploying Applications",
+      "weight": 22
+    },
+    {
+      "name": "Governance",
+      "weight": 8
+    },
+    {
+      "name": "Evaluation and Monitoring",
+      "weight": 12
+    }
+  ],
   "sources": [
-    "X09"
+    "X09",
+    "Z03"
   ],
   "reports": [],
   "checked_on": "2026-10-27",
@@ -46,5 +72,6 @@
       "cost": "free",
       "note": "Free and paid courses, including exam preparation."
     }
-  ]
+  ],
+  "domains_note": "Weights from the Databricks Certified Generative AI Engineer Associate exam guide (exam guide updated March 18, 2026), linked from the live listing, read 2026-11-03; the listing (X09) shows the same weights, naming section 4 'Assembling and Deploying Apps'."
 }
