@@ -53,8 +53,12 @@ const LEVEL_PIPS = { entry: 1, associate: 2, professional: 3, expert: 4 };
 // Gradient ids must be unique per badge: a gradient defined inside a hidden view does not paint elsewhere.
 let uid = 0;
 
-/** A generated hexagonal badge for a certification: issuer colour, logo, code ribbon and level pips. */
+/** The issuer's official badge when the catalog has one, otherwise a generated hexagon: issuer colour, logo, code ribbon and level pips. */
 export function badge(cert, size = 64, { label = true } = {}) {
+  if (cert.badge && cert.badge.src) {
+    const alt = label ? `${esc(cert.provider)} ${esc(cert.code)} badge` : '';
+    return `<img class="badge official" src="${esc(cert.badge.src)}" width="${size}" height="${(size * 112) / 100}" alt="${alt}" decoding="async" draggable="false">`;
+  }
   const p = providerOf(cert.provider);
   const id = `pfg${++uid}`;
   const top = shade(p.color, 0.22);

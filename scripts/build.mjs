@@ -22,7 +22,15 @@ await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 await cp(join(root, 'site'), dist, { recursive: true });
 const today = new Date().toISOString().slice(0, 10);
-await writeFile(join(dist, 'catalog.json'), JSON.stringify(bundle(data, today)));
+// Official badge images (fetched by scripts/badges.mjs) replace the generated badge where present.
+const badgeFiles = new Set(await readdir(join(root, 'site', 'badges')).catch(() => []));
+const badgeSources = JSON.parse(await readFile(join(root, 'data', 'badges.json'), 'utf8').catch(() => '[]'));
+const catalog = bundle(data, today);
+for (const c of catalog.certifications) {
+  const entry = badgeSources.find((b) => b.id === c.id);
+  if (entry && badgeFiles.has(`${c.id}.webp`)) c.badge = { src: `badges/${c.id}.webp`, source: entry.page_url };
+}
+await writeFile(join(dist, 'catalog.json'), JSON.stringify(catalog));
 await writeFile(join(dist, '.nojekyll'), '');
 
 // GitHub Pages caches files for 10 minutes. Version the script, module and
@@ -32,12 +40,14 @@ for (const f of await readdir(dist)) if (f.endsWith('.js') && f !== 'sw.js') ass
 for (const dir of ['lib', 'vendor']) for (const f of await readdir(join(dist, dir))) if (f.endsWith('.js')) assets.push(`${dir}/${f}`);
 const hash = createHash('sha256');
 for (const f of assets.sort()) hash.update(await readFile(join(dist, f)));
+// Badge images are cached by the worker without a version in the URL, so they feed the cache name.
+for (const f of [...badgeFiles].sort()) if (f.endsWith('.webp')) hash.update(await readFile(join(dist, 'badges', f)));
 const v = hash.digest('hex').slice(0, 10);
 await rewrite('index.html', [[/(src|href)="(app\.js|styles\.css)"/g, `$1="$2?v=${v}"`]]);
 await rewrite('app.js', [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
 
 // Offline cache: the worker precaches the shell and every versioned asset of this build.
-const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', ...assets.map((f) => `${f}?v=${v}`)];
+const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', 'fonts/inter-latin.woff2', ...assets.map((f) => `${f}?v=${v}`)];
 await rewrite('sw.js', [
   [/const VERSION = 'dev';/, `const VERSION = '${v}';`],
   [/const PRECACHE = \[[^\]]*\];/, `const PRECACHE = ${JSON.stringify(precache)};`],

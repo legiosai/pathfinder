@@ -13,6 +13,7 @@ const KEYS = {
   confidence: 'pathfinder:confidence:',
   theme: 'pathfinder:theme',
   plans: 'pathfinder:plans',
+  motion: 'pathfinder:motion',
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -326,6 +327,9 @@ function renderList() {
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
   $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
   $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores });
+  const hint = $('#q-hint');
+  hint.hidden = !q;
+  if (q) hint.textContent = t('hero.matches', { n: list.length });
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
     : `<p class="empty">${t('list.empty')}</p>`;
@@ -338,15 +342,15 @@ function card(c, score, i = 0) {
   const full = !inCompare && compare.length >= MAX_COMPARE;
   return `<article class="card cert-card" style="--pc:${providerColor(c.provider)};--i:${Math.min(i, 14)}">
     <div class="row">
-      ${badge(c, 58)}
+      ${badge(c, 56)}
+      <div class="title">
+        <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
+        <div class="who">${esc(c.provider)} · ${esc(c.code)}</div>
+      </div>
       <div class="top-right">
         ${score ? ring(score.score, 40, '', t('match.aria', { n: score.score })) : ''}
         <button type="button" class="btn icon-btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" aria-label="${inCompare ? t('compare.remove') : t('compare.add')}" title="${inCompare ? t('compare.in') : full ? t('compare.full') : t('compare.add')}" ${full ? 'disabled' : ''}>${icon(inCompare ? 'check' : 'plus')}</button>
       </div>
-    </div>
-    <div>
-      <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
-      <div class="who">${esc(c.provider)} · ${esc(c.code)}</div>
     </div>
     <div class="tags">${catPill(c)}${flag(c)}</div>
     ${c.domains.length ? dbar(c) : ''}
@@ -369,8 +373,8 @@ function renderCert(id) {
   const mine = scores && scores.get(c.id);
   const inCompare = compare.includes(c.id);
   const full = !inCompare && compare.length >= MAX_COMPARE;
-  const stat = (ic, label, value) =>
-    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b></div></div>` : '';
+  const stat = (ic, label, value, sub) =>
+    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>` : '';
   const notes = [
     c.requirements && c.status === 'restricted' ? ['lock', c.requirements] : null,
     c.exam.format ? ['pen-line', c.exam.format] : null,
@@ -392,29 +396,37 @@ function renderCert(id) {
       ? `<section class="card panel"><h2>${icon('info')}${t('cert.good')}</h2><ul class="notes">${notes.map(([ic, t]) => `<li>${icon(ic)}<span>${esc(t)}</span></li>`).join('')}</ul></section>`
       : '',
   ].join('');
-  const right = [
-    c.prep && c.prep.length
-      ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep')}</h2><div class="resources">${c.prep
-          .map((r) => {
-            const k = prepKind(r);
-            return ext(
-              r.url,
-              `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="pill">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`,
-              'res',
-            );
-          })
-          .join('')}</div></section>`
-      : '',
-    `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
+  const resource = (r) => {
+    const k = prepKind(r);
+    return ext(
+      r.url,
+      `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`,
+      'res',
+    );
+  };
+  // The first few resources show; the rest fold away so the column stays near the length of the other one.
+  const PREP_SHOWN = 5;
+  const prep = c.prep || [];
+  const prepHtml = prep.length
+    ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep')}</h2><div class="resources">${prep.slice(0, PREP_SHOWN).map(resource).join('')}</div>${
+        prep.length > PREP_SHOWN
+          ? `<details class="more more-res"><summary>${t('cert.morePrep', { n: prep.length - PREP_SHOWN })}</summary><div class="resources">${prep.slice(PREP_SHOWN).map(resource).join('')}</div></details>`
+          : ''
+      }</section>`
+    : '';
+  const sourcesHtml = `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
       <p class="hint">${esc(t('cert.checked', { d: day(c.checked_on, { weekday: false, year: true }) }))}</p>
+      ${c.badge && c.badge.source ? `<p class="hint">${ext(c.badge.source, esc(t('cert.badgeFrom')))}</p>` : ''}
       <details class="more"><summary>${t('cert.nSources', { n: sources.length })}</summary>${sources
         .map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src'))
         .join('')}</details>
       ${reports.length ? `<details class="more"><summary>${t('cert.nReports', { n: reports.length })}</summary>
         <p class="hint">${t('cert.reportsHint')}</p>
         ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
-    </section>`,
-  ].join('');
+    </section>`;
+  // With resources on the right, sources sit under the left column on wide screens and come last on narrow ones.
+  const right = prepHtml || sourcesHtml;
+  const tail = prepHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}${t('cert.back')}</a>
@@ -433,7 +445,7 @@ function renderCert(id) {
       </div>
     </div>
     <div class="stat-grid">
-      ${stat('badge-dollar-sign', t('stat.price'), `${fee(c)}${c.fee.basis ? ` · ${c.fee.basis}` : ''}`)}
+      ${stat('badge-dollar-sign', t('stat.price'), fee(c), c.fee.basis)}
       ${stat('clock', t('stat.length'), duration(c))}
       ${stat('list-checks', t('stat.questions'), c.exam.questions)}
       ${stat('target', t('stat.passing'), c.exam.passing)}
@@ -441,7 +453,7 @@ function renderCert(id) {
       ${stat('pen-line', t('stat.format'), LABELS[c.exam.style])}
       ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status])}
     </div>
-    <div class="cols"><div>${left}</div><div>${right}</div></div>`;
+    <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>`;
 }
 
 // ---------- compare page ----------
@@ -619,6 +631,7 @@ function statusHtml(p) {
 
 function monthsHtml(p, done) {
   const byDate = new Map(p.sessions.map((s) => [s.date, s]));
+  const today = todayLocal();
   const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
   const first = utc(p.sessions[0].date);
   const last = utc([p.sessions.at(-1).date, examDay].sort().at(-1));
@@ -633,12 +646,14 @@ function monthsHtml(p, done) {
     for (let d = 1; d <= days; d++) {
       const date = iso(new Date(Date.UTC(y, m, d)));
       const s = byDate.get(date);
+      const isToday = date === today ? ' today' : '';
       if (s) {
-        cells.push(`<span class="d s ${kindN(s.kind)}${done.has(s.n) ? ' done' : ''}" data-n="${s.n}" ${kindStyle(s.kind)} title="${esc(`${day(date)} · ${kindLabel(s.kind)}: ${cap(sname(s))}`)}">${icon(KIND[s.kind].icon)}</span>`);
+        const state = done.has(s.n) ? ' done' : date < today ? ' missed' : '';
+        cells.push(`<span class="d s ${kindN(s.kind)}${state}${isToday}" data-n="${s.n}" ${kindStyle(s.kind)} title="${esc(`${day(date)} · ${kindLabel(s.kind)}: ${cap(sname(s))}`)}">${icon(KIND[s.kind].icon)}</span>`);
       } else if (date === examDay) {
-        cells.push(`<span class="d exam" title="${esc(`${day(date)} · ${t('plan.examDay')}`)}">${icon('target')}</span>`);
+        cells.push(`<span class="d exam${isToday}" title="${esc(`${day(date)} · ${t('plan.examDay')}`)}">${icon('target')}</span>`);
       } else {
-        cells.push(`<span class="d">${d}</span>`);
+        cells.push(`<span class="d${isToday}">${d}</span>`);
       }
     }
     out.push(`<div class="card month"><h3>${dates().monthNames[m]} ${y}</h3><div class="mgrid">${cells.join('')}</div></div>`);
@@ -696,10 +711,13 @@ function renderPlan() {
     b.setUTCDate(a.getUTCDate() + 6);
     return span(iso(a), iso(b));
   };
-  const stop = (s) => `<li class="stop${done.has(s.n) ? ' done' : ''}" data-kind="${s.kind}">
+  const today = todayLocal();
+  const stopState = (s) => (done.has(s.n) ? ' done' : s.date < today ? ' missed' : s.date === today ? ' today' : '');
+  const stopTag = (s) => (done.has(s.n) ? '' : s.date < today ? `<span class="tag warn">${t('progress.legendMissed')}</span>` : s.date === today ? `<span class="tag">${t('progress.today')}</span>` : '');
+  const stop = (s) => `<li class="stop${stopState(s)}" data-kind="${s.kind}">
       <span class="node ${kindN(s.kind)}" ${kindStyle(s.kind)}>${icon(KIND[s.kind].icon)}</span>
       <div class="card body">
-        <small>${day(s.date)} · ${kindLabel(s.kind)}</small>
+        <small>${day(s.date)} · ${kindLabel(s.kind)}${stopTag(s)}</small>
         <b>${esc(cap(sname(s)))}</b>
         <span class="len">${icon('clock')}${len(s.minutes)}</span>
         <label class="check"><input type="checkbox" data-n="${s.n}" aria-label="${esc(t('plan.sessionDone', { n: s.n }))}" ${done.has(s.n) ? 'checked' : ''}><span>${icon('check')}</span></label>
@@ -753,7 +771,7 @@ function renderPlan() {
       ${cert.prep && cert.prep.length ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('plan.resources')}</h2><div class="resources">${cert.prep
         .map((r) => {
           const k = prepKind(r);
-          return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="pill">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`, 'res');
+          return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`, 'res');
         })
         .join('')}</div></section>` : ''}
     </div>`;
@@ -764,8 +782,16 @@ function renderPlan() {
       if (box.checked) done.add(n);
       else done.delete(n);
       store.set(progressKey, [...done]);
-      box.closest('.stop').classList.toggle('done', box.checked);
-      $(`#plan-output .mgrid [data-n="${n}"]`)?.classList.toggle('done', box.checked);
+      const session = p.sessions.find((x) => x.n === n);
+      const li = box.closest('.stop');
+      li.className = `stop${stopState(session)}`;
+      $('.tag', li)?.remove();
+      $('small', li).insertAdjacentHTML('beforeend', stopTag(session));
+      const cell = $(`#plan-output .mgrid [data-n="${n}"]`);
+      if (cell) {
+        cell.classList.toggle('done', box.checked);
+        cell.classList.toggle('missed', !box.checked && session.date < today);
+      }
       $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }));
       $('#progress-n').textContent = t('plan.of', { a: done.size, b: p.sessions.length });
       if (box.checked && !isTracked(progressKey)) setTracked(progressKey, trackParams(), true);
@@ -856,6 +882,25 @@ function bind() {
 
   $('#filters').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
+  $('#q').addEventListener('input', renderList);
+  $('#q').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    showResults();
+  });
+  $('#q-hint').addEventListener('click', showResults);
+  $('#mq-toggle').addEventListener('click', () => {
+    const paused = !$('#marquee').classList.contains('paused');
+    setMotionPaused(paused);
+    store.set(KEYS.motion, paused ? 'paused' : 'moving');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
+    if (e.target.closest('input, textarea, select, [contenteditable]')) return;
+    if ($('#view-list').hidden) return;
+    e.preventDefault();
+    $('#q').focus();
+  });
   $('#for-me').addEventListener('click', () => setProfileOpen($('#profile').hidden));
   $('#profile').addEventListener('change', () => {
     readProfile();
@@ -1066,6 +1111,57 @@ async function share(id) {
   copy(url, button);
 }
 
+// ---------- hero ----------
+/** Faint contour lines around two summits, with the dashed trail climbing to the right-hand one. */
+function renderHeroArt() {
+  const ring = (cx, cy, k, step, i, cls = '') => {
+    const pts = [];
+    for (let a = 0; a <= 72; a++) {
+      const th = (a / 72) * Math.PI * 2;
+      const r = k * step * (1 + 0.13 * Math.sin(3 * th + k * 0.6) + 0.07 * Math.cos(5 * th - k));
+      pts.push(`${(cx + Math.cos(th) * r * 1.35).toFixed(1)},${(cy + Math.sin(th) * r).toFixed(1)}`);
+    }
+    return `<path pathLength="1" style="--k:${i}"${cls ? ` class="${cls}"` : ''} d="M${pts.join('L')}Z"/>`;
+  };
+  let out = '';
+  for (let k = 1; k <= 11; k++) out += ring(1075, 64, k, 30, k, k === 2 || k === 3 ? 'hi' : '');
+  for (let k = 1; k <= 7; k++) out += ring(70, 330, k, 30, k + 3);
+  out += '<path class="trail" pathLength="1" d="M1215 520 C 1150 470, 1185 400, 1125 350 S 1005 280, 1040 200 S 1100 120, 1075 64"/>';
+  out += '<circle class="peak" cx="1075" cy="64" r="6"/>';
+  $('#hero-topo').innerHTML = out;
+}
+
+/** Every certification as a badge, split over two rows that drift in opposite directions.
+ *  Each row holds its set twice so the -50% shift loops without a seam. */
+function renderMarquee() {
+  const byProvider = new Map();
+  for (const c of DATA.certifications) byProvider.set(c.provider, [...(byProvider.get(c.provider) || []), c]);
+  const groups = [...byProvider.values()].sort((a, b) => b.length - a.length);
+  // Deal one per provider per round so neighbours rarely share an issuer colour.
+  const order = [];
+  for (let round = 0; order.length < DATA.certifications.length; round++) for (const g of groups) if (g[round]) order.push(g[round]);
+  const rows = [[], []];
+  order.forEach((c, i) => rows[i % 2].push(c));
+  rows.forEach((row, r) => {
+    // Mouse shortcuts only: the same links follow in the list, so the rows stay out of the tab order.
+    const set = row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false })}</a>`).join('');
+    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 3.6 : 3.1)).toFixed(1)}s"><div class="mq-set">${set}</div><div class="mq-set mq-copy">${set}</div></div>`;
+  });
+}
+
+function setMotionPaused(paused) {
+  $('#marquee').classList.toggle('paused', paused);
+  const button = $('#mq-toggle');
+  button.setAttribute('aria-pressed', String(paused));
+  $('use', button).setAttribute('href', paused ? '#i-play' : '#i-pause');
+}
+
+function showResults() {
+  const head = $('#list-head');
+  const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  head.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+}
+
 // ---------- language ----------
 function buildLabels() {
   LABELS = {};
@@ -1130,12 +1226,13 @@ async function init() {
     all.map((c) => ({ id: c.id, name: c.name, code: c.code, provider: c.provider, category: `${c.category} ${t(`cat.${c.category}`)}`, skills: DATA.taxonomy.skills.filter((s) => c.skills.includes(s.id)).map((s) => `${s.label} ${label('skills', s)}`).join(' '), scope: c.scope })),
     {
       keys: [{ name: 'name', weight: 3 }, { name: 'code', weight: 3 }, { name: 'provider', weight: 2 }, { name: 'skills', weight: 1.5 }, 'category', 'scope'],
-      threshold: 0.34,
+      threshold: 0.25,
       ignoreLocation: true,
     },
   );
-  const featured = ['claude-architect-foundations', 'nvidia-nca-genl', 'aws-aif-c01', 'google-agentic-architect', 'lf-mcpa', 'databricks-genai-engineer', 'redhat-ex267', 'github-gh-600'].filter((id) => BY_ID.has(id));
-  $('#floaters').innerHTML = featured.map((id, i) => `<a href="#cert?id=${id}" class="floater f${i}" title="${esc(BY_ID.get(id).name)}">${badge(BY_ID.get(id), 76)}</a>`).join('');
+  renderHeroArt();
+  renderMarquee();
+  setMotionPaused(store.get(KEYS.motion, false) === 'paused');
 
   renderSiteText();
   fillProfile();
