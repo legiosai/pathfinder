@@ -423,9 +423,9 @@ function renderCert(id) {
         <p class="hint">${t('cert.reportsHint')}</p>
         ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
     </section>`;
-  // Sources go under the shorter column.
-  const leftAll = prepHtml ? left + sourcesHtml : left;
+  // With resources on the right, sources sit under the left column on wide screens and come last on narrow ones.
   const right = prepHtml || sourcesHtml;
+  const tail = prepHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}${t('cert.back')}</a>
@@ -452,7 +452,7 @@ function renderCert(id) {
       ${stat('pen-line', t('stat.format'), LABELS[c.exam.style])}
       ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status])}
     </div>
-    <div class="cols"><div>${leftAll}</div><div>${right}</div></div>`;
+    <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>`;
 }
 
 // ---------- compare page ----------
