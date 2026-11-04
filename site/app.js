@@ -342,15 +342,15 @@ function card(c, score, i = 0) {
   const full = !inCompare && compare.length >= MAX_COMPARE;
   return `<article class="card cert-card" style="--pc:${providerColor(c.provider)};--i:${Math.min(i, 14)}">
     <div class="row">
-      ${badge(c, 58)}
+      ${badge(c, 56)}
+      <div class="title">
+        <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
+        <div class="who">${esc(c.provider)} · ${esc(c.code)}</div>
+      </div>
       <div class="top-right">
         ${score ? ring(score.score, 40, '', t('match.aria', { n: score.score })) : ''}
         <button type="button" class="btn icon-btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" aria-label="${inCompare ? t('compare.remove') : t('compare.add')}" title="${inCompare ? t('compare.in') : full ? t('compare.full') : t('compare.add')}" ${full ? 'disabled' : ''}>${icon(inCompare ? 'check' : 'plus')}</button>
       </div>
-    </div>
-    <div>
-      <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
-      <div class="who">${esc(c.provider)} · ${esc(c.code)}</div>
     </div>
     <div class="tags">${catPill(c)}${flag(c)}</div>
     ${c.domains.length ? dbar(c) : ''}
@@ -373,8 +373,8 @@ function renderCert(id) {
   const mine = scores && scores.get(c.id);
   const inCompare = compare.includes(c.id);
   const full = !inCompare && compare.length >= MAX_COMPARE;
-  const stat = (ic, label, value) =>
-    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b></div></div>` : '';
+  const stat = (ic, label, value, sub) =>
+    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>` : '';
   const notes = [
     c.requirements && c.status === 'restricted' ? ['lock', c.requirements] : null,
     c.exam.format ? ['pen-line', c.exam.format] : null,
@@ -396,20 +396,25 @@ function renderCert(id) {
       ? `<section class="card panel"><h2>${icon('info')}${t('cert.good')}</h2><ul class="notes">${notes.map(([ic, t]) => `<li>${icon(ic)}<span>${esc(t)}</span></li>`).join('')}</ul></section>`
       : '',
   ].join('');
-  const right = [
-    c.prep && c.prep.length
-      ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep')}</h2><div class="resources">${c.prep
-          .map((r) => {
-            const k = prepKind(r);
-            return ext(
-              r.url,
-              `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="pill">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`,
-              'res',
-            );
-          })
-          .join('')}</div></section>`
-      : '',
-    `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
+  const resource = (r) => {
+    const k = prepKind(r);
+    return ext(
+      r.url,
+      `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`,
+      'res',
+    );
+  };
+  // The first few resources show; the rest fold away so the column stays near the length of the other one.
+  const PREP_SHOWN = 5;
+  const prep = c.prep || [];
+  const prepHtml = prep.length
+    ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep')}</h2><div class="resources">${prep.slice(0, PREP_SHOWN).map(resource).join('')}</div>${
+        prep.length > PREP_SHOWN
+          ? `<details class="more more-res"><summary>${t('cert.morePrep', { n: prep.length - PREP_SHOWN })}</summary><div class="resources">${prep.slice(PREP_SHOWN).map(resource).join('')}</div></details>`
+          : ''
+      }</section>`
+    : '';
+  const sourcesHtml = `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
       <p class="hint">${esc(t('cert.checked', { d: day(c.checked_on, { weekday: false, year: true }) }))}</p>
       <details class="more"><summary>${t('cert.nSources', { n: sources.length })}</summary>${sources
         .map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src'))
@@ -417,8 +422,10 @@ function renderCert(id) {
       ${reports.length ? `<details class="more"><summary>${t('cert.nReports', { n: reports.length })}</summary>
         <p class="hint">${t('cert.reportsHint')}</p>
         ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
-    </section>`,
-  ].join('');
+    </section>`;
+  // Sources go under the shorter column.
+  const leftAll = prepHtml ? left + sourcesHtml : left;
+  const right = prepHtml || sourcesHtml;
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}${t('cert.back')}</a>
@@ -437,7 +444,7 @@ function renderCert(id) {
       </div>
     </div>
     <div class="stat-grid">
-      ${stat('badge-dollar-sign', t('stat.price'), `${fee(c)}${c.fee.basis ? ` · ${c.fee.basis}` : ''}`)}
+      ${stat('badge-dollar-sign', t('stat.price'), fee(c), c.fee.basis)}
       ${stat('clock', t('stat.length'), duration(c))}
       ${stat('list-checks', t('stat.questions'), c.exam.questions)}
       ${stat('target', t('stat.passing'), c.exam.passing)}
@@ -445,7 +452,7 @@ function renderCert(id) {
       ${stat('pen-line', t('stat.format'), LABELS[c.exam.style])}
       ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status])}
     </div>
-    <div class="cols"><div>${left}</div><div>${right}</div></div>`;
+    <div class="cols"><div>${leftAll}</div><div>${right}</div></div>`;
 }
 
 // ---------- compare page ----------
@@ -623,6 +630,7 @@ function statusHtml(p) {
 
 function monthsHtml(p, done) {
   const byDate = new Map(p.sessions.map((s) => [s.date, s]));
+  const today = todayLocal();
   const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
   const first = utc(p.sessions[0].date);
   const last = utc([p.sessions.at(-1).date, examDay].sort().at(-1));
@@ -637,12 +645,14 @@ function monthsHtml(p, done) {
     for (let d = 1; d <= days; d++) {
       const date = iso(new Date(Date.UTC(y, m, d)));
       const s = byDate.get(date);
+      const isToday = date === today ? ' today' : '';
       if (s) {
-        cells.push(`<span class="d s ${kindN(s.kind)}${done.has(s.n) ? ' done' : ''}" data-n="${s.n}" ${kindStyle(s.kind)} title="${esc(`${day(date)} · ${kindLabel(s.kind)}: ${cap(sname(s))}`)}">${icon(KIND[s.kind].icon)}</span>`);
+        const state = done.has(s.n) ? ' done' : date < today ? ' missed' : '';
+        cells.push(`<span class="d s ${kindN(s.kind)}${state}${isToday}" data-n="${s.n}" ${kindStyle(s.kind)} title="${esc(`${day(date)} · ${kindLabel(s.kind)}: ${cap(sname(s))}`)}">${icon(KIND[s.kind].icon)}</span>`);
       } else if (date === examDay) {
-        cells.push(`<span class="d exam" title="${esc(`${day(date)} · ${t('plan.examDay')}`)}">${icon('target')}</span>`);
+        cells.push(`<span class="d exam${isToday}" title="${esc(`${day(date)} · ${t('plan.examDay')}`)}">${icon('target')}</span>`);
       } else {
-        cells.push(`<span class="d">${d}</span>`);
+        cells.push(`<span class="d${isToday}">${d}</span>`);
       }
     }
     out.push(`<div class="card month"><h3>${dates().monthNames[m]} ${y}</h3><div class="mgrid">${cells.join('')}</div></div>`);
@@ -700,10 +710,13 @@ function renderPlan() {
     b.setUTCDate(a.getUTCDate() + 6);
     return span(iso(a), iso(b));
   };
-  const stop = (s) => `<li class="stop${done.has(s.n) ? ' done' : ''}" data-kind="${s.kind}">
+  const today = todayLocal();
+  const stopState = (s) => (done.has(s.n) ? ' done' : s.date < today ? ' missed' : s.date === today ? ' today' : '');
+  const stopTag = (s) => (done.has(s.n) ? '' : s.date < today ? `<span class="tag warn">${t('progress.legendMissed')}</span>` : s.date === today ? `<span class="tag">${t('progress.today')}</span>` : '');
+  const stop = (s) => `<li class="stop${stopState(s)}" data-kind="${s.kind}">
       <span class="node ${kindN(s.kind)}" ${kindStyle(s.kind)}>${icon(KIND[s.kind].icon)}</span>
       <div class="card body">
-        <small>${day(s.date)} · ${kindLabel(s.kind)}</small>
+        <small>${day(s.date)} · ${kindLabel(s.kind)}${stopTag(s)}</small>
         <b>${esc(cap(sname(s)))}</b>
         <span class="len">${icon('clock')}${len(s.minutes)}</span>
         <label class="check"><input type="checkbox" data-n="${s.n}" aria-label="${esc(t('plan.sessionDone', { n: s.n }))}" ${done.has(s.n) ? 'checked' : ''}><span>${icon('check')}</span></label>
@@ -757,7 +770,7 @@ function renderPlan() {
       ${cert.prep && cert.prep.length ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('plan.resources')}</h2><div class="resources">${cert.prep
         .map((r) => {
           const k = prepKind(r);
-          return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="pill">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`, 'res');
+          return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`, 'res');
         })
         .join('')}</div></section>` : ''}
     </div>`;
@@ -768,8 +781,16 @@ function renderPlan() {
       if (box.checked) done.add(n);
       else done.delete(n);
       store.set(progressKey, [...done]);
-      box.closest('.stop').classList.toggle('done', box.checked);
-      $(`#plan-output .mgrid [data-n="${n}"]`)?.classList.toggle('done', box.checked);
+      const session = p.sessions.find((x) => x.n === n);
+      const li = box.closest('.stop');
+      li.className = `stop${stopState(session)}`;
+      $('.tag', li)?.remove();
+      $('small', li).insertAdjacentHTML('beforeend', stopTag(session));
+      const cell = $(`#plan-output .mgrid [data-n="${n}"]`);
+      if (cell) {
+        cell.classList.toggle('done', box.checked);
+        cell.classList.toggle('missed', !box.checked && session.date < today);
+      }
       $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }));
       $('#progress-n').textContent = t('plan.of', { a: done.size, b: p.sessions.length });
       if (box.checked && !isTracked(progressKey)) setTracked(progressKey, trackParams(), true);

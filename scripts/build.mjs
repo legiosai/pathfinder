@@ -37,7 +37,7 @@ await rewrite('index.html', [[/(src|href)="(app\.js|styles\.css)"/g, `$1="$2?v=$
 await rewrite('app.js', [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
 
 // Offline cache: the worker precaches the shell and every versioned asset of this build.
-const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', ...assets.map((f) => `${f}?v=${v}`)];
+const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', 'fonts/inter-latin.woff2', ...assets.map((f) => `${f}?v=${v}`)];
 await rewrite('sw.js', [
   [/const VERSION = 'dev';/, `const VERSION = '${v}';`],
   [/const PRECACHE = \[[^\]]*\];/, `const PRECACHE = ${JSON.stringify(precache)};`],

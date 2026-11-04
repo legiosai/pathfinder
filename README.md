@@ -45,4 +45,4 @@ Corrections and new certifications are welcome. See [CONTRIBUTING.md](CONTRIBUTI
 
 [MIT](LICENSE)
 
-Icons from [Lucide](https://lucide.dev) v1.59.0 (ISC, see `site/LICENSE-lucide.txt`). Headings use [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) (SIL Open Font License, see `site/fonts/OFL.txt`). Both are bundled, so the site makes no third-party requests.
+Icons from [Lucide](https://lucide.dev) v1.59.0 (ISC, see `site/LICENSE-lucide.txt`). Headings use [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) and body text uses [Inter](https://github.com/rsms/inter), Latin subset (both SIL Open Font License, see `site/fonts/OFL.txt` and `site/fonts/OFL-inter.txt`). Everything is bundled, so the site makes no third-party requests.
