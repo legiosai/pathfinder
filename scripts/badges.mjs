@@ -1,11 +1,13 @@
 // Fetch the issuers' official badge images listed in data/badges.json into site/badges/<id>.webp.
 // Usage: node scripts/badges.mjs [id ...]   (no ids: every entry)
-// Needs ImageMagick 7 (`magick`). Run it when data/badges.json changes, then commit the images.
+// Needs ImageMagick 7 (`magick`), and Chrome for SVG badges (CHROME=/path/to/chrome to override).
+// Run it when data/badges.json changes, then commit the images.
 //
 // Each image is downloaded once, a plain white backdrop is made transparent (some issuers ship
 // badges on white, which shows as a square in dark mode), trimmed, and resized to fit 224 px.
 import { execFile } from 'node:child_process';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { mkdir, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,6 +21,16 @@ const out = join(root, 'site', 'badges');
 await mkdir(out, { recursive: true });
 const work = await mkdtemp(join(tmpdir(), 'pathfinder-badges-'));
 const SIZE = 224;
+const CHROME = process.env.CHROME || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'].find(existsSync);
+
+// ImageMagick draws SVG gradients poorly, so SVG badges are rendered by headless Chrome on a
+// transparent page first. An <img> never runs scripts inside the SVG.
+async function rasterizeSvg(svgPath, pngPath) {
+  if (!CHROME) throw new Error('SVG badge needs Chrome (set CHROME)');
+  const page = join(dirname(svgPath), 'render.html');
+  await writeFile(page, `<!doctype html><html><body style="margin:0;background:transparent"><img src="${svgPath.split('/').pop()}" style="display:block;width:900px;height:900px;object-fit:contain"></body></html>`);
+  await run(CHROME, ['--headless', '--disable-gpu', '--hide-scrollbars', '--default-background-color=00000000', '--window-size=900,900', `--screenshot=${pngPath}`, `file://${page}`]);
+}
 
 try {
   for (const e of entries) {
@@ -29,8 +41,13 @@ try {
       console.error(`${e.id}: ${res.status} ${type}, skipped`);
       continue;
     }
-    const src = join(work, `${e.id}.src`);
+    let src = join(work, `${e.id}.src`);
     await writeFile(src, Buffer.from(await res.arrayBuffer()));
+    if (type.includes('svg')) {
+      await rename(src, `${src}.svg`);
+      await rasterizeSvg(`${src}.svg`, `${src}.png`);
+      src = `${src}.png`;
+    }
     // Flood-fill from each corner only through near-white pixels, so white inside the badge stays.
     const { stdout } = await run('magick', ['identify', '-format', '%w %h', `${src}[0]`]);
     const [w, h] = stdout.trim().split(' ').map(Number);

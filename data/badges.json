@@ -30,6 +30,91 @@
     "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-security-specialty"
   },
   {
+    "id": "claude-architect-foundations",
+    "image_url": "https://images.credly.com/images/f2040db3-3904-4240-8966-e87b1510bea0/blob",
+    "page_url": "https://www.credly.com/org/anthropic/badge/claude-certified-architect-foundations"
+  },
+  {
+    "id": "claude-architect-professional",
+    "image_url": "https://images.credly.com/images/7583afbc-4aab-4c7d-8af4-d9af72786ab3/blob",
+    "page_url": "https://www.credly.com/org/anthropic/badge/claude-certified-architect-professional"
+  },
+  {
+    "id": "claude-associate-foundations",
+    "image_url": "https://images.credly.com/images/a6387cbd-5ac1-4894-833a-da2cbc28587e/blob",
+    "page_url": "https://www.credly.com/org/anthropic/badge/claude-certified-associate-foundations"
+  },
+  {
+    "id": "claude-developer-foundations",
+    "image_url": "https://images.credly.com/images/f101c6ac-8a2d-4220-b381-70e3e6c364e3/blob",
+    "page_url": "https://www.credly.com/org/anthropic/badge/claude-certified-developer-foundations"
+  },
+  {
+    "id": "csa-taise",
+    "image_url": "https://images.credly.com/images/1011ba14-3290-4427-97f6-55164bbb057e/blob",
+    "page_url": "https://www.credly.com/org/cloud-security-alliance/badge/trusted-ai-safety-expert-taise-certificate"
+  },
+  {
+    "id": "databricks-context-engineer",
+    "image_url": "https://www.databricks.com/sites/default/files/2026-05/associate-badge-context-engineer.png",
+    "page_url": "https://www.databricks.com/learn/certification/context-engineer-associate"
+  },
+  {
+    "id": "databricks-genai-engineer",
+    "image_url": "https://www.databricks.com/sites/default/files/2025-10/associate-badge-gen-ai.png",
+    "page_url": "https://www.databricks.com/learn/certification/genai-engineer-associate"
+  },
+  {
+    "id": "giac-gaips",
+    "image_url": "https://images.credly.com/images/c6270250-c492-41c7-ba56-0e4d1b7d9002/blob",
+    "page_url": "https://www.credly.com/org/global-information-assurance-certification-giac/badge/giac-ai-platform-security-gaips"
+  },
+  {
+    "id": "github-gh-600",
+    "image_url": "https://learn.microsoft.com/en-us/credentials/images/badges/github-agentic-ai-developer.svg",
+    "page_url": "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/"
+  },
+  {
+    "id": "google-agentic-architect",
+    "image_url": "https://images.credly.com/images/aa463b72-a112-4858-8677-7cae3e00ec2e/blob",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/professional-agentic-architect-certification"
+  },
+  {
+    "id": "hashicorp-terraform-associate",
+    "image_url": "https://images.credly.com/images/6f614b71-3f2e-488e-8b29-71e90d4dbf80/blob",
+    "page_url": "https://www.credly.com/org/ibm-professional-certification-program/badge/hashicorp-certified-terraform-associate-004"
+  },
+  {
+    "id": "iapp-aigp",
+    "image_url": "https://templates.images.credential.net/17778946502390797278722589226451.png",
+    "page_url": "https://www.credential.net/group/583288"
+  },
+  {
+    "id": "langchain-lcae",
+    "image_url": "https://accredible-api-templates.s3-external-1.amazonaws.com/17842270929296332943148368284176.png",
+    "page_url": "https://certs.langchain.com/group/830001"
+  },
+  {
+    "id": "lf-ckad",
+    "image_url": "https://images.credly.com/images/cc8adc83-1dc6-4d57-8e20-22171247e052/blob",
+    "page_url": "https://www.credly.com/org/the-linux-foundation/badge/ckad-certified-kubernetes-application-developer"
+  },
+  {
+    "id": "lf-mcpa",
+    "image_url": "https://images.credly.com/images/acfadd19-9c64-4712-87f4-66ac37a5c5c1/blob",
+    "page_url": "https://www.credly.com/org/the-linux-foundation/badge/mcpa-model-context-protocol-associate"
+  },
+  {
+    "id": "lf-otca",
+    "image_url": "https://images.credly.com/images/3d3f7131-83a4-4427-8a68-150ca90bcc23/blob",
+    "page_url": "https://www.credly.com/org/the-linux-foundation/badge/otca-opentelemetry-certified-associate"
+  },
+  {
+    "id": "lf-ptca",
+    "image_url": "https://images.credly.com/images/3ff8459f-da1d-4a54-842e-282bb0dfb45a/blob",
+    "page_url": "https://www.credly.com/org/the-linux-foundation/badge/ptca-pytorch-certified-associate"
+  },
+  {
     "id": "nvidia-nca-ads",
     "image_url": "https://images.credly.com/images/b9615320-0021-4759-aabf-07f131ec866a/blob",
     "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-associate-accelerated-data-science.1"
@@ -88,5 +173,25 @@
     "id": "nvidia-ncp-ousd",
     "image_url": "https://images.credly.com/images/4ecbe231-1875-4d7c-bf24-304c85668e37/blob",
     "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-openusd-development"
+  },
+  {
+    "id": "offsec-osai",
+    "image_url": "https://templates.images.credential.net/1775480892862766265529011055129.png",
+    "page_url": "https://credentials.offsec.com/group/815339"
+  },
+  {
+    "id": "redhat-ex267",
+    "image_url": "https://images.credly.com/images/0a4e7132-911d-4c47-af11-259b9629dbde/blob",
+    "page_url": "https://www.credly.com/org/red-hat-inc/badge/red-hat-certified-developer-in-ai"
+  },
+  {
+    "id": "securiti-ai-governance",
+    "image_url": "https://education.securiti.ai/wp-content/uploads/2024/05/ai-security-governance-badge-new.svg",
+    "page_url": "https://education.securiti.ai/certifications/ai-governance/"
+  },
+  {
+    "id": "tcm-papa",
+    "image_url": "https://certifications.tcm-sec.com/wp-content/uploads/2025/11/PAPA-badge.webp",
+    "page_url": "https://certifications.tcm-sec.com/papa/"
   }
 ]
