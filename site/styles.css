@@ -262,6 +262,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .q-hint[hidden] { display: none; }
 .hero-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px; margin-top: 18px; }
 .mq-set { display: flex; }
+img.badge.official { object-fit: contain; user-select: none; }
 #list-head { scroll-margin-top: 84px; }
 .hero-stats .stat-chip { padding: 0; background: none; gap: 8px; }
 .hero-stats .stat-chip > span:last-child { display: flex; align-items: baseline; gap: 5px; }
@@ -399,7 +400,7 @@ details.more > summary:hover { color: var(--text); }
 .cmp-row .i { color: var(--faint); margin-top: 2px; }
 .cmp-row > div { min-width: 0; flex: 1; }
 .cmp-row small { display: block; color: var(--muted); font-size: 0.78rem; }
-.cmp-col .link { align-self: flex-start; margin-top: 12px; font-size: 0.86rem; }
+.cmp-col .link { align-self: flex-start; margin-top: auto; padding-top: 14px; font-size: 0.86rem; }
 
 /* ---------- plan ---------- */
 .plan-form { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px 12px; padding: 22px; margin-bottom: 16px; }

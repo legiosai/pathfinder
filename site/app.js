@@ -416,6 +416,7 @@ function renderCert(id) {
     : '';
   const sourcesHtml = `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
       <p class="hint">${esc(t('cert.checked', { d: day(c.checked_on, { weekday: false, year: true }) }))}</p>
+      ${c.badge && c.badge.source ? `<p class="hint">${ext(c.badge.source, esc(t('cert.badgeFrom')))}</p>` : ''}
       <details class="more"><summary>${t('cert.nSources', { n: sources.length })}</summary>${sources
         .map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src'))
         .join('')}</details>

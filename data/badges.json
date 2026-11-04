@@ -1,0 +1,92 @@
+[
+  {
+    "id": "aws-agent-databases-lab",
+    "image_url": "https://images.credly.com/images/0376ad65-85fc-48a3-ac47-f4f74a19c929/blob",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-databases-for-agentic-ai-demonstrated"
+  },
+  {
+    "id": "aws-agent-identities-lab",
+    "image_url": "https://images.credly.com/images/d5137ca1-d9a1-4afb-b0da-82711fcb16e9/blob",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-securing-agent-identities-demonstrated"
+  },
+  {
+    "id": "aws-aif-c01",
+    "image_url": "https://images.credly.com/images/4d4693bb-530e-4bca-9327-de07f3aa2348/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-ai-practitioner"
+  },
+  {
+    "id": "aws-aip-c01",
+    "image_url": "https://images.credly.com/images/52c6e5ac-9516-4944-a4df-e31b23c9bbf2/blob",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-generative-ai-developer-professional"
+  },
+  {
+    "id": "aws-saa",
+    "image_url": "https://images.credly.com/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-solutions-architect-associate"
+  },
+  {
+    "id": "aws-scs-c03",
+    "image_url": "https://images.credly.com/images/53acdae5-d69f-4dda-b650-d02ed7a50dd7/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-security-specialty"
+  },
+  {
+    "id": "nvidia-nca-ads",
+    "image_url": "https://images.credly.com/images/b9615320-0021-4759-aabf-07f131ec866a/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-associate-accelerated-data-science.1"
+  },
+  {
+    "id": "nvidia-nca-aiio",
+    "image_url": "https://images.credly.com/images/3d924691-436a-4fb6-b19b-1005ccbb6135/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-associate-ai-infrastructure-and-op.1"
+  },
+  {
+    "id": "nvidia-nca-genl",
+    "image_url": "https://images.credly.com/images/01c81db8-c1f5-41f6-b0f8-ac22442f8fa1/image.png",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-associate-generative-ai-llms.1"
+  },
+  {
+    "id": "nvidia-nca-genm",
+    "image_url": "https://images.credly.com/images/3a48bfb1-6b85-42f3-8c82-10178b948419/image.png",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-associate-generative-ai-multimodal"
+  },
+  {
+    "id": "nvidia-ncp-aai",
+    "image_url": "https://images.credly.com/images/9c5ac530-3a82-4970-ad25-d50fbe755ccb/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-agentic-ai"
+  },
+  {
+    "id": "nvidia-ncp-ads",
+    "image_url": "https://images.credly.com/images/8ab96265-25a1-4e3c-a246-03534b96dfab/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-accelerated-data-scie"
+  },
+  {
+    "id": "nvidia-ncp-aii",
+    "image_url": "https://images.credly.com/images/d3c8665b-df86-4fd8-ae17-dcaa4522e24c/image.png",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-ai-infrastructure"
+  },
+  {
+    "id": "nvidia-ncp-ain",
+    "image_url": "https://images.credly.com/images/a8bbb29f-fa14-4243-a7c0-0c620c525124/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-ai-networking"
+  },
+  {
+    "id": "nvidia-ncp-aio",
+    "image_url": "https://images.credly.com/images/549b6d50-2dce-47fb-ab0d-dd6ef5926b72/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-ai-operations"
+  },
+  {
+    "id": "nvidia-ncp-ari",
+    "image_url": "https://images.credly.com/images/96bedc6b-7302-42d0-8780-8f739a0bab56/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-ai-rack-and-interconn"
+  },
+  {
+    "id": "nvidia-ncp-genl",
+    "image_url": "https://images.credly.com/images/4b94e285-07f8-484f-9bb5-aff9d9d5c709/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-gen-ai-llms"
+  },
+  {
+    "id": "nvidia-ncp-ousd",
+    "image_url": "https://images.credly.com/images/4ecbe231-1875-4d7c-bf24-304c85668e37/blob",
+    "page_url": "https://www.credly.com/org/nvidia/badge/nvidia-certified-professional-openusd-development"
+  }
+]
