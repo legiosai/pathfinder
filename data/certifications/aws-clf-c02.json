@@ -1,0 +1,65 @@
+{
+  "id": "aws-clf-c02",
+  "name": "AWS Certified Cloud Practitioner",
+  "provider": "AWS",
+  "code": "CLF-C02",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 100,
+    "basis": "Exam only",
+    "note": ""
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "65 multiple choice and multiple response questions, 90 minutes, three-year validity. Taken at a Pearson VUE center or online.",
+    "questions": "65 (50 scored)",
+    "passing": "700 scaled (100–1,000)",
+    "validity": "3 years"
+  },
+  "scope": "Overall knowledge of the AWS Cloud: its value, the shared responsibility model, security, core services, costs and billing.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "aws",
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "business",
+    "developer",
+    "architect"
+  ],
+  "domains": [
+    { "name": "Cloud Concepts", "weight": 24 },
+    { "name": "Security and Compliance", "weight": 30 },
+    { "name": "Cloud Technology and Services", "weight": 34 },
+    { "name": "Billing, Pricing, and Support", "weight": 12 }
+  ],
+  "sources": [
+    "Z08",
+    "Z09"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-05",
+  "prep": [
+    {
+      "title": "CLF-C02 exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "AWS Skill Builder",
+      "url": "https://skillbuilder.aws/",
+      "kind": "course",
+      "cost": "free",
+      "note": "Free and subscription content, including exam prep."
+    }
+  ],
+  "domains_note": "Weights from the AWS Certification Exam Guide (CLF-C02), read 2026-11-05."
+}
