@@ -32,6 +32,9 @@ for (const c of catalog.certifications) {
 }
 await writeFile(join(dist, 'catalog.json'), JSON.stringify(catalog));
 await writeFile(join(dist, '.nojekyll'), '');
+// One file per certification, loaded when someone opens its practice page.
+await mkdir(join(dist, 'practice'), { recursive: true });
+for (const { _file, ...set } of data.practice) await writeFile(join(dist, 'practice', _file), JSON.stringify(set));
 
 // GitHub Pages caches files for 10 minutes. Version the script, module and
 // stylesheet URLs so a returning visitor never mixes old and new files.
@@ -40,6 +43,7 @@ for (const f of await readdir(dist)) if (f.endsWith('.js') && f !== 'sw.js') ass
 for (const dir of ['lib', 'vendor']) for (const f of await readdir(join(dist, dir))) if (f.endsWith('.js')) assets.push(`${dir}/${f}`);
 const hash = createHash('sha256');
 for (const f of assets.sort()) hash.update(await readFile(join(dist, f)));
+for (const set of data.practice) hash.update(await readFile(join(dist, 'practice', set._file)));
 // Badge images are cached by the worker without a version in the URL, so they feed the cache name.
 for (const f of [...badgeFiles].sort()) if (f.endsWith('.webp')) hash.update(await readFile(join(dist, 'badges', f)));
 const v = hash.digest('hex').slice(0, 10);
@@ -47,7 +51,7 @@ await rewrite('index.html', [[/(src|href)="(app\.js|styles\.css)"/g, `$1="$2?v=$
 await rewrite('app.js', [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
 
 // Offline cache: the worker precaches the shell and every versioned asset of this build.
-const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', 'fonts/inter-latin.woff2', ...assets.map((f) => `${f}?v=${v}`)];
+const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', 'fonts/inter-latin.woff2', ...data.practice.map((set) => `practice/${set._file}`), ...assets.map((f) => `${f}?v=${v}`)];
 await rewrite('sw.js', [
   [/const VERSION = 'dev';/, `const VERSION = '${v}';`],
   [/const PRECACHE = \[[^\]]*\];/, `const PRECACHE = ${JSON.stringify(precache)};`],

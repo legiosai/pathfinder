@@ -31,6 +31,10 @@ Thanks for helping keep the catalog accurate. Most contributions are data: a cor
 - **No exam content.** Never add real or recalled exam questions, dumps or links to them. Do not link to unofficial copies of issuer documents.
 - **No personal data.** Do not add information about specific people beyond what a public report already shows.
 
+## Practice questions
+
+`data/practice/<certification id>.json` holds practice questions. Write them yourself, from the issuer's exam guide and documentation: no real or recalled exam questions, and nothing copied from question banks or courses. Each question needs text and an explanation in English and Spanish, and `domain` must match a domain name of the certification exactly. By contributing them you license them under CC BY 4.0. `npm test` checks the structure, not whether the answers are right, so say in the pull request where you confirmed them.
+
 ## Code changes
 
 The site is plain HTML, CSS and JavaScript modules in `site/`. Logic that can be tested lives in `site/lib/` and has tests in `tests/`. Keep the page self-contained: no trackers, no CDNs and no calls to other services.

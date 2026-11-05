@@ -1,6 +1,7 @@
 // Load and validate the catalog. Shared by the build, the validator CLI and the tests.
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
+import { validatePractice } from '../site/lib/practice.js';
 
 const LEVELS = ['entry', 'associate', 'professional', 'expert'];
 const STATUSES = ['available', 'restricted', 'upcoming'];
@@ -21,8 +22,12 @@ export async function loadCatalog(root) {
     certifications.push(cert);
   }
   const read = async (name) => JSON.parse(await readFile(join(dir, name), 'utf8'));
+  const practiceFiles = (await readdir(join(dir, 'practice')).catch(() => [])).filter((f) => f.endsWith('.json')).sort();
+  const practice = [];
+  for (const f of practiceFiles) practice.push({ ...JSON.parse(await readFile(join(dir, 'practice', f), 'utf8')), _file: f });
   return {
     certifications,
+    practice,
     sources: await read('sources.json'),
     reports: await read('reports.json'),
     taxonomy: await read('taxonomy.json'),
@@ -39,7 +44,7 @@ function isUrl(u) {
 }
 
 /** Returns a list of human-readable problems. Empty means valid. */
-export function validate({ certifications, sources, reports, taxonomy }) {
+export function validate({ certifications, sources, reports, taxonomy, practice = [] }) {
   const errors = [];
   const err = (where, msg) => errors.push(`${where}: ${msg}`);
   const str = (v) => typeof v === 'string';
@@ -116,14 +121,23 @@ export function validate({ certifications, sources, reports, taxonomy }) {
   for (const r of reports) {
     for (const id of r.certifications || []) if (!certIds.has(id)) err(`reports.json ${r.id}`, `unknown certification ${id}`);
   }
+  for (const set of practice) {
+    const w = `practice/${set._file}`;
+    if (set._file !== `${set.cert}.json`) err(w, `file name must be ${set.cert}.json`);
+    const cert = certifications.find((c) => c.id === set.cert);
+    for (const problem of validatePractice(set, cert)) err(w, problem);
+    if (cert && !Number.isInteger(cert.exam.minutes)) err(w, 'the certification needs exam.minutes');
+    if (cert && !Number.isInteger(parseInt(cert.exam.questions, 10))) err(w, 'the certification needs exam.questions');
+  }
   return errors;
 }
 
 /** The single JSON file the site loads. */
-export function bundle({ certifications, sources, reports, taxonomy }, generatedOn) {
+export function bundle({ certifications, sources, reports, taxonomy, practice = [] }, generatedOn) {
+  const counts = new Map(practice.map((set) => [set.cert, set.questions.length]));
   return {
     generated_on: generatedOn,
-    certifications: certifications.map(({ _file, ...c }) => c).sort((a, b) => a.name.localeCompare(b.name)),
+    certifications: certifications.map(({ _file, ...c }) => (counts.has(c.id) ? { ...c, practice_questions: counts.get(c.id) } : c)).sort((a, b) => a.name.localeCompare(b.name)),
     sources: Object.fromEntries(sources.map((s) => [s.id, s])),
     reports,
     taxonomy,
