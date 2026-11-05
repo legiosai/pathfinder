@@ -61,7 +61,7 @@ self.addEventListener('fetch', (event) => {
     );
     return;
   }
-  if (url.pathname.endsWith('/catalog.json')) {
+  if (url.pathname.endsWith('/catalog.json') || url.pathname.includes('/practice/')) {
     event.respondWith(networkFirst(request));
     return;
   }

@@ -460,5 +460,19 @@
     "url": "https://help.offsec.com/hc/en-us/articles/46593096734612-OSAI-Exam-Guide",
     "kind": "Issuer exam guide",
     "note": "Read 2026-11-03. Practical exam scored in points per target; pass at 75 of 100. No per-domain weights."
+  },
+  {
+    "id": "Z08",
+    "title": "AWS · Certified Cloud Practitioner",
+    "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-05. $100, 65 questions, 90 minutes, three-year validity, Pearson VUE center or online."
+  },
+  {
+    "id": "Z09",
+    "title": "AWS · CLF-C02 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-05. Domain weights, 50 scored and 15 unscored questions, scaled pass mark of 700."
   }
 ]

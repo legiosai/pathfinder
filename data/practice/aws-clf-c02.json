@@ -1,0 +1,1569 @@
+{
+ "cert": "aws-clf-c02",
+ "license": "CC BY 4.0",
+ "note": "Original practice questions written for pathfinder. Not taken from any exam or question bank.",
+ "questions": [
+  {
+   "id": "clf-001",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "A startup wants to stop guessing how many servers it will need next year. Which AWS Cloud benefit addresses this?",
+    "es": "Una startup quiere dejar de adivinar cuántos servidores va a necesitar el año que viene. ¿Qué beneficio de la nube de AWS resuelve esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Trade variable expense for fixed expense",
+      "es": "Cambiar gasto variable por gasto fijo"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Benefit from massive economies of scale",
+      "es": "Aprovechar economías de escala masivas"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Stop guessing capacity",
+      "es": "Dejar de adivinar la capacidad"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Go global in minutes",
+      "es": "Llegar a todo el mundo en minutos"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "With the cloud you provision what you need and scale up or down as demand changes, so you no longer have to predict capacity. Note the first option is reversed: the real benefit is trading fixed (capital) expense for variable expense.",
+    "es": "En la nube pedís lo que necesitás y subís o bajás según la demanda, así que ya no hace falta predecir la capacidad. Ojo con la primera opción: está al revés. El beneficio real es cambiar gasto fijo (inversión inicial) por gasto variable."
+   }
+  },
+  {
+   "id": "clf-002",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "Which term describes a system that automatically adds and removes resources to match demand in real time?",
+    "es": "¿Qué término describe un sistema que agrega y quita recursos automáticamente para acompañar la demanda en tiempo real?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "High availability",
+      "es": "Alta disponibilidad"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Durability",
+      "es": "Durabilidad"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Fault isolation",
+      "es": "Aislamiento de fallas"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Elasticity",
+      "es": "Elasticidad"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Elasticity is growing and shrinking automatically with demand. Scalability is the ability to grow; elasticity adds the automatic, both-directions part. High availability means staying up despite failures.",
+    "es": "Elasticidad es crecer y achicarse solo, según la demanda. Escalabilidad es la capacidad de crecer; la elasticidad suma lo automático y en las dos direcciones. Alta disponibilidad es seguir funcionando aunque algo falle."
+   }
+  },
+  {
+   "id": "clf-003",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "Which pillar of the AWS Well-Architected Framework focuses on recovering quickly from failures and meeting demand?",
+    "es": "¿Qué pilar del AWS Well-Architected Framework se enfoca en recuperarse rápido de fallas y atender la demanda?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Operational excellence",
+      "es": "Excelencia operativa"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Reliability",
+      "es": "Confiabilidad"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Sustainability",
+      "es": "Sostenibilidad"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Performance efficiency",
+      "es": "Eficiencia del rendimiento"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Reliability covers recovering from failures, testing recovery procedures and scaling to meet demand. Operational excellence is about running and improving operations; performance efficiency about using resources efficiently.",
+    "es": "Confiabilidad trata de recuperarse de fallas, probar la recuperación y escalar para atender la demanda. Excelencia operativa es operar y mejorar los procesos; eficiencia del rendimiento es usar bien los recursos."
+   }
+  },
+  {
+   "id": "clf-004",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "A company moves an application to Amazon EC2 without changing its code or architecture. Which migration strategy is this?",
+    "es": "Una empresa pasa una aplicación a Amazon EC2 sin cambiar el código ni la arquitectura. ¿Qué estrategia de migración es?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Retire",
+      "es": "Retire (retirar)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Refactor",
+      "es": "Refactor (rediseñar)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Rehost",
+      "es": "Rehost (volver a alojar)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Replatform",
+      "es": "Replatform (cambiar de plataforma)"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Rehost, also called lift and shift, moves the workload as is. Replatform adds a targeted change (for example moving a self-managed database to Amazon RDS). Refactor re-architects the application.",
+    "es": "Rehost, o lift and shift, mueve la carga tal cual. Replatform agrega un ajuste puntual (por ejemplo, pasar una base propia a Amazon RDS). Refactor rediseña la aplicación."
+   }
+  },
+  {
+   "id": "clf-005",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "Which perspective of the AWS Cloud Adoption Framework (AWS CAF) focuses on staff skills and organizational change?",
+    "es": "¿Qué perspectiva del AWS Cloud Adoption Framework (CAF) se enfoca en las habilidades del personal y el cambio organizacional?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Operations",
+      "es": "Operaciones"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "People",
+      "es": "Personas"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Platform",
+      "es": "Plataforma"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Security",
+      "es": "Seguridad"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "The People perspective covers culture, training and organizational change. The six CAF perspectives are Business, People, Governance, Platform, Security and Operations.",
+    "es": "La perspectiva de Personas cubre cultura, capacitación y cambio organizacional. Las seis perspectivas del CAF son Negocio, Personas, Gobierno, Plataforma, Seguridad y Operaciones."
+   }
+  },
+  {
+   "id": "clf-006",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "What is an Availability Zone?",
+    "es": "¿Qué es una zona de disponibilidad (Availability Zone)?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A cache location used by Amazon CloudFront",
+      "es": "Una ubicación de caché usada por Amazon CloudFront"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A private network inside your AWS account",
+      "es": "Una red privada dentro de tu cuenta de AWS"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "One or more discrete data centers with redundant power and networking in a Region",
+      "es": "Uno o más centros de datos separados, con energía y red redundantes, dentro de una región"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A geographic area that contains several Regions",
+      "es": "Un área geográfica que contiene varias regiones"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "A Region contains multiple isolated Availability Zones. Edge locations are used by CloudFront for caching. A private network in your account is an Amazon VPC.",
+    "es": "Una región tiene varias zonas de disponibilidad aisladas entre sí. Las edge locations son las que usa CloudFront para la caché. Una red privada en tu cuenta es una Amazon VPC."
+   }
+  },
+  {
+   "id": "clf-007",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "Which actions follow the cost optimization pillar of the Well-Architected Framework? (Select TWO.)",
+    "es": "¿Qué acciones siguen el pilar de optimización de costos del Well-Architected Framework? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Provision extra capacity in case traffic grows",
+      "es": "Aprovisionar capacidad extra por si crece el tráfico"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Use managed services to reduce operational cost",
+      "es": "Usar servicios administrados para bajar el costo operativo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Always choose the largest instance type",
+      "es": "Elegir siempre el tipo de instancia más grande"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Keep development servers running 24/7",
+      "es": "Dejar los servidores de desarrollo encendidos 24/7"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Rightsize instances based on actual usage",
+      "es": "Ajustar el tamaño de las instancias según el uso real"
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "E"
+   ],
+   "explanation": {
+    "en": "Rightsizing and managed services lower what you pay. Provisioning extra capacity, oversized instances and idle servers all waste money.",
+    "es": "Ajustar el tamaño y usar servicios administrados bajan lo que pagás. Capacidad de más, instancias sobredimensionadas y servidores ociosos son plata desperdiciada."
+   }
+  },
+  {
+   "id": "clf-008",
+   "domain": "Cloud Concepts",
+   "prompt": {
+    "en": "A company wants to deploy its application in several countries quickly with low latency for users. Which benefit of the cloud does this show?",
+    "es": "Una empresa quiere desplegar su aplicación en varios países rápido y con baja latencia para los usuarios. ¿Qué beneficio de la nube muestra esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Stop spending money on running data centers",
+      "es": "Dejar de gastar en mantener centros de datos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Increase speed and agility",
+      "es": "Aumentar la velocidad y la agilidad"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Go global in minutes",
+      "es": "Llegar a todo el mundo en minutos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Benefit from massive economies of scale",
+      "es": "Aprovechar economías de escala masivas"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "AWS Regions around the world let you deploy close to users in minutes.",
+    "es": "Las regiones de AWS en todo el mundo te dejan desplegar cerca de tus usuarios en minutos."
+   }
+  },
+  {
+   "id": "clf-009",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Under the AWS shared responsibility model, which task is the customer's responsibility when using Amazon EC2?",
+    "es": "Según el modelo de responsabilidad compartida, ¿qué tarea es del cliente cuando usa Amazon EC2?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Maintaining the physical hosts",
+      "es": "Mantener los servidores físicos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Disposing of old storage devices",
+      "es": "Destruir los discos viejos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Securing the virtualization layer",
+      "es": "Proteger la capa de virtualización"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Patching the guest operating system",
+      "es": "Parchear el sistema operativo de la instancia"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "EC2 is infrastructure as a service: you manage the guest operating system and everything on it. AWS handles physical hardware, virtualization and media disposal.",
+    "es": "EC2 es infraestructura como servicio: vos administrás el sistema operativo y todo lo que corre arriba. AWS se ocupa del hardware, la virtualización y la destrucción de discos."
+   }
+  },
+  {
+   "id": "clf-010",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Which tasks does AWS perform for an Amazon RDS database? (Select TWO.)",
+    "es": "¿Qué tareas hace AWS por una base de datos de Amazon RDS? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Create database users and grant permissions",
+      "es": "Crear usuarios de la base y darles permisos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Configure security group rules",
+      "es": "Configurar las reglas del security group"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Patch the database engine and operating system",
+      "es": "Parchear el motor de base de datos y el sistema operativo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Decide which data to encrypt",
+      "es": "Decidir qué datos cifrar"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Maintain the underlying hardware",
+      "es": "Mantener el hardware de abajo"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "E"
+   ],
+   "explanation": {
+    "en": "RDS is managed: AWS patches the engine and OS and runs the hardware. You still manage database users, data, encryption choices and network access rules.",
+    "es": "RDS es administrado: AWS parchea el motor y el sistema operativo y opera el hardware. Vos seguís manejando los usuarios de la base, los datos, qué cifrar y las reglas de acceso de red."
+   }
+  },
+  {
+   "id": "clf-011",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Which AWS service continuously monitors accounts for malicious activity using logs such as AWS CloudTrail and VPC Flow Logs?",
+    "es": "¿Qué servicio de AWS vigila las cuentas todo el tiempo en busca de actividad maliciosa usando registros como AWS CloudTrail y VPC Flow Logs?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Trusted Advisor",
+      "es": "AWS Trusted Advisor"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon GuardDuty",
+      "es": "Amazon GuardDuty"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Config",
+      "es": "AWS Config"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon Inspector",
+      "es": "Amazon Inspector"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "GuardDuty is threat detection. Trusted Advisor gives best-practice recommendations, Inspector scans workloads for vulnerabilities, and Config records configuration changes.",
+    "es": "GuardDuty detecta amenazas. Trusted Advisor da recomendaciones de buenas prácticas, Inspector busca vulnerabilidades en tus cargas de trabajo y Config registra los cambios de configuración."
+   }
+  },
+  {
+   "id": "clf-012",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Which service protects web applications from SQL injection and cross-site scripting attacks?",
+    "es": "¿Qué servicio protege aplicaciones web contra inyección SQL y cross-site scripting?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Shield Standard",
+      "es": "AWS Shield Standard"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Key Management Service (AWS KMS)",
+      "es": "AWS Key Management Service (AWS KMS)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon Macie",
+      "es": "Amazon Macie"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS WAF",
+      "es": "AWS WAF"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "AWS WAF filters web requests with rules. Shield protects against DDoS attacks, Macie finds sensitive data in S3, and KMS manages encryption keys.",
+    "es": "AWS WAF filtra pedidos web con reglas. Shield protege contra ataques DDoS, Macie encuentra datos sensibles en S3 y KMS administra claves de cifrado."
+   }
+  },
+  {
+   "id": "clf-013",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Where can a customer download AWS compliance reports such as SOC and ISO certifications?",
+    "es": "¿Dónde puede un cliente descargar los informes de cumplimiento de AWS, como los SOC o las certificaciones ISO?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Security Hub",
+      "es": "AWS Security Hub"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Detective",
+      "es": "Amazon Detective"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Artifact",
+      "es": "AWS Artifact"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Audit Manager",
+      "es": "AWS Audit Manager"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "AWS Artifact is the self-service portal for AWS compliance reports and agreements. Audit Manager helps you audit your own usage; Security Hub aggregates security findings.",
+    "es": "AWS Artifact es el portal para descargar los informes de cumplimiento y acuerdos de AWS. Audit Manager te ayuda a auditar tu propio uso; Security Hub junta hallazgos de seguridad."
+   }
+  },
+  {
+   "id": "clf-014",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Which tasks require signing in as the AWS account root user? (Select TWO.)",
+    "es": "¿Qué tareas requieren entrar con el usuario raíz de la cuenta de AWS? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Create an IAM user",
+      "es": "Crear un usuario IAM"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Launch an Amazon EC2 instance",
+      "es": "Lanzar una instancia EC2"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Change the AWS Support plan",
+      "es": "Cambiar el plan de soporte de AWS"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Close the AWS account",
+      "es": "Cerrar la cuenta de AWS"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Create an IAM policy",
+      "es": "Crear una política IAM"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "D"
+   ],
+   "explanation": {
+    "en": "Only the root user can close the account or change the support plan. Everyday tasks such as creating users, policies or instances should be done with IAM identities.",
+    "es": "Solo el usuario raíz puede cerrar la cuenta o cambiar el plan de soporte. Las tareas de todos los días, como crear usuarios, políticas o instancias, se hacen con identidades IAM."
+   }
+  },
+  {
+   "id": "clf-015",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "An application on Amazon EC2 needs to read objects from Amazon S3. What is the most secure way to give it access?",
+    "es": "Una aplicación en Amazon EC2 necesita leer objetos de Amazon S3. ¿Cuál es la forma más segura de darle acceso?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Attach an IAM role to the instance",
+      "es": "Asignarle un rol IAM a la instancia"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Store an IAM user's access keys on the instance",
+      "es": "Guardar las claves de acceso de un usuario IAM en la instancia"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Make the S3 bucket public",
+      "es": "Hacer público el bucket de S3"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Use the root user's credentials",
+      "es": "Usar las credenciales del usuario raíz"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "An IAM role gives the instance temporary credentials that rotate automatically, with no long-term keys stored on the server.",
+    "es": "Un rol IAM le da a la instancia credenciales temporales que rotan solas, sin guardar claves permanentes en el servidor."
+   }
+  },
+  {
+   "id": "clf-016",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Which feature acts as a stateful firewall for an individual Amazon EC2 instance?",
+    "es": "¿Qué función actúa como firewall con estado para una instancia EC2 individual?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Security group",
+      "es": "Security group"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Internet gateway",
+      "es": "Internet gateway"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Network ACL",
+      "es": "Network ACL"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Route table",
+      "es": "Tabla de ruteo"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Security groups apply to instances and are stateful (return traffic is allowed automatically). Network ACLs apply to subnets and are stateless.",
+    "es": "Los security groups se aplican a instancias y tienen estado (el tráfico de respuesta se permite solo). Las network ACL se aplican a subredes y no tienen estado."
+   }
+  },
+  {
+   "id": "clf-017",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "Which service helps create and control the keys used to encrypt data across AWS services?",
+    "es": "¿Qué servicio ayuda a crear y controlar las claves que se usan para cifrar datos en los servicios de AWS?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon Cognito",
+      "es": "Amazon Cognito"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Key Management Service (AWS KMS)",
+      "es": "AWS Key Management Service (AWS KMS)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Secrets Manager",
+      "es": "AWS Secrets Manager"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Certificate Manager (ACM)",
+      "es": "AWS Certificate Manager (ACM)"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "KMS manages encryption keys. Secrets Manager stores and rotates secrets such as database passwords, ACM manages SSL/TLS certificates, and Cognito handles sign-in for app users.",
+    "es": "KMS administra claves de cifrado. Secrets Manager guarda y rota secretos como contraseñas de bases, ACM maneja certificados SSL/TLS y Cognito resuelve el login de los usuarios de una app."
+   }
+  },
+  {
+   "id": "clf-018",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "A company needs to store infrequently accessed backups at the lowest cost and can wait up to 12 hours to retrieve them. Which storage class fits?",
+    "es": "Una empresa necesita guardar backups que casi no usa, al menor costo, y puede esperar hasta 12 horas para recuperarlos. ¿Qué clase de almacenamiento conviene?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon S3 Express One Zone",
+      "es": "Amazon S3 Express One Zone"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon S3 Glacier Deep Archive",
+      "es": "Amazon S3 Glacier Deep Archive"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon S3 Standard-Infrequent Access",
+      "es": "Amazon S3 Standard-Infrequent Access"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon S3 Standard",
+      "es": "Amazon S3 Standard"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Deep Archive is the cheapest S3 class, designed for data retrieved rarely with retrieval in hours. Standard-IA gives millisecond access at a higher price; Express One Zone is for very low latency.",
+    "es": "Deep Archive es la clase más barata de S3, para datos que casi nunca se leen, con recuperación en horas. Standard-IA da acceso en milisegundos a mayor precio; Express One Zone es para latencia muy baja."
+   }
+  },
+  {
+   "id": "clf-019",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which storage service provides a shared file system that many Amazon EC2 instances can mount at the same time?",
+    "es": "¿Qué servicio de almacenamiento ofrece un sistema de archivos compartido que muchas instancias EC2 pueden montar a la vez?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Snowball Edge",
+      "es": "AWS Snowball Edge"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Elastic Block Store (Amazon EBS)",
+      "es": "Amazon Elastic Block Store (Amazon EBS)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "EC2 instance store",
+      "es": "EC2 instance store"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon Elastic File System (Amazon EFS)",
+      "es": "Amazon Elastic File System (Amazon EFS)"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "EFS is a managed network file system shared by many instances across Availability Zones. An EBS volume is a block disk usually attached to one instance in one AZ.",
+    "es": "EFS es un sistema de archivos de red administrado que comparten muchas instancias entre zonas. Un volumen EBS es un disco de bloques que normalmente se conecta a una sola instancia, en una zona."
+   }
+  },
+  {
+   "id": "clf-020",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which AWS service runs code in response to events without provisioning or managing servers?",
+    "es": "¿Qué servicio de AWS ejecuta código en respuesta a eventos sin aprovisionar ni administrar servidores?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Lambda",
+      "es": "AWS Lambda"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Elastic Beanstalk",
+      "es": "AWS Elastic Beanstalk"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon EC2",
+      "es": "Amazon EC2"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon Lightsail",
+      "es": "Amazon Lightsail"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Lambda is serverless compute billed per request and duration. Elastic Beanstalk and Lightsail still run servers for you to use.",
+    "es": "Lambda es cómputo sin servidores que se cobra por pedido y duración. Elastic Beanstalk y Lightsail igual corren servidores para vos."
+   }
+  },
+  {
+   "id": "clf-021",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "A company needs a fully managed NoSQL key-value database with single-digit millisecond performance at any scale. Which service fits?",
+    "es": "Una empresa necesita una base NoSQL clave-valor totalmente administrada, con respuesta de milisegundos a cualquier escala. ¿Qué servicio conviene?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon RDS for MySQL",
+      "es": "Amazon RDS for MySQL"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon DynamoDB",
+      "es": "Amazon DynamoDB"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon Neptune",
+      "es": "Amazon Neptune"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon Redshift",
+      "es": "Amazon Redshift"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "DynamoDB is the managed key-value and document database. RDS is relational, Redshift is a data warehouse for analytics, and Neptune is a graph database.",
+    "es": "DynamoDB es la base clave-valor y de documentos administrada. RDS es relacional, Redshift es un almacén de datos para análisis y Neptune es una base de grafos."
+   }
+  },
+  {
+   "id": "clf-022",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which service lets a company connect its data center to AWS through a dedicated private network connection?",
+    "es": "¿Qué servicio le permite a una empresa conectar su centro de datos con AWS mediante una conexión de red privada y dedicada?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon Route 53",
+      "es": "Amazon Route 53"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Site-to-Site VPN",
+      "es": "AWS Site-to-Site VPN"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon CloudFront",
+      "es": "Amazon CloudFront"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Direct Connect",
+      "es": "AWS Direct Connect"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Direct Connect is a dedicated physical link, consistent but not encrypted by default. Site-to-Site VPN is an encrypted tunnel over the internet that is quick to set up.",
+    "es": "Direct Connect es un enlace físico dedicado: estable, pero sin cifrado por defecto. Site-to-Site VPN es un túnel cifrado por internet que se arma rápido."
+   }
+  },
+  {
+   "id": "clf-023",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which service provides DNS and can route users to a healthy endpoint when the primary one fails?",
+    "es": "¿Qué servicio ofrece DNS y puede mandar a los usuarios a un destino sano cuando falla el principal?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon CloudFront",
+      "es": "Amazon CloudFront"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Route 53",
+      "es": "Amazon Route 53"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Global Accelerator",
+      "es": "AWS Global Accelerator"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Elastic Load Balancing",
+      "es": "Elastic Load Balancing"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Route 53 health checks plus failover routing send users to a standby endpoint. A load balancer spreads traffic inside a Region but is not a DNS service.",
+    "es": "Los health checks de Route 53 con failover routing mandan a los usuarios al destino de respaldo. Un balanceador reparte tráfico dentro de una región, pero no es un servicio de DNS."
+   }
+  },
+  {
+   "id": "clf-024",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which service lets resources in a VPC reach Amazon S3 without going through the internet, at no extra charge?",
+    "es": "¿Qué permite que los recursos de una VPC lleguen a Amazon S3 sin pasar por internet y sin costo extra?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "An internet gateway",
+      "es": "Un internet gateway"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A gateway VPC endpoint",
+      "es": "Un gateway VPC endpoint"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A NAT gateway",
+      "es": "Un NAT gateway"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Direct Connect",
+      "es": "AWS Direct Connect"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Gateway endpoints are free and support only Amazon S3 and Amazon DynamoDB. Other services use interface endpoints (AWS PrivateLink).",
+    "es": "Los gateway endpoints son gratis y solo sirven para Amazon S3 y Amazon DynamoDB. Los demás servicios usan interface endpoints (AWS PrivateLink)."
+   }
+  },
+  {
+   "id": "clf-025",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "A team wants to define its infrastructure in templates so environments are created the same way every time. Which service should it use?",
+    "es": "Un equipo quiere definir su infraestructura en plantillas para crear los entornos siempre igual. ¿Qué servicio debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS CodeDeploy",
+      "es": "AWS CodeDeploy"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Elastic Beanstalk",
+      "es": "AWS Elastic Beanstalk"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Systems Manager",
+      "es": "AWS Systems Manager"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS CloudFormation",
+      "es": "AWS CloudFormation"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "CloudFormation is infrastructure as code using JSON or YAML templates. Elastic Beanstalk deploys your application code and builds the environment for you.",
+    "es": "CloudFormation es infraestructura como código con plantillas JSON o YAML. Elastic Beanstalk despliega tu código y arma el entorno por vos."
+   }
+  },
+  {
+   "id": "clf-026",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which service collects metrics and logs and can trigger alarms when CPU utilization is high?",
+    "es": "¿Qué servicio junta métricas y logs y puede disparar alarmas cuando el uso de CPU está alto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon CloudWatch",
+      "es": "Amazon CloudWatch"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS CloudTrail",
+      "es": "AWS CloudTrail"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Trusted Advisor",
+      "es": "AWS Trusted Advisor"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Config",
+      "es": "AWS Config"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "CloudWatch is monitoring: metrics, logs, dashboards and alarms. CloudTrail records API calls (who did what) and Config records resource configuration changes.",
+    "es": "CloudWatch es monitoreo: métricas, logs, paneles y alarmas. CloudTrail registra las llamadas a la API (quién hizo qué) y Config registra los cambios de configuración de los recursos."
+   }
+  },
+  {
+   "id": "clf-027",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which service lets a company build generative AI applications using foundation models through an API?",
+    "es": "¿Qué servicio le permite a una empresa crear aplicaciones de IA generativa usando modelos fundacionales a través de una API?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon Bedrock",
+      "es": "Amazon Bedrock"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Rekognition",
+      "es": "Amazon Rekognition"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon Comprehend",
+      "es": "Amazon Comprehend"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon Polly",
+      "es": "Amazon Polly"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Bedrock gives API access to foundation models. Rekognition analyzes images and video, Comprehend analyzes text, and Polly converts text to speech.",
+    "es": "Bedrock da acceso por API a modelos fundacionales. Rekognition analiza imágenes y video, Comprehend analiza texto y Polly convierte texto en voz."
+   }
+  },
+  {
+   "id": "clf-028",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "Which services decouple application components with messages or notifications? (Select TWO.)",
+    "es": "¿Qué servicios desacoplan los componentes de una aplicación con mensajes o notificaciones? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon EBS",
+      "es": "Amazon EBS"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Athena",
+      "es": "Amazon Athena"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon Simple Notification Service (Amazon SNS)",
+      "es": "Amazon Simple Notification Service (Amazon SNS)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Glue",
+      "es": "AWS Glue"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Amazon Simple Queue Service (Amazon SQS)",
+      "es": "Amazon Simple Queue Service (Amazon SQS)"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "E"
+   ],
+   "explanation": {
+    "en": "SQS is a message queue and SNS is publish/subscribe notifications; both let components work independently. Athena queries data in S3, EBS is block storage and Glue is ETL.",
+    "es": "SQS es una cola de mensajes y SNS son notificaciones de publicación y suscripción; las dos dejan que los componentes trabajen por separado. Athena consulta datos en S3, EBS es almacenamiento en bloque y Glue es ETL."
+   }
+  },
+  {
+   "id": "clf-029",
+   "domain": "Billing, Pricing, and Support",
+   "prompt": {
+    "en": "A workload runs steadily 24/7 and will keep running for the next three years. Which purchasing option is most cost-effective?",
+    "es": "Una carga corre estable las 24 horas y va a seguir así los próximos tres años. ¿Qué opción de compra es la más rentable?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Spot Instances",
+      "es": "Spot Instances"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "On-Demand Instances",
+      "es": "On-Demand Instances"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Dedicated Hosts billed On-Demand",
+      "es": "Dedicated Hosts a precio On-Demand"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Reserved Instances or Savings Plans with a 3-year term",
+      "es": "Reserved Instances o Savings Plans a 3 años"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Steady, long-term usage gets the largest discount with a 1- or 3-year commitment. On-Demand is for short or unpredictable use; Spot can be interrupted.",
+    "es": "El uso estable y largo consigue el mayor descuento con un compromiso de 1 o 3 años. On-Demand es para uso corto o impredecible; Spot puede interrumpirse."
+   }
+  },
+  {
+   "id": "clf-030",
+   "domain": "Billing, Pricing, and Support",
+   "prompt": {
+    "en": "A batch job can be stopped and restarted at any time. Which EC2 option gives the lowest cost?",
+    "es": "Un proceso por lotes se puede frenar y reiniciar en cualquier momento. ¿Qué opción de EC2 da el menor costo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Spot Instances",
+      "es": "Spot Instances"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Reserved Instances",
+      "es": "Reserved Instances"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "On-Demand Instances",
+      "es": "On-Demand Instances"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Dedicated Instances",
+      "es": "Dedicated Instances"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Spot Instances use spare capacity at up to 90% off and fit interruption-tolerant work.",
+    "es": "Las Spot Instances usan capacidad sobrante con hasta 90% de descuento y sirven para trabajos que toleran cortes."
+   }
+  },
+  {
+   "id": "clf-031",
+   "domain": "Billing, Pricing, and Support",
+   "prompt": {
+    "en": "Which tool estimates the monthly cost of an architecture before it is deployed?",
+    "es": "¿Qué herramienta estima el costo mensual de una arquitectura antes de desplegarla?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Cost and Usage Report",
+      "es": "AWS Cost and Usage Report"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Cost Explorer",
+      "es": "AWS Cost Explorer"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Pricing Calculator",
+      "es": "AWS Pricing Calculator"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Budgets",
+      "es": "AWS Budgets"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Pricing Calculator estimates costs before you build. Cost Explorer analyzes past spend, Budgets alerts on thresholds, and the Cost and Usage Report is the most detailed billing data.",
+    "es": "Pricing Calculator estima costos antes de construir. Cost Explorer analiza lo ya gastado, Budgets avisa cuando pasás un límite y el Cost and Usage Report es el detalle más completo de facturación."
+   }
+  },
+  {
+   "id": "clf-032",
+   "domain": "Billing, Pricing, and Support",
+   "prompt": {
+    "en": "A company wants an email alert when its forecasted monthly spend exceeds $1,000. Which service should it use?",
+    "es": "Una empresa quiere un aviso por correo cuando el gasto mensual pronosticado pase los USD 1.000. ¿Qué servicio debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Cost Explorer",
+      "es": "AWS Cost Explorer"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Trusted Advisor",
+      "es": "AWS Trusted Advisor"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Budgets",
+      "es": "AWS Budgets"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Pricing Calculator",
+      "es": "AWS Pricing Calculator"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "AWS Budgets sends alerts based on actual or forecasted cost and usage thresholds.",
+    "es": "AWS Budgets manda alertas según límites de costo o uso, reales o pronosticados."
+   }
+  },
+  {
+   "id": "clf-033",
+   "domain": "Billing, Pricing, and Support",
+   "prompt": {
+    "en": "Which AWS Support plan includes a designated Technical Account Manager (TAM)?",
+    "es": "¿Qué plan de soporte de AWS incluye un Technical Account Manager (TAM) asignado?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Business Support+",
+      "es": "Business Support+"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Developer Support",
+      "es": "Developer Support"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Enterprise Support",
+      "es": "Enterprise Support"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Basic Support",
+      "es": "Basic Support"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "A designated TAM is part of Enterprise Support. Business Support+ includes 24/7 access to support engineers but no designated TAM.",
+    "es": "El TAM asignado es parte de Enterprise Support. Business Support+ incluye ingenieros de soporte 24/7, pero no un TAM asignado."
+   }
+  },
+  {
+   "id": "clf-034",
+   "domain": "Billing, Pricing, and Support",
+   "prompt": {
+    "en": "Which feature combines billing for multiple AWS accounts and can apply volume discounts across them?",
+    "es": "¿Qué función une la facturación de varias cuentas de AWS y puede aplicar descuentos por volumen entre ellas?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS Cost and Usage Report",
+      "es": "AWS Cost and Usage Report"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Cost allocation tags",
+      "es": "Etiquetas de asignación de costos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Consolidated billing in AWS Organizations",
+      "es": "Facturación consolidada de AWS Organizations"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Control Tower",
+      "es": "AWS Control Tower"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "AWS Organizations consolidated billing gives one bill and aggregates usage for volume pricing tiers. Cost allocation tags help categorize costs but do not combine accounts.",
+    "es": "La facturación consolidada de AWS Organizations da una sola factura y suma el uso para los descuentos por volumen. Las etiquetas de costos ayudan a clasificar gastos, pero no unen cuentas."
+   }
+  }
+ ]
+}
