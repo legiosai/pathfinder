@@ -833,8 +833,8 @@
     "D"
    ],
    "explanation": {
-    "en": "The approval prompt for .mcp.json servers appears only in interactive sessions; a claude -p run loads project-scoped servers without asking. --strict-mcp-config makes Claude Code use only the servers passed with --mcp-config and ignore the repository's configuration. A CLAUDE.md line is guidance that the pull request can also edit, and deny rules block tool calls but still let the repository's servers connect, which for a local server means starting its command on the runner.",
-    "es": "El pedido de aprobación para servidores del .mcp.json aparece sólo en sesiones interactivas; una corrida de claude -p carga los servidores de scope de proyecto sin preguntar. --strict-mcp-config hace que Claude Code use sólo los servidores pasados con --mcp-config e ignore la configuración del repositorio. Una línea en CLAUDE.md es una guía que el pull request también puede editar, y las reglas de denegación bloquean llamadas pero dejan que los servidores del repositorio se conecten, lo que para un servidor local significa ejecutar su comando en el runner."
+    "en": "The approval prompt for .mcp.json servers appears only in interactive sessions; a claude -p run loads project-scoped servers without asking. --strict-mcp-config makes Claude Code use only the servers passed with --mcp-config and ignore the repository's configuration. A CLAUDE.md line is guidance that the pull request can also edit, and a deny rule on mcp__* also blocks the workflow's own servers while still letting the repository's servers connect, which for a local server means starting its command on the runner.",
+    "es": "El pedido de aprobación para servidores del .mcp.json aparece sólo en sesiones interactivas; una corrida de claude -p carga los servidores de scope de proyecto sin preguntar. --strict-mcp-config hace que Claude Code use sólo los servidores pasados con --mcp-config e ignore la configuración del repositorio. Una línea en CLAUDE.md es una guía que el pull request también puede editar, y una regla que deniegue mcp__* bloquea también los servidores del propio workflow y aun así deja que los del repositorio se conecten, lo que para un servidor local significa ejecutar su comando en el runner."
    }
   },
   {
@@ -1156,8 +1156,8 @@
     "A"
    ],
    "explanation": {
-    "en": "A claude -p run with no permission mode set starts in Manual mode, where calls that need approval are denied unless an allow rule, hook or similar mechanism approves them. Listing the exact tools and commands with --allowedTools, or in permissions.allow, lets the job work without opening up every shell command. CLAUDE.md is guidance and grants no permissions, an interactive session would hang in CI waiting for input, and the output format doesn't change what is allowed.",
-    "es": "Una corrida de claude -p sin modo de permisos arranca en modo Manual, donde las llamadas que necesitan aprobación se deniegan salvo que las apruebe una regla de allow, un hook o algo similar. Listar las herramientas y los comandos exactos con --allowedTools, o en permissions.allow, deja trabajar al job sin habilitar cualquier comando de shell. CLAUDE.md es una guía y no otorga permisos, una sesión interactiva quedaría colgada en CI esperando input, y el formato de salida no cambia qué está permitido."
+    "en": "A claude -p run has nobody to answer permission prompts, so with no permission mode or allow rule set, a call that needs approval, such as writing a file or running most shell commands, is denied unless a hook or similar mechanism approves it. Listing the exact tools and commands with --allowedTools, or in permissions.allow, lets the job work without opening up every shell command. CLAUDE.md is guidance and grants no permissions, an interactive session would hang in CI waiting for input, and the output format doesn't change what is allowed.",
+    "es": "Una corrida de claude -p no tiene a nadie que responda los pedidos de permiso, así que, sin modo de permisos ni regla de allow, una llamada que necesita aprobación, como escribir un archivo o correr la mayoría de los comandos de shell, se deniega salvo que la apruebe un hook o algo similar. Listar las herramientas y los comandos exactos con --allowedTools, o en permissions.allow, deja trabajar al job sin habilitar cualquier comando de shell. CLAUDE.md es una guía y no otorga permisos, una sesión interactiva quedaría colgada en CI esperando input, y el formato de salida no cambia qué está permitido."
    }
   },
   {
@@ -1397,8 +1397,8 @@
    "id": "ccarf-031",
    "domain": "Prompt Engineering & Structured Output",
    "prompt": {
-    "en": "A lease-extraction pipeline switched its record_lease tool to strict: true. Which TWO problems can strict tool use still let through, so that the pipeline must keep checking for them? (Select TWO.)",
-    "es": "Un pipeline de extracción de contratos de alquiler pasó su herramienta record_lease a strict: true. ¿Qué problemas puede seguir dejando pasar el strict tool use, de modo que el pipeline tiene que seguir controlándolos? (Elegí DOS.)"
+    "en": "A lease-extraction pipeline switched its record_lease tool to strict: true, and it already handles responses that stop on max_tokens or a refusal separately. Which TWO problems can strict tool use still let through, so that the pipeline must keep checking for them? (Select TWO.)",
+    "es": "Un pipeline de extracción de contratos de alquiler pasó su herramienta record_lease a strict: true, y ya maneja aparte las respuestas que cortan por max_tokens o por un rechazo. ¿Qué problemas puede seguir dejando pasar el strict tool use, de modo que el pipeline tenga que seguir controlándolos? (Elegí DOS.)"
    },
    "options": [
     {
@@ -1442,23 +1442,23 @@
     "D"
    ],
    "explanation": {
-    "en": "Strict tool use guarantees that inputs match the schema: valid JSON, required fields present and the declared types. It can't know whether values are true to the document or consistent with each other, so cross-field rules and checks against the source still need code or review. Schema compliance also isn't guaranteed when a response stops on max_tokens or a refusal, so check the stop reason too.",
-    "es": "El strict tool use garantiza que el input respete el schema: JSON válido, campos obligatorios presentes y los tipos declarados. No puede saber si los valores son fieles al documento o coherentes entre sí, así que las reglas entre campos y los controles contra la fuente siguen necesitando código o revisión. Tampoco se garantiza el schema cuando la respuesta corta por max_tokens o por un rechazo, así que conviene revisar también el stop reason."
+    "en": "Strict tool use guarantees that inputs match the schema: valid JSON, required fields present and the declared types. It can't know whether values are true to the document or consistent with each other, so cross-field rules and checks against the source still need code or review. Schema compliance isn't guaranteed when a response stops on max_tokens or a refusal, which is why the pipeline checks the stop reason as well.",
+    "es": "El strict tool use garantiza que el input respete el schema: JSON válido, campos obligatorios presentes y los tipos declarados. No puede saber si los valores son fieles al documento o coherentes entre sí, así que las reglas entre campos y los controles contra la fuente siguen necesitando código o revisión. El schema no se garantiza cuando la respuesta corta por max_tokens o por un rechazo, y por eso el pipeline también revisa el stop reason."
    }
   },
   {
    "id": "ccarf-032",
    "domain": "Prompt Engineering & Structured Output",
    "prompt": {
-    "en": "A firm plans to extract data from 120,000 archived leases with the Message Batches API. On a previous project, 15% of batch results failed downstream validation, and the team resubmitted them in several rounds over a week. What should they do differently before submitting the full batch this time?",
-    "es": "Una empresa planea extraer datos de 120.000 contratos archivados con la Message Batches API. En un proyecto anterior, el 15% de los resultados del batch falló la validación posterior y el equipo los reenvió en varias rondas durante una semana. ¿Qué deberían hacer distinto esta vez antes de mandar el batch completo?"
+    "en": "A firm plans to extract data from 120,000 archived leases with the Message Batches API. On a previous project, 15% of batch results failed downstream validation, and the team resubmitted them in several rounds over a week. What should they do differently before submitting the leases this time?",
+    "es": "Una empresa planea extraer datos de 120.000 contratos archivados con la Message Batches API. En un proyecto anterior, el 15% de los resultados del batch falló la validación posterior y el equipo los reenvió en varias rondas durante una semana. ¿Qué deberían hacer distinto esta vez antes de mandar los contratos?"
    },
    "options": [
     {
      "key": "A",
      "text": {
-      "en": "Submit everything in one batch and plan for several resubmission rounds, since the batch discount absorbs the cost.",
-      "es": "Mandar todo en un batch y planear varias rondas de reenvío, porque el descuento del batch absorbe el costo."
+      "en": "Submit all the leases right away and plan for several resubmission rounds, since the batch discount absorbs the cost.",
+      "es": "Mandar todos los contratos de entrada y planear varias rondas de reenvío, porque el descuento del batch absorbe el costo."
      }
     },
     {
@@ -1720,8 +1720,8 @@
     "D"
    ],
    "explanation": {
-    "en": "After compaction, Claude Code re-injects the project-root CLAUDE.md and rules without a paths field from disk, while instructions given only in conversation are summarized and can be lost. A path-scoped rule loads only when Claude works with a matching file, here lib/http/ rather than the new file that calls fetch, and after a compaction it returns only when such a file is read again. Repeating the instruction or focusing one compaction are manual workarounds that fail the next time.",
-    "es": "Después de compactar, Claude Code vuelve a inyectar desde disco el CLAUDE.md de la raíz y las reglas sin campo paths, mientras que las instrucciones dadas sólo en la conversación se resumen y se pueden perder. Una regla con paths se carga sólo cuando Claude trabaja con un archivo que coincide, acá lib/http/ y no el archivo nuevo que llama a fetch, y después de compactar vuelve recién cuando se lee de nuevo uno de esos archivos. Repetir la instrucción o enfocar una compactación son parches manuales que fallan la vez siguiente."
+    "en": "After compaction, Claude Code re-injects the project-root CLAUDE.md and rules without a paths field from disk, while instructions given only in conversation are summarized and can be lost. A path-scoped rule loads only when Claude works with a matching file, here lib/http/ rather than the new file that calls fetch, and after a compaction it returns only when Claude works with such a file again. Repeating the instruction or focusing one compaction are manual workarounds that fail the next time.",
+    "es": "Después de compactar, Claude Code vuelve a inyectar desde disco el CLAUDE.md de la raíz y las reglas sin campo paths, mientras que las instrucciones dadas sólo en la conversación se resumen y se pueden perder. Una regla con paths se carga sólo cuando Claude trabaja con un archivo que coincide, acá lib/http/ y no el archivo nuevo que llama a fetch, y después de compactar vuelve recién cuando Claude trabaja de nuevo con uno de esos archivos. Repetir la instrucción o enfocar una compactación son parches manuales que fallan la vez siguiente."
    }
   },
   {
