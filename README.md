@@ -8,7 +8,7 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 - **Each certification:** price, exam format, passing score, validity, exam domains, prep resources and sources.
 - **Compare:** up to four side by side, with a shareable link.
 - **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date to check it fits, rate your topics to shift time, tick sessions off, and export to your calendar (`.ics`) or Markdown.
-- **Practice:** original questions for some certifications (AWS Cloud Practitioner for now), picked by exam domain, with a timer you can pause, marked questions, accuracy by domain, review with explanations and a list of your mistakes.
+- **Practice:** original questions for some certifications (AWS Cloud Practitioner and Claude Architect Foundations for now), picked by exam domain, with a timer you can pause, marked questions, accuracy by domain, review with explanations and a list of your mistakes.
 - **Progress:** every plan you track in one place: streak, hours done, what comes next and five weeks of sessions at a glance.
 - **English and Spanish**, light and dark, installable and usable offline. Each certification has a share link with its own preview image.
 
