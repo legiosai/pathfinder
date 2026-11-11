@@ -743,22 +743,22 @@
    "id": "ccarf-017",
    "domain": "Tool Design & MCP Integration",
    "prompt": {
-    "en": "An internal agent built on the Agent SDK answers engineers' questions about a 6,000-file legacy codebase. Asked how an order gets its tax computed, it starts by reading every file under src/, runs out of context and answers vaguely. Which TWO practices should its instructions require? (Select TWO.)",
-    "es": "Un agente interno hecho con el Agent SDK responde preguntas de los ingenieros sobre un código legacy de 6.000 archivos. Cuando le preguntan cómo se calcula el impuesto de una orden, empieza leyendo todos los archivos de src/, se queda sin contexto y responde vaguedades. ¿Qué prácticas deberían exigir sus instrucciones? (Elegí DOS.)"
+    "en": "An internal agent built on the Agent SDK answers engineers' questions about a 6,000-file legacy codebase. Asked how an order gets its shipping cost computed, it starts by reading every file under src/, runs out of context and answers vaguely. Which TWO practices should its instructions require? (Select TWO.)",
+    "es": "Un agente interno hecho con el Agent SDK responde preguntas de los ingenieros sobre un código legacy de 6.000 archivos. Cuando le preguntan cómo se calcula el costo de envío de una orden, empieza leyendo todos los archivos de src/, se queda sin contexto y responde vaguedades. ¿Qué prácticas deberían exigir sus instrucciones? (Elegí DOS.)"
    },
    "options": [
     {
      "key": "A",
      "text": {
-      "en": "Start with Grep for likely entry points, such as the tax function's name, route definitions or error messages.",
-      "es": "Empezar con Grep buscando puntos de entrada probables, como el nombre de la función de impuestos, definiciones de rutas o mensajes de error."
+      "en": "Start with Grep for likely entry points, such as the shipping-cost function's name, route definitions or error messages.",
+      "es": "Empezar con Grep buscando puntos de entrada probables, como el nombre de la función que calcula el envío, definiciones de rutas o mensajes de error."
      }
     },
     {
      "key": "B",
      "text": {
-      "en": "Use Glob with a pattern like **/*tax* to search file contents for the tax calculation.",
-      "es": "Usar Glob con un patrón como **/*tax* para buscar el cálculo de impuestos en el contenido de los archivos."
+      "en": "Use Glob with a pattern like **/*shipping* to search file contents for the shipping calculation.",
+      "es": "Usar Glob con un patrón como **/*shipping* para buscar el cálculo del envío en el contenido de los archivos."
      }
     },
     {
@@ -788,8 +788,8 @@
     "C"
    ],
    "explanation": {
-    "en": "Understanding of a large codebase should be built incrementally: a content search finds the entry points, and targeted reads follow imports to trace the flow, so the context holds only what the question needs. Glob matches file paths, not contents, so it can find tax.ts but not tax logic inside other files. Reading everything up front, or concatenating it into one file, fills the context with irrelevant code.",
-    "es": "El entendimiento de un código grande se arma de a poco: una búsqueda por contenido encuentra los puntos de entrada y las lecturas dirigidas siguen los imports para reconstruir el flujo, así el contexto guarda sólo lo que la pregunta necesita. Glob busca por ruta de archivo, no por contenido, así que encuentra tax.ts pero no la lógica de impuestos dentro de otros archivos. Leer todo de entrada, o juntarlo en un archivo, llena el contexto de código que no importa."
+    "en": "Understanding of a large codebase should be built incrementally: a content search finds the entry points, and targeted reads follow imports to trace the flow, so the context holds only what the question needs. Glob matches file paths, not contents, so it can find shipping.ts but not shipping logic inside other files. Reading everything up front, or concatenating it into one file, fills the context with irrelevant code.",
+    "es": "El entendimiento de un código grande se arma de a poco: una búsqueda por contenido encuentra los puntos de entrada y las lecturas dirigidas siguen los imports para reconstruir el flujo, así el contexto guarda sólo lo que la pregunta necesita. Glob busca por ruta de archivo, no por contenido, así que encuentra shipping.ts pero no la lógica de envíos dentro de otros archivos. Leer todo de entrada, o juntarlo en un archivo, llena el contexto de código que no importa."
    }
   },
   {
@@ -1209,8 +1209,8 @@
     "D"
    ],
    "explanation": {
-    "en": "Claude can avoid repeating scenarios only if it sees the tests that already exist, and it uses shared fixtures only if it knows about them; CLAUDE.md is how a CI-invoked Claude Code gets that project context. More tests per run add noise for reviewers, and the Batches API changes cost and latency, not quality. Comparing names afterwards misses duplicates with different names and does nothing about fixtures.",
-    "es": "Claude puede evitar escenarios repetidos sólo si ve los tests que ya existen, y usa fixtures compartidos sólo si sabe que existen; CLAUDE.md es la forma en que Claude Code, invocado desde CI, recibe ese contexto del proyecto. Más tests por corrida suman ruido para quienes revisan, y la Batches API cambia costo y latencia, no calidad. Comparar nombres después se pierde duplicados con otro nombre y no hace nada con los fixtures."
+    "en": "Claude can avoid repeating scenarios only if it sees the tests that already exist, and it uses shared fixtures only if it knows about them; the project CLAUDE.md is where those conventions live, and Claude Code loads it in a CI run as in an interactive one (a run started with --bare skips it, so it would need that context passed another way). More tests per run add noise for reviewers, and the Batches API changes cost and latency, not quality. Comparing names afterwards misses duplicates with different names and does nothing about fixtures.",
+    "es": "Claude puede evitar escenarios repetidos sólo si ve los tests que ya existen, y usa fixtures compartidos sólo si sabe que existen; el CLAUDE.md del proyecto es donde viven esas convenciones, y Claude Code lo carga en una corrida de CI igual que en una interactiva (una corrida con --bare lo saltea, así que necesitaría ese contexto por otra vía). Más tests por corrida suman ruido para quienes revisan, y la Batches API cambia costo y latencia, no calidad. Comparar nombres después se pierde duplicados con otro nombre y no hace nada con los fixtures."
    }
   },
   {
@@ -1637,8 +1637,8 @@
     {
      "key": "A",
      "text": {
-      "en": "Escalate when the customer's messages turn negative, since frustration is the best sign that a case is stuck.",
-      "es": "Escalar cuando los mensajes del cliente se vuelvan negativos, porque la frustración es la mejor señal de que un caso está trabado."
+      "en": "Let the agent offer a full refund whenever no seats are found, so that the case closes without a person.",
+      "es": "Dejar que el agente ofrezca el reembolso total cada vez que no encuentra asientos, así el caso se cierra sin una persona."
      }
     },
     {
@@ -1658,8 +1658,8 @@
     {
      "key": "D",
      "text": {
-      "en": "Escalate when the agent's self-reported confidence falls below 0.5 on two consecutive turns.",
-      "es": "Escalar cuando la confianza que informa el propio agente baje de 0,5 en dos turnos seguidos."
+      "en": "Let the agent keep searching until a seat appears or the customer leaves, since any rebooking beats a handoff.",
+      "es": "Dejar que el agente siga buscando hasta que aparezca un asiento o el cliente se vaya, porque cualquier reubicación es mejor que un traspaso."
      }
     }
    ],
@@ -1667,8 +1667,8 @@
     "C"
    ],
    "explanation": {
-    "en": "Being unable to make meaningful progress is an escalation trigger in its own right, alongside explicit requests for a human and gaps in policy; a defined limit stops the agent from looping while the customer waits, and a structured handoff of what was tried lets the human continue without repeating the searches. Sentiment and self-reported confidence are unreliable proxies for how hard a case is. Waiting for the customer to ask leaves a polite customer stuck.",
-    "es": "No poder avanzar es un motivo de escalamiento en sí mismo, junto con el pedido explícito de una persona y los huecos en la política; un límite definido evita que el agente dé vueltas mientras el cliente espera, y un traspaso estructurado de lo que se probó le permite a la persona seguir sin repetir las búsquedas. El sentimiento y la confianza autoinformada son indicadores poco confiables de qué tan difícil es un caso. Esperar a que el cliente lo pida deja trabado a un cliente amable."
+    "en": "Being unable to make meaningful progress is an escalation trigger in its own right, alongside explicit requests for a human and gaps in policy; a defined limit stops the agent from looping while the customer waits, and a structured handoff of what was tried lets the human continue without repeating the searches. A refund is a policy decision the agent shouldn't make just to close a case, and searching until the customer gives up is the loop the rule has to stop. Waiting for the customer to ask leaves a polite customer stuck.",
+    "es": "No poder avanzar es un motivo de escalamiento en sí mismo, junto con el pedido explícito de una persona y los huecos en la política; un límite definido evita que el agente dé vueltas mientras el cliente espera, y un traspaso estructurado de lo que se probó le permite a la persona seguir sin repetir las búsquedas. Un reembolso es una decisión de política que el agente no debería tomar sólo para cerrar el caso, y buscar hasta que el cliente se canse es justamente el loop que la regla tiene que cortar. Esperar a que el cliente lo pida deja trabado a un cliente amable."
    }
   },
   {
