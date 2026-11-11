@@ -1728,36 +1728,36 @@
    "id": "ccarf-038",
    "domain": "Context Management & Reliability",
    "prompt": {
-    "en": "A developer-productivity agent maps a legacy monolith in two phases. In phase 1, subagents identify the modules, their entry points and the database tables each one uses. In phase 2, the coordinator spawns one subagent per module to document its business rules. Each phase-2 subagent spends most of its turns rediscovering entry points and tables that phase 1 already found. What should the coordinator do?",
-    "es": "Un agente de productividad mapea un monolito legacy en dos fases. En la fase 1, los subagentes identifican los módulos, sus puntos de entrada y las tablas que usa cada uno. En la fase 2, el coordinador lanza un subagente por módulo para documentar sus reglas de negocio. Cada subagente de la fase 2 gasta la mayoría de sus turnos redescubriendo puntos de entrada y tablas que la fase 1 ya encontró. ¿Qué debería hacer el coordinador?"
+    "en": "A developer spends an afternoon in one Claude Code session tracing why a payments test fails at random in a large monorepo. Claude has read dozens of files and the context has been compacted once. Now its answers contradict what it found earlier: it says the checkout service doesn't use the shared retry wrapper, although it confirmed an hour ago that it does. What should the developer change for the rest of the investigation?",
+    "es": "Un desarrollador pasa la tarde en una misma sesión de Claude Code rastreando por qué un test de pagos falla al azar en un monorepo grande. Claude leyó decenas de archivos y el contexto ya se compactó una vez. Ahora sus respuestas contradicen lo que encontró antes: dice que el servicio de checkout no usa el wrapper de reintentos compartido, aunque hace una hora confirmó que sí. ¿Qué debería cambiar el desarrollador para el resto de la investigación?"
    },
    "options": [
     {
      "key": "A",
      "text": {
-      "en": "Give the phase-2 subagents more turns, so that they can finish their documentation despite the rediscovery.",
-      "es": "Darles más turnos a los subagentes de la fase 2, para que puedan terminar la documentación pese al redescubrimiento."
+      "en": "Before each new question, ask Claude to reread every file it has opened so far, so that its answers rest on the code again.",
+      "es": "Pedirle a Claude, antes de cada pregunta nueva, que vuelva a leer todos los archivos que abrió hasta ahora, para que sus respuestas se apoyen otra vez en el código."
      }
     },
     {
      "key": "B",
      "text": {
-      "en": "Spawn one large phase-2 subagent for all modules, so that discovery happens only once for the whole monolith.",
-      "es": "Lanzar un único subagente grande para todos los módulos en la fase 2, así el relevamiento se hace una sola vez para todo el monolito."
+      "en": "Run /clear whenever an answer looks wrong and start the investigation again from the beginning.",
+      "es": "Correr /clear cada vez que una respuesta parezca equivocada y empezar la investigación de nuevo desde el principio."
      }
     },
     {
      "key": "C",
      "text": {
-      "en": "Paste the complete transcripts of all phase-1 subagents into every phase-2 prompt, so that no detail is lost.",
-      "es": "Pegar las transcripciones completas de todos los subagentes de la fase 1 en cada prompt de la fase 2, para no perder ningún detalle."
+      "en": "Turn off automatic compaction, so that the full transcript stays in context and no finding is ever summarized.",
+      "es": "Desactivar la compactación automática, para que la transcripción completa quede en el contexto y ningún hallazgo se resuma."
      }
     },
     {
      "key": "D",
      "text": {
-      "en": "Summarize phase-1 findings per module and put each summary in that module's phase-2 prompt.",
-      "es": "Resumir los hallazgos de la fase 1 por módulo y poner cada resumen en el prompt de ese módulo en la fase 2."
+      "en": "Have Claude record each confirmed finding, with its file and line, in a findings file in the repo, and check that file before answering and after each compaction.",
+      "es": "Hacer que Claude anote cada hallazgo confirmado, con archivo y línea, en un archivo de hallazgos del repo, y que lo consulte antes de responder y después de cada compactación."
      }
     }
    ],
@@ -1765,8 +1765,8 @@
     "D"
    ],
    "explanation": {
-    "en": "A subagent starts with a fresh context and receives only the prompt the coordinator writes, so what phase 1 learned has to be passed on explicitly. A concise per-module summary removes the rediscovery and keeps each subagent focused on its module. Full transcripts of every module flood each prompt with irrelevant detail, more turns pay for the waste instead of removing it, and one huge subagent gives up parallelism and context isolation.",
-    "es": "Un subagente arranca con contexto vacío y recibe sólo el prompt que escribe el coordinador, así que lo que aprendió la fase 1 hay que pasárselo de forma explícita. Un resumen breve por módulo elimina el redescubrimiento y mantiene a cada subagente enfocado en su módulo. Las transcripciones completas de todos los módulos llenan cada prompt de detalle irrelevante, más turnos pagan el desperdicio en vez de sacarlo, y un único subagente enorme resigna el paralelismo y el aislamiento de contexto."
+    "en": "Long explorations fill the context with tool output, and older findings get summarized or lose weight next to newer material. A findings file keeps what was confirmed outside the context, survives compaction and /clear, and costs one read to bring back. Rereading every file fills the context faster, /clear throws the progress away, and keeping the full transcript only makes the context longer: it still runs out, and a longer context doesn't make old findings easier to recall.",
+    "es": "Las exploraciones largas llenan el contexto de resultados de herramientas, y los hallazgos viejos se resumen o pierden peso frente a lo más nuevo. Un archivo de hallazgos guarda lo confirmado fuera del contexto, sobrevive a la compactación y a /clear, y recuperarlo cuesta una sola lectura. Releer todos los archivos llena el contexto más rápido, /clear tira el avance y conservar la transcripción completa sólo alarga el contexto: igual se termina, y un contexto más largo no hace que los hallazgos viejos se recuerden mejor."
    }
   },
   {
