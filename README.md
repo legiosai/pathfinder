@@ -5,6 +5,7 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 **Use it:** https://legiosai.github.io/pathfinder/
 
 - **Certifications:** one list with search and filters by provider, level and price. "For me" ranks it by the skills you want and the ones you already use.
+- **Describe what you want:** write it in a sentence, in English or Spanish ("junior dev, want cloud security, under $200, 5 hours a week") and get a few picks with the reasons for each. A built-in vocabulary reads the text in your browser, with no AI service: it shows what it understood as chips you can remove, and can hand them to "For me".
 - **Each certification:** price, exam format, passing score, validity, exam domains, prep resources and sources.
 - **Compare:** up to four side by side, with a shareable link.
 - **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date to check it fits, rate your topics to shift time, tick sessions off, and export to your calendar (`.ics`) or Markdown.

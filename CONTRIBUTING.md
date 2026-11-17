@@ -37,4 +37,4 @@ Thanks for helping keep the catalog accurate. Most contributions are data: a cor
 
 ## Code changes
 
-The site is plain HTML, CSS and JavaScript modules in `site/`. Logic that can be tested lives in `site/lib/` and has tests in `tests/`. Keep the page self-contained: no trackers, no CDNs and no calls to other services.
+The site is plain HTML, CSS and JavaScript modules in `site/`. Logic that can be tested lives in `site/lib/` and has tests in `tests/`. The words "Describe what you want" understands (synonyms for skills, roles, levels, budgets and issuers, in English and Spanish) are lists in `site/lib/intent.js`; add a phrase there and a case to `tests/intent.test.mjs`. Keep the page self-contained: no trackers, no CDNs and no calls to other services.

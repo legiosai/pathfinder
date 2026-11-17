@@ -137,6 +137,24 @@
       </div>
     </div>
 
+    <!-- Describe what you want: filled by describe.js, styled in the "describe what you want" block of styles.css -->
+    <section class="describe card" id="describe" aria-labelledby="describe-title">
+      <div class="describe-head">
+        <span class="tile describe-tile" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M7 11h10"/><path d="M7 15h6"/><path d="M7 7h8"/></svg></span>
+        <div>
+          <h2 id="describe-title" data-i18n="describe.title">Describe what you are after</h2>
+          <p class="hint" id="describe-lede" data-i18n="describe.lede">Your role, what you want to learn, budget and time. It is read on this device; nothing is sent anywhere.</p>
+        </div>
+      </div>
+      <form class="describe-form" id="describe-form" autocomplete="off">
+        <textarea id="describe-text" name="describe" rows="2" maxlength="500" spellcheck="true" aria-labelledby="describe-title" aria-describedby="describe-lede" placeholder="Junior developer, want to get into cloud security, under US$200, 5 hours a week" data-i18n-attr="placeholder:describe.placeholder"></textarea>
+        <button type="submit" class="btn primary"><span data-i18n="describe.go">Recommend</span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+      </form>
+      <div class="d-examples" id="describe-examples"></div>
+      <div class="d-out" id="describe-out"></div>
+      <p class="sr" id="describe-status" aria-live="polite"></p>
+    </section>
+
     <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
     <div class="providers" id="providers" role="group" aria-label="Provider" data-i18n-attr="aria-label:aria.provider"></div>
 
