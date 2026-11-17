@@ -46,6 +46,8 @@ async function cacheFirst(request) {
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
+  // Only same-origin GETs are cached. The chat is a POST to its own endpoint (CHAT_API in
+  // scripts/site.mjs), so its answers always come from the network and are never stored here.
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;

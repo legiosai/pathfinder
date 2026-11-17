@@ -6,7 +6,7 @@ import { providerMark, providerColor, badge, donut, hbars, columns, domainColor 
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
-import { mountDescribe } from './describe.js';
+import { mountChat } from './chat.js';
 
 const MAX_COMPARE = 4;
 const KEYS = {
@@ -56,7 +56,7 @@ let compare = [];
 let activeCat = '';
 let activeProvider = '';
 let fuse = null;
-let describe = null;
+let chat = null;
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- visual vocabulary ----------
@@ -1609,25 +1609,6 @@ async function share(id) {
 }
 
 // ---------- hero ----------
-/** Faint contour lines around two summits, with the dashed trail climbing to the right-hand one. */
-function renderHeroArt() {
-  const ring = (cx, cy, k, step, i, cls = '') => {
-    const pts = [];
-    for (let a = 0; a <= 72; a++) {
-      const th = (a / 72) * Math.PI * 2;
-      const r = k * step * (1 + 0.13 * Math.sin(3 * th + k * 0.6) + 0.07 * Math.cos(5 * th - k));
-      pts.push(`${(cx + Math.cos(th) * r * 1.35).toFixed(1)},${(cy + Math.sin(th) * r).toFixed(1)}`);
-    }
-    return `<path pathLength="1" style="--k:${i}"${cls ? ` class="${cls}"` : ''} d="M${pts.join('L')}Z"/>`;
-  };
-  let out = '';
-  for (let k = 1; k <= 11; k++) out += ring(1075, 64, k, 30, k, k === 2 || k === 3 ? 'hi' : '');
-  for (let k = 1; k <= 7; k++) out += ring(70, 330, k, 30, k + 3);
-  out += '<path class="trail" pathLength="1" d="M1215 520 C 1150 470, 1185 400, 1125 350 S 1005 280, 1040 200 S 1100 120, 1075 64"/>';
-  out += '<circle class="peak" cx="1075" cy="64" r="6"/>';
-  $('#hero-topo').innerHTML = out;
-}
-
 /** Every certification as a badge, split over two rows that drift in opposite directions.
  *  Each row holds its set twice so the -50% shift loops without a seam. */
 function renderMarquee() {
@@ -1653,8 +1634,8 @@ function setMotionPaused(paused) {
   $('use', button).setAttribute('href', paused ? '#i-play' : '#i-pause');
 }
 
-// "Describe what you want" (describe.js) hands what it understood to the "For me" form, where every
-// choice can be changed. The budget becomes the price filter; the experience only if the text gave one.
+// The chat (chat.js) hands what lib/intent.js reads in the conversation to the "For me" form, where
+// every choice can be changed. The budget becomes the price filter; the experience only if the text gave one.
 function refineFromIntent(intent) {
   const p = intent.profile;
   profile = { ...profile, roles: p.roles, known: p.known, want: p.want, experience: intent.levelStated ? p.experience : profile.experience };
@@ -1696,12 +1677,8 @@ function renderSiteText() {
   const checkedDates = all.map((c) => c.checked_on).sort();
   const fmt = (d) => day(d, { weekday: false, year: true });
   const checked = checkedDates[0] === checkedDates.at(-1) ? t('about.checkedOn', { d: fmt(checkedDates[0]) }) : t('about.checkedBetween', { a: fmt(checkedDates[0]), b: fmt(checkedDates.at(-1)) });
-  const heroStat = (ic, n, lbl) => `<span class="stat-chip">${tile(ic, '--accent', 'sm')}<span><b>${n}</b><small>${lbl}</small></span></span>`;
-  $('#hero-stats').innerHTML =
-    heroStat('layers', all.length, t('hero.certs')) +
-    heroStat('building-2', providers, t('hero.providers')) +
-    heroStat('graduation-cap', withPrep, t('hero.prep')) +
-    (free ? heroStat('badge-dollar-sign', free, t('hero.free')) : '');
+  const heroStat = (n, lbl) => `<span><b>${n}</b> ${lbl}</span>`;
+  $('#hero-stats').innerHTML = heroStat(all.length, t('hero.certs')) + heroStat(providers, t('hero.providers')) + heroStat(withPrep, t('hero.prep')) + (free ? heroStat(free, t('hero.free')) : '');
   $('#level-key').innerHTML = tx.levels.map((l) => `<li>${lvl(l.id)}</li>`).join('');
   $('#hours-note').textContent = `${hoursNote(tx.hours_note)} ${t('about.ranges', { x: tx.levels.map((l) => `${label('levels', l).toLowerCase()} ${l.hours[0]}–${l.hours[1]} h`).join(', ') })}`;
   $('#data-note').textContent = t('about.dataNote', { n: all.length, p: providers, s: Object.keys(DATA.sources).length, r: Object.keys(DATA.reports).length, checked });
@@ -1720,7 +1697,7 @@ function localize() {
   labelDays();
   setRatedLabel(Object.keys(readConfidence()).length);
   setThemeButton();
-  describe?.localize();
+  chat?.localize();
 }
 
 async function init() {
@@ -1749,7 +1726,6 @@ async function init() {
       ignoreLocation: true,
     },
   );
-  renderHeroArt();
   renderMarquee();
   setMotionPaused(store.get(KEYS.motion, false) === 'paused');
 
@@ -1761,7 +1737,7 @@ async function init() {
   setThemeButton();
   fillPlanForm();
   bind();
-  describe = mountDescribe({ data: DATA, helpers: { icon, ring, lvl, fee, flag }, onRefine: refineFromIntent });
+  chat = mountChat({ data: DATA, helpers: { icon, lvl, fee, flag }, onRefine: refineFromIntent });
   $('#loading').remove();
   route();
   registerWorker();

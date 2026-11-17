@@ -5,3 +5,9 @@
 // subpath (/pathfinder/) or at the root of a domain.
 export const DEFAULT_SITE = 'https://legiosai.github.io/pathfinder/';
 export const SITE = (process.env.SITE_URL || DEFAULT_SITE).replace(/\/?$/, '/');
+
+// Where the chat sends messages (POST <CHAT_API>/chat). site/chat.js carries the default and the
+// build writes this one in its place; CHAT_API in the environment overrides it for one build.
+// For development, ?chat=<loopback url> in the page address points one browser elsewhere.
+export const DEFAULT_CHAT_API = 'https://pathfinder-api.legios.com.ar';
+export const CHAT_API = (process.env.CHAT_API || DEFAULT_CHAT_API).replace(/\/+$/, '');

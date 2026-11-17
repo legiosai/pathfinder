@@ -5,7 +5,7 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 **Use it:** https://legiosai.github.io/pathfinder/
 
 - **Certifications:** one list with search and filters by provider, level and price. "For me" ranks it by the skills you want and the ones you already use.
-- **Describe what you want:** write it in a sentence, in English or Spanish ("junior dev, want cloud security, under $200, 5 hours a week") and get a few picks with the reasons for each. A built-in vocabulary reads the text in your browser, with no AI service: it shows what it understood as chips you can remove, and can hand them to "For me".
+- **Ask for a recommendation:** a chat on the home page. Say what you are after in your own words, in English or Spanish ("junior dev, want cloud security, under $200, 5 hours a week"), and get an answer from Claude with a few certifications from the catalog, each with the reason for it and links to its page, a plan and practice. The conversation can go on ("something cheaper?") and is kept in your browser until you start a new chat. When the AI can't answer (offline, busy, rate limited), a built-in matcher answers on your device instead and says so, and can hand what it read to "For me".
 - **Each certification:** price, exam format, passing score, validity, exam domains, prep resources and sources.
 - **Compare:** up to four side by side, with a shareable link.
 - **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date to check it fits, rate your topics to shift time, tick sessions off, and export to your calendar (`.ics`) or Markdown.
@@ -14,7 +14,9 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 - **English and Spanish**, light and dark, installable and usable offline.
 - **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links into the plan, practice and compare views. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
 
-No tracking and no backend. Your choices and progress stay in your browser.
+## Privacy
+
+No tracking. Messages you type in the chat are sent to pathfinder's endpoint and answered by Claude (Anthropic); pathfinder does not store the conversations, and your browser keeps the transcript until you start a new chat. Everything else (plans, progress, practice) stays in your browser. If the AI is unavailable, an on-device matcher answers instead.
 
 ## The catalog
 
@@ -41,6 +43,15 @@ npm run og       # re-render the share images in site/og/ (needs Chrome and Imag
 
 The site's public address lives in `scripts/site.mjs` (`SITE_URL` in the environment overrides it for one build). Canonical links, Open Graph tags, the sitemap and robots.txt follow it; everything else links with relative paths, so the same build works under a subpath or at the root of a domain.
 
+The chat's endpoint lives next to it, as `CHAT_API` (`https://pathfinder-api.legios.com.ar` by default; `CHAT_API` in the environment overrides it for one build). The page posts the conversation to `<CHAT_API>/chat` and reads the answer as server-sent events. To work on the chat without the real endpoint, run the mock, which speaks the same contract with canned answers and can act out every failure:
+
+```sh
+node scripts/chat-mock.mjs 8813                # then open http://127.0.0.1:8080/?chat=http://127.0.0.1:8813
+# ?chat=http://127.0.0.1:8813/m/429 (or 503, disabled, slow, error, late, cut, refusal, 400, 403, 413, 500, lag)
+```
+
+`?chat=<url>` is remembered by that browser (`?chat=default` forgets it) and only accepts a loopback address, unless the page itself is served from loopback.
+
 The interface text lives in `site/i18n.js`. Catalog details stay in English, as the issuers publish them.
 
 ## Contribute
@@ -51,4 +62,4 @@ Corrections and new certifications are welcome. See [CONTRIBUTING.md](CONTRIBUTI
 
 [MIT](LICENSE)
 
-Icons from [Lucide](https://lucide.dev) v1.59.0 (ISC, see `site/LICENSE-lucide.txt`). Headings use [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) and body text uses [Inter](https://github.com/rsms/inter), Latin subset (both SIL Open Font License, see `site/fonts/OFL.txt` and `site/fonts/OFL-inter.txt`). Everything is bundled, so the site makes no third-party requests.
+Icons from [Lucide](https://lucide.dev) v1.59.0 (ISC, see `site/LICENSE-lucide.txt`). Headings use [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) and body text uses [Inter](https://github.com/rsms/inter), Latin subset (both SIL Open Font License, see `site/fonts/OFL.txt` and `site/fonts/OFL-inter.txt`). Everything is bundled: the only request that leaves the site is the chat's, to pathfinder's own endpoint.
