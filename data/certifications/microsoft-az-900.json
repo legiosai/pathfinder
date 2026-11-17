@@ -1,0 +1,87 @@
+{
+  "id": "microsoft-az-900",
+  "name": "Microsoft Azure Fundamentals",
+  "provider": "Microsoft",
+  "code": "AZ-900",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location. Students and educators can schedule through Certiport."
+  },
+  "exam": {
+    "minutes": 45,
+    "style": "knowledge",
+    "format": "Proctored 45-minute exam through Pearson VUE (Certiport for students and educators); interactive components may appear. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "passing": "700 scaled (1–1,000)",
+    "validity": "Does not expire"
+  },
+  "scope": "Cloud concepts, Azure architecture and core services (compute, networking, storage, identity and security), and Azure cost, governance, management and monitoring tools.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AZ-900; practice runs here are paced on 40 questions in 45 minutes."
+  ],
+  "skills": [
+    "azure",
+    "networking",
+    "security",
+    "identity"
+  ],
+  "roles": [
+    "business",
+    "developer",
+    "architect",
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Describe cloud concepts",
+      "weight": 28
+    },
+    {
+      "name": "Describe Azure architecture and services",
+      "weight": 39
+    },
+    {
+      "name": "Describe Azure management and governance",
+      "weight": 33
+    }
+  ],
+  "sources": [
+    "Z10",
+    "Z11",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AZ-900 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-900",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Azure Fundamentals course (AZ-900T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/az-900t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths for the three skill areas; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official AZ-900 practice assessment",
+      "url": "https://aka.ms/AZ900-PA",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AZ-900 study guide (25–30%, 35–40%, 30–35%; skills measured as of July 20, 2026), scaled to add up to 100. Read 2026-11-17."
+}

@@ -18,7 +18,7 @@
     "title": "AWS · Current AIF-C01 exam guide",
     "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html",
     "kind": "Provider guide / directly read",
-    "note": "Directly read on 27 October 2026: scope/exclusions, domain weights, 700 scaled passing score, and possible multiple-choice, multiple-response, ordering, and matching formats."
+    "note": "Directly read on 27 October 2026: scope/exclusions, domain weights, 700 scaled passing score, and possible multiple-choice, multiple-response, ordering, and matching formats. Re-read 2026-11-17 (guide version 1.2, October 29, 2026): same weights, 50 scored and 15 unscored questions; the objectives now include agentic AI, MCP, Amazon Bedrock AgentCore, Strands Agents, Kiro and Amazon Quick."
   },
   {
     "id": "C01",
@@ -249,7 +249,7 @@
     "title": "AWS · Solutions Architect Associate",
     "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. $150, 65 questions/130 minutes, three-year validity and recommended AWS design experience. Personal next-exam discount not checked."
+    "note": "Read 27 Oct 2026. $150, 65 questions/130 minutes, three-year validity and recommended AWS design experience. Personal next-exam discount not checked. Re-read 2026-11-17: still $150, 65 multiple choice or multiple response questions, 130 minutes."
   },
   {
     "id": "X14",
@@ -417,7 +417,7 @@
     "title": "AWS · SAA-C03 exam guide",
     "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html",
     "kind": "Issuer exam guide",
-    "note": "Domain weights read 2026-11-03."
+    "note": "Domain weights read 2026-11-03. Re-read 2026-11-17 (guide version 1.1, October 29, 2026): 50 scored and 15 unscored questions, multiple choice and multiple response, scaled pass mark of 720."
   },
   {
     "id": "Z02",
@@ -474,5 +474,40 @@
     "url": "https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html",
     "kind": "Issuer exam guide",
     "note": "Read 2026-11-05. Domain weights, 50 scored and 15 unscored questions, scaled pass mark of 700."
+  },
+  {
+    "id": "Z10",
+    "title": "Microsoft · Azure Fundamentals AZ-900",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Current certification (page updated 2026-11-13), 45-minute proctored exam with possible interactive components, regional pricing, Pearson VUE or Certiport scheduling, 13 languages."
+  },
+  {
+    "id": "Z11",
+    "title": "Microsoft · AZ-900 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-900",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of July 20, 2026: cloud concepts 25–30%, Azure architecture and services 35–40%, management and governance 30–35%; 700 to pass."
+  },
+  {
+    "id": "Z12",
+    "title": "Microsoft · Exam duration and exam experience",
+    "url": "https://learn.microsoft.com/en-us/credentials/support/exam-duration-exam-experience",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Fundamentals exams last 45 minutes (65-minute seat time); most exams have 40–60 questions; question types are not identified per exam."
+  },
+  {
+    "id": "Z13",
+    "title": "Microsoft · Exam scoring and score reports",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/exam-scoring-reports",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Technical exams are scored 1–1,000 and pass at 700 or greater, a scaled score that may not equal 70% of the points."
+  },
+  {
+    "id": "Z14",
+    "title": "Microsoft · Certification renewal",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Fundamentals certifications do not expire."
   }
 ]
