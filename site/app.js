@@ -1,6 +1,7 @@
 import { emptyProfile, rank } from './lib/match.js';
 import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
-import { buildRun, emptyHistory, grade, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
+import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
+import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
 import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
@@ -965,7 +966,8 @@ function bind() {
 const PRACTICE = new Map();
 let practiceTimer = null;
 let practiceState = null;
-const practiceKeys = (id) => ({ run: `${KEYS.practice}run:${id}`, history: `${KEYS.practice}${id}` });
+const practiceKeys = (id) => ({ run: `${KEYS.practice}run:${id}`, history: `${KEYS.practice}${id}`, review: `${KEYS.practice}review:${id}` });
+const REVIEW_SIZE = 20;
 const stopPracticeTimer = () => {
   clearInterval(practiceTimer);
   practiceTimer = null;
@@ -1008,26 +1010,32 @@ async function renderPractice(id, params) {
   if (parseHash().name !== 'practice' || parseHash().params.get('cert') !== id) return;
   const keys = practiceKeys(id);
   const history = () => store.get(keys.history, emptyHistory());
-  const ctx = { id, c, set, keys, history, tab: params.get('tab') || 'start', attempt: params.get('attempt') };
+  const review = () => loadReview(store.get(keys.review, null), history(), Date.now());
+  const ctx = { id, c, set, keys, history, review, tab: params.get('tab') || 'start', attempt: params.get('attempt') };
   practiceState = ctx;
   const run = store.get(keys.run, null);
   if (run && run.timed && !run.paused && run.end <= Date.now()) return finishPractice(ctx, run);
   if (ctx.attempt) return practiceResult(ctx);
+  if (params.get('review')) return practiceReview(ctx, params.get('review') === 'early');
   if (run && params.get('run') === '1') return practiceExam(ctx, run);
   practiceHome(ctx, run);
 }
 
+const dueCount = (ctx) => queue(ctx.review(), ctx.set.questions, Date.now()).due.length;
+
 function practiceHead(ctx, active) {
   const tab = (key, label) => `<a href="#practice?cert=${esc(ctx.id)}${key === 'start' ? '' : `&tab=${key}`}" ${active === key ? 'aria-current="page"' : ''}>${label}</a>`;
+  const due = dueCount(ctx);
   return `<a class="back" href="#cert?id=${esc(ctx.id)}">${icon('arrow-left')}${esc(ctx.c.name)}</a>
     <div class="page-head"><span class="head-icon">${icon('dumbbell')}</span><h1>${t('practice.title')}: ${esc(ctx.c.code)}</h1></div>
     <p class="hint pa-intro">${esc(t('practice.intro', { n: ctx.set.questions.length }))}</p>
-    <div class="pa-tabs">${tab('start', t('practice.tabStart'))}${tab('bank', t('practice.tabBank'))}${tab('mistakes', t('practice.tabMistakes'))}</div>`;
+    <div class="pa-tabs">${tab('start', t('practice.tabStart'))}${tab('review', `${t('practice.tabReview')}${due ? ` <b class="pa-n">${due}</b>` : ''}`)}${tab('bank', t('practice.tabBank'))}${tab('mistakes', t('practice.tabMistakes'))}</div>`;
 }
 
 function practiceHome(ctx, run) {
   if (ctx.tab === 'bank') return practiceBank(ctx);
   if (ctx.tab === 'mistakes') return practiceMistakes(ctx);
+  if (ctx.tab === 'review') return practiceReviewTab(ctx);
   const { c, set, id } = ctx;
   const pool = set.questions.length;
   const full = examSize(c);
@@ -1035,9 +1043,11 @@ function practiceHome(ctx, run) {
   const hist = ctx.history();
   const when = (ms) => new Date(ms).toLocaleDateString(getLang());
   const past = [...hist.attempts].reverse().slice(0, 10);
+  const due = dueCount(ctx);
   $('#practice-body').innerHTML = `${practiceHead(ctx, 'start')}
     ${run ? `<div class="status pa-resume">${icon('timer')}<span>${esc(t('practice.resume', { a: Object.keys(run.answers).length, b: run.ids.length }))}</span>
       <a class="btn primary" href="#practice?cert=${esc(id)}&run=1">${t('practice.continue')}</a><button type="button" class="btn" id="pa-discard">${t('practice.discard')}</button></div>` : ''}
+    ${due ? `<div class="status pa-resume">${icon('refresh-cw')}<span>${esc(t('practice.reviewDue', { n: due }))}</span><a class="btn primary" href="#practice?cert=${esc(id)}&review=due">${t('practice.reviewStart')}</a></div>` : ''}
     <section class="card panel">
       <h2>${icon('play')}${t('practice.tabStart')}</h2>
       <div class="pa-setup">
@@ -1192,22 +1202,26 @@ function finishPractice(ctx, run) {
     return;
   }
   const when = Date.now();
+  // Read the schedule before the history changes: with no schedule saved yet, it starts from the old history.
+  const review = ctx.review();
   store.set(keys.history, record(ctx.history(), result, answers, when));
+  store.set(keys.review, applyRun(review, result, run.marked || [], when));
   if (result.pct >= 70) celebrate(90);
   location.hash = `#practice?cert=${id}&attempt=a${when}`;
 }
 
-const reviewCard = (q, answer, state = '') => {
-  const given = answer || [];
-  const opts = q.options
+/** Options with the right ones and your picks shown. */
+const shownOptions = (q, given = []) =>
+  q.options
     .map((o) => {
       const right = q.correct.includes(o.key);
       const mine = given.includes(o.key);
       return `<div class="pa-opt shown${right ? ' right' : mine ? ' wrong' : ''}"><span class="k">${esc(o.key)}</span><span>${esc(pText(o.text))}${right ? ` <small>${t('practice.correct')}</small>` : mine ? ` <small>${t('practice.yours')}</small>` : ''}</span></div>`;
     })
     .join('');
-  return `<details class="card pa-review"><summary><small class="pa-meta">${esc(q.domain)}${state ? ` · ${state}` : ''}</small><b>${esc(pText(q.prompt))}</b></summary><div class="pa-options">${opts}</div><p class="pa-why">${esc(pText(q.explanation))}</p></details>`;
-};
+
+const reviewCard = (q, answer, state = '') =>
+  `<details class="card pa-review"><summary><small class="pa-meta">${esc(q.domain)}${state ? ` · ${state}` : ''}</small><b>${esc(pText(q.prompt))}</b></summary><div class="pa-options">${shownOptions(q, answer || [])}</div><p class="pa-why">${esc(pText(q.explanation))}</p></details>`;
 
 function practiceResult(ctx) {
   const { id, set } = ctx;
@@ -1218,6 +1232,7 @@ function practiceResult(ctx) {
   }
   const missed = new Set(a.wrong);
   const answered = set.questions.filter((q) => a.answers[q.id]);
+  const due = dueCount(ctx);
   const paint = (onlyWrong) => {
     const list = onlyWrong ? answered.filter((q) => missed.has(q.id)) : answered;
     $('#practice-body').innerHTML = `<a class="back" href="#practice?cert=${esc(id)}">${icon('arrow-left')}${t('practice.back')}</a>
@@ -1228,6 +1243,7 @@ function practiceResult(ctx) {
         ${a.total > a.n ? `<p class="hint">${esc(t('practice.resultLeft', { n: a.total - a.n }))}</p>` : ''}
         <p class="hint">${esc(t('practice.weighted', { p: a.weighted }))}</p><p class="hint">${esc(t('practice.notScore'))}</p></div>
         <a class="btn primary" href="#practice?cert=${esc(id)}">${icon('play')}${t('practice.again')}</a>
+        ${due ? `<a class="btn" href="#practice?cert=${esc(id)}&review=due">${icon('refresh-cw')}${t('practice.tabReview')} · ${due}</a>` : ''}
       </section>
       <section class="card panel"><h2>${icon('chart-bar')}${t('practice.byDomain')}</h2>${domainBars(a.per)}</section>
       <div class="pa-reviewhead"><h2>${t('practice.review')}</h2><div class="segmented"><label><input type="radio" name="pa-rev" value="all" ${onlyWrong ? '' : 'checked'}><span>${t('practice.reviewAll')}</span></label><label><input type="radio" name="pa-rev" value="wrong" ${onlyWrong ? 'checked' : ''}><span>${t('practice.reviewWrong')} (${missed.size})</span></label></div></div>
@@ -1235,6 +1251,114 @@ function practiceResult(ctx) {
     $$('input[name="pa-rev"]').forEach((r) => r.addEventListener('change', () => paint(r.value === 'wrong' && r.checked)));
   };
   paint(a.wrong.length > 0);
+}
+
+/** Local calendar day of a timestamp, as YYYY-MM-DD for day(). */
+const localDay = (ms) => {
+  const d = new Date(ms);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
+function practiceReviewTab(ctx) {
+  const { id, set } = ctx;
+  const now = Date.now();
+  const { due, later } = queue(ctx.review(), set.questions, now);
+  const byId = new Map(set.questions.map((q) => [q.id, q]));
+  const status = due.length ? t('practice.reviewDue', { n: due.length }) : later.length ? t('practice.reviewNext', { d: day(localDay(later[0].due)) }) : t('practice.reviewEmpty');
+  const go = (mode, cls, label) => `<a class="btn ${cls}" href="#practice?cert=${esc(id)}&review=${mode}">${icon('refresh-cw')}${label}</a>`;
+  const row = (r) => `<li><span>${esc(pText(byId.get(r.id).prompt))}</span><small>${esc(r.due <= now ? t('practice.dueNow') : t('practice.dueIn', { n: daysUntil(r.due, now) }))}</small></li>`;
+  $('#practice-body').innerHTML = `${practiceHead(ctx, 'review')}
+    <section class="card panel">
+      <h2>${icon('refresh-cw')}${t('practice.tabReview')}</h2>
+      <p>${esc(status)}</p>
+      ${due.length ? `<div class="pa-setup">${go('due', 'primary', t('practice.reviewStart'))}</div>` : later.length ? `<div class="pa-setup">${go('early', '', t('practice.reviewEarly'))}</div>` : ''}
+      <p class="hint pa-how">${esc(t('practice.reviewHow', { days: INTERVALS.join(', ') }))}</p>
+    </section>
+    ${due.length || later.length ? `<section class="card panel"><h2>${icon('calendar-clock')}${t('practice.reviewList')}</h2><ul class="pa-history">${[...due, ...later].map(row).join('')}</ul></section>` : ''}`;
+}
+
+/** One question at a time with the answer right after each check. Every check updates the schedule. */
+function practiceReview(ctx, early) {
+  const { id, set, keys } = ctx;
+  const byId = new Map(set.questions.map((q) => [q.id, q]));
+  const back = `#practice?cert=${id}&tab=review`;
+  const { due, later } = queue(ctx.review(), set.questions, Date.now());
+  const ids = (early ? [...due, ...later] : due).slice(0, REVIEW_SIZE).map((r) => r.id);
+  if (!ids.length) {
+    location.hash = back;
+    return;
+  }
+  let cur = 0;
+  let picked = [];
+  let verdict = null;
+  let ok = 0;
+  const head = `<a class="back" href="${esc(back)}">${icon('arrow-left')}${t('practice.back')}</a>
+    <div class="page-head"><span class="head-icon">${icon('refresh-cw')}</span><h1>${t('practice.tabReview')}: ${esc(ctx.c.code)}</h1></div>`;
+  const paint = () => {
+    if (cur >= ids.length) {
+      const left = dueCount(ctx);
+      $('#practice-body').innerHTML = `${head}
+        <section class="card panel pa-score">
+          <b class="pa-big">${ok}/${ids.length}</b>
+          <div><p>${esc(t('practice.reviewScore', { ok, n: ids.length }))}</p><p class="hint">${esc(t('practice.reviewLeft', { n: left }))}</p></div>
+          ${left ? `<button type="button" class="btn primary" id="pa-again">${icon('refresh-cw')}${t('practice.reviewAgain')}</button>` : ''}
+          <a class="btn${left ? '' : ' primary'}" href="${esc(back)}">${t('practice.back')}</a>
+        </section>`;
+      $('#pa-again')?.addEventListener('click', () => practiceReview(ctx, false));
+      if (ok === ids.length) celebrate(60);
+      return;
+    }
+    const q = byId.get(ids[cur]);
+    const multi = q.correct.length > 1;
+    const options = verdict
+      ? shownOptions(q, picked)
+      : q.options
+          .map((o) => `<button type="button" class="pa-opt${multi ? ' multi' : ''}" data-key="${esc(o.key)}" aria-pressed="${picked.includes(o.key)}"><span class="k">${esc(o.key)}</span><span>${esc(pText(o.text))}</span></button>`)
+          .join('');
+    $('#practice-body').innerHTML = `${head}
+      <section class="card panel pa-q">
+        <small class="pa-meta">${esc(t('practice.q', { a: cur + 1, b: ids.length }))} · ${esc(q.domain)}</small>
+        <h2 class="pa-prompt">${esc(pText(q.prompt))}</h2>
+        ${multi && !verdict ? `<p class="pa-pick">${esc(t('practice.selectN', { n: q.correct.length }))}</p>` : ''}
+        <div class="pa-options">${options}</div>
+        ${verdict ? `<div class="status ${verdict.right ? 'good' : 'warn'} pa-verdict" role="status">${icon(verdict.right ? 'circle-check' : 'triangle-alert')}<span>${esc(verdict.text)}</span></div><p class="pa-why">${esc(pText(q.explanation))}</p>` : ''}
+        <div class="pa-nav pa-nav-end">${
+          verdict
+            ? `<button type="button" class="btn primary" id="pa-next">${cur === ids.length - 1 ? t('practice.finish') : t('practice.next')}${icon('arrow-right')}</button>`
+            : `<button type="button" class="btn primary" id="pa-check" ${picked.length ? '' : 'disabled'}>${icon('check')}${t('practice.check')}</button>`
+        }</div>
+      </section>`;
+    $$('#practice-body .pa-opt[data-key]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const k = b.dataset.key;
+        if (multi) picked = picked.includes(k) ? picked.filter((x) => x !== k) : [...picked, k];
+        else picked = picked[0] === k ? [] : [k];
+        paint();
+      }),
+    );
+    $('#pa-check')?.addEventListener('click', () => {
+      const now = Date.now();
+      const right = isCorrect(q, picked);
+      const before = ctx.review();
+      const after = answerReview(before, q.id, right, now);
+      store.set(keys.review, after);
+      if (right) ok += 1;
+      verdict = {
+        right,
+        text: !right ? t('practice.reviewWrong') : after === before ? t('practice.reviewRightEarly') : t('practice.reviewRight', { n: daysUntil(after.cards[q.id].due, now) }),
+      };
+      paint();
+      $('#pa-next')?.focus();
+    });
+    $('#pa-next')?.addEventListener('click', () => {
+      cur += 1;
+      picked = [];
+      verdict = null;
+      paint();
+      window.scrollTo(0, 0);
+    });
+  };
+  paint();
 }
 
 function practiceBank(ctx) {
@@ -1451,7 +1575,8 @@ function localPlan(p) {
 
 async function share(id) {
   const c = BY_ID.get(id);
-  const url = `${location.origin}${location.pathname.replace(/index\.html$/, '')}c/${id}/`;
+  // The static page in the current language: c/<id>/ or es/c/<id>/.
+  const url = `${location.origin}${location.pathname.replace(/index\.html$/, '')}${getLang() === 'en' ? '' : `${getLang()}/`}c/${id}/`;
   const button = $(`#cert-body [data-act="share"]`);
   if (navigator.share) {
     try {

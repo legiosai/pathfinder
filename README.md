@@ -8,9 +8,10 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 - **Each certification:** price, exam format, passing score, validity, exam domains, prep resources and sources.
 - **Compare:** up to four side by side, with a shareable link.
 - **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date to check it fits, rate your topics to shift time, tick sessions off, and export to your calendar (`.ics`) or Markdown.
-- **Practice:** original questions for some certifications (AWS Cloud Practitioner and Claude Architect Foundations for now), picked by exam domain, with a timer you can pause, marked questions, accuracy by domain, review with explanations and a list of your mistakes.
+- **Practice:** original questions for some certifications (AWS Cloud Practitioner and Claude Architect Foundations for now), picked by exam domain, with a timer you can pause, marked questions, accuracy by domain, review with explanations and a list of your mistakes. Questions you miss or mark come back in **Review**, spaced out further each time you get them right.
 - **Progress:** every plan you track in one place: streak, hours done, what comes next and five weeks of sessions at a glance.
-- **English and Spanish**, light and dark, installable and usable offline. Each certification has a share link with its own preview image.
+- **English and Spanish**, light and dark, installable and usable offline.
+- **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links into the plan, practice and compare views. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
 
 No tracking and no backend. Your choices and progress stay in your browser.
 
@@ -36,6 +37,8 @@ npm test         # unit tests and catalog checks
 npm run validate # catalog checks only
 npm run og       # re-render the share images in site/og/ (needs Chrome and ImageMagick)
 ```
+
+The site's public address lives in `scripts/site.mjs` (`SITE_URL` in the environment overrides it for one build). Canonical links, Open Graph tags, the sitemap and robots.txt follow it; everything else links with relative paths, so the same build works under a subpath or at the root of a domain.
 
 The interface text lives in `site/i18n.js`. Catalog details stay in English, as the issuers publish them.
 

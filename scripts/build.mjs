@@ -5,6 +5,8 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundle, loadCatalog, validate } from './catalog.mjs';
+import { LANGS, certPage, certPath, indexPage, indexPath, robots, sitemap, symbolsFrom } from './pages.mjs';
+import { DEFAULT_SITE, SITE } from './site.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const data = await loadCatalog(root);
@@ -21,6 +23,10 @@ const dist = join(root, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 await cp(join(root, 'site'), dist, { recursive: true });
+// The sources carry the default address; point them at SITE before the asset hash is taken.
+if (SITE !== DEFAULT_SITE) {
+  for (const f of ['index.html', 'i18n.js', 'lib/planner.js']) await writeFile(join(dist, f), (await readFile(join(dist, f), 'utf8')).replaceAll(DEFAULT_SITE, SITE));
+}
 const today = new Date().toISOString().slice(0, 10);
 // Official badge images (fetched by scripts/badges.mjs) replace the generated badge where present.
 const badgeFiles = new Set(await readdir(join(root, 'site', 'badges')).catch(() => []));
@@ -57,47 +63,29 @@ await rewrite('sw.js', [
   [/const PRECACHE = \[[^\]]*\];/, `const PRECACHE = ${JSON.stringify(precache)};`],
 ]);
 
-// Share pages: c/<id>/ carries Open Graph tags for link previews, then opens the app.
-const SITE = (process.env.SITE_URL || 'https://legiosai.github.io/pathfinder/').replace(/\/?$/, '/');
-const attr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// Search engines get no content from the app's single page, so every certification also gets a
+// plain HTML page per language (c/<id>/ and es/c/<id>/) with its facts and links into the app.
+// c/<id>/ is also the share link, so link previews keep their per-certification image.
+await rewrite('index.html', [[/(<meta name="description"[^>]*>)/, `$1\n<link rel="canonical" href="${SITE}">`]]);
+const symbols = symbolsFrom(await readFile(join(dist, 'index.html'), 'utf8'));
 const ogImages = new Set(await readdir(join(dist, 'og')).catch(() => []));
-for (const c of data.certifications) {
-  const image = ogImages.has(`${c.id}.jpg`) ? `og/${c.id}.jpg` : 'og/home.jpg';
-  const target = `../../#cert?id=${encodeURIComponent(c.id)}`;
-  const description = c.scope.length > 180 ? `${c.scope.slice(0, 177).trimEnd()}…` : c.scope;
-  const page = `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${attr(c.name)} · pathfinder</title>
-<meta name="description" content="${attr(description)}">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="pathfinder">
-<meta property="og:title" content="${attr(`${c.name} (${c.code})`)}">
-<meta property="og:description" content="${attr(description)}">
-<meta property="og:url" content="${attr(`${SITE}c/${c.id}/`)}">
-<meta property="og:image" content="${attr(SITE + image)}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta http-equiv="refresh" content="0; url=${attr(target)}">
-<link rel="icon" href="../../icon.svg" type="image/svg+xml">
-</head>
-<body>
-<p><a href="${attr(target)}">${attr(c.name)}</a></p>
-<script>location.replace(${JSON.stringify(target)});</script>
-</body>
-</html>
-`;
-  await mkdir(join(dist, 'c', c.id), { recursive: true });
-  await writeFile(join(dist, 'c', c.id, 'index.html'), page);
+const pages = [];
+for (const lang of LANGS) {
+  pages.push([indexPath(lang), indexPage({ catalog, lang, site: SITE, v, symbols })]);
+  for (const cert of catalog.certifications) pages.push([certPath(cert.id, lang), certPage({ cert, catalog, lang, site: SITE, v, symbols, ogImages })]);
 }
+for (const [path, html] of pages) {
+  await mkdir(join(dist, path), { recursive: true });
+  await writeFile(join(dist, path, 'index.html'), html);
+}
+await writeFile(join(dist, 'sitemap.xml'), sitemap({ catalog, site: SITE }));
+await writeFile(join(dist, 'robots.txt'), robots({ site: SITE }));
+console.log(`${pages.length} static pages for ${SITE}`);
 
 async function rewrite(file, rules) {
   let text = await readFile(join(dist, file), 'utf8');
   for (const [re, to] of rules) {
-    if (!re.test(text)) throw new Error(`build: no asset reference to version in ${file}`);
+    if (!re.test(text)) throw new Error(`build: expected text not found in ${file}`);
     re.lastIndex = 0;
     text = text.replace(re, to);
   }

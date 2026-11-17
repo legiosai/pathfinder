@@ -51,7 +51,7 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
   const scope = new URL(self.registration.scope);
   if (request.mode === 'navigate') {
-    // Share pages (c/<id>/) redirect into the app; offline they fall back to it directly.
+    // Certification pages (c/<id>/, es/c/<id>/) load from the network; offline they open the app instead.
     const home = scope.href;
     event.respondWith(
       networkFirst(request, url.pathname === scope.pathname ? home : null).catch(() => {
