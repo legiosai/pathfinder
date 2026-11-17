@@ -175,7 +175,7 @@ function parseHash() {
   return { name, params: new URLSearchParams(query) };
 }
 
-const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', cert: 'cert', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
+const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
 let lastView = null;
 let lastCert = null;
 let listScroll = 0;
@@ -214,13 +214,16 @@ function renderRoute() {
   if (view === 'plan') enterPlan(params);
   if (view === 'practice') renderPractice(practiceId, params);
   if (view === 'progress') renderProgress();
+  if (view === 'ask') chat?.shown();
 
   const moved = view !== lastView || (view === 'cert' && certId !== lastCert);
   if (moved) window.scrollTo(0, view === 'list' ? listScroll : 0);
+  // On a desktop the composer is ready to type in; on phones the keyboard would cover the page.
+  if (moved && view === 'ask' && matchMedia('(pointer: fine)').matches) $('#chat-input').focus({ preventScroll: true });
   lastView = view;
   lastCert = view === 'cert' ? certId : null;
 
-  const titles = { practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
+  const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
   document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : 'pathfinder';
 }
 
@@ -337,9 +340,7 @@ function renderList() {
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
   $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
   $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores });
-  const hint = $('#q-hint');
-  hint.hidden = !q;
-  if (q) hint.textContent = t('hero.matches', { n: list.length });
+  renderSuggest(f.q.value.trim(), list);
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
     : `<p class="empty">${t('list.empty')}</p>`;
@@ -912,12 +913,12 @@ function bind() {
   $('#filters').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
   $('#q').addEventListener('input', renderList);
-  $('#q').addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter') return;
-    e.preventDefault();
-    showResults();
-  });
-  $('#q-hint').addEventListener('click', showResults);
+  $('#q').addEventListener('keydown', onSearchKey);
+  $('#q').addEventListener('focus', openSuggest);
+  $('#q').addEventListener('blur', closeSuggest);
+  // Keep the focus in the box while a suggestion is pressed, so blur doesn't close the list first.
+  $('#q-pop').addEventListener('mousedown', (e) => e.preventDefault());
+  $('#q-pop').addEventListener('click', onSuggestClick);
   $('#mq-toggle').addEventListener('click', () => {
     const paused = !$('#marquee').classList.contains('paused');
     setMotionPaused(paused);
@@ -1637,6 +1638,12 @@ function setMotionPaused(paused) {
 // The chat (chat.js) hands what lib/intent.js reads in the conversation to the "For me" form, where
 // every choice can be changed. The budget becomes the price filter; the experience only if the text gave one.
 function refineFromIntent(intent) {
+  if ($('#view-list').hidden) {
+    // The chat has its own page: open the catalog first, without a hashchange that would
+    // restore the old scroll position after the jump below.
+    history.pushState(null, '', location.pathname + location.search);
+    renderRoute();
+  }
   const p = intent.profile;
   profile = { ...profile, roles: p.roles, known: p.known, want: p.want, experience: intent.levelStated ? p.experience : profile.experience };
   store.set(KEYS.profile, profile);
@@ -1653,6 +1660,103 @@ function refineFromIntent(intent) {
   setProfileOpen(true);
   renderList();
   $('#for-me').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+}
+
+// ---------- search suggestions ----------
+// The hero search lists its best matches right under the box, so nobody has to scroll past the
+// badges to see what they found. Enter or "See all" jumps to the full grid below.
+const SUGGEST = 6;
+let suggest = { ids: [], active: -1 };
+
+function renderSuggest(q, list) {
+  suggest = { ids: list.slice(0, SUGGEST).map((c) => c.id), active: -1 };
+  if (!q) return closeSuggest();
+  $('#q-list').innerHTML = list
+    .slice(0, SUGGEST)
+    .map(
+      (c, i) => `<li role="option" id="q-opt-${i}" aria-selected="false"><a class="q-opt" href="#cert?id=${esc(c.id)}" tabindex="-1">
+        ${badge(c, 36, { label: false })}
+        <span class="q-text"><span class="q-name">${esc(c.name)}</span><span class="q-meta">${esc(c.provider)} · ${esc(c.code)}</span></span>
+        <span class="q-fee">${esc(fee(c))}</span></a></li>`,
+    )
+    .join('');
+  $('#q-foot').innerHTML =
+    (list.length
+      ? `<button type="button" class="q-all" data-q="all">${esc(t('search.all', { n: list.length }))}</button>`
+      : `<p class="q-none">${esc(t('search.none'))}</p>`) +
+    `<a class="q-ask" href="#ask" data-q="ask">${icon('sparkles')}<span>${esc(t('search.askAi', { q }))}</span></a>`;
+  $('#q').removeAttribute('aria-activedescendant');
+  if (document.activeElement === $('#q')) openSuggest();
+}
+
+function openSuggest() {
+  if (!$('#q').value.trim()) return;
+  $('#q-pop').hidden = false;
+  $('#q').setAttribute('aria-expanded', 'true');
+}
+
+function closeSuggest() {
+  $('#q-pop').hidden = true;
+  $('#q').setAttribute('aria-expanded', 'false');
+  $('#q').removeAttribute('aria-activedescendant');
+  suggest.active = -1;
+  $$('#q-list [aria-selected="true"]').forEach((li) => li.setAttribute('aria-selected', 'false'));
+}
+
+function moveSuggest(step) {
+  const n = suggest.ids.length;
+  if (!n) return;
+  openSuggest();
+  // -1 means back in the box; past either end wraps around through it.
+  let next = suggest.active + step;
+  if (next < -1) next = n - 1;
+  if (next > n - 1) next = -1;
+  suggest.active = next;
+  $$('#q-list [role="option"]').forEach((li, i) => li.setAttribute('aria-selected', String(i === next)));
+  if (next < 0) return $('#q').removeAttribute('aria-activedescendant');
+  $('#q').setAttribute('aria-activedescendant', `q-opt-${next}`);
+  $(`#q-opt-${next}`).scrollIntoView({ block: 'nearest' });
+}
+
+function onSearchKey(e) {
+  if (e.isComposing) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    moveSuggest(e.key === 'ArrowDown' ? 1 : -1);
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    const id = suggest.ids[suggest.active];
+    closeSuggest();
+    if (id) location.hash = `#cert?id=${id}`;
+    else showResults();
+  } else if (e.key === 'Escape' && !$('#q-pop').hidden) {
+    // Without this the search box would also clear itself.
+    e.preventDefault();
+    closeSuggest();
+  }
+}
+
+function onSuggestClick(e) {
+  const act = e.target.closest('[data-q]')?.dataset.q;
+  if (act === 'all') {
+    closeSuggest();
+    showResults();
+  } else if (act === 'ask') {
+    e.preventDefault();
+    const q = $('#q').value.trim();
+    closeSuggest();
+    askAbout(q);
+  } else if (e.target.closest('.q-opt')) closeSuggest();
+}
+
+/** Opens the chat with the search words already typed, unless a message is half written. */
+function askAbout(text) {
+  const box = $('#chat-input');
+  if (text && !box.value.trim()) {
+    box.value = text;
+    box.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  location.hash = '#ask';
 }
 
 function showResults() {

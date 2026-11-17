@@ -434,6 +434,11 @@ export function mountChat({ data, helpers, onRefine }) {
   log.scrollTop = log.scrollHeight;
   edge();
   return {
+    /** The chat page just opened: show the latest message (a hidden log can't scroll). */
+    shown() {
+      log.scrollTop = log.scrollHeight;
+      edge();
+    },
     /** Re-render in the current language (app.js calls this after switching). */
     localize() {
       setBusy(isBusy());
