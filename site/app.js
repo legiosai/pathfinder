@@ -597,7 +597,7 @@ function enterPlan(params) {
     hoursTouched = true;
   }
   if (params.get('start')) f.start.value = params.get('start');
-  if (params.get('len')) f.sessionMinutes.value = params.get('len');
+  if (params.get('len')) setSessionLength(f.sessionMinutes, params.get('len'));
   if (params.get('time')) f.startTime.value = params.get('time');
   if (params.get('exam')) f.targetDate.value = params.get('exam');
   if (params.get('days')) {
@@ -608,6 +608,18 @@ function enterPlan(params) {
   setEstimate();
   renderConfidence();
   renderPlan();
+}
+
+// A shared or tracked plan can carry any length the list doesn't offer (2 h 15,
+// say). Without an option for it the select goes blank and the plan fails.
+function setSessionLength(select, value) {
+  const m = Math.round(Number(value));
+  if (!(m >= 15)) return;
+  if (![...select.options].some((o) => Number(o.value) === m)) {
+    const after = [...select.options].find((o) => Number(o.value) > m);
+    select.insertBefore(new Option(len(m), String(m)), after || null);
+  }
+  select.value = String(m);
 }
 
 function planParams() {
@@ -735,7 +747,11 @@ function renderPlan() {
   const mockSession = p.sessions.find((s) => s.kind === 'mock');
   const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
   const byTopic = new Map();
-  for (const s of p.sessions) if (s.topic) byTopic.set(s.topic, (byTopic.get(s.topic) || 0) + s.minutes);
+  for (const s of p.sessions) {
+    // A session that covers several domains splits its time between them.
+    const names = s.topics || (s.topic ? [s.topic] : []);
+    for (const n of names) byTopic.set(n, (byTopic.get(n) || 0) + s.minutes / names.length);
+  }
   const topicRows = p.topics
     .map((tp, i) => ({ label: lib(tp), value: Math.round(((byTopic.get(tp) || 0) / 60) * 10) / 10, color: domainColor(i) }))
     .filter((r) => r.value > 0);
