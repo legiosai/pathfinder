@@ -2,10 +2,11 @@
 // Usage: npm run build && node scripts/og.mjs [cert-id ...]   (CHROME=/path/to/chrome to override)
 // Needs Chrome and ImageMagick. The JPEGs are committed, so CI and Pages never need either.
 import { execFile, spawn } from 'node:child_process';
-import { copyFile, mkdir, readFile, unlink } from 'node:fs/promises';
+import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
+import { DEFAULT_SITE, SITE } from './site.mjs';
 
 const run = promisify(execFile);
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,7 +20,10 @@ const wanted = process.argv.slice(2);
 const ids = wanted.length ? wanted : ['', ...catalog.certifications.map((c) => c.id)];
 
 await mkdir(out, { recursive: true });
-await copyFile(join(root, 'scripts', 'og-template.html'), join(dist, 'og-render.html'));
+// The images print the site's address, so they follow SITE (see scripts/site.mjs).
+const bare = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const template = await readFile(join(root, 'scripts', 'og-template.html'), 'utf8');
+await writeFile(join(dist, 'og-render.html'), template.replaceAll(bare(DEFAULT_SITE), bare(SITE)));
 const server = spawn(process.execPath, [join(root, 'scripts', 'serve.mjs'), String(port)], { stdio: 'ignore' });
 await new Promise((r) => setTimeout(r, 400));
 
