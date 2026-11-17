@@ -509,5 +509,131 @@
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Fundamentals certifications do not expire."
+  },
+  {
+    "id": "P01",
+    "title": "AWS · Certified Developer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-developer-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD, Pearson VUE test center or online; valid 3 years, renewed by passing the latest version or the DevOps Engineer – Professional; 50% off the next exam after a first AWS Certification. Links the DVA-C03 guide and exam prep plan."
+  },
+  {
+    "id": "P02",
+    "title": "AWS · DVA-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/developer-associate-03/developer-associate-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 50 scored and 15 unscored questions, 720 to pass (100–1,000); domains 30/26/22/22%. Registration for DVA-C03 opened October 27, 2026; last day for DVA-C02 is November 30, 2026."
+  },
+  {
+    "id": "P03",
+    "title": "AWS · Comparison of DVA-C02 and DVA-C03",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/developer-associate-03/dva-03-comparison.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. DVA-C02 in use until November 30, 2026, DVA-C03 from December 1, 2026; old weights 32/26/24/18%; DVA-C03 adds AI-assisted development, AI service security and container deployment."
+  },
+  {
+    "id": "P04",
+    "title": "AWS · Certified CloudOps Engineer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-cloudops-engineer-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 130 minutes, 65 questions, 150 USD; English and Japanese, with Simplified Chinese and Korean retired after November 19, 2026; valid 3 years. Explains the rename from SysOps Administrator – Associate with SOA-C03."
+  },
+  {
+    "id": "P05",
+    "title": "AWS · SOA-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Multiple choice and multiple response only; 50 scored and 15 unscored questions, 720 to pass (100–1,000); domains 22/22/22/16/18%."
+  },
+  {
+    "id": "P06",
+    "title": "AWS · SOA-C03 exam guide revisions",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-revisions.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide versions 1.0 (September 30, 2025), 1.1 (June 1, 2026) and 1.2 (October 29, 2026)."
+  },
+  {
+    "id": "P07",
+    "title": "AWS · Certified SysOps Administrator – Associate (previous name)",
+    "url": "https://aws.amazon.com/certification/certified-sysops-admin-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. The updated exam is now the CloudOps Engineer – Associate; the last day to take the SysOps Administrator – Associate exam was September 29, 2025."
+  },
+  {
+    "id": "P08",
+    "title": "AWS · Certified Solutions Architect – Professional",
+    "url": "https://aws.amazon.com/certification/certified-solutions-architect-professional/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD, Pearson VUE test center or online; valid 3 years. Links the SAP-C03 guide and exam prep plan."
+  },
+  {
+    "id": "P09",
+    "title": "AWS · SAP-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/solutions-architect-professional-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 65 scored and 10 unscored questions, 720 to pass (100–1,000); domains 25/25/15/15/20%."
+  },
+  {
+    "id": "P10",
+    "title": "AWS · Comparison of SAP-C02 and SAP-C03",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/sap-03-comparison.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. SAP-C02 in use until November 16, 2026, SAP-C03 from November 17, 2026; SAP-C02 had four domains (26/29/25/20%)."
+  },
+  {
+    "id": "P11",
+    "title": "AWS · Certified DevOps Engineer – Professional",
+    "url": "https://aws.amazon.com/certification/certified-devops-engineer-professional/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD; Korean version retired after December 31, 2026; valid 3 years."
+  },
+  {
+    "id": "P12",
+    "title": "AWS · DOP-C02 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/devops-engineer-professional-02/devops-engineer-professional-02.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 65 scored and 10 unscored questions, 750 to pass (100–1,000); six domains 22/17/15/15/14/17%."
+  },
+  {
+    "id": "P13",
+    "title": "AWS · Certified Data Engineer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-data-engineer-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD; English, Japanese, Korean and Simplified Chinese; valid 3 years."
+  },
+  {
+    "id": "P14",
+    "title": "AWS · DEA-C01 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/data-engineer-associate-01/data-engineer-associate-01.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 50 scored and 15 unscored questions, 720 to pass (100–1,000); domains 34/26/22/18%."
+  },
+  {
+    "id": "P15",
+    "title": "AWS · DEA-C01 exam guide revisions",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/data-engineer-associate-01/dea-01-revisions.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide version 1.1 published December 12, 2025 (skills consolidated, examples updated)."
+  },
+  {
+    "id": "P16",
+    "title": "AWS · Exam pricing (before testing)",
+    "url": "https://aws.amazon.com/certification/policies/before-testing/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Associate 150 USD, Professional and Specialty 300 USD; local-currency prices for countries that use EUR, AUD, JPY, KRW, CNY and INR (vouchers only), updated at least yearly; applicable taxes may apply."
+  },
+  {
+    "id": "P17",
+    "title": "AWS · Certification exam prep",
+    "url": "https://aws.amazon.com/certification/certification-prep/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Official Practice Question Sets (20 questions) and Exam Prep courses are free on AWS Skill Builder; Official Practice Exams need a subscription, from 29 USD a month."
+  },
+  {
+    "id": "P18",
+    "title": "AWS · Certification exam guides",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/examguides/aws-certification-exam-guides.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Lists current guides; DVA-C03 and SAP-C03 registration opened October 27, 2026; last day for DVA-C02 is November 30, 2026 and for SAP-C02 was November 16, 2026."
   }
 ]

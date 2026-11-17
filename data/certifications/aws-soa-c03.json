@@ -1,0 +1,90 @@
+{
+  "id": "aws-soa-c03",
+  "name": "AWS Certified CloudOps Engineer – Associate",
+  "provider": "AWS",
+  "code": "SOA-C03",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 150,
+    "basis": "Exam only",
+    "note": "USD list price; taxes may apply. AWS charges set local-currency prices in countries that use the euro (€128), Australian dollar (A$224), Japanese yen (¥20,000), Korean won, Chinese yuan and Indian rupee (vouchers only), updated at least once a year. After you earn one AWS Certification, the next exam is 50% off."
+  },
+  "exam": {
+    "minutes": 130,
+    "style": "knowledge",
+    "format": "65 multiple choice and multiple response questions, 130 minutes, at a Pearson VUE test center or online proctored; the SOA-C03 guide lists no other question types (no exam labs). AWS recommends one year of deploying, managing and operating workloads on AWS and one year in an operations role such as system administrator.",
+    "questions": "65 (50 scored)",
+    "passing": "720 scaled (100–1,000)",
+    "validity": "3 years"
+  },
+  "scope": "Deploying, managing and operating workloads on AWS: monitoring, logging and remediation, reliability and business continuity, deployment and automation with infrastructure as code, security and compliance, and networking and content delivery.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Renamed: SOA-C03 is the updated version of the AWS Certified SysOps Administrator – Associate (SOA-C02), whose last exam day was September 29, 2025. Existing SysOps Administrator holders keep that title for its 3 years; the CloudOps name applies only to those who pass SOA-C03.",
+    "The Simplified Chinese and Korean versions are retired after November 19, 2026; English and Japanese remain.",
+    "Renewal: recertify within 3 years by passing the latest version of this exam, or by earning the AWS Certified DevOps Engineer – Professional, which renews this certification automatically."
+  ],
+  "skills": [
+    "aws",
+    "observability",
+    "networking",
+    "security",
+    "iac"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Monitoring, Logging, Analysis, Remediation, and Performance Optimization",
+      "weight": 22
+    },
+    {
+      "name": "Reliability and Business Continuity",
+      "weight": 22
+    },
+    {
+      "name": "Deployment, Provisioning, and Automation",
+      "weight": 22
+    },
+    {
+      "name": "Security and Compliance",
+      "weight": 16
+    },
+    {
+      "name": "Networking and Content Delivery",
+      "weight": 18
+    }
+  ],
+  "sources": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P16",
+    "A02",
+    "P17"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "SOA-C03 exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "AWS Skill Builder: SOA-C03 exam prep plan",
+      "url": "https://skillbuilder.aws/category/exam-prep/cloudops-engineer-associate-SOA-C03",
+      "kind": "course",
+      "cost": "free",
+      "note": "The 4-step plan linked from the certification page. The Official Practice Question Set and the Exam Prep course are free; the Official Practice Exam needs a Skill Builder subscription."
+    }
+  ],
+  "domains_note": "Weights from the AWS Certification Exam Guide (SOA-C03, guide version 1.2, October 29, 2026), the guide linked from the live certification page. Read 2026-11-17."
+}

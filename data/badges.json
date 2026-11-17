@@ -20,14 +20,39 @@
     "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-generative-ai-developer-professional"
   },
   {
+    "id": "aws-dea-c01",
+    "image_url": "https://images.credly.com/images/e5c85d7f-4e50-431e-b5af-fa9d9b0596e7/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-data-engineer-associate"
+  },
+  {
+    "id": "aws-dop-c02",
+    "image_url": "https://images.credly.com/images/bd31ef42-d460-493e-8503-39592aaf0458/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-devops-engineer-professional"
+  },
+  {
+    "id": "aws-dva-c03",
+    "image_url": "https://images.credly.com/images/b9feab85-1a43-4f6c-99a5-631b88d5461b/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-developer-associate"
+  },
+  {
     "id": "aws-saa",
     "image_url": "https://images.credly.com/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png",
     "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-solutions-architect-associate"
   },
   {
+    "id": "aws-sap-c03",
+    "image_url": "https://images.credly.com/images/2d84e428-9078-49b6-a804-13c15383d0de/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-solutions-architect-professional"
+  },
+  {
     "id": "aws-scs-c03",
     "image_url": "https://images.credly.com/images/53acdae5-d69f-4dda-b650-d02ed7a50dd7/image.png",
     "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-security-specialty"
+  },
+  {
+    "id": "aws-soa-c03",
+    "image_url": "https://images.credly.com/images/88a6405e-0f26-442a-95ed-f9b9db4c857e/blob",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-cloudops-engineer-associate"
   },
   {
     "id": "claude-architect-foundations",
