@@ -1,0 +1,616 @@
+{
+  "generated_on": "2026-11-17",
+  "certifications": [
+    {
+      "id": "nvidia-nca-ads",
+      "name": "Accelerated Data Science",
+      "provider": "NVIDIA",
+      "code": "NCA-ADS",
+      "type": "certification",
+      "category": "ML foundations",
+      "level": "associate",
+      "status": "available",
+      "fee": {
+        "usd": 125,
+        "basis": "Exam only",
+        "note": ""
+      },
+      "exam": {
+        "minutes": 60,
+        "style": "knowledge",
+        "format": "50–60 questions listed; 60 minutes. Lab metadata: Not listed in reviewed metadata."
+      },
+      "scope": "GPU-accelerated data science fundamentals.",
+      "requirements": "",
+      "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+      "caveats": [],
+      "skills": [
+        "data",
+        "ml-foundations",
+        "python"
+      ],
+      "roles": [
+        "data-engineer",
+        "ml-engineer"
+      ],
+      "domains": [
+        {
+          "name": "Data Manipulation and Preparation",
+          "weight": 23
+        },
+        {
+          "name": "Machine Learning With RAPIDS",
+          "weight": 16
+        },
+        {
+          "name": "Data Science Pipelines and Workflow Automation",
+          "weight": 13
+        },
+        {
+          "name": "Descriptive Analysis and Visualization",
+          "weight": 13
+        },
+        {
+          "name": "Foundations of Accelerated Data Science",
+          "weight": 12
+        },
+        {
+          "name": "Introductory MLOps Practices",
+          "weight": 10
+        },
+        {
+          "name": "Advanced Data Structures",
+          "weight": 7
+        },
+        {
+          "name": "Software and Environment Management",
+          "weight": 6
+        }
+      ],
+      "sources": [
+        "N20",
+        "Z06"
+      ],
+      "reports": [],
+      "checked_on": "2026-10-27",
+      "prep": [],
+      "domains_note": "Weights from NVIDIA's NVIDIA-Certified Associate: Accelerated Data Science Exam Study Guide (PDF linked from the exam page), read 2026-11-03. The exam page blueprint table shows the same eight weights (it spells one domain 'Advance Data Structures').",
+      "badge": {
+        "src": "badges/nvidia-nca-ads.webp",
+        "source": "https://www.credly.com/org/nvidia/badge/nvidia-certified-associate-accelerated-data-science.1"
+      }
+    },
+    {
+      "id": "aws-aif-c01",
+      "name": "AI Practitioner",
+      "provider": "AWS",
+      "code": "AIF-C01",
+      "type": "certification",
+      "category": "ML foundations",
+      "level": "entry",
+      "status": "available",
+      "fee": {
+        "usd": 100,
+        "basis": "Exam only",
+        "note": ""
+      },
+      "exam": {
+        "minutes": 90,
+        "style": "knowledge",
+        "format": "65 questions, 90 minutes, three-year validity. Question formats follow the current exam guide.",
+        "questions": "65 (50 scored)",
+        "passing": "700 scaled (100–1,000)",
+        "validity": "3 years"
+      },
+      "scope": "AI/ML foundations, generative AI, foundation-model applications, responsible AI and security/governance.",
+      "requirements": "",
+      "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+      "caveats": [],
+      "skills": [
+        "aws",
+        "ml-foundations",
+        "llm-apps",
+        "governance"
+      ],
+      "roles": [
+        "business",
+        "developer"
+      ],
+      "domains": [
+        {
+          "name": "Fundamentals of AI and ML",
+          "weight": 20
+        },
+        {
+          "name": "Fundamentals of generative AI",
+          "weight": 24
+        },
+        {
+          "name": "Applications of foundation models",
+          "weight": 28
+        },
+        {
+          "name": "Guidelines for responsible AI",
+          "weight": 14
+        },
+        {
+          "name": "Security, compliance and governance for AI solutions",
+          "weight": 14
+        }
+      ],
+      "sources": [
+        "A01",
+        "A02",
+        "A03"
+      ],
+      "reports": [
+        "E05",
+        "E07",
+        "E09",
+        "R01",
+        "R02",
+        "R03",
+        "R13"
+      ],
+      "checked_on": "2026-10-27",
+      "domains_note": "Weights from the current AWS exam guide.",
+      "prep": [
+        {
+          "title": "AIF-C01 exam guide",
+          "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html",
+          "kind": "official-guide",
+          "cost": "free"
+        },
+        {
+          "title": "AWS Skill Builder",
+          "url": "https://skillbuilder.aws/",
+          "kind": "course",
+          "cost": "free",
+          "note": "Free and subscription content, including exam prep."
+        },
+        {
+          "title": "freeCodeCamp: AWS Certified AI Practitioner course",
+          "url": "https://www.freecodecamp.org/news/prepare-to-pass-the-aws-certified-ai-practitioner-certification",
+          "kind": "course",
+          "cost": "free"
+        }
+      ],
+      "practice_questions": 40,
+      "badge": {
+        "src": "badges/aws-aif-c01.webp",
+        "source": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-ai-practitioner"
+      }
+    },
+    {
+      "id": "aws-clf-c02",
+      "name": "AWS Certified Cloud Practitioner",
+      "provider": "AWS",
+      "code": "CLF-C02",
+      "type": "certification",
+      "category": "Cloud & platform",
+      "level": "entry",
+      "status": "available",
+      "fee": {
+        "usd": 100,
+        "basis": "Exam only",
+        "note": ""
+      },
+      "exam": {
+        "minutes": 90,
+        "style": "knowledge",
+        "format": "65 multiple choice and multiple response questions, 90 minutes, three-year validity. Taken at a Pearson VUE center or online.",
+        "questions": "65 (50 scored)",
+        "passing": "700 scaled (100–1,000)",
+        "validity": "3 years"
+      },
+      "scope": "Overall knowledge of the AWS Cloud: its value, the shared responsibility model, security, core services, costs and billing.",
+      "requirements": "",
+      "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+      "caveats": [],
+      "skills": [
+        "aws",
+        "security",
+        "networking"
+      ],
+      "roles": [
+        "business",
+        "developer",
+        "architect"
+      ],
+      "domains": [
+        {
+          "name": "Cloud Concepts",
+          "weight": 24
+        },
+        {
+          "name": "Security and Compliance",
+          "weight": 30
+        },
+        {
+          "name": "Cloud Technology and Services",
+          "weight": 34
+        },
+        {
+          "name": "Billing, Pricing, and Support",
+          "weight": 12
+        }
+      ],
+      "sources": [
+        "Z08",
+        "Z09"
+      ],
+      "reports": [],
+      "checked_on": "2026-11-05",
+      "prep": [
+        {
+          "title": "CLF-C02 exam guide",
+          "url": "https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html",
+          "kind": "official-guide",
+          "cost": "free"
+        },
+        {
+          "title": "AWS Skill Builder",
+          "url": "https://skillbuilder.aws/",
+          "kind": "course",
+          "cost": "free",
+          "note": "Free and subscription content, including exam prep."
+        }
+      ],
+      "domains_note": "Weights from the AWS Certification Exam Guide (CLF-C02), read 2026-11-05.",
+      "practice_questions": 34
+    },
+    {
+      "id": "claude-architect-professional",
+      "name": "Claude Architect Professional",
+      "provider": "Anthropic",
+      "code": "CCAR-P",
+      "type": "certification",
+      "category": "AI engineering",
+      "level": "professional",
+      "status": "restricted",
+      "fee": {
+        "usd": 175,
+        "basis": "Exam only",
+        "note": ""
+      },
+      "exam": {
+        "minutes": 120,
+        "style": "knowledge",
+        "format": "63 multiple-choice and multiple-response items in 120 minutes, proctored online or at a Pearson VUE test center. 12-month validity; on-time renewal is a free, non-proctored assessment.",
+        "questions": "63",
+        "passing": "720 scaled (100–1,000)",
+        "validity": "12 months"
+      },
+      "scope": "Solution architecture; Models / prompts / context; Integration; Evaluation / optimization; Governance / risk; Stakeholders / lifecycle; Operational enablement",
+      "requirements": "Restricted to Claude Partner Network organizations: registration needs a company email domain recognized on the partner record. A personal Claude subscription is not enough.",
+      "ai_policy": "The reviewed Claude certification rules prohibit AI assistance during the closed-book exam.",
+      "caveats": [
+        "Retakes need a wait of 14, 30 and then 90 days after each failed attempt, with at most four attempts in 12 months; each attempt pays the fee."
+      ],
+      "skills": [
+        "architecture",
+        "agents",
+        "evaluation",
+        "governance",
+        "llm-apps"
+      ],
+      "roles": [
+        "architect"
+      ],
+      "domains": [
+        {
+          "name": "Solution Design & Architecture",
+          "weight": 17
+        },
+        {
+          "name": "Claude Models, Prompting & Context Engineering",
+          "weight": 13
+        },
+        {
+          "name": "Integration",
+          "weight": 19
+        },
+        {
+          "name": "Evaluation, Testing & Optimization",
+          "weight": 16
+        },
+        {
+          "name": "Governance, Safety & Risk Management",
+          "weight": 14
+        },
+        {
+          "name": "Stakeholder Communication & Lifecycle Management",
+          "weight": 14
+        },
+        {
+          "name": "Developer Productivity & Operational Enablement",
+          "weight": 7
+        }
+      ],
+      "sources": [
+        "C07",
+        "C03",
+        "C08",
+        "C16"
+      ],
+      "reports": [
+        "R11",
+        "R12"
+      ],
+      "checked_on": "2026-11-03",
+      "domains_note": "Weights from the official exam guide v1.0 (effective July 2026), linked from the certification page.",
+      "prep": [
+        {
+          "title": "Official exam guide (on the certification page)",
+          "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification",
+          "kind": "official-guide",
+          "cost": "free",
+          "note": "Objectives, sample questions and preparation exercises. Read it first."
+        },
+        {
+          "title": "Building effective agents (Anthropic engineering)",
+          "url": "https://www.anthropic.com/research/building-effective-agents",
+          "kind": "docs",
+          "cost": "free"
+        },
+        {
+          "title": "Effective context engineering for AI agents (Anthropic engineering)",
+          "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+          "kind": "docs",
+          "cost": "free"
+        },
+        {
+          "title": "Anthropic Academy: Building with the Claude API",
+          "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api",
+          "kind": "course",
+          "cost": "free"
+        },
+        {
+          "title": "Anthropic Academy: Claude Code in Action",
+          "url": "https://anthropic.skilljar.com/claude-code-in-action",
+          "kind": "course",
+          "cost": "free"
+        }
+      ],
+      "badge": {
+        "src": "badges/claude-architect-professional.webp",
+        "source": "https://www.credly.com/org/anthropic/badge/claude-certified-architect-professional"
+      }
+    },
+    {
+      "id": "microsoft-az-900",
+      "name": "Microsoft Azure Fundamentals",
+      "provider": "Microsoft",
+      "code": "AZ-900",
+      "type": "certification",
+      "category": "Cloud & platform",
+      "level": "entry",
+      "status": "available",
+      "fee": {
+        "usd": null,
+        "basis": "Regional exam price",
+        "note": "Microsoft prices by exam country/region; the exam page shows the price for your location. Students and educators can schedule through Certiport."
+      },
+      "exam": {
+        "minutes": 45,
+        "style": "knowledge",
+        "format": "Proctored 45-minute exam through Pearson VUE (Certiport for students and educators); interactive components may appear. Microsoft does not publish the question count or question types per exam.",
+        "questions": "40–60 (Microsoft's usual range)",
+        "passing": "700 scaled (1–1,000)",
+        "validity": "Does not expire"
+      },
+      "scope": "Cloud concepts, Azure architecture and core services (compute, networking, storage, identity and security), and Azure cost, governance, management and monitoring tools.",
+      "requirements": "",
+      "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+      "caveats": [
+        "Microsoft says most of its exams have 40–60 questions but does not publish the count for AZ-900; practice runs here are paced on 40 questions in 45 minutes."
+      ],
+      "skills": [
+        "azure",
+        "networking",
+        "security",
+        "identity"
+      ],
+      "roles": [
+        "business",
+        "developer",
+        "architect",
+        "platform"
+      ],
+      "domains": [
+        {
+          "name": "Describe cloud concepts",
+          "weight": 28
+        },
+        {
+          "name": "Describe Azure architecture and services",
+          "weight": 39
+        },
+        {
+          "name": "Describe Azure management and governance",
+          "weight": 33
+        }
+      ],
+      "sources": [
+        "Z10",
+        "Z11",
+        "Z12",
+        "Z13",
+        "Z14"
+      ],
+      "reports": [],
+      "checked_on": "2026-11-17",
+      "prep": [
+        {
+          "title": "AZ-900 study guide",
+          "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-900",
+          "kind": "official-guide",
+          "cost": "free"
+        },
+        {
+          "title": "Microsoft Learn: Azure Fundamentals course (AZ-900T00)",
+          "url": "https://learn.microsoft.com/en-us/training/courses/az-900t00",
+          "kind": "course",
+          "cost": "free",
+          "note": "Self-paced learning paths for the three skill areas; the instructor-led delivery is paid."
+        },
+        {
+          "title": "Official AZ-900 practice assessment",
+          "url": "https://aka.ms/AZ900-PA",
+          "kind": "practice",
+          "cost": "free",
+          "note": "On AI Skills Navigator; needs a sign-in."
+        }
+      ],
+      "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AZ-900 study guide (25–30%, 35–40%, 30–35%; skills measured as of July 20, 2026), scaled to add up to 100. Read 2026-11-17.",
+      "practice_questions": 38
+    }
+  ],
+  "sources": {},
+  "reports": [],
+  "taxonomy": {
+    "levels": [
+      {
+        "id": "entry",
+        "label": "Entry",
+        "hours": [
+          10,
+          25
+        ]
+      },
+      {
+        "id": "associate",
+        "label": "Associate",
+        "hours": [
+          25,
+          45
+        ]
+      },
+      {
+        "id": "professional",
+        "label": "Professional",
+        "hours": [
+          40,
+          80
+        ]
+      },
+      {
+        "id": "expert",
+        "label": "Expert",
+        "hours": [
+          80,
+          160
+        ]
+      }
+    ],
+    "hours_note": "Rough planning ranges by level, not measured averages or issuer figures. Your own baseline matters more: take a diagnostic first and adjust.",
+    "statuses": [
+      {
+        "id": "available",
+        "label": "Open registration"
+      },
+      {
+        "id": "restricted",
+        "label": "Restricted eligibility"
+      },
+      {
+        "id": "upcoming",
+        "label": "Announced, not open yet"
+      }
+    ],
+    "styles": [
+      {
+        "id": "knowledge",
+        "label": "Question-based exam"
+      },
+      {
+        "id": "practical",
+        "label": "Hands-on / practical"
+      },
+      {
+        "id": "hybrid",
+        "label": "Questions plus labs"
+      }
+    ],
+    "roles": [
+      {
+        "id": "developer",
+        "label": "Software developer"
+      },
+      {
+        "id": "architect",
+        "label": "Solutions architect"
+      },
+      {
+        "id": "ml-engineer",
+        "label": "ML engineer"
+      },
+      {
+        "id": "data-engineer",
+        "label": "Data engineer"
+      },
+      {
+        "id": "platform",
+        "label": "Platform / DevOps"
+      },
+      {
+        "id": "business",
+        "label": "Business / non-technical"
+      }
+    ],
+    "skills": [
+      {
+        "id": "llm-apps",
+        "label": "LLM applications"
+      },
+      {
+        "id": "agents",
+        "label": "AI agents"
+      },
+      {
+        "id": "evaluation",
+        "label": "Evaluation & testing"
+      },
+      {
+        "id": "ml-foundations",
+        "label": "ML foundations"
+      },
+      {
+        "id": "data",
+        "label": "Data engineering"
+      },
+      {
+        "id": "python",
+        "label": "Python"
+      },
+      {
+        "id": "architecture",
+        "label": "Solution architecture"
+      },
+      {
+        "id": "aws",
+        "label": "AWS"
+      },
+      {
+        "id": "azure",
+        "label": "Azure"
+      },
+      {
+        "id": "networking",
+        "label": "Networking"
+      },
+      {
+        "id": "security",
+        "label": "Security engineering"
+      },
+      {
+        "id": "identity",
+        "label": "Identity & access"
+      },
+      {
+        "id": "governance",
+        "label": "AI governance & risk"
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+# Cloudflare Worker behind pathfinder's recommendation chat. See README.md.
+name = "pathfinder-chat"
+main = "src/index.ts"
+compatibility_date = "2026-11-17"
+
+# Served only on the custom domain; Cloudflare creates the DNS record and certificate on deploy.
+workers_dev = false
+routes = [
+  { pattern = "pathfinder-api.legios.com.ar", zone_name = "legios.com.ar", custom_domain = true },
+]
+
+# Keep the Worker's own JSON log lines (counts, latency, tokens). Invocation logs are off so
+# request metadata such as client IPs is not stored.
+[observability.logs]
+enabled = true
+invocation_logs = false
+
+# 8 chat requests per minute per client IP, counted per Cloudflare location.
+# namespace_id is any number unique among the account's rate limiters.
+[[ratelimits]]
+name = "CHAT_LIMITER"
+namespace_id = "4101"
+simple = { limit = 8, period = 60 }
+
+[vars]
+MODEL = "claude-sonnet-5-5"
+EFFORT = "low"
+CATALOG_URL = "https://pathfinder.legios.com.ar/catalog.json"
+# Kill switch: "0" makes POST /chat answer 503 {"error":"disabled"} without calling Claude.
+CHAT_ENABLED = "1"
+# "1" streams a canned reply instead of calling Claude (UI development and tests).
+MOCK = "0"
+
+# The API key is a secret, never a var: npx wrangler secret put ANTHROPIC_API_KEY
