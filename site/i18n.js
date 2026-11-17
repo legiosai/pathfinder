@@ -265,11 +265,43 @@ const en = {
   'practice.planLink': 'Practice questions',
   'practice.progress': 'Practice',
   'practice.progressRow': 'Attempts: {a} · last {p}%',
+  'practice.tabReview': 'Review',
+  'practice.reviewDue': ({ n }) => (n === 1 ? '1 question due for review.' : `${n} questions due for review.`),
+  'practice.reviewNext': 'Nothing due right now. Next review: {d}.',
+  'practice.reviewEmpty': 'Nothing to review yet. Finish a practice run and the questions you miss or mark show up here.',
+  'practice.reviewHow': 'Questions you miss or mark come back here. Each time you get one right it waits longer before it returns ({days} days); miss it and it is due again right away.',
+  'practice.reviewStart': 'Review now',
+  'practice.reviewEarly': 'Review early',
+  'practice.reviewList': 'Review schedule',
+  'practice.dueNow': 'Due now',
+  'practice.dueIn': ({ n }) => (n === 1 ? 'In 1 day' : `In ${n} days`),
+  'practice.check': 'Check',
+  'practice.reviewRight': ({ n }) => `Right. Next review in ${n} day${n === 1 ? '' : 's'}.`,
+  'practice.reviewRightEarly': 'Right. It was not due yet, so its next review stays as it was.',
+  'practice.reviewWrong': 'Not this time. It stays due until you get it right.',
+  'practice.reviewScore': '{ok} of {n} right.',
+  'practice.reviewLeft': ({ n }) => (n ? `${n} still due.` : 'Nothing else is due.'),
+  'practice.reviewAgain': 'Review again',
   'about.install': 'Install it',
   'about.installP': 'pathfinder works offline once loaded. Use your browser’s “Install” or “Add to Home Screen” to keep it as an app.',
   foot: 'pathfinder · MIT · <a href="https://github.com/legiosai/pathfinder">GitHub</a> · icons by <a href="https://lucide.dev">Lucide</a> and <a href="https://simpleicons.org">Simple Icons</a> · logos and badges are trademarks of their owners',
   'foot.catalog': 'Catalog {d}',
+  'foot.index': 'Certification index',
   offline: 'Offline: showing the saved copy.',
+
+  // Static certification pages, written at build time by scripts/pages.mjs.
+  'page.title': '{name} ({code}): exam domains, price and study plan',
+  'page.titlePractice': '{name} ({code}): practice questions, exam domains and study plan',
+  'page.desc': ({ name, code, usd, fee, minutes, questions, practice }) => {
+    const facts = [usd === 0 ? 'free exam' : usd ? `${fee} exam` : '', minutes ? `${minutes} minutes` : '', questions ? `${questions} questions` : ''].filter(Boolean);
+    return `${name} (${code})${facts.length ? `: ${facts.join(', ')}` : ''}. Exam domains and weights, prep resources${practice ? `, ${practice} practice questions` : ''} and a free study plan.`;
+  },
+  'page.facts': 'Exam facts',
+  'page.app': 'Open in the app',
+  'page.compare': 'Compare with similar ones',
+  'page.related': 'Similar certifications',
+  'page.indexTitle': 'IT certifications: prices, exam domains and study plans',
+  'page.indexDesc': ({ n, p }) => `${n} IT certifications from ${p} providers in AI engineering, ML, AI security and cloud: price, exam format, domains and prep resources, each checked against the issuer.`,
 };
 
 const es = {
@@ -534,11 +566,42 @@ const es = {
   'practice.planLink': 'Preguntas de práctica',
   'practice.progress': 'Práctica',
   'practice.progressRow': 'Intentos: {a} · último {p}%',
+  'practice.tabReview': 'Repaso',
+  'practice.reviewDue': ({ n }) => (n === 1 ? '1 pregunta para repasar.' : `${n} preguntas para repasar.`),
+  'practice.reviewNext': 'No hay nada para repasar ahora. Próximo repaso: {d}.',
+  'practice.reviewEmpty': 'Todavía no hay nada para repasar. Terminá una práctica y las preguntas que erres o marques van a aparecer acá.',
+  'practice.reviewHow': 'Las preguntas que errás o marcás vuelven acá. Cada vez que respondés una bien, tarda más en volver ({days} días); si la errás, queda para repasar enseguida.',
+  'practice.reviewStart': 'Repasar ahora',
+  'practice.reviewEarly': 'Repasar antes',
+  'practice.reviewList': 'Calendario de repaso',
+  'practice.dueNow': 'Para repasar',
+  'practice.dueIn': ({ n }) => (n === 1 ? 'En 1 día' : `En ${n} días`),
+  'practice.check': 'Corregir',
+  'practice.reviewRight': ({ n }) => `Bien. Vuelve en ${n} día${n === 1 ? '' : 's'}.`,
+  'practice.reviewRightEarly': 'Bien. Todavía no tocaba repasarla, así que su próxima fecha no cambia.',
+  'practice.reviewWrong': 'Esta vez no. Queda para repasar hasta que la respondas bien.',
+  'practice.reviewScore': '{ok} de {n} bien.',
+  'practice.reviewLeft': ({ n }) => (n === 1 ? 'Queda 1 para repasar.' : n ? `Quedan ${n} para repasar.` : 'No queda nada para repasar.'),
+  'practice.reviewAgain': 'Repasar de nuevo',
   'about.install': 'Instalala',
   'about.installP': 'pathfinder funciona sin conexión una vez cargada. Usá “Instalar” o “Agregar a pantalla de inicio” en tu navegador para tenerla como app.',
   foot: 'pathfinder · MIT · <a href="https://github.com/legiosai/pathfinder">GitHub</a> · íconos de <a href="https://lucide.dev">Lucide</a> y <a href="https://simpleicons.org">Simple Icons</a> · los logos y las insignias son marcas de sus dueños',
   'foot.catalog': 'Catálogo {d}',
+  'foot.index': 'Índice de certificaciones',
   offline: 'Sin conexión: mostrando la copia guardada.',
+
+  'page.title': '{name} ({code}): dominios del examen, precio y plan de estudio',
+  'page.titlePractice': '{name} ({code}): preguntas de práctica, dominios del examen y plan de estudio',
+  'page.desc': ({ name, code, usd, fee, minutes, questions, practice }) => {
+    const facts = [usd === 0 ? 'examen gratis' : usd ? `examen de ${fee}` : '', minutes ? `${minutes} minutos` : '', questions ? `${questions} preguntas` : ''].filter(Boolean);
+    return `${name} (${code})${facts.length ? `: ${facts.join(', ')}` : ''}. Dominios y pesos del examen, recursos para prepararte${practice ? `, ${practice} preguntas de práctica` : ''} y un plan de estudio gratis.`;
+  },
+  'page.facts': 'Datos del examen',
+  'page.app': 'Abrir en la app',
+  'page.compare': 'Comparar con similares',
+  'page.related': 'Certificaciones similares',
+  'page.indexTitle': 'Certificaciones de IT: precios, dominios del examen y planes de estudio',
+  'page.indexDesc': ({ n, p }) => `${n} certificaciones de IT de ${p} proveedores en ingeniería de IA, ML, seguridad de IA y cloud: precio, formato del examen, dominios y recursos para prepararte, verificados con cada emisor.`,
 };
 
 // Taxonomy labels. Roles and skills share some ids, so they are keyed by group.
@@ -659,26 +722,43 @@ const ES_MARKDOWN = {
   footer: 'Generado con pathfinder: https://legiosai.github.io/pathfinder/',
 };
 
-const STR = { en, es };
+/** Every interface string by language. Read by the tests and the static page build. */
+export const STR = { en, es };
+
+// The build also imports this module in Node to write the static certification pages,
+// so browser globals are optional here.
+const page = globalThis.document?.documentElement;
 
 function detect() {
+  try {
+    // The Spanish static pages link into the app with ?lang=es. It is saved like a switch in the
+    // app and dropped from the address, so a later reload keeps whatever the visitor picks next.
+    const asked = new URLSearchParams(location.search).get('lang');
+    if (asked === 'en' || asked === 'es') {
+      history.replaceState(null, '', location.pathname + location.hash);
+      localStorage.setItem(KEY, JSON.stringify(asked));
+      return asked;
+    }
+  } catch {
+    /* no location or storage blocked */
+  }
   try {
     const saved = JSON.parse(localStorage.getItem(KEY));
     if (saved === 'en' || saved === 'es') return saved;
   } catch {
     /* storage blocked */
   }
-  return (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+  return (globalThis.navigator?.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
 }
 
 let lang = detect();
-document.documentElement.lang = lang;
+if (page) page.lang = lang;
 
 export const getLang = () => lang;
 
 export function setLang(next) {
   lang = next === 'es' ? 'es' : 'en';
-  document.documentElement.lang = lang;
+  if (page) page.lang = lang;
   try {
     localStorage.setItem(KEY, JSON.stringify(lang));
   } catch {
@@ -687,17 +767,17 @@ export function setLang(next) {
 }
 
 /** Look up a string; {name} placeholders are filled from `vars`, functions get `vars` as their argument. */
-export function t(key, vars = {}) {
-  const s = STR[lang][key] ?? en[key] ?? key;
+export function t(key, vars = {}, language = lang) {
+  const s = STR[language][key] ?? en[key] ?? key;
   if (typeof s === 'function') return s(vars);
   return s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));
 }
 
-export const dates = () => DATES[lang];
+export const dates = (language = lang) => DATES[language];
 
 /** Label for a taxonomy entry; `group` is levels, statuses, styles, roles or skills. */
-export function label(group, entry) {
-  return (lang === 'es' && ES_LABELS[`${group}.${entry.id}`]) || entry.label;
+export function label(group, entry, language = lang) {
+  return (language === 'es' && ES_LABELS[`${group}.${entry.id}`]) || entry.label;
 }
 
 export const hoursNote = (fallback) => (lang === 'es' ? ES_HOURS_NOTE : fallback);
