@@ -105,6 +105,26 @@
     "page_url": "https://www.credly.com/org/google-cloud/badge/professional-agentic-architect-certification"
   },
   {
+    "id": "google-cloud-architect",
+    "image_url": "https://images.credly.com/images/71c579e0-51fd-4247-b493-d2fa8167157a/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/professional-cloud-architect-certification"
+  },
+  {
+    "id": "google-cloud-digital-leader",
+    "image_url": "https://images.credly.com/images/44994cda-b5b0-44cb-9a6d-d29b57163073/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/cloud-digital-leader-certification"
+  },
+  {
+    "id": "google-cloud-engineer",
+    "image_url": "https://images.credly.com/images/08096465-cbfc-4c3e-93e5-93c5aa61f23e/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/associate-cloud-engineer-certification"
+  },
+  {
+    "id": "google-data-engineer",
+    "image_url": "https://images.credly.com/images/2d613ff8-8879-430b-b2d8-925fa29785e8/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/professional-data-engineer-certification"
+  },
+  {
     "id": "hashicorp-terraform-associate",
     "image_url": "https://images.credly.com/images/6f614b71-3f2e-488e-8b29-71e90d4dbf80/blob",
     "page_url": "https://www.credly.com/org/ibm-professional-certification-program/badge/hashicorp-certified-terraform-associate-004"

@@ -782,5 +782,89 @@
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/",
     "kind": "Provider / current page read",
     "note": "Read 2026-11-17. Warns that the certification and its renewal assessment are retired; Microsoft's 2026 retirement table (P30) gives July 31, 2026 and names Azure AI Cloud Developer Associate (AI-200) as the replacement."
+  },
+  {
+    "id": "P50",
+    "title": "Google Cloud · Cloud Digital Leader",
+    "url": "https://cloud.google.com/learn/certification/cloud-digital-leader",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 90 minutes, $99 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish, Portuguese and French, online-proctored or at a test center, valid 3 years, no prerequisites. Renewal: a 45-minute, 20-question renewal exam ($60) or designated Google Skills courses."
+  },
+  {
+    "id": "P51",
+    "title": "Google Cloud · Cloud Digital Leader exam guide (PDF)",
+    "url": "https://services.google.com/fh/files/misc/cloud_digital_leader_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide launched on August 12, 2026, covering the standard and renewal exams: six sections, five at ~18% and one at ~10%."
+  },
+  {
+    "id": "P52",
+    "title": "Google Cloud · Associate Cloud Engineer",
+    "url": "https://cloud.google.com/learn/certification/cloud-engineer",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $125 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish and Portuguese, online-proctored or at a test center, valid 3 years, no prerequisites, 6+ months of hands-on Google Cloud experience recommended. Renewal: a 1-hour, 20-question renewal exam ($75) or designated Google Skills courses."
+  },
+  {
+    "id": "P53",
+    "title": "Google Cloud · Associate Cloud Engineer exam guide (PDF)",
+    "url": "https://services.google.com/fh/files/misc/associate_cloud_engineer_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Four sections weighted ~20%, ~30%, ~30% and ~20%."
+  },
+  {
+    "id": "P54",
+    "title": "Google Cloud · Professional Cloud Architect",
+    "url": "https://cloud.google.com/learn/certification/cloud-architect",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English and Japanese, 2 case studies per exam making up 20-30% of the questions, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 25-question renewal exam ($100) built on one generative AI case study, or designated Google Skills courses."
+  },
+  {
+    "id": "P55",
+    "title": "Google Cloud · Professional Cloud Architect exam guide (PDF)",
+    "url": "https://services.google.com/fh/files/misc/professional_cloud_architect_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Six sections weighted ~25%, ~17.5%, ~17.5%, ~15%, ~12.5% and ~12.5%; lists four case studies (Altostrat Media, Cymbal Retail, EHR Healthcare, KnightMotives Automotive) and the Well-Architected Framework as a key requirement."
+  },
+  {
+    "id": "P56",
+    "title": "Google Cloud · Professional Data Engineer",
+    "url": "https://cloud.google.com/learn/certification/data-engineer",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 40-50 multiple choice and multiple select questions, English and Japanese, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 20-question renewal exam ($100) or designated Google Skills courses."
+  },
+  {
+    "id": "P57",
+    "title": "Google Cloud · Professional Data Engineer exam guide v4.2 (PDF)",
+    "url": "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide v4.2: five sections weighted ~22%, ~25%, ~20%, ~15% and ~18%."
+  },
+  {
+    "id": "P58",
+    "title": "Google Cloud · Certification FAQs",
+    "url": "https://support.google.com/cloud-certification/answer/9438208",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Professional certifications are valid 2 years, Foundational and Associate 3 years; no prerequisites; candidates must be 18 or older; exams report pass/fail only, with no numerical score; cost varies by exam (see each exam page)."
+  },
+  {
+    "id": "P59",
+    "title": "Google Cloud · Retake policy",
+    "url": "https://support.google.com/cloud-certification/answer/9749448",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Foundational: up to ten attempts a year, 14 days between failed attempts. Associate and Professional: up to four attempts in two years, waits of 14, 60 and 365 days. Every attempt is paid."
+  },
+  {
+    "id": "P60",
+    "title": "Google Cloud · Change of exam delivery provider",
+    "url": "https://support.google.com/cloud-certification/answer/16803278",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Google Cloud exams moved from Kryterion to Pearson VUE: last Kryterion tests on February 22, 2026, first Pearson test date March 2, 2026; scheduling through CM Connect, online (OnVUE) or at a Pearson test center; reschedule or cancel at least 24 hours ahead or lose the fee; exam content unchanged."
+  },
+  {
+    "id": "P61",
+    "title": "Google Cloud · Certification renewal options",
+    "url": "https://support.google.com/cloud-certification/answer/9907853",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Up to three renewal routes: continuing education in Google Skills (adds 1 year), a shorter renewal exam or the standard exam. For PDE, ACE and CDL the renewal route chosen cannot be switched after the first attempt; PCA can switch. No score report for the shorter renewal exam."
   }
 ]
