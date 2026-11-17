@@ -1,0 +1,95 @@
+{
+  "id": "microsoft-az-104",
+  "name": "Microsoft Azure Administrator Associate",
+  "provider": "Microsoft",
+  "code": "AZ-104",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes."
+  },
+  "exam": {
+    "minutes": 100,
+    "style": "knowledge",
+    "format": "Proctored 100-minute exam through Pearson VUE; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online"
+  },
+  "scope": "Implementing, managing and monitoring an Azure environment: identities and governance, storage, compute, virtual networking, and monitoring, backup and recovery.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AZ-104.",
+    "The study guide still lists the skills measured as of October 26, 2023, although the certification page shows a last update of 04/17/2026."
+  ],
+  "skills": [
+    "azure",
+    "networking",
+    "identity",
+    "security",
+    "iac",
+    "observability"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Manage Azure identities and governance",
+      "weight": 24
+    },
+    {
+      "name": "Implement and manage storage",
+      "weight": 19
+    },
+    {
+      "name": "Deploy and manage Azure compute resources",
+      "weight": 24
+    },
+    {
+      "name": "Implement and manage virtual networking",
+      "weight": 19
+    },
+    {
+      "name": "Monitor and maintain Azure resources",
+      "weight": 14
+    }
+  ],
+  "sources": [
+    "P20",
+    "P21",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AZ-104 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-104",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Microsoft Azure Administrator (AZ-104T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/az-104t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official AZ-104 practice assessment",
+      "url": "https://aka.ms/AZ104-PA",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AZ-104 study guide (20–25%, 15–20%, 20–25%, 15–20%, 10–15%; skills measured as of October 26, 2023), scaled to add up to 100 and rounded to whole numbers. Read 2026-11-17."
+}

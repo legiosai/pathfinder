@@ -635,5 +635,152 @@
     "url": "https://docs.aws.amazon.com/aws-certification/latest/examguides/aws-certification-exam-guides.html",
     "kind": "Issuer exam guide",
     "note": "Read 2026-11-17. Lists current guides; DVA-C03 and SAP-C03 registration opened October 27, 2026; last day for DVA-C02 is November 30, 2026 and for SAP-C02 was November 16, 2026."
+  },
+  {
+    "id": "P20",
+    "title": "Microsoft · Azure Administrator Associate (AZ-104)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, price by country or region, 12-month renewal; last updated 04/17/2026."
+  },
+  {
+    "id": "P21",
+    "title": "Microsoft · AZ-104 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-104",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of October 26, 2023: identities and governance 20–25%, storage 15–20%, compute 20–25%, virtual networking 15–20%, monitor and maintain 10–15%; 700 to pass."
+  },
+  {
+    "id": "P22",
+    "title": "Microsoft · Azure Solutions Architect Expert (AZ-305)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-solutions-architect/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Requires Azure Administrator Associate plus Exam AZ-305; price by country or region; English version updated April 17, 2026. The page does not state the exam length."
+  },
+  {
+    "id": "P23",
+    "title": "Microsoft · AZ-305 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-305",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of April 17, 2026: identity, governance and monitoring 25–30%, data storage 20–25%, business continuity 15–20%, infrastructure 30–35%; 700 to pass."
+  },
+  {
+    "id": "P24",
+    "title": "Microsoft · DevOps Engineer Expert (AZ-400)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Certification, exam and renewal assessments retire on February 1, 2027; requires Azure Administrator Associate or Azure Developer Associate; price by country or region. The page does not state the exam length."
+  },
+  {
+    "id": "P25",
+    "title": "Microsoft · AZ-400 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-400",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of July 27, 2026: processes and communications 10–15%, source control 10–15%, build and release pipelines 50–55%, security and compliance 10–15%, instrumentation 5–10%; retirement notice for February 1, 2027."
+  },
+  {
+    "id": "P26",
+    "title": "Microsoft · New Agentic DevOps Engineer Expert (AZ-401)",
+    "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/new-microsoft-certified-agentic-devops-engineer-expert/4528356",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Posted October 15, 2026: Exam AZ-401 in beta, general availability expected in December; the new certification also needs GH-300 or AZ-104; AZ-400 and DevOps Engineer Expert retire on February 1, 2027."
+  },
+  {
+    "id": "P27",
+    "title": "Microsoft · Azure AI Fundamentals (AI-901)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam AI-901 leads to Microsoft Certified: Azure AI Fundamentals; Python and Azure familiarity expected; price by country or region; Pearson VUE or Certiport scheduling; English version updated April 15, 2026."
+  },
+  {
+    "id": "P28",
+    "title": "Microsoft · AI-901 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-901",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of April 15, 2026: AI concepts and capabilities 40–45%, AI solutions with Microsoft Foundry 55–60%."
+  },
+  {
+    "id": "P29",
+    "title": "Microsoft · AI-900 study guide (retired exam)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-900",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. States that Exam AI-900 retired on June 30, 2026, at 11:59 PM Central Standard Time."
+  },
+  {
+    "id": "P30",
+    "title": "Microsoft · New cloud, AI and security certifications and 2026 retirements",
+    "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/the-ai-job-boom-is-here-are-you-ready-to-showcase-your-skills/4494128",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Posted March 3, 2026 (timeline updated May 28, 2026). Retirement table: AI-900 on June 30, 2026, replaced by AI-901 (same Azure AI Fundamentals name); Azure Developer Associate (AZ-204) on July 31, 2026, replaced by Azure AI Cloud Developer Associate (AI-200)."
+  },
+  {
+    "id": "P31",
+    "title": "Microsoft · Azure Data Fundamentals (DP-900)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-data-fundamentals/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 45-minute proctored exam, interactive components possible, Pearson VUE or Certiport scheduling, price by country or region; last updated 07/21/2026; not a prerequisite for other certifications."
+  },
+  {
+    "id": "P32",
+    "title": "Microsoft · DP-900 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-900",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of July 21, 2026: core data concepts 25–30%, relational data 20–25%, non-relational data 15–20%, analytics workloads 25–30%."
+  },
+  {
+    "id": "P33",
+    "title": "Microsoft · Power BI Data Analyst Associate (PL-300)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, Power Query and DAX expected, price by country or region, 12-month renewal; last updated 04/20/2026."
+  },
+  {
+    "id": "P34",
+    "title": "Microsoft · PL-300 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/pl-300",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of April 20, 2026: prepare the data 25–30%, model the data 25–30%, visualize and analyze 25–30%, manage and secure Power BI 15–20%."
+  },
+  {
+    "id": "P35",
+    "title": "Microsoft · Fabric Data Engineer Associate (DP-700)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, SQL, PySpark and KQL expected, price by country or region, renewable; last updated 10/19/2026."
+  },
+  {
+    "id": "P36",
+    "title": "Microsoft · DP-700 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Three skill areas at 30–35% each (implement and manage, ingest and transform, monitor and optimize); 700 to pass; no 'skills measured as of' date given."
+  },
+  {
+    "id": "P37",
+    "title": "Microsoft · Fabric Data Engineer Associate launch and DP-203 retirement",
+    "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/prove-your-in-demand-data-engineering-skills-and-champion-ai-innovation/4240414",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Announces DP-700 general availability and retires the Azure Data Engineer Associate certification, Exam DP-203 and its renewal on March 31, 2025, recommending DP-700 to new candidates (updated January 14, 2025)."
+  },
+  {
+    "id": "P38",
+    "title": "Microsoft · Azure AI Cloud Developer Associate (AI-200)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 120-minute proctored exam through Pearson VUE, interactive components possible, Python, containers, vector databases and Azure SDKs expected, price by country or region; last updated 10/07/2026."
+  },
+  {
+    "id": "P39",
+    "title": "Microsoft · AI-200 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-200",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Containerized solutions 20–25%, AI solutions with Azure data management services 25–30%, connect to and consume Azure services 20–25%, secure, monitor and troubleshoot 20–25%; no 'skills measured as of' date given."
+  },
+  {
+    "id": "P40",
+    "title": "Microsoft · Azure Developer Associate (AZ-204), retired",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Warns that the certification and its renewal assessment are retired; Microsoft's 2026 retirement table (P30) gives July 31, 2026 and names Azure AI Cloud Developer Associate (AI-200) as the replacement."
   }
 ]

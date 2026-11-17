@@ -1,0 +1,87 @@
+{
+  "id": "microsoft-dp-900",
+  "name": "Microsoft Azure Data Fundamentals",
+  "provider": "Microsoft",
+  "code": "DP-900",
+  "type": "certification",
+  "category": "Data & analytics",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. Students and educators can schedule through Certiport."
+  },
+  "exam": {
+    "minutes": 45,
+    "style": "knowledge",
+    "format": "Proctored 45-minute exam through Pearson VUE (Certiport for students and educators); interactive components may appear. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "passing": "700 scaled (1–1,000)",
+    "validity": "Does not expire"
+  },
+  "scope": "Core data concepts, relational and non-relational data on Azure, and analytics workloads on Azure.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for DP-900."
+  ],
+  "skills": [
+    "data",
+    "azure"
+  ],
+  "roles": [
+    "data-engineer",
+    "business"
+  ],
+  "domains": [
+    {
+      "name": "Describe core data concepts",
+      "weight": 29
+    },
+    {
+      "name": "Identify considerations for relational data on Azure",
+      "weight": 24
+    },
+    {
+      "name": "Describe considerations for working with non-relational data on Azure",
+      "weight": 18
+    },
+    {
+      "name": "Describe an analytics workload on Azure",
+      "weight": 29
+    }
+  ],
+  "sources": [
+    "P31",
+    "P32",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "DP-900 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-900",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Introduction to Microsoft Azure Data (DP-900T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/dp-900t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official DP-900 practice assessment",
+      "url": "https://aka.ms/DP900-PA",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn DP-900 study guide (25–30%, 20–25%, 15–20%, 25–30%; skills measured as of July 21, 2026), scaled to add up to 100 and rounded to whole numbers. Read 2026-11-17."
+}
