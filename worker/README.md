@@ -1,10 +1,14 @@
 # pathfinder-chat
 
-The Cloudflare Worker behind pathfinder's recommendation chat. It answers with Claude
+The backend behind pathfinder's recommendation chat. It answers with Claude
 (`claude-sonnet-5-5` by default) and recommends certifications from pathfinder's own catalog,
 which it reads from the published site (`catalog.json`). Replies stream as server-sent events;
 recommended certifications arrive as a separate `picks` event whose ids are guaranteed to exist
 in the catalog.
+
+Production runs on Vercel (project `pathfinder-chat`) and reaches Claude through Vercel AI
+Gateway. The same handler also deploys as a Cloudflare Worker (`src/index.ts`, `wrangler.toml`);
+`vercel/entry.ts` is the Vercel wrapper around it.
 
 It lives in its own directory with its own `package.json`, so the site at the repository root
 stays dependency-free.
@@ -75,8 +79,10 @@ use out, the rate limit does the rest).
 Conversations are not stored anywhere: the Worker forwards them to the Claude API and keeps
 nothing. Its log lines carry only counts (messages, characters, picks), latency, the stop
 reason, refusal category, token usage and cache hits; never message text, IP addresses or the API
-key. Cloudflare invocation logs are turned off in `wrangler.toml` for the same reason. The rate
-limiter sees the client IP only to count requests.
+key. Cloudflare invocation logs are turned off in `wrangler.toml` for the same reason. On Vercel, the
+platform's own request logs record each request (path, status, region) as for any site hosted
+there, and messages pass through Vercel AI Gateway on their way to Claude. The rate limiter sees
+the client IP only to count requests.
 
 ## Configuration
 
@@ -117,8 +123,31 @@ last user message of `mock:ask`, `mock:refusal`, `mock:overloaded`, `mock:intern
 
 ## Deploy
 
-Needs a Cloudflare login on the account that holds the `legios.com.ar` zone, and an Anthropic API
-key.
+### Vercel (production)
+
+Needs `VERCEL_TOKEN` with access to the team that owns the `pathfinder-chat` project. The project
+has one secret, `AI_GATEWAY_API_KEY`: an AI Gateway key with its own monthly budget, so a
+traffic spike stops at the budget instead of running up the bill. `MODEL` defaults to
+`anthropic/claude-sonnet-5-5`; `EFFORT`, `CATALOG_URL`, `CHAT_ENABLED` and `MOCK` work as below.
+
+```sh
+cd worker
+npm ci
+npx vercel link --project pathfinder-chat     # once, writes .vercel/project.json
+npm run deploy:vercel                         # bundles vercel/entry.ts into api/index.mjs, deploys to production
+curl https://pathfinder-api.legios.com.ar/health
+```
+
+`pathfinder-api.legios.com.ar` is a DNS-only CNAME to `cname.vercel-dns.com` in Cloudflare.
+Vercel has no rate-limit binding, so `vercel/limiter.ts` counts requests per IP in each function
+instance's memory: it stops one visitor's burst, not traffic spread across instances; the key's
+budget is the hard ceiling. To switch the chat off, set `CHAT_ENABLED=0` in the project's
+environment variables and redeploy.
+
+### Cloudflare Workers (alternative)
+
+Needs a Cloudflare login on the account that holds the `legios.com.ar` zone and an Anthropic API
+key, and the DNS record above removed first.
 
 ```sh
 cd worker
@@ -126,12 +155,11 @@ npm ci
 npx wrangler login
 npx wrangler secret put ANTHROPIC_API_KEY     # paste the key at the prompt
 npx wrangler deploy
-curl https://pathfinder-api.legios.com.ar/health
 ```
 
-The first deploy creates the custom domain `pathfinder-api.legios.com.ar` (DNS record and
-certificate). To switch the chat off, set `CHAT_ENABLED = "0"` in `wrangler.toml` and deploy,
-or run `npx wrangler deploy --var CHAT_ENABLED:0`; the next normal deploy turns it back on.
+The first deploy creates the custom domain (DNS record and certificate). To switch the chat off,
+set `CHAT_ENABLED = "0"` in `wrangler.toml` and deploy, or run
+`npx wrangler deploy --var CHAT_ENABLED:0`; the next normal deploy turns it back on.
 
 ## Costs and limits
 
@@ -146,5 +174,6 @@ reads $0.10 and 5-minute cache writes $2.50 per million.
 - The first message after a quiet spell also writes the cache: about $0.03-0.04 more.
 - The ceiling for one request (20 long messages and the full 4096 output tokens) is under $0.10.
 
-Set a monthly spend limit on the Anthropic workspace that owns the key; the per-IP rate limit
-does not cap total spend.
+Through AI Gateway the token prices are the same as Anthropic's. Keep a monthly budget on the
+key (on Vercel) or a spend limit on the Anthropic workspace (on Cloudflare); the per-IP rate
+limit does not cap total spend.

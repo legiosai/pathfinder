@@ -3,3 +3,7 @@ node_modules/
 dist/
 # Local secrets for `wrangler dev`.
 .dev.vars*
+
+# Bundled Vercel function (npm run build:vercel).
+api/
+.vercel/

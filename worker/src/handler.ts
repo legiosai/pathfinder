@@ -40,6 +40,15 @@ function json(status: number, body: unknown, origin: string | null, extra: Recor
   });
 }
 
+/**
+ * The visitor's address as the platform reports it: Cloudflare sets cf-connecting-ip; Vercel sets
+ * x-real-ip and puts the client first in x-forwarded-for.
+ */
+export function clientIp(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+  return request.headers.get('cf-connecting-ip') ?? request.headers.get('x-real-ip') ?? (forwarded || 'unknown');
+}
+
 const sleep = (ms: number) => (ms > 0 ? new Promise((resolve) => setTimeout(resolve, ms)) : Promise.resolve());
 
 export function createHandler(deps: Deps) {
@@ -93,7 +102,7 @@ export function createHandler(deps: Deps) {
 
     // The limit protects the API budget; mock replies cost nothing, so UI work isn't throttled.
     if (env.CHAT_LIMITER && !config.mock) {
-      const key = request.headers.get('cf-connecting-ip') ?? 'unknown';
+      const key = clientIp(request);
       const allowed = await env.CHAT_LIMITER.limit({ key }).then(
         (r) => r.success,
         () => true, // fail open: a limiter outage should not take the chat down
@@ -153,7 +162,8 @@ export function createHandler(deps: Deps) {
   }
 
   return async function handle(request: Request, env: Env, ctx: Ctx): Promise<Response> {
-    const { pathname } = new URL(request.url);
+    // Vercel may hand the function its own path (/api/chat) instead of the public one (/chat).
+    const pathname = new URL(request.url).pathname.replace(/^\/api(?=\/)/, '');
     const origin = request.headers.get('origin');
     if (request.method === 'OPTIONS') {
       if (!isAllowedOrigin(origin)) return json(403, { error: 'origin' }, origin);
