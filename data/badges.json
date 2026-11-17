@@ -50,6 +50,26 @@
     "page_url": "https://www.credly.com/org/anthropic/badge/claude-certified-developer-foundations"
   },
   {
+    "id": "comptia-cysa-plus",
+    "image_url": "https://images.credly.com/images/dcd99b5b-da24-40a6-9364-62126d590c37/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-cysa-ce-certification"
+  },
+  {
+    "id": "comptia-pentest-plus",
+    "image_url": "https://images.credly.com/images/c7ac176b-15a3-4726-827a-e8cee8fe44dc/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-pentest-ce-certification"
+  },
+  {
+    "id": "comptia-security-plus",
+    "image_url": "https://images.credly.com/images/80d8a06a-c384-42bf-ad36-db81bce5adce/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-security-ce-certification"
+  },
+  {
+    "id": "comptia-securityx",
+    "image_url": "https://images.credly.com/images/5343b652-c9a0-418e-bfaf-7ed5a2ddd0c4/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-securityx-ce-certification"
+  },
+  {
     "id": "csa-taise",
     "image_url": "https://images.credly.com/images/1011ba14-3290-4427-97f6-55164bbb057e/blob",
     "page_url": "https://www.credly.com/org/cloud-security-alliance/badge/trusted-ai-safety-expert-taise-certificate"
@@ -70,6 +90,11 @@
     "page_url": "https://www.credly.com/org/global-information-assurance-certification-giac/badge/giac-ai-platform-security-gaips"
   },
   {
+    "id": "giac-gsec",
+    "image_url": "https://images.credly.com/images/8e6bde54-8a33-4ec0-9d70-90fcde581bcf/image.png",
+    "page_url": "https://www.credly.com/org/global-information-assurance-certification-giac/badge/giac-security-essentials-certification-gsec"
+  },
+  {
     "id": "github-gh-600",
     "image_url": "https://learn.microsoft.com/en-us/credentials/images/badges/github-agentic-ai-developer.svg",
     "page_url": "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/"
@@ -80,14 +105,59 @@
     "page_url": "https://www.credly.com/org/google-cloud/badge/professional-agentic-architect-certification"
   },
   {
+    "id": "google-cloud-security-engineer",
+    "image_url": "https://images.credly.com/images/4ea0ec5c-6258-4c26-9282-6ed233c0c7ac/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/professional-cloud-security-engineer-certification"
+  },
+  {
     "id": "hashicorp-terraform-associate",
     "image_url": "https://images.credly.com/images/6f614b71-3f2e-488e-8b29-71e90d4dbf80/blob",
     "page_url": "https://www.credly.com/org/ibm-professional-certification-program/badge/hashicorp-certified-terraform-associate-004"
   },
   {
+    "id": "htb-cpts",
+    "image_url": "https://images.credly.com/images/e63aa507-b974-4e67-bae6-1e425f6e2a99/image.png",
+    "page_url": "https://www.credly.com/org/hack-the-box/badge/hack-the-box-certified-penetration-testing-specialist-htb-cpts"
+  },
+  {
     "id": "iapp-aigp",
     "image_url": "https://templates.images.credential.net/17778946502390797278722589226451.png",
     "page_url": "https://www.credential.net/group/583288"
+  },
+  {
+    "id": "ine-ejpt",
+    "image_url": "https://us-east-1.graphassets.com/AwCYQkwjSUCbfkm08Ct1Mz/cmcc3wze0lx3007irps13e6k3",
+    "page_url": "https://ine.com/security/certifications/ejpt-certification/"
+  },
+  {
+    "id": "isaca-cisa",
+    "image_url": "https://images.credly.com/images/d8b54d17-692a-4151-8e2e-e3c8c1a89ec1/b415cf50edc1955df11b9046c68b7e2debbd41f1.png",
+    "page_url": "https://www.credly.com/org/isaca/badge/certified-information-systems-auditor-cisa"
+  },
+  {
+    "id": "isaca-cism",
+    "image_url": "https://images.credly.com/images/d0891dee-6360-496c-9981-40652523b502/dbdea6794f1a6bbcc18d90eea923421aac7df6b5.png",
+    "page_url": "https://www.credly.com/org/isaca/badge/certified-information-security-manager-cism"
+  },
+  {
+    "id": "isc2-cc",
+    "image_url": "https://images.credly.com/images/2030e43f-8003-4d4b-9630-847add403c87/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/certified-in-cybersecurity-cc"
+  },
+  {
+    "id": "isc2-ccsp",
+    "image_url": "https://images.credly.com/images/38b12225-5b48-44e1-8750-20928cc595ea/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/certified-cloud-security-professional-ccsp"
+  },
+  {
+    "id": "isc2-cissp",
+    "image_url": "https://images.credly.com/images/6eeb0a98-33cb-4f72-bfc3-f89d65a3286c/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/certified-information-systems-security-professional-cissp"
+  },
+  {
+    "id": "isc2-sscp",
+    "image_url": "https://images.credly.com/images/c4320f01-2ff4-4508-984a-415fc94e3aec/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/systems-security-certified-practitioner-sscp"
   },
   {
     "id": "langchain-lcae",
@@ -178,6 +248,11 @@
     "id": "offsec-osai",
     "image_url": "https://templates.images.credential.net/1775480892862766265529011055129.png",
     "page_url": "https://credentials.offsec.com/group/815339"
+  },
+  {
+    "id": "offsec-oscp",
+    "image_url": "https://www.offsec.com/_astro/OSCP-plus.BZHuApYA_T49m1.svg",
+    "page_url": "https://www.offsec.com/courses/pen-200/"
   },
   {
     "id": "redhat-ex267",
