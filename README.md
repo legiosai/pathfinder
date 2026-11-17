@@ -16,7 +16,7 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 
 ## Privacy
 
-No tracking. Messages you type in the chat are sent to pathfinder's endpoint and answered by Claude (Anthropic); pathfinder does not store the conversations, and your browser keeps the transcript until you start a new chat. Everything else (plans, progress, practice) stays in your browser. If the AI is unavailable, an on-device matcher answers instead.
+No tracking. Messages you type in the chat go to pathfinder's server on Vercel, which passes them through Vercel AI Gateway to Claude (Anthropic); pathfinder does not store the conversations, and your browser keeps the transcript until you start a new chat. Everything else (plans, progress, practice) stays in your browser. If the AI is unavailable, an on-device matcher answers instead.
 
 ## The catalog
 
