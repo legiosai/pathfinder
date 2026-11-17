@@ -1559,7 +1559,7 @@ function renderMarquee() {
   rows.forEach((row, r) => {
     // Mouse shortcuts only: the same links follow in the list, so the rows stay out of the tab order.
     const set = row.map((c) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1">${badge(c, 56, { label: false })}</a>`).join('');
-    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 6.4 : 5.6)).toFixed(1)}s"><div class="mq-set">${set}</div><div class="mq-set mq-copy">${set}</div></div>`;
+    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 8.3 : 7.2)).toFixed(1)}s"><div class="mq-set">${set}</div><div class="mq-set mq-copy">${set}</div></div>`;
   });
 }
 
