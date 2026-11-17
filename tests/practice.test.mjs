@@ -90,11 +90,20 @@ test('validation catches broken practice questions', () => {
   assert.ok(validatePractice({ cert: 'nope', questions: [] }, undefined).some((e) => e.includes('unknown certification')));
 });
 
-test('the shipped practice set matches its certification', async () => {
+test('every shipped practice set matches its certification', async () => {
   const data = await loadCatalog(root);
   assert.deepEqual(validate(data), []);
-  const set = data.practice.find((s) => s.cert === 'aws-clf-c02');
-  assert.ok(set.questions.length >= 34);
-  const cert = bundle(data, '2026-01-01').certifications.find((c) => c.id === 'aws-clf-c02');
-  assert.equal(cert.practice_questions, set.questions.length);
+  assert.ok(data.practice.length >= 5);
+  const certs = bundle(data, '2026-01-01').certifications;
+  for (const set of data.practice) {
+    const cert = certs.find((c) => c.id === set.cert);
+    assert.ok(set.questions.length >= 30, set.cert);
+    assert.equal(cert.practice_questions, set.questions.length, set.cert);
+    for (const d of cert.domains) assert.ok(set.questions.some((q) => q.domain === d.name), `${set.cert}: no questions for ${d.name}`);
+    // Multiple-response questions say how many answers to pick, in both languages.
+    for (const q of set.questions.filter((x) => x.correct.length > 1)) {
+      assert.match(q.prompt.en, /\(Select [A-Z]+\.\)$/, q.id);
+      assert.match(q.prompt.es, /\(Elegí [A-Z]+\.\)$/, q.id);
+    }
+  }
 });
