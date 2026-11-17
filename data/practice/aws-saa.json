@@ -1,0 +1,1495 @@
+{
+ "cert": "aws-saa",
+ "license": "CC BY 4.0",
+ "note": "Original practice questions written for pathfinder from the SAA-C03 exam guide (version 1.1, October 2026) and the AWS documentation, checked in November 2026. Not taken from any exam or question bank.",
+ "questions": [
+  {
+   "id": "saa-001",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "An auditing firm needs read-only access to resource configurations in a company's AWS account so that its own tooling, which runs in the firm's AWS account, can produce compliance reports. The company wants no long-term credentials shared, and it wants to keep other customers of the firm from getting that tooling to access this account. What should the company do?",
+    "es": "Una firma de auditoría necesita acceso de sólo lectura a la configuración de los recursos de la cuenta de AWS de una empresa, para que su herramienta, que corre en la cuenta de AWS de la firma, genere reportes de cumplimiento. La empresa no quiere compartir credenciales de largo plazo y quiere evitar que otros clientes de la firma consigan que esa herramienta acceda a esta cuenta. ¿Qué debería hacer la empresa?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Create an IAM user with the ReadOnlyAccess policy and send its access keys to the firm through an encrypted channel.",
+      "es": "Crear un usuario IAM con la política ReadOnlyAccess y mandarle sus access keys a la firma por un canal cifrado."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Create an IAM role with read-only permissions that trusts the firm's account and requires an external ID from the firm.",
+      "es": "Crear un rol IAM con permisos de sólo lectura que confíe en la cuenta de la firma y exija un external ID provisto por la firma."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Invite the firm's account into the company's organization in AWS Organizations and attach a read-only service control policy to it.",
+      "es": "Invitar la cuenta de la firma a la organización de AWS Organizations de la empresa y asignarle una service control policy de sólo lectura."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Make the AWS Config delivery bucket readable by any authenticated AWS user so that the firm's tooling can read the configuration snapshots.",
+      "es": "Hacer que el bucket donde AWS Config entrega los snapshots sea legible para cualquier usuario autenticado de AWS, así la herramienta de la firma los lee."
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "A cross-account role gives the firm temporary credentials through AWS STS, and an external ID condition in the trust policy protects against the confused deputy problem, where another of the firm's customers gets its tooling to act on this account. Access keys for an IAM user are long-term credentials. SCPs only limit permissions and never grant them, and joining your organization would put the firm's account under your management account. A bucket readable by any authenticated AWS user exposes the data to every AWS account.",
+    "es": "Un rol entre cuentas le da a la firma credenciales temporales por medio de AWS STS, y la condición de external ID en la trust policy la protege del problema del confused deputy: que otro cliente de la firma consiga que su herramienta actúe sobre esta cuenta. Las access keys de un usuario IAM son credenciales de largo plazo. Las SCP sólo limitan permisos, nunca los otorgan, y sumar la cuenta de la firma a tu organización la dejaría bajo tu cuenta de administración. Un bucket legible por cualquier usuario autenticado de AWS expone los datos a todas las cuentas de AWS."
+   }
+  },
+  {
+   "id": "saa-002",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "A company uses AWS Organizations. Accounts in its Sandbox organizational unit (OU) must be able to create resources only in two approved AWS Regions. Administrators of those accounts have full IAM permissions, and the restriction must hold even if one of them tries to remove it. What should a solutions architect do?",
+    "es": "Una empresa usa AWS Organizations. Las cuentas de su unidad organizativa (OU) Sandbox sólo deben poder crear recursos en dos regiones de AWS aprobadas. Los administradores de esas cuentas tienen permisos completos de IAM, y la restricción tiene que mantenerse aunque alguno intente quitarla. ¿Qué debería hacer un arquitecto de soluciones?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Attach an IAM policy that denies the other Regions to every IAM user and role in the sandbox accounts.",
+      "es": "Asignar a cada usuario y rol IAM de las cuentas sandbox una política IAM que deniegue las demás regiones."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Deploy an AWS Config rule in every sandbox account that flags any resource created outside the approved Regions.",
+      "es": "Desplegar en cada cuenta sandbox una regla de AWS Config que marque todo recurso creado fuera de las regiones aprobadas."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Set an IAM permissions boundary on the administrators' roles that allows only the approved Regions.",
+      "es": "Poner en los roles de los administradores un permissions boundary de IAM que permita sólo las regiones aprobadas."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Attach a service control policy to the Sandbox OU that denies requests outside the approved Regions.",
+      "es": "Asignar a la OU Sandbox una service control policy que deniegue los requests fuera de las regiones aprobadas."
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "SCPs set the maximum permissions for every principal in member accounts, and nobody inside those accounts, administrators included, can detach them; only the management account can, or a member account it has delegated policy management to. A deny on aws:RequestedRegion, with exceptions for global services, enforces the Region list. IAM policies and permissions boundaries live inside the account, so an administrator with full IAM permissions can remove them, and an AWS Config rule only detects resources after they exist.",
+    "es": "Las SCP fijan el máximo de permisos para todos los principals de las cuentas miembro, y nadie dentro de esas cuentas, ni siquiera los administradores, puede quitarlas: sólo la cuenta de administración o una cuenta miembro a la que le haya delegado la administración de políticas. Un deny sobre aws:RequestedRegion, con excepciones para los servicios globales, hace cumplir la lista de regiones. Las políticas IAM y los permissions boundaries viven dentro de la cuenta, así que un administrador con permisos completos de IAM los puede sacar, y una regla de AWS Config sólo detecta los recursos cuando ya existen."
+   }
+  },
+  {
+   "id": "saa-003",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "A Lambda function connects to an Amazon RDS for MySQL database with a password stored in plain text in an environment variable. Security now requires the password to be rotated automatically every 30 days, and the function must always use the current password without being redeployed. Which solution meets these requirements with the least operational overhead?",
+    "es": "Una función Lambda se conecta a una base de Amazon RDS for MySQL con una contraseña guardada en texto plano en una variable de entorno. El área de seguridad ahora exige que la contraseña rote automáticamente cada 30 días, y la función tiene que usar siempre la vigente sin que haya que volver a desplegarla. ¿Qué solución cumple con esto con el menor esfuerzo operativo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Store the credentials in AWS Secrets Manager with automatic rotation turned on, and have the function retrieve the secret at runtime.",
+      "es": "Guardar las credenciales en AWS Secrets Manager con la rotación automática activada, y que la función lea el secreto en tiempo de ejecución."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Store the password as an AWS Systems Manager Parameter Store SecureString parameter and have the function read it each time it starts.",
+      "es": "Guardar la contraseña como un parámetro SecureString de AWS Systems Manager Parameter Store y que la función lo lea cada vez que arranca."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Encrypt the environment variable with a customer managed AWS KMS key and turn on automatic rotation for that key.",
+      "es": "Cifrar la variable de entorno con una customer managed key de AWS KMS y activar la rotación automática de esa clave."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Write a scheduled script that changes the database password every month and redeploys the function with the new value.",
+      "es": "Escribir un script programado que cambie la contraseña de la base todos los meses y vuelva a desplegar la función con el valor nuevo."
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Secrets Manager can rotate Amazon RDS credentials automatically on a schedule, and a function that fetches the secret at runtime, ideally through a cache, always gets the current value. A Parameter Store SecureString encrypts the value but has no built-in rotation, so you would have to build it. Rotating the KMS key changes the key material, not the database password. A script that redeploys the function breaks the no-redeploy requirement and adds work.",
+    "es": "Secrets Manager puede rotar credenciales de Amazon RDS automáticamente según un cronograma, y una función que lee el secreto en tiempo de ejecución, idealmente a través de una caché, siempre obtiene el valor vigente. Un SecureString de Parameter Store cifra el valor pero no trae rotación incorporada, así que tendrías que construirla. Rotar la clave de KMS cambia el material de la clave, no la contraseña de la base. Un script que vuelve a desplegar la función rompe el requisito de no redesplegar y suma trabajo."
+   }
+  },
+  {
+   "id": "saa-004",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "Application servers run in a public subnet with public IPv4 addresses. A security review requires that they no longer be reachable from the internet, but they must still download operating system updates from public repositories over IPv4. Which TWO changes meet these requirements? (Select TWO.)",
+    "es": "Unos servidores de aplicación corren en una subred pública con direcciones IPv4 públicas. Una revisión de seguridad exige que ya no se puedan alcanzar desde internet, pero tienen que seguir bajando actualizaciones del sistema operativo desde repositorios públicos por IPv4. ¿Qué cambios cumplen con esto? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Move the servers to a private subnet, without public IP addresses.",
+      "es": "Mover los servidores a una subred privada, sin direcciones IP públicas."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Attach an egress-only internet gateway and route the servers' outbound traffic through it.",
+      "es": "Asociar un egress-only internet gateway y enrutar por ahí el tráfico saliente de los servidores."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Add a security group rule that denies all inbound traffic from 0.0.0.0/0.",
+      "es": "Agregar una regla de security group que deniegue todo el tráfico entrante desde 0.0.0.0/0."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Create a NAT gateway in a public subnet and route 0.0.0.0/0 from the private subnet's route table to it.",
+      "es": "Crear un NAT gateway en una subred pública y enrutar 0.0.0.0/0 hacia él desde la tabla de rutas de la subred privada."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Create a gateway VPC endpoint so that the servers reach the update repositories privately.",
+      "es": "Crear un gateway VPC endpoint para que los servidores lleguen a los repositorios de actualizaciones en forma privada."
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "D"
+   ],
+   "explanation": {
+    "en": "Instances in a private subnet with no public IP can't be reached from the internet, and a NAT gateway in a public subnet lets them open outbound IPv4 connections, such as downloading updates, while connections started from outside are not allowed in. An egress-only internet gateway does the same job for IPv6 only. Security groups have only allow rules, so there is no deny rule to add. Gateway endpoints exist only for Amazon S3 and DynamoDB, not for public repositories.",
+    "es": "Las instancias en una subred privada sin IP pública no se pueden alcanzar desde internet, y un NAT gateway en una subred pública les permite abrir conexiones salientes por IPv4, como bajar actualizaciones, sin dejar entrar conexiones iniciadas desde afuera. Un egress-only internet gateway hace lo mismo, pero sólo para IPv6. Los security groups sólo tienen reglas de allow, así que no hay una regla de deny para agregar. Los gateway endpoints existen sólo para Amazon S3 y DynamoDB, no para repositorios públicos."
+   }
+  },
+  {
+   "id": "saa-005",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "A fleet of EC2 instances with Elastic IP addresses serves a TCP service directly to clients, with no load balancer in front. A range of IP addresses is flooding the service with unwanted requests, and the team must block that range for every instance in the subnet while all other clients keep their access. What should the team do?",
+    "es": "Una flota de instancias EC2 con Elastic IPs sirve un servicio TCP directamente a los clientes, sin load balancer adelante. Un rango de direcciones IP está inundando el servicio con requests no deseados, y el equipo tiene que bloquear ese rango para todas las instancias de la subred mientras el resto de los clientes sigue con acceso. ¿Qué debería hacer el equipo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Add a rule to the instances' security group that denies inbound traffic from the range.",
+      "es": "Agregar al security group de las instancias una regla que deniegue el tráfico entrante desde el rango."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Associate an AWS WAF web ACL with an IP set rule directly with the EC2 instances.",
+      "es": "Asociar directamente a las instancias EC2 una web ACL de AWS WAF con una regla de IP set."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Add an inbound deny rule for the range to the subnet's network ACL, numbered lower than the allow rules.",
+      "es": "Agregar a la network ACL de la subred una regla de entrada que deniegue el rango, con un número más bajo que las reglas de allow."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Enable Amazon GuardDuty in the account so that it detects the attacking range and stops its traffic automatically.",
+      "es": "Activar Amazon GuardDuty en la cuenta para que detecte el rango atacante y corte su tráfico automáticamente."
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Network ACLs work at the subnet level, support deny rules and evaluate rules in number order, so a lower-numbered deny blocks the range before any allow rule matches. Security groups support only allow rules. AWS WAF attaches to resources such as Application Load Balancers, CloudFront distributions and API Gateway APIs, not to EC2 instances. GuardDuty detects threats and reports findings, but it doesn't block traffic by itself.",
+    "es": "Las network ACL trabajan a nivel de subred, admiten reglas de deny y evalúan las reglas por número, así que un deny con número más bajo bloquea el rango antes de que coincida cualquier allow. Los security groups sólo admiten reglas de allow. AWS WAF se asocia a recursos como Application Load Balancers, distribuciones de CloudFront o APIs de API Gateway, no a instancias EC2. GuardDuty detecta amenazas y genera hallazgos, pero no bloquea tráfico por sí solo."
+   }
+  },
+  {
+   "id": "saa-006",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "A healthcare company stores reports in Amazon S3. Compliance requires encryption at rest with keys whose use is recorded in AWS CloudTrail, whose access policy the company controls, and that the company can disable at any time. The company doesn't want to manage key material or send keys with each request. Which encryption option should it use?",
+    "es": "Una empresa de salud guarda informes en Amazon S3. El área de cumplimiento exige cifrado en reposo con claves cuyo uso quede registrado en AWS CloudTrail, cuya política de acceso controle la empresa y que la empresa pueda deshabilitar en cualquier momento. La empresa no quiere administrar material de claves ni mandar claves en cada request. ¿Qué opción de cifrado debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "SSE-KMS with a customer managed key",
+      "es": "SSE-KMS con una customer managed key"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "SSE-S3 with Amazon S3 managed keys",
+      "es": "SSE-S3 con claves administradas por Amazon S3"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "SSE-KMS with the AWS managed key for Amazon S3 (aws/s3)",
+      "es": "SSE-KMS con la AWS managed key de Amazon S3 (aws/s3)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "SSE-C with keys supplied in each request",
+      "es": "SSE-C con claves enviadas en cada request"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "With a customer managed KMS key you write the key policy, you can disable the key or schedule its deletion, and every use appears in CloudTrail, while AWS stores and protects the key material. The AWS managed key aws/s3 is also logged, but you can't change its policy or disable it. SSE-S3 gives you no control over the keys, and SSE-C makes you supply and manage the key on every request.",
+    "es": "Con una customer managed key de KMS escribís la key policy, podés deshabilitar la clave o programar su borrado, y cada uso queda en CloudTrail, mientras AWS guarda y protege el material de la clave. La AWS managed key aws/s3 también queda registrada, pero no podés cambiar su política ni deshabilitarla. SSE-S3 no te da ningún control sobre las claves, y SSE-C te obliga a mandar y administrar la clave en cada request."
+   }
+  },
+  {
+   "id": "saa-007",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "A public web application runs on EC2 instances behind an Application Load Balancer and currently accepts only HTTP. The company must serve it over HTTPS on its own domain, app.example.com, with a certificate from a trusted public authority that renews automatically, and it wants to spend the least effort operating certificates. What should a solutions architect do?",
+    "es": "Una aplicación web pública corre en instancias EC2 detrás de un Application Load Balancer y hoy acepta sólo HTTP. La empresa tiene que servirla por HTTPS en su propio dominio, app.example.com, con un certificado de una autoridad pública confiable que se renueve solo, y quiere el menor esfuerzo posible en la operación de los certificados. ¿Qué debería hacer un arquitecto de soluciones?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Buy a certificate from a commercial authority, install it on every instance and schedule a job to replace it before it expires.",
+      "es": "Comprar un certificado a una autoridad comercial, instalarlo en cada instancia y programar una tarea que lo reemplace antes de que venza."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Generate a self-signed certificate, import it into AWS Certificate Manager and attach it to an HTTPS listener.",
+      "es": "Generar un certificado autofirmado, importarlo en AWS Certificate Manager y asociarlo a un listener HTTPS."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Put an Amazon CloudFront distribution in front of the load balancer and have users connect to its default cloudfront.net domain.",
+      "es": "Poner una distribución de Amazon CloudFront delante del load balancer y que los usuarios se conecten a su dominio cloudfront.net por defecto."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Request a public certificate in AWS Certificate Manager with DNS validation and use it on an HTTPS listener of the load balancer.",
+      "es": "Pedir un certificado público en AWS Certificate Manager con validación por DNS y usarlo en un listener HTTPS del load balancer."
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Non-exportable ACM public certificates cost nothing when used with integrated services such as Elastic Load Balancing, and ACM renews a DNS-validated certificate automatically while it stays in use and its validation record stays in place. Certificates installed on each instance have to be replaced by hand or by automation you build. Browsers don't trust a self-signed certificate, and ACM doesn't renew imported certificates. A cloudfront.net address isn't the company's own domain.",
+    "es": "Los certificados públicos de ACM no exportables no cuestan nada cuando se usan con servicios integrados como Elastic Load Balancing, y ACM renueva solo un certificado validado por DNS mientras siga en uso y su registro de validación siga en su lugar. Los certificados instalados en cada instancia hay que reemplazarlos a mano o con automatización propia. Los navegadores no confían en un certificado autofirmado, y ACM no renueva los certificados importados. Una dirección cloudfront.net no es el dominio propio de la empresa."
+   }
+  },
+  {
+   "id": "saa-008",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "An online store behind an Application Load Balancer has two problems: requests that try SQL injection through its search fields, and bursts of thousands of requests per minute from single IP addresses that scrape its prices. Which solution addresses both problems?",
+    "es": "Una tienda online detrás de un Application Load Balancer tiene dos problemas: requests que intentan inyección SQL en los campos de búsqueda, y ráfagas de miles de requests por minuto desde una misma IP para copiar los precios. ¿Qué solución resuelve los dos?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Rely on AWS Shield Standard, which protects the load balancer automatically, and block the scrapers in the instances' security group.",
+      "es": "Confiar en AWS Shield Standard, que protege el load balancer automáticamente, y bloquear a los scrapers en el security group de las instancias."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Associate an AWS WAF web ACL with the load balancer, using a managed SQL injection rule group and a rate-based rule.",
+      "es": "Asociar al load balancer una web ACL de AWS WAF con un managed rule group contra inyección SQL y una regla rate-based."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Enable Amazon GuardDuty and Amazon Inspector so that they detect the attacks and the vulnerable code.",
+      "es": "Activar Amazon GuardDuty y Amazon Inspector para que detecten los ataques y el código vulnerable."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Move the store's database to a private subnet and require TLS on every connection to the load balancer.",
+      "es": "Mover la base de la tienda a una subred privada y exigir TLS en todas las conexiones al load balancer."
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "AWS WAF inspects HTTP requests at layer 7: managed rule groups block common SQL injection patterns, and a rate-based rule blocks IP addresses that exceed a request rate. Shield Standard protects against network and transport layer DDoS attacks, not against application payloads, and security groups can't deny traffic. GuardDuty and Inspector find threats and vulnerabilities but don't filter requests. A private database subnet and TLS are good practice, but they stop neither injection through the app nor scraping.",
+    "es": "AWS WAF inspecciona los requests HTTP en la capa 7: los managed rule groups bloquean los patrones comunes de inyección SQL, y una regla rate-based bloquea las IP que superan una tasa de requests. Shield Standard protege contra DDoS en las capas de red y transporte, no contra el contenido de la aplicación, y los security groups no pueden denegar tráfico. GuardDuty e Inspector encuentran amenazas y vulnerabilidades, pero no filtran requests. Una subred privada para la base y TLS son buenas prácticas, pero no frenan ni la inyección a través de la app ni el scraping."
+   }
+  },
+  {
+   "id": "saa-009",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "A mobile app lets customers sign up with an email address or sign in with their Google account, and then upload photos directly to an S3 bucket. Each customer must be able to write only under their own prefix, and the app must not contain any long-term AWS credentials. What should the architect use?",
+    "es": "Una app móvil permite que los clientes se registren con un email o entren con su cuenta de Google, y después suban fotos directamente a un bucket de S3. Cada cliente sólo tiene que poder escribir bajo su propio prefijo, y la app no puede contener credenciales de AWS de largo plazo. ¿Qué debería usar el arquitecto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "An IAM user for each customer, with a policy limited to that customer's prefix and the keys stored in the app.",
+      "es": "Un usuario IAM por cliente, con una política limitada a su prefijo y las claves guardadas en la app."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS IAM Identity Center with Google Workspace as its identity source and a permission set that grants access to the bucket.",
+      "es": "AWS IAM Identity Center con Google Workspace como fuente de identidades y un permission set que dé acceso al bucket."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An Amazon Cognito user pool with Google federation, plus an identity pool role whose policy limits users to their own prefix.",
+      "es": "Un user pool de Amazon Cognito con federación de Google, más un rol de identity pool cuya política limita a cada usuario a su propio prefijo."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A single IAM user whose access keys are embedded in the app, with a bucket policy that limits object size.",
+      "es": "Un único usuario IAM con sus access keys embebidas en la app, y una bucket policy que limite el tamaño de los objetos."
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Cognito user pools handle customer sign-up and sign-in, including federation with Google, and identity pools exchange those tokens for temporary AWS credentials; a policy variable such as ${cognito-identity.amazonaws.com:sub} restricts each user to their own prefix. IAM users don't scale to an app's customers, and their access keys are long-term credentials, like any keys embedded in the app. IAM Identity Center is for workforce access to AWS accounts and applications, not for an app's customers.",
+    "es": "Los user pools de Cognito manejan el registro y el inicio de sesión de los clientes, incluida la federación con Google, y los identity pools cambian esos tokens por credenciales temporales de AWS; una variable de política como ${cognito-identity.amazonaws.com:sub} limita a cada usuario a su propio prefijo. Los usuarios IAM no escalan a los clientes de una app, y sus access keys son credenciales de largo plazo, como cualquier clave embebida en la app. IAM Identity Center es para el acceso del personal a cuentas y aplicaciones de AWS, no para los clientes de una app."
+   }
+  },
+  {
+   "id": "saa-010",
+   "domain": "Design Secure Architectures",
+   "prompt": {
+    "en": "A financial services company keeps customer statements in several S3 buckets. It must find which objects contain personal data such as names and account numbers, and it must guarantee that no one, not even the root user, can delete or overwrite any statement for seven years. Which TWO actions meet these requirements? (Select TWO.)",
+    "es": "Una empresa de servicios financieros guarda resúmenes de cuenta de sus clientes en varios buckets de S3. Tiene que encontrar qué objetos contienen datos personales, como nombres y números de cuenta, y garantizar que nadie, ni siquiera el usuario root, pueda borrar o sobrescribir ningún resumen durante siete años. ¿Qué acciones cumplen con esto? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Enable Amazon GuardDuty S3 Protection on the buckets.",
+      "es": "Activar Amazon GuardDuty S3 Protection en los buckets."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Turn on S3 Object Lock in governance mode with a seven-year retention period.",
+      "es": "Activar S3 Object Lock en modo governance con un período de retención de siete años."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Use Amazon Macie to discover and report the objects that contain personal data.",
+      "es": "Usar Amazon Macie para descubrir y reportar los objetos que contienen datos personales."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Add an S3 Lifecycle rule that moves objects to S3 Glacier Deep Archive after seven years.",
+      "es": "Agregar una regla de S3 Lifecycle que pase los objetos a S3 Glacier Deep Archive después de siete años."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Turn on S3 Object Lock in compliance mode with a seven-year retention period.",
+      "es": "Activar S3 Object Lock en modo compliance con un período de retención de siete años."
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "E"
+   ],
+   "explanation": {
+    "en": "Macie uses machine learning and pattern matching to find sensitive data, such as personal information, in S3. Object Lock in compliance mode keeps object versions from being deleted or overwritten by any user, including the root user, until the retention period ends, while governance mode lets users with the s3:BypassGovernanceRetention permission remove the lock. GuardDuty S3 Protection looks for suspicious access, not at data content, and a lifecycle transition changes the storage class without preventing deletion.",
+    "es": "Macie usa machine learning y coincidencia de patrones para encontrar datos sensibles, como información personal, en S3. Object Lock en modo compliance impide que cualquier usuario, incluido el root, borre o sobrescriba versiones de objetos hasta que termine el período de retención, mientras que el modo governance deja que los usuarios con el permiso s3:BypassGovernanceRetention quiten el bloqueo. GuardDuty S3 Protection busca accesos sospechosos, no mira el contenido de los datos, y una transición de lifecycle cambia la clase de almacenamiento sin impedir el borrado."
+   }
+  },
+  {
+   "id": "saa-011",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "An order website calls a fulfillment service synchronously. During flash sales the fulfillment service falls behind, requests time out and some orders are lost. Orders can be fulfilled a few minutes after they are placed, but none may be lost. Which change meets these requirements?",
+    "es": "Un sitio de pedidos llama a un servicio de despacho en forma sincrónica. Durante las ventas flash el servicio de despacho se atrasa, los requests vencen por timeout y se pierden algunos pedidos. Los pedidos pueden despacharse unos minutos después de hacerse, pero no se puede perder ninguno. ¿Qué cambio cumple con esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Move the fulfillment service to a larger EC2 instance type so that it keeps up during sales.",
+      "es": "Pasar el servicio de despacho a un tipo de instancia EC2 más grande para que aguante las ventas."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Publish each order to an Amazon SNS topic that the fulfillment service subscribes to over HTTPS.",
+      "es": "Publicar cada pedido en un topic de Amazon SNS al que el servicio de despacho esté suscrito por HTTPS."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Put an Amazon CloudFront distribution in front of the website to absorb the traffic spikes.",
+      "es": "Poner una distribución de Amazon CloudFront delante del sitio para absorber los picos de tráfico."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Put orders in an Amazon SQS queue that fulfillment workers poll, scaling on the queue backlog.",
+      "es": "Poner los pedidos en una cola de Amazon SQS y que la consulten workers de despacho que escalen según la cantidad de mensajes en la cola."
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "A queue absorbs the spike: the website only enqueues each order, messages stay stored until a worker processes and deletes them, and the workers can scale on the backlog. A bigger instance only moves the limit. SNS pushes messages to subscribers, and once its delivery retries run out it drops undelivered messages unless a dead-letter queue is set, so it doesn't hold work for a slow consumer. CloudFront caches content for readers; it doesn't buffer order submissions.",
+    "es": "Una cola absorbe el pico: el sitio sólo encola cada pedido, los mensajes quedan guardados hasta que un worker los procesa y los borra, y los workers pueden escalar según la cantidad de mensajes en la cola. Una instancia más grande sólo corre el límite. SNS empuja los mensajes a los suscriptores y, cuando agota los reintentos de entrega, descarta los que no pudo entregar salvo que haya una dead-letter queue, así que no guarda trabajo para un consumidor lento. CloudFront cachea contenido para quien lo lee; no hace de buffer para los pedidos que se envían."
+   }
+  },
+  {
+   "id": "saa-012",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "A company needs a disaster recovery plan in a second AWS Region for its order database and application servers. The requirements are no more than one minute of data loss (RPO), service restored within two hours (RTO), and the lowest ongoing cost that meets both. Which strategy should it choose?",
+    "es": "Una empresa necesita un plan de recuperación ante desastres en una segunda región de AWS para su base de pedidos y sus servidores de aplicación. Los requisitos son no perder más de un minuto de datos (RPO), recuperar el servicio en menos de dos horas (RTO) y el menor costo recurrente que cumpla las dos cosas. ¿Qué estrategia debería elegir?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Backup and restore: copy nightly snapshots to the second Region and rebuild everything from them.",
+      "es": "Backup and restore: copiar snapshots nocturnos a la segunda región y reconstruir todo a partir de ellos."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Pilot light: replicate the database continuously to the second Region and start the application servers only in a disaster.",
+      "es": "Pilot light: replicar la base en forma continua a la segunda región y levantar los servidores de aplicación sólo ante un desastre."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Warm standby: keep a scaled-down but fully working copy of the whole stack running in the second Region.",
+      "es": "Warm standby: mantener corriendo en la segunda región una copia reducida pero completamente funcional de todo el stack."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Multi-site active/active: run full production capacity in both Regions and split user traffic between them all the time.",
+      "es": "Multi-site active/active: correr la capacidad completa de producción en las dos regiones y repartir el tráfico entre ambas todo el tiempo."
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Continuous replication of the data keeps the RPO in seconds, and starting the application tier from prepared images and infrastructure as code fits within a two-hour RTO, while in normal operation you pay mostly for the replicated data. Nightly snapshots could lose up to a day of orders. Warm standby and active/active also meet both targets, but they keep compute running in the second Region all the time, so they cost more.",
+    "es": "Replicar los datos en forma continua deja el RPO en segundos, y levantar la capa de aplicación desde imágenes preparadas e infraestructura como código entra en un RTO de dos horas, mientras en operación normal pagás sobre todo por los datos replicados. Los snapshots nocturnos podrían perder hasta un día de pedidos. Warm standby y active/active también cumplen los dos objetivos, pero mantienen cómputo corriendo todo el tiempo en la segunda región, así que cuestan más."
+   }
+  },
+  {
+   "id": "saa-013",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "A vendor application runs on a single EC2 instance and keeps its working files in a local directory. The license allows only one running instance at a time and the code can't be changed, although the data directory can be any mounted path. The company wants the application to come back automatically, with its files, if the instance or its whole Availability Zone fails. Which TWO steps meet these requirements? (Select TWO.)",
+    "es": "Una aplicación de un proveedor corre en una sola instancia EC2 y guarda sus archivos de trabajo en un directorio local. La licencia permite una sola instancia corriendo a la vez y el código no se puede cambiar, aunque el directorio de datos puede ser cualquier ruta montada. La empresa quiere que la aplicación vuelva sola, con sus archivos, si falla la instancia o toda su Availability Zone. ¿Qué pasos cumplen con esto? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Create a CloudWatch alarm with the EC2 recover action for the instance.",
+      "es": "Crear una alarma de CloudWatch con la acción recover de EC2 para la instancia."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Launch the instance from an Auto Scaling group with minimum, maximum and desired capacity of 1 across two Availability Zones.",
+      "es": "Lanzar la instancia desde un Auto Scaling group con capacidad mínima, máxima y deseada de 1 en dos Availability Zones."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Store the files on an EBS io2 volume with Multi-Attach enabled and attach it in both Availability Zones.",
+      "es": "Guardar los archivos en un volumen EBS io2 con Multi-Attach y conectarlo en las dos Availability Zones."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Move the data directory to an Amazon EFS file system with mount targets in both Availability Zones.",
+      "es": "Mover el directorio de datos a un sistema de archivos Amazon EFS con mount targets en las dos Availability Zones."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Raise the Auto Scaling group's desired capacity to 2 and put an Application Load Balancer in front of it.",
+      "es": "Subir a 2 la capacidad deseada del Auto Scaling group y ponerle un Application Load Balancer adelante."
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "D"
+   ],
+   "explanation": {
+    "en": "An Auto Scaling group fixed at one instance replaces an instance that fails, and when it spans two Availability Zones it can launch the replacement in the other one. EFS is a Regional file system reachable from every Availability Zone, so the new instance mounts the same files. The recover action brings an instance back on new hardware, but in the same Availability Zone. EBS Multi-Attach works only within one Availability Zone, and two running instances would break the license.",
+    "es": "Un Auto Scaling group fijo en una instancia reemplaza la que falla, y si abarca dos Availability Zones puede lanzar el reemplazo en la otra. EFS es un sistema de archivos regional al que se llega desde todas las Availability Zones, así que la instancia nueva monta los mismos archivos. La acción recover devuelve la instancia en hardware nuevo, pero en la misma Availability Zone. EBS Multi-Attach funciona sólo dentro de una Availability Zone, y dos instancias corriendo romperían la licencia."
+   }
+  },
+  {
+   "id": "saa-014",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "An application uses an Amazon RDS for PostgreSQL DB instance in a single Availability Zone. The company needs automatic failover if that Availability Zone fails, without losing committed transactions and without changing the application's connection string. What should a solutions architect do?",
+    "es": "Una aplicación usa una instancia de Amazon RDS for PostgreSQL en una sola Availability Zone. La empresa necesita failover automático si esa Availability Zone falla, sin perder transacciones confirmadas y sin cambiar el connection string de la aplicación. ¿Qué debería hacer un arquitecto de soluciones?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Convert the DB instance to a Multi-AZ deployment.",
+      "es": "Convertir la instancia en un despliegue Multi-AZ."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Create a read replica in another Availability Zone and promote it if the primary fails.",
+      "es": "Crear una read replica en otra Availability Zone y promoverla si falla el primario."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Keep automated backups and restore the latest one in another Availability Zone after a failure.",
+      "es": "Mantener los backups automáticos y restaurar el último en otra Availability Zone después de una falla."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Put Amazon RDS Proxy in front of the DB instance so that it reroutes connections when the zone fails.",
+      "es": "Poner Amazon RDS Proxy delante de la instancia para que redirija las conexiones cuando falle la zona."
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "A Multi-AZ deployment keeps a synchronously replicated standby in another Availability Zone and fails over automatically, and the DB endpoint's DNS name moves to the new primary, so the application keeps its connection string. Read replicas use asynchronous replication, and promoting one is a manual step that gives you a different endpoint. Restoring from backups takes far longer and loses recent changes. RDS Proxy pools connections and can shorten failover, but it needs a standby to fail over to.",
+    "es": "Un despliegue Multi-AZ mantiene un standby replicado en forma sincrónica en otra Availability Zone y hace failover automático, y el nombre DNS del endpoint pasa a apuntar al nuevo primario, así que la aplicación sigue con el mismo connection string. Las read replicas replican en forma asincrónica, y promover una es un paso manual que te deja otro endpoint. Restaurar desde backups tarda mucho más y pierde los cambios recientes. RDS Proxy agrupa conexiones y puede acortar el failover, pero necesita un standby hacia el cual conmutar."
+   }
+  },
+  {
+   "id": "saa-015",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "A web application runs behind an Application Load Balancer in us-east-1. If it becomes unhealthy, users must be sent automatically to a static maintenance site hosted in an S3 bucket in another Region, and sent back when it recovers. Which TWO Route 53 configurations accomplish this? (Select TWO.)",
+    "es": "Una aplicación web corre detrás de un Application Load Balancer en us-east-1. Si deja de estar sana, los usuarios tienen que ir automáticamente a un sitio de mantenimiento estático alojado en un bucket de S3 en otra región, y volver cuando se recupere. ¿Qué configuraciones de Route 53 lo logran? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A failover routing policy with the load balancer as the primary record and the S3 website as the secondary.",
+      "es": "Una política de routing de failover con el load balancer como registro primario y el sitio de S3 como secundario."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A weighted routing policy that sends 90% of queries to the load balancer and 10% to the S3 website.",
+      "es": "Una política de routing ponderado que mande el 90% de las consultas al load balancer y el 10% al sitio de S3."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Health checking of the primary, with a Route 53 health check or Evaluate Target Health on its alias record.",
+      "es": "Control de salud del primario, con un health check de Route 53 o con Evaluate Target Health en su registro alias."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A simple routing record that lists both endpoints so that clients pick one that works.",
+      "es": "Un registro de routing simple que liste los dos endpoints para que los clientes elijan uno que funcione."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "A geolocation routing policy that sends users in North America to the load balancer and everyone else to S3.",
+      "es": "Una política de geolocalización que mande a los usuarios de América del Norte al load balancer y al resto a S3."
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "C"
+   ],
+   "explanation": {
+    "en": "Failover routing answers with the primary record while it is healthy and with the secondary when it isn't, and Route 53 learns the primary's state from a health check or, for an alias to a load balancer, from Evaluate Target Health. Weighted routing would send some users to the maintenance page all the time. A simple record has no health checking, and geolocation routing splits users by location, not by health.",
+    "es": "El routing de failover responde con el registro primario mientras está sano y con el secundario cuando no, y Route 53 conoce el estado del primario por un health check o, en un alias a un load balancer, por Evaluate Target Health. El routing ponderado mandaría a algunos usuarios a la página de mantenimiento todo el tiempo. Un registro simple no tiene control de salud, y el routing por geolocalización reparte a los usuarios según dónde están, no según la salud del sitio."
+   }
+  },
+  {
+   "id": "saa-016",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "A company runs Amazon EBS volumes, RDS databases and DynamoDB tables in 12 accounts of its organization in AWS Organizations. Auditors require daily backups of all of them, kept for 35 days, with a copy in a second Region, and the policy must be defined once and applied to every account. Which solution requires the least operational effort?",
+    "es": "Una empresa tiene volúmenes de Amazon EBS, bases de RDS y tablas de DynamoDB en 12 cuentas de su organización de AWS Organizations. Los auditores exigen backups diarios de todo eso, guardados 35 días y con una copia en una segunda región, y la política tiene que definirse una sola vez y aplicarse en todas las cuentas. ¿Qué solución requiere el menor esfuerzo operativo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Use Amazon Data Lifecycle Manager policies in each account and copy the snapshots with a custom script.",
+      "es": "Usar políticas de Amazon Data Lifecycle Manager en cada cuenta y copiar los snapshots con un script propio."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Write a Lambda function in each account that snapshots every resource daily and copies the snapshots to the second Region.",
+      "es": "Escribir en cada cuenta una función Lambda que saque snapshots de todos los recursos cada día y los copie a la segunda región."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Use AWS Backup with an organization backup policy that sets a daily schedule, 35-day retention and a cross-Region copy.",
+      "es": "Usar AWS Backup con una backup policy de la organización que fije un horario diario, 35 días de retención y una copia a otra región."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Turn on S3 Cross-Region Replication for the buckets where these services store their snapshots.",
+      "es": "Activar S3 Cross-Region Replication en los buckets donde estos servicios guardan sus snapshots."
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "AWS Backup covers EBS, RDS and DynamoDB, among other services, and backup policies in AWS Organizations deploy the same backup plan to every member account, with retention and cross-Region copy rules built in (for DynamoDB, cross-Region copies need AWS Backup's advanced features turned on). Data Lifecycle Manager handles only EBS snapshots and EBS-backed AMIs, and functions or scripts in each account are code you have to maintain. Service snapshots aren't stored in buckets you own, so S3 replication can't copy them.",
+    "es": "AWS Backup cubre EBS, RDS y DynamoDB, entre otros servicios, y las backup policies de AWS Organizations despliegan el mismo plan de backup en todas las cuentas miembro, con reglas de retención y de copia a otra región incorporadas (para DynamoDB, la copia a otra región requiere activar las funciones avanzadas de AWS Backup). Data Lifecycle Manager maneja sólo snapshots de EBS y AMIs respaldadas por EBS, y las funciones o scripts en cada cuenta son código que tenés que mantener. Los snapshots de los servicios no se guardan en buckets tuyos, así que la replicación de S3 no los puede copiar."
+   }
+  },
+  {
+   "id": "saa-017",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "A Lambda function that writes to an Amazon RDS for MySQL database is invoked thousands of times per minute during traffic bursts. During those bursts the database returns \"too many connections\" errors, although its CPU and memory stay low. Which solution addresses the cause with the least change to the function's code?",
+    "es": "Una función Lambda que escribe en una base de Amazon RDS for MySQL se invoca miles de veces por minuto durante los picos de tráfico. En esos picos la base devuelve errores de \"too many connections\", aunque su CPU y su memoria siguen bajas. ¿Qué solución ataca la causa con el menor cambio en el código de la función?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Move the database to a larger instance class so that it accepts more connections.",
+      "es": "Pasar la base a una clase de instancia más grande para que acepte más conexiones."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Add a read replica and send half of the function's writes to it.",
+      "es": "Agregar una read replica y mandarle la mitad de las escrituras de la función."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Increase the function's memory so that each invocation finishes sooner.",
+      "es": "Aumentar la memoria de la función para que cada invocación termine antes."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Put Amazon RDS Proxy between the function and the database.",
+      "es": "Poner Amazon RDS Proxy entre la función y la base."
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Each concurrent Lambda execution environment opens its own connections, and RDS Proxy pools and reuses them so that bursts don't exhaust the database's connection limit; the function only switches to the proxy endpoint. A larger instance raises the limit at a higher cost while CPU and memory sit idle, and a burst can still exceed it. Read replicas are read-only, so they can't take writes. More memory may shorten each run, but concurrency, and with it the number of connections, stays high.",
+    "es": "Cada entorno de ejecución concurrente de Lambda abre sus propias conexiones, y RDS Proxy las agrupa y las reutiliza para que los picos no agoten el límite de conexiones de la base; la función sólo cambia al endpoint del proxy. Una instancia más grande sube el límite a un costo mayor mientras CPU y memoria siguen ociosas, y un pico igual lo puede superar. Las read replicas son de sólo lectura, así que no aceptan escrituras. Más memoria puede acortar cada ejecución, pero la concurrencia, y con ella la cantidad de conexiones, sigue alta."
+   }
+  },
+  {
+   "id": "saa-018",
+   "domain": "Design Resilient Architectures",
+   "prompt": {
+    "en": "When a user uploads a video to an S3 bucket, three independent services must each process it: one creates thumbnails, one runs content moderation and one updates the search index. Each service must receive every upload, retry on its own when it fails, and not slow the others down. Which design meets these requirements?",
+    "es": "Cuando un usuario sube un video a un bucket de S3, tres servicios independientes tienen que procesarlo: uno genera miniaturas, otro hace moderación de contenido y otro actualiza el índice de búsqueda. Cada servicio tiene que recibir todos los uploads, reintentar por su cuenta cuando falla y no frenar a los otros. ¿Qué diseño cumple con esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Send the S3 event notification to an Amazon SNS topic that fans out to three SQS queues, one per service.",
+      "es": "Mandar la notificación de eventos de S3 a un topic de Amazon SNS que la reparta en tres colas de SQS, una por servicio."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Send the S3 event notification to one SQS queue that all three services poll.",
+      "es": "Mandar la notificación de eventos de S3 a una sola cola de SQS que consulten los tres servicios."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Invoke one Lambda function from the S3 event that calls the three services one after another.",
+      "es": "Invocar desde el evento de S3 una función Lambda que llame a los tres servicios, uno después del otro."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Create three S3 event notification configurations for the same event type and prefix, one to each service's queue.",
+      "es": "Crear tres configuraciones de notificación de eventos de S3 para el mismo tipo de evento y prefijo, una hacia la cola de cada servicio."
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "With SNS fan-out, every queue subscribed to the topic gets its own copy of each event, and each service consumes and retries from its own queue without affecting the others. With one shared queue, each message goes to only one consumer, so each service would see only some uploads. A single function calling the services in sequence couples them, so one slow or failing service holds up the rest. S3 rejects notification configurations whose prefixes or suffixes overlap for the same event type.",
+    "es": "Con fan-out de SNS, cada cola suscrita al topic recibe su propia copia de cada evento, y cada servicio consume y reintenta desde su cola sin afectar a los demás. Con una sola cola compartida, cada mensaje le llega a un único consumidor, así que cada servicio vería sólo algunos uploads. Una función que llama a los servicios en secuencia los acopla, y uno lento o caído frena al resto. S3 rechaza configuraciones de notificación cuyos prefijos o sufijos se superponen para el mismo tipo de evento."
+   }
+  },
+  {
+   "id": "saa-019",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "A research team runs a genomics pipeline on hundreds of Linux EC2 instances for a few days each month. The input data lives in an S3 bucket. The jobs need a shared POSIX file system with sub-millisecond latency and hundreds of GB/s of aggregate throughput, the S3 objects must appear as files, and the results must end up back in the bucket. Which storage should the architect choose?",
+    "es": "Un equipo de investigación corre un pipeline genómico en cientos de instancias EC2 Linux durante unos días cada mes. Los datos de entrada están en un bucket de S3. Los jobs necesitan un sistema de archivos POSIX compartido con latencia por debajo del milisegundo y cientos de GB/s de throughput agregado, los objetos de S3 tienen que aparecer como archivos y los resultados tienen que terminar de nuevo en el bucket. ¿Qué almacenamiento debería elegir el arquitecto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon EFS with Elastic throughput, copying the bucket into it before each run",
+      "es": "Amazon EFS con throughput Elastic, copiando el bucket antes de cada corrida"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon FSx for Windows File Server, shared by all the instances",
+      "es": "Amazon FSx for Windows File Server, compartido por todas las instancias"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon FSx for Lustre, linked to the bucket through a data repository association",
+      "es": "Amazon FSx for Lustre, vinculado al bucket mediante una data repository association"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon EBS io2 Block Express volumes attached to each instance",
+      "es": "Volúmenes Amazon EBS io2 Block Express conectados a cada instancia"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "FSx for Lustre is a parallel file system built for high-performance computing: it delivers sub-millisecond latency and very high aggregate throughput to many Linux clients, and a data repository association presents S3 objects as files and exports results back to the bucket. EFS reaches tens of GiB/s per file system with reads of about a millisecond, short of the required throughput and latency, and copying the bucket in and the results out is extra work. FSx for Windows File Server serves SMB to Windows clients, and EBS volumes are block storage attached to individual instances, not a shared file system.",
+    "es": "FSx for Lustre es un sistema de archivos paralelo hecho para cómputo de alto rendimiento: da latencia por debajo del milisegundo y un throughput agregado muy alto a muchos clientes Linux, y una data repository association presenta los objetos de S3 como archivos y exporta los resultados de vuelta al bucket. EFS llega a decenas de GiB/s por sistema de archivos con lecturas de alrededor de un milisegundo, por debajo del throughput y la latencia que se piden, y copiar el bucket de ida y los resultados de vuelta es trabajo extra. FSx for Windows File Server sirve SMB a clientes Windows, y los volúmenes EBS son almacenamiento en bloque conectado a instancias individuales, no un sistema de archivos compartido."
+   }
+  },
+  {
+   "id": "saa-020",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "A retail app reads product details from an Amazon DynamoDB table. Most reads go to the same few thousand items, and a new feature needs read latency in microseconds instead of single-digit milliseconds. The team wants to keep using the DynamoDB API with minimal code changes. What should they add?",
+    "es": "Una app de retail lee detalles de productos de una tabla de Amazon DynamoDB. La mayoría de las lecturas van a los mismos pocos miles de ítems, y una funcionalidad nueva necesita latencia de lectura en microsegundos en lugar de pocos milisegundos. El equipo quiere seguir usando la API de DynamoDB con cambios mínimos en el código. ¿Qué deberían agregar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "An Amazon ElastiCache cluster, with the app checking the cache before each table read",
+      "es": "Un clúster de Amazon ElastiCache, con la app consultando la caché antes de cada lectura a la tabla"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A DynamoDB Accelerator (DAX) cluster in front of the table",
+      "es": "Un clúster de DynamoDB Accelerator (DAX) delante de la tabla"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "DynamoDB global tables with a replica in a second Region",
+      "es": "DynamoDB global tables con una réplica en una segunda región"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "More provisioned read capacity units on the table",
+      "es": "Más read capacity units aprovisionadas en la tabla"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "DAX is an in-memory cache for DynamoDB that serves cached reads in microseconds and is compatible with the DynamoDB API, so the app mostly swaps in the DAX client. ElastiCache can be just as fast, but the app would have to handle cache reads, writes and invalidation itself. Global tables add Regional replicas for availability and locality, and more read capacity prevents throttling; neither brings latency below milliseconds.",
+    "es": "DAX es una caché en memoria para DynamoDB que sirve lecturas cacheadas en microsegundos y es compatible con la API de DynamoDB, así que la app básicamente cambia al cliente de DAX. ElastiCache puede ser igual de rápido, pero la app tendría que manejar sola las lecturas, las escrituras y la invalidación de la caché. Las global tables suman réplicas regionales para disponibilidad y cercanía, y más capacidad de lectura evita el throttling; ninguna de las dos baja la latencia de los milisegundos."
+   }
+  },
+  {
+   "id": "saa-021",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "An Amazon RDS for PostgreSQL database slows down during business hours because analysts run heavy ad hoc reporting queries against it. The reports can tolerate data that is a few seconds old. The company wants to take the reporting load off the primary without resizing it. What should a solutions architect do?",
+    "es": "Una base de Amazon RDS for PostgreSQL se pone lenta en horario laboral porque los analistas corren sobre ella consultas de reporting ad hoc muy pesadas. Los reportes toleran datos con unos segundos de atraso. La empresa quiere sacarle la carga de reporting al primario sin cambiarle el tamaño. ¿Qué debería hacer un arquitecto de soluciones?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Convert the instance to a Multi-AZ DB instance deployment and point the analysts at the standby.",
+      "es": "Convertir la instancia en un despliegue Multi-AZ de instancia de base de datos y apuntar a los analistas al standby."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Add an ElastiCache cluster and cache the results of the reporting queries.",
+      "es": "Agregar un clúster de ElastiCache y cachear los resultados de las consultas de reporting."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Switch the storage to Provisioned IOPS and double the IOPS on the primary.",
+      "es": "Pasar el almacenamiento a Provisioned IOPS y duplicar las IOPS del primario."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Create a read replica and have the analysts connect to the replica's endpoint.",
+      "es": "Crear una read replica y que los analistas se conecten al endpoint de la réplica."
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "A read replica receives changes asynchronously, so it can lag a few seconds, which the reports accept, and it takes the reporting reads off the primary. In a Multi-AZ DB instance deployment the standby can't serve reads. Caching helps with repeated queries, but ad hoc reports rarely repeat. More IOPS changes the primary's storage, and the reports would still compete with the application for its CPU and memory.",
+    "es": "Una read replica recibe los cambios en forma asincrónica, así que puede atrasarse unos segundos, cosa que los reportes aceptan, y le saca las lecturas de reporting al primario. En un despliegue Multi-AZ de instancia de base de datos el standby no puede atender lecturas. Cachear ayuda con consultas repetidas, pero los reportes ad hoc casi nunca se repiten. Más IOPS cambia el almacenamiento del primario, y los reportes seguirían compitiendo con la aplicación por su CPU y su memoria."
+   }
+  },
+  {
+   "id": "saa-022",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "EC2 instances in an Auto Scaling group process jobs from an Amazon SQS queue. Each job spends most of its time waiting on an external API, so CPU stays near 20% even when thousands of jobs are waiting. The business wants each job to start within five minutes of entering the queue. Which scaling approach fits best?",
+    "es": "Instancias EC2 de un Auto Scaling group procesan jobs de una cola de Amazon SQS. Cada job pasa la mayor parte del tiempo esperando a una API externa, así que la CPU queda cerca del 20% aunque haya miles de jobs esperando. El negocio quiere que cada job arranque dentro de los cinco minutos de entrar a la cola. ¿Qué forma de escalar es la más adecuada?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Target tracking on backlog per instance, with a target derived from the acceptable wait and the time per job",
+      "es": "Target tracking sobre el backlog por instancia, con un objetivo calculado a partir de la espera aceptable y el tiempo por job"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A target tracking policy that keeps the group's average CPU utilization at 50 percent",
+      "es": "Una política de target tracking que mantenga la utilización promedio de CPU del grupo en 50%"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Scheduled scaling actions that add instances at the start of each business day and remove them at night",
+      "es": "Acciones de scaling programadas que agreguen instancias al empezar cada día hábil y las saquen a la noche"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A longer visibility timeout on the queue so that jobs wait there until an instance becomes free",
+      "es": "Un visibility timeout más largo en la cola para que los jobs esperen ahí hasta que se libere una instancia"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "AWS recommends scaling queue workers on backlog per instance: the messages waiting divided by the instances in service, with a target equal to the acceptable latency divided by the average processing time per message. Here CPU doesn't reflect the work because jobs mostly wait on I/O, so a CPU target would never scale out. A schedule ignores the real queue, and the visibility timeout only controls how long a received message stays hidden, not how soon jobs start.",
+    "es": "AWS recomienda escalar los workers de una cola según el backlog por instancia: los mensajes en espera divididos por las instancias en servicio, con un objetivo igual a la latencia aceptable dividida por el tiempo promedio de proceso de cada mensaje. Acá la CPU no refleja el trabajo porque los jobs pasan casi todo el tiempo esperando I/O, así que un objetivo de CPU nunca escalaría. Un horario ignora la cola real, y el visibility timeout sólo controla cuánto tiempo queda oculto un mensaje recibido, no qué tan rápido arrancan los jobs."
+   }
+  },
+  {
+   "id": "saa-023",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "A multiplayer game runs its UDP game servers behind Network Load Balancers in two AWS Regions. Players worldwide need low, consistent latency, the client must connect to a fixed set of IP addresses that never change, and if one Region fails, traffic must move to the other within seconds, without waiting for DNS caches to expire. Which service meets these requirements?",
+    "es": "Un juego multijugador corre sus servidores UDP detrás de Network Load Balancers en dos regiones de AWS. Los jugadores de todo el mundo necesitan latencia baja y estable, el cliente tiene que conectarse a un conjunto fijo de direcciones IP que nunca cambie, y si una región falla el tráfico tiene que pasar a la otra en segundos, sin esperar a que venzan las cachés de DNS. ¿Qué servicio cumple con esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon CloudFront with both load balancers as origins in an origin group",
+      "es": "Amazon CloudFront con los dos load balancers como orígenes en un origin group"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Route 53 latency-based routing with health checks",
+      "es": "Routing por latencia de Amazon Route 53 con health checks"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Global Accelerator with an endpoint group in each Region",
+      "es": "AWS Global Accelerator con un endpoint group en cada región"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An AWS Transit Gateway peering connection between the two Regions",
+      "es": "Un peering de AWS Transit Gateway entre las dos regiones"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Global Accelerator gives you static anycast IP addresses, carries TCP and UDP traffic from the nearest edge location over the AWS global network, and shifts traffic between Regional endpoint groups based on health, without depending on DNS. CloudFront serves HTTP and HTTPS content, plus WebSocket, not arbitrary UDP traffic. Route 53 latency routing works through DNS answers, so failover waits on cached records, and it offers no fixed IP addresses. Transit Gateway connects networks; it doesn't route internet users to the closest Region.",
+    "es": "Global Accelerator te da direcciones IP anycast estáticas, lleva tráfico TCP y UDP desde la edge location más cercana por la red global de AWS y mueve el tráfico entre endpoint groups regionales según su salud, sin depender del DNS. CloudFront sirve contenido HTTP y HTTPS, más WebSocket, no tráfico UDP arbitrario. El routing por latencia de Route 53 funciona con respuestas DNS, así que el failover espera a que venzan los registros cacheados, y no ofrece IP fijas. Transit Gateway conecta redes; no lleva a los usuarios de internet a la región más cercana."
+   }
+  },
+  {
+   "id": "saa-024",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "A media site collects clickstream events from millions of browsers. Three separate applications must read the same events: a fraud detector, a real-time dashboard and an archiver. Events for each user must be processed in order, and the team must be able to reprocess the last three days after fixing a bug. Which service should receive the events?",
+    "es": "Un sitio de medios recibe eventos de clickstream de millones de navegadores. Tres aplicaciones distintas tienen que leer los mismos eventos: un detector de fraude, un tablero en tiempo real y un archivador. Los eventos de cada usuario tienen que procesarse en orden, y el equipo tiene que poder reprocesar los últimos tres días después de corregir un bug. ¿Qué servicio debería recibir los eventos?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "An Amazon SQS standard queue that the three applications poll",
+      "es": "Una cola standard de Amazon SQS que consulten las tres aplicaciones"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Kinesis Data Streams with extended data retention",
+      "es": "Amazon Kinesis Data Streams con retención extendida"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An Amazon SNS standard topic with the three applications subscribed",
+      "es": "Un topic standard de Amazon SNS con las tres aplicaciones suscritas"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Amazon Data Firehose delivering to Amazon S3",
+      "es": "Amazon Data Firehose con entrega a Amazon S3"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Kinesis Data Streams keeps records in order within each shard (records with the same partition key, such as a user ID, go to the same shard), lets several consumer applications read the same data independently, and can retain records for up to 365 days so they can be replayed. An SQS message is deleted once a consumer processes it, and standard queues don't guarantee order. An SNS standard topic pushes messages and keeps no history to replay. Firehose delivers data to destinations in batches; it doesn't serve several real-time readers.",
+    "es": "Kinesis Data Streams mantiene el orden de los registros dentro de cada shard (los que tienen la misma partition key, como un ID de usuario, van al mismo shard), deja que varias aplicaciones lean los mismos datos por separado y puede retener registros hasta 365 días para volver a procesarlos. Un mensaje de SQS se borra cuando un consumidor lo procesa, y las colas standard no garantizan orden. Un topic standard de SNS empuja mensajes y no guarda historial para reprocesar. Firehose entrega datos a destinos en lotes; no atiende a varios lectores en tiempo real."
+   }
+  },
+  {
+   "id": "saa-025",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "A company stores 40 TB of CSV files from daily exports in S3 and queries them with Amazon Athena. Most queries filter by date and read only 5 of the 120 columns, yet they scan whole files, run slowly and cost too much. Which change improves query performance the most?",
+    "es": "Una empresa guarda 40 TB de archivos CSV de exportaciones diarias en S3 y las consulta con Amazon Athena. La mayoría de las consultas filtran por fecha y leen sólo 5 de las 120 columnas, pero escanean archivos enteros, tardan mucho y salen caras. ¿Qué cambio mejora más el rendimiento de las consultas?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Enable S3 Transfer Acceleration on the bucket",
+      "es": "Activar S3 Transfer Acceleration en el bucket"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Move the files to the S3 Standard-IA storage class",
+      "es": "Pasar los archivos a la clase de almacenamiento S3 Standard-IA"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Load the files into an Amazon RDS for MySQL database and query them there",
+      "es": "Cargar los archivos en una base de Amazon RDS for MySQL y consultarlos ahí"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Use an AWS Glue job to convert the data to Parquet, partitioned by date",
+      "es": "Usar un job de AWS Glue para convertir los datos a Parquet, particionados por fecha"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Parquet is a columnar format, so Athena reads only the columns a query needs, and partitioning by date lets it skip every partition outside the filter; both cut the data scanned, which drives both run time and Athena's per-query cost. Transfer Acceleration speeds up uploads over long distances, not queries. Standard-IA lowers the storage price for rarely read data and adds retrieval charges. A single relational database instance isn't built to scan tens of terabytes for analytics.",
+    "es": "Parquet es un formato columnar, así que Athena lee sólo las columnas que la consulta necesita, y particionar por fecha le permite saltear todas las particiones fuera del filtro; las dos cosas reducen los datos escaneados, que definen tanto el tiempo de ejecución como el costo por consulta de Athena. Transfer Acceleration acelera las subidas a larga distancia, no las consultas. Standard-IA baja el precio de almacenamiento para datos que se leen poco y suma cargos por recuperación. Una sola instancia de base relacional no está pensada para escanear decenas de terabytes con fines analíticos."
+   }
+  },
+  {
+   "id": "saa-026",
+   "domain": "Design High-Performing Architectures",
+   "prompt": {
+    "en": "Field teams on several continents upload survey files of 2 to 8 GB to one S3 bucket in eu-west-1. Uploads from distant offices are slow, and when a connection drops the whole file has to be sent again. Which TWO changes improve upload speed and reliability? (Select TWO.)",
+    "es": "Equipos de campo en varios continentes suben archivos de relevamiento de 2 a 8 GB a un bucket de S3 en eu-west-1. Las subidas desde las oficinas lejanas son lentas, y cuando se corta la conexión hay que mandar el archivo entero de nuevo. ¿Qué cambios mejoran la velocidad y la confiabilidad de las subidas? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Enable S3 Versioning on the bucket.",
+      "es": "Activar S3 Versioning en el bucket."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Use multipart upload so that parts go up in parallel and only failed parts are retried.",
+      "es": "Usar subida multiparte para que las partes suban en paralelo y se reintenten sólo las que fallan."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Set the objects' storage class to S3 Standard-IA.",
+      "es": "Usar la clase de almacenamiento S3 Standard-IA para los objetos."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Replicate the bucket with S3 Cross-Region Replication to a bucket near each team.",
+      "es": "Replicar el bucket con S3 Cross-Region Replication a un bucket cerca de cada equipo."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Enable S3 Transfer Acceleration and upload through its accelerate endpoint.",
+      "es": "Activar S3 Transfer Acceleration y subir por su endpoint acelerado."
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "E"
+   ],
+   "explanation": {
+    "en": "Multipart upload splits a file into parts that upload in parallel, and a failed part is retried on its own instead of the whole file; above 5 GB it is required anyway. Transfer Acceleration sends data to the nearest edge location and then over the AWS network to the bucket, which helps over long distances. Versioning and storage classes don't change transfer speed, and replication copies objects after they reach the bucket, so it doesn't help the original upload.",
+    "es": "La subida multiparte divide un archivo en partes que suben en paralelo, y si una parte falla se reintenta sólo esa, no el archivo entero; arriba de 5 GB es obligatoria de todos modos. Transfer Acceleration manda los datos a la edge location más cercana y de ahí por la red de AWS hasta el bucket, lo que ayuda en distancias largas. El versionado y las clases de almacenamiento no cambian la velocidad de transferencia, y la replicación copia objetos después de que llegan al bucket, así que no ayuda con la subida original."
+   }
+  },
+  {
+   "id": "saa-027",
+   "domain": "Design Cost-Optimized Architectures",
+   "prompt": {
+    "en": "A company keeps application logs in S3. Logs are read often during their first 30 days, then only once or twice a year during audits, when they must be available within milliseconds. They must survive the loss of an Availability Zone and be deleted after one year. Which S3 Lifecycle configuration is the most cost-effective?",
+    "es": "Una empresa guarda logs de aplicación en S3. Los logs se leen seguido durante los primeros 30 días y después sólo una o dos veces por año, en auditorías, cuando tienen que estar disponibles en milisegundos. Tienen que sobrevivir a la pérdida de una Availability Zone y borrarse al cumplir un año. ¿Qué configuración de S3 Lifecycle es la más económica?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Transition to S3 Standard-IA after 30 days and expire objects after 365 days.",
+      "es": "Pasar a S3 Standard-IA a los 30 días y expirar los objetos a los 365 días."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Transition to S3 Glacier Instant Retrieval after 30 days and expire objects after 365 days.",
+      "es": "Pasar a S3 Glacier Instant Retrieval a los 30 días y expirar los objetos a los 365 días."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Transition to S3 One Zone-Infrequent Access after 30 days and expire objects after 365 days.",
+      "es": "Pasar a S3 One Zone-Infrequent Access a los 30 días y expirar los objetos a los 365 días."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Transition to S3 Glacier Deep Archive after 30 days and expire objects after 365 days.",
+      "es": "Pasar a S3 Glacier Deep Archive a los 30 días y expirar los objetos a los 365 días."
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Glacier Instant Retrieval is designed for long-lived data accessed about once a quarter or less that still needs millisecond access, and it costs less per GB stored than Standard-IA, which is designed for data accessed about once a month; its retrievals cost more, but with one or two reads a year the storage savings win. One Zone-IA keeps data in a single Availability Zone, and Deep Archive takes hours to restore objects. Glacier Instant Retrieval has a 90-day minimum storage duration, which these logs exceed.",
+    "es": "Glacier Instant Retrieval está pensada para datos de larga vida que se leen alrededor de una vez por trimestre o menos y que igual necesitan acceso en milisegundos, y cobra menos por GB almacenado que Standard-IA, pensada para datos que se leen alrededor de una vez por mes; sus lecturas cuestan más, pero con una o dos lecturas por año gana el ahorro en almacenamiento. One Zone-IA guarda los datos en una sola Availability Zone, y Deep Archive tarda horas en restaurar los objetos. Glacier Instant Retrieval tiene una duración mínima de almacenamiento de 90 días, que estos logs superan."
+   }
+  },
+  {
+   "id": "saa-028",
+   "domain": "Design Cost-Optimized Architectures",
+   "prompt": {
+    "en": "A company runs a web tier on EC2 that needs 20 instances around the clock, every day, for at least the next three years, and that may move to other instance families or to AWS Fargate. It also runs a nightly batch job that checkpoints its progress and can be stopped and restarted at any time. Which TWO purchasing choices minimize cost? (Select TWO.)",
+    "es": "Una empresa corre en EC2 una capa web que necesita 20 instancias todo el día, todos los días, durante al menos los próximos tres años, y que puede pasar a otras familias de instancias o a AWS Fargate. También corre un batch nocturno que guarda checkpoints de su avance y se puede detener y retomar en cualquier momento. ¿Qué opciones de compra minimizan el costo? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A three-year Compute Savings Plan sized to the web tier's steady usage.",
+      "es": "Un Compute Savings Plan a tres años dimensionado para el uso constante de la capa web."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "On-Demand Capacity Reservations for the batch job's instances.",
+      "es": "On-Demand Capacity Reservations para las instancias del batch."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Spot Instances for the web tier's 20 baseline instances.",
+      "es": "Spot Instances para las 20 instancias base de la capa web."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Spot Instances for the nightly batch job.",
+      "es": "Spot Instances para el batch nocturno."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Dedicated Hosts for both workloads.",
+      "es": "Dedicated Hosts para las dos cargas."
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "D"
+   ],
+   "explanation": {
+    "en": "A Compute Savings Plan gives a large discount for a steady usage commitment and applies across instance families, Regions and Fargate, so it fits a baseline that may change shape. Spot Instances are the cheapest option for interruptible work that can resume from checkpoints. Capacity Reservations guarantee capacity at On-Demand prices with no discount of their own, Spot is a poor fit for the baseline because interruptions would remove capacity it needs all the time, and Dedicated Hosts cost more and exist for licensing or compliance needs.",
+    "es": "Un Compute Savings Plan da un descuento grande a cambio de un compromiso de uso constante y se aplica entre familias de instancias, regiones y Fargate, así que sirve para una base que puede cambiar de forma. Las Spot Instances son la opción más barata para trabajo interrumpible que puede retomar desde un checkpoint. Las Capacity Reservations garantizan capacidad a precio On-Demand, sin descuento propio; Spot no sirve para la base porque las interrupciones le quitarían capacidad que necesita todo el tiempo, y los Dedicated Hosts cuestan más y existen para necesidades de licencias o cumplimiento."
+   }
+  },
+  {
+   "id": "saa-029",
+   "domain": "Design Cost-Optimized Architectures",
+   "prompt": {
+    "en": "EC2 instances in private subnets move about 50 TB a month to and from S3 buckets in the same Region through a NAT gateway, and the NAT gateway's data processing charges have become a large part of the bill. Which change reduces this cost the most while keeping the instances private?",
+    "es": "Instancias EC2 en subredes privadas mueven unos 50 TB por mes desde y hacia buckets de S3 de la misma región a través de un NAT gateway, y los cargos de procesamiento de datos del NAT gateway ya son una parte grande de la factura. ¿Qué cambio reduce más este costo manteniendo privadas las instancias?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Add a gateway VPC endpoint for S3 and associate it with the private subnets' route tables.",
+      "es": "Agregar un gateway VPC endpoint para S3 y asociarlo a las tablas de rutas de las subredes privadas."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Add an interface VPC endpoint for S3 in each private subnet.",
+      "es": "Agregar un interface VPC endpoint para S3 en cada subred privada."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Deploy a NAT gateway in each Availability Zone so that traffic doesn't cross zones.",
+      "es": "Desplegar un NAT gateway en cada Availability Zone para que el tráfico no cruce de zona."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Move the instances to public subnets and give them public IP addresses so that they reach S3 directly.",
+      "es": "Mover las instancias a subredes públicas y darles IP públicas para que lleguen directo a S3."
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "A gateway endpoint for S3 adds a route that keeps S3 traffic on the AWS network and has no hourly or data processing charge, so the traffic stops passing through the NAT gateway. An interface endpoint also works, but it is billed per hour and per GB. One NAT gateway per Availability Zone improves resilience and avoids cross-zone transfer, but the S3 traffic would still pay NAT processing fees. Public subnets would break the requirement to keep the instances private.",
+    "es": "Un gateway endpoint para S3 agrega una ruta que mantiene el tráfico a S3 en la red de AWS y no tiene cargo por hora ni por procesamiento de datos, así que el tráfico deja de pasar por el NAT gateway. Un interface endpoint también funciona, pero se cobra por hora y por GB. Un NAT gateway por Availability Zone mejora la resiliencia y evita la transferencia entre zonas, pero el tráfico a S3 seguiría pagando el procesamiento del NAT. Pasar a subredes públicas rompe el requisito de mantener privadas las instancias."
+   }
+  },
+  {
+   "id": "saa-030",
+   "domain": "Design Cost-Optimized Architectures",
+   "prompt": {
+    "en": "A development team uses a Single-AZ Amazon RDS for MySQL DB instance only on weekdays from 9:00 to 18:00. It sits idle the rest of the time, but the company pays for it around the clock. The database must keep its endpoint and its data. Which option reduces cost with the least effort?",
+    "es": "Un equipo de desarrollo usa una instancia Single-AZ de Amazon RDS for MySQL sólo los días hábiles de 9 a 18. El resto del tiempo está ociosa, pero la empresa la paga las 24 horas. La base tiene que conservar su endpoint y sus datos. ¿Qué opción reduce el costo con el menor esfuerzo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Buy a one-year Reserved DB Instance for the current instance class.",
+      "es": "Comprar una Reserved DB Instance a un año para la clase de instancia actual."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Take a snapshot every evening, delete the instance and restore it from the snapshot each morning.",
+      "es": "Sacar un snapshot cada noche, borrar la instancia y restaurarla desde el snapshot cada mañana."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Stop the DB instance outside working hours with a scheduled automation and start it each morning.",
+      "es": "Detener la instancia fuera del horario laboral con una automatización programada y arrancarla cada mañana."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Convert the instance to a Multi-AZ deployment so that the standby takes over at night.",
+      "es": "Convertir la instancia a Multi-AZ para que el standby tome el trabajo a la noche."
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "A stopped RDS instance keeps its endpoint, data and configuration and isn't billed for instance hours, only for storage and backups; a schedule, such as one in EventBridge Scheduler, can stop it each evening and start it each morning. RDS starts a stopped instance automatically after seven days, which a weekday schedule never reaches. A Reserved Instance discounts all 168 hours of the week when the team uses about 45. Deleting and restoring every day is slower and riskier, and Multi-AZ adds a standby that you also pay for.",
+    "es": "Una instancia de RDS detenida conserva su endpoint, sus datos y su configuración y no paga horas de instancia, sólo almacenamiento y backups; una programación, como una de EventBridge Scheduler, la puede detener cada noche y arrancar cada mañana. RDS vuelve a iniciar sola una instancia detenida después de siete días, algo que un horario de días hábiles nunca alcanza. Una Reserved Instance descuenta las 168 horas de la semana cuando el equipo usa unas 45. Borrar y restaurar todos los días es más lento y más riesgoso, y Multi-AZ suma un standby que también pagás."
+   }
+  },
+  {
+   "id": "saa-031",
+   "domain": "Design Cost-Optimized Architectures",
+   "prompt": {
+    "en": "A company moves about 80 TB a month between its data center and AWS over a Site-to-Site VPN on the internet, mostly from AWS to the data center. Throughput varies with internet conditions, and the data transfer out charges are high. The traffic is steady and expected to continue for years. Which option most reduces cost and makes performance more consistent?",
+    "es": "Una empresa mueve unos 80 TB por mes entre su data center y AWS con una Site-to-Site VPN por internet, sobre todo desde AWS hacia el data center. El throughput varía según el estado de internet y los cargos de transferencia de salida son altos. El tráfico es constante y va a seguir durante años. ¿Qué opción reduce más el costo y hace más estable el rendimiento?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Add a second Site-to-Site VPN connection and spread the traffic across both.",
+      "es": "Agregar una segunda conexión Site-to-Site VPN y repartir el tráfico entre las dos."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Enable S3 Transfer Acceleration for all the transfers.",
+      "es": "Activar S3 Transfer Acceleration para todas las transferencias."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Ship the data each month on AWS Snowball Edge devices.",
+      "es": "Mandar los datos cada mes en dispositivos AWS Snowball Edge."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Set up an AWS Direct Connect connection to the data center.",
+      "es": "Armar una conexión de AWS Direct Connect con el data center."
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Direct Connect is a dedicated private connection with more consistent network performance than the internet, and data transferred out of AWS over it is billed at lower rates than data transfer out to the internet, which pays off for large, steady volumes. More VPN tunnels still ride the internet and pay the same transfer rates. Transfer Acceleration speeds up long-distance S3 transfers for an extra charge. Snowball suits one-time or occasional bulk moves, not a continuous monthly flow.",
+    "es": "Direct Connect es una conexión privada dedicada, con un rendimiento de red más estable que internet, y los datos que salen de AWS por ella se cobran a tarifas más bajas que la salida a internet, lo que conviene con volúmenes grandes y constantes. Más túneles VPN siguen yendo por internet y pagan las mismas tarifas. Transfer Acceleration acelera las transferencias a S3 a larga distancia, con un cargo extra. Snowball sirve para movimientos masivos puntuales u ocasionales, no para un flujo continuo todos los meses."
+   }
+  },
+  {
+   "id": "saa-032",
+   "domain": "Design Cost-Optimized Architectures",
+   "prompt": {
+    "en": "A reporting job runs on an m5.large EC2 instance that is on all the time. The job is triggered about 40 times a day at unpredictable times, each run takes about two minutes and needs about 4 GB of memory, and the instance sits idle the rest of the time. Which option is the most cost-effective?",
+    "es": "Un job de reportes corre en una instancia EC2 m5.large encendida todo el tiempo. Se dispara unas 40 veces por día en momentos impredecibles, cada corrida dura unos dos minutos y necesita unos 4 GB de memoria, y el resto del tiempo la instancia está ociosa. ¿Qué opción es la más económica?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Buy a one-year Reserved Instance for the m5.large instance.",
+      "es": "Comprar una Reserved Instance a un año para la m5.large."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Move the job to a smaller burstable instance that stays on all the time.",
+      "es": "Pasar el job a una instancia burstable más chica que quede encendida todo el tiempo."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Run the job as an AWS Lambda function invoked by each trigger.",
+      "es": "Correr el job como una función AWS Lambda invocada por cada disparo."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Run the job as an Amazon ECS service on AWS Fargate with one task always running.",
+      "es": "Correr el job como un servicio de Amazon ECS en AWS Fargate con una tarea siempre corriendo."
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Lambda bills only for requests and for the compute time each run uses, and a two-minute job fits well within its 15-minute limit, so you pay for about 80 minutes of compute a day instead of 24 hours of an instance. A Reserved Instance or a smaller instance lowers the hourly rate but still pays for the idle hours, and a Fargate task that is always running is idle capacity too.",
+    "es": "Lambda cobra sólo por los requests y por el tiempo de cómputo de cada ejecución, y un job de dos minutos entra de sobra en su límite de 15 minutos, así que pagás unos 80 minutos de cómputo por día en lugar de 24 horas de instancia. Una Reserved Instance o una instancia más chica bajan la tarifa por hora, pero igual pagan las horas ociosas, y una tarea de Fargate siempre corriendo también es capacidad ociosa."
+   }
+  }
+ ]
+}

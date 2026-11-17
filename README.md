@@ -8,7 +8,7 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 - **Each certification:** price, exam format, passing score, validity, exam domains, prep resources and sources.
 - **Compare:** up to four side by side, with a shareable link.
 - **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date to check it fits, rate your topics to shift time, tick sessions off, and export to your calendar (`.ics`) or Markdown.
-- **Practice:** original questions for some certifications (AWS Cloud Practitioner and Claude Architect Foundations for now), picked by exam domain, with a timer you can pause, marked questions, accuracy by domain, review with explanations and a list of your mistakes. Questions you miss or mark come back in **Review**, spaced out further each time you get them right.
+- **Practice:** original questions for some certifications (AWS Cloud Practitioner, AWS AI Practitioner, AWS Solutions Architect Associate, Microsoft Azure Fundamentals and Claude Architect Foundations for now), picked by exam domain, with a timer you can pause, marked questions, accuracy by domain, review with explanations and a list of your mistakes. Questions you miss or mark come back in **Review**, spaced out further each time you get them right.
 - **Progress:** every plan you track in one place: streak, hours done, what comes next and five weeks of sessions at a glance.
 - **English and Spanish**, light and dark, installable and usable offline.
 - **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links into the plan, practice and compare views. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
@@ -17,7 +17,7 @@ No tracking and no backend. Your choices and progress stay in your browser.
 
 ## The catalog
 
-The catalog lists 43 certifications in AI engineering, ML foundations, AI security and cloud platforms, from Anthropic, AWS, NVIDIA, the Linux Foundation, GitHub, Microsoft, Google Cloud, Databricks and others.
+The catalog lists 44 certifications in AI engineering, ML foundations, AI security and cloud platforms, from Anthropic, AWS, NVIDIA, the Linux Foundation, GitHub, Microsoft, Google Cloud, Databricks and others.
 
 - `data/certifications/<id>.json`: one file per certification. Provider facts only (fee, format, domains, requirements), each with its sources and the date they were checked.
 - `data/practice/<id>.json`: original practice questions for a certification, in English and Spanish, under CC BY 4.0. They are never real or recalled exam questions.
@@ -25,7 +25,7 @@ The catalog lists 43 certifications in AI engineering, ML foundations, AI securi
 - `data/reports.json`: public candidate reports (how people prepared, effort, limits). They describe experiences; they do not set a pass rate.
 - `data/taxonomy.json`: skills, roles, levels and the rough hour ranges the planner starts from.
 
-Provider facts were checked in October and November 2026; exam domain weights for 31 of the 43 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
+Provider facts were checked in October and November 2026; exam domain weights for 32 of the 44 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
 
 ## Run it locally
 
