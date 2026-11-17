@@ -6,6 +6,7 @@ import { providerMark, providerColor, badge, donut, hbars, columns, domainColor 
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
+import { mountDescribe } from './describe.js';
 
 const MAX_COMPARE = 4;
 const KEYS = {
@@ -55,6 +56,7 @@ let compare = [];
 let activeCat = '';
 let activeProvider = '';
 let fuse = null;
+let describe = null;
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- visual vocabulary ----------
@@ -1651,6 +1653,27 @@ function setMotionPaused(paused) {
   $('use', button).setAttribute('href', paused ? '#i-play' : '#i-pause');
 }
 
+// "Describe what you want" (describe.js) hands what it understood to the "For me" form, where every
+// choice can be changed. The budget becomes the price filter; the experience only if the text gave one.
+function refineFromIntent(intent) {
+  const p = intent.profile;
+  profile = { ...profile, roles: p.roles, known: p.known, want: p.want, experience: intent.levelStated ? p.experience : profile.experience };
+  store.set(KEYS.profile, profile);
+  fillProfile();
+  if (p.roles.length || p.known.length) $('#profile-more').open = true;
+  const price = $('#filters').price;
+  if (p.budget != null) {
+    if (![...price.options].some((o) => o.value === String(p.budget))) {
+      const after = [...price.options].find((o) => o.value !== '' && Number(o.value) > p.budget);
+      price.insertBefore(new Option(t('price.upto', { n: p.budget }), String(p.budget)), after || null);
+    }
+    price.value = String(p.budget);
+  }
+  setProfileOpen(true);
+  renderList();
+  $('#for-me').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+}
+
 function showResults() {
   const head = $('#list-head');
   const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1697,6 +1720,7 @@ function localize() {
   labelDays();
   setRatedLabel(Object.keys(readConfidence()).length);
   setThemeButton();
+  describe?.localize();
 }
 
 async function init() {
@@ -1737,6 +1761,7 @@ async function init() {
   setThemeButton();
   fillPlanForm();
   bind();
+  describe = mountDescribe({ data: DATA, helpers: { icon, ring, lvl, fee, flag }, onRefine: refineFromIntent });
   $('#loading').remove();
   route();
   registerWorker();

@@ -54,7 +54,8 @@ for (const set of data.practice) hash.update(await readFile(join(dist, 'practice
 for (const f of [...badgeFiles].sort()) if (f.endsWith('.webp')) hash.update(await readFile(join(dist, 'badges', f)));
 const v = hash.digest('hex').slice(0, 10);
 await rewrite('index.html', [[/(src|href)="(app\.js|styles\.css)"/g, `$1="$2?v=${v}"`]]);
-await rewrite('app.js', [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
+// describe.js imports the same modules as app.js; with the same URLs they load once and share state (the language).
+for (const f of ['app.js', 'describe.js']) await rewrite(f, [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
 
 // Offline cache: the worker precaches the shell and every versioned asset of this build.
 const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', 'fonts/inter-latin.woff2', ...data.practice.map((set) => `practice/${set._file}`), ...assets.map((f) => `${f}?v=${v}`)];
