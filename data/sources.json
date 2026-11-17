@@ -971,5 +971,61 @@
     "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/index.html",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Prices in USD plus tax, with Pearson VUE listing other countries and currencies; CCNA 200-301 at $300; associate exams offered in person and online; score reports include the passing score; five-day wait before retaking a failed associate exam."
+  },
+  {
+    "id": "P80",
+    "title": "Databricks · Certified Data Engineer Associate",
+    "url": "https://www.databricks.com/learn/certification/data-engineer-associate",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Seven sections weighted 6, 21, 22, 16, 10, 10 and 15%; 45 scored multiple-choice questions, 90 minutes, $200, online or test center through Kryterion, four languages, no prerequisites, two-year validity; passing score not published; retakes after 14 days at full price."
+  },
+  {
+    "id": "P81",
+    "title": "Databricks · Data Engineer Associate exam guide (August 2026)",
+    "url": "https://www.databricks.com/sites/default/files/2026-10/Databricks-Certified-Data-Engineer-Associate-Exam-Guide-August-2026.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Exam published May 4, 2026, guide updated August 6, 2026: the same seven weighted sections, 45 scored plus up to 10 unscored items, USD 200 plus applicable taxes, six months of hands-on experience recommended; recertify with a renewal exam or the current full exam."
+  },
+  {
+    "id": "P82",
+    "title": "Databricks · Certification FAQ",
+    "url": "https://www.databricks.com/learn/certification/faq",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Certification exams cost USD 200 with no free retakes; passing scores are not published; recertifying means taking the full current live exam."
+  },
+  {
+    "id": "P83",
+    "title": "Snowflake · SnowPro Core Certification (COF-C03)",
+    "url": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam version COF-C03: 100 multiple-choice and multiple-select questions, 115 minutes, $175 ($140 in India), 750 to pass on a 0–1,000 scale, no prerequisites, online or test center, five languages; five domains weighted 31, 20, 18, 21 and 10%; six or more months of Snowflake experience recommended; continuing-education options for renewal."
+  },
+  {
+    "id": "P84",
+    "title": "Snowflake · SnowPro certification policies",
+    "url": "https://learn.snowflake.com/en/pages/snowpro-policies/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Certifications expire two years after they are awarded; the full exam can be retaken from six months before expiry; seven-day wait after a failed attempt and at most four attempts in 12 months, each at the full fee; vouchers are valid only at Pearson VUE."
+  },
+  {
+    "id": "P85",
+    "title": "Snowflake · Certification FAQs",
+    "url": "https://learn.snowflake.com/en/faqs/certification-faqs/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Fee per attempt, retakes included: Core $175 standard and $140 for candidates testing in India."
+  },
+  {
+    "id": "P86",
+    "title": "Snowflake · SnowPro Continuing Education",
+    "url": "https://learn.snowflake.com/en/snowpro-continuing-education/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Certified SnowPros recertify by passing an eligible SnowPro exam or completing eligible instructor-led courses."
+  },
+  {
+    "id": "P87",
+    "title": "Snowflake · SnowPro Practice Exams",
+    "url": "https://learn.snowflake.com/en/certifications/snowpro-practice-exams/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Unproctored practice exams built to the live exams' specifications and weightings: 30–40 questions, 65 minutes, $50 ($40 in India), one attempt within 24 hours of purchase."
   }
 ]

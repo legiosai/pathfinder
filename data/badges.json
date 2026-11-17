@@ -85,6 +85,11 @@
     "page_url": "https://www.databricks.com/learn/certification/context-engineer-associate"
   },
   {
+    "id": "databricks-data-engineer-associate",
+    "image_url": "https://www.databricks.com/sites/default/files/2025-10/associate-badge-de.png",
+    "page_url": "https://www.databricks.com/learn/certification/data-engineer-associate"
+  },
+  {
     "id": "databricks-genai-engineer",
     "image_url": "https://www.databricks.com/sites/default/files/2025-10/associate-badge-gen-ai.png",
     "page_url": "https://www.databricks.com/learn/certification/genai-engineer-associate"
@@ -248,6 +253,11 @@
     "id": "securiti-ai-governance",
     "image_url": "https://education.securiti.ai/wp-content/uploads/2024/05/ai-security-governance-badge-new.svg",
     "page_url": "https://education.securiti.ai/certifications/ai-governance/"
+  },
+  {
+    "id": "snowflake-snowpro-core",
+    "image_url": "https://s3.us-east-1.amazonaws.com/accredible-api-templates/17217634052294912642396856123542.png",
+    "page_url": "https://achieve.snowflake.com/group/513324"
   },
   {
     "id": "tcm-papa",
