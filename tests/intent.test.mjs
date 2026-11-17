@@ -453,3 +453,25 @@ test('picks stay few and sorted', () => {
     for (const p of picks) assert.ok(p.score >= 0 && p.score <= 100, text);
   }
 });
+
+test('moving into an area: certs of that area are not held back by the role you have now', () => {
+  // Two certs that both cover security at entry level: one aimed at developers in Cloud & platform,
+  // one aimed at security roles in Cybersecurity. Wanting to move into cybersecurity as a developer
+  // should put the second first, whatever the real catalog holds.
+  const base = certs.find((c) => c.level === 'entry' && c.fee.usd != null && c.fee.usd <= 150);
+  const cloud = { ...base, id: 'demo-cloud', code: 'DC-1', category: 'Cloud & platform', roles: ['developer'], skills: ['security', 'aws'], fee: { ...base.fee, usd: 100 } };
+  const cyber = { ...base, id: 'demo-cyber', code: 'DS-1', category: 'Cybersecurity', roles: ['security'], skills: ['security'], fee: { ...base.fee, usd: 150 } };
+  const pool = [cloud, cyber];
+  for (const text of ['soy dev junior, quiero meterme en ciberseguridad', "I'm a junior developer and I want to get into cybersecurity"]) {
+    const intent = parseIntent(text, { certs: pool });
+    assert.deepEqual(intent.profile.roles, ['developer'], text);
+    const { picks } = recommend(pool, rank(pool, intent.profile, {}), intent);
+    assert.equal(picks[0].id, 'demo-cyber', text);
+  }
+  // Without a named area, the role still counts as before.
+  const plain = parseIntent('soy dev junior, quiero aprender security', { certs: pool });
+  if (!plain.areas.includes('Cybersecurity')) {
+    const { picks } = recommend(pool, rank(pool, plain.profile, {}), plain);
+    assert.equal(picks[0].id, 'demo-cloud');
+  }
+});
