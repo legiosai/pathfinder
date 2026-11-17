@@ -17,7 +17,7 @@ No tracking and no backend. Your choices and progress stay in your browser.
 
 ## The catalog
 
-The catalog lists 44 certifications in AI engineering, ML foundations, AI security and cloud platforms, from Anthropic, AWS, NVIDIA, the Linux Foundation, GitHub, Microsoft, Google Cloud, Databricks and others.
+The catalog lists 62 certifications in AI engineering, ML foundations, AI security, cybersecurity and cloud platforms, from Anthropic, AWS, NVIDIA, CompTIA, ISC2, ISACA, the Linux Foundation, GitHub, Microsoft, Google Cloud, OffSec, Databricks and others.
 
 - `data/certifications/<id>.json`: one file per certification. Provider facts only (fee, format, domains, requirements), each with its sources and the date they were checked.
 - `data/practice/<id>.json`: original practice questions for a certification, in English and Spanish, under CC BY 4.0. They are never real or recalled exam questions.
@@ -25,7 +25,7 @@ The catalog lists 44 certifications in AI engineering, ML foundations, AI securi
 - `data/reports.json`: public candidate reports (how people prepared, effort, limits). They describe experiences; they do not set a pass rate.
 - `data/taxonomy.json`: skills, roles, levels and the rough hour ranges the planner starts from.
 
-Provider facts were checked in October and November 2026; exam domain weights for 32 of the 44 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
+Provider facts were checked in October and November 2026; exam domain weights for 47 of the 62 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
 
 ## Run it locally
 

@@ -1,0 +1,112 @@
+{
+  "id": "ec-council-ceh",
+  "name": "Certified Ethical Hacker",
+  "provider": "EC-Council",
+  "code": "312-50 (CEH v13)",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 950,
+    "basis": "Exam voucher, remotely proctored",
+    "note": "US$1,199 at a Pearson VUE test centre. Without official training, a non-refundable US$100 eligibility application fee comes first. Training partners bundle the voucher with courses at prices that vary by region and partner; EC-Council does not set them."
+  },
+  "exam": {
+    "minutes": 240,
+    "style": "knowledge",
+    "format": "125 multiple-choice questions in 4 hours, remotely proctored through EC-Council's exam portal or at a Pearson VUE test centre; not open book. The optional CEH (Practical) is a separate 6-hour exam with 20 hands-on challenges; holding both earns the CEH Master designation.",
+    "questions": "125",
+    "passing": "60–85% (cut score set per exam form)",
+    "validity": "3 years"
+  },
+  "scope": "Ethical hacking methods and tools: reconnaissance, scanning and enumeration, system hacking and malware, network and perimeter attacks, web application, wireless, mobile, IoT/OT and cloud hacking, and cryptography.",
+  "requirements": "Eligibility comes from official EC-Council training (an Accredited Training Center, EC-Council's online learning or an academic partner) or, without training, an approved eligibility application: verifiable proof of at least two years of information security work in the exam domains and a non-refundable US$100 fee. Approval usually takes 5–10 working days and lasts 90 days; a voucher is valid for one year.",
+  "ai_policy": "Check the current assessment rules. EC-Council markets CEH v13 as AI-powered (AI tools in the course and labs); that is course content, not permission to use AI during the exam.",
+  "caveats": [
+    "Version 13 is current. EC-Council says new versions come every 12–18 months; none was announced on its pages read 2026-11-17.",
+    "Renewal: 120 EC-Council continuing education credits in each three-year window plus an annual US$80 continuing education fee.",
+    "Retakes are bought separately unless a training package includes them; at most five attempts in 12 months, with 14-day waits from the third attempt.",
+    "EC-Council's pages disagree on delivery: the certification page lists the ECC Exam Centre and Pearson VUE, while a FAQ on the same page says the exam is only available at the ECC Exam Centre. The store sells both vouchers."
+  ],
+  "skills": [
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [
+    {
+      "name": "Information Security and Ethical Hacking Overview",
+      "weight": 6
+    },
+    {
+      "name": "Reconnaissance Techniques",
+      "weight": 17
+    },
+    {
+      "name": "System Hacking Phases and Attack Techniques",
+      "weight": 15
+    },
+    {
+      "name": "Network and Perimeter Hacking",
+      "weight": 24
+    },
+    {
+      "name": "Web Application Hacking",
+      "weight": 14
+    },
+    {
+      "name": "Wireless Network Hacking",
+      "weight": 5
+    },
+    {
+      "name": "Mobile Platform, IoT, and OT Hacking",
+      "weight": 10
+    },
+    {
+      "name": "Cloud Computing",
+      "weight": 5
+    },
+    {
+      "name": "Cryptography",
+      "weight": 5
+    }
+  ],
+  "sources": [
+    "S62",
+    "S63",
+    "S64",
+    "S65",
+    "S66",
+    "S67",
+    "S68",
+    "S69"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CEH Exam Blueprint v5.0",
+      "url": "https://cert.eccouncil.org/wp-content/uploads/2024/04/CEH-Exam-Blueprint-v5.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "CEH Candidate Handbook",
+      "url": "https://cert.eccouncil.org/images/doc/CEH-Handbook-v7.1.pdf",
+      "kind": "docs",
+      "cost": "free",
+      "note": "Eligibility, exam rules, retakes and renewal."
+    },
+    {
+      "title": "CEH v13 official training",
+      "url": "https://www.eccouncil.org/train-certify/certified-ethical-hacker-ceh/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "The training route to eligibility; packages include the exam voucher and official labs."
+    }
+  ],
+  "domains_note": "Weights from EC-Council's CEH Exam Blueprint v5.0 (PDF dated April 2024), linked from the CEH certification page and reproduced in the candidate handbook of September 2026; read 2026-11-17. The published percentages are rounded and add up to 101; by question count the split is 7, 21, 19, 30, 18, 6, 12, 6 and 6 of 125."
+}

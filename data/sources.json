@@ -509,5 +509,516 @@
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Fundamentals certifications do not expire."
+  },
+  {
+    "id": "S01",
+    "title": "CompTIA · Security+ certification (version choice)",
+    "url": "https://www.comptia.org/en-us/certifications/security/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Security+ V8 is the recommended new version; V7 stays available until retirement, the English exam on June 11, 2027 and translated exams on August 13, 2027."
+  },
+  {
+    "id": "S02",
+    "title": "CompTIA · Security+ V8 (SY0-801)",
+    "url": "https://www.comptia.org/en-us/certifications/security/v8/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam series code SY0-801, launched November 17, 2026; maximum of 90 multiple-choice and performance-based questions, 90 minutes, 750 on a 100–900 scale, English, two years as a security administrator recommended, retirement estimated three years after launch; domain weights 16/24/19/27/14. The page's Buy now listing shows the US list prices (USD, North America market): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209."
+  },
+  {
+    "id": "S03",
+    "title": "CompTIA · Security+ V7 (SY0-701)",
+    "url": "https://www.comptia.org/en-us/certifications/security/v7/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Retiring version: SY0-701 launched November 7, 2023; retires in English on June 11, 2027 and in Japanese, Portuguese, Spanish and Thai on August 13, 2027; same 90 questions, 90 minutes and 750 pass mark; domain weights 12/22/18/28/20; voucher $439."
+  },
+  {
+    "id": "S04",
+    "title": "CompTIA · Security+ SY0-801 exam objectives",
+    "url": "https://lecbyo.files.cmp.optimizely.com/download/77f3bd3223ac11f180820e495f189928",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Objectives document version 2.0, linked from the Security+ V8 page: maximum of 90 questions, multiple-choice and performance-based, 90 minutes, 750 (100–900); domains General Security Concepts 16%, Threats, Vulnerabilities, and Attacks 24%, Security Architecture 19%, Security Operations 27%, Security Program Management and Oversight 14%."
+  },
+  {
+    "id": "S05",
+    "title": "CompTIA · CySA+ certification (version choice)",
+    "url": "https://www.comptia.org/en-us/certifications/cybersecurity-analyst/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. CySA+ V4 is the recommended new version; V3 English learning products retire November 22, 2026, the English exam December 22, 2026 and translations March 23, 2027."
+  },
+  {
+    "id": "S06",
+    "title": "CompTIA · CySA+ V4 (CS0-004)",
+    "url": "https://www.comptia.org/en-us/certifications/cybersecurity-analyst/v4/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam series code CS0-004, launched June 23, 2026; maximum of 85 questions, 165 minutes, 750 on a 100–900 scale; English with French, Japanese, Spanish and Portuguese coming soon; about four years as a SOC or vulnerability analyst recommended; domain weights 34/26/24/16. Buy now listing (USD list): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209."
+  },
+  {
+    "id": "S07",
+    "title": "CompTIA · CySA+ V3 (CS0-003)",
+    "url": "https://www.comptia.org/en-us/certifications/cybersecurity-analyst/v3/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Retiring version: CS0-003 launched June 6, 2023; retires in English on December 22, 2026 and in Japanese, Portuguese and Spanish on March 23, 2027; domain weights 33/30/20/17."
+  },
+  {
+    "id": "S08",
+    "title": "CompTIA · CySA+ CS0-004 exam objectives",
+    "url": "https://lecbyo.files.cmp.optimizely.com/download/68b1eae88e5011f08868a275d699e612",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. CompTIA-hosted objectives, document version 2.0: maximum of 85 multiple-choice and performance-based questions, 165 minutes, 750 (100–900); domains Security Operations 34%, Vulnerability Management 26%, Incident Response and Management 24%, Reporting and Communication 16%."
+  },
+  {
+    "id": "S09",
+    "title": "CompTIA · PenTest+ (PT0-003)",
+    "url": "https://www.comptia.org/en-us/certifications/pentest/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam series code PT0-003 (V3), launched December 17, 2024; previous exam retired June 17, 2025; retirement estimated 2027; maximum of 90 questions, 165 minutes, 750 on a 100–900 scale; English, French, Japanese and Portuguese; domain weights 13/21/17/35/14. Buy now listing (USD list): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209."
+  },
+  {
+    "id": "S10",
+    "title": "CompTIA · PenTest+ PT0-003 exam objectives",
+    "url": "https://lecbyo.files.cmp.optimizely.com/download/1e8cf0febef111efb260822b03028498",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. CompTIA-hosted objectives, document version 5.0: maximum of 90 multiple-choice and performance-based questions, 165 minutes, passing score 750; domains Engagement Management 13%, Reconnaissance and Enumeration 21%, Vulnerability Discovery and Analysis 17%, Attacks and Exploits 35%, Post-exploitation and Lateral Movement 14%."
+  },
+  {
+    "id": "S11",
+    "title": "CompTIA · SecurityX (CAS-005)",
+    "url": "https://www.comptia.org/en-us/certifications/securityx/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam series code CAS-005 (V5), launched December 17, 2024; retirement estimated 2027; maximum of 90 questions, maximum of 165 minutes, pass/fail with no scaled score; English and Japanese; ten years of IT experience including five in security recommended; domain weights 20/27/31/22. Buy now listing (USD list): voucher $544, voucher with Retake Assurance $709, bundles from $748, CertMaster Perform $984, Practice $284."
+  },
+  {
+    "id": "S12",
+    "title": "CompTIA · SecurityX CAS-005 exam objectives",
+    "url": "https://lecbyo.files.cmp.optimizely.com/download/35cf5f02b73211efa0ca8e42e80f1a8f",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. CompTIA-hosted objectives, document version 7.0, for 'CompTIA SecurityX (formerly CASP+)': maximum of 90 questions, 165 minutes, pass/fail only; domains Governance, Risk, and Compliance 20%, Security Architecture 27%, Security Engineering 31%, Security Operations 22%."
+  },
+  {
+    "id": "S13",
+    "title": "CompTIA · Certification renewal policy",
+    "url": "https://www.comptia.org/en-us/resources/test-policies/continuing-education-policies/certification-renewal-policy/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Security+, CySA+, PenTest+ and SecurityX are valid for three years from the certification date; 30-day grace period for CE fees or CEUs; a lapsed certification needs the latest exam version."
+  },
+  {
+    "id": "S14",
+    "title": "CompTIA · Earn continuing education units (CEUs)",
+    "url": "https://www.comptia.org/en-us/resources/ce/learn/earn-continuing-education-units-ceus/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. CEUs per three-year cycle: Security+ 50, CySA+ 60, PenTest+ 60, SecurityX 75; at least half of an activity's content must relate to the exam objectives."
+  },
+  {
+    "id": "S15",
+    "title": "CompTIA · Continuing education renewal fees",
+    "url": "https://www.comptia.org/en-us/resources/ce/learn/continuing-education-renewal-fees/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. CE fee of $150 per three-year period for Security+, CySA+, PenTest+ and SecurityX, payable any time before expiration."
+  },
+  {
+    "id": "S16",
+    "title": "CompTIA · Voucher terms and conditions",
+    "url": "https://www.comptia.org/en-us/legal/product-terms/voucher-terms/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Vouchers are country and currency specific, exam series specific and in some cases exam code specific; purchases are final; exams may retire before a voucher expires."
+  },
+  {
+    "id": "S17",
+    "title": "CompTIA · Continuing education",
+    "url": "https://www.comptia.org/en-us/certifications/continuing-education/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Renewal routes: pass the latest exam version, earn some higher-level CompTIA certifications, complete CertMaster CE (A+, Network+, Security+), or submit CEUs and pay the CE fee."
+  },
+  {
+    "id": "S25",
+    "title": "ISC2 · Certified in Cybersecurity (CC)",
+    "url": "https://www.isc2.org/certifications/cc",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Entry-level certification, no work experience required; exam-only purchase gives one attempt to be taken within 365 days, Peace of Mind Protection gives two attempts within 180 days; lists the five 2026 domains."
+  },
+  {
+    "id": "S26",
+    "title": "ISC2 · CC Certification Exam Outline",
+    "url": "https://www.isc2.org/certifications/cc/cc-certification-exam-outline",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17, with the English PDF (revised 01-2026). Effective September 1, 2026: CAT for all languages, 2 hours, 100–125 items, 700 of 1,000 to pass, English, Chinese, Japanese, German and Spanish at Pearson VUE; average weights 24, 17.3, 20, 21.3 and 17.3%. No experience or degree required."
+  },
+  {
+    "id": "S27",
+    "title": "ISC2 · Inside the updated ISC2 CC exam",
+    "url": "https://www.isc2.org/insights/2026/08/inside-the-updated-isc2-cc-exam",
+    "kind": "Provider / announcement",
+    "note": "Read 2026-11-17. August 2026 article on the outline effective September 1, 2026, the first major content update since the August 2022 launch: old and new domains with weights, governance as its own domain, cloud and AI topics added, and the earlier move from a linear exam to CAT."
+  },
+  {
+    "id": "S28",
+    "title": "ISC2 · One Million Certified in Cybersecurity",
+    "url": "https://www.isc2.org/landing/1mcc",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. The free CC course and exam program closed new enrollments effective May 20, 2026; codes already issued must be used by December 31, 2026. The CC exam fee is U.S. $199, and passing candidates pay a U.S. $50 AMF."
+  },
+  {
+    "id": "S29",
+    "title": "ISC2 · Exam pricing",
+    "url": "https://www.isc2.org/register-for-exam/isc2-exam-pricing",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Standard registration: CC U.S. $199, SSCP $249, CCSP $599, CISSP $749 in the Americas, Asia Pacific, Middle East, Africa and other regions; EMEA EUR 191.04 / 239.04 / 575.04 / 719.04; UK GBP 161.19 / 201.69 / 485.19 / 606.69. Pricing and taxes depend on the exam location. Reschedule U.S. $50, cancel U.S. $100."
+  },
+  {
+    "id": "S30",
+    "title": "ISC2 · Membership policies and procedures",
+    "url": "https://www.isc2.org/policies-procedures/member-policies",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Three-year certification cycle; CPE totals per cycle: CC 45, SSCP 60, CCSP 90, CISSP 120; Associates of ISC2 earn 15 CPE a year. AMF U.S. $135 (U.S. $50 for CC-only holders and Associates). Associates have up to six years (CISSP, CCSP) or two years (SSCP) to gain the experience."
+  },
+  {
+    "id": "S31",
+    "title": "ISC2 · Annual maintenance fees overview",
+    "url": "https://www.isc2.org/AMFs-overview",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. AMF U.S. $135 for CISSP, SSCP, CCSP and other certifications; U.S. $50 for CC-only holders and Associates; one AMF per member, due on the certification anniversary."
+  },
+  {
+    "id": "S32",
+    "title": "ISC2 · Endorsement",
+    "url": "https://www.isc2.org/endorsement",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. After passing, candidates apply within nine months of the exam date, endorsed by an ISC2-certified member in good standing or by ISC2 itself with proof of employment. CC needs no endorsement."
+  },
+  {
+    "id": "S33",
+    "title": "ISC2 · Schedule your exam",
+    "url": "https://www.isc2.org/exams/schedule-exam",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. All exams at Pearson VUE test centers; Pearson charges U.S. $50 to reschedule and U.S. $100 to cancel; the fee is not refunded if the exam is not taken within 365 days of purchase."
+  },
+  {
+    "id": "S34",
+    "title": "ISC2 · Systems Security Certified Practitioner (SSCP)",
+    "url": "https://www.isc2.org/certifications/sscp",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. One year of required work experience; exam-only (one attempt, 365 days) or Peace of Mind Protection (two attempts, 180 days); no outline change announced."
+  },
+  {
+    "id": "S35",
+    "title": "ISC2 · SSCP Certification Exam Outline",
+    "url": "https://www.isc2.org/certifications/sscp/sscp-certification-exam-outline",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17, with the English PDF. Effective October 1, 2025: CAT, 2 hours, 100–125 items, 700 of 1,000 to pass, English, Japanese and Spanish; seven domains with average weights; one year of experience, which a relevant degree can satisfy."
+  },
+  {
+    "id": "S36",
+    "title": "ISC2 · Certified Information Systems Security Professional (CISSP)",
+    "url": "https://www.isc2.org/certifications/cissp",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Five years of required work experience; exam-only (one attempt, 365 days) or Peace of Mind Protection (two attempts, 180 days); notice that the exam moves to a new outline effective April 15, 2027."
+  },
+  {
+    "id": "S37",
+    "title": "ISC2 · CISSP Certification Exam Outline",
+    "url": "https://www.isc2.org/certifications/cissp/cissp-certification-exam-outline",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17, with both English PDFs. Current outline effective April 15, 2024: CAT in all five languages, 3 hours, 100–150 items, 700 of 1,000 to pass, weights 16/10/13/13/13/12/13/10%. Outline effective April 15, 2027: Domain 1 renamed Security Governance and Risk Management, weights 13.6/12/12.8/12.8/13.6/11.2/12.8/11.2%, same length and item range."
+  },
+  {
+    "id": "S38",
+    "title": "ISC2 · CISSP experience requirements",
+    "url": "https://www.isc2.org/certifications/cissp/cissp-experience-requirements",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Five years cumulative full-time experience in two or more of the eight domains; a relevant degree or an approved credential can satisfy one year; part-time work (20–34 hours a week) and internships count; Associates of ISC2 have six years to earn the experience."
+  },
+  {
+    "id": "S39",
+    "title": "ISC2 · Certified Cloud Security Professional (CCSP)",
+    "url": "https://www.isc2.org/certifications/ccsp",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Five years of required work experience and the six exam domains; links to the exam outline and official training."
+  },
+  {
+    "id": "S40",
+    "title": "ISC2 · CCSP Certification Exam Outline",
+    "url": "https://www.isc2.org/certifications/ccsp/ccsp-certification-exam-outline",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17, with the English PDF (01-2026 V2). Effective August 1, 2026: CAT, 3 hours, 100–150 items, 700 of 1,000 to pass, English, Chinese, German and Japanese; six domains with average weights. Experience: five years in IT, three in cybersecurity, one in a CCSP domain; a degree or CSA CCSK waives one year; an active CISSP covers the whole requirement."
+  },
+  {
+    "id": "S50",
+    "title": "ISACA · CISM certification",
+    "url": "https://www.isaca.org/credentialing/cism",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam US$575 for members and US$760 for non-members, US$50 application fee after passing, PSI test centres or remote proctoring, six languages, six-month eligibility window, five years from passing to apply."
+  },
+  {
+    "id": "S51",
+    "title": "ISACA · CISM exam content outline",
+    "url": "https://www.isaca.org/credentialing/cism/cism-exam-content-outline",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Four domains: Information Security Governance 18%, Information Security Risk Management 20%, Information Security Program 33%, Incident Management 29%; 150 questions. The page gives no effective date."
+  },
+  {
+    "id": "S52",
+    "title": "ISACA · CISM exam content outline update (press release, 10 September 2026)",
+    "url": "https://www.isaca.org/about-us/newsroom/press-releases/2026/isaca-updates-cism-exam-content-outline-factoring-in-todays-technologies-security-responsibilities",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. The updated CISM exam is available from 3 November 2026: more emphasis on security strategy and program development, new enterprise architecture and information security architecture content, same four domains with weights 18/20/33/29; updated prep materials from 1 September 2026."
+  },
+  {
+    "id": "S53",
+    "title": "ISACA · Earn a CISM certification",
+    "url": "https://www.isaca.org/credentialing/cism/get-cism-certified",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Five or more years of CISM work experience across at least three of the four domains, gained within the 10 years before applying and verified by a supervisor; the exam can be taken first; five years from passing to apply; one-time US$50 application fee."
+  },
+  {
+    "id": "S54",
+    "title": "ISACA · Maintain CISM certification",
+    "url": "https://www.isaca.org/credentialing/cism/maintain-cism-certification",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Annual maintenance fee US$45 (members) or US$85 (non-members), due by 1 January to renew through the next calendar year; at least 20 CPE hours a year and 120 over a three-year period."
+  },
+  {
+    "id": "S55",
+    "title": "ISACA · Certification Exam Candidate Guide (2026)",
+    "url": "https://www.isaca.org/-/media/files/isacadp/project/isaca/certification/exam-candidate-guides/2026/exam-candidate-guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17 (PDF modified 27 October 2026). CISA and CISM: 150 multiple-choice questions in 4 hours; scaled scores 200–800, pass at 450; member/non-member fees US$575/US$760; experience waivers up to three years for CISA and two for CISM; four attempts in a rolling 12 months with 30/90/90-day waits; same domain weights as the outline pages."
+  },
+  {
+    "id": "S56",
+    "title": "ISACA · CPE policy changes for 2027",
+    "url": "https://www.isaca.org/credentialing/cpe-2027",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. From 1 January 2027 the 120-CPE three-year requirement stays, but at least 90 CPEs must align with the certification's exam content outline; no system changes in the 2026 cycle."
+  },
+  {
+    "id": "S57",
+    "title": "ISACA · CISA certification",
+    "url": "https://www.isaca.org/credentialing/cisa",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam US$575 for members and US$760 for non-members, US$50 application fee, PSI test centres or remote proctoring, seven languages, six-month eligibility window, five years from passing to apply."
+  },
+  {
+    "id": "S58",
+    "title": "ISACA · CISA exam content outline",
+    "url": "https://www.isaca.org/credentialing/cisa/cisa-exam-content-outline",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Five domains: Information Systems Auditing Process 18%, Governance & Management of IT 18%, Information Systems Acquisition, Development & Implementation 12%, Information Systems Operations and Business Resilience 26%, Protection of Information Assets 26%; 150 questions."
+  },
+  {
+    "id": "S59",
+    "title": "ISACA · CISA exam updated (press release, 1 May 2024)",
+    "url": "https://www.isaca.org/about-us/newsroom/press-releases/2024/isacas-cisa-exam-updated-to-reflect-innovations-and-evolving-technologies-impacting-it-audit",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. The updated CISA exam (current outline) has been available since 1 August 2024."
+  },
+  {
+    "id": "S60",
+    "title": "ISACA · Earn a CISA certification",
+    "url": "https://www.isaca.org/credentialing/cisa/get-cisa-certified",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Five or more years of professional IS auditing, control or security work experience, gained within the 10 years before applying; the exam can be taken first; five years from passing to apply; one-time US$50 application fee."
+  },
+  {
+    "id": "S61",
+    "title": "ISACA · Maintain CISA certification",
+    "url": "https://www.isaca.org/credentialing/cisa/maintain-cisa-certification",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Annual maintenance fee US$45 (members) or US$85 (non-members), due by 1 January; at least 20 CPE hours a year and 120 over a three-year period."
+  },
+  {
+    "id": "S62",
+    "title": "EC-Council · Certified Ethical Hacker (CEH) course and exam",
+    "url": "https://www.eccouncil.org/train-certify/certified-ethical-hacker-ceh/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Currently on version 13 (releases every 12–18 months); knowledge exam of 125 multiple-choice questions in 4 hours, passing cut score 60–85% by exam form; optional 6-hour, 20-challenge CEH (Practical); two eligibility paths (official training or eligibility application); training packages include the exam voucher; no exam price on the page."
+  },
+  {
+    "id": "S63",
+    "title": "EC-Council · Certified Ethical Hacker certification (312-50)",
+    "url": "https://cert.eccouncil.org/certified-ethical-hacker.html",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam 312-50 at the ECC Exam Centre and Pearson VUE (its FAQ also says ECC Exam Centre only); 4 hours, 125 questions; cut scores 60–85% per form; eligibility by official training or two years of InfoSec experience with a non-refundable US$100 application fee; approval valid three months; voucher valid one year; not open book; links Exam Blueprint v5.0."
+  },
+  {
+    "id": "S64",
+    "title": "EC-Council · Application process and eligibility",
+    "url": "https://cert.eccouncil.org/application-process-eligibility.html",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. CEH vouchers US$950 (online exam with proctoring) or US$1,199 (Pearson VUE); US$100 eligibility application fee without training; approval in 5–10 working days, valid 90 days; up to four retakes a year; EC-Council does not set partners' training or bundle prices, which vary by region."
+  },
+  {
+    "id": "S65",
+    "title": "EC-Council · CEH Exam Blueprint v5.0",
+    "url": "https://cert.eccouncil.org/wp-content/uploads/2024/04/CEH-Exam-Blueprint-v5.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17 (PDF dated April 2024, linked from the CEH certification page). Nine domains with question counts and rounded weights: 6, 17, 15, 24, 14, 5, 10, 5 and 5% (they add up to 101); 125 questions in all."
+  },
+  {
+    "id": "S66",
+    "title": "EC-Council · Continuing Professional Education (ECE) policy",
+    "url": "https://cert.eccouncil.org/cpe-policy.html",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Certifications are valid for three years and renewed with 120 credits per certification in each three-year window; an annual continuing education fee applies."
+  },
+  {
+    "id": "S67",
+    "title": "EC-Council · Continuing education fees",
+    "url": "https://cert.eccouncil.org/continuing-education-fees.html",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Annual CE fee of US$80 for 312-prefix certifications such as CEH, payable from the certification date."
+  },
+  {
+    "id": "S68",
+    "title": "EC-Council · CEH Candidate Handbook",
+    "url": "https://cert.eccouncil.org/images/doc/CEH-Handbook-v7.1.pdf",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (PDF created September 2026, footer v7.3). 4 hours and 125 multiple-choice questions at VUE and EC-Council test centres; credential valid three years, renewed with 120 credits; at most five attempts in 12 months with 14-day waits from the third; Exam Blueprint v5.0 as Appendix A."
+  },
+  {
+    "id": "S69",
+    "title": "EC-Council Store · CEH Exam Voucher – RPS",
+    "url": "https://store.eccouncil.org/product/ceh-ecc-exam-center-voucher/",
+    "kind": "Provider / price page",
+    "note": "Read 2026-11-17. Remote-proctored CEH exam voucher listed at US$950.00; the Pearson VUE voucher page lists US$1,199.00."
+  },
+  {
+    "id": "S70",
+    "title": "GIAC · Security Essentials (GSEC)",
+    "url": "https://www.giac.org/certifications/security-essentials-gsec/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. One proctored exam, 106 questions, 4 hours, 72% to pass for exam versions released on or after 6 April 2026; ProctorU remote or Pearson VUE; 120 days from activation; CyberLive hands-on testing described; 26 exam objectives listed without weights; no prerequisites stated."
+  },
+  {
+    "id": "S71",
+    "title": "GIAC · Certification pricing and fees",
+    "url": "https://www.giac.org/pricing",
+    "kind": "Provider / price page",
+    "note": "Read 2026-11-17. GSEC: certification attempt US$999, retake US$899, 45-day extension US$479, renewal US$499 (US$249 for additional renewals within two years of a full-price one), practice exam US$399. Prices in USD, excluding sales tax."
+  },
+  {
+    "id": "S72",
+    "title": "GIAC · How to renew",
+    "url": "https://www.giac.org/renewal/how-to-renew",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Renew with 36 CPEs or by retaking the exam, then pay the renewal fee; the certification stays active for four more years."
+  },
+  {
+    "id": "S73",
+    "title": "GIAC · Practitioner exam preparation",
+    "url": "https://www.giac.org/how-to-prepare/practitioner",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. GIAC exams are open book: printed books, notes and study guides allowed, no digital items; practice tests are a separate purchase."
+  },
+  {
+    "id": "S74",
+    "title": "GIAC · Exam integrity policy",
+    "url": "https://www.giac.org/policies/exam-integrity",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Copying exam content into any web-based location, including AI sites such as ChatGPT, and using unauthorized electronic devices are violations."
+  },
+  {
+    "id": "S75",
+    "title": "OffSec · PEN-200 and OSCP+",
+    "url": "https://www.offsec.com/courses/pen-200/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. OSCP+ Standalone Exam $1,699; Course + Cert Bundle $1,749 (90 days, one attempt); Learn One $2,749/year shown at $2,199 with $550 off (one year, two attempts). 24-hour proctored exam: three standalone machines graded on initial access and privilege escalation, one Active Directory set of three machines. Passing earns OSCP and OSCP+; OSCP+ expires three years from issuance (renewal by recertification exam, a qualifying OffSec exam or the CPE program), OSCP does not expire. No formal prerequisites."
+  },
+  {
+    "id": "S76",
+    "title": "OffSec · OSCP+ Standalone Exam",
+    "url": "https://www.offsec.com/products/oscp-plus/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. $1,699 for two exam attempts in a 90-day period, no course materials; entirely hands-on; an additional 24 hours after the exam to submit a penetration testing report."
+  },
+  {
+    "id": "S77",
+    "title": "OffSec · OSCP+ scaled scoring update",
+    "url": "https://www.offsec.com/blog/oscp-grading-update/",
+    "kind": "Provider announcement",
+    "note": "Published 2026-10-21, read 2026-11-17. Exams taken through 2026-11-30 pass at 70 of 100 points; from 2026-12-01 (08:00 GMT, including rescheduled exams) results use a scaled score per exam set with no single raw-point pass mark. Format, duration, content, proctoring, retakes and fees unchanged."
+  },
+  {
+    "id": "S78",
+    "title": "INE · eJPT certification",
+    "url": "https://ine.com/security/certifications/ejpt-certification/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam domains with weights (35/25/25/15); needs an INE subscription and an exam voucher (included in INE Fundamentals Annual and the eJPT + Prep Bundle); vouchers expire 180 days after purchase with one free retake within 14 days; auto-graded results within hours; valid three years. No prices, exam length or passing score on the page."
+  },
+  {
+    "id": "S79",
+    "title": "INE · Updated eJPT announcement",
+    "url": "https://ine.com/newsroom/ine-security-launches-updated-ejpt-certification-with-expanded-web-app-testing-recon-training-and-offensive-ai",
+    "kind": "Provider announcement",
+    "note": "Dated 2026-03-26, read 2026-11-17. The exam expands from 35 to 45 questions and keeps the 48-hour hands-on practical format; new information-gathering and web application testing content; new Offensive AI course."
+  },
+  {
+    "id": "S80",
+    "title": "Hack The Box · HTB CPTS",
+    "url": "https://academy.hackthebox.com/preview/certifications/htb-certified-penetration-testing-specialist",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Requires the Penetration Tester job-role path (28 modules) at 100% and a voucher; two attempts per voucher; exam lab open 10 days with the report due within 10 days; flags, a points threshold and a commercial-grade report; results within 20 business days; vouchers expire one year after purchase; HTB Academy certifications do not expire. No voucher price shown."
+  },
+  {
+    "id": "S81",
+    "title": "Hack The Box · Academy certifications (help center)",
+    "url": "https://help.hackthebox.com/en/articles/12741732-academy-certifications",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (article dated October 12, 2026). Eligibility: 100% of the role path plus a voucher; annual subscriptions include a voucher, monthly ones need it bought separately; 14 days to start the second attempt. Using AI to complete exam tasks violates the exam terms; local reference use is allowed."
+  },
+  {
+    "id": "S82",
+    "title": "Hack The Box · HTB Academy pricing changes",
+    "url": "https://www.hackthebox.com/blog/new-academy-pricing",
+    "kind": "Provider announcement",
+    "note": "Published 2026-09-03, read 2026-11-17. From October 12, 2026: Silver Annual $550/year with two bundled vouchers (HTB CJCA + 1 Specialist certification), Gold Annual $1,400/year (HTB CJCA + 1 Expert certification). Names HTB CPTS among the certifications available through annual plans. No standalone voucher price."
+  },
+  {
+    "id": "S83",
+    "title": "Microsoft · Security, Compliance, and Identity Fundamentals SC-900",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/security-compliance-and-identity-fundamentals/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Current certification (Beginner level, last updated 10/21/2026); 45-minute proctored exam with possible interactive components; price by country or region; Pearson VUE or Certiport scheduling; 13 languages."
+  },
+  {
+    "id": "S84",
+    "title": "Microsoft · SC-900 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-900",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of October 21, 2026: concepts 10–15%, Microsoft Entra 25–30%, security solutions 35–40%, compliance solutions 20–25%; minor changes from the previous version; 700 to pass."
+  },
+  {
+    "id": "S85",
+    "title": "Microsoft · Security Operations Analyst Associate SC-200",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/security-operations-analyst/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Current certification (Intermediate level, last updated 10/21/2026); 100-minute proctored exam with possible interactive components; price by country or region; renewal every 12 months; 10 languages."
+  },
+  {
+    "id": "S86",
+    "title": "Microsoft · SC-200 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-200",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of October 21, 2026: manage a security operations environment 40–45%, respond to security incidents 35–40%, perform threat hunting 20–25%; minor changes from the previous version; 700 to pass; associate certifications expire annually and renew through a free online assessment."
+  },
+  {
+    "id": "S87",
+    "title": "Google Cloud · Professional Cloud Security Engineer",
+    "url": "https://cloud.google.com/learn/certification/cloud-security-engineer",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Two hours, $200 plus tax where applicable, English and Japanese, 50–60 multiple choice and multiple select questions, online or test-center proctoring, no prerequisites, 3+ years of experience recommended including 1+ year on Google Cloud."
+  },
+  {
+    "id": "S88",
+    "title": "Google Cloud · Professional Cloud Security Engineer exam guide",
+    "url": "https://services.google.com/fh/files/misc/professional_cloud_security_engineer_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Five sections with approximate weights: configuring access ~25%, communications and boundary protection ~22%, data protection ~23%, managing operations ~19%, compliance ~11%. Covers securing AI workloads and the software supply chain. No version or date in the PDF."
+  },
+  {
+    "id": "S89",
+    "title": "Google Cloud · Certification exam terms and policies",
+    "url": "https://cloud.google.com/certification/terms",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Professional certifications are valid for two years from issue; renewal by passing the exam again from 60 days before expiry; up to four attempts in two years (14, 60 and 365-day waits); using any AI software during the exam is prohibited."
   }
 ]

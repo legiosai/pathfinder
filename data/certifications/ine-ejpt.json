@@ -1,0 +1,78 @@
+{
+  "id": "ine-ejpt",
+  "name": "Junior Penetration Tester",
+  "provider": "INE",
+  "code": "eJPT",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Subscription + voucher",
+    "note": "INE's eJPT page shows no prices. The voucher comes with INE Fundamentals Annual (one year of novice-level training) or the eJPT + Prep Bundle (three months), or can be bought on its own with an active INE subscription; prices appear at checkout."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "practical",
+    "format": "Hands-on practical exam: 45 questions answered from a lab within a 48-hour window. Auto-graded; results usually arrive within a few hours with a breakdown by section.",
+    "questions": "45",
+    "validity": "3 years"
+  },
+  "scope": "Entry-level penetration testing: assessment methodologies and information gathering, host and network auditing, host and network penetration testing, and web application testing.",
+  "requirements": "No formal prerequisites. INE requires an active INE subscription alongside the exam voucher.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "INE's certification page gives no price, exam length or passing score. The 45 questions and the 48-hour window come from INE's 26 March 2026 announcement of the updated exam, which grew from 35 questions.",
+    "That update added information-gathering and web application testing questions; the certification page still listed web application testing at 15% on 2026-11-17.",
+    "Vouchers expire 180 days after purchase. The included free retake must be taken within 14 days of a failed attempt, and both attempts must be submitted before the voucher expires.",
+    "INE describes renewal options for the three-year credential but does not detail them on the certification page."
+  ],
+  "skills": [
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [
+    {
+      "name": "Host and Network Penetration Testing",
+      "weight": 35
+    },
+    {
+      "name": "Assessment Methodologies",
+      "weight": 25
+    },
+    {
+      "name": "Host and Networking Auditing",
+      "weight": 25
+    },
+    {
+      "name": "Web Application Penetration Testing",
+      "weight": 15
+    }
+  ],
+  "sources": [
+    "S78",
+    "S79"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "eJPT exam domains and objectives",
+      "url": "https://ine.com/security/certifications/ejpt-certification/",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "INE Penetration Testing Student learning path",
+      "url": "https://my.ine.com/CyberSecurity/learning-paths/61f88d91-79ff-4d8f-af68-873883dbbd8c/penetration-testing-student",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Linked as 'Start Training' from the eJPT page; needs an INE subscription."
+    }
+  ],
+  "domains_note": "Weights from the exam domains on INE's eJPT certification page, read 2026-11-17. Domain names as INE writes them (including 'Host and Networking Auditing')."
+}
