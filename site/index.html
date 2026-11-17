@@ -15,12 +15,12 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0f13" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0c0b" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script>try { const t = JSON.parse(localStorage.getItem("pathfinder:theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
 <script type="module" src="app.js"></script>
@@ -28,67 +28,31 @@
 <body>
 <!-- UI icons: Lucide v1.59.0 (ISC License, Copyright (c) 2026 Lucide Icons and Contributors), full text in LICENSE-lucide.txt. Brand logos: Simple Icons v16.35.0 (CC0); trademarks of their owners. -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-<symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/> <rect width="7" height="7" x="14" y="3" rx="1"/> <rect width="7" height="7" x="14" y="14" rx="1"/> <rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
-<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/> <circle cx="18" cy="5" r="3"/></symbol>
-<symbol id="i-columns-3" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/> <path d="M9 3v18"/> <path d="M15 3v18"/></symbol>
 <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <path d="M12 16v-4"/> <path d="M12 8h.01"/></symbol>
 <symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/> <circle cx="11" cy="11" r="8"/></symbol>
 <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/> <path d="M19 12H5"/></symbol>
 <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/> <path d="m12 5 7 7-7 7"/></symbol>
-<symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/> <path d="M10 14 21 3"/> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/> <path d="M7 17 17 7"/></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/> <path d="M12 5v14"/></symbol>
 <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/> <path d="m6 6 12 12"/></symbol>
 <symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><path d="M10 5H3"/> <path d="M12 19H3"/> <path d="M14 3v4"/> <path d="M16 17v4"/> <path d="M21 12h-9"/> <path d="M21 19h-5"/> <path d="M21 5h-7"/> <path d="M8 10v4"/> <path d="M8 12H3"/></symbol>
-<symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/> <rect width="16" height="12" x="4" y="8" rx="2"/> <path d="M2 14h2"/> <path d="M20 14h2"/> <path d="M15 13v2"/> <path d="M9 13v2"/></symbol>
-<symbol id="i-lock-keyhole" viewBox="0 0 24 24"><circle cx="12" cy="16" r="1"/> <rect x="3" y="10" width="18" height="12" rx="2"/> <path d="M7 10V7a5 5 0 0 1 10 0v3"/></symbol>
-<symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/> <path d="M3 5V19A9 3 0 0 0 21 19V5"/> <path d="M3 12A9 3 0 0 0 21 12"/></symbol>
-<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
-<symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/> <path d="m9 12 2 2 4-4"/></symbol>
-<symbol id="i-brain-circuit" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/> <path d="M9 13a4.5 4.5 0 0 0 3-4"/> <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/> <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/> <path d="M6 18a4 4 0 0 1-1.967-.516"/> <path d="M12 13h4"/> <path d="M12 18h6a2 2 0 0 1 2 2v1"/> <path d="M12 8h8"/> <path d="M16 8V5a2 2 0 0 1 2-2"/> <circle cx="16" cy="13" r=".5"/> <circle cx="18" cy="3" r=".5"/> <circle cx="20" cy="21" r=".5"/> <circle cx="20" cy="8" r=".5"/></symbol>
-<symbol id="i-badge-dollar-sign" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/> <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/> <path d="M12 18V6"/></symbol>
 <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <path d="M12 6v6l4 2"/></symbol>
-<symbol id="i-list-checks" viewBox="0 0 24 24"><path d="M13 5h8"/> <path d="M13 12h8"/> <path d="M13 19h8"/> <path d="m3 17 2 2 4-4"/> <path d="m3 7 2 2 4-4"/></symbol>
-<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <circle cx="12" cy="12" r="6"/> <circle cx="12" cy="12" r="2"/></symbol>
-<symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v3"/> <path d="M16 2v3"/> <rect x="3" y="3" width="18" height="18" rx="2"/> <path d="M3 9h18"/> <path d="m9 15 2 2 4-4"/></symbol>
-<symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/> <path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
-<symbol id="i-pen-line" viewBox="0 0 24 24"><path d="M13 21h8"/> <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></symbol>
 <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/> <path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
-<symbol id="i-clipboard-list" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/> <path d="M12 11h4"/> <path d="M12 16h4"/> <path d="M8 11h.01"/> <path d="M8 16h.01"/></symbol>
-<symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 5v16"/> <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></symbol>
-<symbol id="i-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/> <path d="M22 10v6"/> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
-<symbol id="i-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/> <path d="M14 2v5a1 1 0 0 0 1 1h5"/> <path d="M10 9H8"/> <path d="M16 13H8"/> <path d="M16 17H8"/></symbol>
-<symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/> <path d="m2.5 21.5 1.4-1.4"/> <path d="m20.1 3.9 1.4-1.4"/> <path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/> <path d="m9.6 14.4 4.8-4.8"/></symbol>
 <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"/></symbol>
-<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></symbol>
-<symbol id="i-timer" viewBox="0 0 24 24"><line x1="10" x2="14" y1="2" y2="2"/> <line x1="12" x2="15" y1="14" y2="11"/> <circle cx="12" cy="14" r="8"/></symbol>
-<symbol id="i-scan-search" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/> <path d="M17 3h2a2 2 0 0 1 2 2v2"/> <path d="M21 17v2a2 2 0 0 1-2 2h-2"/> <path d="M7 21H5a2 2 0 0 1-2-2v-2"/> <circle cx="12" cy="12" r="3"/> <path d="m16 16-1.9-1.9"/></symbol>
 <symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/> <path d="M21 3v5h-5"/> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/> <path d="M8 16H3v5"/></symbol>
 <symbol id="i-calendar-plus" viewBox="0 0 24 24"><path d="M16 18h6"/> <path d="M16 2v3"/> <path d="M19 15v6"/> <path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/> <path d="M3 9h18"/> <path d="M8 2v3"/></symbol>
 <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3"/> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/> <path d="m7 10 5 5 5-5"/></symbol>
 <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
 <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/> <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/> <rect x="6" y="14" width="12" height="8" rx="1"/></symbol>
-<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol>
-<symbol id="i-building-2" viewBox="0 0 24 24"><path d="M10 12h4"/> <path d="M10 8h4"/> <path d="M14 21v-3a2 2 0 0 0-4 0v3"/> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></symbol>
 <symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/> <path d="m16 9-5.5 5.5L8 12"/></symbol>
 <symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/> <path d="M12 9v4"/> <path d="M12 17h.01"/></symbol>
-<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/> <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/> <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/> <path d="M4 22h16"/> <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/> <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></symbol>
-<symbol id="i-calendar-days" viewBox="0 0 24 24"><path d="M8 2v3"/> <path d="M16 2v3"/> <rect x="3" y="3" width="18" height="18" rx="2"/> <path d="M3 9h18"/> <path d="M8 13h.01"/> <path d="M12 13h.01"/> <path d="M16 13h.01"/> <path d="M8 17h.01"/> <path d="M12 17h.01"/> <path d="M16 17h.01"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/> <path d="M12 2v2"/> <path d="M12 20v2"/> <path d="m4.93 4.93 1.41 1.41"/> <path d="m17.66 17.66 1.41 1.41"/> <path d="M2 12h2"/> <path d="M20 12h2"/> <path d="m6.34 17.66-1.41 1.41"/> <path d="m19.07 4.93-1.41 1.41"/></symbol>
 <symbol id="i-pause" viewBox="0 0 24 24"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></symbol>
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
-<symbol id="i-award" viewBox="0 0 24 24"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/> <circle cx="12" cy="8" r="6"/></symbol>
-<symbol id="i-chart-bar" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/> <path d="M7 16h8"/> <path d="M7 11h12"/> <path d="M7 6h3"/></symbol>
-<symbol id="i-chart-column" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/> <path d="M18 17V9"/> <path d="M13 17V5"/> <path d="M8 17v-3"/></symbol>
-<symbol id="i-party-popper" viewBox="0 0 24 24"><path d="M5.8 11.3 2 22l10.7-3.79"/> <path d="M4 3h.01"/> <path d="M22 8h.01"/> <path d="M15 2h.01"/> <path d="M22 20h.01"/> <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/> <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/> <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/> <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></symbol>
 <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
-<symbol id="i-languages" viewBox="0 0 24 24"><path d="m5 8 6 6"/> <path d="m4 14 6-6 2-3"/> <path d="M2 5h12"/> <path d="M7 2h1"/> <path d="m22 22-5-10-5 10"/> <path d="M14 18h6"/></symbol>
-<symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/></symbol>
 <symbol id="i-share-2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/> <circle cx="6" cy="12" r="3"/> <circle cx="18" cy="19" r="3"/> <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/> <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></symbol>
-<symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
-<symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></symbol>
-<symbol id="i-calendar-clock" viewBox="0 0 24 24"><path d="M16 14v2.2l1.6 1"/> <path d="M16 2v3"/> <path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338"/> <path d="M3 9h5.859"/> <path d="M8 2v3"/> <circle cx="16" cy="16" r="6"/></symbol>
 <symbol id="b-anthropic" viewBox="0 0 24 24"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></symbol>
 <symbol id="b-nvidia" viewBox="0 0 24 24"><path d="M8.948 8.798v-1.43a6.7 6.7 0 0 1 .424-.018c3.922-.124 6.493 3.374 6.493 3.374s-2.774 3.851-5.75 3.851c-.398 0-.787-.062-1.158-.185v-4.346c1.528.185 1.837.857 2.747 2.385l2.04-1.714s-1.492-1.952-4-1.952a6.016 6.016 0 0 0-.796.035m0-4.735v2.138l.424-.027c5.45-.185 9.01 4.47 9.01 4.47s-4.08 4.964-8.33 4.964c-.37 0-.733-.035-1.095-.097v1.325c.3.035.61.062.91.062 3.957 0 6.82-2.023 9.593-4.408.459.371 2.34 1.263 2.73 1.652-2.633 2.208-8.772 3.984-12.253 3.984-.335 0-.653-.018-.971-.053v1.864H24V4.063zm0 10.326v1.131c-3.657-.654-4.673-4.46-4.673-4.46s1.758-1.944 4.673-2.262v1.237H8.94c-1.528-.186-2.73 1.245-2.73 1.245s.68 2.412 2.739 3.11M2.456 10.9s2.164-3.197 6.5-3.533V6.201C4.153 6.59 0 10.653 0 10.653s2.35 6.802 8.948 7.42v-1.237c-4.84-.6-6.492-5.936-6.492-5.936z"/></symbol>
 <symbol id="b-databricks" viewBox="0 0 24 24"><path d="M.95 14.184L12 20.403l9.919-5.55v2.21L12 22.662l-10.484-5.96-.565.308v.77L12 24l11.05-6.218v-4.317l-.515-.309L12 19.118l-9.867-5.653v-2.21L12 16.805l11.05-6.218V6.32l-.515-.308L12 11.974 2.647 6.681 12 1.388l7.76 4.368.668-.411v-.566L12 0 .95 6.27v.72L12 13.207l9.919-5.55v2.26L12 15.52 1.516 9.56l-.565.308Z"/></symbol>
@@ -105,17 +69,19 @@
   <div class="top-inner">
     <a class="brand" href="#">
       <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 25 13 12l5 7 7-12"/><circle cx="25" cy="7" r="2.4"/></svg></span>
-      pathfinder
+      <span class="brand-name">pathfinder</span>
     </a>
     <nav aria-label="Sections" data-i18n-attr="aria-label:nav.aria">
-      <a href="#" data-route="list"><svg class="i"><use href="#i-layout-grid"/></svg><span class="long" data-i18n="nav.certs">Certifications</span><span class="short" data-i18n="nav.certsShort">Catalog</span></a>
-      <a href="#plan" data-route="plan"><svg class="i"><use href="#i-route"/></svg><span data-i18n="nav.plan">Plan</span></a>
-      <a href="#compare" data-route="compare" id="nav-compare" hidden><svg class="i"><use href="#i-columns-3"/></svg><span data-i18n="nav.compare">Compare</span><b id="compare-count"></b></a>
-      <a href="#progress" data-route="progress"><svg class="i"><use href="#i-activity"/></svg><span data-i18n="nav.progress">Progress</span></a>
-      <a href="#about" data-route="about"><svg class="i"><use href="#i-info"/></svg><span data-i18n="nav.about">About</span></a>
+      <a href="#" data-route="list"><span class="long" data-i18n="nav.certs">Certifications</span><span class="short" data-i18n="nav.certsShort">Catalog</span></a>
+      <a href="#plan" data-route="plan"><span data-i18n="nav.plan">Plan</span></a>
+      <a href="#compare" data-route="compare" id="nav-compare" hidden><span data-i18n="nav.compare">Compare</span><b id="compare-count"></b></a>
+      <a href="#progress" data-route="progress"><span data-i18n="nav.progress">Progress</span></a>
+      <a href="#about" data-route="about"><span data-i18n="nav.about">About</span></a>
     </nav>
-    <button type="button" class="btn lang" id="lang" aria-label="Ver en español"><svg class="i"><use href="#i-languages"/></svg><span>ES</span></button>
-    <button type="button" class="btn icon-btn theme" id="theme" aria-label="Switch theme"><svg class="i"><use href="#i-moon"/></svg></button>
+    <div class="top-tools">
+      <button type="button" class="btn ghost lang" id="lang" aria-label="Ver en español">ES</button>
+      <button type="button" class="btn ghost icon-btn theme" id="theme" aria-label="Switch theme"><svg class="i"><use href="#i-moon"/></svg></button>
+    </div>
   </div>
 </header>
 
@@ -124,83 +90,85 @@
 
   <section id="view-list" class="view" hidden>
     <div class="hero">
-      <svg class="topo hero-topo" id="hero-topo" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
-      <div class="hero-text">
-        <h1 data-i18n-html="hero.title">Pick a certification.<br>Plan the climb.</h1>
-        <p id="list-lede" data-i18n="hero.lede"></p>
-        <div class="hero-search" role="search"><label class="search"><svg class="i"><use href="#i-search"/></svg><input id="q" form="filters" type="search" name="q" placeholder="Search name, code or topic" aria-label="Search certifications" aria-keyshortcuts="/" data-i18n-attr="placeholder:search.placeholder;aria-label:search.aria"><kbd aria-hidden="true">/</kbd></label></div>
-        <button type="button" class="q-hint" id="q-hint" hidden></button>
-        <div class="hero-stats" id="hero-stats"></div>
-      </div>
+      <h1 data-i18n-html="hero.title">Pick a certification.<br><em>Plan the climb.</em></h1>
+      <p class="hero-lede" id="list-lede" data-i18n="hero.lede"></p>
+
+      <!-- Describe what you want: the hero's main action, filled by describe.js -->
+      <section class="describe" id="describe" aria-labelledby="describe-title">
+        <h2 class="describe-title" id="describe-title" data-i18n="describe.title">Describe what you are after</h2>
+        <form class="describe-form" id="describe-form" autocomplete="off">
+          <textarea id="describe-text" name="describe" rows="1" maxlength="500" spellcheck="true" aria-labelledby="describe-title" aria-describedby="describe-lede" placeholder="Junior developer, want to get into cloud security, under US$200, 5 hours a week" data-i18n-attr="placeholder:describe.placeholder"></textarea>
+          <button type="submit" class="btn primary"><span data-i18n="describe.go">Recommend</span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+        </form>
+        <p class="hint describe-lede" id="describe-lede" data-i18n="describe.lede">Your role, what you want to learn, budget and time. It is read on this device; nothing is sent anywhere.</p>
+        <div class="d-examples" id="describe-examples"></div>
+        <div class="d-out" id="describe-out"></div>
+        <p class="sr" id="describe-status" aria-live="polite"></p>
+      </section>
+    </div>
+
+    <!-- The badge wall: two slow rows of every certification's badge, decorative shortcuts only. -->
+    <figure class="wall">
       <div class="marquee" id="marquee">
         <div class="mq-row" id="mq-1" aria-hidden="true"></div>
         <div class="mq-row r2" id="mq-2" aria-hidden="true"></div>
-        <button type="button" class="btn icon-btn mq-toggle" id="mq-toggle" aria-pressed="false" aria-label="Pause the moving badges" data-i18n-attr="aria-label:hero.pause"><svg class="i"><use href="#i-pause"/></svg></button>
       </div>
-    </div>
+      <figcaption class="wall-foot">
+        <p class="hero-stats" id="hero-stats"></p>
+        <button type="button" class="btn ghost icon-btn mq-toggle" id="mq-toggle" aria-pressed="false" aria-label="Pause the moving badges" data-i18n-attr="aria-label:hero.pause"><svg class="i"><use href="#i-pause"/></svg></button>
+      </figcaption>
+    </figure>
 
-    <!-- Describe what you want: filled by describe.js, styled in the "describe what you want" block of styles.css -->
-    <section class="describe card" id="describe" aria-labelledby="describe-title">
-      <div class="describe-head">
-        <span class="tile describe-tile" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M7 11h10"/><path d="M7 15h6"/><path d="M7 7h8"/></svg></span>
-        <div>
-          <h2 id="describe-title" data-i18n="describe.title">Describe what you are after</h2>
-          <p class="hint" id="describe-lede" data-i18n="describe.lede">Your role, what you want to learn, budget and time. It is read on this device; nothing is sent anywhere.</p>
-        </div>
+    <section class="catalog" aria-labelledby="catalog-title">
+      <div class="section-head">
+        <h2 id="catalog-title" data-i18n="nav.certs">Certifications</h2>
+        <p class="result-count" id="list-head"></p>
       </div>
-      <form class="describe-form" id="describe-form" autocomplete="off">
-        <textarea id="describe-text" name="describe" rows="2" maxlength="500" spellcheck="true" aria-labelledby="describe-title" aria-describedby="describe-lede" placeholder="Junior developer, want to get into cloud security, under US$200, 5 hours a week" data-i18n-attr="placeholder:describe.placeholder"></textarea>
-        <button type="submit" class="btn primary"><span data-i18n="describe.go">Recommend</span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+      <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
+
+      <form id="filters" class="toolbar" autocomplete="off">
+        <label class="search"><svg class="i"><use href="#i-search"/></svg><input id="q" type="search" name="q" placeholder="Search name, code or topic" aria-label="Search certifications" aria-keyshortcuts="/" data-i18n-attr="placeholder:search.placeholder;aria-label:search.aria"><kbd aria-hidden="true">/</kbd></label>
+        <select name="provider" aria-label="Provider" data-i18n-attr="aria-label:aria.provider"></select>
+        <select name="level" aria-label="Level" data-i18n-attr="aria-label:filter.level"></select>
+        <select name="price" aria-label="Price" data-i18n-attr="aria-label:filter.price">
+          <option value="" data-i18n="price.any">Any price</option>
+          <option value="0" data-i18n="price.free">Free</option>
+          <option value="100">US$100</option>
+          <option value="200">US$200</option>
+          <option value="300">US$300</option>
+        </select>
+        <button type="button" class="btn" id="for-me" aria-expanded="false" aria-controls="profile"><svg class="i"><use href="#i-sliders-horizontal"/></svg><span>For me</span></button>
       </form>
-      <div class="d-examples" id="describe-examples"></div>
-      <div class="d-out" id="describe-out"></div>
-      <p class="sr" id="describe-status" aria-live="polite"></p>
+
+      <form id="profile" class="profile" autocomplete="off" hidden>
+        <div class="profile-group">
+          <span class="label" data-i18n="profile.want">What do you want to learn?</span>
+          <div class="chips" id="want"></div>
+        </div>
+        <div class="profile-group">
+          <span class="label" data-i18n="profile.exp">Experience</span>
+          <div class="segmented" id="experience">
+            <label><input type="radio" name="experience" value="new"><span data-i18n="exp.new">New</span></label>
+            <label><input type="radio" name="experience" value="some"><span data-i18n="exp.some">1–3 years</span></label>
+            <label><input type="radio" name="experience" value="experienced"><span data-i18n="exp.experienced">3+ years</span></label>
+          </div>
+        </div>
+        <details class="profile-more" id="profile-more">
+          <summary><svg class="i"><use href="#i-chevron-down"/></svg><span data-i18n="profile.more">Role and tools you already use</span><small id="more-count"></small></summary>
+          <div class="profile-group">
+            <span class="label" data-i18n="profile.role">Your role</span>
+            <div class="chips" id="roles"></div>
+          </div>
+          <div class="profile-group">
+            <span class="label" data-i18n="profile.known">What do you already use?</span>
+            <div class="chips" id="known"></div>
+          </div>
+        </details>
+        <button type="button" class="link" id="reset-profile" data-i18n="profile.clear">Clear all</button>
+      </form>
+
+      <div class="cert-list" id="certs"></div>
     </section>
-
-    <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
-    <div class="providers" id="providers" role="group" aria-label="Provider" data-i18n-attr="aria-label:aria.provider"></div>
-
-    <form id="filters" class="toolbar" autocomplete="off">
-      <select name="level" aria-label="Level" data-i18n-attr="aria-label:filter.level"></select>
-      <select name="price" aria-label="Price" data-i18n-attr="aria-label:filter.price">
-        <option value="" data-i18n="price.any">Any price</option>
-        <option value="0" data-i18n="price.free">Free</option>
-        <option value="100">US$100</option>
-        <option value="200">US$200</option>
-        <option value="300">US$300</option>
-      </select>
-      <button type="button" class="btn" id="for-me" aria-expanded="false" aria-controls="profile"><svg class="i"><use href="#i-sliders-horizontal"/></svg><span>For me</span></button>
-    </form>
-
-    <form id="profile" class="profile card" autocomplete="off" hidden>
-      <div class="profile-group">
-        <span class="label" data-i18n="profile.want">What do you want to learn?</span>
-        <div class="chips" id="want"></div>
-      </div>
-      <div class="profile-group">
-        <span class="label" data-i18n="profile.exp">Experience</span>
-        <div class="segmented" id="experience">
-          <label><input type="radio" name="experience" value="new"><span data-i18n="exp.new">New</span></label>
-          <label><input type="radio" name="experience" value="some"><span data-i18n="exp.some">1–3 years</span></label>
-          <label><input type="radio" name="experience" value="experienced"><span data-i18n="exp.experienced">3+ years</span></label>
-        </div>
-      </div>
-      <details class="profile-more" id="profile-more">
-        <summary><svg class="i"><use href="#i-chevron-down"/></svg><span data-i18n="profile.more">Role and tools you already use</span><small id="more-count"></small></summary>
-        <div class="profile-group">
-          <span class="label" data-i18n="profile.role">Your role</span>
-          <div class="chips" id="roles"></div>
-        </div>
-        <div class="profile-group">
-          <span class="label" data-i18n="profile.known">What do you already use?</span>
-          <div class="chips" id="known"></div>
-        </div>
-      </details>
-      <button type="button" class="link" id="reset-profile" data-i18n="profile.clear">Clear all</button>
-    </form>
-
-    <p class="result-count" id="list-head"></p>
-    <div class="grid" id="certs"></div>
   </section>
 
   <section id="view-cert" class="view" hidden>
@@ -209,7 +177,6 @@
 
   <section id="view-compare" class="view" hidden>
     <div class="page-head">
-      <span class="head-icon"><svg class="i"><use href="#i-columns-3"/></svg></span>
       <h1 data-i18n="compare.title">Compare</h1>
     </div>
     <div id="compare-body"></div>
@@ -217,10 +184,9 @@
 
   <section id="view-plan" class="view" hidden>
     <div class="page-head">
-      <span class="head-icon"><svg class="i"><use href="#i-route"/></svg></span>
       <h1 data-i18n="plan.title">Study plan</h1>
     </div>
-    <form id="plan-form" class="plan-form card" autocomplete="off">
+    <form id="plan-form" class="plan-form" autocomplete="off">
       <label class="field wide"><span data-i18n="plan.cert">Certification</span> <select name="cert" required></select></label>
       <label class="field"><span data-i18n="plan.start">Start</span> <input type="date" name="start" required></label>
       <label class="field"><span data-i18n="plan.exam">Exam date</span> <input type="date" name="targetDate"></label>
@@ -242,7 +208,7 @@
       </fieldset>
       <p class="hint" id="hours-hint"></p>
       <details class="rate" id="confidence">
-        <summary><svg class="i"><use href="#i-gauge"/></svg><span>Rate your topics</span></summary>
+        <summary><svg class="i"><use href="#i-chevron-down"/></svg><span>Rate your topics</span></summary>
         <p class="hint" data-i18n="plan.rateHint">1 = new to me, 5 = I could teach it. Weaker topics get more sessions.</p>
         <div id="confidence-rows"></div>
       </details>
@@ -256,7 +222,6 @@
 
   <section id="view-progress" class="view" hidden>
     <div class="page-head">
-      <span class="head-icon"><svg class="i"><use href="#i-activity"/></svg></span>
       <h1 data-i18n="progress.title">Progress</h1>
     </div>
     <div id="progress-body"></div>
@@ -264,56 +229,51 @@
 
   <section id="view-about" class="view" hidden>
     <div class="page-head">
-      <span class="head-icon"><svg class="i"><use href="#i-info"/></svg></span>
       <h1 data-i18n="about.title">About</h1>
     </div>
-    <div class="about-grid">
-      <article class="card about-card">
-        <span class="tile"><svg class="i"><use href="#i-route"/></svg></span>
+    <div class="about">
+      <section class="about-row">
         <h2 data-i18n="about.what">What it is</h2>
-        <p data-i18n="about.whatP">pathfinder helps you pick an IT certification and plan the study. It is open source and runs entirely in your browser: your choices and progress stay on this device.</p>
-      </article>
-      <article class="card about-card">
-        <span class="tile"><svg class="i"><use href="#i-file-text"/></svg></span>
+        <div><p data-i18n="about.whatP">pathfinder helps you pick an IT certification and plan the study. It is open source and runs entirely in your browser: your choices and progress stay on this device.</p></div>
+      </section>
+      <section class="about-row">
         <h2 data-i18n="about.data">Where the data comes from</h2>
-        <p id="data-note"></p>
-        <p data-i18n="about.price">Prices change and vary by country. Confirm with the issuer before you pay.</p>
-        <p data-i18n="about.langNote"></p>
-      </article>
-      <article class="card about-card">
-        <span class="tile"><svg class="i"><use href="#i-gauge"/></svg></span>
+        <div>
+          <p id="data-note"></p>
+          <p data-i18n="about.price">Prices change and vary by country. Confirm with the issuer before you pay.</p>
+          <p data-i18n="about.langNote"></p>
+        </div>
+      </section>
+      <section class="about-row">
         <h2 data-i18n="about.levels">Levels</h2>
-        <p data-i18n="about.levelsP">Levels use trail difficulty signs:</p>
-        <ul class="level-key" id="level-key"></ul>
-      </article>
-      <article class="card about-card">
-        <span class="tile"><svg class="i"><use href="#i-sliders-horizontal"/></svg></span>
+        <div>
+          <p data-i18n="about.levelsP">Levels use trail difficulty signs:</p>
+          <ul class="level-key" id="level-key"></ul>
+        </div>
+      </section>
+      <section class="about-row">
         <h2 data-i18n="about.score">“For me” score</h2>
-        <p data-i18n="about.scoreP">Up to 100 points: 45 for the skills you want to learn, 20 for your role, 20 for the skills you already use and 15 for how the level fits your experience. It sorts the list. It does not predict a pass.</p>
-      </article>
-      <article class="card about-card">
-        <span class="tile"><svg class="i"><use href="#i-clock"/></svg></span>
+        <div><p data-i18n="about.scoreP">Up to 100 points: 45 for the skills you want to learn, 20 for your role, 20 for the skills you already use and 15 for how the level fits your experience. It sorts the list. It does not predict a pass.</p></div>
+      </section>
+      <section class="about-row">
         <h2 data-i18n="about.hours">Study hours</h2>
-        <p id="hours-note"></p>
-      </article>
-      <article class="card about-card">
-        <span class="tile"><svg class="i"><use href="#i-plus"/></svg></span>
+        <div><p id="hours-note"></p></div>
+      </section>
+      <section class="about-row">
         <h2 data-i18n="about.contrib">Contribute</h2>
-        <p data-i18n-html="about.contribP">Each certification is one JSON file. Corrections are welcome on <a href="https://github.com/legiosai/pathfinder">GitHub</a>. Names belong to their issuers; pathfinder is not affiliated with any of them.</p>
-      </article>
-      <article class="card about-card">
-        <span class="tile"><svg class="i"><use href="#i-download"/></svg></span>
+        <div><p data-i18n-html="about.contribP">Each certification is one JSON file. Corrections are welcome on <a href="https://github.com/legiosai/pathfinder">GitHub</a>. Names belong to their issuers; pathfinder is not affiliated with any of them.</p></div>
+      </section>
+      <section class="about-row">
         <h2 data-i18n="about.install">Install it</h2>
-        <p data-i18n="about.installP"></p>
-      </article>
+        <div><p data-i18n="about.installP"></p></div>
+      </section>
     </div>
   </section>
 </main>
 
 <footer class="foot">
   <span data-i18n-html="foot">pathfinder · MIT · <a href="https://github.com/legiosai/pathfinder">GitHub</a> · icons by <a href="https://lucide.dev">Lucide</a> and <a href="https://simpleicons.org">Simple Icons</a> · logos and badges are trademarks of their owners</span>
-  <a href="c/" data-i18n="foot.index">Certification index</a>
-  <span id="foot-data"></span>
+  <span class="foot-end"><a href="c/" data-i18n="foot.index">Certification index</a><span id="foot-data"></span></span>
 </footer>
 </body>
 </html>

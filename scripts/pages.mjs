@@ -2,7 +2,7 @@
 // certification index, sitemap.xml and robots.txt. Everything on them comes from the catalog
 // bundle; the app at the site root stays the place to plan, practise and compare.
 import { t, label, dates } from '../site/i18n.js';
-import { badge, donut, domainColor, providerColor } from '../site/visuals.js';
+import { badge, weights } from '../site/visuals.js';
 
 export const LANGS = ['en', 'es'];
 const prefix = (lang) => (lang === 'en' ? '' : `${lang}/`);
@@ -23,23 +23,14 @@ const jsonScript = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
 
 // Same marks as app.js, so the static pages look like the app.
 const icon = (name) => `<svg class="i" aria-hidden="true"><use href="#i-${name}"/></svg>`;
-const CATS = {
-  'AI engineering': { icon: 'bot', c: '--cat-ai' },
-  'ML foundations': { icon: 'brain-circuit', c: '--cat-ml' },
-  'AI security': { icon: 'shield-check', c: '--cat-sec' },
-  'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
-  Cybersecurity: { icon: 'lock-keyhole', c: '--cat-cyber' },
-  'Data & analytics': { icon: 'database', c: '--cat-data' },
-};
-const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
-const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;
+const CATS = ['AI engineering', 'ML foundations', 'AI security', 'Cloud & platform', 'Cybersecurity', 'Data & analytics'];
 const SIGN = {
   entry: '<svg viewBox="0 0 14 14" aria-hidden="true"><circle class="entry" cx="7" cy="7" r="6"/></svg>',
   associate: '<svg viewBox="0 0 14 14" aria-hidden="true"><rect class="associate" x="1.5" y="1.5" width="11" height="11" rx="1.5"/></svg>',
   professional: '<svg viewBox="0 0 14 14" aria-hidden="true"><path class="professional" d="M7 .5 13.5 7 7 13.5.5 7z"/></svg>',
   expert: '<svg class="two" viewBox="0 0 26 14" aria-hidden="true"><path class="expert" d="M7 .5 13.5 7 7 13.5.5 7zM19 .5 25.5 7 19 13.5 12.5 7z"/></svg>',
 };
-const PREP_ICON = { 'official-guide': 'book-open', course: 'graduation-cap', docs: 'file-text', practice: 'dumbbell' };
+const PREP_KINDS = ['official-guide', 'course', 'docs', 'practice'];
 const FLAG = { restricted: 'lock', upcoming: 'clock' };
 
 const len = (m) => (m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60}` : ''}`);
@@ -97,10 +88,10 @@ function layout({ lang, path, title, description, alternates, image, jsonld, bod
   const url = site + path;
   const other = LANGS.find((l) => l !== lang);
   const nav = [
-    [`${up}${indexPath(lang)}`, 'layout-grid', `<span class="long">${t('nav.certs', {}, lang)}</span><span class="short">${t('nav.certsShort', {}, lang)}</span>`, true],
-    [`${up}${appQuery(lang)}#plan`, 'route', t('nav.plan', {}, lang)],
-    [`${up}${appQuery(lang)}#progress`, 'activity', t('nav.progress', {}, lang)],
-    [`${up}${appQuery(lang)}#about`, 'info', t('nav.about', {}, lang)],
+    [`${up}${indexPath(lang)}`, `<span class="long">${t('nav.certs', {}, lang)}</span><span class="short">${t('nav.certsShort', {}, lang)}</span>`, true],
+    [`${up}${appQuery(lang)}#plan`, `<span>${esc(t('nav.plan', {}, lang))}</span>`],
+    [`${up}${appQuery(lang)}#progress`, `<span>${esc(t('nav.progress', {}, lang))}</span>`],
+    [`${up}${appQuery(lang)}#about`, `<span>${esc(t('nav.about', {}, lang))}</span>`],
   ];
   const content = `<a class="skip" href="#main">${t('skip', {}, lang)}</a>
 
@@ -108,12 +99,12 @@ function layout({ lang, path, title, description, alternates, image, jsonld, bod
   <div class="top-inner">
     <a class="brand" href="${up}${appQuery(lang)}">
       <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 25 13 12l5 7 7-12"/><circle cx="25" cy="7" r="2.4"/></svg></span>
-      pathfinder
+      <span class="brand-name">pathfinder</span>
     </a>
     <nav aria-label="${esc(t('nav.aria', {}, lang))}">
-      ${nav.map(([href, ic, text, current]) => `<a href="${esc(href)}"${current ? ' aria-current="page"' : ''}>${icon(ic)}${current ? text : `<span>${esc(text)}</span>`}</a>`).join('\n      ')}
+      ${nav.map(([href, text, current]) => `<a href="${esc(href)}"${current ? ' aria-current="page"' : ''}>${text}</a>`).join('\n      ')}
     </nav>
-    <a class="btn lang" href="${esc(up + alternates[other])}" hreflang="${other}" lang="${other}" aria-label="${esc(t('lang.aria', {}, lang))}">${icon('languages')}<span>${t('lang.switch', {}, lang)}</span></a>
+    <div class="top-tools"><a class="btn ghost lang" href="${esc(up + alternates[other])}" hreflang="${other}" lang="${other}" aria-label="${esc(t('lang.aria', {}, lang))}">${t('lang.switch', {}, lang)}</a></div>
   </div>
 </header>
 
@@ -123,7 +114,7 @@ ${body}
 
 <footer class="foot">
   <span>${t('foot', {}, lang)}</span>
-  <a href="${esc(up + indexPath(lang))}">${t('foot.index', {}, lang)}</a>
+  <span class="foot-end"><a href="${esc(up + indexPath(lang))}">${t('foot.index', {}, lang)}</a></span>
 </footer>`;
   return `<!doctype html>
 <html lang="${lang}">
@@ -144,12 +135,12 @@ ${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${esc(site + alt
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0f13" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0c0b" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="${up}icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="${up}icons/apple-touch-icon.png">
-<link rel="preload" href="${up}fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${up}fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${up}styles.css?v=${v}">
 <script>try { const t = JSON.parse(localStorage.getItem("pathfinder:theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
 <script type="application/ld+json">${jsonScript(jsonld)}</script>
@@ -167,7 +158,6 @@ export function certPage({ cert: c, catalog, lang, site, v, symbols, ogImages })
   const path = certPath(c.id, lang);
   const up = upFrom(path);
   const app = `${up}${appQuery(lang)}`;
-  const color = catOf(c).c;
   const tx = catalog.taxonomy;
   const sources = c.sources.map((id) => catalog.sources[id]).filter(Boolean);
   const reportsById = new Map(catalog.reports.map((r) => [r.id, r]));
@@ -183,71 +173,62 @@ export function certPage({ cert: c, catalog, lang, site, v, symbols, ogImages })
   const title = `${t(practice ? 'page.titlePractice' : 'page.title', { name, code: c.code }, lang)} · pathfinder`;
   const description = cut(t('page.desc', { name, code: c.code, usd: c.fee.usd, fee: fee(c, lang), minutes: c.exam.minutes, questions, practice }, lang), 200);
 
-  const stat = (ic, lbl, value, sub) =>
-    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${esc(lbl)}</small><b>${esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>` : '';
-  const notes = [
-    c.requirements && c.status === 'restricted' ? ['lock', c.requirements] : null,
-    c.exam.format ? ['pen-line', c.exam.format] : null,
-    c.fee.note ? ['badge-dollar-sign', c.fee.note] : null,
-    c.ai_policy ? ['bot', t('cert.ai', { x: c.ai_policy }, lang)] : null,
-    ...c.caveats.map((x) => ['info', x]),
-  ].filter(Boolean);
-  const legend = `<ul class="legend">${c.domains.map((d, i) => `<li><span class="sw" style="background:${domainColor(i)}"></span><span>${esc(d.name)}</span><b>${d.weight}%</b></li>`).join('')}</ul>`;
+  // Facts as one definition list; `html` is already escaped.
+  const fact = (term, html, sub) => (html ? `<div><dt>${esc(term)}</dt><dd>${html}${sub ? ` <small>${esc(sub)}</small>` : ''}</dd></div>` : '');
+  const notes = [c.requirements && c.status === 'restricted' ? c.requirements : null, c.exam.format, c.fee.note, c.ai_policy ? t('cert.ai', { x: c.ai_policy }, lang) : null, ...c.caveats].filter(Boolean);
   const resource = (r) =>
     ext(
       r.url,
-      `${tile(PREP_ICON[r.kind] || 'file-text', color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(PREP_ICON[r.kind] ? t(`prep.${r.kind}`, {}, lang) : r.kind)} · ${t(r.cost === 'paid' ? 'paid' : 'free', {}, lang)}</span></span>`,
+      `<b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(PREP_KINDS.includes(r.kind) ? t(`prep.${r.kind}`, {}, lang) : r.kind)} · ${t(r.cost === 'paid' ? 'paid' : 'free', {}, lang)}</span>`,
       'res',
     );
-  const left = [
-    c.domains.length
-      ? `<section class="card panel"><h2>${icon('layers')}${t('cert.domains', {}, lang)}</h2><div class="donut-wrap">${donut(c.domains, 168, { label: t('donut.label', {}, lang), aria: t('donut.aria', {}, lang) })}${legend}</div>${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>`
-      : '',
-    notes.length ? `<section class="card panel"><h2>${icon('info')}${t('cert.good', {}, lang)}</h2><ul class="notes">${notes.map(([ic, x]) => `<li>${icon(ic)}<span>${esc(x)}</span></li>`).join('')}</ul></section>` : '',
+  const main = [
+    c.domains.length ? `<section class="sect"><h2>${t('cert.domains', {}, lang)}</h2>${weights(c.domains)}${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>` : '',
+    notes.length ? `<section class="sect"><h2>${t('cert.good', {}, lang)}</h2><ul class="notes">${notes.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>` : '',
   ].join('');
-  const prepHtml = c.prep && c.prep.length ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep', {}, lang)}</h2><div class="resources">${c.prep.map(resource).join('')}</div></section>` : '';
-  const sourcesHtml = `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources', {}, lang)}</h2>
+  const prepHtml = c.prep && c.prep.length ? `<section class="sect"><h2>${t('cert.prep', {}, lang)}</h2><div class="resources">${c.prep.map(resource).join('')}</div></section>` : '';
+  const sourcesHtml = `<section class="sect"><h2>${t('cert.sources', {}, lang)}</h2>
       <p class="hint">${esc(t('cert.checked', { d: day(c.checked_on, lang) }, lang))} ${esc(t('about.price', {}, lang))}</p>
       ${c.badge && c.badge.source ? `<p class="hint">${ext(c.badge.source, esc(t('cert.badgeFrom', {}, lang)))}</p>` : ''}
-      <div class="sources">${sources.map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src')).join('')}</div>
+      <div class="resources sources">${sources.map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src')).join('')}</div>
       ${reports.length ? `<details class="more"><summary>${t('cert.nReports', { n: reports.length }, lang)}</summary>
         <p class="hint">${t('cert.reportsHint', {}, lang)}</p>
         ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
     </section>`;
-  const right = prepHtml || sourcesHtml;
-  const tail = prepHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
-  const flag = FLAG[c.status] ? `<span class="pill warn">${icon(FLAG[c.status])}${t(`flag.${c.status}`, {}, lang)}</span>` : '';
+  const flag = FLAG[c.status] ? `<span class="flag">${icon(FLAG[c.status])}${t(`flag.${c.status}`, {}, lang)}</span>` : '';
+  const level = `<span class="lvl">${SIGN[c.level] || ''}${esc(taxonomyLabel(tx, 'levels', c.level, lang))}</span>`;
 
   const body = `  <a class="back" href="../">${icon('arrow-left')}${t('cert.back', {}, lang)}</a>
-  <div class="card cert-hero" style="--pc:${providerColor(c.provider)}">
-    <div class="hero-badge">${badge(local, 128)}</div>
-    <div>
-      <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span><span class="lvl">${SIGN[c.level] || ''}${esc(taxonomyLabel(tx, 'levels', c.level, lang))}</span><span class="pill catp" style="--c:var(${color})">${icon(catOf(c).icon)}${esc(t(`cat.${c.category}`, {}, lang))}</span>${flag}</p>
+  <header class="cert-hero">
+    <div class="ch-text">
+      <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${flag}</p>
       <h1>${esc(c.name)}</h1>
       <p class="scope">${esc(c.scope)}</p>
       <div class="cert-actions">
-        <a class="btn primary" href="${esc(`${app}#plan?cert=${c.id}`)}">${icon('route')}${t('cert.plan', {}, lang)}</a>
-        ${practice ? `<a class="btn" href="${esc(`${app}#practice?cert=${c.id}`)}">${icon('dumbbell')}${t('practice.planLink', {}, lang)}</a>` : ''}
-        <a class="btn" href="${esc(`${app}#compare?ids=${compareIds}`)}">${icon('columns-3')}${t('page.compare', {}, lang)}</a>
-        <a class="btn" href="${esc(`${app}#cert?id=${c.id}`)}">${icon('layout-grid')}${t('page.app', {}, lang)}</a>
-        ${official ? ext(official.url, `${icon('external-link')}${t('cert.issuer', {}, lang)}`, 'btn') : ''}
+        <a class="btn primary" href="${esc(`${app}#plan?cert=${c.id}`)}">${t('cert.plan', {}, lang)}${icon('arrow-right')}</a>
+        ${practice ? `<a class="btn" href="${esc(`${app}#practice?cert=${c.id}`)}">${t('practice.planLink', {}, lang)}</a>` : ''}
+        <a class="btn" href="${esc(`${app}#compare?ids=${compareIds}`)}">${t('page.compare', {}, lang)}</a>
+        <a class="btn ghost" href="${esc(`${app}#cert?id=${c.id}`)}">${t('page.app', {}, lang)}</a>
+        ${official ? ext(official.url, `${t('cert.issuer', {}, lang)}${icon('arrow-up-right')}`, 'btn ghost') : ''}
       </div>
       ${practice ? `<p class="hint page-note">${esc(t('practice.intro', { n: practice }, lang))}</p>` : ''}
       ${lang === 'en' ? '' : `<p class="hint page-note">${esc(t('about.langNote', {}, lang))}</p>`}
     </div>
-  </div>
+    <div class="hero-badge">${badge(local, 112)}</div>
+  </header>
   <h2 class="sr">${t('page.facts', {}, lang)}</h2>
-  <div class="stat-grid">
-    ${stat('badge-dollar-sign', t('stat.price', {}, lang), fee(c, lang), c.fee.basis)}
-    ${stat('clock', t('stat.length', {}, lang), duration(c, lang))}
-    ${stat('list-checks', t('stat.questions', {}, lang), c.exam.questions)}
-    ${stat('target', t('stat.passing', {}, lang), c.exam.passing)}
-    ${stat('calendar-check', t('stat.valid', {}, lang), c.exam.validity)}
-    ${stat('pen-line', t('stat.format', {}, lang), taxonomyLabel(tx, 'styles', c.exam.style, lang))}
-    ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration', {}, lang), taxonomyLabel(tx, 'statuses', c.status, lang))}
-  </div>
-  <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>
-  ${similar.length ? `<section class="card panel"><h2>${icon('columns-3')}${t('page.related', {}, lang)}</h2><ul class="idx">${similar.map((x) => indexRow(x, lang, `../${x.id}/`)).join('')}</ul></section>` : ''}`;
+  <dl class="facts">
+    ${fact(t('stat.price', {}, lang), esc(fee(c, lang)), c.fee.basis)}
+    ${fact(t('stat.length', {}, lang), esc(duration(c, lang)))}
+    ${fact(t('stat.questions', {}, lang), esc(c.exam.questions || ''))}
+    ${fact(t('stat.passing', {}, lang), esc(c.exam.passing || ''))}
+    ${fact(t('stat.valid', {}, lang), esc(c.exam.validity || ''))}
+    ${fact(t('stat.level', {}, lang), level)}
+    ${fact(t('stat.format', {}, lang), esc(taxonomyLabel(tx, 'styles', c.exam.style, lang)))}
+    ${fact(t('stat.registration', {}, lang), esc(taxonomyLabel(tx, 'statuses', c.status, lang)))}
+  </dl>
+  <div class="cert-cols"><div class="col-main">${main}</div><div class="col-side">${prepHtml}${sourcesHtml}</div></div>
+  ${similar.length ? `<section class="sect related"><h2>${t('page.related', {}, lang)}</h2><ul class="idx">${similar.map((x) => indexRow(x, lang, `../${x.id}/`)).join('')}</ul></section>` : ''}`;
 
   const credential = {
     '@type': 'EducationalOccupationalCredential',
@@ -303,19 +284,21 @@ export function indexPage({ catalog, lang, site, v, symbols }) {
   const path = indexPath(lang);
   const all = catalog.certifications;
   const providers = new Set(all.map((c) => c.provider)).size;
-  const cats = [...Object.keys(CATS), ...new Set(all.map((c) => c.category).filter((x) => !CATS[x]))];
+  const cats = [...CATS, ...new Set(all.map((c) => c.category).filter((x) => !CATS.includes(x)))];
   const title = `${t('page.indexTitle', {}, lang)} · pathfinder`;
   const description = t('page.indexDesc', { n: all.length, p: providers }, lang);
-  const body = `  <div class="page-head"><span class="head-icon">${icon('layout-grid')}</span><h1>${t('cert.back', {}, lang)}</h1></div>
+  const catName = (cat) => (t(`cat.${cat}`, {}, lang) === `cat.${cat}` ? cat : t(`cat.${cat}`, {}, lang));
+  const body = `  <div class="page-head"><h1>${t('cert.back', {}, lang)}</h1></div>
   <p class="page-lede">${esc(description)} ${esc(t('about.price', {}, lang))}</p>
+  <div class="idx-sections">
   ${cats
     .map((cat) => {
       const list = all.filter((c) => c.category === cat).sort((a, b) => fullName(a).localeCompare(fullName(b)));
       if (!list.length) return '';
-      const m = CATS[cat] || { icon: 'layers', c: '--accent' };
-      return `<section class="card panel"><h2>${icon(m.icon)}${esc(t(`cat.${cat}`, {}, lang))}</h2><ul class="idx">${list.map((c) => indexRow(c, lang, `${c.id}/`)).join('')}</ul></section>`;
+      return `<section class="sect"><h2>${esc(catName(cat))} <small class="count">${list.length}</small></h2><ul class="idx">${list.map((c) => indexRow(c, lang, `${c.id}/`)).join('')}</ul></section>`;
     })
-    .join('\n  ')}`;
+    .join('\n  ')}
+  </div>`;
   const jsonld = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',

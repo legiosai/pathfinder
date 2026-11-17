@@ -9,7 +9,7 @@ import { parseIntent, recommend, signalKey, withoutSignal } from './lib/intent.j
 import { rank } from './lib/match.js';
 import { estimateHours } from './lib/planner.js';
 import { t, label, lib } from './i18n.js';
-import { badge, providerColor } from './visuals.js';
+import { badge } from './visuals.js';
 
 const KEY = 'pathfinder:describe';
 const VERSION = 1;
@@ -41,7 +41,7 @@ function save(text, removed) {
 }
 
 export function mountDescribe({ data, helpers, onRefine }) {
-  const { icon, ring, lvl, fee, flag } = helpers;
+  const { icon, meter, lvl, fee, flag } = helpers;
   const $ = (sel) => document.querySelector(sel);
   const form = $('#describe-form');
   const box = $('#describe-text');
@@ -135,27 +135,27 @@ export function mountDescribe({ data, helpers, onRefine }) {
   function pick(p) {
     const c = p.cert;
     const why = [
-      ...p.reasons.slice(0, 3).map((r) => `<li>${icon('circle-check')}<span>${esc(lib(r))}</span></li>`),
-      ...p.notes.slice(0, 1).map((n) => `<li class="note">${icon('clock')}<span>${esc(lib(n))}</span></li>`),
+      ...p.reasons.slice(0, 3).map((r) => `<li>${icon('check')}<span>${esc(lib(r))}</span></li>`),
+      ...p.notes.slice(0, 1).map((n) => `<li class="note">${icon('info')}<span>${esc(lib(n))}</span></li>`),
       ...p.warnings
         .filter((w) => w.length <= 120)
         .slice(0, 1)
         .map((w) => `<li class="warn">${icon('triangle-alert')}<span>${esc(lib(w))}</span></li>`),
     ].join('');
     const id = esc(c.id);
-    return `<li class="d-pick" style="--pc:${providerColor(c.provider)}">
-      <a class="d-badge" href="#cert?id=${id}" tabindex="-1" aria-hidden="true">${badge(c, 52, { label: false })}</a>
+    return `<li class="d-pick">
+      ${meter(p.score, '', t('match.aria', { n: p.score }))}
+      <a class="d-badge" href="#cert?id=${id}" tabindex="-1" aria-hidden="true">${badge(c, 40, { label: false })}</a>
       <div class="d-main">
         <h3><a href="#cert?id=${id}">${esc(c.name)}</a></h3>
-        <p class="d-who"><span>${esc(c.provider)} · ${esc(c.code)}</span><span>${esc(fee(c))}</span>${lvl(c.level)}${flag(c)}</p>
+        <p class="d-who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}<span>${esc(fee(c))}</span>${flag(c)}</p>
         <ul class="why d-why">${why}</ul>
         <p class="d-links">
-          <a href="#cert?id=${id}">${icon('info')}${t('describe.details')}</a>
-          <a href="#plan?cert=${id}">${icon('route')}${t('describe.plan')}</a>
-          ${c.practice_questions ? `<a href="#practice?cert=${id}">${icon('dumbbell')}${t('practice.btn')}</a>` : ''}
+          <a href="#cert?id=${id}">${t('describe.details')}</a>
+          <a href="#plan?cert=${id}">${t('describe.plan')}</a>
+          ${c.practice_questions ? `<a href="#practice?cert=${id}">${t('practice.btn')}</a>` : ''}
         </p>
       </div>
-      ${ring(p.score, 44, '', t('match.aria', { n: p.score }))}
     </li>`;
   }
 

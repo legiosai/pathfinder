@@ -1,10 +1,11 @@
-// Visual building blocks: provider marks, generated certification badges and small SVG charts.
+// Visual building blocks: certification badges and small monochrome charts.
 // Logos come from Simple Icons (CC0) and are inlined in index.html as #b-* symbols.
 
 const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ESC[c]);
 
-// Brand-ish colours for each issuer. `logo` is a Simple Icons symbol; `mono` is used when there is none.
+// Issuer colours. They only appear inside a generated badge, where they identify the issuer the way
+// an official badge would. `logo` is a Simple Icons symbol; `mono` is used when there is none.
 export const PROVIDERS = {
   Anthropic: { logo: 'anthropic', color: '#d97757' },
   AWS: { mono: 'aws', color: '#232f3e', fg: '#ff9900' },
@@ -49,96 +50,55 @@ function fallback(name) {
   return { mono: initials(name), color: FALLBACK_COLORS[h % FALLBACK_COLORS.length] };
 }
 const providerOf = (name) => PROVIDERS[name] || fallback(String(name || ''));
-export const providerColor = (name) => providerOf(name).color;
-
-function shade(hex, amount) {
-  // amount > 0 mixes toward white, < 0 toward black
-  const n = parseInt(hex.slice(1), 16);
-  const ch = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((c) =>
-    Math.round(amount >= 0 ? c + (255 - c) * amount : c * (1 + amount)),
-  );
-  return `#${ch.map((c) => c.toString(16).padStart(2, '0')).join('')}`;
-}
 
 function markContent(p, { x, y, size, fill }) {
   if (p.logo) return `<use href="#b-${p.logo}" x="${x}" y="${y}" width="${size}" height="${size}" fill="${fill}"/>`;
   const fs = size * (p.mono.length <= 1 ? 0.8 : p.mono.length <= 2 ? 0.62 : p.mono.length === 3 ? 0.5 : p.mono.length === 4 ? 0.4 : 0.33);
-  return `<text x="${x + size / 2}" y="${y + size / 2}" dy="0.35em" text-anchor="middle" font-family="Bricolage, system-ui, sans-serif" font-weight="800" font-size="${fs.toFixed(1)}" fill="${fill}">${esc(p.mono)}</text>`;
-}
-
-/** Small round provider mark for chips and lists. */
-export function providerMark(name, size = 26) {
-  const p = providerOf(name);
-  return `<svg class="pmark" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="7" fill="${p.color}"/>${markContent(p, { x: 5, y: 5, size: 14, fill: p.fg || '#fff' })}</svg>`;
+  return `<text x="${x + size / 2}" y="${y + size / 2}" dy="0.35em" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="${fs.toFixed(1)}" letter-spacing="-0.02em" fill="${fill}">${esc(p.mono)}</text>`;
 }
 
 const LEVEL_PIPS = { entry: 1, associate: 2, professional: 3, expert: 4 };
-// Gradient ids must be unique per badge: a gradient defined inside a hidden view does not paint elsewhere.
-let uid = 0;
 
-/** The issuer's official badge when the catalog has one, otherwise a generated hexagon: issuer colour, logo, code ribbon and level pips. */
+/** The issuer's official badge when the catalog has one, otherwise a flat hexagon: issuer colour, logo, code and level pips. */
 export function badge(cert, size = 64, { label = true } = {}) {
   if (cert.badge && cert.badge.src) {
     const alt = label ? `${esc(cert.provider)} ${esc(cert.code)} badge` : '';
     return `<img class="badge official" src="${esc(cert.badge.src)}" width="${size}" height="${(size * 112) / 100}" alt="${alt}" decoding="async" draggable="false">`;
   }
   const p = providerOf(cert.provider);
-  const id = `pfg${++uid}`;
-  const top = shade(p.color, 0.22);
-  const bottom = shade(p.color, -0.28);
   const code = cert.code.length > 14 ? `${cert.code.slice(0, 13)}…` : cert.code;
-  const fit = code.length > 8 ? ` textLength="${Math.min(74, code.length * 6.4).toFixed(0)}" lengthAdjust="spacingAndGlyphs"` : '';
+  const fit = code.length > 8 ? ` textLength="${Math.min(70, code.length * 6.2).toFixed(0)}" lengthAdjust="spacingAndGlyphs"` : '';
   const pips = LEVEL_PIPS[cert.level] || 0;
-  const pipsSvg = Array.from({ length: pips }, (_, i) => `<circle cx="${50 + (i - (pips - 1) / 2) * 9}" cy="94" r="2.6" fill="#fff" opacity="0.9"/>`).join('');
-  return `<svg class="badge" width="${size}" height="${(size * 112) / 100}" viewBox="0 0 100 112" ${label ? `role="img" aria-label="${esc(cert.provider)} ${esc(cert.code)} badge"` : 'aria-hidden="true"'} style="--pc:${p.color}">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/></linearGradient></defs>
-    <path d="M50 4 93 29v54L50 108 7 83V29z" fill="url(#${id})" stroke="url(#${id})" stroke-width="6" stroke-linejoin="round"/>
-    <path d="M7 29 50 4l43 25v20H7z" fill="#fff" opacity="0.09"/>
-    <path d="M50 14 84 34v44L50 98 16 78V34z" fill="none" stroke="#fff" stroke-opacity="0.3" stroke-width="1.5"/>
-    ${markContent(p, { x: 31, y: 22, size: 38, fill: p.fg || '#fff' })}
-    <rect x="12" y="66" width="76" height="17" rx="4" fill="#000" opacity="0.32"/>
-    <text x="50" y="78.5" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="10" letter-spacing="0.4" fill="#fff"${fit}>${esc(code)}</text>
+  const pipsSvg = Array.from({ length: pips }, (_, i) => `<circle cx="${50 + (i - (pips - 1) / 2) * 9}" cy="93" r="2.4" fill="#fff" opacity="0.85"/>`).join('');
+  return `<svg class="badge" width="${size}" height="${(size * 112) / 100}" viewBox="0 0 100 112" ${label ? `role="img" aria-label="${esc(cert.provider)} ${esc(cert.code)} badge"` : 'aria-hidden="true"'}>
+    <path d="M50 4 93 29v54L50 108 7 83V29z" fill="${p.color}" stroke="${p.color}" stroke-width="6" stroke-linejoin="round"/>
+    ${markContent(p, { x: 32, y: 24, size: 36, fill: p.fg || '#fff' })}
+    <text x="50" y="78" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="9.5" letter-spacing="0.3" fill="#fff" fill-opacity="0.92"${fit}>${esc(code)}</text>
     ${pipsSvg}
   </svg>`;
 }
 
-// Eight categorical hues in a fixed order. A ninth domain onward gets a neutral grey rather than a
-// repeated hue, so no two domains look related; names and weights stay in the legend as text.
-export const domainColor = (i) => (i < 8 ? `var(--d${i + 1})` : 'var(--d-rest)');
-
-/** Donut of domain weights with a centre label. Colours follow the --dN categorical order. */
-export function donut(domains, size = 168, { label = 'domains', aria = 'Exam domain weights' } = {}) {
-  const r = 62;
-  const c = 2 * Math.PI * r;
-  const total = domains.reduce((s, d) => s + d.weight, 0) || 1;
-  const gap = domains.length > 1 ? 3 : 0;
-  let offset = 0;
-  const segs = domains
-    .map((d, i) => {
-      const len = (d.weight / total) * c;
-      const seg = `<circle class="seg" data-i="${i}" cx="80" cy="80" r="${r}" stroke="${domainColor(i)}" stroke-dasharray="${Math.max(0, len - gap)} ${c}" stroke-dashoffset="${-offset}"><title>${esc(d.name)}: ${d.weight}%</title></circle>`;
-      offset += len;
-      return seg;
-    })
-    .join('');
-  return `<svg class="donut" width="${size}" height="${size}" viewBox="0 0 160 160" role="img" aria-label="${esc(aria)}">
-    <g transform="rotate(-90 80 80)">${segs}</g>
-    <text x="80" y="76" text-anchor="middle" class="donut-n">${domains.length}</text>
-    <text x="80" y="98" text-anchor="middle" class="donut-l">${esc(label)}</text>
-  </svg>`;
+/** Exam domain weights as aligned rows: name, a hairline bar scaled to the heaviest domain, and the
+ *  percentage as text. A single heaviest domain is the one highlight; everything else is ink. */
+export function weights(domains) {
+  const max = Math.max(...domains.map((d) => d.weight), 1);
+  const top = domains.filter((d) => d.weight === max).length === 1 ? domains.findIndex((d) => d.weight === max) : -1;
+  return `<ol class="weights">${domains
+    .map((d, i) => `<li${i === top ? ' class="top"' : ''}><span class="w-name">${esc(d.name)}</span><span class="w-bar" aria-hidden="true"><i style="width:${((d.weight / max) * 100).toFixed(1)}%"></i></span><b>${d.weight}%</b></li>`)
+    .join('')}</ol>`;
 }
 
-/** Horizontal bars: rows of {label, value, color, title}. Values are shown as text, so colour is never the only cue. */
+/** Horizontal bars: rows of {label, value, title}. Values are shown as text; the bars are ink. */
 export function hbars(rows, unit = 'h') {
   const max = Math.max(...rows.map((r) => r.value), 1);
   return `<ul class="hbars">${rows
     .map(
-      (r) => `<li title="${esc(r.title || `${r.label}: ${r.value} ${unit}`)}"><span class="hb-label">${esc(r.label)}</span><span class="hb-track"><i style="width:${(r.value / max) * 100}%;background:${r.color}"></i></span><b>${r.value} ${unit}</b></li>`,
+      (r) => `<li title="${esc(r.title || `${r.label}: ${r.value} ${unit}`)}"><span class="hb-label">${esc(r.label)}</span><span class="hb-track" aria-hidden="true"><i style="width:${(r.value / max) * 100}%"></i></span><b>${r.value} ${unit}</b></li>`,
     )
     .join('')}</ul>`;
 }
 
-/** Vertical columns for one series: [{label, value, title, mark}] where mark highlights a column. */
+/** Vertical columns for one series: [{label, value, title, mark}]. A marked column is the highlight. */
 export function columns(rows, unit = 'h', aria = 'Study hours per week') {
   const max = Math.max(...rows.map((r) => r.value), 1);
   return `<div class="cols-chart" role="img" aria-label="${esc(aria)}">${rows

@@ -2,7 +2,7 @@ import { emptyProfile, rank } from './lib/match.js';
 import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
 import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
-import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
+import { badge, weights, hbars, columns } from './visuals.js';
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
@@ -54,7 +54,6 @@ let LABELS = {};
 let profile = emptyProfile();
 let compare = [];
 let activeCat = '';
-let activeProvider = '';
 let fuse = null;
 let describe = null;
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -62,19 +61,10 @@ const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').match
 // ---------- visual vocabulary ----------
 const icon = (name) => `<svg class="i" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 
-const CATS = {
-  'AI engineering': { icon: 'bot', c: '--cat-ai' },
-  'ML foundations': { icon: 'brain-circuit', c: '--cat-ml' },
-  'AI security': { icon: 'shield-check', c: '--cat-sec' },
-  'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
-  Cybersecurity: { icon: 'lock-keyhole', c: '--cat-cyber' },
-  'Data & analytics': { icon: 'database', c: '--cat-data' },
-};
-const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
-const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;
-const catTile = (c, size = '') => tile(catOf(c).icon, catOf(c).c, size);
+// Categories in display order; any other category in the catalog follows them.
+const CATS = ['AI engineering', 'ML foundations', 'AI security', 'Cloud & platform', 'Cybersecurity', 'Data & analytics'];
 
-// Levels as trail difficulty signs.
+// Levels as trail difficulty signs: the shape carries the level, in ink.
 const SIGN = {
   entry: '<svg viewBox="0 0 14 14" aria-hidden="true"><circle class="entry" cx="7" cy="7" r="6"/></svg>',
   associate: '<svg viewBox="0 0 14 14" aria-hidden="true"><rect class="associate" x="1.5" y="1.5" width="11" height="11" rx="1.5"/></svg>',
@@ -83,48 +73,21 @@ const SIGN = {
 };
 const lvl = (level) => `<span class="lvl">${SIGN[level] || ''}${esc(LABELS[level])}</span>`;
 
-const PREP = {
-  'official-guide': { icon: 'book-open' },
-  course: { icon: 'graduation-cap' },
-  docs: { icon: 'file-text' },
-  practice: { icon: 'dumbbell' },
-};
-const prepKind = (r) => ({ icon: (PREP[r.kind] || { icon: 'file-text' }).icon, label: PREP[r.kind] ? t(`prep.${r.kind}`) : r.kind });
+const prepLabel = (r) => (['official-guide', 'course', 'docs', 'practice'].includes(r.kind) ? t(`prep.${r.kind}`) : r.kind);
 const catName = (cat) => t(`cat.${cat}`);
 const kindLabel = (k) => t(`kind.${k}`);
 const sname = (s) => lib(s.name.replace(/ \((\d+\/\d+)\)$/, '')) + (s.name.match(/ \(\d+\/\d+\)$/)?.[0] || '');
 
-const KIND = {
-  baseline: { icon: 'flag' },
-  learn: { icon: 'book-open', c: '--k-learn' },
-  practice: { icon: 'wrench', c: '--k-practice' },
-  mock: { icon: 'timer', c: '--k-mock' },
-  review: { icon: 'scan-search' },
-  remediate: { icon: 'refresh-cw' },
-  final: { icon: 'trophy' },
-};
-const kindStyle = (k) => (KIND[k].c ? `style="--kc:var(${KIND[k].c})"` : '');
-const kindN = (k) => (KIND[k].c ? '' : 'n');
-
-function ring(value, size = 40, cls = '', label = '') {
-  const r = size / 2 - 3;
-  const c = 2 * Math.PI * r;
-  return `<span class="ring ${cls}" ${label ? `aria-label="${esc(label)}" role="img"` : 'aria-hidden="true"'}>
-    <svg width="${size}" height="${size}"><circle class="track" cx="${size / 2}" cy="${size / 2}" r="${r}"/>${value > 0 ? `<circle class="val" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-dasharray="${(c * value) / 100} ${c}"/>` : ''}</svg>
-    <b>${Math.round(value)}${cls.includes('pct') ? '%' : ''}</b></span>`;
+/** A score or share as a small number. `pct` adds the percent sign and a hairline bar under it. */
+function meter(value, cls = '', label = '') {
+  const v = Math.max(0, Math.min(100, Math.round(value)));
+  const pct = cls.includes('pct');
+  return `<span class="meter ${cls}" ${label ? `aria-label="${esc(label)}" role="img"` : 'aria-hidden="true"'}><b>${v}${pct ? '<small>%</small>' : ''}</b>${pct ? `<i style="--v:${v}%"></i>` : ''}</span>`;
 }
 
-function dbar(cert, big = false) {
-  return `<div class="dbar${big ? ' lg' : ''}" role="img" aria-label="${esc(t('donut.aria'))}">${cert.domains
-    .map((d, i) => `<span style="flex:${d.weight};background:${domainColor(i)}" title="${esc(d.name)}: ${d.weight}%"></span>`)
-    .join('')}</div>`;
-}
-
-function legend(cert) {
-  return `<ul class="legend">${cert.domains
-    .map((d, i) => `<li><span class="sw" style="background:${domainColor(i)}"></span><span>${esc(d.name)}</span><b>${d.weight}%</b></li>`)
-    .join('')}</ul>`;
-}
+/** A prep resource as a quiet row: title, note, kind and cost. */
+const resource = (r, withNote = true) =>
+  ext(r.url, `<b>${esc(r.title)}</b>${withNote && r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(prepLabel(r))} · ${r.cost === 'paid' ? t('paid') : t('free')}</span>`, 'res');
 
 // ---------- formatting ----------
 
@@ -166,7 +129,7 @@ function duration(cert) {
 }
 
 const FLAG = { restricted: 'lock', upcoming: 'clock' };
-const flag = (c) => (FLAG[c.status] ? `<span class="pill warn">${icon(FLAG[c.status])}${t(`flag.${c.status}`)}</span>` : '');
+const flag = (c) => (FLAG[c.status] ? `<span class="flag">${icon(FLAG[c.status])}${t(`flag.${c.status}`)}</span>` : '');
 
 // ---------- routing ----------
 function parseHash() {
@@ -282,30 +245,26 @@ function setProfileOpen(open) {
 function fillFilters() {
   const f = $('#filters');
   const opt = (v, l) => `<option value="${esc(v)}">${esc(l)}</option>`;
+  const all = DATA.certifications;
+  const n = (p) => all.filter((c) => c.provider === p).length;
+  const providers = [...new Set(all.map((c) => c.provider))].sort((a, b) => n(b) - n(a) || a.localeCompare(b));
+  const keepProvider = f.provider.value;
+  f.provider.innerHTML = opt('', t('filter.allProviders')) + providers.map((p) => opt(p, `${p} (${n(p)})`)).join('');
+  f.provider.value = keepProvider;
   const keep = f.level.value;
   f.level.innerHTML = opt('', t('filter.allLevels')) + DATA.taxonomy.levels.map((l) => opt(l.id, label('levels', l))).join('');
   f.level.value = keep;
   for (const o of f.price.options) if (Number(o.value) > 0) o.textContent = t('price.upto', { n: o.value });
 }
 
+/** Categories as text tabs with their counts. */
 function renderCats() {
   const all = DATA.certifications;
   const count = (cat) => all.filter((c) => c.category === cat).length;
-  const btn = (id, label, ic, color, n) =>
-    `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${activeCat === id}" style="--c:var(${color})">${tile(ic, color)}<span><b>${esc(label)}</b><small>${n}<span class="w">${t('cat.word')}</span></small></span></button>`;
-  const shown = Object.entries(CATS).filter(([cat]) => count(cat));
-  // The layout needs the card count: one row on wide screens, "Everything" plus rows of half on narrow ones.
-  $('#cats').style.setProperty('--n', shown.length + 1);
-  $('#cats').style.setProperty('--half', Math.max(2, Math.ceil(shown.length / 2)));
-  $('#cats').innerHTML = btn('', t('cat.all'), 'layout-grid', '--accent', all.length) + shown.map(([cat, m]) => btn(cat, catName(cat), m.icon, m.c, count(cat))).join('');
-}
-
-function renderProviders() {
-  const all = DATA.certifications;
-  const names = [...new Set(all.map((c) => c.provider))].sort((a, b) => all.filter((c) => c.provider === b).length - all.filter((c) => c.provider === a).length || a.localeCompare(b));
-  $('#providers').innerHTML = names
-    .map((n) => `<button type="button" class="prov" data-prov="${esc(n)}" aria-pressed="${activeProvider === n}">${providerMark(n)}<span>${esc(n)}</span><small>${all.filter((c) => c.provider === n).length}</small></button>`)
-    .join('');
+  const cats = [...CATS, ...new Set(all.map((c) => c.category).filter((x) => !CATS.includes(x)))].filter(count);
+  const name = (cat) => (catName(cat) === `cat.${cat}` ? cat : catName(cat));
+  const btn = (id, text, n) => `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${activeCat === id}">${esc(text)}<small>${n}</small></button>`;
+  $('#cats').innerHTML = btn('', t('cat.all'), all.length) + cats.map((cat) => btn(cat, name(cat), count(cat))).join('');
 }
 
 function scoring() {
@@ -323,7 +282,7 @@ function renderList() {
   const hits = q ? new Map(fuse.search(q).map((r, i) => [r.item.id, i])) : null;
   let list = all.filter((c) => {
     if (activeCat && c.category !== activeCat) return false;
-    if (activeProvider && c.provider !== activeProvider) return false;
+    if (f.provider.value && c.provider !== f.provider.value) return false;
     if (f.level.value && c.level !== f.level.value) return false;
     if (maxFee != null && (c.fee.usd == null || c.fee.usd > maxFee)) return false;
     if (hits && !hits.has(c.id)) return false;
@@ -335,47 +294,38 @@ function renderList() {
     return a.name.localeCompare(b.name);
   });
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
-  $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
   $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores });
-  const hint = $('#q-hint');
-  hint.hidden = !q;
-  if (q) hint.textContent = t('hero.matches', { n: list.length });
-  $('#certs').innerHTML = list.length
-    ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
-    : `<p class="empty">${t('list.empty')}</p>`;
+  const certs = $('#certs');
+  certs.classList.toggle('scored', !!scores);
+  certs.innerHTML = list.length ? listHead(!!scores) + list.map((c) => certRow(c, scores && scores.get(c.id))).join('') : `<p class="empty">${t('list.empty')}</p>`;
 }
 
-const catPill = (c) => `<span class="pill catp" style="--c:var(${catOf(c).c})">${icon(catOf(c).icon)}${esc(catName(c.category))}</span>`;
+/** Column labels over the list. Each row carries its own labels for screen readers, so this one is hidden from them. */
+const listHead = (scored) =>
+  `<div class="cert-row cert-row-head" aria-hidden="true"><span></span><span>${t('plan.cert')}</span><span>${t('stat.level')}</span><span class="cr-num">${t('stat.price')}</span><span class="cr-num">${t('stat.length')}</span>${scored ? `<span class="cr-num">${t('list.fit')}</span>` : ''}<span></span></div>`;
 
-function card(c, score, i = 0) {
+/** One certification as a row: badge, name over issuer and code, then level, price and length in columns. */
+function certRow(c, score) {
   const inCompare = compare.includes(c.id);
   const full = !inCompare && compare.length >= MAX_COMPARE;
-  return `<article class="card cert-card" style="--pc:${providerColor(c.provider)};--i:${Math.min(i, 14)}">
-    <div class="row">
-      ${badge(c, 56)}
-      <div class="title">
-        <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
-        <div class="who">${esc(c.provider)} · ${esc(c.code)}</div>
-      </div>
-      <div class="top-right">
-        ${score ? ring(score.score, 40, '', t('match.aria', { n: score.score })) : ''}
-        <button type="button" class="btn icon-btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" aria-label="${inCompare ? t('compare.remove') : t('compare.add')}" title="${inCompare ? t('compare.in') : full ? t('compare.full') : t('compare.add')}" ${full ? 'disabled' : ''}>${icon(inCompare ? 'check' : 'plus')}</button>
-      </div>
+  return `<article class="cert-row">
+    <span class="cr-badge">${badge(c, 36, { label: false })}</span>
+    <div class="cr-name">
+      <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
+      <p class="who">${esc(c.provider)} · ${esc(c.code)}${flag(c)}</p>
+      <p class="cr-meta">${lvl(c.level)}<span>${esc(fee(c))}</span><span>${esc(duration(c))}</span></p>
     </div>
-    <div class="tags">${catPill(c)}${flag(c)}</div>
-    ${c.domains.length ? dbar(c) : ''}
-    <div class="facts-inline">
-      <span>${icon('badge-dollar-sign')}${esc(fee(c))}</span>
-      <span>${icon('clock')}${esc(duration(c))}</span>
-      ${lvl(c.level)}
-    </div>
+    <span class="cr-level">${lvl(c.level)}</span>
+    <span class="cr-num"><span class="sr">${t('stat.price')}: </span>${esc(fee(c))}</span>
+    <span class="cr-num"><span class="sr">${t('stat.length')}: </span>${esc(duration(c))}</span>
+    ${score ? `<span class="cr-num cr-fit">${meter(score.score, '', t('match.aria', { n: score.score }))}</span>` : ''}
+    <button type="button" class="btn ghost icon-btn cr-cmp" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" aria-label="${inCompare ? t('compare.remove') : t('compare.add')}" title="${inCompare ? t('compare.in') : full ? t('compare.full') : t('compare.add')}" ${full ? 'disabled' : ''}>${icon(inCompare ? 'check' : 'plus')}</button>
   </article>`;
 }
 
 // ---------- certification page ----------
 function renderCert(id) {
   const c = BY_ID.get(id);
-  const color = catOf(c).c;
   const sources = c.sources.map((s) => DATA.sources[s]).filter(Boolean);
   const reports = c.reports.map((r) => DATA.reports[r]).filter(Boolean);
   const official = sources[0];
@@ -383,48 +333,36 @@ function renderCert(id) {
   const mine = scores && scores.get(c.id);
   const inCompare = compare.includes(c.id);
   const full = !inCompare && compare.length >= MAX_COMPARE;
-  const stat = (ic, label, value, sub) =>
-    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>` : '';
+  // Facts as one definition list; `html` is already escaped.
+  const fact = (term, html, sub) => (html ? `<div><dt>${term}</dt><dd>${html}${sub ? ` <small>${esc(sub)}</small>` : ''}</dd></div>` : '');
   const notes = [
-    c.requirements && c.status === 'restricted' ? ['lock', c.requirements] : null,
-    c.exam.format ? ['pen-line', c.exam.format] : null,
-    c.fee.note ? ['badge-dollar-sign', c.fee.note] : null,
-    c.ai_policy ? ['bot', t('cert.ai', { x: c.ai_policy })] : null,
-    ...c.caveats.map((x) => ['info', x]),
+    c.requirements && c.status === 'restricted' ? c.requirements : null,
+    c.exam.format,
+    c.fee.note,
+    c.ai_policy ? t('cert.ai', { x: c.ai_policy }) : null,
+    ...c.caveats,
   ].filter(Boolean);
 
-  const left = [
-    c.domains.length
-      ? `<section class="card panel"><h2>${icon('layers')}${t('cert.domains')}</h2><div class="donut-wrap">${donut(c.domains, 168, { label: t('donut.label'), aria: t('donut.aria') })}${legend(c)}</div>${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>`
-      : '',
+  const main = [
+    c.domains.length ? `<section class="sect"><h2>${t('cert.domains')}</h2>${weights(c.domains)}${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>` : '',
     mine
-      ? `<section class="card panel"><h2>${icon('sliders-horizontal')}${t('cert.why')}</h2><div class="for-you">${ring(mine.score, 76, 'lg', t('match.aria', { n: mine.score }))}<ul class="why">${mine.reasons
-          .map((r) => `<li>${icon('circle-check')}<span>${esc(lib(r))}</span></li>`)
+      ? `<section class="sect"><h2>${t('cert.why')}</h2><div class="for-you">${meter(mine.score, 'lg', t('match.aria', { n: mine.score }))}<ul class="why">${mine.reasons
+          .map((r) => `<li>${icon('check')}<span>${esc(lib(r))}</span></li>`)
           .join('')}${mine.warnings.map((w) => `<li class="warn">${icon('triangle-alert')}<span>${esc(lib(w))}</span></li>`).join('')}</ul></div></section>`
       : '',
-    notes.length
-      ? `<section class="card panel"><h2>${icon('info')}${t('cert.good')}</h2><ul class="notes">${notes.map(([ic, t]) => `<li>${icon(ic)}<span>${esc(t)}</span></li>`).join('')}</ul></section>`
-      : '',
+    notes.length ? `<section class="sect"><h2>${t('cert.good')}</h2><ul class="notes">${notes.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>` : '',
   ].join('');
-  const resource = (r) => {
-    const k = prepKind(r);
-    return ext(
-      r.url,
-      `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`,
-      'res',
-    );
-  };
   // The first few resources show; the rest fold away so the column stays near the length of the other one.
   const PREP_SHOWN = 5;
   const prep = c.prep || [];
   const prepHtml = prep.length
-    ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep')}</h2><div class="resources">${prep.slice(0, PREP_SHOWN).map(resource).join('')}</div>${
+    ? `<section class="sect"><h2>${t('cert.prep')}</h2><div class="resources">${prep.slice(0, PREP_SHOWN).map((r) => resource(r)).join('')}</div>${
         prep.length > PREP_SHOWN
-          ? `<details class="more more-res"><summary>${t('cert.morePrep', { n: prep.length - PREP_SHOWN })}</summary><div class="resources">${prep.slice(PREP_SHOWN).map(resource).join('')}</div></details>`
+          ? `<details class="more more-res"><summary>${t('cert.morePrep', { n: prep.length - PREP_SHOWN })}</summary><div class="resources">${prep.slice(PREP_SHOWN).map((r) => resource(r)).join('')}</div></details>`
           : ''
       }</section>`
     : '';
-  const sourcesHtml = `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
+  const sourcesHtml = `<section class="sect"><h2>${t('cert.sources')}</h2>
       <p class="hint">${esc(t('cert.checked', { d: day(c.checked_on, { weekday: false, year: true }) }))}</p>
       ${c.badge && c.badge.source ? `<p class="hint">${ext(c.badge.source, esc(t('cert.badgeFrom')))}</p>` : ''}
       <details class="more"><summary>${t('cert.nSources', { n: sources.length })}</summary>${sources
@@ -434,37 +372,35 @@ function renderCert(id) {
         <p class="hint">${t('cert.reportsHint')}</p>
         ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
     </section>`;
-  // With resources on the right, sources sit under the left column on wide screens and come last on narrow ones.
-  const right = prepHtml || sourcesHtml;
-  const tail = prepHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}${t('cert.back')}</a>
-    <div class="card cert-hero" style="--pc:${providerColor(c.provider)}">
-      <div class="hero-badge">${badge(c, 128)}</div>
-      <div>
-        <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}${catPill(c)}${flag(c)}</p>
+    <header class="cert-hero">
+      <div class="ch-text">
+        <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${flag(c)}</p>
         <h1>${esc(c.name)}</h1>
         <p class="scope">${esc(c.scope)}</p>
         <div class="cert-actions">
-          <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('cert.plan')}</a>
-          ${c.practice_questions ? `<a class="btn" href="#practice?cert=${esc(c.id)}">${icon('dumbbell')}${t('practice.btn')}</a>` : ''}
-          <button type="button" class="btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" ${full ? `disabled title="${t('compare.full')}"` : ''}>${icon(inCompare ? 'check' : 'columns-3')}${inCompare ? t('compare.in') : t('compare.btn')}</button>
-          <button type="button" class="btn" data-act="share" data-id="${esc(c.id)}">${icon('share-2')}${t('cert.share')}</button>
-          ${official ? ext(official.url, `${icon('external-link')}${t('cert.issuer')}`, 'btn') : ''}
+          <a class="btn primary" href="#plan?cert=${esc(c.id)}">${t('cert.plan')}${icon('arrow-right')}</a>
+          ${c.practice_questions ? `<a class="btn" href="#practice?cert=${esc(c.id)}">${t('practice.btn')}</a>` : ''}
+          <button type="button" class="btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" ${full ? `disabled title="${t('compare.full')}"` : ''}>${icon(inCompare ? 'check' : 'plus')}${inCompare ? t('compare.in') : t('compare.btn')}</button>
+          <button type="button" class="btn ghost" data-act="share" data-id="${esc(c.id)}">${icon('share-2')}${t('cert.share')}</button>
+          ${official ? ext(official.url, `${t('cert.issuer')}${icon('arrow-up-right')}`, 'btn ghost') : ''}
         </div>
       </div>
-    </div>
-    <div class="stat-grid">
-      ${stat('badge-dollar-sign', t('stat.price'), fee(c), c.fee.basis)}
-      ${stat('clock', t('stat.length'), duration(c))}
-      ${stat('list-checks', t('stat.questions'), c.exam.questions)}
-      ${stat('target', t('stat.passing'), c.exam.passing)}
-      ${stat('calendar-check', t('stat.valid'), c.exam.validity)}
-      ${stat('pen-line', t('stat.format'), LABELS[c.exam.style])}
-      ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status])}
-    </div>
-    <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>`;
+      <div class="hero-badge">${badge(c, 112)}</div>
+    </header>
+    <dl class="facts">
+      ${fact(t('stat.price'), esc(fee(c)), c.fee.basis)}
+      ${fact(t('stat.length'), esc(duration(c)))}
+      ${fact(t('stat.questions'), esc(c.exam.questions || ''))}
+      ${fact(t('stat.passing'), esc(c.exam.passing || ''))}
+      ${fact(t('stat.valid'), esc(c.exam.validity || ''))}
+      ${fact(t('stat.level'), lvl(c.level))}
+      ${fact(t('stat.format'), esc(LABELS[c.exam.style] || ''))}
+      ${fact(t('stat.registration'), esc(LABELS[c.status] || ''))}
+    </dl>
+    <div class="cert-cols"><div class="col-main">${main}</div><div class="col-side">${prepHtml}${sourcesHtml}</div></div>`;
 }
 
 // ---------- compare page ----------
@@ -476,30 +412,34 @@ function renderCompare() {
     return;
   }
   const link = `${location.origin}${location.pathname}#compare?ids=${certs.map((c) => c.id).join(',')}`;
-  const row = (ic, label, value) => `<div class="cmp-row">${icon(ic)}<div><small>${label}</small>${value}</div></div>`;
+  const row = (label, cell) => `<tr><th scope="row">${label}</th>${certs.map((c) => `<td>${cell(c)}</td>`).join('')}</tr>`;
+  const domains = (c) => (c.domains.length ? `<ul class="cmp-domains">${c.domains.map((d) => `<li><span>${esc(d.name)}</span><b>${d.weight}%</b></li>`).join('')}</ul>` : '—');
   body.innerHTML = `
     <div class="compare-tools">
       <button type="button" class="btn" id="copy-compare">${icon('link')}${t('copyLink')}</button>
-      <button type="button" class="btn" id="clear-compare">${icon('x')}${t('clear')}</button>
+      <button type="button" class="btn ghost" id="clear-compare">${t('clear')}</button>
     </div>
-    <div class="cmp" style="--n:${certs.length}">${certs
-      .map(
-        (c) => `<article class="card cmp-col">
-          <div class="head">${badge(c, 46, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div></div>
-          ${row('badge-dollar-sign', t('stat.price'), esc(fee(c)))}
-          ${row('clock', t('stat.length'), esc(duration(c)))}
-          ${row('list-checks', t('stat.questions'), esc(c.exam.questions || '—'))}
-          ${row('target', t('stat.passing'), esc(c.exam.passing || '—'))}
-          ${row('calendar-check', t('stat.valid'), esc(c.exam.validity || '—'))}
-          ${row('gauge', t('stat.level'), lvl(c.level))}
-          ${row('pen-line', t('stat.format'), esc(LABELS[c.exam.style]))}
-          ${row(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), esc(LABELS[c.status]))}
-          ${row('layers', t('stat.domains'), c.domains.length ? dbar(c) + legend(c) : '—')}
-          ${row('bot', t('stat.ai'), esc(c.ai_policy || '—'))}
-          <button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button>
-        </article>`,
-      )
-      .join('')}</div>`;
+    <div class="cmp-wrap">
+      <table class="cmp" style="--n:${certs.length}">
+        <thead><tr><td></td>${certs
+          .map(
+            (c) => `<th scope="col"><div class="cmp-head">${badge(c, 40, { label: false })}<a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a><span class="who">${esc(c.provider)} · ${esc(c.code)}</span><button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button></div></th>`,
+          )
+          .join('')}</tr></thead>
+        <tbody>
+          ${row(t('stat.price'), (c) => `<span class="num">${esc(fee(c))}</span>`)}
+          ${row(t('stat.length'), (c) => `<span class="num">${esc(duration(c))}</span>`)}
+          ${row(t('stat.questions'), (c) => esc(c.exam.questions || '—'))}
+          ${row(t('stat.passing'), (c) => esc(c.exam.passing || '—'))}
+          ${row(t('stat.valid'), (c) => esc(c.exam.validity || '—'))}
+          ${row(t('stat.level'), (c) => lvl(c.level))}
+          ${row(t('stat.format'), (c) => esc(LABELS[c.exam.style]))}
+          ${row(t('stat.registration'), (c) => esc(LABELS[c.status]))}
+          ${row(t('stat.domains'), domains)}
+          ${row(t('stat.ai'), (c) => esc(c.ai_policy || '—'))}
+        </tbody>
+      </table>
+    </div>`;
   $('#copy-compare').addEventListener('click', (e) => copy(link, e.currentTarget));
   $('#clear-compare').addEventListener('click', () => {
     setCompare([]);
@@ -641,7 +581,7 @@ function planParams() {
 
 function statusHtml(p) {
   const d = p.deadline;
-  if (!d) return `<div class="status info">${icon('flag')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>`;
+  if (!d) return `<div class="status info">${icon('info')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>`;
   if (d.fits) {
     return `<div class="status good">${icon('circle-check')}${esc(t('plan.fits', { d: day(d.targetDate), spare: d.spare }))}</div>`;
   }
@@ -671,15 +611,16 @@ function monthsHtml(p, done) {
       const s = byDate.get(date);
       const isToday = date === today ? ' today' : '';
       if (s) {
+        // Sessions are ink dots, mocks the one accent; the kind is in the tooltip and the list below.
         const state = done.has(s.n) ? ' done' : date < today ? ' missed' : '';
-        cells.push(`<span class="d s ${kindN(s.kind)}${state}${isToday}" data-n="${s.n}" ${kindStyle(s.kind)} title="${esc(`${day(date)} · ${kindLabel(s.kind)}: ${cap(sname(s))}`)}">${icon(KIND[s.kind].icon)}</span>`);
+        cells.push(`<span class="d s${s.kind === 'mock' ? ' mock' : ''}${state}${isToday}" data-n="${s.n}" title="${esc(`${day(date)} · ${kindLabel(s.kind)}: ${cap(sname(s))}`)}">${d}</span>`);
       } else if (date === examDay) {
-        cells.push(`<span class="d exam${isToday}" title="${esc(`${day(date)} · ${t('plan.examDay')}`)}">${icon('target')}</span>`);
+        cells.push(`<span class="d exam${isToday}" title="${esc(`${day(date)} · ${t('plan.examDay')}`)}">${d}</span>`);
       } else {
         cells.push(`<span class="d${isToday}">${d}</span>`);
       }
     }
-    out.push(`<div class="card month"><h3>${dates().monthNames[m]} ${y}</h3><div class="mgrid">${cells.join('')}</div></div>`);
+    out.push(`<div class="month"><h3>${dates().monthNames[m]} <span>${y}</span></h3><div class="mgrid">${cells.join('')}</div></div>`);
     if (m === 11) {
       y += 1;
       m = 0;
@@ -736,15 +677,15 @@ function renderPlan() {
   };
   const today = todayLocal();
   const stopState = (s) => (done.has(s.n) ? ' done' : s.date < today ? ' missed' : s.date === today ? ' today' : '');
+  const stopClass = (s) => `stop${s.kind === 'mock' ? ' mock' : ''}${stopState(s)}`;
   const stopTag = (s) => (done.has(s.n) ? '' : s.date < today ? `<span class="tag warn">${t('progress.legendMissed')}</span>` : s.date === today ? `<span class="tag">${t('progress.today')}</span>` : '');
   const PRACTICE_KINDS = ['baseline', 'practice', 'mock', 'remediate'];
-  const stop = (s) => `<li class="stop${stopState(s)}" data-kind="${s.kind}">
-      <span class="node ${kindN(s.kind)}" ${kindStyle(s.kind)}>${icon(KIND[s.kind].icon)}</span>
-      <div class="card body">
+  const stop = (s) => `<li class="${stopClass(s)}" data-kind="${s.kind}">
+      <div class="body">
         <small>${day(s.date)} · ${kindLabel(s.kind)}${stopTag(s)}</small>
         <b>${esc(cap(sname(s)))}</b>
-        <span class="len">${icon('clock')}${len(s.minutes)}</span>
-        ${cert.practice_questions && PRACTICE_KINDS.includes(s.kind) ? `<a class="pa-link" href="#practice?cert=${esc(cert.id)}">${icon('dumbbell')}${t('practice.planLink')}</a>` : ''}
+        <span class="len">${len(s.minutes)}</span>
+        ${cert.practice_questions && PRACTICE_KINDS.includes(s.kind) ? `<a class="pa-link" href="#practice?cert=${esc(cert.id)}">${t('practice.planLink')}${icon('arrow-right')}</a>` : ''}
         <label class="check"><input type="checkbox" data-n="${s.n}" aria-label="${esc(t('plan.sessionDone', { n: s.n }))}" ${done.has(s.n) ? 'checked' : ''}><span>${icon('check')}</span></label>
       </div></li>`;
   const kinds = [...new Set(p.sessions.map((s) => s.kind))];
@@ -756,53 +697,49 @@ function renderPlan() {
     const names = s.topics || (s.topic ? [s.topic] : []);
     for (const n of names) byTopic.set(n, (byTopic.get(n) || 0) + s.minutes / names.length);
   }
-  const topicRows = p.topics
-    .map((tp, i) => ({ label: lib(tp), value: Math.round(((byTopic.get(tp) || 0) / 60) * 10) / 10, color: domainColor(i) }))
-    .filter((r) => r.value > 0);
+  const topicRows = p.topics.map((tp) => ({ label: lib(tp), value: Math.round(((byTopic.get(tp) || 0) / 60) * 10) / 10 })).filter((r) => r.value > 0);
   const weekRows = [...weeks].map(([w, items], i) => ({
     label: t('plan.wk', { n: i + 1 }),
     value: Math.round((items.reduce((sum, s) => sum + s.minutes, 0) / 60) * 10) / 10,
     title: t('plan.weekTitle', { n: i + 1, r: weekRange(w), h: Math.round((items.reduce((sum, s) => sum + s.minutes, 0) / 60) * 10) / 10 }),
     mark: items.some((s) => s.kind === 'mock'),
   }));
-  const summaryStat = (ic, label, value) => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${label}</small><b>${value}</b></div></div>`;
+  const sum = (term, value) => `<div><dt>${term}</dt><dd>${value}</dd></div>`;
+  const progressMeter = () => meter(pct(), 'pct', t('plan.pctDone', { p: pct() }));
 
   out.innerHTML = `
-    <div class="plan-summary">
-      ${summaryStat('calendar-days', t('plan.sessions'), p.sessions.length)}
-      ${summaryStat('clock', t('plan.studyTime'), `${p.hours} h`)}
-      ${summaryStat('flag', t('plan.fromTo'), `${day(p.sessions[0].date, { weekday: false })} – ${day(p.sessions.at(-1).date, { weekday: false })}`)}
-      ${summaryStat('target', p.deadline ? t('plan.examDay') : t('plan.earliest'), day(examDay))}
-      <div class="card progress-card" id="progress">${ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }))}<div><b id="progress-n">${t('plan.of', { a: done.size, b: p.sessions.length })}</b><small>${t('plan.done')}</small></div></div>
-    </div>
+    <dl class="summary plan-summary">
+      ${sum(t('plan.sessions'), p.sessions.length)}
+      ${sum(t('plan.studyTime'), `${p.hours} h`)}
+      ${sum(t('plan.fromTo'), `${day(p.sessions[0].date, { weekday: false })} – ${day(p.sessions.at(-1).date, { weekday: false })}`)}
+      ${sum(p.deadline ? t('plan.examDay') : t('plan.earliest'), day(examDay))}
+      <div id="progress"><dt>${cap(t('plan.done'))}</dt><dd><span id="progress-n">${t('plan.of', { a: done.size, b: p.sessions.length })}</span>${progressMeter()}</dd></div>
+    </dl>
     ${statusHtml(p)}
     <div class="plan-actions">
       <button type="button" class="btn primary" id="dl-ics">${icon('calendar-plus')}${t('plan.calendar')}</button>
-      <button type="button" class="btn" id="track-plan" aria-pressed="${tracked}">${icon('activity')}<span>${tracked ? t('plan.tracking') : t('plan.track')}</span></button>
-      <button type="button" class="btn" id="dl-md">${icon('download')}Markdown</button>
-      <button type="button" class="btn" id="copy-plan">${icon('link')}${t('copyLink')}</button>
-      <button type="button" class="btn" id="print-plan">${icon('printer')}${t('plan.print')}</button>
+      <button type="button" class="btn" id="track-plan" aria-pressed="${tracked}">${icon('check')}<span>${tracked ? t('plan.tracking') : t('plan.track')}</span></button>
+      <button type="button" class="btn ghost" id="dl-md">${icon('download')}Markdown</button>
+      <button type="button" class="btn ghost" id="copy-plan">${icon('link')}${t('copyLink')}</button>
+      <button type="button" class="btn ghost" id="print-plan">${icon('printer')}${t('plan.print')}</button>
     </div>
     ${p.inferredTopics ? `<p class="note">${esc(t('plan.inferred'))}</p>` : ''}
-    <div class="months">${monthsHtml(p, done)}</div>
-    <ul class="kinds">${kinds.map((k) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${kindLabel(k)}</li>`).join('')}<li><span class="k exam">${icon('target')}</span>${t('plan.examDay')}</li></ul>
+    <section class="plan-cal">
+      <div class="months">${monthsHtml(p, done)}</div>
+      <ul class="kinds"><li><span class="k"></span>${t('plan.sessions')}</li>${mockSession ? `<li><span class="k mock"></span>${kindLabel('mock')}</li>` : ''}<li><span class="k exam"></span>${t('plan.examDay')}</li></ul>
+    </section>
     <div class="plan-charts">
-      <section class="card panel"><h2>${icon('chart-bar')}${t('plan.byTopic')}</h2>${hbars(topicRows)}</section>
-      <section class="card panel"><h2>${icon('chart-column')}${t('plan.perWeek')}</h2>${columns(weekRows, 'h', t('plan.perWeekAria'))}<p class="hint">${t('plan.mockWeeks')}</p></section>
+      <section class="sect"><h2>${t('plan.byTopic')}</h2>${hbars(topicRows)}</section>
+      <section class="sect"><h2>${t('plan.perWeek')}</h2>${columns(weekRows, 'h', t('plan.perWeekAria'))}${mockSession ? `<p class="hint">${t('plan.mockWeeks')}</p>` : ''}</section>
     </div>
     ${[...weeks]
-      .map(([w, items], i) => `<h3 class="week">${t('plan.week', { n: i + 1 })} <small>${weekRange(w)}</small></h3><ol class="trail">${items.map(stop).join('')}</ol>`)
+      .map(([w, items], i) => `<section class="week-block"><h3 class="week">${t('plan.week', { n: i + 1 })} <small>${weekRange(w)}</small></h3><ol class="trail">${items.map(stop).join('')}</ol></section>`)
       .join('')}
     <div class="plan-extra">
-      <section class="card panel"><h2>${icon('info')}${t('plan.what')}</h2>
-        <dl class="keydl">${kinds.map((k) => `<dt><span class="kinds"><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span></span>${kindLabel(k)}</dt><dd>${esc(k === 'mock' ? kindDetail('mock', mockSession.detail, mockSession.minutes) : kindDetail(k, KIND_DETAIL[k]))}</dd>`).join('')}</dl>
+      <section class="sect"><h2>${t('plan.what')}</h2>
+        <dl class="keydl">${kinds.map((k) => `<div><dt>${kindLabel(k)}</dt><dd>${esc(k === 'mock' ? kindDetail('mock', mockSession.detail, mockSession.minutes) : kindDetail(k, KIND_DETAIL[k]))}</dd></div>`).join('')}</dl>
       </section>
-      ${cert.prep && cert.prep.length ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('plan.resources')}</h2><div class="resources">${cert.prep
-        .map((r) => {
-          const k = prepKind(r);
-          return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`, 'res');
-        })
-        .join('')}</div></section>` : ''}
+      ${cert.prep && cert.prep.length ? `<section class="sect"><h2>${t('plan.resources')}</h2><div class="resources">${cert.prep.map((r) => resource(r, false)).join('')}</div></section>` : ''}
     </div>`;
 
   $$('#plan-output .check input').forEach((box) =>
@@ -813,7 +750,7 @@ function renderPlan() {
       store.set(progressKey, [...done]);
       const session = p.sessions.find((x) => x.n === n);
       const li = box.closest('.stop');
-      li.className = `stop${stopState(session)}`;
+      li.className = stopClass(session);
       $('.tag', li)?.remove();
       $('small', li).insertAdjacentHTML('beforeend', stopTag(session));
       const cell = $(`#plan-output .mgrid [data-n="${n}"]`);
@@ -821,7 +758,7 @@ function renderPlan() {
         cell.classList.toggle('done', box.checked);
         cell.classList.toggle('missed', !box.checked && session.date < today);
       }
-      $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }));
+      $('#progress .meter').outerHTML = progressMeter();
       $('#progress-n').textContent = t('plan.of', { a: done.size, b: p.sessions.length });
       if (box.checked && !isTracked(progressKey)) setTracked(progressKey, trackParams(), true);
       const kind = p.sessions.find((s) => s.n === n)?.kind;
@@ -837,8 +774,9 @@ function renderPlan() {
 
 function celebrate(count) {
   if (reducedMotion()) return;
+  // Paper confetti: the accent and the inks of the current theme.
   const css = getComputedStyle(document.documentElement);
-  const colors = ['--accent', '--k-learn', '--k-practice', '--k-mock', '--d4'].map((v) => css.getPropertyValue(v).trim()).filter(Boolean);
+  const colors = ['--accent', '--text', '--muted', '--line-strong'].map((v) => css.getPropertyValue(v).trim()).filter(Boolean);
   confetti({ particleCount: count, spread: 75, startVelocity: 38, origin: { y: 0.75 }, colors, disableForReducedMotion: true });
 }
 
@@ -876,13 +814,8 @@ async function copy(text, button) {
 // ---------- wiring ----------
 function bind() {
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-act], button[data-cat], button[data-prov]');
+    const btn = e.target.closest('button[data-act], button[data-cat]');
     if (!btn) return;
-    if (btn.dataset.prov !== undefined) {
-      activeProvider = activeProvider === btn.dataset.prov ? '' : btn.dataset.prov;
-      renderList();
-      return;
-    }
     if (btn.dataset.cat !== undefined) {
       activeCat = btn.dataset.cat;
       renderList();
@@ -911,13 +844,11 @@ function bind() {
 
   $('#filters').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
-  $('#q').addEventListener('input', renderList);
   $('#q').addEventListener('keydown', (e) => {
     if (e.key !== 'Enter') return;
     e.preventDefault();
     showResults();
   });
-  $('#q-hint').addEventListener('click', showResults);
   $('#mq-toggle').addEventListener('click', () => {
     const paused = !$('#marquee').classList.contains('paused');
     setMotionPaused(paused);
@@ -1010,7 +941,7 @@ const clock = (ms) => {
 const domainBars = (per) =>
   `<ul class="pa-domains">${per
     .map(
-      (d, i) => `<li><span>${esc(d.name)} <small>${d.weight}%</small></span><span class="hb-track"><i style="width:${d.pct ?? 0}%;background:${domainColor(i)}"></i></span><b>${d.pct === null ? '—' : `${d.pct}%`}</b><small>${d.ok}/${d.n}</small></li>`,
+      (d) => `<li><span>${esc(d.name)} <small>${d.weight}%</small></span><span class="hb-track" aria-hidden="true"><i style="width:${d.pct ?? 0}%"></i></span><b>${d.pct === null ? '—' : `${d.pct}%`}</b><small>${d.ok}/${d.n}</small></li>`,
     )
     .join('')}</ul>`;
 
@@ -1046,7 +977,7 @@ function practiceHead(ctx, active) {
   const tab = (key, label) => `<a href="#practice?cert=${esc(ctx.id)}${key === 'start' ? '' : `&tab=${key}`}" ${active === key ? 'aria-current="page"' : ''}>${label}</a>`;
   const due = dueCount(ctx);
   return `<a class="back" href="#cert?id=${esc(ctx.id)}">${icon('arrow-left')}${esc(ctx.c.name)}</a>
-    <div class="page-head"><span class="head-icon">${icon('dumbbell')}</span><h1>${t('practice.title')}: ${esc(ctx.c.code)}</h1></div>
+    <div class="page-head"><h1>${t('practice.title')} <span class="h1-code">${esc(ctx.c.code)}</span></h1></div>
     <p class="hint pa-intro">${esc(t('practice.intro', { n: ctx.set.questions.length }))}</p>
     <div class="pa-tabs">${tab('start', t('practice.tabStart'))}${tab('review', `${t('practice.tabReview')}${due ? ` <b class="pa-n">${due}</b>` : ''}`)}${tab('bank', t('practice.tabBank'))}${tab('mistakes', t('practice.tabMistakes'))}</div>`;
 }
@@ -1064,22 +995,22 @@ function practiceHome(ctx, run) {
   const past = [...hist.attempts].reverse().slice(0, 10);
   const due = dueCount(ctx);
   $('#practice-body').innerHTML = `${practiceHead(ctx, 'start')}
-    ${run ? `<div class="status pa-resume">${icon('timer')}<span>${esc(t('practice.resume', { a: Object.keys(run.answers).length, b: run.ids.length }))}</span>
+    ${run ? `<div class="status pa-resume">${icon('info')}<span>${esc(t('practice.resume', { a: Object.keys(run.answers).length, b: run.ids.length }))}</span>
       <a class="btn primary" href="#practice?cert=${esc(id)}&run=1">${t('practice.continue')}</a><button type="button" class="btn" id="pa-discard">${t('practice.discard')}</button></div>` : ''}
     ${due ? `<div class="status pa-resume">${icon('refresh-cw')}<span>${esc(t('practice.reviewDue', { n: due }))}</span><a class="btn primary" href="#practice?cert=${esc(id)}&review=due">${t('practice.reviewStart')}</a></div>` : ''}
-    <section class="card panel">
-      <h2>${icon('play')}${t('practice.tabStart')}</h2>
+    <section class="sect pa-start">
+      <h2>${t('practice.tabStart')}</h2>
       <div class="pa-setup">
         <div class="segmented" role="radiogroup" aria-label="${esc(t('practice.size'))}">${sizes.map(([n, label], i) => `<label><input type="radio" name="pa-size" value="${n}" ${i === sizes.length - 1 ? 'checked' : ''}><span>${esc(label)}</span></label>`).join('')}</div>
         <label class="pa-check"><input type="checkbox" id="pa-timed" checked> <span id="pa-timed-label"></span></label>
-        <button type="button" class="btn primary" id="pa-start" ${run ? 'disabled' : ''}>${icon('play')}${t('practice.start')}</button>
+        <button type="button" class="btn primary" id="pa-start" ${run ? 'disabled' : ''}>${t('practice.start')}${icon('arrow-right')}</button>
       </div>
       ${pool < full ? `<p class="hint">${esc(t('practice.shortBank', { need: full, n: pool }))}</p>` : ''}
     </section>
     ${hist.attempts.length
       ? `<div class="progress-cols">
-          <section class="card panel"><h2>${icon('chart-bar')}${t('practice.overall')}</h2>${domainBars(totals(hist, c.domains))}<p class="hint">${esc(t('practice.notScore'))}</p></section>
-          <section class="card panel"><h2>${icon('activity')}${t('practice.history')}</h2><ul class="pa-history">${past
+          <section class="sect"><h2>${t('practice.overall')}</h2>${domainBars(totals(hist, c.domains))}<p class="hint">${esc(t('practice.notScore'))}</p></section>
+          <section class="sect"><h2>${t('practice.history')}</h2><ul class="pa-history">${past
             .map((a) => `<li><span>${esc(when(a.when))}</span><b>${a.pct === null ? '—' : `${a.pct}%`}</b><small>${a.ok}/${a.n}</small><a href="#practice?cert=${esc(id)}&attempt=${esc(a.id)}">${t('practice.open')}</a></li>`)
             .join('')}</ul></section>
         </div>`
@@ -1136,8 +1067,8 @@ function practiceExam(ctx, run) {
       </div>
       ${asking ? `<div class="status warn pa-resume">${icon('triangle-alert')}<span>${esc(t('practice.finishSure'))}${left() ? ` ${esc(t('practice.finishLeft', { n: left() }))}` : ''}</span><button type="button" class="btn primary" id="pa-yes">${t('practice.finishYes')}</button><button type="button" class="btn" id="pa-no">${t('practice.finishNo')}</button></div>` : ''}
       ${run.paused
-        ? `<div class="card panel pa-paused"><p>${esc(t('practice.paused'))}</p></div>`
-        : `<section class="card panel pa-q">
+        ? `<div class="pa-paused"><p>${esc(t('practice.paused'))}</p></div>`
+        : `<section class="pa-q">
             <small class="pa-meta">${esc(t('practice.q', { a: run.cur + 1, b: run.ids.length }))} · ${esc(q.domain)}</small>
             <h2 class="pa-prompt">${esc(pText(q.prompt))}</h2>
             ${multi ? `<p class="pa-pick">${esc(t('practice.selectN', { n: q.correct.length }))}</p>` : ''}
@@ -1240,7 +1171,7 @@ const shownOptions = (q, given = []) =>
     .join('');
 
 const reviewCard = (q, answer, state = '') =>
-  `<details class="card pa-review"><summary><small class="pa-meta">${esc(q.domain)}${state ? ` · ${state}` : ''}</small><b>${esc(pText(q.prompt))}</b></summary><div class="pa-options">${shownOptions(q, answer || [])}</div><p class="pa-why">${esc(pText(q.explanation))}</p></details>`;
+  `<details class="pa-review"><summary><small class="pa-meta">${esc(q.domain)}${state ? ` · ${state}` : ''}</small><b>${esc(pText(q.prompt))}</b></summary><div class="pa-options">${shownOptions(q, answer || [])}</div><p class="pa-why">${esc(pText(q.explanation))}</p></details>`;
 
 function practiceResult(ctx) {
   const { id, set } = ctx;
@@ -1255,18 +1186,18 @@ function practiceResult(ctx) {
   const paint = (onlyWrong) => {
     const list = onlyWrong ? answered.filter((q) => missed.has(q.id)) : answered;
     $('#practice-body').innerHTML = `<a class="back" href="#practice?cert=${esc(id)}">${icon('arrow-left')}${t('practice.back')}</a>
-      <div class="page-head"><span class="head-icon">${icon('target')}</span><h1>${t('practice.result')}</h1></div>
-      <section class="card panel pa-score">
-        <b class="pa-big">${a.pct}%</b>
+      <div class="page-head"><h1>${t('practice.result')}</h1></div>
+      <section class="pa-score">
+        <b class="pa-big">${a.pct}<small>%</small></b>
         <div><p>${esc(t('practice.resultOf', { ok: a.ok, n: a.n }))}</p>
         ${a.total > a.n ? `<p class="hint">${esc(t('practice.resultLeft', { n: a.total - a.n }))}</p>` : ''}
         <p class="hint">${esc(t('practice.weighted', { p: a.weighted }))}</p><p class="hint">${esc(t('practice.notScore'))}</p></div>
-        <a class="btn primary" href="#practice?cert=${esc(id)}">${icon('play')}${t('practice.again')}</a>
+        <a class="btn primary" href="#practice?cert=${esc(id)}">${t('practice.again')}${icon('arrow-right')}</a>
         ${due ? `<a class="btn" href="#practice?cert=${esc(id)}&review=due">${icon('refresh-cw')}${t('practice.tabReview')} · ${due}</a>` : ''}
       </section>
-      <section class="card panel"><h2>${icon('chart-bar')}${t('practice.byDomain')}</h2>${domainBars(a.per)}</section>
+      <section class="sect"><h2>${t('practice.byDomain')}</h2>${domainBars(a.per)}</section>
       <div class="pa-reviewhead"><h2>${t('practice.review')}</h2><div class="segmented"><label><input type="radio" name="pa-rev" value="all" ${onlyWrong ? '' : 'checked'}><span>${t('practice.reviewAll')}</span></label><label><input type="radio" name="pa-rev" value="wrong" ${onlyWrong ? 'checked' : ''}><span>${t('practice.reviewWrong')} (${missed.size})</span></label></div></div>
-      ${list.map((q) => reviewCard(q, a.answers[q.id], missed.has(q.id) ? `<span class="tag warn">${icon('flag')}</span>` : '')).join('')}`;
+      ${list.map((q) => reviewCard(q, a.answers[q.id], missed.has(q.id) ? `<span class="tag warn">${t('practice.filterWrong')}</span>` : '')).join('')}`;
     $$('input[name="pa-rev"]').forEach((r) => r.addEventListener('change', () => paint(r.value === 'wrong' && r.checked)));
   };
   paint(a.wrong.length > 0);
@@ -1287,13 +1218,13 @@ function practiceReviewTab(ctx) {
   const go = (mode, cls, label) => `<a class="btn ${cls}" href="#practice?cert=${esc(id)}&review=${mode}">${icon('refresh-cw')}${label}</a>`;
   const row = (r) => `<li><span>${esc(pText(byId.get(r.id).prompt))}</span><small>${esc(r.due <= now ? t('practice.dueNow') : t('practice.dueIn', { n: daysUntil(r.due, now) }))}</small></li>`;
   $('#practice-body').innerHTML = `${practiceHead(ctx, 'review')}
-    <section class="card panel">
-      <h2>${icon('refresh-cw')}${t('practice.tabReview')}</h2>
+    <section class="sect">
+      <h2>${t('practice.tabReview')}</h2>
       <p>${esc(status)}</p>
       ${due.length ? `<div class="pa-setup">${go('due', 'primary', t('practice.reviewStart'))}</div>` : later.length ? `<div class="pa-setup">${go('early', '', t('practice.reviewEarly'))}</div>` : ''}
       <p class="hint pa-how">${esc(t('practice.reviewHow', { days: INTERVALS.join(', ') }))}</p>
     </section>
-    ${due.length || later.length ? `<section class="card panel"><h2>${icon('calendar-clock')}${t('practice.reviewList')}</h2><ul class="pa-history">${[...due, ...later].map(row).join('')}</ul></section>` : ''}`;
+    ${due.length || later.length ? `<section class="sect"><h2>${t('practice.reviewList')}</h2><ul class="pa-history">${[...due, ...later].map(row).join('')}</ul></section>` : ''}`;
 }
 
 /** One question at a time with the answer right after each check. Every check updates the schedule. */
@@ -1312,13 +1243,13 @@ function practiceReview(ctx, early) {
   let verdict = null;
   let ok = 0;
   const head = `<a class="back" href="${esc(back)}">${icon('arrow-left')}${t('practice.back')}</a>
-    <div class="page-head"><span class="head-icon">${icon('refresh-cw')}</span><h1>${t('practice.tabReview')}: ${esc(ctx.c.code)}</h1></div>`;
+    <div class="page-head"><h1>${t('practice.tabReview')} <span class="h1-code">${esc(ctx.c.code)}</span></h1></div>`;
   const paint = () => {
     if (cur >= ids.length) {
       const left = dueCount(ctx);
       $('#practice-body').innerHTML = `${head}
-        <section class="card panel pa-score">
-          <b class="pa-big">${ok}/${ids.length}</b>
+        <section class="pa-score">
+          <b class="pa-big">${ok}<small>/${ids.length}</small></b>
           <div><p>${esc(t('practice.reviewScore', { ok, n: ids.length }))}</p><p class="hint">${esc(t('practice.reviewLeft', { n: left }))}</p></div>
           ${left ? `<button type="button" class="btn primary" id="pa-again">${icon('refresh-cw')}${t('practice.reviewAgain')}</button>` : ''}
           <a class="btn${left ? '' : ' primary'}" href="${esc(back)}">${t('practice.back')}</a>
@@ -1335,7 +1266,7 @@ function practiceReview(ctx, early) {
           .map((o) => `<button type="button" class="pa-opt${multi ? ' multi' : ''}" data-key="${esc(o.key)}" aria-pressed="${picked.includes(o.key)}"><span class="k">${esc(o.key)}</span><span>${esc(pText(o.text))}</span></button>`)
           .join('');
     $('#practice-body').innerHTML = `${head}
-      <section class="card panel pa-q">
+      <section class="pa-q">
         <small class="pa-meta">${esc(t('practice.q', { a: cur + 1, b: ids.length }))} · ${esc(q.domain)}</small>
         <h2 class="pa-prompt">${esc(pText(q.prompt))}</h2>
         ${multi && !verdict ? `<p class="pa-pick">${esc(t('practice.selectN', { n: q.correct.length }))}</p>` : ''}
@@ -1364,7 +1295,7 @@ function practiceReview(ctx, early) {
       if (right) ok += 1;
       verdict = {
         right,
-        text: !right ? t('practice.reviewWrong') : after === before ? t('practice.reviewRightEarly') : t('practice.reviewRight', { n: daysUntil(after.cards[q.id].due, now) }),
+        text: !right ? t('practice.reviewMissed') : after === before ? t('practice.reviewRightEarly') : t('practice.reviewRight', { n: daysUntil(after.cards[q.id].due, now) }),
       };
       paint();
       $('#pa-next')?.focus();
@@ -1442,7 +1373,7 @@ function practiceProgress() {
     .map((c) => ({ c, attempts: store.get(practiceKeys(c.id).history, emptyHistory()).attempts }))
     .filter((x) => x.attempts.length);
   if (!rows.length) return '';
-  return `<section class="card panel"><h2>${icon('dumbbell')}${t('practice.progress')}</h2><ul class="pa-history">${rows
+  return `<section class="sect"><h2>${t('practice.progress')}</h2><ul class="pa-history">${rows
     .map(({ c, attempts }) => `<li><span>${esc(c.code)}</span><small>${esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct }))}</small><a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
     .join('')}</ul></section>`;
 }
@@ -1513,14 +1444,14 @@ function renderProgress() {
   const body = $('#progress-body');
   const { today, plans, sessions, streak } = progressData();
   if (!plans.length) {
-    body.innerHTML = `<div class="card empty-card">${tile('activity', '--accent')}<p>${esc(t('progress.empty'))}</p><a class="btn primary" href="#plan">${icon('route')}${t('progress.start')}</a></div>${practiceProgress()}`;
+    body.innerHTML = `<div class="empty-card"><p>${esc(t('progress.empty'))}</p><a class="btn primary" href="#plan">${t('progress.start')}${icon('arrow-right')}</a></div>${practiceProgress()}`;
     return;
   }
   const done = sessions.filter((s) => s.done);
   const hours = Math.round((done.reduce((m, s) => m + s.minutes, 0) / 60) * 10) / 10;
   const missed = sessions.filter((s) => s.past && !s.done).length;
   const upcoming = sessions.filter((s) => !s.done && !s.past).slice(0, 6);
-  const tileStat = (ic, lbl, value, sub = '') => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${lbl}</small><b>${value}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>`;
+  const sum = (term, value, sub = '') => `<div><dt>${term}</dt><dd>${value}${sub ? `<small>${esc(sub)}</small>` : ''}</dd></div>`;
 
   // Five weeks of scheduled sessions: two back, this one, two ahead. Monday first.
   const now = utc(today);
@@ -1539,10 +1470,10 @@ function renderProgress() {
     cells.push(`<span class="d ${state}${date === today ? ' today' : ''}" ${title ? `title="${esc(`${day(date)}\n${title}`)}"` : ''}>${d.getUTCDate()}</span>`);
   }
 
-  const next = (s) => `<li class="card up">
-      ${badge(BY_ID.get(s.plan.params.cert), 34, { label: false })}
-      <div><small>${day(s.date)}${s.today ? ` · ${t('progress.today')}` : ''} · ${len(s.minutes)}</small><b>${esc(kindLabel(s.kind))}: ${esc(cap(sname(s)))}</b><span class="who">${esc(s.plan.plan.cert.code)}</span></div>
-      <a class="btn icon-btn" href="#plan?${esc(new URLSearchParams(s.plan.params).toString())}" aria-label="${esc(t('progress.open'))}">${icon('arrow-right')}</a>
+  const next = (s) => `<li class="up${s.today ? ' today' : ''}">
+      ${badge(BY_ID.get(s.plan.params.cert), 28, { label: false })}
+      <div><small>${day(s.date)}${s.today ? ` · <span class="tag">${t('progress.today')}</span>` : ''} · ${len(s.minutes)} · ${esc(s.plan.plan.cert.code)}</small><b>${esc(kindLabel(s.kind))}: ${esc(cap(sname(s)))}</b></div>
+      <a class="btn ghost icon-btn" href="#plan?${esc(new URLSearchParams(s.plan.params).toString())}" aria-label="${esc(t('progress.open'))}">${icon('arrow-right')}</a>
     </li>`;
 
   const planCard = (x) => {
@@ -1551,29 +1482,33 @@ function renderProgress() {
     const pct = Math.round((x.done.size / total) * 100);
     const nextOne = x.plan.sessions.find((s) => !x.done.has(s.n) && s.date >= today) || x.plan.sessions.find((s) => !x.done.has(s.n));
     const examDay = x.plan.deadline ? x.plan.deadline.targetDate : x.plan.examDate;
-    return `<article class="card plan-card" style="--pc:${providerColor(c.provider)}">
-      <div class="head">${badge(c, 52, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div>${ring(pct, 52, 'good pct', t('plan.pctDone', { p: pct }))}</div>
-      <p class="meta"><span>${icon('calendar-days')}${t('plan.of', { a: x.done.size, b: total })} ${t('plan.done')}</span><span>${icon('target')}${esc(t('progress.examOn', { d: day(examDay) }))}</span></p>
-      ${nextOne ? `<p class="meta next">${icon('arrow-right')}<span>${esc(t('progress.nextOne', { x: `${day(nextOne.date)} · ${kindLabel(nextOne.kind)}: ${cap(sname(nextOne))}` }))}</span></p>` : ''}
-      <div class="plan-card-actions"><a class="btn" href="#plan?${esc(new URLSearchParams(x.params).toString())}">${icon('route')}${t('progress.open')}</a><button type="button" class="link" data-act="untrack" data-key="${esc(x.key)}">${t('progress.stop')}</button></div>
+    return `<article class="plan-card">
+      ${badge(c, 40, { label: false })}
+      <div class="pc-main">
+        <h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3>
+        <p class="who">${esc(c.provider)} · ${esc(c.code)} · ${esc(t('progress.examOn', { d: day(examDay) }))}</p>
+        ${nextOne ? `<p class="meta">${esc(t('progress.nextOne', { x: `${day(nextOne.date)} · ${kindLabel(nextOne.kind)}: ${cap(sname(nextOne))}` }))}</p>` : ''}
+      </div>
+      <div class="pc-progress"><span>${t('plan.of', { a: x.done.size, b: total })} ${t('plan.done')}</span>${meter(pct, 'pct', t('plan.pctDone', { p: pct }))}</div>
+      <div class="plan-card-actions"><a class="btn" href="#plan?${esc(new URLSearchParams(x.params).toString())}">${t('progress.open')}</a><button type="button" class="link" data-act="untrack" data-key="${esc(x.key)}">${t('progress.stop')}</button></div>
     </article>`;
   };
 
   body.innerHTML = `
-    <div class="plan-summary progress-summary">
-      ${tileStat('flame', t('progress.streak'), streak, t('progress.streakUnit', { n: streak }))}
-      ${tileStat('clock', t('progress.hours'), `${hours} h`)}
-      ${tileStat('circle-check', t('progress.sessions'), t('plan.of', { a: done.length, b: sessions.length }))}
-      ${tileStat('route', t('progress.plans'), plans.length)}
-    </div>
+    <dl class="summary progress-summary">
+      ${sum(t('progress.streak'), streak, t('progress.streakUnit', { n: streak }))}
+      ${sum(t('progress.hours'), `${hours} h`)}
+      ${sum(t('progress.sessions'), t('plan.of', { a: done.length, b: sessions.length }))}
+      ${sum(t('progress.plans'), plans.length)}
+    </dl>
     ${missed ? `<div class="status warn">${icon('triangle-alert')}${esc(t('progress.behind', { n: missed }))}</div>` : ''}
     <div class="progress-cols">
-      <section class="card panel"><h2>${icon('calendar-clock')}${t('progress.next')}</h2>${upcoming.length ? `<ol class="up-list">${upcoming.map(next).join('')}</ol>` : `<p class="hint">${t('progress.nothingNext')}</p>`}</section>
-      <section class="card panel"><h2>${icon('calendar-days')}${t('progress.weeks')}</h2><div class="mgrid strip">${cells.join('')}</div>
+      <section class="sect"><h2>${t('progress.next')}</h2>${upcoming.length ? `<ol class="up-list">${upcoming.map(next).join('')}</ol>` : `<p class="hint">${t('progress.nothingNext')}</p>`}</section>
+      <section class="sect"><h2>${t('progress.weeks')}</h2><div class="mgrid strip">${cells.join('')}</div>
         <ul class="strip-key"><li><span class="d done"></span>${t('progress.legendDone')}</li><li><span class="d missed"></span>${t('progress.legendMissed')}</li><li><span class="d planned"></span>${t('progress.legendPlanned')}</li><li><span class="d today"></span>${t('progress.today')}</li></ul>
       </section>
     </div>
-    <div class="plan-cards">${plans.map(planCard).join('')}</div>
+    <section class="sect"><h2>${t('progress.plans')}</h2><div class="plan-cards">${plans.map(planCard).join('')}</div></section>
     ${practiceProgress()}`;
 }
 
@@ -1609,27 +1544,9 @@ async function share(id) {
 }
 
 // ---------- hero ----------
-/** Faint contour lines around two summits, with the dashed trail climbing to the right-hand one. */
-function renderHeroArt() {
-  const ring = (cx, cy, k, step, i, cls = '') => {
-    const pts = [];
-    for (let a = 0; a <= 72; a++) {
-      const th = (a / 72) * Math.PI * 2;
-      const r = k * step * (1 + 0.13 * Math.sin(3 * th + k * 0.6) + 0.07 * Math.cos(5 * th - k));
-      pts.push(`${(cx + Math.cos(th) * r * 1.35).toFixed(1)},${(cy + Math.sin(th) * r).toFixed(1)}`);
-    }
-    return `<path pathLength="1" style="--k:${i}"${cls ? ` class="${cls}"` : ''} d="M${pts.join('L')}Z"/>`;
-  };
-  let out = '';
-  for (let k = 1; k <= 11; k++) out += ring(1075, 64, k, 30, k, k === 2 || k === 3 ? 'hi' : '');
-  for (let k = 1; k <= 7; k++) out += ring(70, 330, k, 30, k + 3);
-  out += '<path class="trail" pathLength="1" d="M1215 520 C 1150 470, 1185 400, 1125 350 S 1005 280, 1040 200 S 1100 120, 1075 64"/>';
-  out += '<circle class="peak" cx="1075" cy="64" r="6"/>';
-  $('#hero-topo').innerHTML = out;
-}
-
-/** Every certification as a badge, split over two rows that drift in opposite directions.
- *  Each row holds its set twice so the -50% shift loops without a seam. */
+/** Every certification as a badge, split over two rows that drift slowly in opposite directions.
+ *  The badges rest in grey and take their colour on hover. Each row holds its set twice so the
+ *  -50% shift loops without a seam. */
 function renderMarquee() {
   const byProvider = new Map();
   for (const c of DATA.certifications) byProvider.set(c.provider, [...(byProvider.get(c.provider) || []), c]);
@@ -1641,8 +1558,8 @@ function renderMarquee() {
   order.forEach((c, i) => rows[i % 2].push(c));
   rows.forEach((row, r) => {
     // Mouse shortcuts only: the same links follow in the list, so the rows stay out of the tab order.
-    const set = row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false })}</a>`).join('');
-    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 3.6 : 3.1)).toFixed(1)}s"><div class="mq-set">${set}</div><div class="mq-set mq-copy">${set}</div></div>`;
+    const set = row.map((c) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1">${badge(c, 56, { label: false })}</a>`).join('');
+    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 6.4 : 5.6)).toFixed(1)}s"><div class="mq-set">${set}</div><div class="mq-set mq-copy">${set}</div></div>`;
   });
 }
 
@@ -1696,12 +1613,8 @@ function renderSiteText() {
   const checkedDates = all.map((c) => c.checked_on).sort();
   const fmt = (d) => day(d, { weekday: false, year: true });
   const checked = checkedDates[0] === checkedDates.at(-1) ? t('about.checkedOn', { d: fmt(checkedDates[0]) }) : t('about.checkedBetween', { a: fmt(checkedDates[0]), b: fmt(checkedDates.at(-1)) });
-  const heroStat = (ic, n, lbl) => `<span class="stat-chip">${tile(ic, '--accent', 'sm')}<span><b>${n}</b><small>${lbl}</small></span></span>`;
-  $('#hero-stats').innerHTML =
-    heroStat('layers', all.length, t('hero.certs')) +
-    heroStat('building-2', providers, t('hero.providers')) +
-    heroStat('graduation-cap', withPrep, t('hero.prep')) +
-    (free ? heroStat('badge-dollar-sign', free, t('hero.free')) : '');
+  const heroStat = (n, lbl) => `<span><b>${n}</b> ${lbl}</span>`;
+  $('#hero-stats').innerHTML = [heroStat(all.length, t('hero.certs')), heroStat(providers, t('hero.providers')), heroStat(withPrep, t('hero.prep')), free ? heroStat(free, t('hero.free')) : ''].join('');
   $('#level-key').innerHTML = tx.levels.map((l) => `<li>${lvl(l.id)}</li>`).join('');
   $('#hours-note').textContent = `${hoursNote(tx.hours_note)} ${t('about.ranges', { x: tx.levels.map((l) => `${label('levels', l).toLowerCase()} ${l.hours[0]}–${l.hours[1]} h`).join(', ') })}`;
   $('#data-note').textContent = t('about.dataNote', { n: all.length, p: providers, s: Object.keys(DATA.sources).length, r: Object.keys(DATA.reports).length, checked });
@@ -1749,7 +1662,6 @@ async function init() {
       ignoreLocation: true,
     },
   );
-  renderHeroArt();
   renderMarquee();
   setMotionPaused(store.get(KEYS.motion, false) === 'paused');
 
@@ -1757,11 +1669,10 @@ async function init() {
   fillProfile();
   fillFilters();
   renderCats();
-  renderProviders();
   setThemeButton();
   fillPlanForm();
   bind();
-  describe = mountDescribe({ data: DATA, helpers: { icon, ring, lvl, fee, flag }, onRefine: refineFromIntent });
+  describe = mountDescribe({ data: DATA, helpers: { icon, meter, lvl, fee, flag }, onRefine: refineFromIntent });
   $('#loading').remove();
   route();
   registerWorker();
