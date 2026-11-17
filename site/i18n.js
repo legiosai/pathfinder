@@ -35,6 +35,8 @@ const en = {
   'cat.ML foundations': 'ML foundations',
   'cat.AI security': 'AI security',
   'cat.Cloud & platform': 'Cloud & platform',
+  'cat.Cybersecurity': 'Cybersecurity',
+  'cat.Data & analytics': 'Data & analytics',
 
   'search.placeholder': 'Search name, code or topic',
   'search.aria': 'Search certifications',
@@ -336,6 +338,8 @@ const es = {
   'cat.ML foundations': 'Fundamentos de ML',
   'cat.AI security': 'Seguridad de IA',
   'cat.Cloud & platform': 'Cloud y plataforma',
+  'cat.Cybersecurity': 'Ciberseguridad',
+  'cat.Data & analytics': 'Datos y analítica',
 
   'search.placeholder': 'Buscá por nombre, código o tema',
   'search.aria': 'Buscar certificaciones',

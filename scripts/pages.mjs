@@ -28,6 +28,8 @@ const CATS = {
   'ML foundations': { icon: 'brain-circuit', c: '--cat-ml' },
   'AI security': { icon: 'shield-check', c: '--cat-sec' },
   'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
+  Cybersecurity: { icon: 'lock-keyhole', c: '--cat-cyber' },
+  'Data & analytics': { icon: 'database', c: '--cat-data' },
 };
 const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
 const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;

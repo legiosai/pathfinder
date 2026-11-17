@@ -65,6 +65,8 @@ const CATS = {
   'ML foundations': { icon: 'brain-circuit', c: '--cat-ml' },
   'AI security': { icon: 'shield-check', c: '--cat-sec' },
   'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
+  Cybersecurity: { icon: 'lock-keyhole', c: '--cat-cyber' },
+  'Data & analytics': { icon: 'database', c: '--cat-data' },
 };
 const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
 const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;
@@ -289,12 +291,11 @@ function renderCats() {
   const count = (cat) => all.filter((c) => c.category === cat).length;
   const btn = (id, label, ic, color, n) =>
     `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${activeCat === id}" style="--c:var(${color})">${tile(ic, color)}<span><b>${esc(label)}</b><small>${n}<span class="w">${t('cat.word')}</span></small></span></button>`;
-  $('#cats').innerHTML =
-    btn('', t('cat.all'), 'layout-grid', '--accent', all.length) +
-    Object.entries(CATS)
-      .filter(([cat]) => count(cat))
-      .map(([cat, m]) => btn(cat, catName(cat), m.icon, m.c, count(cat)))
-      .join('');
+  const shown = Object.entries(CATS).filter(([cat]) => count(cat));
+  // The layout needs the card count: one row on wide screens, "Everything" plus rows of half on narrow ones.
+  $('#cats').style.setProperty('--n', shown.length + 1);
+  $('#cats').style.setProperty('--half', Math.max(2, Math.ceil(shown.length / 2)));
+  $('#cats').innerHTML = btn('', t('cat.all'), 'layout-grid', '--accent', all.length) + shown.map(([cat, m]) => btn(cat, catName(cat), m.icon, m.c, count(cat))).join('');
 }
 
 function renderProviders() {
