@@ -73,6 +73,33 @@ export function allocate(count, topics) {
   return out;
 }
 
+/**
+ * Split topics, in their published order, into `count` groups of similar weight.
+ * Short plans use it so one learning session can cover several domains.
+ */
+export function groupTopics(count, topics) {
+  const total = topics.reduce((s, t) => s + t.weight, 0) || 1;
+  const goal = (g) => (total * g) / count;
+  const groups = [];
+  let current = [];
+  let done = 0;
+  topics.forEach((t, i) => {
+    const open = count - groups.length - 1;
+    const left = topics.length - i;
+    // Close the group before this topic when adding it overshoots the goal more
+    // than stopping short does, or when every topic left needs a group of its own.
+    const target = goal(groups.length + 1);
+    if (current.length && open > 0 && (left === open || done + t.weight - target > target - done)) {
+      groups.push(current);
+      current = [];
+    }
+    current.push(t);
+    done += t.weight;
+  });
+  groups.push(current);
+  return groups;
+}
+
 export function parseDate(s) {
   const [y, m, d] = s.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d));
@@ -130,25 +157,40 @@ export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, start
   const { topics: baseTopics, inferred } = planTopics(cert);
   const topics = weightTopics(baseTopics, confidence);
 
-  // Mocks run as long as the exam, so they get their own length.
-  const mockCount = cert.exam.style === 'practical' ? 1 : 2;
+  // Mocks run as long as the exam, so they get their own length. Regular sessions
+  // are 1 baseline, learning, practice, one review per mock, remediation and a final.
+  // A short budget keeps one mock, so the time goes to learning one domain per
+  // session; shorter still, a learning session covers several domains. The plan
+  // stays close to the hours asked instead of growing to fit a fixed outline.
+  const budget = hours * 60;
+  const reservedFor = (mocks) => 1 + mocks + 1;
+  const roomFor = (mocks) => mocks * examMinutes + (reservedFor(mocks) + topics.length) * sessionMinutes;
+  const mockCount = cert.exam.style === 'practical' || budget < roomFor(2) ? 1 : 2;
   const fixedMinutes = mockCount * examMinutes;
-  const regularSlots = Math.max(4, Math.round((hours * 60 - fixedMinutes) / sessionMinutes));
+  const reserved = reservedFor(mockCount);
+  const regularSlots = Math.max(reserved + 1, Math.round((budget - fixedMinutes) / sessionMinutes));
 
-  // Regular sessions: 1 baseline, learning, practice, one review per mock, remediation, final.
-  const reserved = 1 + mockCount + 1;
-  const flexible = Math.max(topics.length, regularSlots - reserved);
-  const learnCount = Math.max(Math.min(topics.length, flexible), Math.round(flexible * 0.6));
-  const practiceCount = Math.max(0, Math.round(flexible * 0.25));
-  const remediationCount = Math.max(0, flexible - learnCount - practiceCount);
+  const flexible = regularSlots - reserved;
+  const grouped = flexible < topics.length;
+  const learnCount = grouped ? flexible : Math.max(topics.length, Math.round(flexible * 0.6));
+  const practiceCount = grouped ? 0 : Math.max(0, Math.round(flexible * 0.25));
+  const remediationCount = grouped ? 0 : Math.max(0, flexible - learnCount - practiceCount);
 
   // `name` is what the session is about; `title` adds the kind for calendars and Markdown.
   const items = [];
   const add = (kind, name, extra = {}) => items.push({ kind, name, title: `${KIND_LABEL[kind]}: ${name}`, detail: KIND_DETAIL[kind], ...extra });
   add('baseline', 'guide and diagnostic');
-  allocate(learnCount, topics).forEach((n, i) => {
-    for (let k = 1; k <= n; k++) add('learn', `${topics[i].name}${n > 1 ? ` (${k}/${n})` : ''}`, { topic: topics[i].name });
-  });
+  if (grouped) {
+    for (const group of groupTopics(learnCount, topics)) {
+      const names = group.map((t) => t.name);
+      const name = names.length > 1 && names.length === topics.length ? 'every exam domain' : names.join(' + ');
+      add('learn', name, names.length > 1 ? { topics: names } : { topic: names[0] });
+    }
+  } else {
+    allocate(learnCount, topics).forEach((n, i) => {
+      for (let k = 1; k <= n; k++) add('learn', `${topics[i].name}${n > 1 ? ` (${k}/${n})` : ''}`, { topic: topics[i].name });
+    });
+  }
   allocate(practiceCount, topics).forEach((n, i) => {
     for (let k = 1; k <= n; k++) add('practice', topics[i].name, { topic: topics[i].name });
   });

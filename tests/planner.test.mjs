@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { allocate, buildPlan, countStudyDays, estimateHours, planTopics, studyDates, toICS, toMarkdown } from '../site/lib/planner.js';
+import { allocate, buildPlan, countStudyDays, estimateHours, groupTopics, planTopics, studyDates, toICS, toMarkdown } from '../site/lib/planner.js';
 
 const cert = {
   id: 'demo',
@@ -113,4 +113,53 @@ test('markdown export takes a translated frame and keeps the rest', () => {
   assert.match(md, /## Recursos/);
   assert.match(md, /\(pago\)/);
   assert.match(md, /## Sessions/);
+});
+
+// Five domains, like the Claude Architect guide, for the short-plan cases.
+const five = {
+  ...cert,
+  domains: [
+    { name: 'Agentic', weight: 27 },
+    { name: 'Tools', weight: 18 },
+    { name: 'Claude Code', weight: 20 },
+    { name: 'Prompting', weight: 20 },
+    { name: 'Context', weight: 15 },
+  ],
+};
+
+test('groupTopics keeps the order, uses every topic once and balances weight', () => {
+  const groups = groupTopics(2, five.domains);
+  assert.deepEqual(groups.map((g) => g.map((t) => t.name)), [['Agentic', 'Tools'], ['Claude Code', 'Prompting', 'Context']]);
+  assert.deepEqual(groupTopics(1, five.domains).map((g) => g.length), [5]);
+  const four = groupTopics(4, five.domains);
+  assert.equal(four.length, 4);
+  assert.ok(four.every((g) => g.length >= 1));
+  assert.deepEqual(four.flat().map((t) => t.name), five.domains.map((t) => t.name));
+});
+
+test('a short budget keeps close to the hours asked instead of a fixed outline', () => {
+  // 10.5 h on Mondays and weekends, exam on Saturday 5 December: the plan used to
+  // grow to twelve sessions (26.5 h) and say it could not fit.
+  const p = buildPlan({ cert: five, hours: 10.5, start: '2026-11-17', days: [1, 6, 0], sessionMinutes: 135, targetDate: '2026-12-05' });
+  assert.ok(Math.abs(p.hours - 10.5) <= 1.5, `planned ${p.hours} h`);
+  assert.equal(p.sessions.filter((s) => s.kind === 'mock').length, 1);
+  assert.equal(p.sessions[0].kind, 'baseline');
+  assert.equal(p.sessions.at(-1).kind, 'final');
+  assert.equal(p.deadline.fits, true);
+  // Every domain is still studied, some sessions covering several of them.
+  const covered = p.sessions.flatMap((s) => s.topics || (s.topic ? [s.topic] : []));
+  assert.deepEqual([...new Set(covered)].sort(), five.domains.map((d) => d.name).sort());
+});
+
+test('shorter sessions in the same budget split the domains across more of them', () => {
+  const p = buildPlan({ cert: five, hours: 10.5, start: '2026-11-17', days: [1, 6, 0], sessionMinutes: 90 });
+  const learn = p.sessions.filter((s) => s.kind === 'learn');
+  assert.ok(learn.length > 1 && learn.length < five.domains.length, `${learn.length} learning sessions`);
+  assert.ok(Math.abs(p.hours - 10.5) <= 1.5, `planned ${p.hours} h`);
+});
+
+test('a roomy budget still gets two mocks and a session per domain', () => {
+  const p = buildPlan({ cert: five, hours: 30, start: '2026-11-02', days: [1, 3, 5], sessionMinutes: 90 });
+  assert.equal(p.sessions.filter((s) => s.kind === 'mock').length, 2);
+  assert.ok(p.sessions.every((s) => !s.topics));
 });

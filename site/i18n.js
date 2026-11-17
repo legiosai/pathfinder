@@ -629,6 +629,7 @@ const ES_PATTERNS = [
   [/^the mock$/, 'el simulacro'],
   [/^weak spots( \(\d+\/\d+\))?$/, 'puntos débiles$1'],
   [/^review and logistics$/, 'repaso y logística'],
+  [/^every exam domain$/, 'todos los dominios del examen'],
   [/^Official exam objectives( \(\d+\/\d+\))?$/, 'Objetivos oficiales del examen$1'],
   [/^Core concepts( \(\d+\/\d+\))?$/, 'Conceptos centrales$1'],
   [/^Hands-on practice( \(\d+\/\d+\))?$/, 'Práctica guiada$1'],
