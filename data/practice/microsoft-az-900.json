@@ -1,0 +1,1757 @@
+{
+ "cert": "microsoft-az-900",
+ "license": "CC BY 4.0",
+ "note": "Original practice questions written for pathfinder from the AZ-900 study guide (skills measured as of July 20, 2026) and the Microsoft Learn and Azure documentation, checked in November 2026. Not taken from any exam or question bank.",
+ "questions": [
+  {
+   "id": "az900-001",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "A company moves an internal app from its own servers to Azure Virtual Machines. Under the shared responsibility model, which task stays with the company?",
+    "es": "Una empresa pasa una aplicación interna de sus propios servidores a Azure Virtual Machines. Según el modelo de responsabilidad compartida, ¿qué tarea sigue siendo de la empresa?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Replacing failed disks in the physical hosts",
+      "es": "Reemplazar los discos que fallan en los servidores físicos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Updating the VMs' operating system",
+      "es": "Actualizar el sistema operativo de las VMs"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Controlling physical access to the datacenter",
+      "es": "Controlar el acceso físico al datacenter"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Patching the hypervisor that runs the VMs",
+      "es": "Parchear el hipervisor que corre las VMs"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "With IaaS, Microsoft runs the physical hosts, network, datacenter and virtualization layer, and the customer manages everything from the operating system up: OS updates, applications, network controls and data. Disks, building security and the hypervisor belong to Microsoft.",
+    "es": "En IaaS, Microsoft opera los servidores físicos, la red, el datacenter y la capa de virtualización, y el cliente maneja todo del sistema operativo para arriba: actualizaciones del sistema, aplicaciones, controles de red y datos. Los discos, la seguridad del edificio y el hipervisor son de Microsoft."
+   }
+  },
+  {
+   "id": "az900-002",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "A company uses IaaS for one workload, PaaS for another and SaaS for email. Which TWO responsibilities stay with the company in all three? (Select TWO.)",
+    "es": "Una empresa usa IaaS para una carga de trabajo, PaaS para otra y SaaS para el correo. ¿Qué responsabilidades siguen siendo de la empresa en los tres casos? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The physical network between datacenters",
+      "es": "La red física entre datacenters"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The data stored in the service",
+      "es": "Los datos guardados en el servicio"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Operating system updates",
+      "es": "Las actualizaciones del sistema operativo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Network controls such as firewall rules",
+      "es": "Los controles de red, como las reglas de firewall"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "The accounts and identities that sign in",
+      "es": "Las cuentas e identidades que inician sesión"
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "E"
+   ],
+   "explanation": {
+    "en": "Whatever the service type, the customer always owns its information and data, the devices that connect and the accounts and identities that use the service. The physical network always belongs to Microsoft, while operating system updates and network controls shift from the customer in IaaS toward Microsoft in PaaS and SaaS.",
+    "es": "Sea cual sea el tipo de servicio, el cliente siempre es responsable de su información y sus datos, de los dispositivos que se conectan y de las cuentas e identidades que usan el servicio. La red física siempre es de Microsoft, mientras que las actualizaciones del sistema operativo y los controles de red pasan del cliente en IaaS hacia Microsoft en PaaS y SaaS."
+   }
+  },
+  {
+   "id": "az900-003",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "A hospital must keep patient records in its own datacenter because of a local regulation. It wants to run its public appointment website in Azure and let the site read availability from systems in that datacenter. Which cloud model is this?",
+    "es": "Un hospital tiene que guardar las historias clínicas en su propio datacenter por una norma local. Quiere correr su sitio público de turnos en Azure y que el sitio lea la disponibilidad desde sistemas de ese datacenter. ¿Qué modelo de nube es este?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Public cloud",
+      "es": "Nube pública"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Private cloud",
+      "es": "Nube privada"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Hybrid cloud",
+      "es": "Nube híbrida"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Multi-cloud",
+      "es": "Multinube"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "A hybrid cloud combines a private environment, here the hospital's datacenter, with a public cloud and connects them so they work together. Public cloud alone would mean moving the records out, private cloud alone would keep the website on-premises, and multi-cloud means using more than one public cloud provider.",
+    "es": "Una nube híbrida combina un entorno privado, acá el datacenter del hospital, con una nube pública, y los conecta para que trabajen juntos. Solo nube pública implicaría sacar las historias clínicas, solo nube privada dejaría el sitio en las instalaciones propias, y multinube es usar más de un proveedor de nube pública."
+   }
+  },
+  {
+   "id": "az900-004",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "A startup wants to avoid buying servers up front and instead pay each month for the computing it actually used. Which kind of spending is this?",
+    "es": "Una startup quiere evitar comprar servidores de entrada y pagar cada mes por la capacidad de cómputo que realmente usó. ¿Qué tipo de gasto es este?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Operational expenditure (OpEx)",
+      "es": "Gasto operativo (OpEx)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Capital expenditure (CapEx)",
+      "es": "Gasto de capital (CapEx)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A fixed-capacity contract",
+      "es": "Un contrato de capacidad fija"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Paying in advance for peak capacity",
+      "es": "Pagar por adelantado la capacidad pico"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Paying as you go for what you consume is operational expenditure, and it is the consumption-based model the cloud offers: no upfront cost and no need to buy for peak demand. Capital expenditure is buying infrastructure up front and depreciating it over time, and fixed contracts or prepaying for peaks are what the consumption model avoids.",
+    "es": "Pagar por lo que consumís a medida que lo usás es gasto operativo, y es el modelo basado en el consumo que ofrece la nube: sin costo inicial y sin comprar para el pico de demanda. El gasto de capital es comprar infraestructura de entrada y amortizarla en el tiempo, y los contratos fijos o pagar el pico por adelantado son justamente lo que el modelo de consumo evita."
+   }
+  },
+  {
+   "id": "az900-005",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "Which statement about serverless computing, such as Azure Functions, is correct?",
+    "es": "¿Qué afirmación sobre la computación serverless, como Azure Functions, es correcta?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "No servers are involved; the code runs on the user's device.",
+      "es": "No hay servidores de por medio; el código corre en el dispositivo del usuario."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "You choose the VM size and patch its OS, and Azure runs the network.",
+      "es": "Elegís el tamaño de la VM y parcheás su sistema operativo, y Azure maneja la red."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "It is a private cloud that you host in your own datacenter.",
+      "es": "Es una nube privada que alojás en tu propio datacenter."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure runs and scales the servers, and you pay for execution time.",
+      "es": "Azure opera y escala los servidores, y pagás por tiempo de ejecución."
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Serverless still runs on servers, but the provider manages them: it provisions, scales and maintains the infrastructure, and you pay for the execution time you use rather than for idle capacity. Picking a VM size and patching its OS is IaaS, and serverless is a public cloud service, not something you host yourself.",
+    "es": "Serverless igual corre sobre servidores, pero los administra el proveedor: los aprovisiona, los escala y los mantiene, y pagás por el tiempo de ejecución que usás en lugar de por capacidad ociosa. Elegir el tamaño de una VM y parchear su sistema operativo es IaaS, y serverless es un servicio de nube pública, no algo que alojás vos."
+   }
+  },
+  {
+   "id": "az900-006",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "An online store's traffic triples during a yearly sale. The store wants instances added automatically while the sale lasts and removed afterwards, so it pays only for the extra capacity it used. Which cloud benefit does this describe?",
+    "es": "El tráfico de una tienda online se triplica durante una liquidación anual. La tienda quiere que se agreguen instancias automáticamente mientras dura la liquidación y se quiten después, para pagar solo la capacidad extra que usó. ¿Qué beneficio de la nube describe esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "High availability",
+      "es": "Alta disponibilidad"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Reliability",
+      "es": "Confiabilidad"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Scalability",
+      "es": "Escalabilidad"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Governance",
+      "es": "Gobernanza"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Scalability is adjusting resources to match demand, by adding instances (horizontal) or making them bigger (vertical), and doing it automatically means you don't pay for idle capacity. High availability is about keeping uptime high despite failures, reliability about recovering from them, and governance about policies and compliance.",
+    "es": "Escalabilidad es ajustar los recursos a la demanda, sumando instancias (horizontal) o haciéndolas más grandes (vertical), y hacerlo automáticamente evita pagar capacidad ociosa. Alta disponibilidad es mantener el servicio arriba aunque algo falle, confiabilidad es recuperarse de esas fallas, y gobernanza tiene que ver con políticas y cumplimiento."
+   }
+  },
+  {
+   "id": "az900-007",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "A finance lead wants to forecast next quarter's cloud bill, and the operations lead wants response times to stay steady as users grow, using autoscaling and load balancing. In Microsoft's description of cloud benefits, which one covers both goals?",
+    "es": "La responsable de finanzas quiere anticipar la factura de nube del próximo trimestre, y el de operaciones quiere que los tiempos de respuesta se mantengan estables a medida que crecen los usuarios, con autoescalado y balanceo de carga. En la descripción de Microsoft de los beneficios de la nube, ¿cuál cubre los dos objetivos?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Reliability",
+      "es": "Confiabilidad"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Predictability",
+      "es": "Previsibilidad"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Manageability",
+      "es": "Facilidad de administración"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Security and governance",
+      "es": "Seguridad y gobernanza"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Microsoft splits predictability into cost predictability (forecasting and tracking spend with tools such as the pricing calculator and Cost Management) and performance predictability (keeping performance steady with autoscaling, load balancing and high availability). Reliability is recovering from failures, manageability is about how and with which tools you manage resources, and security and governance cover protection and compliance.",
+    "es": "Microsoft divide la previsibilidad en previsibilidad de costos (anticipar y seguir el gasto con herramientas como la calculadora de precios y Cost Management) y previsibilidad de rendimiento (mantenerlo estable con autoescalado, balanceo de carga y alta disponibilidad). Confiabilidad es recuperarse de fallas, la facilidad de administración tiene que ver con cómo y con qué herramientas gestionás los recursos, y seguridad y gobernanza cubren protección y cumplimiento."
+   }
+  },
+  {
+   "id": "az900-008",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "Which scenario is the best fit for platform as a service (PaaS)?",
+    "es": "¿Qué escenario encaja mejor con plataforma como servicio (PaaS)?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Moving a legacy app that needs a custom kernel driver to the cloud unchanged",
+      "es": "Llevar a la nube, sin cambios, una aplicación legacy que necesita un driver de kernel propio"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Staff using a hosted email and calendar service through a browser",
+      "es": "Que el personal use un servicio de correo y calendario alojado, desde el navegador"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Developers deploying code while Azure handles the OS, patches and scaling",
+      "es": "Que los desarrolladores desplieguen código mientras Azure se ocupa del sistema operativo, los parches y el escalado"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Admins who need full control over every VM setting, including the OS",
+      "es": "Administradores que necesitan control total sobre cada ajuste de la VM, incluido el sistema operativo"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "PaaS gives developers a managed platform: they bring code and data, and the provider runs the operating system, patching and scaling, as Azure App Service does. A custom kernel driver or full control of the OS calls for IaaS, and a ready-to-use email service is SaaS.",
+    "es": "PaaS les da a los desarrolladores una plataforma administrada: ponen el código y los datos, y el proveedor se ocupa del sistema operativo, los parches y el escalado, como hace Azure App Service. Un driver de kernel propio o el control total del sistema operativo piden IaaS, y un servicio de correo listo para usar es SaaS."
+   }
+  },
+  {
+   "id": "az900-009",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "A production database VM runs around the clock at the same size, and the company expects that to hold for three years. It has no existing Windows Server or SQL Server licenses. Which pricing option lowers the VM's compute cost the most without risking interruptions?",
+    "es": "Una VM de base de datos de producción corre todo el día, todos los días, con el mismo tamaño, y la empresa espera que siga así tres años. No tiene licencias propias de Windows Server ni de SQL Server. ¿Qué opción de precios baja más el costo de cómputo de la VM sin arriesgar interrupciones?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Pay-as-you-go with autoscaling",
+      "es": "Pago por uso con autoescalado"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Spot Virtual Machines",
+      "es": "Azure Spot Virtual Machines"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Dev/Test subscription pricing",
+      "es": "Precios de suscripción Dev/Test"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A three-year reservation",
+      "es": "Una reserva a tres años"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "An Azure reservation commits to a VM size in a region for one or three years in exchange for a large discount over pay-as-you-go, which suits steady, predictable workloads. Spot VMs are cheaper still, but Azure can evict them at any time; Dev/Test pricing is only for non-production use, and pay-as-you-go is the most expensive way to run a machine that never stops.",
+    "es": "Una reserva de Azure te compromete con un tamaño de VM en una región por uno o tres años a cambio de un descuento grande sobre el pago por uso, y encaja con cargas estables y previsibles. Las Spot VMs son todavía más baratas, pero Azure las puede desalojar en cualquier momento; los precios de Dev/Test son solo para entornos que no son de producción, y el pago por uso es la forma más cara de correr una máquina que nunca se apaga."
+   }
+  },
+  {
+   "id": "az900-010",
+   "domain": "Describe cloud concepts",
+   "prompt": {
+    "en": "A retailer runs most of its workloads in Azure, but its analytics team keeps a data platform on another public cloud provider. Nothing runs in a datacenter of its own. Which term describes this setup?",
+    "es": "Un retailer corre la mayoría de sus cargas de trabajo en Azure, pero su equipo de analítica mantiene una plataforma de datos en otro proveedor de nube pública. No corre nada en un datacenter propio. ¿Qué término describe este esquema?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Multi-cloud",
+      "es": "Multinube"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Hybrid cloud",
+      "es": "Nube híbrida"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Private cloud",
+      "es": "Nube privada"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Sovereign cloud",
+      "es": "Nube soberana"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Multi-cloud means using more than one public cloud provider at the same time, and Azure Arc can help manage resources across them. Hybrid cloud combines a public cloud with a private environment such as your own datacenter, which this retailer doesn't have, and a sovereign cloud is Azure run under extra sovereignty controls for a specific country or jurisdiction, such as the isolated sovereign regions for the US government or China.",
+    "es": "Multinube es usar más de un proveedor de nube pública al mismo tiempo, y Azure Arc puede ayudar a administrar los recursos repartidos entre ellos. La nube híbrida combina una nube pública con un entorno privado, como un datacenter propio, que este retailer no tiene, y una nube soberana es Azure operado con controles de soberanía adicionales para un país o una jurisdicción, como las regiones soberanas aisladas para el gobierno de Estados Unidos o para China."
+   }
+  },
+  {
+   "id": "az900-011",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "Which statement about Azure region pairs is correct?",
+    "es": "¿Qué afirmación sobre los pares de regiones de Azure es correcta?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The two regions of a pair sit in different geographies to maximize the distance between them.",
+      "es": "Las dos regiones de un par están en geografías distintas para maximizar la distancia entre ellas."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Every Azure region has a paired region.",
+      "es": "Toda región de Azure tiene una región pareada."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Planned Azure updates roll out to one region of a pair at a time.",
+      "es": "Las actualizaciones planificadas de Azure se aplican a una región del par por vez."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Data in a region is copied to its pair automatically, whatever the service settings.",
+      "es": "Los datos de una región se copian solos a su par, sin importar la configuración del servicio."
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Azure staggers planned system updates across a pair, one region at a time, and in a geography-wide outage it prioritizes recovering one region of each pair. Almost all pairs sit in the same geography (Brazil South, paired with South Central US, is an exception), many newer regions have no pair, and data reaches the paired region only when a service or option replicates it, such as geo-redundant storage.",
+    "es": "Azure escalona las actualizaciones planificadas de un par, una región por vez, y ante una caída que afecta a toda una geografía prioriza recuperar una región de cada par. Casi todos los pares están en la misma geografía (Brazil South, pareada con South Central US, es una excepción), muchas regiones nuevas no tienen par y los datos llegan a la región pareada solo cuando un servicio u opción los replica, como el almacenamiento geo-redundante."
+   }
+  },
+  {
+   "id": "az900-012",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "An app runs on two VMs in one Azure region. It must keep running if an entire datacenter in that region fails, and data residency rules require it to stay in that region. What should the team do?",
+    "es": "Una aplicación corre en dos VMs en una región de Azure. Tiene que seguir funcionando si se cae un datacenter entero de esa región, y por reglas de residencia de datos no puede salir de esa región. ¿Qué tiene que hacer el equipo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Put both VMs in the same availability set",
+      "es": "Poner las dos VMs en el mismo conjunto de disponibilidad"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Spread the VMs across availability zones",
+      "es": "Repartir las VMs entre zonas de disponibilidad"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Move one VM to the paired region",
+      "es": "Mover una VM a la región pareada"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Place each VM in its own resource group",
+      "es": "Poner cada VM en su propio grupo de recursos"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Availability zones are physically separate locations within a region, each with its own power, cooling and networking, so VMs in different zones survive the loss of a datacenter. An availability set only spreads VMs across fault domains and update domains inside one datacenter, the paired region breaks the residency rule, and resource groups are a logical grouping that doesn't change where VMs physically run.",
+    "es": "Las zonas de disponibilidad (availability zones) son ubicaciones físicamente separadas dentro de una región, cada una con su propia energía, refrigeración y red, así que VMs en zonas distintas sobreviven a la caída de un datacenter. Un conjunto de disponibilidad solo reparte las VMs entre dominios de error y dominios de actualización dentro de un mismo datacenter, la región pareada rompe la regla de residencia y los grupos de recursos son una agrupación lógica que no cambia dónde corren físicamente las VMs."
+   }
+  },
+  {
+   "id": "az900-013",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "Which list orders Azure scopes from the broadest to the narrowest?",
+    "es": "¿Qué lista ordena los ámbitos de Azure del más amplio al más acotado?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Subscriptions, management groups, resource groups, resources",
+      "es": "Suscripciones, grupos de administración, grupos de recursos, recursos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Management groups, resource groups, subscriptions, resources",
+      "es": "Grupos de administración, grupos de recursos, suscripciones, recursos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Resource groups, management groups, subscriptions, resources",
+      "es": "Grupos de recursos, grupos de administración, suscripciones, recursos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Management groups, subscriptions, resource groups, resources",
+      "es": "Grupos de administración, suscripciones, grupos de recursos, recursos"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Management groups contain subscriptions (and other management groups), subscriptions contain resource groups, and resource groups contain resources. Policies and role assignments set at one scope are inherited by everything below it, which is why the order matters.",
+    "es": "Los grupos de administración contienen suscripciones (y otros grupos de administración), las suscripciones contienen grupos de recursos y los grupos de recursos contienen recursos. Las políticas y asignaciones de roles que ponés en un ámbito las hereda todo lo que está debajo, y por eso importa el orden."
+   }
+  },
+  {
+   "id": "az900-014",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "Which TWO statements about resource groups are true? (Select TWO.)",
+    "es": "¿Qué afirmaciones sobre los grupos de recursos son verdaderas? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Resource groups can be nested inside other resource groups.",
+      "es": "Un grupo de recursos se puede anidar dentro de otro."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A resource belongs to exactly one resource group at a time.",
+      "es": "Un recurso pertenece a un único grupo de recursos por vez."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Every resource in a group must be in the group's region.",
+      "es": "Todos los recursos de un grupo tienen que estar en la región del grupo."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Deleting a resource group deletes the resources inside it.",
+      "es": "Borrar un grupo de recursos borra los recursos que contiene."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Once created, a resource can never be moved to another group.",
+      "es": "Una vez creado, un recurso nunca se puede mover a otro grupo."
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "D"
+   ],
+   "explanation": {
+    "en": "A resource group is a logical container: each resource lives in exactly one, and deleting the group deletes everything in it, which makes groups handy for resources that share a lifecycle. Groups can't be nested, they can hold resources from other regions (the group's region only stores its metadata), and many resource types can be moved between groups.",
+    "es": "Un grupo de recursos es un contenedor lógico: cada recurso vive en uno solo, y borrar el grupo borra todo lo que tiene adentro, por eso conviene para recursos que comparten ciclo de vida. Los grupos no se anidan, pueden contener recursos de otras regiones (la región del grupo solo guarda sus metadatos) y muchos tipos de recursos se pueden mover entre grupos."
+   }
+  },
+  {
+   "id": "az900-015",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A team needs a small piece of code to run each time a message lands in a queue, a few thousand times a day at irregular hours. It doesn't want to manage servers or pay while nothing is running. Which compute option fits best?",
+    "es": "Un equipo necesita que un pedazo de código corra cada vez que llega un mensaje a una cola, unos miles de veces por día en horarios irregulares. No quiere administrar servidores ni pagar mientras no corre nada. ¿Qué opción de cómputo encaja mejor?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Functions",
+      "es": "Azure Functions"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Virtual Machine Scale Sets",
+      "es": "Azure Virtual Machine Scale Sets"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Azure Container Instances",
+      "es": "Azure Container Instances"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Virtual Desktop",
+      "es": "Azure Virtual Desktop"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Azure Functions runs code in response to events such as queue messages, scales on its own and, on its consumption-based plans, bills for executions instead of idle time. Scale sets are VMs you still manage, Container Instances bills for as long as the container runs, and Azure Virtual Desktop delivers desktops to users, not event-driven code.",
+    "es": "Azure Functions ejecuta código en respuesta a eventos, como los mensajes de una cola, escala solo y, en sus planes basados en consumo, cobra por ejecución y no por tiempo ocioso. Los scale sets son VMs que igual tenés que administrar, Container Instances cobra mientras el contenedor está corriendo, y Azure Virtual Desktop entrega escritorios a usuarios, no código disparado por eventos."
+   }
+  },
+  {
+   "id": "az900-016",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "Which TWO resources does every Azure virtual machine need? (Select TWO.)",
+    "es": "¿Qué recursos necesita toda máquina virtual de Azure? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A network interface in a virtual network subnet",
+      "es": "Una interfaz de red en una subred de una red virtual"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A public IP address",
+      "es": "Una dirección IP pública"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An availability set",
+      "es": "Un conjunto de disponibilidad"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An operating system disk",
+      "es": "Un disco de sistema operativo"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "A storage account to hold its disks",
+      "es": "Una cuenta de almacenamiento para guardar sus discos"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "D"
+   ],
+   "explanation": {
+    "en": "Every VM needs an OS disk, usually a managed disk, and a network interface in a subnet of a virtual network. A public IP is optional and often avoided for security, an availability set is an optional resiliency choice, and managed disks don't require you to create a storage account.",
+    "es": "Toda VM necesita un disco de sistema operativo, normalmente un disco administrado, y una interfaz de red en una subred de una red virtual. La IP pública es opcional y muchas veces se evita por seguridad, el conjunto de disponibilidad es una opción de resiliencia que podés no usar, y con discos administrados no hace falta crear una cuenta de almacenamiento."
+   }
+  },
+  {
+   "id": "az900-017",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A bank wants to connect its datacenter to Azure through a private connection that doesn't travel over the public internet and offers more consistent latency than an internet link. Which service should it use?",
+    "es": "Un banco quiere conectar su datacenter con Azure mediante una conexión privada que no pase por internet y tenga una latencia más estable que un enlace por internet. ¿Qué servicio tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure VPN Gateway with a site-to-site VPN",
+      "es": "Azure VPN Gateway con una VPN site-to-site"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Virtual network peering",
+      "es": "Peering de redes virtuales"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Azure ExpressRoute",
+      "es": "Azure ExpressRoute"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure DNS",
+      "es": "Azure DNS"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "ExpressRoute provides a private connection between on-premises networks and Microsoft's network through a connectivity provider, without crossing the public internet. A site-to-site VPN is encrypted but still travels over the internet, peering connects Azure virtual networks to each other, and Azure DNS hosts DNS domains.",
+    "es": "ExpressRoute da una conexión privada entre la red propia y la red de Microsoft a través de un proveedor de conectividad, sin pasar por internet. Una VPN site-to-site va cifrada pero igual viaja por internet, el peering conecta redes virtuales de Azure entre sí, y Azure DNS aloja dominios DNS."
+   }
+  },
+  {
+   "id": "az900-018",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A web app in a virtual network must reach an Azure SQL database over a private IP address, so that the team can then turn off the database's public network access. What should the team configure?",
+    "es": "Una web app en una red virtual tiene que llegar a una base de Azure SQL por una IP privada, para que el equipo pueda después desactivar el acceso público a la base. ¿Qué tiene que configurar el equipo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A private endpoint for the database in the virtual network",
+      "es": "Un private endpoint de la base en la red virtual"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The database's public endpoint, with a firewall rule for the app",
+      "es": "El endpoint público de la base, con una regla de firewall para la app"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An Azure private DNS zone linked to the virtual network",
+      "es": "Una zona DNS privada de Azure vinculada a la red virtual"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An ExpressRoute circuit between the app and the database",
+      "es": "Un circuito de ExpressRoute entre la app y la base"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "A private endpoint gives the service a network interface with a private IP address from your virtual network, so traffic stays on the Microsoft network and public access can be turned off. A firewall rule still leaves the public endpoint exposed, a private DNS zone only resolves names (it usually accompanies a private endpoint but gives the database no private IP by itself), and ExpressRoute connects on-premises networks to Azure.",
+    "es": "Un private endpoint le da al servicio una interfaz de red con una IP privada de tu red virtual, así el tráfico queda dentro de la red de Microsoft y podés desactivar el acceso público. Una regla de firewall deja igual expuesto el endpoint público, una zona DNS privada solo resuelve nombres (suele acompañar a un private endpoint, pero por sí sola no le da a la base una IP privada), y ExpressRoute conecta redes propias con Azure."
+   }
+  },
+  {
+   "id": "az900-019",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A company must keep monthly reports in Blob Storage for seven years for audits. They are almost never read, and when an auditor asks for one, waiting several hours is acceptable. Which access tier has the lowest storage cost for these blobs?",
+    "es": "Una empresa tiene que guardar informes mensuales en Blob Storage durante siete años para auditorías. Casi nunca se leen, y cuando un auditor pide uno, esperar varias horas es aceptable. ¿Qué nivel de acceso tiene el menor costo de almacenamiento para estos blobs?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Hot",
+      "es": "Hot"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Cool",
+      "es": "Cool"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Cold",
+      "es": "Cold"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Archive",
+      "es": "Archive"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Archive has the lowest storage price but is offline: a blob must be rehydrated to an online tier before it can be read, which can take hours, and it carries the highest read cost and a 180-day minimum. Hot, Cool and Cold are online tiers that charge more to store data in exchange for immediate, cheaper access.",
+    "es": "Archive tiene el menor precio de almacenamiento, pero está fuera de línea: el blob se tiene que rehidratar a un nivel en línea antes de leerlo, lo que puede llevar horas, y tiene el costo de lectura más alto y un mínimo de 180 días. Hot, Cool y Cold son niveles en línea que cobran más por guardar a cambio de un acceso inmediato y más barato."
+   }
+  },
+  {
+   "id": "az900-020",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A storage account's data must survive the loss of an entire region, and the app must be able to read from the secondary region at any time, even before a failover. Which redundancy option meets this?",
+    "es": "Los datos de una cuenta de almacenamiento tienen que sobrevivir a la pérdida de una región entera, y la app tiene que poder leer desde la región secundaria en cualquier momento, incluso antes de una conmutación por error (failover). ¿Qué opción de redundancia cumple esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "ZRS",
+      "es": "ZRS"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "GRS",
+      "es": "GRS"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "RA-GRS",
+      "es": "RA-GRS"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "GZRS",
+      "es": "GZRS"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Geo-redundant options copy data to the paired secondary region, so they survive a regional outage, but only the read-access variants let you read the secondary copy before a failover. GRS and GZRS keep the secondary unreadable until failover, and ZRS copies data across availability zones within one region only.",
+    "es": "Las opciones geo-redundantes copian los datos a la región secundaria pareada, así que sobreviven a una caída regional, pero solo las variantes con acceso de lectura (RA-) te dejan leer la copia secundaria antes de una conmutación por error. GRS y GZRS no permiten leer la secundaria hasta la conmutación, y ZRS replica entre zonas de disponibilidad dentro de una sola región."
+   }
+  },
+  {
+   "id": "az900-021",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A company needs to move about 60 TB of archived video into Azure Storage. Over its internet connection, copying that much data would take months. Which option fits best?",
+    "es": "Una empresa necesita llevar unos 60 TB de video archivado a Azure Storage. Con su conexión a internet, copiar todo eso tardaría meses. ¿Qué opción encaja mejor?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AzCopy",
+      "es": "AzCopy"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure File Sync",
+      "es": "Azure File Sync"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Azure Migrate",
+      "es": "Azure Migrate"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Data Box",
+      "es": "Azure Data Box"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Azure Data Box is a physical device that Microsoft ships to you: you copy the data locally, send the device back, and Microsoft uploads the data to your storage account, so a slow link doesn't matter. AzCopy and Azure File Sync both move data over the network, and Azure Migrate discovers, assesses and migrates servers, databases and apps.",
+    "es": "Azure Data Box es un dispositivo físico que Microsoft te manda: copiás los datos de forma local, devolvés el dispositivo y Microsoft sube los datos a tu cuenta de almacenamiento, así que un enlace lento deja de importar. AzCopy y Azure File Sync mueven los datos por la red, y Azure Migrate descubre, evalúa y migra servidores, bases de datos y aplicaciones."
+   }
+  },
+  {
+   "id": "az900-022",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A company wants sign-ins from outside its office network to require multifactor authentication, and sign-ins to its finance app from unmanaged devices to be blocked. Which feature should it use?",
+    "es": "Una empresa quiere que los inicios de sesión desde fuera de la red de la oficina pidan autenticación multifactor, y que se bloqueen los accesos a su aplicación de finanzas desde dispositivos no administrados. ¿Qué funcionalidad tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure role-based access control (RBAC)",
+      "es": "Azure role-based access control (RBAC)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Entra Conditional Access",
+      "es": "Microsoft Entra Conditional Access"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Entra Domain Services",
+      "es": "Microsoft Entra Domain Services"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Defender for Cloud",
+      "es": "Microsoft Defender for Cloud"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Conditional Access evaluates signals such as the user, location, device state and app on each sign-in, then allows access, requires MFA or blocks it. RBAC decides what someone can do with Azure resources after signing in, Entra Domain Services provides managed domain join and Kerberos/LDAP, and Defender for Cloud manages the security posture of workloads.",
+    "es": "Conditional Access evalúa señales como el usuario, la ubicación, el estado del dispositivo y la aplicación en cada inicio de sesión, y según eso permite el acceso, pide MFA o lo bloquea. RBAC decide qué puede hacer alguien con los recursos de Azure una vez que entró, Entra Domain Services da unión a dominio y Kerberos/LDAP administrados, y Defender for Cloud gestiona la postura de seguridad de las cargas de trabajo."
+   }
+  },
+  {
+   "id": "az900-023",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "An external auditor must be able to view every resource in one resource group, and nothing else in the subscription, without being able to change anything. Which assignment follows least privilege?",
+    "es": "Un auditor externo tiene que poder ver todos los recursos de un grupo de recursos, y nada más de la suscripción, sin poder cambiar nada. ¿Qué asignación respeta el principio de mínimo privilegio?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Reader role on the subscription",
+      "es": "Rol Reader sobre la suscripción"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Contributor role on the resource group",
+      "es": "Rol Contributor sobre el grupo de recursos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Owner role on the resource group",
+      "es": "Rol Owner sobre el grupo de recursos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Reader role on the resource group",
+      "es": "Rol Reader sobre el grupo de recursos"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Azure RBAC grants a role at a scope, and the assignment applies to that scope and everything under it. Reader allows viewing but no changes, and assigning it on the resource group limits the auditor to that group; on the subscription it would expose every group, while Contributor and Owner allow changes.",
+    "es": "Azure RBAC asigna un rol en un ámbito, y la asignación vale para ese ámbito y todo lo que tiene debajo. Reader permite ver pero no cambiar nada, y asignarlo sobre el grupo de recursos limita al auditor a ese grupo; sobre la suscripción vería todos los grupos, y Contributor y Owner permiten hacer cambios."
+   }
+  },
+  {
+   "id": "az900-024",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A security team is redesigning access along Zero Trust principles. Which practice fits that model?",
+    "es": "Un equipo de seguridad está rediseñando los accesos según los principios de Zero Trust. ¿Qué práctica encaja con ese modelo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Trust requests that come from inside the corporate network",
+      "es": "Confiar en las solicitudes que vienen de adentro de la red corporativa"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Rely mainly on a strong perimeter firewall to keep attackers out",
+      "es": "Apoyarse sobre todo en un firewall perimetral fuerte para dejar afuera a los atacantes"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Verify each request with identity, device and location signals",
+      "es": "Verificar cada solicitud con señales de identidad, dispositivo y ubicación"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Give administrators permanent full access so incident response isn't delayed",
+      "es": "Darles a los administradores acceso total permanente para no demorar la respuesta a incidentes"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Zero Trust assumes breach and treats every request as if it came from an open network: verify explicitly with all available signals, grant least-privilege access and limit the blast radius. Trusting the internal network or relying on the perimeter is the older model it replaces, and standing full access contradicts least privilege.",
+    "es": "Zero Trust asume que ya hubo una brecha y trata cada solicitud como si viniera de una red abierta: verificar explícitamente con todas las señales disponibles, dar acceso con mínimo privilegio y limitar el alcance de un ataque. Confiar en la red interna o depender del perímetro es el modelo anterior que reemplaza, y el acceso total permanente contradice el mínimo privilegio."
+   }
+  },
+  {
+   "id": "az900-025",
+   "domain": "Describe Azure architecture and services",
+   "prompt": {
+    "en": "A security team wants a secure score for its Azure subscriptions, recommendations to harden misconfigured resources, and threat protection that can also cover servers on-premises and in other clouds. Which service provides this?",
+    "es": "Un equipo de seguridad quiere un puntaje de seguridad (secure score) para sus suscripciones de Azure, recomendaciones para corregir recursos mal configurados y protección contra amenazas que también cubra servidores propios y de otras nubes. ¿Qué servicio lo ofrece?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Policy",
+      "es": "Azure Policy"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Defender for Cloud",
+      "es": "Microsoft Defender for Cloud"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Purview",
+      "es": "Microsoft Purview"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Monitor",
+      "es": "Azure Monitor"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Microsoft Defender for Cloud assesses security posture with a secure score and recommendations, and its Defender plans add threat protection for workloads in Azure, on-premises (through Azure Arc) and in other clouds. Azure Policy enforces and audits rules but doesn't detect threats, Purview governs data, and Azure Monitor collects metrics and logs.",
+    "es": "Microsoft Defender for Cloud evalúa la postura de seguridad con un secure score y recomendaciones, y sus planes de Defender suman protección contra amenazas para cargas en Azure, en instalaciones propias (vía Azure Arc) y en otras nubes. Azure Policy aplica y audita reglas pero no detecta amenazas, Purview gobierna datos, y Azure Monitor junta métricas y logs."
+   }
+  },
+  {
+   "id": "az900-026",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "A team is estimating what an Azure VM will cost each month. Which TWO factors change that cost? (Select TWO.)",
+    "es": "Un equipo está estimando cuánto va a costar por mes una VM de Azure. ¿Qué factores cambian ese costo? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The Azure region where it runs",
+      "es": "La región de Azure donde corre"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "How many tags are applied to it",
+      "es": "Cuántas etiquetas tiene aplicadas"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Its size and the hours it runs",
+      "es": "Su tamaño y las horas que está encendida"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "The number of resource groups in the subscription",
+      "es": "La cantidad de grupos de recursos de la suscripción"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "The data it receives from the internet",
+      "es": "Los datos que recibe desde internet"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "C"
+   ],
+   "explanation": {
+    "en": "Prices vary by region, and a VM's compute charge depends on its size and how long it runs, which is why deallocating idle VMs saves money. Tags and resource groups are free organizing tools, and inbound data transfer into Azure isn't charged; outbound transfer is.",
+    "es": "Los precios cambian según la región, y el cargo de cómputo de una VM depende de su tamaño y de cuánto tiempo corre, por eso desasignar las VMs ociosas ahorra plata. Las etiquetas y los grupos de recursos son herramientas de organización gratuitas, y la transferencia de datos entrante a Azure no se cobra; la saliente sí."
+   }
+  },
+  {
+   "id": "az900-027",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "Before deploying anything, a team wants to estimate the monthly cost of two VMs, an Azure SQL database and 5 TB of storage in a specific region. Which tool should it use?",
+    "es": "Antes de desplegar nada, un equipo quiere estimar el costo mensual de dos VMs, una base de Azure SQL y 5 TB de almacenamiento en una región determinada. ¿Qué herramienta tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Advisor",
+      "es": "Azure Advisor"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Cost Management",
+      "es": "Microsoft Cost Management"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Azure pricing calculator",
+      "es": "Calculadora de precios de Azure"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Service Health",
+      "es": "Azure Service Health"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "The pricing calculator estimates the cost of the services you choose, in the region and configuration you pick, before anything exists. Cost Management analyzes and alerts on the spending of resources you already run, Advisor recommends savings for existing resources, and Service Health reports Azure incidents and maintenance.",
+    "es": "La calculadora de precios estima el costo de los servicios que elegís, en la región y con la configuración que definas, antes de que exista nada. Cost Management analiza el gasto de recursos que ya están corriendo y avisa sobre él, Advisor recomienda ahorros sobre recursos existentes y Service Health informa incidentes y mantenimientos de Azure."
+   }
+  },
+  {
+   "id": "az900-028",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "A department wants an email when its subscription's spending for the month reaches 80% of an agreed amount. What should the administrator set up?",
+    "es": "Un área quiere recibir un mail cuando el gasto del mes de su suscripción llegue al 80% de un monto acordado. ¿Qué tiene que configurar el administrador?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A budget in Microsoft Cost Management",
+      "es": "Un presupuesto en Microsoft Cost Management"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "An Azure Policy that denies new resources",
+      "es": "Una Azure Policy que deniegue recursos nuevos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A read-only lock on the subscription",
+      "es": "Un bloqueo de solo lectura sobre la suscripción"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A Service Health alert",
+      "es": "Una alerta de Service Health"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Budgets in Cost Management track spending against an amount and send alerts at the thresholds you set, such as 80%. They notify but don't stop resources unless you attach automation through an action group. A deny policy or a read-only lock would block work instead of warning, and Service Health alerts cover Azure incidents, not your spending.",
+    "es": "Los presupuestos de Cost Management siguen el gasto contra un monto y mandan alertas en los umbrales que definas, como el 80%. Avisan pero no frenan recursos, salvo que les sumes automatización con un grupo de acciones. Una política de denegación o un bloqueo de solo lectura frenarían el trabajo en lugar de avisar, y las alertas de Service Health son sobre incidentes de Azure, no sobre tu gasto."
+   }
+  },
+  {
+   "id": "az900-029",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "Finance wants to split one subscription's bill by department and by project, even though resources from several projects share the same resource groups. What should the team do?",
+    "es": "Finanzas quiere dividir la factura de una suscripción por área y por proyecto, aunque recursos de varios proyectos comparten los mismos grupos de recursos. ¿Qué tiene que hacer el equipo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Apply resource locks to each project's resources",
+      "es": "Aplicar bloqueos a los recursos de cada proyecto"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Tag resources by department and project",
+      "es": "Etiquetar los recursos por área y por proyecto"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Create a management group for each department",
+      "es": "Crear un grupo de administración por área"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Turn on Azure Advisor cost recommendations",
+      "es": "Activar las recomendaciones de costo de Azure Advisor"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Tags are name-value pairs, such as department=finance, that Cost Management can group and filter costs by, so they cut across resource groups. Locks prevent changes or deletion, management groups organize whole subscriptions rather than resources within one, and Advisor suggests savings but doesn't allocate costs.",
+    "es": "Las etiquetas son pares nombre-valor, como department=finance, por los que Cost Management puede agrupar y filtrar costos, así que atraviesan los grupos de recursos. Los bloqueos impiden cambios o borrados, los grupos de administración organizan suscripciones enteras y no recursos dentro de una, y Advisor sugiere ahorros pero no reparte costos."
+   }
+  },
+  {
+   "id": "az900-030",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "A company must make sure nobody can create resources outside the two European regions it is allowed to use, including people with the Owner role. What should it use?",
+    "es": "Una empresa tiene que asegurarse de que nadie pueda crear recursos fuera de las dos regiones europeas que tiene permitidas, incluidas las personas con rol Owner. ¿Qué tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Policy",
+      "es": "Azure Policy"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure RBAC",
+      "es": "Azure RBAC"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Resource locks",
+      "es": "Bloqueos de recursos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Purview",
+      "es": "Microsoft Purview"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Azure Policy evaluates resources against rules, such as the built-in Allowed locations definition, and can deny noncompliant requests whatever role the requester has. RBAC controls which actions a role may perform, not where resources go; locks protect existing resources from changes or deletion, and Purview governs data.",
+    "es": "Azure Policy evalúa los recursos contra reglas, como la definición integrada Allowed locations, y puede denegar las solicitudes que no cumplen sin importar el rol de quien las hace. RBAC controla qué acciones puede hacer un rol, no dónde se crean los recursos; los bloqueos protegen recursos existentes de cambios o borrados, y Purview gobierna datos."
+   }
+  },
+  {
+   "id": "az900-031",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "An administrator wants to stop anyone, including subscription owners, from deleting a production database by mistake, while still letting the team change its settings. What should the administrator apply?",
+    "es": "Un administrador quiere evitar que cualquiera, incluso quienes tienen el rol Owner en la suscripción, borre por error una base de datos de producción, pero sin impedir que el equipo cambie su configuración. ¿Qué tiene que aplicar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A ReadOnly lock on the database",
+      "es": "Un bloqueo ReadOnly sobre la base"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A CanNotDelete lock on the database",
+      "es": "Un bloqueo CanNotDelete sobre la base"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A tag such as do-not-delete on the database",
+      "es": "Una etiqueta como do-not-delete en la base"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "The Reader role for every user",
+      "es": "El rol Reader para todos los usuarios"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "A CanNotDelete lock (shown as Delete in the portal) lets authorized users read and modify a resource but not delete it, and locks apply to every user, owners included, until someone removes the lock. A ReadOnly lock would also block setting changes, a tag enforces nothing, and Reader for everyone stops the team from changing anything.",
+    "es": "Un bloqueo CanNotDelete (Delete en el portal) deja que los usuarios autorizados lean y modifiquen el recurso pero no lo borren, y los bloqueos aplican a todos los usuarios, incluso a quienes tienen el rol Owner, hasta que alguien quite el bloqueo. Un bloqueo ReadOnly también impediría cambiar la configuración, una etiqueta no impone nada, y Reader para todos le impide al equipo cambiar cualquier cosa."
+   }
+  },
+  {
+   "id": "az900-032",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "A company wants to discover and classify sensitive data across Azure storage, on-premises SQL Server databases and another cloud provider, and give analysts one catalog to find trusted data. Which service fits?",
+    "es": "Una empresa quiere descubrir y clasificar datos sensibles en el almacenamiento de Azure, en bases SQL Server propias y en otro proveedor de nube, y darles a los analistas un único catálogo para encontrar datos confiables. ¿Qué servicio encaja?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Arc",
+      "es": "Azure Arc"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Defender for Cloud",
+      "es": "Microsoft Defender for Cloud"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Azure Policy",
+      "es": "Azure Policy"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Purview",
+      "es": "Microsoft Purview"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Microsoft Purview is a family of data governance, risk and compliance solutions: it maps and classifies data across Azure, on-premises and multicloud sources and offers a catalog to find it. Azure Arc extends Azure management to servers and clusters outside Azure, Defender for Cloud protects workloads, and Azure Policy governs resource configuration rather than data.",
+    "es": "Microsoft Purview es una familia de soluciones de gobierno de datos, riesgo y cumplimiento: mapea y clasifica datos en Azure, en instalaciones propias y en otras nubes, y ofrece un catálogo para encontrarlos. Azure Arc extiende la administración de Azure a servidores y clústeres fuera de Azure, Defender for Cloud protege cargas de trabajo y Azure Policy gobierna la configuración de los recursos, no los datos."
+   }
+  },
+  {
+   "id": "az900-033",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "A company runs servers in its own datacenter and VMs at another cloud provider. It wants to see them in the Azure portal and apply the same Azure Policy definitions and tags it uses in Azure, without moving them. Which service should it use?",
+    "es": "Una empresa tiene servidores en su propio datacenter y VMs en otro proveedor de nube. Quiere verlos en el portal de Azure y aplicarles las mismas definiciones de Azure Policy y etiquetas que usa en Azure, sin moverlos. ¿Qué servicio tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Migrate",
+      "es": "Azure Migrate"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Arc",
+      "es": "Azure Arc"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Azure ExpressRoute",
+      "es": "Azure ExpressRoute"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Virtual Desktop",
+      "es": "Azure Virtual Desktop"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Azure Arc projects servers, Kubernetes clusters and data services that run outside Azure into Azure Resource Manager, so you can manage them with the portal, Azure Policy, tags and RBAC where they are. Azure Migrate moves workloads into Azure, ExpressRoute is a private network link, and Azure Virtual Desktop delivers desktops.",
+    "es": "Azure Arc proyecta en Azure Resource Manager servidores, clústeres de Kubernetes y servicios de datos que corren fuera de Azure, así los administrás con el portal, Azure Policy, etiquetas y RBAC donde están. Azure Migrate mueve cargas a Azure, ExpressRoute es un enlace de red privado y Azure Virtual Desktop entrega escritorios."
+   }
+  },
+  {
+   "id": "az900-034",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "A team switches from creating resources by hand in the portal to deploying them with ARM templates. Which TWO benefits does it gain? (Select TWO.)",
+    "es": "Un equipo deja de crear recursos a mano en el portal y empieza a desplegarlos con plantillas ARM. ¿Qué beneficios gana? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Deployments no longer need RBAC permissions.",
+      "es": "Los despliegues ya no necesitan permisos de RBAC."
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "It describes the end state, and Resource Manager works out the order of creation.",
+      "es": "Describe el estado final, y Resource Manager resuelve en qué orden crear las cosas."
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Resources deployed from a template skip Azure Policy checks.",
+      "es": "Los recursos desplegados desde una plantilla se saltean los controles de Azure Policy."
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Templates can only be deployed from the Azure portal.",
+      "es": "Las plantillas solo se pueden desplegar desde el portal de Azure."
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "The same template deploys the same environment repeatedly.",
+      "es": "La misma plantilla despliega el mismo entorno una y otra vez."
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "E"
+   ],
+   "explanation": {
+    "en": "ARM templates are declarative infrastructure as code: you describe the resources you want, Resource Manager orchestrates them in the right order, and redeploying the template gives consistent, repeatable results. Template deployments still go through Resource Manager, so RBAC and Azure Policy apply as usual, and you can run them from the CLI, PowerShell or pipelines as well as the portal.",
+    "es": "Las plantillas ARM son infraestructura como código declarativa: describís los recursos que querés, Resource Manager los orquesta en el orden correcto y volver a desplegar la plantilla da resultados consistentes y repetibles. Los despliegues con plantillas pasan igual por Resource Manager, así que RBAC y Azure Policy aplican como siempre, y se pueden lanzar desde la CLI, PowerShell o pipelines además del portal."
+   }
+  },
+  {
+   "id": "az900-035",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "An administrator on a borrowed laptop, with only a web browser and no permission to install software, needs to run Azure CLI commands against the company's subscription. What should they use?",
+    "es": "Un administrador con una notebook prestada, solo un navegador y sin permiso para instalar software, necesita correr comandos de Azure CLI contra la suscripción de la empresa. ¿Qué tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Cloud Shell",
+      "es": "Azure Cloud Shell"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Arc",
+      "es": "Azure Arc"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "The Azure PowerShell module",
+      "es": "El módulo de Azure PowerShell"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Resource Manager templates",
+      "es": "Plantillas de Azure Resource Manager"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Cloud Shell is a browser-based, already authenticated shell with Bash and PowerShell that comes with the Azure CLI and Azure PowerShell preinstalled, so nothing has to be installed locally. The Azure PowerShell module would need installing, Azure Arc manages resources outside Azure, and ARM templates describe deployments but still need a tool to submit them.",
+    "es": "Cloud Shell es una consola en el navegador, ya autenticada, con Bash y PowerShell, que trae Azure CLI y Azure PowerShell instalados, así que no hay que instalar nada en la máquina. El módulo de Azure PowerShell habría que instalarlo, Azure Arc administra recursos fuera de Azure, y las plantillas ARM describen despliegues pero igual necesitan una herramienta para enviarlos."
+   }
+  },
+  {
+   "id": "az900-036",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "An administrator wants to know whether an ongoing Azure incident affects the company's own resources, and to be alerted ahead of planned maintenance that will affect them. Which service should they use?",
+    "es": "Un administrador quiere saber si un incidente de Azure en curso afecta a los recursos de su empresa, y recibir alertas antes de los mantenimientos planificados que los van a afectar. ¿Qué servicio tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Service Health",
+      "es": "Azure Service Health"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Advisor",
+      "es": "Azure Advisor"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "The public Azure status page",
+      "es": "La página pública de estado de Azure"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Application Insights",
+      "es": "Application Insights"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Azure Service Health gives a personalized view of service issues, planned maintenance and health advisories for the services and regions you use, plus Resource Health for individual resources, and it can send alerts. The public status page shows only broad incidents for everyone, Advisor makes best-practice recommendations, and Application Insights monitors your own application's performance.",
+    "es": "Azure Service Health da una vista personalizada de incidentes, mantenimientos planificados y avisos de salud para los servicios y regiones que usás, más Resource Health para cada recurso, y puede mandar alertas. La página pública de estado solo muestra incidentes amplios para todos, Advisor hace recomendaciones de buenas prácticas y Application Insights monitorea el rendimiento de tu propia aplicación."
+   }
+  },
+  {
+   "id": "az900-037",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "An operations lead wants recommendations based on actual usage, such as resizing or shutting down underused VMs, alongside suggestions for reliability and security. Which service provides them at no extra cost?",
+    "es": "El responsable de operaciones quiere recomendaciones basadas en el uso real, como cambiar el tamaño o apagar VMs subutilizadas, junto con sugerencias de confiabilidad y seguridad. ¿Qué servicio las da sin costo extra?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure pricing calculator",
+      "es": "Calculadora de precios de Azure"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Monitor alerts",
+      "es": "Alertas de Azure Monitor"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Cost Management budgets",
+      "es": "Presupuestos de Microsoft Cost Management"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Advisor",
+      "es": "Azure Advisor"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Azure Advisor analyzes your deployed resources and their usage and makes free, personalized recommendations in five categories: reliability, security, performance, operational excellence and cost. The pricing calculator estimates before deploying, alerts fire on conditions you define, and budgets warn about spending without suggesting what to change.",
+    "es": "Azure Advisor analiza los recursos desplegados y su uso, y da recomendaciones personalizadas y gratuitas en cinco categorías: confiabilidad, seguridad, rendimiento, excelencia operativa y costo. La calculadora de precios estima antes de desplegar, las alertas se disparan con condiciones que definís vos, y los presupuestos avisan del gasto sin sugerir qué cambiar."
+   }
+  },
+  {
+   "id": "az900-038",
+   "domain": "Describe Azure management and governance",
+   "prompt": {
+    "en": "A team wants to see the request rates, response times and failure rates of its web app, trace slow requests to the dependency causing them, and get notified when response times stay high. What should it use?",
+    "es": "Un equipo quiere ver la tasa de solicitudes, los tiempos de respuesta y la tasa de fallas de su web app, rastrear las solicitudes lentas hasta la dependencia que las causa y recibir un aviso cuando los tiempos de respuesta sigan altos. ¿Qué tiene que usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Service Health and Resource Health alerts",
+      "es": "Alertas de Azure Service Health y Resource Health"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Advisor performance recommendations",
+      "es": "Recomendaciones de rendimiento de Azure Advisor"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Application Insights with Azure Monitor alerts",
+      "es": "Application Insights con alertas de Azure Monitor"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Defender for Cloud",
+      "es": "Microsoft Defender for Cloud"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Application Insights is the application performance monitoring feature of Azure Monitor: it collects request, response-time, failure and dependency telemetry, and Azure Monitor alert rules notify you when a metric crosses a threshold. Service Health reports problems with the Azure platform rather than your app's behavior, Advisor gives periodic recommendations, and Defender for Cloud focuses on security.",
+    "es": "Application Insights es la función de monitoreo de rendimiento de aplicaciones de Azure Monitor: junta telemetría de solicitudes, tiempos de respuesta, fallas y dependencias, y las reglas de alerta de Azure Monitor te avisan cuando una métrica pasa un umbral. Service Health informa problemas de la plataforma de Azure y no del comportamiento de tu app, Advisor da recomendaciones periódicas y Defender for Cloud se enfoca en seguridad."
+   }
+  }
+ ]
+}
