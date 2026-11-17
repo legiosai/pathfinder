@@ -1,0 +1,90 @@
+{
+  "id": "microsoft-az-305",
+  "name": "Microsoft Azure Solutions Architect Expert",
+  "provider": "Microsoft",
+  "code": "AZ-305",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "Proctored exam through Pearson VUE; Microsoft does not publish its length: associate and expert exams run 100 minutes, or 120 when they may contain labs, and the time is shown at registration. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online"
+  },
+  "scope": "Designing Azure solutions: identity, governance and monitoring, data storage and integration, business continuity, and infrastructure (compute, application architecture, migrations and networking).",
+  "requirements": "The certification also requires Microsoft Certified: Azure Administrator Associate (Exam AZ-104).",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AZ-305."
+  ],
+  "skills": [
+    "azure",
+    "architecture",
+    "identity",
+    "networking",
+    "security",
+    "data"
+  ],
+  "roles": [
+    "architect"
+  ],
+  "domains": [
+    {
+      "name": "Design identity, governance, and monitoring solutions",
+      "weight": 28
+    },
+    {
+      "name": "Design data storage solutions",
+      "weight": 22
+    },
+    {
+      "name": "Design business continuity solutions",
+      "weight": 17
+    },
+    {
+      "name": "Design infrastructure solutions",
+      "weight": 33
+    }
+  ],
+  "sources": [
+    "P22",
+    "P23",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AZ-305 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-305",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Design Microsoft Azure Infrastructure Solutions (AZ-305T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/az-305t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official AZ-305 practice assessment",
+      "url": "https://aka.ms/AZ305-PA",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AZ-305 study guide (25–30%, 20–25%, 15–20%, 30–35%; skills measured as of April 17, 2026), rounded to whole numbers that add up to 100. Rounding ties go to the larger domains. Read 2026-11-17."
+}

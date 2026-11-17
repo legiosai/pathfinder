@@ -509,5 +509,523 @@
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Fundamentals certifications do not expire."
+  },
+  {
+    "id": "P01",
+    "title": "AWS · Certified Developer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-developer-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD, Pearson VUE test center or online; valid 3 years, renewed by passing the latest version or the DevOps Engineer – Professional; 50% off the next exam after a first AWS Certification. Links the DVA-C03 guide and exam prep plan."
+  },
+  {
+    "id": "P02",
+    "title": "AWS · DVA-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/developer-associate-03/developer-associate-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 50 scored and 15 unscored questions, 720 to pass (100–1,000); domains 30/26/22/22%. Registration for DVA-C03 opened October 27, 2026; last day for DVA-C02 is November 30, 2026."
+  },
+  {
+    "id": "P03",
+    "title": "AWS · Comparison of DVA-C02 and DVA-C03",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/developer-associate-03/dva-03-comparison.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. DVA-C02 in use until November 30, 2026, DVA-C03 from December 1, 2026; old weights 32/26/24/18%; DVA-C03 adds AI-assisted development, AI service security and container deployment."
+  },
+  {
+    "id": "P04",
+    "title": "AWS · Certified CloudOps Engineer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-cloudops-engineer-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 130 minutes, 65 questions, 150 USD; English and Japanese, with Simplified Chinese and Korean retired after November 19, 2026; valid 3 years. Explains the rename from SysOps Administrator – Associate with SOA-C03."
+  },
+  {
+    "id": "P05",
+    "title": "AWS · SOA-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Multiple choice and multiple response only; 50 scored and 15 unscored questions, 720 to pass (100–1,000); domains 22/22/22/16/18%."
+  },
+  {
+    "id": "P06",
+    "title": "AWS · SOA-C03 exam guide revisions",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-revisions.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide versions 1.0 (September 30, 2025), 1.1 (June 1, 2026) and 1.2 (October 29, 2026)."
+  },
+  {
+    "id": "P07",
+    "title": "AWS · Certified SysOps Administrator – Associate (previous name)",
+    "url": "https://aws.amazon.com/certification/certified-sysops-admin-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. The updated exam is now the CloudOps Engineer – Associate; the last day to take the SysOps Administrator – Associate exam was September 29, 2025."
+  },
+  {
+    "id": "P08",
+    "title": "AWS · Certified Solutions Architect – Professional",
+    "url": "https://aws.amazon.com/certification/certified-solutions-architect-professional/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD, Pearson VUE test center or online; valid 3 years. Links the SAP-C03 guide and exam prep plan."
+  },
+  {
+    "id": "P09",
+    "title": "AWS · SAP-C03 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/solutions-architect-professional-03.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 65 scored and 10 unscored questions, 720 to pass (100–1,000); domains 25/25/15/15/20%."
+  },
+  {
+    "id": "P10",
+    "title": "AWS · Comparison of SAP-C02 and SAP-C03",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/sap-03-comparison.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. SAP-C02 in use until November 16, 2026, SAP-C03 from November 17, 2026; SAP-C02 had four domains (26/29/25/20%)."
+  },
+  {
+    "id": "P11",
+    "title": "AWS · Certified DevOps Engineer – Professional",
+    "url": "https://aws.amazon.com/certification/certified-devops-engineer-professional/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD; Korean version retired after December 31, 2026; valid 3 years."
+  },
+  {
+    "id": "P12",
+    "title": "AWS · DOP-C02 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/devops-engineer-professional-02/devops-engineer-professional-02.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 65 scored and 10 unscored questions, 750 to pass (100–1,000); six domains 22/17/15/15/14/17%."
+  },
+  {
+    "id": "P13",
+    "title": "AWS · Certified Data Engineer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-data-engineer-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD; English, Japanese, Korean and Simplified Chinese; valid 3 years."
+  },
+  {
+    "id": "P14",
+    "title": "AWS · DEA-C01 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/data-engineer-associate-01/data-engineer-associate-01.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 50 scored and 15 unscored questions, 720 to pass (100–1,000); domains 34/26/22/18%."
+  },
+  {
+    "id": "P15",
+    "title": "AWS · DEA-C01 exam guide revisions",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/data-engineer-associate-01/dea-01-revisions.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide version 1.1 published December 12, 2025 (skills consolidated, examples updated)."
+  },
+  {
+    "id": "P16",
+    "title": "AWS · Exam pricing (before testing)",
+    "url": "https://aws.amazon.com/certification/policies/before-testing/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Associate 150 USD, Professional and Specialty 300 USD; local-currency prices for countries that use EUR, AUD, JPY, KRW, CNY and INR (vouchers only), updated at least yearly; applicable taxes may apply."
+  },
+  {
+    "id": "P17",
+    "title": "AWS · Certification exam prep",
+    "url": "https://aws.amazon.com/certification/certification-prep/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Official Practice Question Sets (20 questions) and Exam Prep courses are free on AWS Skill Builder; Official Practice Exams need a subscription, from 29 USD a month."
+  },
+  {
+    "id": "P18",
+    "title": "AWS · Certification exam guides",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/examguides/aws-certification-exam-guides.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Lists current guides; DVA-C03 and SAP-C03 registration opened October 27, 2026; last day for DVA-C02 is November 30, 2026 and for SAP-C02 was November 16, 2026."
+  },
+  {
+    "id": "P20",
+    "title": "Microsoft · Azure Administrator Associate (AZ-104)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, price by country or region, 12-month renewal; last updated 04/17/2026."
+  },
+  {
+    "id": "P21",
+    "title": "Microsoft · AZ-104 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-104",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of October 26, 2023: identities and governance 20–25%, storage 15–20%, compute 20–25%, virtual networking 15–20%, monitor and maintain 10–15%; 700 to pass."
+  },
+  {
+    "id": "P22",
+    "title": "Microsoft · Azure Solutions Architect Expert (AZ-305)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-solutions-architect/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Requires Azure Administrator Associate plus Exam AZ-305; price by country or region; English version updated April 17, 2026. The page does not state the exam length."
+  },
+  {
+    "id": "P23",
+    "title": "Microsoft · AZ-305 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-305",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of April 17, 2026: identity, governance and monitoring 25–30%, data storage 20–25%, business continuity 15–20%, infrastructure 30–35%; 700 to pass."
+  },
+  {
+    "id": "P24",
+    "title": "Microsoft · DevOps Engineer Expert (AZ-400)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Certification, exam and renewal assessments retire on February 1, 2027; requires Azure Administrator Associate or Azure Developer Associate; price by country or region. The page does not state the exam length."
+  },
+  {
+    "id": "P25",
+    "title": "Microsoft · AZ-400 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-400",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of July 27, 2026: processes and communications 10–15%, source control 10–15%, build and release pipelines 50–55%, security and compliance 10–15%, instrumentation 5–10%; retirement notice for February 1, 2027."
+  },
+  {
+    "id": "P26",
+    "title": "Microsoft · New Agentic DevOps Engineer Expert (AZ-401)",
+    "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/new-microsoft-certified-agentic-devops-engineer-expert/4528356",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Posted October 15, 2026: Exam AZ-401 in beta, general availability expected in December; the new certification also needs GH-300 or AZ-104; AZ-400 and DevOps Engineer Expert retire on February 1, 2027."
+  },
+  {
+    "id": "P27",
+    "title": "Microsoft · Azure AI Fundamentals (AI-901)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam AI-901 leads to Microsoft Certified: Azure AI Fundamentals; Python and Azure familiarity expected; price by country or region; Pearson VUE or Certiport scheduling; English version updated April 15, 2026."
+  },
+  {
+    "id": "P28",
+    "title": "Microsoft · AI-901 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-901",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of April 15, 2026: AI concepts and capabilities 40–45%, AI solutions with Microsoft Foundry 55–60%."
+  },
+  {
+    "id": "P29",
+    "title": "Microsoft · AI-900 study guide (retired exam)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-900",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. States that Exam AI-900 retired on June 30, 2026, at 11:59 PM Central Standard Time."
+  },
+  {
+    "id": "P30",
+    "title": "Microsoft · New cloud, AI and security certifications and 2026 retirements",
+    "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/the-ai-job-boom-is-here-are-you-ready-to-showcase-your-skills/4494128",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Posted March 3, 2026 (timeline updated May 28, 2026). Retirement table: AI-900 on June 30, 2026, replaced by AI-901 (same Azure AI Fundamentals name); Azure Developer Associate (AZ-204) on July 31, 2026, replaced by Azure AI Cloud Developer Associate (AI-200)."
+  },
+  {
+    "id": "P31",
+    "title": "Microsoft · Azure Data Fundamentals (DP-900)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-data-fundamentals/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 45-minute proctored exam, interactive components possible, Pearson VUE or Certiport scheduling, price by country or region; last updated 07/21/2026; not a prerequisite for other certifications."
+  },
+  {
+    "id": "P32",
+    "title": "Microsoft · DP-900 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-900",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of July 21, 2026: core data concepts 25–30%, relational data 20–25%, non-relational data 15–20%, analytics workloads 25–30%."
+  },
+  {
+    "id": "P33",
+    "title": "Microsoft · Power BI Data Analyst Associate (PL-300)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, Power Query and DAX expected, price by country or region, 12-month renewal; last updated 04/20/2026."
+  },
+  {
+    "id": "P34",
+    "title": "Microsoft · PL-300 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/pl-300",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Skills measured as of April 20, 2026: prepare the data 25–30%, model the data 25–30%, visualize and analyze 25–30%, manage and secure Power BI 15–20%."
+  },
+  {
+    "id": "P35",
+    "title": "Microsoft · Fabric Data Engineer Associate (DP-700)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, SQL, PySpark and KQL expected, price by country or region, renewable; last updated 10/19/2026."
+  },
+  {
+    "id": "P36",
+    "title": "Microsoft · DP-700 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Three skill areas at 30–35% each (implement and manage, ingest and transform, monitor and optimize); 700 to pass; no 'skills measured as of' date given."
+  },
+  {
+    "id": "P37",
+    "title": "Microsoft · Fabric Data Engineer Associate launch and DP-203 retirement",
+    "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/prove-your-in-demand-data-engineering-skills-and-champion-ai-innovation/4240414",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Announces DP-700 general availability and retires the Azure Data Engineer Associate certification, Exam DP-203 and its renewal on March 31, 2025, recommending DP-700 to new candidates (updated January 14, 2025)."
+  },
+  {
+    "id": "P38",
+    "title": "Microsoft · Azure AI Cloud Developer Associate (AI-200)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. 120-minute proctored exam through Pearson VUE, interactive components possible, Python, containers, vector databases and Azure SDKs expected, price by country or region; last updated 10/07/2026."
+  },
+  {
+    "id": "P39",
+    "title": "Microsoft · AI-200 study guide",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-200",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Containerized solutions 20–25%, AI solutions with Azure data management services 25–30%, connect to and consume Azure services 20–25%, secure, monitor and troubleshoot 20–25%; no 'skills measured as of' date given."
+  },
+  {
+    "id": "P40",
+    "title": "Microsoft · Azure Developer Associate (AZ-204), retired",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Warns that the certification and its renewal assessment are retired; Microsoft's 2026 retirement table (P30) gives July 31, 2026 and names Azure AI Cloud Developer Associate (AI-200) as the replacement."
+  },
+  {
+    "id": "P50",
+    "title": "Google Cloud · Cloud Digital Leader",
+    "url": "https://cloud.google.com/learn/certification/cloud-digital-leader",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 90 minutes, $99 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish, Portuguese and French, online-proctored or at a test center, valid 3 years, no prerequisites. Renewal: a 45-minute, 20-question renewal exam ($60) or designated Google Skills courses."
+  },
+  {
+    "id": "P51",
+    "title": "Google Cloud · Cloud Digital Leader exam guide (PDF)",
+    "url": "https://services.google.com/fh/files/misc/cloud_digital_leader_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide launched on August 12, 2026, covering the standard and renewal exams: six sections, five at ~18% and one at ~10%."
+  },
+  {
+    "id": "P52",
+    "title": "Google Cloud · Associate Cloud Engineer",
+    "url": "https://cloud.google.com/learn/certification/cloud-engineer",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $125 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish and Portuguese, online-proctored or at a test center, valid 3 years, no prerequisites, 6+ months of hands-on Google Cloud experience recommended. Renewal: a 1-hour, 20-question renewal exam ($75) or designated Google Skills courses."
+  },
+  {
+    "id": "P53",
+    "title": "Google Cloud · Associate Cloud Engineer exam guide (PDF)",
+    "url": "https://services.google.com/fh/files/misc/associate_cloud_engineer_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Four sections weighted ~20%, ~30%, ~30% and ~20%."
+  },
+  {
+    "id": "P54",
+    "title": "Google Cloud · Professional Cloud Architect",
+    "url": "https://cloud.google.com/learn/certification/cloud-architect",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English and Japanese, 2 case studies per exam making up 20-30% of the questions, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 25-question renewal exam ($100) built on one generative AI case study, or designated Google Skills courses."
+  },
+  {
+    "id": "P55",
+    "title": "Google Cloud · Professional Cloud Architect exam guide (PDF)",
+    "url": "https://services.google.com/fh/files/misc/professional_cloud_architect_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Six sections weighted ~25%, ~17.5%, ~17.5%, ~15%, ~12.5% and ~12.5%; lists four case studies (Altostrat Media, Cymbal Retail, EHR Healthcare, KnightMotives Automotive) and the Well-Architected Framework as a key requirement."
+  },
+  {
+    "id": "P56",
+    "title": "Google Cloud · Professional Data Engineer",
+    "url": "https://cloud.google.com/learn/certification/data-engineer",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 40-50 multiple choice and multiple select questions, English and Japanese, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 20-question renewal exam ($100) or designated Google Skills courses."
+  },
+  {
+    "id": "P57",
+    "title": "Google Cloud · Professional Data Engineer exam guide v4.2 (PDF)",
+    "url": "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Guide v4.2: five sections weighted ~22%, ~25%, ~20%, ~15% and ~18%."
+  },
+  {
+    "id": "P58",
+    "title": "Google Cloud · Certification FAQs",
+    "url": "https://support.google.com/cloud-certification/answer/9438208",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Professional certifications are valid 2 years, Foundational and Associate 3 years; no prerequisites; candidates must be 18 or older; exams report pass/fail only, with no numerical score; cost varies by exam (see each exam page)."
+  },
+  {
+    "id": "P59",
+    "title": "Google Cloud · Retake policy",
+    "url": "https://support.google.com/cloud-certification/answer/9749448",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Foundational: up to ten attempts a year, 14 days between failed attempts. Associate and Professional: up to four attempts in two years, waits of 14, 60 and 365 days. Every attempt is paid."
+  },
+  {
+    "id": "P60",
+    "title": "Google Cloud · Change of exam delivery provider",
+    "url": "https://support.google.com/cloud-certification/answer/16803278",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Google Cloud exams moved from Kryterion to Pearson VUE: last Kryterion tests on February 22, 2026, first Pearson test date March 2, 2026; scheduling through CM Connect, online (OnVUE) or at a Pearson test center; reschedule or cancel at least 24 hours ahead or lose the fee; exam content unchanged."
+  },
+  {
+    "id": "P61",
+    "title": "Google Cloud · Certification renewal options",
+    "url": "https://support.google.com/cloud-certification/answer/9907853",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Up to three renewal routes: continuing education in Google Skills (adds 1 year), a shorter renewal exam or the standard exam. For PDE, ACE and CDL the renewal route chosen cannot be switched after the first attempt; PCA can switch. No score report for the shorter renewal exam."
+  },
+  {
+    "id": "P65",
+    "title": "Linux Foundation · Certified Kubernetes Administrator (CKA)",
+    "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam-only price $445 (two exam attempts, two Killer.sh simulator sessions, 12 months to schedule); domains and weights (Storage 10%, Troubleshooting 30%, Workloads & Scheduling 15%, Cluster Architecture, Installation & Configuration 25%, Services & Networking 20%); two-hour online proctored performance-based exam on Kubernetes v1.37; no prerequisites; experience level Intermediate."
+  },
+  {
+    "id": "P66",
+    "title": "Linux Foundation · Kubernetes and Cloud Native Associate (KCNA)",
+    "url": "https://training.linuxfoundation.org/certification/kubernetes-cloud-native-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam-only price $250 (two exam attempts, 12 months to schedule); domains and weights (Kubernetes Fundamentals 44%, Container Orchestration 28%, Cloud Native Application Delivery 16%, Cloud Native Architecture 12%); online proctored multiple-choice exam; no prerequisites; experience level Beginner."
+  },
+  {
+    "id": "P67",
+    "title": "Linux Foundation · Certified Kubernetes Security Specialist (CKS)",
+    "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam-only price $445 (two exam attempts, two Killer.sh simulator sessions, 12 months to schedule); six domains and weights; two-hour online proctored performance-based exam on Kubernetes v1.37; candidates must have taken and passed the CKA before attempting the CKS."
+  },
+  {
+    "id": "P68",
+    "title": "Linux Foundation · Frequently Asked Questions: CKA, CKAD & CKS",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/faq-cka-ckad-cks",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Two hours per exam; pass marks CKA 66%, CKAD 66%, CKS 67%; certifications valid 2 years (CKA and CKAD earned before April 1, 2024: 3 years), renewed by passing the exam again; earning or recertifying the CKS on or after June 18, 2026 extends the CKA; simulator access not included in single-attempt registrations; exam environment on Kubernetes v1.37."
+  },
+  {
+    "id": "P69",
+    "title": "Linux Foundation · Important Instructions: CKA and CKAD",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. The exams consist of 15–20 performance-based tasks solved on the command line, with two hours to complete them; results are emailed within 24 hours."
+  },
+  {
+    "id": "P70",
+    "title": "Linux Foundation · Important Instructions: CKS",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-cks",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. The exam consists of 15–20 performance-based tasks solved on the command line, with two hours to complete them."
+  },
+  {
+    "id": "P71",
+    "title": "Linux Foundation · Multiple Choice Exams: Frequently Asked Questions",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/faq-mc",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. 90 minutes for multiple-choice exams (CNPA excepted); 75% to pass; certifications valid 2 years; passing CKA or CKAD automatically renews the KCNA (CARE program)."
+  },
+  {
+    "id": "P72",
+    "title": "Linux Foundation · Important Instructions: multiple-choice exams",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. The multiple-choice exams consist of 60 questions in 90 minutes (CNPA excepted), proctored online by PSI."
+  },
+  {
+    "id": "P73",
+    "title": "CNCF · Certified Kubernetes Security Specialist (CKS)",
+    "url": "https://www.cncf.io/training/certification/cks/",
+    "kind": "Issuer program page",
+    "note": "Read 2026-11-17. $445 including one free retake; valid two years; CKS candidates must have passed the CKA exam first, but the CKA does not have to be active."
+  },
+  {
+    "id": "P74",
+    "title": "CNCF · Certification curriculum repository",
+    "url": "https://github.com/cncf/curriculum",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. CKA and CKS curricula v1.37 and the KCNA curriculum PDF; their domain weights match the Linux Foundation certification pages."
+  },
+  {
+    "id": "P75",
+    "title": "Cisco · CCNA certification",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. One exam (200-301 CCNA), no prerequisites, $300 or Cisco Learning Credits; valid three years, recertified by passing the current CCNA or a higher-level exam or with 30 CE credits; v1.1 last date to test February 2, 2027, v2.0 first date to test February 3, 2027."
+  },
+  {
+    "id": "P76",
+    "title": "Cisco · Implementing and Administering Cisco Solutions (200-301 CCNA) exam",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccna.html",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 120 minutes; English and Japanese; $300 or Cisco Learning Credits; links the v1.1 exam topics, Cisco U. training and a practice exam. Question count not stated."
+  },
+  {
+    "id": "P77",
+    "title": "Cisco · CCNA Exam v1.1 (200-301) exam topics (PDF)",
+    "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301-CCNA-v1.1.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 120-minute exam; Network Fundamentals 20%, Network Access 20%, IP Connectivity 25%, IP Services 10%, Security Fundamentals 15%, Automation and Programmability 10%."
+  },
+  {
+    "id": "P78",
+    "title": "Cisco · CCNA v2.0 (200-301) exam topics (PDF)",
+    "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301_CCNA_v2.0_Exam_Topics_PDF.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 120-minute exam; Network Infrastructure and Connectivity 25%, Switching and Network Access 25%, IP Routing 20%, Network Services and Security 20%, AI, and Network Operations and Management 10%; candidates may evaluate output from agentic AI and digital network assistants."
+  },
+  {
+    "id": "P79",
+    "title": "Cisco · Certification exams overview",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/index.html",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Prices in USD plus tax, with Pearson VUE listing other countries and currencies; CCNA 200-301 at $300; associate exams offered in person and online; score reports include the passing score; five-day wait before retaking a failed associate exam."
+  },
+  {
+    "id": "P80",
+    "title": "Databricks · Certified Data Engineer Associate",
+    "url": "https://www.databricks.com/learn/certification/data-engineer-associate",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Seven sections weighted 6, 21, 22, 16, 10, 10 and 15%; 45 scored multiple-choice questions, 90 minutes, $200, online or test center through Kryterion, four languages, no prerequisites, two-year validity; passing score not published; retakes after 14 days at full price."
+  },
+  {
+    "id": "P81",
+    "title": "Databricks · Data Engineer Associate exam guide (August 2026)",
+    "url": "https://www.databricks.com/sites/default/files/2026-10/Databricks-Certified-Data-Engineer-Associate-Exam-Guide-August-2026.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Exam published May 4, 2026, guide updated August 6, 2026: the same seven weighted sections, 45 scored plus up to 10 unscored items, USD 200 plus applicable taxes, six months of hands-on experience recommended; recertify with a renewal exam or the current full exam."
+  },
+  {
+    "id": "P82",
+    "title": "Databricks · Certification FAQ",
+    "url": "https://www.databricks.com/learn/certification/faq",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Certification exams cost USD 200 with no free retakes; passing scores are not published; recertifying means taking the full current live exam."
+  },
+  {
+    "id": "P83",
+    "title": "Snowflake · SnowPro Core Certification (COF-C03)",
+    "url": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam version COF-C03: 100 multiple-choice and multiple-select questions, 115 minutes, $175 ($140 in India), 750 to pass on a 0–1,000 scale, no prerequisites, online or test center, five languages; five domains weighted 31, 20, 18, 21 and 10%; six or more months of Snowflake experience recommended; continuing-education options for renewal."
+  },
+  {
+    "id": "P84",
+    "title": "Snowflake · SnowPro certification policies",
+    "url": "https://learn.snowflake.com/en/pages/snowpro-policies/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Certifications expire two years after they are awarded; the full exam can be retaken from six months before expiry; seven-day wait after a failed attempt and at most four attempts in 12 months, each at the full fee; vouchers are valid only at Pearson VUE."
+  },
+  {
+    "id": "P85",
+    "title": "Snowflake · Certification FAQs",
+    "url": "https://learn.snowflake.com/en/faqs/certification-faqs/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Fee per attempt, retakes included: Core $175 standard and $140 for candidates testing in India."
+  },
+  {
+    "id": "P86",
+    "title": "Snowflake · SnowPro Continuing Education",
+    "url": "https://learn.snowflake.com/en/snowpro-continuing-education/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Certified SnowPros recertify by passing an eligible SnowPro exam or completing eligible instructor-led courses."
+  },
+  {
+    "id": "P87",
+    "title": "Snowflake · SnowPro Practice Exams",
+    "url": "https://learn.snowflake.com/en/certifications/snowpro-practice-exams/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Unproctored practice exams built to the live exams' specifications and weightings: 30–40 questions, 65 minutes, $50 ($40 in India), one attempt within 24 hours of purchase."
   }
 ]

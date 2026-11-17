@@ -1,0 +1,95 @@
+{
+  "id": "lf-cka",
+  "name": "Certified Kubernetes Administrator",
+  "provider": "Linux Foundation",
+  "code": "CKA",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 445,
+    "basis": "Exam only",
+    "note": "Published exam-only price; includes two exam attempts, two exam-simulator sessions and 12 months to schedule. Bundles with a course or a subscription cost more."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "practical",
+    "format": "Online, proctored, performance-based exam: 15–20 tasks solved at a command line running Kubernetes (v1.37 at the time of checking), in two hours. No prerequisites.",
+    "passing": "66%",
+    "validity": "2 years"
+  },
+  "scope": "Installing, configuring and running Kubernetes clusters: cluster architecture, workloads and scheduling, services and networking, storage and troubleshooting, tested at the command line.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The exam environment moves to each new Kubernetes minor version within about 4–8 weeks of its release. The curriculum PDF linked from the certification page is the older v1.35 file; the CNCF repository's v1.37 curriculum has the same weights."
+  ],
+  "skills": [
+    "kubernetes",
+    "networking",
+    "observability"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Storage",
+      "weight": 10
+    },
+    {
+      "name": "Troubleshooting",
+      "weight": 30
+    },
+    {
+      "name": "Workloads & Scheduling",
+      "weight": 15
+    },
+    {
+      "name": "Cluster Architecture, Installation & Configuration",
+      "weight": 25
+    },
+    {
+      "name": "Services & Networking",
+      "weight": 20
+    }
+  ],
+  "sources": [
+    "P65",
+    "P68",
+    "P69",
+    "P74"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CKA curriculum v1.37 (CNCF)",
+      "url": "https://github.com/cncf/curriculum/blob/main/CKA_Curriculum_v1.37.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Linux Foundation: Kubernetes Fundamentals (LFS258)",
+      "url": "https://training.linuxfoundation.org/training/kubernetes-fundamentals/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Designed as preparation for the CKA; also sold in a bundle with the exam."
+    },
+    {
+      "title": "Linux Foundation: Introduction to Kubernetes (LFS158)",
+      "url": "https://training.linuxfoundation.org/training/introduction-to-kubernetes/",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Killer.sh CKA simulator",
+      "url": "https://killer.sh/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "Two 36-hour sessions of 17 graded questions are included with the exam registration."
+    }
+  ],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-17; the CNCF CKA curriculum v1.37 PDF gives the same weights."
+}

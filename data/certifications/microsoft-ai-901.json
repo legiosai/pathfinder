@@ -1,0 +1,87 @@
+{
+  "id": "microsoft-ai-901",
+  "name": "Microsoft Azure AI Fundamentals",
+  "provider": "Microsoft",
+  "code": "AI-901",
+  "type": "certification",
+  "category": "ML foundations",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. Students and educators can schedule through Certiport."
+  },
+  "exam": {
+    "minutes": 45,
+    "style": "knowledge",
+    "format": "Proctored 45-minute Fundamentals exam through Pearson VUE (Certiport for students and educators). Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "passing": "700 scaled (1–1,000)",
+    "validity": "Does not expire"
+  },
+  "scope": "AI concepts and responsible AI, models and common AI workloads, and building simple generative AI, agent, text, speech, vision and information-extraction apps with Microsoft Foundry. Python syntax and Azure familiarity are expected.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "AI-901 replaced AI-900, which retired on June 30, 2026; both lead to Microsoft Certified: Azure AI Fundamentals, but the skills outlines differ, so AI-900 study material does not match this exam.",
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AI-901.",
+    "The AI-901 page does not state the exam length; 45 minutes is Microsoft's published length for Fundamentals exams."
+  ],
+  "skills": [
+    "azure",
+    "ml-foundations",
+    "llm-apps",
+    "agents",
+    "multimodal",
+    "governance"
+  ],
+  "roles": [
+    "developer",
+    "business"
+  ],
+  "domains": [
+    {
+      "name": "Identify AI concepts and capabilities",
+      "weight": 42
+    },
+    {
+      "name": "Implement AI solutions by using Microsoft Foundry",
+      "weight": 58
+    }
+  ],
+  "sources": [
+    "P27",
+    "P28",
+    "P29",
+    "P30",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AI-901 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-901",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Introduction to AI in Azure (AI-901T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/ai-901t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official AI-901 practice assessment",
+      "url": "https://aiskillsnavigator.microsoft.com/credentials/cert-83587e0a0754cfee561ade3e27d9fa1cdaf15ae03be52d2413b2b858d1b4eda4",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AI-901 study guide (40–45%, 55–60%; skills measured as of April 15, 2026), rounded to whole numbers that add up to 100. The rounding tie goes to the larger domain. Read 2026-11-17."
+}

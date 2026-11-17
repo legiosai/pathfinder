@@ -1,0 +1,81 @@
+{
+  "id": "snowflake-snowpro-core",
+  "name": "SnowPro Core Certification",
+  "provider": "Snowflake",
+  "code": "COF-C03",
+  "type": "certification",
+  "category": "Data & analytics",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 175,
+    "basis": "Exam only",
+    "note": "USD 175 per attempt; Snowflake charges USD 140 to candidates testing in India. Retakes cost the full fee, with no free retakes or retake discounts."
+  },
+  "exam": {
+    "minutes": 115,
+    "style": "knowledge",
+    "format": "100 multiple-choice and multiple-select questions (unscored items may be included), 115 minutes, online proctored or at a test center, in English, Japanese, Korean, French or Spanish.",
+    "questions": "100",
+    "passing": "750 scaled (0–1,000)",
+    "validity": "2 years"
+  },
+  "scope": "The Snowflake AI Data Cloud: architecture, accounts and virtual warehouses, data loading and unloading, structured, semi-structured and unstructured data, performance optimization, governance, data protection and data collaboration.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "COF-C03 is the only SnowPro Core version Snowflake lists (read 2026-11-17); it replaced COF-C02 in 2026, and Snowflake's pages no longer give the transition dates. Prep material written for COF-C02 may not match the C03 domains.",
+    "After a failed attempt you wait seven days to retake, and you can take the same exam at most four times in 12 months.",
+    "Certifications expire two years after they are awarded. They renew through Snowflake's Continuing Education program (passing an eligible SnowPro exam or completing eligible instructor-led training) or by retaking the full exam within six months before expiry.",
+    "The study guide is a PDF behind a short form on the certification page."
+  ],
+  "skills": [
+    "data",
+    "architecture",
+    "security"
+  ],
+  "roles": [
+    "data-engineer",
+    "architect"
+  ],
+  "domains": [
+    { "name": "Snowflake AI Data Cloud Features & Architecture", "weight": 31 },
+    { "name": "Account Management and Data Governance", "weight": 20 },
+    { "name": "Data Loading, Unloading, and Connectivity", "weight": 18 },
+    { "name": "Performance Optimization, Querying, and Transformation", "weight": 21 },
+    { "name": "Data Collaboration", "weight": 10 }
+  ],
+  "sources": [
+    "P83",
+    "P84",
+    "P85",
+    "P86",
+    "P87"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "SnowPro Core (COF-C03) exam page and study guide",
+      "url": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "The study guide PDF is sent after a short form."
+    },
+    {
+      "title": "SnowPro Core Certification On-Demand Preparation Course",
+      "url": "https://training.snowflake.com/lmt/!clmsLink.dt?site=sf&p_region=us&lang=en-us&type=O&id=98874402",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Paid self-study recommended on the exam page, alongside the instructor-led Snowflake Fundamentals course."
+    },
+    {
+      "title": "SnowPro Practice Exam: Core",
+      "url": "https://learn.snowflake.com/en/certifications/snowpro-practice-exams/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "Unproctored, 30–40 questions in 65 minutes, built to the live exam's weightings; USD 50, one attempt within 24 hours of purchase."
+    }
+  ],
+  "domains_note": "Weights from the exam domain breakdown on Snowflake's SnowPro Core (COF-C03) certification page. Read 2026-11-17."
+}

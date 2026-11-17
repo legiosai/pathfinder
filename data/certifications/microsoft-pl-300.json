@@ -1,0 +1,86 @@
+{
+  "id": "microsoft-pl-300",
+  "name": "Microsoft Power BI Data Analyst Associate",
+  "provider": "Microsoft",
+  "code": "PL-300",
+  "type": "certification",
+  "category": "Data & analytics",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes."
+  },
+  "exam": {
+    "minutes": 100,
+    "style": "knowledge",
+    "format": "Proctored 100-minute exam through Pearson VUE; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online"
+  },
+  "scope": "Preparing, modeling, visualizing and analyzing data in Power BI, and managing and securing Power BI; Power Query and DAX are expected.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for PL-300."
+  ],
+  "skills": [
+    "data"
+  ],
+  "roles": [
+    "data-engineer",
+    "business"
+  ],
+  "domains": [
+    {
+      "name": "Prepare the data",
+      "weight": 28
+    },
+    {
+      "name": "Model the data",
+      "weight": 28
+    },
+    {
+      "name": "Visualize and analyze the data",
+      "weight": 27
+    },
+    {
+      "name": "Manage and secure Power BI",
+      "weight": 17
+    }
+  ],
+  "sources": [
+    "P33",
+    "P34",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "PL-300 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/pl-300",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Design and manage analytics solutions using Power BI (PL-300T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/pl-300t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official PL-300 practice assessment",
+      "url": "https://aka.ms/PL300-PA",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn PL-300 study guide (25–30%, 25–30%, 25–30%, 15–20%; skills measured as of April 20, 2026), rounded to whole numbers that add up to 100. Rounding ties go to the domains listed first. Read 2026-11-17."
+}

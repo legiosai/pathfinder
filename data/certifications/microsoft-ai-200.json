@@ -1,0 +1,93 @@
+{
+  "id": "microsoft-ai-200",
+  "name": "Microsoft Azure AI Cloud Developer Associate",
+  "provider": "Microsoft",
+  "code": "AI-200",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Proctored 120-minute exam through Pearson VUE; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online"
+  },
+  "scope": "Back-end development of AI solutions on Azure: containerized apps on Container Apps and AKS, vector search and RAG with Cosmos DB, PostgreSQL and Redis, messaging, events and Functions, and Key Vault, OpenTelemetry and KQL for security and monitoring. It replaces the retired Azure Developer Associate (AZ-204).",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "AI-200 replaced the Azure Developer Associate certification (Exam AZ-204), which retired on July 31, 2026.",
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AI-200."
+  ],
+  "skills": [
+    "azure",
+    "kubernetes",
+    "rag",
+    "python",
+    "observability",
+    "security"
+  ],
+  "roles": [
+    "developer"
+  ],
+  "domains": [
+    {
+      "name": "Develop containerized solutions on Azure",
+      "weight": 24
+    },
+    {
+      "name": "Develop AI solutions by using Azure data management services",
+      "weight": 29
+    },
+    {
+      "name": "Connect to and consume Azure services",
+      "weight": 24
+    },
+    {
+      "name": "Secure, monitor, troubleshoot Azure solutions",
+      "weight": 23
+    }
+  ],
+  "sources": [
+    "P38",
+    "P39",
+    "P40",
+    "P30",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AI-200 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-200",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Develop AI cloud solutions on Azure (AI-200T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/ai-200t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official AI-200 practice assessment",
+      "url": "https://aka.ms/AI200-PA",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AI-200 study guide (20–25%, 25–30%, 20–25%, 20–25%; the guide gives no 'skills measured as of' date), scaled to add up to 100 and rounded to whole numbers. Rounding ties go to the domains listed first. Read 2026-11-17."
+}
