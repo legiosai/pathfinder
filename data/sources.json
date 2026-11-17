@@ -866,5 +866,110 @@
     "url": "https://support.google.com/cloud-certification/answer/9907853",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Up to three renewal routes: continuing education in Google Skills (adds 1 year), a shorter renewal exam or the standard exam. For PDE, ACE and CDL the renewal route chosen cannot be switched after the first attempt; PCA can switch. No score report for the shorter renewal exam."
+  },
+  {
+    "id": "P65",
+    "title": "Linux Foundation · Certified Kubernetes Administrator (CKA)",
+    "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam-only price $445 (two exam attempts, two Killer.sh simulator sessions, 12 months to schedule); domains and weights (Storage 10%, Troubleshooting 30%, Workloads & Scheduling 15%, Cluster Architecture, Installation & Configuration 25%, Services & Networking 20%); two-hour online proctored performance-based exam on Kubernetes v1.37; no prerequisites; experience level Intermediate."
+  },
+  {
+    "id": "P66",
+    "title": "Linux Foundation · Kubernetes and Cloud Native Associate (KCNA)",
+    "url": "https://training.linuxfoundation.org/certification/kubernetes-cloud-native-associate/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam-only price $250 (two exam attempts, 12 months to schedule); domains and weights (Kubernetes Fundamentals 44%, Container Orchestration 28%, Cloud Native Application Delivery 16%, Cloud Native Architecture 12%); online proctored multiple-choice exam; no prerequisites; experience level Beginner."
+  },
+  {
+    "id": "P67",
+    "title": "Linux Foundation · Certified Kubernetes Security Specialist (CKS)",
+    "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam-only price $445 (two exam attempts, two Killer.sh simulator sessions, 12 months to schedule); six domains and weights; two-hour online proctored performance-based exam on Kubernetes v1.37; candidates must have taken and passed the CKA before attempting the CKS."
+  },
+  {
+    "id": "P68",
+    "title": "Linux Foundation · Frequently Asked Questions: CKA, CKAD & CKS",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/faq-cka-ckad-cks",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Two hours per exam; pass marks CKA 66%, CKAD 66%, CKS 67%; certifications valid 2 years (CKA and CKAD earned before April 1, 2024: 3 years), renewed by passing the exam again; earning or recertifying the CKS on or after June 18, 2026 extends the CKA; simulator access not included in single-attempt registrations; exam environment on Kubernetes v1.37."
+  },
+  {
+    "id": "P69",
+    "title": "Linux Foundation · Important Instructions: CKA and CKAD",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. The exams consist of 15–20 performance-based tasks solved on the command line, with two hours to complete them; results are emailed within 24 hours."
+  },
+  {
+    "id": "P70",
+    "title": "Linux Foundation · Important Instructions: CKS",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-cks",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. The exam consists of 15–20 performance-based tasks solved on the command line, with two hours to complete them."
+  },
+  {
+    "id": "P71",
+    "title": "Linux Foundation · Multiple Choice Exams: Frequently Asked Questions",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/faq-mc",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. 90 minutes for multiple-choice exams (CNPA excepted); 75% to pass; certifications valid 2 years; passing CKA or CKAD automatically renews the KCNA (CARE program)."
+  },
+  {
+    "id": "P72",
+    "title": "Linux Foundation · Important Instructions: multiple-choice exams",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. The multiple-choice exams consist of 60 questions in 90 minutes (CNPA excepted), proctored online by PSI."
+  },
+  {
+    "id": "P73",
+    "title": "CNCF · Certified Kubernetes Security Specialist (CKS)",
+    "url": "https://www.cncf.io/training/certification/cks/",
+    "kind": "Issuer program page",
+    "note": "Read 2026-11-17. $445 including one free retake; valid two years; CKS candidates must have passed the CKA exam first, but the CKA does not have to be active."
+  },
+  {
+    "id": "P74",
+    "title": "CNCF · Certification curriculum repository",
+    "url": "https://github.com/cncf/curriculum",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. CKA and CKS curricula v1.37 and the KCNA curriculum PDF; their domain weights match the Linux Foundation certification pages."
+  },
+  {
+    "id": "P75",
+    "title": "Cisco · CCNA certification",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. One exam (200-301 CCNA), no prerequisites, $300 or Cisco Learning Credits; valid three years, recertified by passing the current CCNA or a higher-level exam or with 30 CE credits; v1.1 last date to test February 2, 2027, v2.0 first date to test February 3, 2027."
+  },
+  {
+    "id": "P76",
+    "title": "Cisco · Implementing and Administering Cisco Solutions (200-301 CCNA) exam",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccna.html",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 120 minutes; English and Japanese; $300 or Cisco Learning Credits; links the v1.1 exam topics, Cisco U. training and a practice exam. Question count not stated."
+  },
+  {
+    "id": "P77",
+    "title": "Cisco · CCNA Exam v1.1 (200-301) exam topics (PDF)",
+    "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301-CCNA-v1.1.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 120-minute exam; Network Fundamentals 20%, Network Access 20%, IP Connectivity 25%, IP Services 10%, Security Fundamentals 15%, Automation and Programmability 10%."
+  },
+  {
+    "id": "P78",
+    "title": "Cisco · CCNA v2.0 (200-301) exam topics (PDF)",
+    "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301_CCNA_v2.0_Exam_Topics_PDF.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 120-minute exam; Network Infrastructure and Connectivity 25%, Switching and Network Access 25%, IP Routing 20%, Network Services and Security 20%, AI, and Network Operations and Management 10%; candidates may evaluate output from agentic AI and digital network assistants."
+  },
+  {
+    "id": "P79",
+    "title": "Cisco · Certification exams overview",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/index.html",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Prices in USD plus tax, with Pearson VUE listing other countries and currencies; CCNA 200-301 at $300; associate exams offered in person and online; score reports include the passing score; five-day wait before retaking a failed associate exam."
   }
 ]
