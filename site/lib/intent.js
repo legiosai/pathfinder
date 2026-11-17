@@ -676,7 +676,10 @@ export function withoutSignal(intent, key) {
 
 // ---------- recommendations ----------
 
-const BONUS = { named: 15, provider: 12, area: 8, areaOnly: 15, practice: 6 };
+// `switching` gives back what the "For me" score takes for a role mismatch (its role weight) when a
+// certification is in the area you want to move into: "soy dev, quiero meterme en ciberseguridad"
+// is about security roles, not about the developer role you have now.
+const BONUS = { named: 15, provider: 12, area: 8, areaOnly: 15, practice: 6, switching: 20 };
 // Picks scoring under this share of the best one are left to the full list.
 const FLOOR = 0.55;
 const PENALTY = { avoided: 25, upcoming: 5, late: 10 };
@@ -741,6 +744,7 @@ export function recommend(certs, ranked, intent, { limit = 5, labels = {}, estim
     if (areas.has(c.category)) {
       score += want.size ? BONUS.area : BONUS.areaOnly;
       reasons.push(`In ${label(c.category)}, an area you named`);
+      if (wantHits.length && roles.size && !c.roles.some((x) => roles.has(x))) score += BONUS.switching;
     }
     if (intent.practice && c.practice_questions) {
       score += BONUS.practice;
