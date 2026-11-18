@@ -18,7 +18,14 @@
     "format": "Two parts: a 2-hour proctored exam of 50–60 multiple choice questions, delivered by Pearson online or at a test center, then two hands-on labs in Google Skills. Candidates who pass the exam get two months to finish the labs; both parts are needed to earn the certification.",
     "questions": "50–60",
     "question_count": 60,
-    "validity": "1 year"
+    "validity": "1 year",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Designing agentic systems on Google Cloud.",
   "requirements": "",
@@ -28,6 +35,9 @@
     "Passing the exam alone does not certify: results arrive in 7–10 business days, and the labs must be completed within two months. If the labs are not finished in time, the exam has to be taken again.",
     "Google reports pass/fail only and does not publish a passing score."
   ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third. Failing the exam, or not finishing the labs within two months, means taking the exam again."
+  },
   "skills": [
     "gcp",
     "agents",
@@ -61,7 +71,8 @@
   "sources": [
     "X16",
     "X17",
-    "Z04"
+    "Z04",
+    "P59"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

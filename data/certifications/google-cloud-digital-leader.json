@@ -18,7 +18,18 @@
     "format": "50–60 multiple choice and multiple select questions in 90 minutes, online-proctored or at a test center (Pearson VUE since March 2026). English, Japanese, Spanish, Portuguese and French. No prerequisites; Google recommends experience collaborating with technical professionals.",
     "questions": "50–60",
     "question_count": 60,
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "es",
+      "pt",
+      "fr"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Cloud computing basics and how Google Cloud supports an organization: digital and data transformation, AI, infrastructure and application modernization, security, and cloud operations.",
   "requirements": "",
@@ -28,6 +39,9 @@
     "Certified holders can renew in the last part of their validity with a shorter renewal exam (45 minutes, 20 questions, $60) or through designated courses and skill badges in Google Skills, which add one year.",
     "The current exam guide is dated August 12, 2026; it covers both the standard and renewal exams."
   ],
+  "access": {
+    "retake": "Up to ten attempts a year, with at least 14 days between failed attempts."
+  },
   "skills": [
     "gcp",
     "data",

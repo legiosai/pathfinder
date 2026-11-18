@@ -18,7 +18,17 @@
     "format": "50–60 multiple choice and multiple select questions in 2 hours, online-proctored or at a test center (Pearson VUE since March 2026). English, Japanese, Spanish and Portuguese. No prerequisites; Google recommends 6+ months of hands-on experience with Google Cloud.",
     "questions": "50–60",
     "question_count": 60,
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "es",
+      "pt"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Setting up, deploying, operating and securing applications and infrastructure on Google Cloud: projects and billing, compute, GKE, storage, networking, monitoring, IAM.",
   "requirements": "",
@@ -27,6 +37,9 @@
     "Google reports pass/fail only and does not publish a passing score.",
     "Certified holders can renew with a shorter renewal exam (1 hour, 20 questions, $75, with its own guide) or through designated courses and skill badges in Google Skills, which add one year."
   ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third."
+  },
   "skills": [
     "gcp",
     "kubernetes",

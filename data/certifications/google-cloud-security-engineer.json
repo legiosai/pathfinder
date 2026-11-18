@@ -18,7 +18,15 @@
     "format": "Two-hour proctored exam, online or at a test center, with 50–60 multiple choice and multiple select questions, in English or Japanese. No prerequisites; Google recommends 3+ years of industry experience including more than one year designing and managing solutions on Google Cloud.",
     "questions": "50–60",
     "question_count": 60,
-    "validity": "2 years"
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Securing Google Cloud: identity and access, resource hierarchy and policies, network boundaries and private connectivity, data protection, security operations and automation, AI workload and software supply chain security, and compliance controls.",
   "requirements": "",
@@ -29,6 +37,9 @@
     "Professional certifications are valid for two years. Renewal means passing the exam again, from 60 days before the expiry date; exam fees and the retake policy apply.",
     "Retakes: up to four attempts in two years, waiting 14 days after the first failure, 60 days after the second and 365 days after the third."
   ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third."
+  },
   "skills": [
     "gcp",
     "security",
@@ -64,7 +75,8 @@
   "sources": [
     "S87",
     "S88",
-    "S89"
+    "S89",
+    "P59"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

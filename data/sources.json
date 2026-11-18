@@ -812,7 +812,8 @@
     "title": "Google Cloud · Cloud Digital Leader",
     "url": "https://cloud.google.com/learn/certification/cloud-digital-leader",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. Standard exam: 90 minutes, $99 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish, Portuguese and French, online-proctored or at a test center, valid 3 years, no prerequisites. Renewal: a 45-minute, 20-question renewal exam ($60) or designated Google Skills courses."
+    "note": "Read 2026-11-17. Standard exam: 90 minutes, $99 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish, Portuguese and French, online-proctored or at a test center, valid 3 years, no prerequisites. Renewal: a 45-minute, 20-question renewal exam ($60) or designated Google Skills courses.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P51",
@@ -826,7 +827,8 @@
     "title": "Google Cloud · Associate Cloud Engineer",
     "url": "https://cloud.google.com/learn/certification/cloud-engineer",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. Standard exam: 2 hours, $125 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish and Portuguese, online-proctored or at a test center, valid 3 years, no prerequisites, 6+ months of hands-on Google Cloud experience recommended. Renewal: a 1-hour, 20-question renewal exam ($75) or designated Google Skills courses."
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $125 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English, Japanese, Spanish and Portuguese, online-proctored or at a test center, valid 3 years, no prerequisites, 6+ months of hands-on Google Cloud experience recommended. Renewal: a 1-hour, 20-question renewal exam ($75) or designated Google Skills courses.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P53",
@@ -840,7 +842,8 @@
     "title": "Google Cloud · Professional Cloud Architect",
     "url": "https://cloud.google.com/learn/certification/cloud-architect",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English and Japanese, 2 case studies per exam making up 20-30% of the questions, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 25-question renewal exam ($100) built on one generative AI case study, or designated Google Skills courses."
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 50-60 multiple choice and multiple select questions, English and Japanese, 2 case studies per exam making up 20-30% of the questions, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 25-question renewal exam ($100) built on one generative AI case study, or designated Google Skills courses.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P55",
@@ -854,7 +857,8 @@
     "title": "Google Cloud · Professional Data Engineer",
     "url": "https://cloud.google.com/learn/certification/data-engineer",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 40-50 multiple choice and multiple select questions, English and Japanese, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 20-question renewal exam ($100) or designated Google Skills courses."
+    "note": "Read 2026-11-17. Standard exam: 2 hours, $200 (plus tax where applicable), 40-50 multiple choice and multiple select questions, English and Japanese, online-proctored or at a test center, valid 2 years, no prerequisites, 3+ years of industry experience including 1+ year on Google Cloud recommended. Renewal: a 1-hour, 20-question renewal exam ($100) or designated Google Skills courses.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P57",
@@ -875,7 +879,8 @@
     "title": "Google Cloud · Retake policy",
     "url": "https://support.google.com/cloud-certification/answer/9749448",
     "kind": "Issuer policy",
-    "note": "Read 2026-11-17. Foundational: up to ten attempts a year, 14 days between failed attempts. Associate and Professional: up to four attempts in two years, waits of 14, 60 and 365 days. Every attempt is paid."
+    "note": "Read 2026-11-17. Foundational: up to ten attempts in a year, at least 14 days between failed attempts. Associate and Professional: up to four attempts in two years, with waits of 14, 60 and 365 days after the first, second and third failures; all attempts count regardless of language or delivery method.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P60",
@@ -1574,7 +1579,8 @@
     "title": "Google Cloud · Professional Cloud Security Engineer",
     "url": "https://cloud.google.com/learn/certification/cloud-security-engineer",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Two hours, $200 plus tax where applicable, English and Japanese, 50–60 multiple choice and multiple select questions, online or test-center proctoring, no prerequisites, 3+ years of experience recommended including 1+ year on Google Cloud."
+    "note": "Read 2026-11-17. Two hours, $200 plus tax where applicable, English and Japanese, 50–60 multiple choice and multiple select questions, online or test-center proctoring, no prerequisites, 3+ years of experience recommended including 1+ year on Google Cloud.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S88",
