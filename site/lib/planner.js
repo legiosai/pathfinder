@@ -178,8 +178,9 @@ function outline(topics, regularSlots, mockCount, examMinutes) {
   const mock = (n) => add('mock', mockCount > 1 ? `full exam ${n}` : 'full exam', {
     minutes: examMinutes,
     detail: `Full length (${examMinutes} min), timed, no notes.`,
+    round: n,
   });
-  const review = (n) => add('review', mockCount > 1 ? `mock ${n}` : 'the mock');
+  const review = (n) => add('review', mockCount > 1 ? `mock ${n}` : 'the mock', { round: n });
   mock(1);
   review(1);
   for (let k = 1; k <= remediationCount; k++) add('remediate', remediationCount > 1 ? `weak spots (${k}/${remediationCount})` : 'weak spots');
@@ -197,13 +198,12 @@ function outline(topics, regularSlots, mockCount, examMinutes) {
  * mock's review, the remaining learning sessions, the mock, and the final review last of all.
  */
 function dropRanks(list) {
-  let mocks = 0;
   const learned = new Set();
   return list.map((s) => {
     if (s.kind === 'practice') return 1;
     if (s.kind === 'remediate') return 2;
-    if (s.kind === 'mock') return ++mocks > 1 ? 3 : 8;
-    if (s.kind === 'review') return mocks > 1 ? 3 : 6;
+    if (s.kind === 'mock') return s.round > 1 ? 3 : 8;
+    if (s.kind === 'review') return s.round > 1 ? 3 : 6;
     if (s.kind === 'baseline') return 5;
     if (s.kind === 'learn') {
       const key = s.topic || (s.topics || []).join(' + ') || s.name;
@@ -340,6 +340,60 @@ export function checkDeadline({ sessions, start, days, targetDate, sessionMinute
   }
   const weeks = Math.max(0, Math.round((parseDate(targetDate) - parseDate(start)) / (7 * 86400000) * 10) / 10);
   return { targetDate, available, needed, fits, spare: available - needed, suggestedMinutes, weeks };
+}
+
+/** Sessions dated before `today` and not done: how many, and the date of the first one. */
+export function behind(sessions, done, today) {
+  const finished = new Set(done);
+  const missed = sessions.filter((s) => s.date < today && !finished.has(s.n));
+  return { count: missed.length, since: missed.length ? missed.reduce((a, s) => (s.date < a ? s.date : a), missed[0].date) : null };
+}
+
+/**
+ * Catch up after missed sessions. The sessions not done yet move, in their order, onto the study
+ * days from `today` on, before `targetDate` when there is one, skipping days that already hold a
+ * done session. When fewer days are left than sessions, the least important are left out (see
+ * keepMost). Done sessions keep their dates.
+ * Returns { dates: { n: date }, skipped: [n], available, remaining }.
+ */
+export function reschedule({ sessions, done = [], today, days, targetDate = null }) {
+  const finished = new Set(done);
+  const left = sessions.filter((s) => !finished.has(s.n));
+  const busy = new Set(sessions.filter((s) => finished.has(s.n)).map((s) => s.date));
+  const slots = [];
+  if (days.length && (!targetDate || today < targetDate)) {
+    for (const d = parseDate(today); targetDate ? formatDate(d) < targetDate : slots.length < left.length; d.setUTCDate(d.getUTCDate() + 1)) {
+      const date = formatDate(d);
+      if (days.includes(d.getUTCDay()) && !busy.has(date)) slots.push(date);
+    }
+  }
+  const keep = keepMost(left, slots.length);
+  const kept = new Set(keep.map((s) => s.n));
+  return {
+    dates: Object.fromEntries(keep.map((s, i) => [s.n, slots[i]])),
+    skipped: left.filter((s) => !kept.has(s.n)).map((s) => s.n),
+    available: slots.length,
+    remaining: left.length,
+  };
+}
+
+/**
+ * A plan with saved moves applied: sessions get their new dates, skipped ones go, and the order,
+ * hours and earliest exam date follow. Without a target date the earliest exam date is the next
+ * study day after the last session.
+ */
+export function applyMoves(plan, { dates = {}, skipped = [] } = {}, days = []) {
+  const skip = new Set(skipped);
+  const sessions = plan.sessions
+    .filter((s) => !skip.has(s.n))
+    .map((s) => (dates[s.n] ? { ...s, date: dates[s.n], weekday: WEEKDAYS[parseDate(dates[s.n]).getUTCDay()] } : s))
+    .sort((a, b) => a.date.localeCompare(b.date) || a.n - b.n);
+  if (!sessions.length) return { ...plan, sessions: plan.sessions };
+  const last = parseDate(sessions.at(-1).date);
+  last.setUTCDate(last.getUTCDate() + 1);
+  const examDate = !plan.deadline && days.length ? studyDates(formatDate(last), days, 1)[0] : plan.examDate;
+  const minutes = sessions.reduce((t, s) => t + s.minutes, 0);
+  return { ...plan, sessions, examDate, hours: Math.round((minutes / 60) * 10) / 10, skipped: plan.sessions.filter((s) => skip.has(s.n)) };
 }
 
 function fmtMinutes(m) {

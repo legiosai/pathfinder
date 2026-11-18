@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { allocate, buildPlan, countStudyDays, estimateHours, groupTopics, keepMost, planTopics, studyDates, toICS, toMarkdown } from '../site/lib/planner.js';
+import { allocate, applyMoves, behind, buildPlan, countStudyDays, estimateHours, groupTopics, keepMost, planTopics, reschedule, studyDates, toICS, toMarkdown } from '../site/lib/planner.js';
 
 const cert = {
   id: 'demo',
@@ -231,4 +231,73 @@ test('keepMost drops practice, fixes and the second mock first and keeps the ord
   assert.equal(kept.at(-1).kind, 'final');
   assert.equal(keepMost(p.sessions, 99), p.sessions);
   assert.deepEqual(keepMost(p.sessions, 0), []);
+});
+
+test('behind counts past sessions not done, from the first one', () => {
+  const sessions = [
+    { n: 1, date: '2026-11-02' },
+    { n: 2, date: '2026-11-04' },
+    { n: 3, date: '2026-11-06' },
+    { n: 4, date: '2026-11-09' },
+  ];
+  assert.deepEqual(behind(sessions, [1], '2026-11-09'), { count: 2, since: '2026-11-04' });
+  assert.deepEqual(behind(sessions, [1, 2, 3], '2026-11-09'), { count: 0, since: null });
+});
+
+test('reschedule moves what is left onto study days from today, before the exam', () => {
+  // Mon/Wed/Fri from Mon 2 Nov; sessions 1 and 3 done, the rest missed until Wed 11 Nov.
+  const p = buildPlan({ cert, hours: 12, start: '2026-11-02', days: [1, 3, 5], sessionMinutes: 90, targetDate: '2026-12-31' });
+  const today = '2026-11-11';
+  const r = reschedule({ sessions: p.sessions, done: [1, 3], today, days: [1, 3, 5], targetDate: '2026-12-31' });
+  assert.equal(r.remaining, p.sessions.length - 2);
+  assert.deepEqual(r.skipped, []);
+  const moved = Object.entries(r.dates).map(([n, d]) => [Number(n), d]).sort((a, b) => a[0] - b[0]);
+  assert.equal(moved[0][1], today, 'the first one left is today');
+  assert.ok(moved.every(([, d], i) => i === 0 || d > moved[i - 1][1]), 'same order, one a day');
+  assert.ok(moved.every(([, d]) => [1, 3, 5].includes(new Date(`${d}T00:00:00Z`).getUTCDay())));
+  assert.ok(!(1 in r.dates) && !(3 in r.dates), 'done sessions keep their dates');
+  assert.equal(behind(applyMoves(p, r, [1, 3, 5]).sessions, [1, 3], today).count, 0);
+});
+
+test('reschedule skips days with a done session and leaves out the least important when short', () => {
+  const p = buildPlan({ cert, hours: 30, start: '2026-11-02', days: [1, 3, 5], sessionMinutes: 90, targetDate: '2026-12-31' });
+  // Session 12 was done early, on its own date in the future.
+  const ahead = p.sessions.find((s) => s.n === 12);
+  const r = reschedule({ sessions: p.sessions, done: [1, 12], today: '2026-11-09', days: [1, 3, 5], targetDate: '2026-12-31' });
+  assert.ok(!Object.values(r.dates).includes(ahead.date));
+  // Eight study days left before the exam (14 to 30 Dec) for everything that remains.
+  const short = reschedule({ sessions: p.sessions, done: [1], today: '2026-12-14', days: [1, 3, 5], targetDate: '2026-12-31' });
+  assert.equal(short.available, 8);
+  assert.equal(Object.keys(short.dates).length, 8);
+  assert.equal(short.skipped.length, short.remaining - 8);
+  const kinds = (ns) => ns.map((n) => p.sessions.find((s) => s.n === Number(n)).kind);
+  assert.ok(kinds(short.skipped).includes('practice'));
+  assert.ok(kinds(Object.keys(short.dates)).includes('final'));
+  assert.ok(Object.values(short.dates).every((d) => d < '2026-12-31'));
+  // With the first mock done and two days left, its review and the final stay; the second mock goes.
+  const mock1 = p.sessions.find((s) => s.kind === 'mock').n;
+  const after = reschedule({ sessions: p.sessions, done: p.sessions.filter((s) => s.n <= mock1).map((s) => s.n), today: '2026-12-28', days: [1, 3, 5], targetDate: '2026-12-31' });
+  assert.deepEqual(kinds(Object.keys(after.dates)), ['review', 'final']);
+  // No exam date: everything left moves, however long it takes.
+  const open = reschedule({ sessions: p.sessions, done: [], today: '2026-12-14', days: [2] });
+  assert.equal(Object.keys(open.dates).length, p.sessions.length);
+  // The exam has passed: nothing to place.
+  assert.equal(reschedule({ sessions: p.sessions, done: [], today: '2026-12-31', days: [1], targetDate: '2026-12-31' }).available, 0);
+});
+
+test('applyMoves re-dates, drops skipped sessions and recomputes hours and the earliest exam', () => {
+  const p = buildPlan({ cert, hours: 12, start: '2026-11-02', days: [1, 3, 5], sessionMinutes: 60 });
+  const last = p.sessions.at(-1);
+  const moved = applyMoves(p, { dates: { 1: '2026-11-30' }, skipped: [2] }, [1, 3, 5]);
+  assert.equal(moved.sessions.length, p.sessions.length - 1);
+  assert.ok(!moved.sessions.some((s) => s.n === 2));
+  assert.deepEqual(moved.skipped.map((s) => s.n), [2]);
+  const first = moved.sessions.find((s) => s.n === 1);
+  assert.equal(first.date, '2026-11-30');
+  assert.equal(first.weekday, 'Mon');
+  assert.deepEqual(moved.sessions.map((s) => s.date), [...moved.sessions.map((s) => s.date)].sort());
+  assert.equal(moved.hours, p.hours - 1);
+  const end = [last.date, '2026-11-30'].sort().at(-1);
+  assert.ok(moved.examDate > end);
+  assert.deepEqual(applyMoves(p, {}, [1, 3, 5]).sessions, p.sessions);
 });

@@ -1,5 +1,5 @@
 import { emptyProfile, rank } from './lib/match.js';
-import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
+import { applyMoves, behind, buildPlan, countStudyDays, estimateHours, planTopics, reschedule, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
 import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
 import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
@@ -18,6 +18,7 @@ const KEYS = {
   plans: 'pathfinder:plans',
   motion: 'pathfinder:motion',
   practice: 'pathfinder:practice:',
+  resched: 'pathfinder:resched:',
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -696,11 +697,45 @@ function planParams() {
   };
 }
 
-function statusHtml(p) {
+/** Sessions per kind as small chips: "Practice 2 · Fix 1". */
+const kindCounts = (sessions) => {
+  const n = new Map();
+  for (const s of sessions) n.set(s.kind, (n.get(s.kind) || 0) + 1);
+  return `<ul class="cut-kinds">${[...n].map(([k, c]) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${esc(kindLabel(k))} <b>${c}</b></li>`).join('')}</ul>`;
+};
+
+/** Behind on the plan: how far, and what rescheduling from today would do. Empty when on track. */
+function behindHtml(p, done, days, key) {
+  const today = todayLocal();
+  const late = behind(p.sessions, [...done], today);
+  if (!late.count) return '';
+  const target = p.deadline?.targetDate || null;
+  const r = reschedule({ sessions: p.sessions, done: [...done], today, days, targetDate: target });
+  const skipped = p.sessions.filter((s) => r.skipped.includes(s.n));
+  const what = !r.available
+    ? `<p>${esc(t('plan.reschedNone', { d: day(target) }))}</p>`
+    : skipped.length
+      ? `<p>${esc(t('plan.reschedCut', { n: r.remaining, a: r.available }))}</p>${kindCounts(skipped)}`
+      : `<p>${esc(t(target ? 'plan.reschedFits' : 'plan.reschedOpen', { n: r.remaining, a: r.available }))}</p>`;
+  return `<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.behind', { n: late.count, d: day(late.since) }))}</b></p>${what}
+    ${r.available ? `<p><button type="button" class="btn" data-act="resched" data-key="${esc(key)}">${icon('calendar-clock')}${t('plan.reschedule')}</button></p>` : ''}</div></div>`;
+}
+
+function statusHtml(p, done, days, key) {
   const d = p.deadline;
-  if (!d) return `<div class="status info">${icon('flag')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>`;
+  const moved = p.rescheduled
+    ? `<div class="status info resched">${icon('calendar-clock')}<span>${esc(t('plan.rescheduled', { d: day(p.rescheduled.on) }))}${p.skipped?.length ? ` ${esc(t('plan.leftOut'))}` : ''}</span>${p.skipped?.length ? kindCounts(p.skipped) : ''}<button type="button" class="link" data-act="unresched" data-key="${esc(key)}">${t('plan.undo')}</button></div>`
+    : '';
+  // Behind replaces the "fits" line: it no longer holds until the plan is rescheduled.
+  const late = behindHtml(p, done, days, key);
+  if (late && (!d || d.fits)) return late + moved;
+  if (!d) return `<div class="status info">${icon('flag')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>${moved}`;
   if (d.fits) {
-    return `<div class="status good">${icon('circle-check')}${esc(t('plan.fits', { d: day(d.targetDate), spare: d.spare }))}</div>`;
+    // After a reschedule the spare days are the ones left after the last session.
+    const next = utc(p.sessions.at(-1).date);
+    next.setUTCDate(next.getUTCDate() + 1);
+    const spare = p.rescheduled ? countStudyDays(iso(next), d.targetDate, days) : d.spare;
+    return `<div class="status good">${icon('circle-check')}${esc(t('plan.fits', { d: day(d.targetDate), spare }))}</div>${moved}`;
   }
   const fixes = [];
   if (d.suggestedMinutes) fixes.push(t('plan.fixLen', { x: len(d.suggestedMinutes) }));
@@ -712,7 +747,7 @@ function statusHtml(p) {
       <ul class="cut-kinds" aria-label="${esc(t('plan.cutAria'))}">${p.cut.kinds.map((k) => `<li><span class="k ${kindN(k.kind)}" ${kindStyle(k.kind)}>${icon(KIND[k.kind].icon)}</span>${esc(kindLabel(k.kind))} <b>${k.from} → ${k.to}</b></li>`).join('')}</ul>
       ${p.cut.grouped ? `<p>${esc(t('plan.cutGrouped'))}</p>` : ''}`
     : '';
-  return `<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.noFit', { d: day(d.targetDate), needed: d.needed, available: d.available, fixes }))}</b></p>${cut}</div></div>`;
+  return `${late}<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.noFit', { d: day(d.targetDate), needed: d.needed, available: d.available, fixes }))}</b></p>${cut}</div></div>${moved}`;
 }
 
 function monthsHtml(p, done) {
@@ -776,6 +811,7 @@ function renderPlan() {
   }
   const planStart = p.sessions[0].date;
   const progressKey = `${KEYS.progress}${p.cert.id}:${planStart}`;
+  p = movedPlan(p, progressKey, days);
   const done = new Set(store.get(progressKey, []));
   const tracked = isTracked(progressKey);
   if (tracked) setTracked(progressKey, trackParams(), true);
@@ -849,7 +885,7 @@ function renderPlan() {
       ${summaryStat('target', p.deadline ? t('plan.examDay') : t('plan.earliest'), day(examDay))}
       <div class="card progress-card" id="progress">${ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }))}<div><b id="progress-n">${t('plan.of', { a: done.size, b: p.sessions.length })}</b><small>${t('plan.done')}</small></div></div>
     </div>
-    ${statusHtml(p)}
+    <div id="plan-status">${statusHtml(p, done, days, progressKey)}</div>
     <div class="plan-actions">
       <button type="button" class="btn primary" id="dl-ics">${icon('calendar-plus')}${t('plan.calendar')}</button>
       <button type="button" class="btn" id="track-plan" aria-pressed="${tracked}">${icon('activity')}<span>${tracked ? t('plan.tracking') : t('plan.track')}</span></button>
@@ -896,6 +932,7 @@ function renderPlan() {
         cell.classList.toggle('missed', !box.checked && session.date < today);
       }
       $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }));
+      $('#plan-status').innerHTML = statusHtml(p, done, days, progressKey);
       $('#progress-n').textContent = t('plan.of', { a: done.size, b: p.sessions.length });
       if (box.checked && !isTracked(progressKey)) setTracked(progressKey, trackParams(), true);
       const kind = p.sessions.find((s) => s.n === n)?.kind;
@@ -976,6 +1013,13 @@ function bind() {
     if (btn.dataset.act === 'untrack') {
       setTracked(btn.dataset.key, null, false);
       renderProgress();
+    }
+    if (btn.dataset.act === 'resched' || btn.dataset.act === 'unresched') {
+      const onPlan = !$('#view-plan').hidden;
+      const params = onPlan ? trackParams() : trackedPlans()[btn.dataset.key];
+      if (params) (btn.dataset.act === 'resched' ? rescheduleFrom : undoReschedule)(btn.dataset.key, params);
+      if (onPlan) renderPlan();
+      else renderProgress();
     }
     if (btn.dataset.act === 'use-hours') {
       hoursTouched = false;
@@ -1721,11 +1765,51 @@ function setTracked(key, params, on) {
   }
 }
 
-function planFrom(params) {
+// Rescheduling saves new dates (and sessions left out) per plan, next to its ticks. They belong to
+// the plan they were made on: a plan rebuilt with other settings drops them.
+const reschedKey = (key) => key.replace(KEYS.progress, KEYS.resched);
+const planSig = (p) => `${p.sessions.length}:${p.hours}:${p.sessions.at(-1).date}`;
+const daysOf = (params) => params.days.split(',').filter(Boolean).map(Number);
+
+function savedMoves(base, key) {
+  const saved = store.get(reschedKey(key), null);
+  return saved && saved.sig === planSig(base) ? saved : null;
+}
+
+function movedPlan(base, key, days) {
+  const saved = savedMoves(base, key);
+  return saved ? { ...applyMoves(base, saved, days), rescheduled: saved } : base;
+}
+
+/** Move what is left of a plan onto the study days from today, keeping one step of undo. */
+function rescheduleFrom(key, params) {
+  const base = planFrom(params);
+  if (!base) return;
+  const days = daysOf(params);
+  const saved = savedMoves(base, key);
+  const p = saved ? applyMoves(base, saved, days) : base;
+  const r = reschedule({ sessions: p.sessions, done: store.get(key, []), today: todayLocal(), days, targetDate: params.exam || null });
+  store.set(reschedKey(key), {
+    sig: planSig(base),
+    on: todayLocal(),
+    dates: { ...saved?.dates, ...r.dates },
+    skipped: [...(saved?.skipped || []), ...r.skipped],
+    prev: saved ? { on: saved.on, dates: saved.dates, skipped: saved.skipped } : null,
+  });
+  if (!isTracked(key)) setTracked(key, params, true);
+}
+
+function undoReschedule(key) {
+  const saved = store.get(reschedKey(key), null);
+  store.set(reschedKey(key), saved?.prev ? { sig: saved.sig, ...saved.prev, prev: null } : null);
+}
+
+/** A tracked plan rebuilt from its settings; with its key, its saved moves applied too. */
+function planFrom(params, key = null) {
   const cert = BY_ID.get(params.cert);
   if (!cert) return null;
   try {
-    return buildPlan({
+    const plan = buildPlan({
       cert,
       hours: Number(params.hours),
       start: params.start,
@@ -1735,6 +1819,7 @@ function planFrom(params) {
       confidence: store.get(confidenceKey(cert.id), {}),
       targetDate: params.exam || null,
     });
+    return key ? movedPlan(plan, key, daysOf(params)) : plan;
   } catch {
     return null;
   }
@@ -1744,7 +1829,7 @@ function planFrom(params) {
 function progressData() {
   const today = todayLocal();
   const plans = Object.entries(trackedPlans())
-    .map(([key, params]) => ({ key, params, plan: planFrom(params) }))
+    .map(([key, params]) => ({ key, params, plan: planFrom(params, key) }))
     .filter((x) => x.plan);
   const sessions = [];
   for (const x of plans) {
@@ -1804,10 +1889,13 @@ function renderProgress() {
     const pct = Math.round((x.done.size / total) * 100);
     const nextOne = x.plan.sessions.find((s) => !x.done.has(s.n) && s.date >= today) || x.plan.sessions.find((s) => !x.done.has(s.n));
     const examDay = x.plan.deadline ? x.plan.deadline.targetDate : x.plan.examDate;
+    const late = behind(x.plan.sessions, [...x.done], today);
+    const room = late.count && reschedule({ sessions: x.plan.sessions, done: [...x.done], today, days: daysOf(x.params), targetDate: x.params.exam || null }).available;
     return `<article class="card plan-card" style="--pc:${providerColor(c.provider)}">
       <div class="head">${badge(c, 52, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div>${ring(pct, 52, 'good pct', t('plan.pctDone', { p: pct }))}</div>
       <p class="meta"><span>${icon('calendar-days')}${t('plan.of', { a: x.done.size, b: total })} ${t('plan.done')}</span><span>${icon('target')}${esc(t('progress.examOn', { d: day(examDay) }))}</span></p>
       ${nextOne ? `<p class="meta next">${icon('arrow-right')}<span>${esc(t('progress.nextOne', { x: `${day(nextOne.date)} · ${kindLabel(nextOne.kind)}: ${cap(sname(nextOne))}` }))}</span></p>` : ''}
+      ${late.count ? `<p class="meta late">${icon('triangle-alert')}<span>${esc(t('progress.behindPlan', { n: late.count }))}${room ? '' : ` ${esc(t('plan.reschedNone', { d: day(examDay) }))}`}</span>${room ? `<button type="button" class="link" data-act="resched" data-key="${esc(x.key)}">${t('plan.reschedule')}</button>` : ''}</p>` : ''}
       <div class="plan-card-actions"><a class="btn" href="#plan?${esc(new URLSearchParams(x.params).toString())}">${icon('route')}${t('progress.open')}</a><button type="button" class="link" data-act="untrack" data-key="${esc(x.key)}">${t('progress.stop')}</button></div>
     </article>`;
   };
