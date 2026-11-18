@@ -267,7 +267,8 @@
     "title": "HashiCorp · Terraform Associate 004",
     "url": "https://developer.hashicorp.com/certifications/terraform-associate",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. 004, Terraform 1.12, one-hour multiple-choice exam, two-year validity, $70.50 plus local taxes/fees; no free retake."
+    "note": "Read 27 Oct 2026. 004, Terraform 1.12, one-hour multiple-choice exam, two-year validity, $70.50 plus local taxes/fees; no free retake. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X13",
@@ -1912,6 +1913,62 @@
     "url": "https://training.linuxfoundation.org/certification/ptca-certification-pathway/",
     "kind": "Issuer page",
     "note": "Read 2026-11-17. $299 pathway with four self-paced modules (LFD2000 PyTorch Fundamentals, LFD2001 Data Handling, LFD2002 Model Development, LFD2003 Optimizing PyTorch) plus the PTCA exam; exam valid 2 years, one retake, 120 minutes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E42",
+    "title": "HashiCorp Certifications · What are the HashiCorp exam retake rules?",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049773991-What-are-the-HashiCorp-exam-retake-rules",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (updated 2026-11-12). Associate exams include no free retake (each attempt is a new purchase); 7 days between attempts; at most 4 attempts in a rolling 365 days; a passed exam cannot be retaken until the credential expires; a missed appointment needs a new purchase.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E43",
+    "title": "HashiCorp Certifications · I require special accommodations for my exam",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360046049832-I-require-special-accommodations-for-my-exam-what-should-I-do",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Reasonable accommodation requests (extra time, other accommodations such as a female proctor or special equipment) are made in Certiverse while scheduling, at least 3 business days before the exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E44",
+    "title": "HashiCorp Certifications · Are your exams available in other languages?",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360045232492-Are-your-exams-available-in-other-languages",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams are only available in English; no translation resources allowed; candidates whose first language is not English can request extra time as an accommodation, ideally 5 business days before the appointment.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E45",
+    "title": "HashiCorp Certifications · What is the passing score?",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360047382831-What-is-the-passing-score",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. HashiCorp does not publish its passing scores.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E46",
+    "title": "HashiCorp · Sample Questions: Terraform Associate 004",
+    "url": "https://developer.hashicorp.com/terraform/tutorials/certification-004/associate-questions-004",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Associate-level exams use true/false, multiple-choice and multiple-answer questions; free sample questions for the 004 exam. The same collection has the 004 learning path (study guide) and exam content list.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E47",
+    "title": "HashiCorp Certifications · Exam appointment rules and requirements",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125-Exam-appointment-rules-and-requirements",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (updated 2026-02-13). Exams are taken on the candidate's own computer through Certiverse, an online delivery and proctoring system; the certification portal is tied to a GitHub account; accommodation requests are linked from here.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E48",
+    "title": "HashiCorp Certifications · Recertification policies and processes",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/9677396620941-Recertification-policies-and-processes",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (updated 2026-09-01). Credentials expire 2 years after issuance; recertification can begin 18 months after earning; Associate credentials renew by retaking the same exam or passing a Professional or Advanced exam for the same product.",
     "checked_on": "2026-11-17"
   }
 ]
