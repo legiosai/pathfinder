@@ -1538,5 +1538,149 @@
     "url": "https://cloud.google.com/certification/terms",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Professional certifications are valid for two years from issue; renewal by passing the exam again from 60 days before expiry; up to four attempts in two years (14, 60 and 365-day waits); using any AI software during the exam is prohibited."
+  },
+  {
+    "id": "F01",
+    "title": "CompTIA · Network+ certification page",
+    "url": "https://www.comptia.org/en-us/certifications/network/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam V9, code N10-009, launched June 20, 2024, retirement estimated 2027 (usually three years after launch); maximum of 90 multiple-choice and performance-based questions, 90 minutes, 720 on a 100–900 scale; English, German, Japanese, Portuguese and Spanish; recommended CompTIA A+ plus 9–12 months in a junior network role. Domain weights 23/20/19/14/24. US store: Network+ voucher $399, voucher with Retake Assurance $519, CertMaster Learn $499, Practice $209, CertMaster Study in Spanish $144. FAQ: entry-level, Pearson VUE test centers or online with a remote proctor, valid three years, 30 CEUs over three years to renew.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F02",
+    "title": "CompTIA · Network+ N10-009 exam objectives (PDF)",
+    "url": "https://lecbyo.files.cmp.optimizely.com/download/35a7403ab73211ef9dcda6f347fbf652",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Exam objectives document version 6.0 on CompTIA's file host: maximum of 90 questions, multiple-choice and performance-based, 90 minutes, a minimum of 9–12 months of experience in IT networking recommended; five domains with weights 23%, 20%, 19%, 14% and 24%.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F03",
+    "title": "CompTIA · Certification retake policy",
+    "url": "https://www.comptia.org/en-us/resources/test-policies/comptia-certification-retake-policy/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. No waiting period between the first and second attempt; at least 14 calendar days before a third or later attempt; full price for every attempt, with no free retests or retake discounts; a passed exam can't be retaken under the same code without consent.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F04",
+    "title": "CompTIA · Candidate testing policies",
+    "url": "https://www.comptia.org/en-us/resources/test-policies/candidate-testing-policies/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams run at test centers or online through Pearson OnVUE in a single session; English as a Second Language is a 30-minute extension for exams delivered in English in non-English-speaking countries where no localized version is available, granted automatically at Pearson VUE registration in eligible countries; disability accommodations go through Pearson VUE.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F05",
+    "title": "CompTIA · Renewing Network+",
+    "url": "https://www.comptia.org/en-us/resources/ce/renew-options/renewing-network-single/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Network+ needs 30 CEUs for renewal; options include CertMaster CE, other CompTIA or industry certifications, and approved training.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F06",
+    "title": "CompTIA · Continuing education renewal fees",
+    "url": "https://www.comptia.org/en-us/resources/ce/learn/continuing-education-renewal-fees/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Total CE fee for the three-year period: Network+ $150 (Security+ $150, A+ $75), due by the certification's expiration date.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F07",
+    "title": "LPI · Linux Essentials overview",
+    "url": "https://www.lpi.org/our-certifications/linux-essentials-overview/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Current version 2.0 (exam 010-200); previous version 1.6 (010-160) available until April 2027. No prerequisites; 40 questions in 60 minutes; lifetime validity; exam in English at Pearson VUE test centers and online through OnVUE, with French, German, Italian, Japanese, Portuguese and Spanish translations to be released within the next few months.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F08",
+    "title": "LPI · Linux Essentials exam 010 objectives",
+    "url": "https://www.lpi.org/our-certifications/exam-010-objectives/",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Objectives version 2.0, exam 010-200: five topics (011–015) with 18 weighted objectives totalling 40; objectives translated into several languages including Spanish; 40 questions in 60 minutes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F09",
+    "title": "LPI · Exam pricing",
+    "url": "https://www.lpi.org/exam-pricing/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Linux Essentials 010 voucher by country: United States USD 120, Argentina and Mexico USD 100, Spain EUR 110.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F10",
+    "title": "LPI · Policies",
+    "url": "https://www.lpi.org/policies/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Retakes: wait one week after a first attempt and 14 days after a second or later one; a passed exam can't be retaken for two years; different versions count as the same exam. Linux Essentials is a standalone exam outside the LPIC program.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F11",
+    "title": "LPI · Frequently asked questions",
+    "url": "https://www.lpi.org/about-lpi/frequently-asked-questions/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Every LPI exam is scored from 200 to 800 with 500 to pass; Linux Essentials is an educational certificate program, not a professional certification; the OnVUE interface is in English only.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F12",
+    "title": "LPI · Learning Materials for Linux Essentials 2.0",
+    "url": "https://learning.lpi.org/en/learning-materials/010-200/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Free lessons for each 010-200 objective, online and as PDF, also published in Spanish, French, German, Italian and Portuguese; LPI Learning says the materials are free.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F13",
+    "title": "Red Hat · RHCSA exam (EX200)",
+    "url": "https://www.redhat.com/en/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Performance-based exam based on Red Hat Enterprise Linux 10; full objectives list (no weights); no internet or documents allowed, shipped product documentation available; configurations must persist after reboot; recommended RH124 and RH134, or RH199, or comparable experience; RHCSA is required for the Red Hat Certified Engineer titles in Enterprise Linux and Ansible. The Spanish page carries the same objectives in Spanish.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F14",
+    "title": "Red Hat · Red Hat Certified System Administrator",
+    "url": "https://www.redhat.com/en/services/certification/rhcsa",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. The credential is earned by passing EX200; the skills list still includes basic container management, which the current EX200 objectives do not list.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F15",
+    "title": "Red Hat · Training and certification FAQ",
+    "url": "https://www.redhat.com/en/services/training-and-certification/faq",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Remote exams, testing centers and on-site classroom testing; a free retake after an unsuccessful first individual exam attempt; results by email within three U.S. business days with pass/fail and a score by objective; certifications current for three years, renewed by retaking, expanding or advancing; EX200 is the base exam for the Enterprise Linux and Ansible tracks since the May 11, 2026 framework; 90-day no-cost Learning Subscription trial.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F16",
+    "title": "Red Hat · Training policies",
+    "url": "https://www.redhat.com/en/about/red-hat-training-policies",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Individual exams at a Red Hat testing center or online as a Red Hat Remote Exam; one year from purchase to take them; one free retake per purchased exam when the first attempt is a no pass or no show, within the same year; the same exam can't be taken twice in one day; special accommodation requests at least two weeks ahead.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F17",
+    "title": "Red Hat · Training catalog, EX200 individual exam",
+    "url": "https://training-lms.redhat.com/lmt/clmsBrowseV2.prMain?site=redhat&in_region=us&in_keyword=EX200",
+    "kind": "Provider / price page",
+    "note": "Read 2026-11-17 (logged out). United States: Red Hat Certified System Administrator (RHCSA) exam (EX200K), individual exam, 3 hours, USD 500. The Argentina catalog lists the same exam at ARS 448,544 before taxes. Since May 4, 2026, a government photo ID must be verified before an individual exam can be scheduled.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F18",
+    "title": "Red Hat · Learning Subscription trial",
+    "url": "https://www.redhat.com/en/services/training/learning-subscription/trial",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. No-cost trial for people without a paid Learning Subscription, introducing Red Hat Enterprise Linux and other platforms; it can be renewed after it expires.",
+    "checked_on": "2026-11-17"
   }
 ]
