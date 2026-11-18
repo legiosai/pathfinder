@@ -32,7 +32,7 @@ test('the vocabulary is large, unambiguous and uses taxonomy ids only', () => {
 });
 
 test('areas include the categories being added to the catalog', () => {
-  for (const cat of ['AI engineering', 'ML foundations', 'AI security', 'Cloud & platform', 'Cybersecurity', 'Data & analytics']) assert.ok(AREAS.includes(cat), cat);
+  for (const cat of ['AI engineering', 'ML foundations', 'AI security', 'Cloud & platform', 'Cybersecurity', 'Data & analytics', 'Networking']) assert.ok(AREAS.includes(cat), cat);
   assert.deepEqual(values(read('ciberseguridad'), 'area'), ['Cybersecurity']);
   assert.deepEqual(values(read('análisis de datos y dashboards'), 'area'), ['Data & analytics']);
 });
@@ -78,7 +78,9 @@ test('synonyms in both languages land on the same skill', () => {
   same('agents', 'agentes', 'AI agents', 'agentic', 'agentes de IA');
   same('rag', 'RAG', 'vector databases', 'búsqueda semántica', 'embeddings');
   same('prompting', 'prompts', 'prompt engineering', 'ingeniería de prompts');
-  same('networking', 'redes', 'networking', 'routing');
+  same('networking', 'redes', 'networking', 'routing', 'fundamentos de redes', 'subnetting', 'Network+');
+  same('linux', 'Linux', 'línea de comandos', 'bash', 'administración de Linux', 'sistemas operativos', 'Ubuntu', 'RHCSA', 'Linux Essentials');
+  same('security', 'Fortinet', 'CCNA CyberOps', 'CCNA Cybersecurity', 'certificado de ciberseguridad de Google');
   same('ai-security', 'AI security', 'seguridad de IA', 'prompt injection', 'AI red teaming');
   same('aws', 'AWS', 'Amazon Web Services');
   same('azure', 'Azure', 'microsoft azure');
@@ -103,6 +105,8 @@ test('the longest phrase wins', () => {
 
 test('generic cloud and AI point at areas', () => {
   assert.deepEqual(read('cloud').areas, ['Cloud & platform']);
+  assert.deepEqual(read('redes').areas, ['Networking']);
+  assert.deepEqual(read('Linux').areas, ['Cloud & platform']);
   assert.deepEqual(read('la nube').profile.want, []);
   const ai = read('inteligencia artificial');
   assert.deepEqual(ai.profile.want, ['ml-foundations', 'llm-apps']);
@@ -116,13 +120,31 @@ test('roles describe the present; a goal role also adds what it implies', () => 
   assert.deepEqual(now.profile.roles, ['security']);
   assert.deepEqual(now.profile.want, []);
   const goal = read('quiero ser pentester');
-  assert.deepEqual(goal.profile.roles, ['security']);
+  assert.deepEqual(goal.profile.roles, ['security', 'pentester']);
   assert.deepEqual(goal.profile.want, ['security']);
   assert.deepEqual(read('soy DevOps').profile.roles, ['platform']);
   assert.deepEqual(read('senior DevOps').profile.roles, ['platform']);
   assert.deepEqual(read('I want to learn DevOps').profile.want, ['devops']);
   assert.deepEqual(read('I am not a developer').profile.roles, []);
   assert.deepEqual(read('product manager, non technical').profile.roles, ['business']);
+});
+
+test('SOC analysts, pentesters and Linux admins are roles of their own', () => {
+  assert.deepEqual(read('soy analista SOC').profile.roles, ['security', 'soc-analyst']);
+  assert.deepEqual(read("I'm a SOC analyst").profile.want, []);
+  const soc = read('quiero trabajar como analista de SOC');
+  assert.deepEqual(soc.profile.roles, ['security', 'soc-analyst']);
+  assert.ok(soc.areas.includes('Cybersecurity'));
+  assert.deepEqual(read('I want to become a penetration tester').profile.roles, ['security', 'pentester']);
+  assert.deepEqual(read('hacker ético').profile.roles, ['security', 'pentester']);
+  assert.deepEqual(read('security analyst').profile.roles, ['security']);
+  const linux = read('quiero ser administrador Linux');
+  assert.deepEqual(linux.profile.roles, ['platform']);
+  assert.deepEqual(linux.profile.want, ['linux']);
+  assert.ok(linux.areas.includes('Cloud & platform'));
+  const net = read('quiero ser técnico de redes');
+  assert.deepEqual(net.profile.want, ['networking']);
+  assert.deepEqual(net.areas, ['Networking']);
 });
 
 // ---------- what you already use ----------
@@ -149,6 +171,10 @@ test('negation leaves issuers and skills out', () => {
   assert.deepEqual(read("I don't want Azure").avoid.skills, ['azure']);
   assert.deepEqual(read("I don't want to learn AWS").avoid.providers, ['AWS']);
   assert.deepEqual(read('anything but Oracle').avoid.providers, ['Oracle']);
+  assert.deepEqual(read('nada de Fortinet').avoid.providers, ['Fortinet']);
+  assert.deepEqual(read('quiero algo de Fortinet').providers, ['Fortinet']);
+  assert.deepEqual(read('LPI o Red Hat').providers, ['LPI', 'Red Hat']);
+  assert.deepEqual(read('Network+ de CompTIA').providers, ['CompTIA']);
   const list = read('nada de AWS, Azure ni Google');
   assert.deepEqual(list.avoid.skills.sort(), ['aws', 'azure', 'gcp']);
   assert.deepEqual(list.profile.want, []);

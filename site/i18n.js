@@ -727,6 +727,8 @@ const ES_LABELS = {
   'roles.data-engineer': 'Ingeniería de datos',
   'roles.platform': 'Plataforma / DevOps',
   'roles.security': 'Seguridad',
+  'roles.soc-analyst': 'Analista SOC',
+  'roles.pentester': 'Pentester',
   'roles.governance': 'Riesgo y gobernanza',
   'roles.business': 'Negocio / no técnico',
   'skills.llm-apps': 'Aplicaciones con LLM',
