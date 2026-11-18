@@ -752,6 +752,7 @@ details.more > summary:hover { color: var(--text); }
 .pa-pass dt { color: var(--muted); font-size: var(--fs-sm); font-weight: 600; display: flex; align-items: center; gap: 8px; }
 .pa-pass dd { margin: 4px 0 0; font-weight: 650; }
 .pa-note { flex-basis: 100%; }
+.pa-domains + .pa-note { margin-top: 14px; }
 .pa-domains .hb-track { position: relative; }
 .pa-mark { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--text); opacity: 0.45; }
 .pa-grid .ok { background: color-mix(in srgb, var(--good) 12%, var(--surface)); border-color: color-mix(in srgb, var(--good) 50%, transparent); color: var(--text); }
