@@ -11,8 +11,10 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 - **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date to check it fits, rate your topics to shift time, tick sessions off, and export to your calendar (`.ics`) or Markdown.
 - **Practice:** original questions for some certifications (AWS Cloud Practitioner, AWS AI Practitioner, AWS Solutions Architect Associate, Microsoft Azure Fundamentals and Claude Architect Foundations for now), picked by exam domain, with a timer you can pause, marked questions, accuracy by domain, review with explanations and a list of your mistakes. Questions you miss or mark come back in **Review**, spaced out further each time you get them right.
 - **Progress:** every plan you track in one place: streak, hours done, what comes next and five weeks of sessions at a glance.
-- **English and Spanish**, light and dark, installable and usable offline.
+- **English and Spanish**, light and dark, installable and usable offline. When a new version is out, a notice offers to refresh instead of swapping files under an open page.
 - **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links into the plan, practice and compare views. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
+- **Comparison pages** (`c/vs/<a>-vs-<b>/`) for pairs people often weigh against each other, listed in `data/comparisons.json`: a table of both certifications' facts, the differences in plain sentences built from the same data (no verdicts) and links into the app's compare and plan views.
+- **Study path pages** (`p/<id>/`, index at `p/`) for each suggested path in `data/paths.json`, step by step, linked from the certification pages they mention.
 
 ## Privacy
 
@@ -27,6 +29,8 @@ The catalog lists 85 certifications in AI engineering, ML foundations, AI securi
 - `data/sources.json`: issuer pages and references.
 - `data/reports.json`: public candidate reports (how people prepared, effort, limits). They describe experiences; they do not set a pass rate.
 - `data/taxonomy.json`: skills, roles, levels and the rough hour ranges the planner starts from.
+- `data/paths.json`: suggested study paths by goal, an editorial order rather than any issuer's official path.
+- `data/comparisons.json`: the pairs that get a comparison page. Both ids must exist in the catalog.
 
 Provider facts were checked in October and November 2026; exam domain weights for 70 of the 85 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
 
@@ -36,10 +40,14 @@ Needs Node 22 or newer. No dependencies.
 
 ```sh
 npm start        # validate, build to dist/ and serve on http://127.0.0.1:8080/
-npm test         # unit tests and catalog checks
+npm test         # unit tests, catalog checks and a build into a temporary folder
 npm run validate # catalog checks only
+npm run smoke    # after a build: open the main views and some static pages in headless Chrome (CI runs it too)
 npm run og       # re-render the share images in site/og/ (needs Chrome and ImageMagick)
+node scripts/freshness.mjs --no-links   # what in the catalog needs a fresh look (drop --no-links to check every link)
 ```
+
+**Freshness.** Every Monday, `.github/workflows/freshness.yml` runs `scripts/freshness.mjs` and keeps one open issue labelled `freshness` up to date with what needs a fresh look: certifications and sources checked more than 45 days ago, timeline entries due within 30 days or already past, free routes and discounts ending within 30 days, announced exams, and a check of every source, prep and offer link (404, 410 and missing hosts count as broken; refusals from sites that block robots are listed apart as "couldn't check"). It can also be started by hand from the Actions tab; it never runs on pull requests.
 
 The site's public address lives in `scripts/site.mjs` (`SITE_URL` in the environment overrides it for one build). Canonical links, Open Graph tags, the sitemap and robots.txt follow it; everything else links with relative paths, so the same build works under a subpath or at the root of a domain.
 
