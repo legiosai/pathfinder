@@ -1,0 +1,1839 @@
+{
+ "cert": "isc2-cc",
+ "license": "CC BY 4.0",
+ "note": "Original practice questions written for pathfinder from the ISC2 CC Certification Exam Outline effective September 1, 2026 (English PDF revised 01-2026) and public standards and guidance such as NIST's, checked on 2026-11-17. They cover the new outline only; prep material written for the earlier outline does not match. Not taken from any exam or question bank.",
+ "questions": [
+  {
+   "id": "cc-001",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "An accounts payable clerk notices that a supplier's bank account number was changed in the payment system overnight. Nobody on the team made the change, and the next payment run hasn't happened yet. Which security property was violated?",
+    "es": "Una empleada de cuentas a pagar ve que durante la noche alguien cambió el número de cuenta bancaria de un proveedor en el sistema de pagos. Nadie del equipo hizo el cambio y todavía no se ejecutó la próxima tanda de pagos. ¿Qué propiedad de seguridad se violó?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Confidentiality",
+      "es": "Confidencialidad"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Integrity",
+      "es": "Integridad"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Availability",
+      "es": "Disponibilidad"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Non-repudiation",
+      "es": "No repudio"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Integrity means data is accurate and is changed only by authorized people through authorized processes. An unauthorized edit to a supplier's bank details is a textbook integrity failure, and catching it before money moves is what change approvals and audit logs are for. Nothing says the data was disclosed (confidentiality) or that the system went down (availability). Non-repudiation is about proving who did something, not the change itself.",
+    "es": "Integridad significa que los datos son correctos y que sólo los cambian personas autorizadas por procesos autorizados. Editar sin permiso los datos bancarios de un proveedor es una falla de integridad de manual, y detectarla antes de que se mueva la plata es para lo que sirven las aprobaciones de cambios y los logs. Nada indica que los datos se hayan divulgado (confidencialidad) ni que el sistema se cayera (disponibilidad). El no repudio trata de probar quién hizo algo, no del cambio en sí."
+   }
+  },
+  {
+   "id": "cc-002",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A purchasing manager approves orders by email. After a disputed order, she says she never approved it, and the company can't prove otherwise. Which control would give the company non-repudiation for future approvals?",
+    "es": "Una gerenta de compras aprueba pedidos por mail. Después de un pedido en disputa, dice que nunca lo aprobó, y la empresa no puede probar lo contrario. ¿Qué control le daría a la empresa no repudio en las próximas aprobaciones?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Encrypt every approval email with one symmetric key that the whole purchasing team shares",
+      "es": "Cifrar cada mail de aprobación con una clave simétrica que comparte todo el equipo de compras"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Keep a SHA-256 hash of every approval email on a protected file server",
+      "es": "Guardar un hash SHA-256 de cada mail de aprobación en un servidor de archivos protegido"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Send approval emails only over connections protected with TLS",
+      "es": "Mandar los mails de aprobación sólo por conexiones protegidas con TLS"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Require each approval to be digitally signed with a private key only the approver holds",
+      "es": "Exigir que cada aprobación lleve la firma digital de quien aprueba, hecha con su clave privada"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "A digital signature is made with a private key that only the signer holds, and anyone can check it with the matching public key, so the signer can't credibly deny it. A key shared by the whole team proves only that someone on the team sent the message. A hash shows the email didn't change, but anyone can compute one, so it doesn't tie the email to a person. TLS protects the message in transit and says nothing about who approved it.",
+    "es": "Una firma digital se hace con una clave privada que sólo tiene quien firma, y cualquiera la verifica con la clave pública correspondiente, así que el firmante no puede negarla de forma creíble. Una clave que comparte todo el equipo sólo prueba que alguien del equipo mandó el mensaje. Un hash muestra que el mail no cambió, pero cualquiera lo calcula, así que no lo vincula con una persona. TLS protege el mensaje en tránsito y no dice nada de quién aprobó."
+   }
+  },
+  {
+   "id": "cc-003",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A company's VPN checks each user's password and one-time code, then applies a policy that lets engineers reach only the lab network. It also records when each session starts and ends, the user name and how much data was transferred. Which part of AAA do those records provide?",
+    "es": "La VPN de una empresa verifica la contraseña y el código de un solo uso de cada usuario, y después aplica una política que sólo deja a los ingenieros llegar a la red del laboratorio. Además registra cuándo empieza y termina cada sesión, el nombre de usuario y cuántos datos se transfirieron. ¿Qué parte de AAA aportan esos registros?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Authentication",
+      "es": "Autenticación (authentication)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Authorization",
+      "es": "Autorización (authorization)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Accounting",
+      "es": "Contabilidad (accounting)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Assurance",
+      "es": "Garantía (assurance)"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "In AAA, authentication proves who the user is (the password and one-time code), authorization decides what that user may reach (the lab-only policy), and accounting records what the user actually did, such as session times and data volumes. Those records support audits, investigations and billing, and they back up non-repudiation when protected from tampering. Assurance is confidence that controls work as intended; it isn't one of the three A's.",
+    "es": "En AAA, la autenticación prueba quién es el usuario (la contraseña y el código), la autorización decide a qué puede llegar (la política del laboratorio) y la contabilidad (accounting) registra lo que efectivamente hizo, como horarios de sesión y volumen de datos. Esos registros sirven para auditorías, investigaciones y facturación, y respaldan el no repudio si se protegen contra cambios. La garantía (assurance) es la confianza en que los controles funcionan; no es una de las tres A."
+   }
+  },
+  {
+   "id": "cc-004",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A gym's online sign-up form for a free newsletter asks for name, email address, date of birth, home address and national ID number. The newsletter is sent only by email. Which privacy principle does the form ignore?",
+    "es": "El formulario online de un gimnasio para suscribirse a un newsletter gratuito pide nombre, mail, fecha de nacimiento, domicilio y número de documento. El newsletter se manda sólo por mail. ¿Qué principio de privacidad ignora el formulario?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Data minimization: collect only the personal data needed for the stated purpose",
+      "es": "Minimización de datos: recolectar sólo los datos personales necesarios para el fin declarado"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Availability: keep the subscriber list reachable at all times",
+      "es": "Disponibilidad: que la lista de suscriptores esté accesible en todo momento"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Data portability: let each subscriber download a copy of their data in a common, machine-readable format",
+      "es": "Portabilidad: que cada suscriptor pueda bajar una copia de sus datos en un formato común y legible por máquina"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Non-repudiation: make sure subscribers can't deny having signed up",
+      "es": "No repudio: asegurar que los suscriptores no puedan negar que se anotaron"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Privacy laws such as the GDPR, and privacy frameworks, say to collect only the personal data needed for a stated purpose. An email newsletter needs an email address and perhaps a name; a national ID and home address only add harm if the list leaks. Data portability is a real right, but the form's problem is what it collects, not what users can take with them. Availability and non-repudiation are security properties, not privacy principles.",
+    "es": "Las leyes de privacidad como el GDPR, y los marcos de privacidad, piden recolectar sólo los datos personales necesarios para un fin declarado. Para un newsletter por mail alcanza con el correo y quizás el nombre; el documento y el domicilio sólo suman daño si la lista se filtra. La portabilidad es un derecho real, pero el problema del formulario es lo que recolecta, no lo que el usuario se puede llevar. Disponibilidad y no repudio son propiedades de seguridad, no principios de privacidad."
+   }
+  },
+  {
+   "id": "cc-005",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A small company rates each risk from 1 to 5 for likelihood and for impact, and scores it as likelihood × impact. Which risk should it treat first?",
+    "es": "Una empresa chica califica cada riesgo de 1 a 5 en probabilidad y en impacto, y le da un puntaje de probabilidad × impacto. ¿Qué riesgo debería tratar primero?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Theft of a laptop: likelihood 4, impact 2",
+      "es": "Robo de una notebook: probabilidad 4, impacto 2"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Ransomware on the file server: likelihood 3, impact 5",
+      "es": "Ransomware en el servidor de archivos: probabilidad 3, impacto 5"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Flood damage in the head office building: likelihood 1, impact 5",
+      "es": "Daños por inundación en el edificio de la oficina central: probabilidad 1, impacto 5"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Defacement of the website: likelihood 3, impact 3",
+      "es": "Defacement del sitio web: probabilidad 3, impacto 3"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Likelihood times impact gives 8 for the laptop, 15 for ransomware, 5 for the flood and 9 for the defacement, so ransomware comes first. Scoring is the assessment step of the risk management lifecycle: identify risks, assess them, choose a treatment and keep monitoring, because scores change as threats and controls change. High impact alone doesn't set priority; the flood would be severe but is unlikely.",
+    "es": "Probabilidad por impacto da 8 para la notebook, 15 para el ransomware, 5 para la inundación y 9 para el defacement, así que el ransomware va primero. Puntuar es el paso de evaluación del ciclo de vida de la gestión de riesgos: identificar, evaluar, elegir un tratamiento y seguir monitoreando, porque los puntajes cambian cuando cambian las amenazas y los controles. Un impacto alto no define la prioridad por sí solo: la inundación sería grave, pero es poco probable."
+   }
+  },
+  {
+   "id": "cc-006",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A control that would fully mitigate a risk costs more each year than the loss the risk is expected to cause. Senior management reviews the analysis, decides not to buy the control, and signs a record of that decision with a date to review it. Which risk treatment is this?",
+    "es": "Un control que mitigaría por completo un riesgo cuesta por año más que la pérdida que se espera de ese riesgo. La alta dirección revisa el análisis, decide no comprar el control y firma un registro de esa decisión con una fecha para revisarla. ¿Qué tratamiento del riesgo es este?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Risk avoidance",
+      "es": "Evitar el riesgo"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Risk transference",
+      "es": "Transferir el riesgo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Risk mitigation",
+      "es": "Mitigar el riesgo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Risk acceptance",
+      "es": "Aceptar el riesgo"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Accepting a risk is a valid treatment when it's an informed, documented decision by someone with the authority to accept it, ideally with a review date, as here. Avoidance would mean stopping the activity that creates the risk. Transference shifts the financial impact to someone else, for example through insurance or a contract, though accountability stays with the company. Mitigation means applying controls to reduce likelihood or impact, which management chose not to do.",
+    "es": "Aceptar un riesgo es un tratamiento válido cuando es una decisión informada y documentada de alguien con autoridad para aceptarlo, idealmente con fecha de revisión, como acá. Evitarlo sería dejar la actividad que lo genera. Transferirlo pasa el impacto económico a un tercero, por ejemplo con un seguro o un contrato, aunque la responsabilidad sigue en la empresa. Mitigarlo es aplicar controles que bajen la probabilidad o el impacto, y la dirección decidió no hacerlo."
+   }
+  },
+  {
+   "id": "cc-007",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A company's security policy says that all portable devices must protect company data. A separate document lists the exact steps a technician follows to turn on full-disk encryption on a new laptop and record its recovery key. What kind of document is the second one?",
+    "es": "La política de seguridad de una empresa dice que todos los dispositivos portátiles tienen que proteger los datos de la empresa. Otro documento detalla los pasos exactos que sigue un técnico para activar el cifrado de disco completo en una notebook nueva y registrar su clave de recuperación. ¿Qué tipo de documento es el segundo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A procedure",
+      "es": "Un procedimiento"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A standard",
+      "es": "Una norma (standard)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A guideline",
+      "es": "Una directriz"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A policy",
+      "es": "Una política"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Procedures are step-by-step instructions for carrying out a task, like enabling encryption and storing the recovery key. Policies state management's intent and rules at a high level, as the first document does. Standards set specific, mandatory requirements that support a policy, such as which algorithm and key length to use, and some come from outside bodies like ISO or the Center for Internet Security. Guidelines are recommendations, not requirements.",
+    "es": "Los procedimientos son instrucciones paso a paso para hacer una tarea, como activar el cifrado y guardar la clave de recuperación. Las políticas expresan la intención y las reglas de la dirección a alto nivel, como el primer documento. Las normas (standards) fijan requisitos concretos y obligatorios que apoyan una política, como qué algoritmo y largo de clave usar, y algunas vienen de organismos como ISO o el Center for Internet Security. Las directrices son recomendaciones, no requisitos."
+   }
+  },
+  {
+   "id": "cc-008",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A company is sorting its security controls by type. Which TWO of these are administrative controls? (Select TWO.)",
+    "es": "Una empresa está clasificando sus controles de seguridad por tipo. ¿Cuáles de estos son controles administrativos? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Background checks before hiring staff who will handle payments",
+      "es": "Verificación de antecedentes antes de contratar a quienes van a manejar pagos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Badge readers on the doors of the server room",
+      "es": "Lectores de credenciales en las puertas de la sala de servidores"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Yearly security awareness training that every employee must complete",
+      "es": "Capacitación anual de concientización en seguridad, obligatoria para todo el personal"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Full-disk encryption on company laptops",
+      "es": "Cifrado de disco completo en las notebooks de la empresa"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Fences and lighting around the parking lot",
+      "es": "Cercos e iluminación alrededor del estacionamiento"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "C"
+   ],
+   "explanation": {
+    "en": "Administrative, or managerial, controls are policies, procedures and people practices: screening staff before hiring and requiring awareness training both shape how people behave. Badge readers, fences and lighting are physical controls, since they protect facilities and things you can touch. Full-disk encryption is a technical (logical) control enforced by software. Many safeguards mix types; a badge system also needs an administrative process for issuing badges.",
+    "es": "Los controles administrativos, o de gestión, son políticas, procedimientos y prácticas sobre las personas: revisar antecedentes antes de contratar y exigir capacitación moldean cómo actúa la gente. Los lectores de credenciales, los cercos y la iluminación son controles físicos: protegen instalaciones y cosas tangibles. El cifrado de disco es un control técnico (lógico) aplicado por software. Muchas protecciones mezclan tipos: las credenciales también requieren un proceso administrativo."
+   }
+  },
+  {
+   "id": "cc-009",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "A security analyst who holds an ISC2 certification is asked by her manager to sign a report stating that a vulnerability scan found no critical issues, so a product can ship on time. The scan was never run. What should she do, according to the ISC2 Code of Ethics?",
+    "es": "El jefe de una analista de seguridad con una certificación de ISC2 le pide que firme un informe que dice que un escaneo de vulnerabilidades no encontró problemas críticos, para que un producto salga a tiempo. El escaneo nunca se hizo. Según el Código de Ética de ISC2, ¿qué debería hacer?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Sign it, because the canons call for diligent service to her employer",
+      "es": "Firmarlo, porque los cánones piden un servicio diligente a su empleador"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Sign it, but keep a private note saying that the scan was never run",
+      "es": "Firmarlo, pero guardar una nota privada que diga que el escaneo nunca se hizo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Decline to sign a false statement and report the scan's real status",
+      "es": "No firmar una declaración falsa e informar el estado real del escaneo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Run the scan after the release and correct the report if anything critical turns up",
+      "es": "Hacer el escaneo después del lanzamiento y corregir el informe si aparece algo crítico"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "The Code's canons ask members to protect society and the public's trust and to act honorably, honestly, justly, responsibly and legally; signing a statement she knows is false breaks both. Diligent service to principals is also a canon, but it never extends to dishonesty. A private note doesn't make a false report true, and scanning after release leaves users exposed in the meantime while the report still misleads.",
+    "es": "Los cánones del Código piden proteger a la sociedad y la confianza pública, y actuar con honor, honestidad, justicia, responsabilidad y legalidad; firmar algo que sabe que es falso rompe las dos cosas. Dar un servicio diligente a los empleadores también es un canon, pero nunca abarca la deshonestidad. Una nota privada no vuelve verdadero un informe falso, y escanear después del lanzamiento deja expuestos a los usuarios mientras tanto, con un informe que igual engaña."
+   }
+  },
+  {
+   "id": "cc-010",
+   "domain": "Security Principles",
+   "prompt": {
+    "en": "Before signing with a new payroll provider, a company reviews the provider's independent audit report, asks about its incident history and checks how it protects employee data. Which concept does this best show?",
+    "es": "Antes de firmar con un nuevo proveedor de liquidación de sueldos, una empresa revisa el informe de auditoría independiente del proveedor, le pregunta por su historial de incidentes y verifica cómo protege los datos del personal. ¿Qué concepto muestra mejor esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Due care",
+      "es": "Debido cuidado"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Due diligence",
+      "es": "Debida diligencia"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Risk transference",
+      "es": "Transferencia del riesgo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Separation of duties",
+      "es": "Separación de funciones"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Due diligence is the research and evaluation done before acting, such as investigating a vendor's security before trusting it with employee data. Due care is acting as a reasonable, prudent organization would once it's responsible, for example keeping systems patched and enforcing what the vendor agreed to. Outsourcing payroll can transfer work and some financial risk, but the review itself isn't a transfer. Separation of duties splits critical tasks between people.",
+    "es": "La debida diligencia es investigar y evaluar antes de actuar, como revisar la seguridad de un proveedor antes de confiarle datos del personal. El debido cuidado es actuar como lo haría una organización razonable y prudente cuando ya es responsable, como mantener los parches al día y exigir lo que el proveedor aceptó. Tercerizar los sueldos puede transferir trabajo y algo de riesgo económico, pero la revisión no es una transferencia. La separación de funciones reparte tareas críticas."
+   }
+  },
+  {
+   "id": "cc-011",
+   "domain": "Security Governance",
+   "prompt": {
+    "en": "A company must comply with a data protection law, is certified to ISO/IEC 27001, and has customers who ask about the CIS Controls. Today three teams keep separate spreadsheets and test the same access review control three times a year, once per audit. Which governance, risk and compliance (GRC) practice best fixes this?",
+    "es": "Una empresa tiene que cumplir una ley de protección de datos, está certificada en ISO/IEC 27001 y tiene clientes que preguntan por los CIS Controls. Hoy tres equipos llevan planillas separadas y prueban el mismo control de revisión de accesos tres veces por año, una por auditoría. ¿Qué práctica de gobernanza, riesgo y cumplimiento (GRC) lo resuelve mejor?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Drop the ISO/IEC 27001 certification, since only the data protection law is legally required",
+      "es": "Abandonar la certificación ISO/IEC 27001, ya que sólo la ley de protección de datos es obligatoria"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Let each team keep its own spreadsheet, so that every audit stays fully independent",
+      "es": "Que cada equipo mantenga su planilla, para que cada auditoría siga siendo totalmente independiente"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Buy cyber insurance, so that a failed audit costs the company less money",
+      "es": "Contratar un seguro cibernético, para que una auditoría fallida le cueste menos a la empresa"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Map each control once to every requirement it meets, then test it once and reuse the evidence",
+      "es": "Mapear cada control una vez con todos los requisitos que cumple, probarlo una vez y reusar la evidencia"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "A core purpose of GRC is managing obligations from laws, standards and frameworks in one place. A common control framework maps each control to every requirement it satisfies, so it's tested once and the evidence serves every audit; GRC tools help track that mapping, the risks and the results. Dropping a certification customers rely on swaps an efficiency problem for a business one, separate spreadsheets keep the duplicate work, and insurance doesn't make anyone compliant.",
+    "es": "Un propósito central de GRC es manejar en un solo lugar las obligaciones que vienen de leyes, normas y marcos. Un marco común de controles vincula cada control con todos los requisitos que cumple, así se prueba una vez y la evidencia sirve para cada auditoría; las herramientas de GRC siguen ese mapeo, los riesgos y los resultados. Abandonar una certificación que piden los clientes crea un problema comercial, las planillas separadas mantienen el trabajo doble y un seguro no da cumplimiento."
+   }
+  },
+  {
+   "id": "cc-012",
+   "domain": "Security Governance",
+   "prompt": {
+    "en": "An online store backs up its order database every 6 hours. The business says it can afford to lose at most 1 hour of orders and that the site must be back within 4 hours of an outage. A full restore takes 2 hours. Which target does the current setup fail to meet?",
+    "es": "Una tienda online hace copias de seguridad de su base de pedidos cada 6 horas. El negocio dice que puede perder como mucho 1 hora de pedidos y que el sitio tiene que volver dentro de las 4 horas de una caída. Una restauración completa tarda 2 horas. ¿Qué objetivo no cumple la configuración actual?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Recovery point objective (RPO)",
+      "es": "Objetivo de punto de recuperación (RPO)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Recovery time objective (RTO)",
+      "es": "Objetivo de tiempo de recuperación (RTO)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Maximum tolerable downtime (MTD)",
+      "es": "Tiempo máximo tolerable de inactividad (MTD)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Mean time between failures (MTBF)",
+      "es": "Tiempo medio entre fallas (MTBF)"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "The recovery point objective is how much data, measured in time, the business can afford to lose. With backups every 6 hours, up to 6 hours of orders can be lost against a 1-hour RPO, so backups or replication must run more often. The recovery time objective is how fast service must return, and a 2-hour restore meets the 4-hour RTO. Maximum tolerable downtime is the outer limit the RTO must fit within, and MTBF measures how often a component fails.",
+    "es": "El objetivo de punto de recuperación es cuántos datos, medidos en tiempo, puede perder el negocio. Con copias cada 6 horas se pueden perder hasta 6 horas de pedidos contra un RPO de 1 hora, así que hay que copiar o replicar más seguido. El objetivo de tiempo de recuperación es qué tan rápido tiene que volver el servicio, y restaurar en 2 horas cumple el RTO de 4. El tiempo máximo tolerable es el límite dentro del que tiene que caber el RTO, y el MTBF mide cada cuánto falla un componente."
+   }
+  },
+  {
+   "id": "cc-013",
+   "domain": "Security Governance",
+   "prompt": {
+    "en": "A regional bank writes a plan for keeping its branches serving customers during a long outage of its main data center: manual procedures, backup staff and how branches will communicate. A second plan covers restoring servers and data at a secondary site. How do these two plans relate?",
+    "es": "Un banco regional escribe un plan para que sus sucursales sigan atendiendo durante una caída larga de su centro de datos principal: procedimientos manuales, personal de reemplazo y cómo se van a comunicar las sucursales. Un segundo plan cubre cómo restaurar servidores y datos en un sitio secundario. ¿Qué relación hay entre los dos planes?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The first is a disaster recovery plan, and the second is a business continuity plan that supports it",
+      "es": "El primero es un plan de recuperación ante desastres y el segundo, un plan de continuidad del negocio que lo apoya"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Both are incident response plans that cover different phases of the same incident",
+      "es": "Los dos son planes de respuesta a incidentes que cubren distintas fases del mismo incidente"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "The first is a business continuity plan, and the second is a disaster recovery plan that supports it",
+      "es": "El primero es un plan de continuidad del negocio y el segundo, un plan de recuperación ante desastres que lo apoya"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "The second makes the first one unnecessary, because restoring IT restores the business",
+      "es": "El segundo vuelve innecesario al primero, porque restaurar IT restaura el negocio"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Business continuity planning keeps critical business functions running during and after a disruption, covering people, manual workarounds and communications. Disaster recovery is the IT part: restoring systems, data and connectivity, often at an alternate site, within the recovery time and point objectives. DR supports BC, not the other way around. Incident response handles security incidents, and restoring IT alone doesn't say how branches keep serving customers meanwhile.",
+    "es": "La continuidad del negocio sostiene las funciones críticas durante y después de una interrupción, e incluye personas, procedimientos manuales y comunicaciones. La recuperación ante desastres es la parte de IT: restaurar sistemas, datos y conectividad, a menudo en otro sitio, dentro de los objetivos de tiempo y punto de recuperación. DR apoya a BC, no al revés. La respuesta a incidentes maneja incidentes de seguridad, y restaurar IT no dice cómo atienden las sucursales mientras tanto."
+   }
+  },
+  {
+   "id": "cc-014",
+   "domain": "Security Governance",
+   "prompt": {
+    "en": "An accounts payable clerk gets a voice message that sounds exactly like the chief financial officer. It asks her to pay an urgent invoice to a new bank account today and to keep the matter confidential. What should she do first?",
+    "es": "Una empleada de cuentas a pagar recibe un mensaje de voz que suena igual al director financiero. Le pide pagar hoy una factura urgente a una cuenta bancaria nueva y no comentarlo con nadie. ¿Qué debería hacer primero?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Pay the invoice, because the voice is clearly the CFO's and the request is urgent",
+      "es": "Pagar la factura, porque la voz es claramente la del director financiero y el pedido es urgente"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Call the CFO on the number in the company directory, and report the message",
+      "es": "Llamar al director financiero al número del directorio de la empresa y reportar el mensaje"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Reply to the number that left the message and ask for the request in writing",
+      "es": "Responderle al número que dejó el mensaje y pedir que lo confirme por escrito"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Forward the recording to coworkers so they can judge whether the voice sounds real",
+      "es": "Reenviarles la grabación a sus compañeros para que juzguen si la voz suena real"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Urgency, secrecy and a new bank account are classic social engineering signs, and AI tools can now clone a voice from a few public recordings, so a familiar voice proves nothing. Checking through a channel you already trust, like the directory number, breaks the attack, and reporting it lets the security team warn others. Replying to the same number reaches the attacker, and asking coworkers to judge the voice spreads the message without verifying anything.",
+    "es": "La urgencia, el secreto y una cuenta bancaria nueva son señales clásicas de ingeniería social, y hoy las herramientas de IA clonan una voz con pocas grabaciones públicas, así que una voz conocida no prueba nada. Verificar por un canal en el que ya confiás, como el número del directorio, corta el ataque, y reportarlo permite que seguridad avise al resto. Responder al mismo número es hablar con el atacante, y pedir que los compañeros juzguen la voz difunde el mensaje sin verificar nada."
+   }
+  },
+  {
+   "id": "cc-015",
+   "domain": "Security Governance",
+   "prompt": {
+    "en": "A company runs monthly phishing simulations. Employees who click a simulated link are named in a company-wide email, and since then almost nobody reports suspicious emails, including real ones they clicked. Which change would best improve the security culture?",
+    "es": "Una empresa hace simulaciones de phishing todos los meses. A quienes hacen clic en un link simulado los nombran en un mail a toda la empresa, y desde entonces casi nadie reporta mails sospechosos, ni siquiera los reales en los que hizo clic. ¿Qué cambio mejoraría más la cultura de seguridad?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Make the simulations harder, so that fewer employees pass them",
+      "es": "Hacer más difíciles las simulaciones, para que menos empleados las pasen"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Stop the simulations and rely on the email filter to block phishing before anyone sees it",
+      "es": "Abandonar las simulaciones y confiar en que el filtro de correo frene el phishing antes de que alguien lo vea"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Add each employee's click rate to their yearly performance review",
+      "es": "Sumar la tasa de clics de cada empleado a su evaluación de desempeño anual"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Thank people who report quickly, even after clicking, and follow up privately",
+      "es": "Agradecer a quien reporta rápido, aunque haya hecho clic, y hacer el seguimiento en privado"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Security culture depends on people feeling safe to report: the sooner someone reports a click, the sooner the team can contain it. Public shaming teaches staff to hide mistakes, which is what happened here. Recognizing fast reports and following up privately keeps simulations useful as training, and leaders who model that set the tone. Harder tests and performance penalties add pressure without fixing reporting, and filters alone always let some phishing through.",
+    "es": "La cultura de seguridad depende de que la gente se sienta segura para reportar: cuanto antes alguien avisa que hizo clic, antes lo contiene el equipo. Exponer a la gente en público enseña a esconder errores, como pasó acá. Reconocer los reportes rápidos y hacer el seguimiento en privado hace que las simulaciones enseñen, y el ejemplo de los líderes marca el tono. Pruebas más difíciles y penalidades suman presión sin mejorar los reportes, y los filtros solos siempre dejan pasar algo."
+   }
+  },
+  {
+   "id": "cc-016",
+   "domain": "Security Governance",
+   "prompt": {
+    "en": "A company is updating the password advice in its security awareness course. Which TWO recommendations follow current good practice? (Select TWO.)",
+    "es": "Una empresa está actualizando los consejos sobre contraseñas de su curso de concientización. ¿Qué recomendaciones siguen las buenas prácticas actuales? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Change every password every 30 days, even with no sign of compromise",
+      "es": "Cambiar todas las contraseñas cada 30 días, aunque no haya indicios de compromiso"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Use a long passphrase, and a different one for every account",
+      "es": "Usar una frase de contraseña larga, y una distinta para cada cuenta"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Reuse one very strong password everywhere so that it's easy to remember",
+      "es": "Reusar una sola contraseña muy fuerte en todos lados para recordarla fácil"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Add a number and a symbol to the end of a dictionary word",
+      "es": "Agregar un número y un símbolo al final de una palabra del diccionario"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Keep passwords in a reputable password manager protected by a strong passphrase and MFA",
+      "es": "Guardar las contraseñas en un gestor confiable, protegido con una frase fuerte y MFA"
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "E"
+   ],
+   "explanation": {
+    "en": "Length and uniqueness matter most: a long passphrase is hard to guess, and a different one per account keeps one breach from opening others, which a password manager makes practical. Current guidance such as NIST SP 800-63B advises against forced periodic changes, which push people to predictable patterns, and calls for a change when there's evidence of compromise. Reuse spreads a single leak, and a word with a digit and symbol tacked on is one of the first patterns cracking tools try.",
+    "es": "Lo que más importa es el largo y no repetir: una frase larga cuesta adivinarla, y una por cuenta evita que una filtración abra las demás, algo que un gestor de contraseñas vuelve práctico. La guía actual, como NIST SP 800-63B, desaconseja forzar cambios periódicos, que llevan a patrones predecibles, y pide cambiarla ante indicios de compromiso. Reusar multiplica una sola filtración, y una palabra con un número y un símbolo al final es de lo primero que prueban las herramientas de cracking."
+   }
+  },
+  {
+   "id": "cc-017",
+   "domain": "Security Governance",
+   "prompt": {
+    "en": "The security team is choosing a key risk indicator (KRI) for the quarterly scorecard it presents to the board. Which measure works best as a KRI?",
+    "es": "El equipo de seguridad está eligiendo un indicador clave de riesgo (KRI) para el tablero trimestral que le presenta al directorio. ¿Qué medida funciona mejor como KRI?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Share of internet-facing systems missing critical patches for over 30 days",
+      "es": "Porcentaje de sistemas expuestos a internet sin parches críticos hace más de 30 días"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Number of security awareness sessions the team delivered this quarter",
+      "es": "Cantidad de sesiones de concientización que dio el equipo en el trimestre"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Total number of firewall log entries collected per day across all sites",
+      "es": "Cantidad total de entradas de log del firewall que se juntan por día en todas las sedes"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Share of this year's security budget already spent by the end of the quarter",
+      "es": "Porcentaje del presupuesto de seguridad del año ya gastado al cierre del trimestre"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "A key risk indicator signals that exposure is growing, ideally early and against a threshold the business agreed on; critical patches left open on internet-facing systems do exactly that. Counting training sessions or budget spent measures activity, which suits a key performance indicator, not risk. Raw log volumes mean nothing to a board. Good scorecards and dashboards show a few such indicators as trends, in business terms, and what happens when one crosses its threshold.",
+    "es": "Un indicador clave de riesgo avisa que la exposición crece, idealmente temprano y contra un umbral acordado con el negocio; los parches críticos pendientes en sistemas expuestos a internet hacen justo eso. Contar capacitaciones o presupuesto gastado mide actividad, propia de un indicador de desempeño (KPI), no riesgo. El volumen de logs no le dice nada a un directorio. Un buen tablero muestra pocos indicadores así, como tendencias en términos de negocio, y qué pasa si uno supera su umbral."
+   }
+  },
+  {
+   "id": "cc-018",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "A growing company sets up each new employee's access by copying the permissions of whoever had the same job before. New hires often end up with access their predecessor collected over the years. What should the company do first to fix provisioning?",
+    "es": "Una empresa en crecimiento configura el acceso de cada empleado nuevo copiando los permisos de quien tenía el mismo puesto antes. Los ingresantes suelen terminar con accesos que su antecesor fue juntando con los años. ¿Qué debería hacer primero la empresa para arreglar el aprovisionamiento?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Give new hires no access at all and let them request each permission as they need it",
+      "es": "No darles ningún acceso a los ingresantes y que pidan cada permiso a medida que lo necesitan"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Copy permissions from the newest employee in the same team instead of the predecessor",
+      "es": "Copiar los permisos del empleado más nuevo del mismo equipo en lugar de los del antecesor"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Define a role per job function with the access it needs, and assign it to new hires",
+      "es": "Definir un rol por función con el acceso que necesita y asignárselo a cada ingresante"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Give every new hire the same broad set of permissions and remove extras after a year",
+      "es": "Darles a todos los ingresantes el mismo conjunto amplio de permisos y quitar lo que sobra al año"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Defining roles comes first in identity lifecycle management: each job function gets a reviewed set of permissions, and provisioning grants that role instead of a copy of someone's history. Copying any person, old or new, copies whatever extra access they gathered. Starting with no access stalls new staff and floods the help desk, and broad access cleaned up after a year breaks least privilege for that whole year.",
+    "es": "Definir roles es lo primero en la gestión del ciclo de vida de identidades: cada función tiene un conjunto revisado de permisos, y el aprovisionamiento asigna ese rol en lugar de copiar la historia de alguien. Copiar a cualquier persona, nueva o vieja, copia el acceso extra que juntó. Arrancar sin ningún acceso frena al personal nuevo y llena de pedidos a la mesa de ayuda, y dar acceso amplio para limpiarlo al año rompe el mínimo privilegio durante todo ese año."
+   }
+  },
+  {
+   "id": "cc-019",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "Over five years, an employee moved from payroll to procurement and then to marketing. An audit finds she can still approve payroll changes and purchase orders. Which identity lifecycle step failed?",
+    "es": "En cinco años, una empleada pasó de sueldos a compras y después a marketing. Una auditoría encuentra que todavía puede aprobar cambios en sueldos y órdenes de compra. ¿Qué paso del ciclo de vida de identidades falló?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Provisioning, because her marketing account was created with too few permissions",
+      "es": "El aprovisionamiento, porque su cuenta de marketing se creó con muy pocos permisos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Authentication, because her password should have been reset with each move",
+      "es": "La autenticación, porque tendrían que haberle reseteado la contraseña en cada cambio"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Accounting, because her past approvals were never logged",
+      "es": "La contabilidad, porque nunca se registraron sus aprobaciones anteriores"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Review, because her access wasn't rechecked and trimmed when her job changed",
+      "es": "La revisión, porque nadie revisó ni recortó su acceso cuando cambió de puesto"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Access that piles up as people change jobs is called privilege creep. Periodic access reviews, plus a review whenever someone changes roles, catch it: the manager or system owner confirms what is still needed and the rest is removed. Her marketing access wasn't the issue; the old payroll and procurement rights were never taken away. A password reset doesn't change permissions, and logging approvals would reveal misuse later without preventing it.",
+    "es": "El acceso que se acumula cuando la gente cambia de puesto se llama acumulación de privilegios (privilege creep). Las revisiones periódicas de acceso, más una cada vez que alguien cambia de rol, la detectan: el jefe o el dueño del sistema confirma qué sigue haciendo falta y se quita el resto. El problema no fue su acceso de marketing, sino los permisos viejos que nadie le sacó. Resetear la contraseña no cambia permisos, y registrar las aprobaciones mostraría un abuso después, sin evitarlo."
+   }
+  },
+  {
+   "id": "cc-020",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "A contractor's engagement ends on Friday. He has a company account used for single sign-on, an API key for the build system and a door badge. Which TWO actions should happen when the engagement ends? (Select TWO.)",
+    "es": "El contrato de un consultor externo termina el viernes. Tiene una cuenta de la empresa que usa para el inicio de sesión único, una clave de API para el sistema de compilación y una tarjeta para las puertas. ¿Qué acciones tienen que hacerse cuando termina el contrato? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Disable his account so that he can't sign in to any connected application",
+      "es": "Deshabilitar su cuenta para que no pueda iniciar sesión en ninguna aplicación conectada"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Keep the account active for 90 days in case the engagement is renewed",
+      "es": "Dejar la cuenta activa 90 días por si se renueva el contrato"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Reset his password and give the new one to his manager",
+      "es": "Resetear su contraseña y darle la nueva a su jefe"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Revoke his API key and collect or deactivate his door badge",
+      "es": "Revocar su clave de API y recuperar o desactivar su tarjeta"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Delete all the files he created right away, to remove his access",
+      "es": "Borrar enseguida todos los archivos que creó, para quitarle el acceso"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "D"
+   ],
+   "explanation": {
+    "en": "Deprovisioning removes every way in, on time. Disabling the central account cuts access to everything behind single sign-on, and revoking keys and badges covers credentials that don't go through it, which are easy to forget. Keeping the account active, or giving its password to someone else, leaves access open and breaks accountability. Deleting his files destroys data the company may need and does nothing about the key or badge; disable first, then delete under the retention policy.",
+    "es": "Desaprovisionar quita a tiempo todas las formas de entrar. Deshabilitar la cuenta central corta el acceso a todo lo que pasa por el inicio de sesión único, y revocar claves y tarjetas cubre lo que no pasa por ahí, que es fácil de olvidar. Dejar la cuenta activa, o darle su contraseña a otra persona, deja el acceso abierto y rompe la trazabilidad. Borrar sus archivos destruye datos útiles y no resuelve la clave ni la tarjeta: primero se deshabilita y después se borra según la retención."
+   }
+  },
+  {
+   "id": "cc-021",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "Employees sign in to 15 software-as-a-service (SaaS) applications with a separate password for each, and the accounts of people who leave are often forgotten in some of them. Which approach best addresses both problems?",
+    "es": "Los empleados inician sesión en 15 aplicaciones de software como servicio (SaaS) con una contraseña distinta para cada una, y las cuentas de quienes se van suelen quedar olvidadas en algunas. ¿Qué enfoque resuelve mejor los dos problemas?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A shared spreadsheet where the help desk tracks every account in every application and who owns it",
+      "es": "Una planilla compartida donde la mesa de ayuda anota cada cuenta de cada aplicación y a quién pertenece"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Single sign-on federated with the company's identity provider through SAML or OpenID Connect",
+      "es": "Inicio de sesión único federado con el proveedor de identidad de la empresa vía SAML u OpenID Connect"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "One shared administrator account per application that the whole team uses",
+      "es": "Una cuenta de administrador compartida por aplicación que usa todo el equipo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A rule that every password must be changed on the same day each quarter",
+      "es": "Una regla que obligue a cambiar todas las contraseñas el mismo día cada trimestre"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "With federation, SaaS applications trust the company's identity provider through standards like SAML or OpenID Connect, so people sign in once with one strong credential, and disabling an account there blocks sign-in everywhere. Adding automated provisioning, for example with SCIM, also creates and removes the app accounts. A spreadsheet depends on someone remembering, shared admin accounts destroy accountability, and synchronized password changes add work without fixing either problem.",
+    "es": "Con la federación, las aplicaciones SaaS confían en el proveedor de identidad de la empresa vía SAML u OpenID Connect, así que se inicia sesión una vez con una credencial fuerte, y deshabilitar la cuenta ahí la bloquea en todas partes. El aprovisionamiento automático, por ejemplo con SCIM, además crea y borra las cuentas de cada aplicación. Una planilla depende de que alguien se acuerde, las cuentas compartidas eliminan la trazabilidad y los cambios sincronizados no resuelven nada."
+   }
+  },
+  {
+   "id": "cc-022",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "A team deploys an AI agent that reads incoming support tickets and drafts replies for human agents to review. To save time, it was given the ticketing system's administrator account. Which change best applies the principle of least privilege?",
+    "es": "Un equipo pone en marcha un agente de IA que lee los tickets de soporte que llegan y redacta respuestas para que las revisen personas. Para ganar tiempo, le dieron la cuenta de administrador del sistema de tickets. ¿Qué cambio aplica mejor el principio de mínimo privilegio?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Give the agent its own identity that can only read tickets and save drafts",
+      "es": "Darle al agente una identidad propia que sólo pueda leer tickets y guardar borradores"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Keep the administrator account, but tell the agent in its instructions to only read tickets",
+      "es": "Mantener la cuenta de administrador, pero indicarle al agente en sus instrucciones que sólo lea tickets"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Let the agent share a human support agent's account so its activity looks normal",
+      "es": "Hacer que el agente comparta la cuenta de una persona de soporte para que su actividad parezca normal"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Rotate the administrator password every week so that a leaked one expires quickly",
+      "es": "Rotar la contraseña de administrador cada semana para que una filtrada venza rápido"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Least privilege means each identity, human or not, gets only the permissions its task needs. An AI agent that reads tickets and saves drafts needs exactly that, under its own identity, so its actions are logged as its own and a manipulated or faulty agent can't delete tickets or change settings. Instructions in a prompt are not an access control. Sharing a person's account hides who did what, and rotating an admin password leaves admin rights in place.",
+    "es": "Mínimo privilegio significa que cada identidad, humana o no, tiene sólo los permisos que su tarea necesita. Un agente de IA que lee tickets y guarda borradores necesita exactamente eso, con identidad propia, para que sus acciones queden a su nombre y, si lo manipulan o falla, no pueda borrar tickets ni cambiar la configuración. Un prompt no es un control de acceso. Compartir la cuenta de una persona oculta quién hizo qué, y rotar la contraseña deja intactos los permisos."
+   }
+  },
+  {
+   "id": "cc-023",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "In a company's finance system, the same employee can add a new supplier and approve payments to suppliers. Which control best reduces the risk of fraud here?",
+    "es": "En el sistema financiero de una empresa, un mismo empleado puede dar de alta un proveedor nuevo y aprobar pagos a proveedores. ¿Qué control reduce mejor el riesgo de fraude?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Mandatory vacations, so someone else covers the employee's work once a year",
+      "es": "Vacaciones obligatorias, para que otra persona cubra su trabajo una vez por año"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Stronger password rules for the finance system",
+      "es": "Reglas de contraseña más estrictas en el sistema financiero"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Separation of duties between adding suppliers and approving payments",
+      "es": "Separación de funciones entre dar de alta proveedores y aprobar pagos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Encryption of the supplier table in the finance database",
+      "es": "Cifrado de la tabla de proveedores en la base de datos financiera"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Separation of duties splits a sensitive process so no single person can complete it alone; here, one person could create a fake supplier and then pay it. With the steps split, fraud needs two people to collude, which is harder and more likely to be noticed. Mandatory vacations help detect fraud after the fact but don't stop it. Stronger passwords protect against outsiders, not the legitimate user, and encryption doesn't limit what an authorized user can do.",
+    "es": "La separación de funciones divide un proceso sensible para que nadie lo complete solo; acá una misma persona podría crear un proveedor falso y pagarle. Con los pasos repartidos, el fraude necesita que dos personas se pongan de acuerdo, algo más difícil y más fácil de notar. Las vacaciones obligatorias ayudan a detectar el fraude después, pero no lo evitan. Las contraseñas fuertes protegen de gente de afuera, no del usuario legítimo, y el cifrado no limita lo que hace un usuario autorizado."
+   }
+  },
+  {
+   "id": "cc-024",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "A hospital decides that nurses can view and update patient charts, doctors can also write prescriptions, and billing staff can see only invoices. People get access by being placed in one of these groups based on their job. Which access control model is this?",
+    "es": "Un hospital decide que el personal de enfermería puede ver y actualizar historias clínicas, los médicos además pueden hacer recetas y el personal de facturación sólo ve facturas. Cada persona recibe acceso al quedar en uno de estos grupos según su puesto. ¿Qué modelo de control de acceso es este?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Discretionary access control (DAC)",
+      "es": "Control de acceso discrecional (DAC)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Mandatory access control (MAC)",
+      "es": "Control de acceso obligatorio (MAC)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Attribute-based access control (ABAC)",
+      "es": "Control de acceso basado en atributos (ABAC)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Role-based access control (RBAC)",
+      "es": "Control de acceso basado en roles (RBAC)"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "In role-based access control, permissions are attached to roles that match job functions, and people get them by being assigned a role, which keeps onboarding and reviews simple. In discretionary access control, each resource's owner decides who can use it. Mandatory access control compares security labels on data with users' clearances, both set by a central authority. Attribute-based access control weighs attributes of the user, the resource and the context, such as department, device or time.",
+    "es": "En el control basado en roles, los permisos van a roles que reflejan funciones del trabajo, y cada persona los recibe al tener un rol asignado, lo que simplifica altas y revisiones. En el control discrecional, el dueño de cada recurso decide quién lo usa. El obligatorio compara etiquetas de los datos con la habilitación de los usuarios, fijadas por una autoridad central. El control basado en atributos evalúa atributos del usuario, del recurso y del contexto, como área, dispositivo u horario."
+   }
+  },
+  {
+   "id": "cc-025",
+   "domain": "Identity And Access Management (IAM) Concepts",
+   "prompt": {
+    "en": "On a team file share, each person who creates a folder decides which coworkers may read or change it, and can let them pass that right on to others. Which access control model is this, and what is its main weakness?",
+    "es": "En el espacio de archivos compartido de un equipo, cada persona que crea una carpeta decide qué compañeros pueden leerla o modificarla, y puede dejar que ellos le pasen ese permiso a otros. ¿Qué modelo de control de acceso es este y cuál es su principal debilidad?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Mandatory access control, because a central authority can't override the owners' choices",
+      "es": "Control obligatorio, porque una autoridad central no puede anular lo que deciden los dueños"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Discretionary access control, because owners can grant access more widely than intended",
+      "es": "Control discrecional, porque los dueños pueden dar acceso más allá de lo que se pretende"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Role-based access control, because roles change too often for anyone to keep up",
+      "es": "Control basado en roles, porque los roles cambian demasiado seguido como para seguirlos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Discretionary access control, because owners can't share with anyone outside their role",
+      "es": "Control discrecional, porque los dueños no pueden compartir con nadie fuera de su rol"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "When a resource's owner decides who gets access, and can let others pass it on, the model is discretionary access control, common in file shares and desktop operating systems. Its weakness is that control rests on each owner's judgment, so data can spread far beyond who should see it. Mandatory access control is the opposite: a central authority sets labels and clearances that owners can't change. Nothing in the scenario assigns access by job role.",
+    "es": "Cuando el dueño de un recurso decide quién accede, y puede dejar que otros pasen ese acceso, el modelo es control de acceso discrecional, común en carpetas compartidas y sistemas operativos de escritorio. Su debilidad es que todo depende del criterio de cada dueño, y los datos pueden llegar más allá de quien debería verlos. El control obligatorio es lo opuesto: una autoridad central fija etiquetas y habilitaciones que los dueños no pueden cambiar. Nada en el escenario asigna accesos por rol."
+   }
+  },
+  {
+   "id": "cc-026",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "A firewall in front of a group of Linux servers should let administrators manage them remotely over an encrypted connection, and block other remote management protocols. Which port should the rule allow?",
+    "es": "Un firewall delante de un grupo de servidores Linux tiene que dejar que los administradores los manejen en forma remota por una conexión cifrada, y bloquear otros protocolos de administración remota. ¿Qué puerto debería permitir la regla?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "TCP 22",
+      "es": "TCP 22"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "TCP 23",
+      "es": "TCP 23"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "TCP 3389",
+      "es": "TCP 3389"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "TCP 21",
+      "es": "TCP 21"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "SSH, on TCP port 22, is the standard encrypted protocol for managing Linux and other Unix-like systems from a command line. Telnet, on port 23, does a similar job but sends everything, passwords included, in clear text, so it should be blocked. Port 3389 is the Remote Desktop Protocol, mostly used with Windows, and port 21 is FTP's control channel, used for file transfers and also unencrypted. Allowing only what's needed is least privilege applied to the firewall.",
+    "es": "SSH, en el puerto TCP 22, es el protocolo cifrado estándar para administrar Linux y otros sistemas tipo Unix por línea de comandos. Telnet, en el 23, hace algo parecido pero manda todo en texto claro, contraseñas incluidas, así que conviene bloquearlo. El 3389 es el Remote Desktop Protocol, usado sobre todo con Windows, y el 21 es el canal de control de FTP, para transferir archivos y también sin cifrar. Permitir sólo lo necesario es el mínimo privilegio aplicado al firewall."
+   }
+  },
+  {
+   "id": "cc-027",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "A firewall allows outbound traffic to TCP port 443 so users can browse HTTPS websites. Users are now reaching a banned file-sharing service that also runs over port 443. Which control can block that service while keeping normal web browsing?",
+    "es": "Un firewall permite el tráfico saliente al puerto TCP 443 para que los usuarios naveguen sitios HTTPS. Ahora los usuarios llegan a un servicio para compartir archivos que está prohibido y que también usa el puerto 443. ¿Qué control puede bloquear ese servicio sin cortar la navegación normal?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A rule that blocks all outbound traffic to TCP port 443",
+      "es": "Una regla que bloquee todo el tráfico saliente al puerto TCP 443"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A stateless packet filter that checks the source and destination IP addresses of each packet",
+      "es": "Un filtro de paquetes sin estado que revise las direcciones IP de origen y destino de cada paquete"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An application-aware firewall that identifies the service by its traffic, not its port",
+      "es": "Un firewall con reconocimiento de aplicaciones, que identifique el servicio por su tráfico y no por el puerto"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A separate VLAN for all of the users' computers",
+      "es": "Una VLAN separada para todas las computadoras de los usuarios"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Port rules work at the network and transport layers (layers 3 and 4 of the OSI model), so they can't tell two applications apart when both use port 443. An application-aware, or next-generation, firewall uses layer 7 signals such as the server name, certificates and traffic patterns, and can block one application while allowing others on the same port. Blocking 443 would stop all web browsing, an IP filter would need every address the service uses, and a VLAN doesn't identify applications.",
+    "es": "Las reglas por puerto trabajan en las capas de red y transporte (3 y 4 del modelo OSI), así que no distinguen dos aplicaciones que usan el puerto 443. Un firewall con reconocimiento de aplicaciones, o de nueva generación, usa señales de capa 7 como el nombre del servidor o los patrones de tráfico, y bloquea una aplicación sin frenar otras del mismo puerto. Bloquear el 443 cortaría toda la navegación, un filtro por IP necesitaría cada dirección del servicio y una VLAN no identifica aplicaciones."
+   }
+  },
+  {
+   "id": "cc-028",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "While reviewing firewall logs, an analyst wants to tell internal traffic from internet traffic. Which of these IPv4 addresses belongs to a private range that isn't routed on the public internet?",
+    "es": "Mientras revisa los logs del firewall, un analista quiere distinguir el tráfico interno del tráfico de internet. ¿Cuál de estas direcciones IPv4 pertenece a un rango privado que no se enruta en la internet pública?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "172.32.10.5",
+      "es": "172.32.10.5"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "192.169.1.20",
+      "es": "192.169.1.20"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "8.8.4.4",
+      "es": "8.8.4.4"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "172.20.10.5",
+      "es": "172.20.10.5"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "RFC 1918 sets aside three IPv4 ranges for private networks: 10.0.0.0/8, 172.16.0.0/12 (172.16.0.0 to 172.31.255.255) and 192.168.0.0/16. 172.20.10.5 falls in the middle range. 172.32.10.5 and 192.169.1.20 sit just outside the private ranges and are public, a common trap, and 8.8.4.4 is a public DNS server. IPv6 works differently: with 128-bit addresses there's no shortage, and unique local addresses (fc00::/7) play the private role.",
+    "es": "La RFC 1918 reserva tres rangos IPv4 para redes privadas: 10.0.0.0/8, 172.16.0.0/12 (de 172.16.0.0 a 172.31.255.255) y 192.168.0.0/16. 172.20.10.5 cae en el rango del medio. 172.32.10.5 y 192.169.1.20 quedan justo afuera de los rangos privados y son públicas, una trampa común, y 8.8.4.4 es un servidor DNS público. IPv6 funciona distinto: con direcciones de 128 bits no hay escasez, y las direcciones locales únicas (fc00::/7) cumplen el papel de las privadas."
+   }
+  },
+  {
+   "id": "cc-029",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "A small office is replacing its wireless router. Which configuration gives the office Wi-Fi network the strongest protection?",
+    "es": "Una oficina chica va a cambiar su router inalámbrico. ¿Qué configuración le da la protección más fuerte a la red Wi-Fi de la oficina?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "WEP with a 128-bit key",
+      "es": "WEP con una clave de 128 bits"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "WPA3, with a long passphrase or with individual WPA3-Enterprise sign-ins",
+      "es": "WPA3, con una frase de acceso larga o con credenciales individuales de WPA3-Enterprise"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An open network that hides its network name (SSID)",
+      "es": "Una red abierta que oculta su nombre de red (SSID)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An open network that only allows the MAC addresses of known devices",
+      "es": "Una red abierta que sólo acepta las direcciones MAC de los equipos conocidos"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "WPA3 is the current Wi-Fi security standard: its personal mode uses SAE, which resists offline guessing of the passphrase, and its enterprise mode gives each user their own credentials. WEP was broken years ago and falls in minutes. A hidden SSID is still visible to basic tools, MAC filtering is easy to bypass because addresses can be copied from the air, and both leave traffic unencrypted. Bluetooth needs similar care: keep devices non-discoverable unless pairing.",
+    "es": "WPA3 es el estándar actual de seguridad Wi-Fi: el modo personal usa SAE, que resiste los intentos de adivinar la frase fuera de línea, y el modo empresarial le da a cada usuario sus propias credenciales. WEP se rompió hace años y cae en minutos. Un SSID oculto igual se ve con herramientas básicas, el filtrado por MAC se esquiva fácil porque las direcciones se copian del aire, y las dos dejan el tráfico sin cifrar. Con Bluetooth vale algo parecido: que no sea detectable salvo al emparejar."
+   }
+  },
+  {
+   "id": "cc-030",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "A factory has network-connected sensors and controllers that can't run security software and get firmware updates only once a year. They sit on the same network as the office laptops. What should the security team do first?",
+    "es": "Una fábrica tiene sensores y controladores conectados a la red que no pueden correr software de seguridad y reciben actualizaciones de firmware una sola vez por año. Están en la misma red que las notebooks de la oficina. ¿Qué debería hacer primero el equipo de seguridad?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Move the devices to their own segment, such as a VLAN in a separate firewall zone, allowing only the traffic they need",
+      "es": "Pasar los dispositivos a un segmento propio, como una VLAN en una zona aparte del firewall, que permita sólo el tráfico que necesitan"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Install antivirus software on each of the controllers",
+      "es": "Instalar un antivirus en cada uno de los controladores"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Connect the devices directly to the internet so the vendor can update them at any time",
+      "es": "Conectar los dispositivos directo a internet para que el fabricante los actualice cuando quiera"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Leave them where they are, since attackers go after laptops rather than sensors",
+      "es": "Dejarlos donde están, ya que los atacantes van por las notebooks y no por los sensores"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Embedded and industrial devices often can't be patched quickly or run endpoint agents, so isolation is their main protection: their own segment, such as a VLAN in a separate firewall zone, with rules that allow only the flows they need. That limits how far an attacker on an infected laptop can reach. Agents usually can't run on these controllers, direct internet exposure invites attacks, and attackers do target industrial control systems and IoT, often as an easy way in.",
+    "es": "Los dispositivos embebidos e industriales muchas veces no se pueden parchear rápido ni correr agentes, así que su protección principal es aislarlos: un segmento propio, como una VLAN en una zona aparte del firewall, con reglas que permitan sólo los flujos que necesitan. Eso limita hasta dónde llega un atacante desde una notebook infectada. Exponerlos a internet invita ataques, y los atacantes sí apuntan a sistemas de control industrial y al IoT, muchas veces como entrada fácil."
+   }
+  },
+  {
+   "id": "cc-031",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "Once employees connect to a company's VPN, they can reach every internal system, because anything on the internal network is trusted. Which change best reflects a zero trust approach?",
+    "es": "Cuando los empleados se conectan a la VPN de una empresa, pueden llegar a todos los sistemas internos, porque se confía en todo lo que está en la red interna. ¿Qué cambio refleja mejor un enfoque de confianza cero (zero trust)?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Add a second VPN concentrator so remote access stays up if the first one fails",
+      "es": "Sumar un segundo concentrador de VPN para que el acceso remoto siga si falla el primero"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Trust devices on the office network, and require MFA only from remote users",
+      "es": "Confiar en los equipos de la red de la oficina y pedir MFA sólo a los usuarios remotos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Check identity, device health and permissions on every request, from any network",
+      "es": "Verificar identidad, dispositivo y permisos en cada pedido, desde cualquier red"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Move all internal systems behind one stronger perimeter firewall",
+      "es": "Poner todos los sistemas internos detrás de un único firewall perimetral más fuerte"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Zero trust drops the idea that being inside the network earns trust. Each request to a resource is checked explicitly against the user's identity, the device's state and least-privilege policy, and the design assumes an attacker may already be inside. A second VPN concentrator improves availability, not trust decisions. Trusting the office network keeps the old model for anyone who plugs a device in there, and a stronger perimeter still trusts everything behind it.",
+    "es": "Zero trust abandona la idea de que estar en la red da confianza. Cada pedido a un recurso se verifica explícitamente contra la identidad del usuario, el estado del dispositivo y el mínimo privilegio, y se asume que el atacante ya puede estar adentro. Un segundo concentrador de VPN mejora la disponibilidad, no las decisiones de confianza. Confiar en la red de la oficina deja el modelo viejo para quien conecte un equipo ahí, y un perímetro más fuerte sigue confiando en lo de adentro."
+   }
+  },
+  {
+   "id": "cc-032",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "An online retailer's website runs on a public cloud. During a yearly sale it grows automatically to ten times its usual capacity and shrinks back afterward, and the retailer pays only for the hours of capacity it used. Which TWO cloud characteristics does this show? (Select TWO.)",
+    "es": "El sitio de una tienda online corre en una nube pública. Durante una venta anual crece solo hasta diez veces su capacidad habitual y después vuelve a achicarse, y la tienda paga sólo las horas de capacidad que usó. ¿Qué características de la nube muestra esto? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Broad network access",
+      "es": "Acceso amplio a la red"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Resource pooling",
+      "es": "Agrupación de recursos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Rapid elasticity",
+      "es": "Elasticidad rápida"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Dedicated single-tenant hardware",
+      "es": "Hardware dedicado a un solo cliente"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Measured service",
+      "es": "Servicio medido"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "E"
+   ],
+   "explanation": {
+    "en": "NIST's definition of cloud computing lists five essential characteristics. Rapid elasticity is capacity that grows and shrinks quickly, often automatically, with demand, and measured service is metered usage, so the customer pays for what it uses. Broad network access means services are reached over the network from many kinds of devices, and resource pooling means the provider serves many customers from shared resources. Dedicated hardware is an option some providers sell, not a defining trait.",
+    "es": "La definición de nube del NIST enumera cinco características esenciales. La elasticidad rápida es capacidad que crece y se achica rápido, a menudo sola, según la demanda, y el servicio medido es uso que se mide, así que el cliente paga lo que usa. El acceso amplio a la red es usar los servicios por la red desde muchos tipos de equipos, y la agrupación de recursos, atender a muchos clientes con recursos compartidos. El hardware dedicado es una opción que venden algunos, no un rasgo de la nube."
+   }
+  },
+  {
+   "id": "cc-033",
+   "domain": "Networking and Cloud Security Concepts",
+   "prompt": {
+    "en": "A company moves its customer records to a software-as-a-service (SaaS) CRM. Under the shared responsibility model, which security task stays with the company?",
+    "es": "Una empresa pasa sus registros de clientes a un CRM de software como servicio (SaaS). Según el modelo de responsabilidad compartida, ¿qué tarea de seguridad sigue siendo de la empresa?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Patching the operating systems of the servers that run the CRM",
+      "es": "Parchear los sistemas operativos de los servidores donde corre el CRM"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Physical security of the provider's data centers",
+      "es": "La seguridad física de los centros de datos del proveedor"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Fixing security flaws in the CRM application's code",
+      "es": "Corregir fallas de seguridad en el código de la aplicación CRM"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Deciding who gets access to the CRM and with what permissions",
+      "es": "Decidir quién accede al CRM y con qué permisos"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "In every service model the customer stays responsible for its data, its users and how their access is set up, including protecting accounts with MFA. In SaaS the provider runs almost everything else: facilities, hardware, operating systems and the application itself, including fixing its code. With infrastructure as a service (IaaS), patching the operating system would move to the customer, and platform as a service (PaaS) sits in between. The exact split varies by provider.",
+    "es": "En todo modelo de servicio el cliente sigue a cargo de sus datos, sus usuarios y cómo se configura su acceso, incluido protegerlo con MFA. En SaaS el proveedor maneja casi todo lo demás: instalaciones, hardware, sistemas operativos y la aplicación misma, incluido corregir su código. Con infraestructura como servicio (IaaS), parchear el sistema operativo pasaría al cliente, y la plataforma como servicio (PaaS) queda en el medio. La división exacta varía según el proveedor."
+   }
+  },
+  {
+   "id": "cc-034",
+   "domain": "Security Operations and Incident Response",
+   "prompt": {
+    "en": "Developers want a copy of the production customer database to test a new feature. The data includes names, card numbers and addresses. Which approach best protects customers while still giving developers realistic data?",
+    "es": "Los desarrolladores quieren una copia de la base de clientes de producción para probar una función nueva. Los datos incluyen nombres, números de tarjeta y domicilios. ¿Qué enfoque protege mejor a los clientes y a la vez les da datos realistas a los desarrolladores?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Label the copy as Confidential and keep it on the test server",
+      "es": "Etiquetar la copia como Confidencial y guardarla en el servidor de pruebas"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Mask the sensitive fields with realistic but fictitious values before the copy leaves production",
+      "es": "Enmascarar los campos sensibles con valores realistas pero ficticios antes de que la copia salga de producción"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Encrypt the test database with the same key that protects production",
+      "es": "Cifrar la base de pruebas con la misma clave que protege la de producción"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Give developers the production copy once they sign a confidentiality agreement",
+      "es": "Darles la copia de producción a los desarrolladores cuando firmen un acuerdo de confidencialidad"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Data masking replaces sensitive values with fictitious ones in the same format, so tests behave realistically while the copy holds no real card numbers or addresses. Labeling tells people how to handle the copy but leaves real data in a less protected environment. Encryption protects data at rest, yet anyone who can query the test database still sees real values. An agreement doesn't stop a leak from a test server. Sanitization is different: it wipes media before reuse or disposal.",
+    "es": "El enmascaramiento reemplaza los valores sensibles por otros ficticios con el mismo formato, así las pruebas son realistas y la copia no tiene tarjetas ni domicilios reales. Etiquetar indica cómo manejar la copia, pero deja datos reales en un entorno menos protegido. El cifrado protege los datos en reposo, pero quien consulta la base de pruebas igual ve datos reales. Un acuerdo no frena una filtración. El saneamiento es otra cosa: borra medios antes de reusarlos o descartarlos."
+   }
+  },
+  {
+   "id": "cc-035",
+   "domain": "Security Operations and Incident Response",
+   "prompt": {
+    "en": "A defense contractor sends design files to partners over connections whose key exchange relies on RSA. The files must stay confidential for 20 years. Why does quantum computing already matter for this data?",
+    "es": "Una contratista de defensa les manda archivos de diseño a sus socios por conexiones cuyo intercambio de claves usa RSA. Los archivos tienen que seguir siendo confidenciales durante 20 años. ¿Por qué la computación cuántica ya importa para estos datos?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Attackers can record the traffic now and decrypt it once quantum computers can break RSA",
+      "es": "Un atacante puede grabar el tráfico ahora y descifrarlo cuando una computadora cuántica pueda romper RSA"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Quantum computers can already break AES-256 encryption in real time",
+      "es": "Las computadoras cuánticas ya pueden romper el cifrado AES-256 en tiempo real"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Hash functions such as SHA-256 stop working as soon as a quantum computer exists",
+      "es": "Las funciones de hash como SHA-256 dejan de funcionar apenas existe una computadora cuántica"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Quantum attacks affect only data at rest, so files in transit are safe",
+      "es": "Los ataques cuánticos sólo afectan a los datos en reposo, así que los archivos en tránsito están a salvo"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "This is the harvest now, decrypt later threat: traffic captured today can be stored until a large enough quantum computer breaks the RSA or elliptic-curve math that protected its key exchange. Data that must stay secret for years is at risk now, so organizations inventory their cryptography and plan moves to quantum-resistant algorithms such as those NIST standardized in 2024. Symmetric ciphers like AES-256 and hashes like SHA-256 are expected to hold up at adequate sizes.",
+    "es": "Es la amenaza de \"cosechar ahora, descifrar después\": el tráfico capturado hoy se guarda hasta que una computadora cuántica lo bastante grande rompa la matemática de RSA o de curvas elípticas del intercambio de claves. Los datos que deben seguir secretos por años ya están en riesgo, por eso conviene relevar la criptografía en uso y planear el paso a algoritmos resistentes a la cuántica, como los que NIST estandarizó en 2024. AES-256 y SHA-256 deberían resistir con tamaños adecuados."
+   }
+  },
+  {
+   "id": "cc-036",
+   "domain": "Security Operations and Incident Response",
+   "prompt": {
+    "en": "A security operations center gets two alerts at once. First: malware detected and quarantined on a laptop in the training room. Second: a successful administrator sign-in to the payroll server from a country where the company has no staff, right after 40 failed attempts on the same account. How should the analyst triage them?",
+    "es": "Un centro de operaciones de seguridad recibe dos alertas a la vez. Primera: malware detectado y en cuarentena en una notebook de la sala de capacitación. Segunda: un inicio de sesión exitoso de administrador en el servidor de sueldos desde un país donde la empresa no tiene personal, justo después de 40 intentos fallidos en la misma cuenta. ¿Cómo debería priorizarlas el analista?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Handle the malware alert first, because malware is always the more serious threat",
+      "es": "Atender primero la alerta de malware, porque el malware siempre es la amenaza más grave"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Handle them in the order they arrived, so that triage stays fair and consistent",
+      "es": "Atenderlas en el orden en que llegaron, para que el triaje sea justo y consistente"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Handle the sign-in first, since the correlated events suggest a compromised critical system",
+      "es": "Atender primero el inicio de sesión, porque los eventos correlacionados sugieren un sistema crítico comprometido"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Close both, because the malware was quarantined and the sign-in succeeded",
+      "es": "Cerrar las dos, porque el malware quedó en cuarentena y el inicio de sesión funcionó"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Triage ranks alerts by likely impact and confidence. Many failed attempts followed by a success, from an unusual location, on an administrator account for a payroll server, correlate into a probable compromise of a critical system. The malware is already quarantined on a low-value laptop, so its follow-up can wait. Arrival order ignores risk, and a successful sign-in is the worrying part, not a reason to close. Use cases written in advance help analysts make these calls consistently.",
+    "es": "El triaje ordena las alertas por impacto probable y confianza. Muchos intentos fallidos seguidos de uno exitoso, desde un lugar inusual, en la cuenta de administrador del servidor de sueldos, apuntan a un probable compromiso de un sistema crítico. El malware ya está en cuarentena en una notebook de poco valor y puede esperar. El orden de llegada ignora el riesgo, y que el acceso funcionara es lo grave, no un motivo para cerrar. Los casos de uso definidos de antemano dan criterios parejos."
+   }
+  },
+  {
+   "id": "cc-037",
+   "domain": "Security Operations and Incident Response",
+   "prompt": {
+    "en": "A threat intelligence report on a ransomware group active in the company's industry lists the techniques the group uses, mapped to MITRE ATT&CK. What is the most useful thing the security team can do with it?",
+    "es": "Un informe de inteligencia de amenazas sobre un grupo de ransomware activo en la industria de la empresa enumera las técnicas que usa, mapeadas a MITRE ATT&CK. ¿Qué es lo más útil que puede hacer el equipo de seguridad con él?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Block the IP addresses listed in the report and treat the threat as handled",
+      "es": "Bloquear las direcciones IP del informe y dar la amenaza por resuelta"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "File it away, since money-driven ransomware groups only go after large banks and insurers",
+      "es": "Archivarlo, porque los grupos de ransomware que buscan dinero sólo atacan a bancos y aseguradoras grandes"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Use the report to score the severity of its own software vulnerabilities",
+      "es": "Usar el informe para puntuar la gravedad de sus propias vulnerabilidades de software"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Check those techniques against its detections and close the biggest gaps first",
+      "es": "Comparar esas técnicas con sus detecciones y cerrar primero las brechas más grandes"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "MITRE ATT&CK is a knowledge base of adversary tactics and techniques, and intelligence mapped to it can be checked against what the team can detect or prevent, turning a report into a prioritized list of gaps. IP addresses are useful but short-lived indicators that attackers change easily. Financially motivated criminal groups hit organizations of every size and sector. Scoring vulnerability severity is the job of a system like CVSS, not of a threat framework.",
+    "es": "MITRE ATT&CK es una base de conocimiento de tácticas y técnicas de atacantes, y la inteligencia mapeada a ese marco se compara con lo que el equipo detecta o previene, y así un informe se vuelve una lista priorizada de brechas. Las IP sirven, pero son indicadores efímeros que los atacantes cambian fácil. Los grupos que buscan dinero atacan organizaciones de todos los tamaños y sectores. Puntuar la gravedad de vulnerabilidades es tarea de un sistema como CVSS, no de un marco de amenazas."
+   }
+  },
+  {
+   "id": "cc-038",
+   "domain": "Security Operations and Incident Response",
+   "prompt": {
+    "en": "A company has just written its incident response plan. It wants managers from IT, legal, communications and the business to walk through a realistic ransomware scenario around a table, discussing who does what, without touching any systems. What is this called?",
+    "es": "Una empresa acaba de escribir su plan de respuesta a incidentes. Quiere que responsables de IT, legales, comunicación y el negocio recorran alrededor de una mesa un escenario realista de ransomware, discutiendo quién hace qué, sin tocar ningún sistema. ¿Cómo se llama esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A full interruption test",
+      "es": "Una prueba de interrupción total"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A tabletop exercise",
+      "es": "Un ejercicio de mesa (tabletop)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A penetration test",
+      "es": "Una prueba de penetración"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A parallel test",
+      "es": "Una prueba en paralelo"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "A tabletop exercise is a discussion-based session where the people named in the plan talk through a scenario step by step, exposing gaps such as unclear roles, missing contacts or unknown rules on when to notify customers or regulators. It's a cheap, low-risk way to test a new plan. Parallel and full interruption tests actually bring up recovery systems, and the full test even shuts production down. A penetration test attacks systems to find weaknesses; it doesn't test how people respond.",
+    "es": "Un ejercicio de mesa (tabletop) es una sesión de discusión donde las personas que nombra el plan recorren un escenario paso a paso y descubren huecos como roles poco claros, contactos que faltan o dudas sobre cuándo avisar a clientes o reguladores. Es una forma barata y de bajo riesgo de probar un plan nuevo. Las pruebas en paralelo y de interrupción total levantan de verdad la recuperación, y la total además apaga producción. Un pentest ataca sistemas; no prueba cómo responde la gente."
+   }
+  },
+  {
+   "id": "cc-039",
+   "domain": "Security Operations and Incident Response",
+   "prompt": {
+    "en": "A clinic's appointment system runs on an operating system that reached end of life last year and no longer gets security updates. The vendor's new version will take six months to roll out. What should the security team do in the meantime?",
+    "es": "El sistema de turnos de una clínica corre sobre un sistema operativo que llegó al final de su vida útil el año pasado y ya no recibe actualizaciones de seguridad. La versión nueva del fabricante va a tardar seis meses en implementarse. ¿Qué debería hacer el equipo de seguridad mientras tanto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Leave it as it is, since the system hasn't had a single security incident so far",
+      "es": "Dejarlo como está, ya que el sistema no tuvo ni un incidente de seguridad hasta ahora"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Turn off logging on the system to lighten the load on its aging hardware",
+      "es": "Apagar los logs del sistema para alivianar la carga de su hardware viejo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Isolate it, limit and monitor access, and track the risk until the upgrade",
+      "es": "Aislarlo, limitar y monitorear el acceso, y seguir el riesgo hasta la actualización"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Reinstall the last security patches every month to keep it current",
+      "es": "Reinstalar todos los meses los últimos parches de seguridad para mantenerlo al día"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "End-of-life software gets no more security fixes, so new flaws stay open for good. Asset lifecycle management means knowing what is reaching end of life and planning replacements; when a gap is unavoidable, compensating controls such as isolation, tight access rules and closer monitoring reduce exposure, and the remaining risk is formally accepted with a deadline. A clean record says nothing about tomorrow, old patches don't cover new flaws, and logs are what would reveal an attack.",
+    "es": "El software al final de su vida útil ya no recibe correcciones, así que cada falla nueva queda abierta para siempre. Gestionar el ciclo de vida de los activos es saber qué llega a ese punto y planear el reemplazo; si el hueco es inevitable, controles compensatorios como aislarlo, restringir el acceso y vigilarlo bajan la exposición, y el riesgo restante se acepta con fecha límite. Un historial limpio no predice nada, los parches viejos no tapan fallas nuevas y sin logs no se ve un ataque."
+   }
+  },
+  {
+   "id": "cc-040",
+   "domain": "Security Operations and Incident Response",
+   "prompt": {
+    "en": "A team wants to test its web application for flaws such as injection by sending crafted requests to the running application in a test environment, without looking at the source code. Which type of testing is this?",
+    "es": "Un equipo quiere buscar fallas como la inyección en su aplicación web mandándole pedidos armados a propósito a la aplicación en ejecución, en un entorno de pruebas y sin mirar el código fuente. ¿Qué tipo de prueba es esta?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Dynamic application security testing (DAST)",
+      "es": "Pruebas dinámicas de seguridad de aplicaciones (DAST)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Static application security testing (SAST)",
+      "es": "Pruebas estáticas de seguridad de aplicaciones (SAST)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Threat modeling",
+      "es": "Modelado de amenazas"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Purple teaming",
+      "es": "Purple teaming"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Dynamic analysis tests the running application from the outside, as an attacker would, by sending crafted inputs and watching the responses. Static analysis reads source code or binaries without running them, so it finds flaws earlier but misses problems that only show up at runtime. Threat modeling examines the design to find what could go wrong, ideally before code exists. Purple teaming is red and blue teams attacking and tuning detections together, not a scan of one application.",
+    "es": "El análisis dinámico prueba la aplicación en ejecución desde afuera, como un atacante: manda entradas armadas y mira las respuestas. El estático lee el código fuente o los binarios sin ejecutarlos: encuentra fallas antes, pero se pierde las que sólo aparecen en ejecución. El modelado de amenazas revisa el diseño para ver qué puede fallar, idealmente antes del código. El purple teaming es el equipo rojo y el azul atacando y ajustando detecciones juntos, no el análisis de una aplicación."
+   }
+  }
+ ]
+}
