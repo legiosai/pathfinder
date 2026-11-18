@@ -14,8 +14,8 @@
     "typecheck": "tsc --noEmit",
     "check": "tsc --noEmit && vitest run && wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "deploy": "wrangler deploy",
-    "build:vercel": "esbuild vercel/entry.ts --bundle --platform=node --format=esm --target=node22 --outfile=api/index.mjs",
-    "deploy:vercel": "npm run build:vercel && vercel deploy --prod"
+    "build:vercel": "node scripts/build-vercel.mjs",
+    "deploy:vercel": "vercel deploy --prod"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^1.9.0",

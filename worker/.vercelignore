@@ -1,5 +1,9 @@
-# Deploys upload only the bundled function (npm run build:vercel) and this config.
-*
-!api
-!api/index.mjs
-!vercel.json
+# Vercel builds the function on every deploy (npm ci, then npm run build:vercel), so deploys
+# upload the sources and leave out what is local or built there.
+node_modules
+.wrangler
+dist
+api
+.vercel
+.dev.vars*
+test

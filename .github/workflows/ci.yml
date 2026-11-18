@@ -42,3 +42,5 @@ jobs:
       - run: npm test
       # Proves the Worker bundles; it neither logs in nor uploads anything.
       - run: npx wrangler deploy --dry-run --outdir "$RUNNER_TEMP/worker-dry-run"
+      # Proves the Vercel function builds, as Vercel runs it on every deploy; nothing is uploaded.
+      - run: npm run build:vercel
