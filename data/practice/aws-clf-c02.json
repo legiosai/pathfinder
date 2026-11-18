@@ -608,8 +608,8 @@
    "id": "clf-014",
    "domain": "Security and Compliance",
    "prompt": {
-    "en": "Which tasks require signing in as the AWS account root user? (Select TWO.)",
-    "es": "¿Qué tareas requieren entrar con el usuario raíz de la cuenta de AWS? (Elegí DOS.)"
+    "en": "A company has one standalone AWS account that is not part of AWS Organizations. Which tasks require signing in as the AWS account root user? (Select TWO.)",
+    "es": "Una empresa tiene una sola cuenta de AWS independiente, que no forma parte de AWS Organizations. ¿Qué tareas requieren entrar con el usuario raíz de la cuenta? (Elegí DOS.)"
    },
    "options": [
     {
@@ -629,8 +629,8 @@
     {
      "key": "C",
      "text": {
-      "en": "Change the AWS Support plan",
-      "es": "Cambiar el plan de soporte de AWS"
+      "en": "Activate IAM access to the Billing and Cost Management console",
+      "es": "Activar el acceso de IAM a la consola de Billing and Cost Management"
      }
     },
     {
@@ -653,8 +653,8 @@
     "D"
    ],
    "explanation": {
-    "en": "Only the root user can close the account or change the support plan. Everyday tasks such as creating users, policies or instances should be done with IAM identities.",
-    "es": "Solo el usuario raíz puede cerrar la cuenta o cambiar el plan de soporte. Las tareas de todos los días, como crear usuarios, políticas o instancias, se hacen con identidades IAM."
+    "en": "Closing a standalone account and activating IAM access to the Billing and Cost Management console are on AWS's short list of tasks only the root user can do; in an organization, the management account can close member accounts centrally. Creating users, policies and instances should be done with IAM identities or IAM Identity Center, so the root user can stay locked away with MFA and be used only for those rare tasks.",
+    "es": "Cerrar una cuenta independiente y activar el acceso de IAM a la consola de Billing and Cost Management están en la lista corta de tareas que sólo puede hacer el usuario raíz; dentro de una organización, la cuenta de administración puede cerrar cuentas miembro en forma centralizada. Crear usuarios, políticas o instancias se hace con identidades IAM o con IAM Identity Center, así el usuario raíz queda guardado con MFA y se usa sólo para esas tareas puntuales."
    }
   },
   {
@@ -790,6 +790,51 @@
    "explanation": {
     "en": "KMS manages encryption keys. Secrets Manager stores and rotates secrets such as database passwords, ACM manages SSL/TLS certificates, and Cognito handles sign-in for app users.",
     "es": "KMS administra claves de cifrado. Secrets Manager guarda y rota secretos como contraseñas de bases, ACM maneja certificados SSL/TLS y Cognito resuelve el login de los usuarios de una app."
+   }
+  },
+  {
+   "id": "clf-035",
+   "domain": "Security and Compliance",
+   "prompt": {
+    "en": "A company with 12 AWS accounts in AWS Organizations wants employees to sign in with the corporate identity provider they already use and get access to the right accounts, without creating IAM users in each account. Which service should it use?",
+    "es": "Una empresa con 12 cuentas de AWS en AWS Organizations quiere que sus empleados inicien sesión con el proveedor de identidad corporativo que ya usan y accedan a las cuentas que les corresponden, sin crear usuarios IAM en cada cuenta. ¿Qué servicio debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "AWS IAM Identity Center",
+      "es": "AWS IAM Identity Center"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Amazon Cognito",
+      "es": "Amazon Cognito"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "AWS Resource Access Manager (AWS RAM)",
+      "es": "AWS Resource Access Manager (AWS RAM)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Directory Service",
+      "es": "AWS Directory Service"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "IAM Identity Center is the recommended way to give a workforce access to many AWS accounts: it connects to an external identity provider and assigns permission sets per account, so people sign in once and get temporary credentials. Cognito handles sign-in for the customers of your own apps. AWS RAM shares resources such as subnets between accounts. Directory Service runs managed Microsoft Active Directory, which can be an identity source but doesn't assign account access by itself.",
+    "es": "IAM Identity Center es la forma recomendada de darle al personal acceso a muchas cuentas de AWS: se conecta a un proveedor de identidad externo y asigna permission sets por cuenta, así cada uno entra una vez y recibe credenciales temporales. Cognito maneja el login de los clientes de tus aplicaciones. AWS RAM comparte recursos, como subredes, entre cuentas. Directory Service corre Active Directory administrado, que puede ser fuente de identidades pero no asigna accesos a cuentas."
    }
   },
   {
@@ -1296,6 +1341,51 @@
    }
   },
   {
+   "id": "clf-036",
+   "domain": "Cloud Technology and Services",
+   "prompt": {
+    "en": "A team runs a long-running web service as containers on Amazon Elastic Container Service (Amazon ECS). It wants to stop patching and scaling the EC2 instances in the cluster, without rewriting the application. Which option fits?",
+    "es": "Un equipo corre un servicio web de larga duración como contenedores en Amazon Elastic Container Service (Amazon ECS). Quiere dejar de parchear y escalar las instancias EC2 del cluster, sin reescribir la aplicación. ¿Qué opción conviene?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Amazon EC2 Auto Scaling for the cluster's instances",
+      "es": "Amazon EC2 Auto Scaling para las instancias del cluster"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "AWS Lambda",
+      "es": "AWS Lambda"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Amazon Lightsail",
+      "es": "Amazon Lightsail"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "AWS Fargate",
+      "es": "AWS Fargate"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "AWS Fargate is serverless compute for containers: Amazon ECS, or Amazon EKS, runs each task on capacity AWS manages, so there are no instances to patch or scale, and the team keeps its container images and task definitions. EC2 Auto Scaling would add and remove instances automatically, but the team would still own and patch them. Lambda runs functions in response to events, so a long-running web service would need rework, and Lightsail offers simple virtual servers that still need managing.",
+    "es": "AWS Fargate es cómputo serverless para contenedores: ECS (o EKS) corre cada tarea sobre capacidad que administra AWS, sin instancias para parchear ni escalar, y se conservan las imágenes y definiciones de tareas. EC2 Auto Scaling sumaría y quitaría instancias solo, pero el equipo las seguiría parcheando. Lambda ejecuta funciones en respuesta a eventos, así que un servicio web de larga duración necesitaría cambios, y Lightsail da servidores virtuales simples que igual hay que administrar."
+   }
+  },
+  {
    "id": "clf-029",
    "domain": "Billing, Pricing, and Support",
    "prompt": {
@@ -1341,51 +1431,6 @@
    }
   },
   {
-   "id": "clf-030",
-   "domain": "Billing, Pricing, and Support",
-   "prompt": {
-    "en": "A batch job can be stopped and restarted at any time. Which EC2 option gives the lowest cost?",
-    "es": "Un proceso por lotes se puede frenar y reiniciar en cualquier momento. ¿Qué opción de EC2 da el menor costo?"
-   },
-   "options": [
-    {
-     "key": "A",
-     "text": {
-      "en": "Spot Instances",
-      "es": "Spot Instances"
-     }
-    },
-    {
-     "key": "B",
-     "text": {
-      "en": "Reserved Instances",
-      "es": "Reserved Instances"
-     }
-    },
-    {
-     "key": "C",
-     "text": {
-      "en": "On-Demand Instances",
-      "es": "On-Demand Instances"
-     }
-    },
-    {
-     "key": "D",
-     "text": {
-      "en": "Dedicated Instances",
-      "es": "Dedicated Instances"
-     }
-    }
-   ],
-   "correct": [
-    "A"
-   ],
-   "explanation": {
-    "en": "Spot Instances use spare capacity at up to 90% off and fit interruption-tolerant work.",
-    "es": "Las Spot Instances usan capacidad sobrante con hasta 90% de descuento y sirven para trabajos que toleran cortes."
-   }
-  },
-  {
    "id": "clf-031",
    "domain": "Billing, Pricing, and Support",
    "prompt": {
@@ -1428,51 +1473,6 @@
    "explanation": {
     "en": "Pricing Calculator estimates costs before you build. Cost Explorer analyzes past spend, Budgets alerts on thresholds, and the Cost and Usage Report is the most detailed billing data.",
     "es": "Pricing Calculator estima costos antes de construir. Cost Explorer analiza lo ya gastado, Budgets avisa cuando pasás un límite y el Cost and Usage Report es el detalle más completo de facturación."
-   }
-  },
-  {
-   "id": "clf-032",
-   "domain": "Billing, Pricing, and Support",
-   "prompt": {
-    "en": "A company wants an email alert when its forecasted monthly spend exceeds $1,000. Which service should it use?",
-    "es": "Una empresa quiere un aviso por correo cuando el gasto mensual pronosticado pase los USD 1.000. ¿Qué servicio debería usar?"
-   },
-   "options": [
-    {
-     "key": "A",
-     "text": {
-      "en": "AWS Cost Explorer",
-      "es": "AWS Cost Explorer"
-     }
-    },
-    {
-     "key": "B",
-     "text": {
-      "en": "AWS Trusted Advisor",
-      "es": "AWS Trusted Advisor"
-     }
-    },
-    {
-     "key": "C",
-     "text": {
-      "en": "AWS Budgets",
-      "es": "AWS Budgets"
-     }
-    },
-    {
-     "key": "D",
-     "text": {
-      "en": "AWS Pricing Calculator",
-      "es": "AWS Pricing Calculator"
-     }
-    }
-   ],
-   "correct": [
-    "C"
-   ],
-   "explanation": {
-    "en": "AWS Budgets sends alerts based on actual or forecasted cost and usage thresholds.",
-    "es": "AWS Budgets manda alertas según límites de costo o uso, reales o pronosticados."
    }
   },
   {
