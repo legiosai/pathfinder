@@ -25,7 +25,8 @@
     "title": "Anthropic · Claude Certified Architect – Foundations exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: still links the v1.0 guide, terms and exam policy; registration now continues to Pearson.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C03",
@@ -39,21 +40,24 @@
     "title": "Anthropic · Claude Certified Associate – Foundations exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: the exam page now only says that exam details, guides and policies live on the certifications page (C16).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C06",
     "title": "Anthropic · Claude Certified Developer – Foundations exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: the exam page now only says that exam details, guides and policies live on the certifications page (C16).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C07",
     "title": "Anthropic · Claude Certified Architect – Professional exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: the exam page now only says that exam details, guides and policies live on the certifications page (C16).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C08",
@@ -67,7 +71,8 @@
     "title": "Anthropic Partner Academy · Claude certifications overview",
     "url": "https://anthropic-partners.skilljar.com/page/partner-certifications",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Lists the four exams and links each official exam guide, terms and exam policy."
+    "note": "Read 3 November 2026. Lists the four exams and links each official exam guide, terms and exam policy. Reread 2026-11-17: lists the four exams at $99, $125, $125 and $175 USD with prep courses and guide PDFs.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N01",
@@ -1719,6 +1724,62 @@
     "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/sjrg2vjhic7285sph487x53f5e54erf7.pdf",
     "kind": "Issuer exam guide",
     "note": "Read 2026-11-17. Linked from the NCP-OUSD exam page. Eight topic areas with the same weights as the exam page, references per objective, and official sample questions with an answer key.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E20",
+    "title": "Anthropic Partner Academy · Claude certification FAQ",
+    "url": "https://anthropic-partners.skilljar.com/page/faq-certifications",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams and prep content in English and Japanese; online (OnVUE) or Pearson test center; 120 minutes, 720 to pass on 100–1,000; retake waits of 14, 30 and 90 days, at most 4 attempts per rolling 12 months, full fee each; 12-month validity with free on-time renewal; prices $99/$125/$125/$175 before partner discounts; 50% off for Select, Preferred and Global Premier partners, 100% for Global Premier through Dec 31, 2026; since Nov 12, 2026 payment at Pearson checkout via SSO; accommodations and ESL extra time through Pearson; practice exam retired.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E21",
+    "title": "Anthropic Partner Academy · Claude certification policies",
+    "url": "https://anthropic-partners.skilljar.com/page/policies-certifications",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Retake waits of 14, 30 and 90 days, at most four attempts at the same exam in 12 months, each at the standard fee with the partner discount; limits reset with a new exam version; 12-month validity, renewed free through an open-book online assessment; reschedule or cancel up to 1 hour before OnVUE and 48 hours before a test-center exam; accommodations through Pearson.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E22",
+    "title": "Anthropic Partner Academy · Claude certification exam prep courses",
+    "url": "https://anthropic-partners.skilljar.com/page/claude-certification-exam-prep-courses",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Prep course bundles for Associate Foundations, Developer Foundations, Developer Professional, Architect Foundations and Architect Professional; the certifications page calls them free courses on the Partner Academy.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E23",
+    "title": "Anthropic · Claude Certified Architect – Foundations exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542750%2FClaude+Certified+Architect+%E2%80%93+Foundations+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCAR-F: 60 items, 120 minutes, online proctored and/or test center, 720 on 100–1,000, 12-month validity; 4 scenarios drawn at random per sitting.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E24",
+    "title": "Anthropic · Claude Certified Architect – Professional exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542810%2FClaude+Certified+Architect+%E2%80%93+Professional+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCAR-P: 63 items, 120 minutes, online proctoring or a Pearson test center, 720 on 100–1,000, 12-month validity; retakes after 14, 30 and 90 days, up to four attempts in 12 months; cancel or reschedule up to 24 hours before.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E25",
+    "title": "Anthropic · Claude Certified Associate – Foundations exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542847%2FClaude+Certified+Associate+%E2%80%93+Foundations+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCAO-F: 60 items, 120 minutes, online proctored and/or test center, 720 on 100–1,000, 12-month validity.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E26",
+    "title": "Anthropic · Claude Certified Developer – Foundations exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542875%2FClaude+Certified+Developer+%E2%80%93+Foundations+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCDV-F: 53 items, 120 minutes, online proctored and/or test center, 720 on 100–1,000, 12-month validity.",
     "checked_on": "2026-11-17"
   }
 ]
