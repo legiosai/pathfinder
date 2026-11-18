@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { clientIp } from '../src/handler';
+import type { Env } from '../src/config';
+import { clientIp, createHandler, vercelClientIp } from '../src/handler';
 import { memoryLimiter } from '../vercel/limiter';
+import { context, env, harness, ORIGIN } from './helpers';
 
 describe('clientIp', () => {
   const req = (headers: Record<string, string>) => new Request('https://example.test/chat', { headers });
@@ -9,6 +11,34 @@ describe('clientIp', () => {
     expect(clientIp(req({ 'x-real-ip': '2.2.2.2', 'x-forwarded-for': '3.3.3.3' }))).toBe('2.2.2.2');
     expect(clientIp(req({ 'x-forwarded-for': ' 3.3.3.3 , 10.0.0.1' }))).toBe('3.3.3.3');
     expect(clientIp(req({}))).toBe('unknown');
+  });
+});
+
+describe('vercelClientIp', () => {
+  const req = (headers: Record<string, string>) => new Request('https://example.test/chat', { headers });
+  it("reads the address Vercel sets and never cf-connecting-ip, which a client can send there", () => {
+    expect(vercelClientIp(req({ 'cf-connecting-ip': '1.1.1.1', 'x-real-ip': '2.2.2.2' }))).toBe('2.2.2.2');
+    expect(vercelClientIp(req({ 'cf-connecting-ip': '1.1.1.1' }))).toBe('unknown');
+    expect(vercelClientIp(req({ 'x-vercel-forwarded-for': '4.4.4.4, 10.0.0.1', 'x-forwarded-for': '3.3.3.3' }))).toBe('4.4.4.4');
+    expect(vercelClientIp(req({ 'x-forwarded-for': ' 3.3.3.3 , 10.0.0.1' }))).toBe('3.3.3.3');
+  });
+
+  it('keeps counting one visitor who sends a new cf-connecting-ip on every request', async () => {
+    const handle = createHandler({ ...harness().deps, clientIp: vercelClientIp });
+    const e = env({ CHAT_LIMITER: memoryLimiter({ limit: 2, periodMs: 60_000 }) as unknown as Env['CHAT_LIMITER'] });
+    const statuses: number[] = [];
+    for (let i = 1; i <= 3; i++) {
+      // text/plain is refused with 400 after the limiter counts it, so no model call is needed.
+      const request = new Request('https://pathfinder-api.legios.com.ar/chat', {
+        method: 'POST',
+        headers: { origin: ORIGIN, 'content-type': 'text/plain', 'x-real-ip': '203.0.113.7', 'cf-connecting-ip': `198.51.100.${i}` },
+        body: 'x',
+      });
+      const { ctx, settle } = context();
+      statuses.push((await handle(request, e, ctx)).status);
+      await settle();
+    }
+    expect(statuses).toEqual([400, 400, 429]);
   });
 });
 

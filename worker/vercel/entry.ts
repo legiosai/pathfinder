@@ -1,9 +1,10 @@
 // Vercel entry point: the same handler as the Worker (src/index.ts), with Claude reached through
-// Vercel AI Gateway. scripts in package.json bundle this file into api/index.mjs for deploys.
+// Vercel AI Gateway. scripts/build-vercel.mjs bundles it, behind vercel/node-adapter.mjs, into the
+// function Vercel serves.
 
 import Anthropic from '@anthropic-ai/sdk';
 import type { Env } from '../src/config';
-import { createHandler } from '../src/handler';
+import { createHandler, vercelClientIp } from '../src/handler';
 import { memoryLimiter } from './limiter';
 
 // Node's process, declared here so the Worker's type set (no @types/node) still checks this file.
@@ -27,6 +28,7 @@ const handle = createHandler({
   // Counts, latency and token usage only: never message text, never the key.
   log: (entry) => console.log(JSON.stringify(entry)),
   mockDelayMs: 40,
+  clientIp: vercelClientIp,
 });
 
 const limiter = memoryLimiter({ limit: 8, periodMs: 60_000 });
