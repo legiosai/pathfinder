@@ -12,6 +12,7 @@
     "start": "node scripts/build.mjs && node scripts/serve.mjs",
     "og": "node scripts/build.mjs && node scripts/og.mjs",
     "test": "node --test \"tests/*.test.mjs\"",
+    "smoke": "node scripts/smoke.mjs",
     "chat-mock": "node scripts/chat-mock.mjs"
   }
 }
