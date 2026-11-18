@@ -175,6 +175,12 @@ export async function startTurn(turn: TurnContext): Promise<ModelStart> {
       if (final.stop_reason !== 'max_tokens') out = collectOutputs(final.content, known);
       if (out) named = namedPicks(reply, out, mentions);
       const picks = out?.picks.length ? out.picks : named;
+      // Cards alone don't answer the person: when Claude wrote no text, its lead sentence stands in.
+      if (textChars === 0 && picks.length && out?.lead) {
+        textChars = out.lead.length;
+        reply = out.lead;
+        await write(textEvent(out.lead));
+      }
       if (picks.length) await write(picksEvent(picks));
       if (out?.roadmap) await write(roadmapEvent(out.roadmap));
       if (out?.comparison.length) await write(comparisonEvent(out.comparison));

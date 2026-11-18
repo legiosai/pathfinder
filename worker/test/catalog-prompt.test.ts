@@ -155,7 +155,7 @@ describe('system prompt and tool', () => {
         if (prop.type === 'array' && prop.items.type === 'object') expect(prop.items.additionalProperties, `${tool.name}.${key}`).toBe(false);
       }
     }
-    expect(SHOW_TOOL.input_schema).toMatchObject({ required: ['picks'] });
+    expect(SHOW_TOOL.input_schema).toMatchObject({ required: ['picks', 'lead'] });
     const items = (SHOW_TOOL.input_schema.properties as any).picks.items;
     expect(items).toMatchObject({ required: ['id', 'why'], additionalProperties: false });
     expect(Object.keys(items.properties)).toEqual(['id', 'why', 'warning']);
