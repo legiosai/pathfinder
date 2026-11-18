@@ -19,7 +19,15 @@
     "questions": "Maximum of 90",
     "question_count": 90,
     "passing": "Pass/fail only (no scaled score)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Advanced security architecture and engineering for the enterprise: governance, risk, compliance and threat modeling, resilient and Zero Trust architecture, cloud security, IAM, endpoint and network security, automation and advanced cryptography, and security operations.",
   "requirements": "",
@@ -28,6 +36,10 @@
     "SecurityX is the former CompTIA Advanced Security Practitioner (CASP+); the rename came with exam CAS-005 (V5), launched on December 17, 2024. CompTIA estimates CAS-005 will retire about three years after launch (2027); no successor had been announced on 2026-11-17.",
     "Renewal: the certification lasts three years. Renew with 75 CEUs plus a $150 CE fee per three-year cycle, or by passing the latest version of the exam."
   ],
+  "access": {
+    "retake": "No wait between the first and second attempt; at least 14 days before the third and later ones. Every attempt is paid in full, unless you bought a voucher with Retake Assurance, which includes one retake.",
+    "accommodations": "In a non-English-speaking country, taking the exam in English when there is no localized version gives 30 extra minutes (ESL), added automatically at Pearson VUE."
+  },
   "skills": [
     "security",
     "architecture",
@@ -64,7 +76,10 @@
     "S14",
     "S15",
     "S16",
-    "S17"
+    "S17",
+    "D09",
+    "D10",
+    "D11"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

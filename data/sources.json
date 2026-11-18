@@ -1060,14 +1060,16 @@
     "title": "CompTIA · Security+ V8 (SY0-801)",
     "url": "https://www.comptia.org/en-us/certifications/security/v8/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam series code SY0-801, launched November 17, 2026; maximum of 90 multiple-choice and performance-based questions, 90 minutes, 750 on a 100–900 scale, English, two years as a security administrator recommended, retirement estimated three years after launch; domain weights 16/24/19/27/14. The page's Buy now listing shows the US list prices (USD, North America market): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209."
+    "note": "Read 2026-11-17. Exam series code SY0-801, launched November 17, 2026; maximum of 90 multiple-choice and performance-based questions, 90 minutes, 750 on a 100–900 scale, English, two years as a security administrator recommended, retirement estimated three years after launch; domain weights 16/24/19/27/14. The page's Buy now listing shows the US list prices (USD, North America market): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S03",
     "title": "CompTIA · Security+ V7 (SY0-701)",
     "url": "https://www.comptia.org/en-us/certifications/security/v7/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Retiring version: SY0-701 launched November 7, 2023; retires in English on June 11, 2027 and in Japanese, Portuguese, Spanish and Thai on August 13, 2027; same 90 questions, 90 minutes and 750 pass mark; domain weights 12/22/18/28/20; voucher $439."
+    "note": "Read 2026-11-17. Retiring version: SY0-701 launched November 7, 2023; retires in English on June 11, 2027 and in Japanese, Portuguese, Spanish and Thai on August 13, 2027; same 90 questions, 90 minutes and 750 pass mark; domain weights 12/22/18/28/20; voucher $439.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S04",
@@ -1088,7 +1090,8 @@
     "title": "CompTIA · CySA+ V4 (CS0-004)",
     "url": "https://www.comptia.org/en-us/certifications/cybersecurity-analyst/v4/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam series code CS0-004, launched June 23, 2026; maximum of 85 questions, 165 minutes, 750 on a 100–900 scale; English with French, Japanese, Spanish and Portuguese coming soon; about four years as a SOC or vulnerability analyst recommended; domain weights 34/26/24/16. Buy now listing (USD list): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209."
+    "note": "Read 2026-11-17. Exam series code CS0-004, launched June 23, 2026; maximum of 85 questions, 165 minutes, 750 on a 100–900 scale; English with French, Japanese, Spanish and Portuguese coming soon; about four years as a SOC or vulnerability analyst recommended; domain weights 34/26/24/16. Buy now listing (USD list): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S07",
@@ -1110,7 +1113,8 @@
     "title": "CompTIA · PenTest+ (PT0-003)",
     "url": "https://www.comptia.org/en-us/certifications/pentest/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam series code PT0-003 (V3), launched December 17, 2024; previous exam retired June 17, 2025; retirement estimated 2027; maximum of 90 questions, 165 minutes, 750 on a 100–900 scale; English, French, Japanese and Portuguese; domain weights 13/21/17/35/14. Buy now listing (USD list): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209."
+    "note": "Read 2026-11-17. Exam series code PT0-003 (V3), launched December 17, 2024; previous exam retired June 17, 2025; retirement estimated 2027; maximum of 90 questions, 165 minutes, 750 on a 100–900 scale; English, French, Japanese and Portuguese; domain weights 13/21/17/35/14. Buy now listing (USD list): voucher $439, voucher with Retake Assurance $579, bundles from $593, CertMaster Learn $599, Practice $209.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S10",
@@ -1124,7 +1128,8 @@
     "title": "CompTIA · SecurityX (CAS-005)",
     "url": "https://www.comptia.org/en-us/certifications/securityx/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam series code CAS-005 (V5), launched December 17, 2024; retirement estimated 2027; maximum of 90 questions, maximum of 165 minutes, pass/fail with no scaled score; English and Japanese; ten years of IT experience including five in security recommended; domain weights 20/27/31/22. Buy now listing (USD list): voucher $544, voucher with Retake Assurance $709, bundles from $748, CertMaster Perform $984, Practice $284."
+    "note": "Read 2026-11-17. Exam series code CAS-005 (V5), launched December 17, 2024; retirement estimated 2027; maximum of 90 questions, maximum of 165 minutes, pass/fail with no scaled score; English and Japanese; ten years of IT experience including five in security recommended; domain weights 20/27/31/22. Buy now listing (USD list): voucher $544, voucher with Retake Assurance $709, bundles from $748, CertMaster Perform $984, Practice $284.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S12",
@@ -1180,7 +1185,8 @@
     "title": "ISC2 · CC Certification Exam Outline",
     "url": "https://www.isc2.org/certifications/cc/cc-certification-exam-outline",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17, with the English PDF (revised 01-2026). Effective September 1, 2026: CAT for all languages, 2 hours, 100–125 items, 700 of 1,000 to pass, English, Chinese, Japanese, German and Spanish at Pearson VUE; average weights 24, 17.3, 20, 21.3 and 17.3%. No experience or degree required."
+    "note": "Read 2026-11-17, with the English PDF (revised 01-2026). Effective September 1, 2026: CAT for all languages, 2 hours, 100–125 items, 700 of 1,000 to pass, English, Chinese, Japanese, German and Spanish at Pearson VUE; average weights 24, 17.3, 20, 21.3 and 17.3%. No experience or degree required.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S27",
@@ -1230,7 +1236,8 @@
     "title": "ISC2 · Schedule your exam",
     "url": "https://www.isc2.org/exams/schedule-exam",
     "kind": "Issuer policy",
-    "note": "Read 2026-11-17. All exams at Pearson VUE test centers; Pearson charges U.S. $50 to reschedule and U.S. $100 to cancel; the fee is not refunded if the exam is not taken within 365 days of purchase."
+    "note": "Read 2026-11-17. All ISC2 exams are offered at Pearson testing centers worldwide; Pearson charges U.S. $50 to reschedule and U.S. $100 to cancel; the fee is not refunded if the exam is not taken within 365 days of purchase.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S34",
@@ -1244,7 +1251,8 @@
     "title": "ISC2 · SSCP Certification Exam Outline",
     "url": "https://www.isc2.org/certifications/sscp/sscp-certification-exam-outline",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17, with the English PDF. Effective October 1, 2025: CAT, 2 hours, 100–125 items, 700 of 1,000 to pass, English, Japanese and Spanish; seven domains with average weights; one year of experience, which a relevant degree can satisfy."
+    "note": "Read 2026-11-17, with the English PDF. Effective October 1, 2025: CAT, 2 hours, 100–125 items, 700 of 1,000 to pass, English, Japanese and Spanish; seven domains with average weights; one year of experience, which a relevant degree can satisfy.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S36",
@@ -1258,7 +1266,8 @@
     "title": "ISC2 · CISSP Certification Exam Outline",
     "url": "https://www.isc2.org/certifications/cissp/cissp-certification-exam-outline",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17, with both English PDFs. Current outline effective April 15, 2024: CAT in all five languages, 3 hours, 100–150 items, 700 of 1,000 to pass, weights 16/10/13/13/13/12/13/10%. Outline effective April 15, 2027: Domain 1 renamed Security Governance and Risk Management, weights 13.6/12/12.8/12.8/13.6/11.2/12.8/11.2%, same length and item range."
+    "note": "Read 2026-11-17, with both English PDFs. Current outline effective April 15, 2024: CAT in all five languages, 3 hours, 100–150 items, 700 of 1,000 to pass, weights 16/10/13/13/13/12/13/10%. Outline effective April 15, 2027: Domain 1 renamed Security Governance and Risk Management, weights 13.6/12/12.8/12.8/13.6/11.2/12.8/11.2%, same length and item range.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S38",
@@ -1279,14 +1288,16 @@
     "title": "ISC2 · CCSP Certification Exam Outline",
     "url": "https://www.isc2.org/certifications/ccsp/ccsp-certification-exam-outline",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17, with the English PDF (01-2026 V2). Effective August 1, 2026: CAT, 3 hours, 100–150 items, 700 of 1,000 to pass, English, Chinese, German and Japanese; six domains with average weights. Experience: five years in IT, three in cybersecurity, one in a CCSP domain; a degree or CSA CCSK waives one year; an active CISSP covers the whole requirement."
+    "note": "Read 2026-11-17, with the English PDF (01-2026 V2). Effective August 1, 2026: CAT, 3 hours, 100–150 items, 700 of 1,000 to pass, English, Chinese, German and Japanese; six domains with average weights. Experience: five years in IT, three in cybersecurity, one in a CCSP domain; a degree or CSA CCSK waives one year; an active CISSP covers the whole requirement.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S50",
     "title": "ISACA · CISM certification",
     "url": "https://www.isaca.org/credentialing/cism",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam US$575 for members and US$760 for non-members, US$50 application fee after passing, PSI test centres or remote proctoring, six languages, six-month eligibility window, five years from passing to apply."
+    "note": "Read 2026-11-17. Exam US$575 for members and US$760 for non-members, US$50 application fee after passing, PSI test centres or remote proctoring, six languages, six-month eligibility window, five years from passing to apply.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S51",
@@ -1321,7 +1332,8 @@
     "title": "ISACA · Certification Exam Candidate Guide (2026)",
     "url": "https://www.isaca.org/-/media/files/isacadp/project/isaca/certification/exam-candidate-guides/2026/exam-candidate-guide.pdf",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17 (PDF modified 27 October 2026). CISA and CISM: 150 multiple-choice questions in 4 hours; scaled scores 200–800, pass at 450; member/non-member fees US$575/US$760; experience waivers up to three years for CISA and two for CISM; four attempts in a rolling 12 months with 30/90/90-day waits; same domain weights as the outline pages."
+    "note": "Read 2026-11-17 (PDF modified 27 October 2026). CISA and CISM: 150 multiple-choice questions in 4 hours; scaled scores 200–800, pass at 450; member/non-member fees US$575/US$760; experience waivers up to three years for CISA and two for CISM; four attempts in a rolling 12 months with waits of 30 days before the second and 90 days before the third and fourth, each paid in full. Exam languages: CISA in English, Spanish, Simplified Chinese, French, German, Korean and Japanese; CISM in English, Spanish, Simplified Chinese, Japanese, French and German.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S56",
@@ -1335,7 +1347,8 @@
     "title": "ISACA · CISA certification",
     "url": "https://www.isaca.org/credentialing/cisa",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam US$575 for members and US$760 for non-members, US$50 application fee, PSI test centres or remote proctoring, seven languages, six-month eligibility window, five years from passing to apply."
+    "note": "Read 2026-11-17. Exam US$575 for members and US$760 for non-members, US$50 application fee, PSI test centres or remote proctoring, seven languages, six-month eligibility window, five years from passing to apply.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S58",
@@ -1624,6 +1637,38 @@
     "url": "https://aws.amazon.com/certification/policies/after-testing/",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. After a failed exam, wait 14 calendar days to retake; no limit on attempts, but each attempt costs the full registration fee. A passed exam cannot be retaken for two years unless a new version (new guide and code) is out.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D09",
+    "title": "CompTIA · Certification retake policy",
+    "url": "https://www.comptia.org/en-us/resources/test-policies/comptia-certification-retake-policy/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. No waiting period between the first and second attempt; at least 14 calendar days before the third and any later attempt. Candidates pay the exam price each time; CompTIA offers no free re-tests or retake discounts.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D10",
+    "title": "CompTIA · Schedule your exam",
+    "url": "https://www.comptia.org/en-us/resources/schedule-exam/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exams are scheduled through Pearson VUE, in person at a Pearson VUE test center or online through OnVUE; the exam language is chosen when booking.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D11",
+    "title": "CompTIA · Candidate testing policies",
+    "url": "https://www.comptia.org/en-us/resources/test-policies/candidate-testing-policies/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. English as a Second Language (ESL): a 30-minute extension for exams delivered in English in non-English-speaking countries where no localized version of the exam exists, granted automatically when registering at Pearson VUE; not available in English-speaking countries. Disability accommodations go through Pearson VUE.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D12",
+    "title": "ISC2 · After your exam (retake policy)",
+    "url": "https://www.isc2.org/exams/after-your-exam",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Retakes for every ISC2 certification: after the first attempt wait 30 test-free days, after the second 60, after the third and later 90; at most four attempts in a 12-month period per certification.",
     "checked_on": "2026-11-17"
   }
 ]
