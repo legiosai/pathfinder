@@ -1842,5 +1842,133 @@
     "kind": "Issuer ordering guide",
     "note": "Read 2026-11-17. Revision dated November 10, 2026: all self-paced lessons are free of charge; exam vouchers exist only for NSE 4–7 exams and NSE 8 recertification; NSE 1 and NSE 2 require completing the online course, NSE 3 the course and an online exam.",
     "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F40",
+    "title": "Microsoft · Cloud and AI Security Engineer Associate (SC-500)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/cloud-and-ai-security-engineer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam SC-500 leads to Microsoft Certified: Cloud and AI Security Engineer Associate (Intermediate level); 120 minutes, proctored, interactive components possible; offered in English, Japanese, Simplified and Traditional Chinese, Korean, German, French, Italian, Portuguese (Brazil) and Spanish; scheduled through Pearson VUE; price by the country where it is proctored (US$165 for the United States, US$99 for Argentina on this date); free self-paced course SC-500T00 (12 learning paths); the practice assessment is not available yet; retake 24 hours after the first attempt.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F41",
+    "title": "Microsoft · Study guide for Exam SC-500",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-500",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17 (page last updated 05/13/2026; no 'skills measured as of' date). 700 or greater to pass; 30 extra minutes on request when the exam isn't in your language. Skills: manage identity, access, and governance 20–25%; secure storage, databases, and networking 25–30%; secure compute 20–25% (includes implementing security for AI: Purview DSPM, Copilot Studio agents, Entra Agent ID, AI Gateway in API Management, Defender for AI, Foundry guardrails); manage and monitor security posture 20–25% (Defender for Cloud, Sentinel, Security Copilot). A Spanish machine translation is published at the es-es address.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F42",
+    "title": "Microsoft · Azure Security Engineer Associate (AZ-500, retired)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-security-engineer/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Warns that the certification, Exam AZ-500 and its renewal assessments were retired on August 31, 2026; it can no longer be earned or renewed. The AZ-500 study guide says the exam retired at 11:59 PM Central Standard Time and links to the SC-500 study guide.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F43",
+    "title": "Microsoft · Exam retake policies",
+    "url": "https://learn.microsoft.com/en-us/credentials/support/retake-policy",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Role-based exams: 24 hours before the first retake, 14 days between later attempts, at most five attempts in 12 months; retakes are paid. Beta exams can be taken once during the beta; a failed beta can be retaken once the exam is live.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F44",
+    "title": "Microsoft · About online exams with Pearson VUE",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/online-exams",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Microsoft exams can be taken online with a Pearson VUE proctor (OnVUE) in most countries or at a test center; greeters and proctors speak English even when the exam is in another language; no help from people or AI tools during the exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F45",
+    "title": "Microsoft · Offers (Exam Replay)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals",
+    "kind": "Issuer offer",
+    "note": "Read 2026-11-17. Exam Replay, sold through Pearson VUE: one exam voucher plus one retake of the same exam, both taken within 12 months of purchase; online exams allowed. No price on the page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F46",
+    "title": "Microsoft · Student discounts",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts",
+    "kind": "Issuer offer",
+    "note": "Read 2026-11-17. Academic pricing on certification exams in most countries (not India or China) after verifying student status in the Learn profile. No amount on the page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F47",
+    "title": "AWS · Certified Machine Learning Engineer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Registration for the updated exam (MLA-C02) beta is open: 170 minutes, 85 multiple choice and multiple response questions, US$75 beta price, English only (Japanese, Korean and Simplified Chinese at general availability, date TBD); the table lists its exam code as ME1-C02. Beta registration opened September 1, 2026 and delivery began September 29, 2026; results typically within 5 business days. MLA-C01 (130 minutes, 65 questions, US$150) ended in English on September 28, 2026 and stays in Korean, Japanese and Simplified Chinese until MLA-C02 is generally available. Pearson VUE test center or online; valid 3 years; at least 1 year with SageMaker AI, Amazon Bedrock and other ML engineering services recommended.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F48",
+    "title": "AWS · MLA-C02 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Multiple choice and multiple response; 50 scored and 15 unscored questions; 720 to pass (100–1,000), compensatory scoring; pass/fail designation does not apply to the beta. Domains: data preparation for ML and AI 28%, ML model and foundation model development 24%, deployment and orchestration of ML and AI workflows 24%, operating, monitoring and securing ML and AI solutions 24%. Covers traditional ML and foundation models, RAG, agents and CI/CD. The MLA-C01 guide address now returns a not-found page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F49",
+    "title": "AWS · Comparison of MLA-C01 and MLA-C02",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/mla-02-comparison.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. MLA-C01 in use until September 28, 2026 and MLA-C02 from September 29, 2026. MLA-C01 weights: data preparation 28%, model development 26%, deployment and orchestration 22%, monitoring, maintenance and security 24%. MLA-C02 adds vector databases, embeddings, RAG, foundation model fine-tuning and evaluation, agents, Bedrock Guardrails and FM cost management; drops SageMaker Neo edge optimization and bring-your-own-container.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F50",
+    "title": "AWS · Certification policies after testing",
+    "url": "https://aws.amazon.com/certification/policies/after-testing/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. After a failed exam, wait 14 calendar days to retake and pay the full fee for each attempt; no limit on attempts; a passed exam can't be retaken for two years. Beta exams can be taken only once.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F51",
+    "title": "Google · Cybersecurity Certificate (Grow with Google)",
+    "url": "https://grow.google/certificates/cybersecurity/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Self-paced program on Coursera, under six months at 5–10 hours a week; no experience required; US$49 a month in the U.S. and Canada after a 7-day free trial; covers Python, Linux, SQL, SIEM tools (Chronicle, Splunk), Suricata, tcpdump and Wireshark; graduates get discounted access to the CompTIA Security+ exam and training; job titles include SOC analyst; employer consortium of 150+ U.S. companies.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F52",
+    "title": "Coursera · Google Cybersecurity Professional Certificate",
+    "url": "https://www.coursera.org/professional-certificates/google-cybersecurity",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Beginner level, '9 course series' (the description and FAQ still say 8 courses), 6 months at 7 hours a week, 170 hours of instruction with practice-based assessments, hands-on labs and portfolio activities; course hours 10, 9, 12, 23, 19, 17, 25, 13 and 6. Taught in English; the language dialog lists Spanish among automatic translations (instructional content only). US$49 a month in the U.S. and Canada after a 7-day trial; most learners finish for under US$300; financial aid available. Credly badge with an ACE recommendation of up to 9 college credits (7 ECTS).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F53",
+    "title": "Coursera · Fundamentos de la ciberseguridad (Google, Spanish)",
+    "url": "https://www.coursera.org/learn/fundamentos-de-la-ciberseguridad",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. First course of the Spanish version, taught in Spanish (13 assignments), listed as part of the 'Ciberseguridad de Google Professional Certificate'; enrolling also enrolls you in that certificate. Other Spanish courses of the series are online. The Spanish program's own address now redirects to the English program page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F54",
+    "title": "Coursera · Apply for financial aid",
+    "url": "https://www.coursera.support/s/article/209819033-Apply-for-Financial-Aid-or-a-Scholarship",
+    "kind": "Platform policy",
+    "note": "Read 2026-11-17. Financial aid is applied for per course (150-word application, reviewed in up to 16 days; canceled if you start a free trial) and gives a discount that depends on the application and location; it can lower the cost but can't cover it in full. 180 days to finish each course.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F55",
+    "title": "Grow with Google España · Certificado Profesional de Google en Ciberseguridad",
+    "url": "https://grow.google/intl/es/google-career-certificates/cybersecurity/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Spanish page for the program: no experience needed, 100% online, under six months at your own pace; links to the Coursera enrollment page.",
+    "checked_on": "2026-11-17"
   }
 ]

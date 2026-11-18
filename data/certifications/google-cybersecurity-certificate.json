@@ -1,0 +1,127 @@
+{
+  "id": "google-cybersecurity-certificate",
+  "name": "Google Cybersecurity Professional Certificate",
+  "provider": "Google",
+  "code": "Cybersecurity Certificate",
+  "type": "certificate",
+  "category": "Cybersecurity",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Coursera subscription",
+    "note": "Paid as a monthly Coursera subscription: US$49 a month in the U.S. and Canada after a 7-day free trial, so the total depends on how long you take. Coursera says most learners finish in under six months for less than US$300, and the price may be lower in other countries. Coursera financial aid can lower the cost but not cover it in full."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "No final proctored exam. The certificate is earned by passing the graded assignments (mostly quizzes) in each course of the online program, alongside hands-on labs and portfolio activities. Self-paced; Coursera estimates 6 months at about 7 hours a week (170 hours of instruction).",
+    "languages": [
+      "en",
+      "es"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "scope": "Entry-level security analyst skills: security frameworks and controls, risk management, networks and network security, Linux and SQL, assets, threats and vulnerabilities, detection and incident response with SIEM tools (Chronicle, Splunk) and IDS (Suricata), Python automation, and job search preparation, with AI used for security tasks.",
+  "requirements": "No prior experience or degree required.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Coursera's program page lists nine courses (the newest, 'Accelerate Your Job Search with AI', is about the job search) while its description and FAQ still say eight.",
+    "Spanish: Google's courses taught in Spanish ('Fundamentos de la ciberseguridad' and the rest) are online and listed as part of the 'Ciberseguridad de Google' certificate, but that program's own Coursera address now opens the English program, which offers Spanish only as an automatic translation of the instructional content. Check the language when you enroll.",
+    "This is a course certificate, not a proctored certification. Google says it helps prepare for CompTIA Security+ and that graduates get the Security+ exam and training at a discounted price.",
+    "On completion you can claim a Credly badge carrying an ACE recommendation of up to 9 college credits (7 ECTS); each institution decides whether to accept it. Google's employer consortiums (150+ employers in the U.S.) currently run in the U.S., Canada, India, Singapore and Indonesia."
+  ],
+  "skills": [
+    "security",
+    "networking",
+    "linux",
+    "python"
+  ],
+  "roles": [
+    "security",
+    "soc-analyst"
+  ],
+  "domains": [
+    {
+      "name": "Foundations of Cybersecurity",
+      "weight": 7
+    },
+    {
+      "name": "Play It Safe: Manage Security Risks",
+      "weight": 7
+    },
+    {
+      "name": "Connect and Protect: Networks and Network Security",
+      "weight": 9
+    },
+    {
+      "name": "Tools of the Trade: Linux and SQL",
+      "weight": 17
+    },
+    {
+      "name": "Assets, Threats, and Vulnerabilities",
+      "weight": 14
+    },
+    {
+      "name": "Sound the Alarm: Detection and Response",
+      "weight": 13
+    },
+    {
+      "name": "Automate Cybersecurity Tasks with Python",
+      "weight": 19
+    },
+    {
+      "name": "Put It to Work: Prepare for Cybersecurity Jobs",
+      "weight": 10
+    },
+    {
+      "name": "Accelerate Your Job Search with AI",
+      "weight": 4
+    }
+  ],
+  "sources": [
+    "F51",
+    "F52",
+    "F53",
+    "F54",
+    "F55"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Google Cybersecurity Professional Certificate on Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-cybersecurity",
+      "kind": "course",
+      "cost": "paid",
+      "note": "The program itself: nine courses with labs, quizzes and portfolio activities."
+    },
+    {
+      "title": "Fundamentos de la ciberseguridad (curso 1 en español)",
+      "url": "https://www.coursera.org/learn/fundamentos-de-la-ciberseguridad",
+      "kind": "course",
+      "cost": "paid",
+      "lang": "es",
+      "note": "First course of the version taught in Spanish."
+    },
+    {
+      "title": "Certificado Profesional de Google en Ciberseguridad",
+      "url": "https://grow.google/intl/es/google-career-certificates/cybersecurity/",
+      "kind": "docs",
+      "cost": "free",
+      "lang": "es",
+      "note": "Google's overview of the program in Spanish."
+    }
+  ],
+  "domains_note": "Not exam domains: the program has no final exam. Weights are the course lengths Coursera lists on the program page (10, 9, 12, 23, 19, 17, 25, 13 and 6 hours), converted to shares of the 134 hours and rounded to whole numbers that add up to 100. Read 2026-11-17.",
+  "access": {
+    "discounts": [
+      {
+        "text": "Coursera financial aid: apply per course (reviewed in up to 16 days); it lowers the price based on your application and location but cannot cover the full cost.",
+        "url": "https://www.coursera.support/s/article/209819033-Apply-for-Financial-Aid-or-a-Scholarship"
+      }
+    ]
+  }
+}

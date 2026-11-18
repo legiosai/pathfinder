@@ -20,7 +20,7 @@ No tracking. Messages you type in the chat go to pathfinder's server on Vercel, 
 
 ## The catalog
 
-The catalog lists 85 certifications in AI engineering, ML foundations, AI security, cybersecurity, cloud platforms, DevOps and Kubernetes, networking, and data and analytics, from Anthropic, AWS, Microsoft, Google Cloud, NVIDIA, CompTIA, ISC2, ISACA, the Linux Foundation, Databricks, Snowflake, Cisco, GitHub and others.
+The catalog lists 94 certifications in AI engineering, ML foundations, AI security, cybersecurity, cloud platforms, DevOps and Kubernetes, Linux, networking, and data and analytics, from Anthropic, AWS, Microsoft, Google Cloud, NVIDIA, CompTIA, ISC2, ISACA, the Linux Foundation, Databricks, Snowflake, Cisco, GitHub and others.
 
 - `data/certifications/<id>.json`: one file per certification. Provider facts only (fee, format, domains, requirements), each with its sources and the date they were checked.
 - `data/practice/<id>.json`: original practice questions for a certification, in English and Spanish, under CC BY 4.0. They are never real or recalled exam questions.
@@ -28,7 +28,7 @@ The catalog lists 85 certifications in AI engineering, ML foundations, AI securi
 - `data/reports.json`: public candidate reports (how people prepared, effort, limits). They describe experiences; they do not set a pass rate.
 - `data/taxonomy.json`: skills, roles, levels and the rough hour ranges the planner starts from.
 
-Provider facts were checked in October and November 2026; exam domain weights for 70 of the 85 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
+Provider facts were checked in October and November 2026; exam domain weights for 75 of the 94 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
 
 ## Run it locally
 

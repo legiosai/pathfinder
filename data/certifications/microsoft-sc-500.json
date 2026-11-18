@@ -1,0 +1,147 @@
+{
+  "id": "microsoft-sc-500",
+  "name": "Microsoft Certified: Cloud and AI Security Engineer Associate",
+  "provider": "Microsoft",
+  "code": "SC-500",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by the country where the exam is proctored. On 2026-11-17 the certification page showed US$165 for the United States and US$99 for Argentina; taxes may apply."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Proctored 120-minute exam (Exam SC-500: Implementing End-to-End Security Controls for Cloud and AI Workloads) through Pearson VUE, online or at a test center; interactive components may appear. Microsoft does not publish the question count or question types per exam. Microsoft recommends practical experience administering Azure and hybrid environments, strong familiarity with Microsoft Entra ID and familiarity with Microsoft 365 administration.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans",
+      "zh-Hant",
+      "ko",
+      "de",
+      "fr",
+      "it",
+      "pt-BR",
+      "es"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Security controls across Azure, hybrid and AI workloads: identity, access and governance with Entra ID, Key Vault and Azure Policy; securing storage, databases and networks; securing compute, containers, application services and AI (Purview DSPM, Copilot Studio agents, Entra Agent ID, Foundry guardrails, Defender for AI); and posture management with Defender for Cloud, Microsoft Sentinel and Security Copilot.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "SC-500 replaces Exam AZ-500 (Azure Security Engineer Associate), which retired with its renewal assessment on August 31, 2026. AZ-500 prep material covers most of the infrastructure topics but not the AI security tasks, which sit inside the Secure compute domain.",
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for SC-500. The study guide gives no 'skills measured as of' date (page updated May 13, 2026).",
+    "The free practice assessment is not available yet; Microsoft says practice assessments usually appear within eight weeks of an exam leaving beta.",
+    "The certification expires after 12 months; renewal is free through an unproctored online assessment on Microsoft Learn, taken in the six months before it expires."
+  ],
+  "skills": [
+    "security",
+    "azure",
+    "identity",
+    "networking",
+    "ai-security"
+  ],
+  "roles": [
+    "security",
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Manage identity, access, and governance",
+      "weight": 24
+    },
+    {
+      "name": "Secure storage, databases, and networking",
+      "weight": 29
+    },
+    {
+      "name": "Secure compute",
+      "weight": 24
+    },
+    {
+      "name": "Manage and monitor security posture",
+      "weight": 23
+    }
+  ],
+  "sources": [
+    "F40",
+    "F41",
+    "F42",
+    "F43",
+    "F44",
+    "F45",
+    "F46",
+    "P30",
+    "Z12",
+    "Z13",
+    "Z14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Study guide for Exam SC-500",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-500",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Skills measured, audience profile and study resources."
+    },
+    {
+      "title": "Guía de estudio para el examen SC-500",
+      "url": "https://learn.microsoft.com/es-es/credentials/certifications/resources/study-guides/sc-500",
+      "kind": "official-guide",
+      "cost": "free",
+      "lang": "es",
+      "note": "Microsoft's machine translation of the English study guide."
+    },
+    {
+      "title": "Course SC-500T00: Implement end-to-end security controls for cloud and AI workloads",
+      "url": "https://learn.microsoft.com/en-us/training/courses/sc-500t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Twelve self-paced learning paths on Microsoft Learn; the instructor-led version is paid through training partners."
+    },
+    {
+      "title": "Curso SC-500T00 en Microsoft Learn",
+      "url": "https://learn.microsoft.com/es-es/training/courses/sc-500t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same self-paced learning paths in Spanish."
+    },
+    {
+      "title": "Microsoft exam sandbox",
+      "url": "https://go.microsoft.com/fwlink/?linkid=2226877",
+      "kind": "practice",
+      "cost": "free",
+      "note": "Demo of the exam interface and question types, not practice questions."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn SC-500 study guide (20–25%, 25–30%, 20–25%, 20–25%; the guide gives no 'skills measured as of' date), scaled to add up to 100 and rounded to whole numbers. Rounding ties go to the domains listed first. Read 2026-11-17.",
+  "access": {
+    "discounts": [
+      {
+        "text": "Exam Replay: one exam voucher plus one retake of the same exam, both within 12 months of purchase, sold through Pearson VUE.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals"
+      },
+      {
+        "text": "Academic pricing for verified students in most countries (not India or China).",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts"
+      }
+    ],
+    "retake": "Wait 24 hours after the first failed attempt and 14 days between later ones, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "If the exam isn't offered in your language you can request 30 extra minutes; other accommodations are requested before booking."
+  }
+}

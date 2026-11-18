@@ -230,6 +230,12 @@ test('certification codes from the catalog are recognized', () => {
   assert.deepEqual(values(read('agent databases', { certs }), 'cert'), []);
   // A code not in the catalog, negated, does not rule out its whole issuer.
   assert.deepEqual(read('the CKAD, not the CKA', { certs }).avoid.providers, []);
+  for (const [text, id] of [['N10-009', 'comptia-network-plus'], ['algo como el EX200', 'redhat-rhcsa'], ['SC-500', 'microsoft-sc-500'], ['MLA-C02', 'aws-mla-c02'], ['el 200-201', 'cisco-ccna-cybersecurity'], ['NSE 3', 'fortinet-nse-3']]) {
+    assert.deepEqual(values(read(text, { certs }), 'cert'), [id], text);
+  }
+  assert.equal(read('el 200-201', { certs }).profile.budget, null);
+  assert.deepEqual(read('certificado de ciberseguridad de Google', { certs }).providers, ['Google']);
+  assert.deepEqual(read('Google Cloud', { certs }).providers, ['Google Cloud']);
 });
 
 // ---------- budget ----------
@@ -418,6 +424,13 @@ test('data analyst into generative AI as a beginner: GenAI picks, entry level ne
   assert.ok(picks[0].cert.skills.includes('llm-apps'));
   assert.ok(picks.slice(0, 3).some((p) => p.cert.level === 'entry'));
   for (const p of picks) assert.notEqual(p.cert.status, 'restricted', p.id);
+});
+
+test('a beginner into networks or Linux gets an entry-level pick for it first', () => {
+  const net = suggest('soy principiante y quiero aprender redes').picks;
+  assert.ok(net[0].cert.skills.includes('networking') && net[0].cert.level === 'entry', net[0].id);
+  const linux = suggest('quiero ser administrador Linux, sin experiencia').picks;
+  assert.ok(linux[0].cert.skills.includes('linux') && linux[0].cert.level === 'entry', linux[0].id);
 });
 
 test('senior DevOps, Kubernetes, hands-on, no AWS: Kubernetes first and no AWS at all', () => {
