@@ -832,7 +832,7 @@ const ES_MARKDOWN = {
   sessions: 'Sesiones',
   paid: ' (pago)',
   inferred: '> Los temas salen del resumen del alcance. Reemplazalos por los objetivos oficiales del examen.',
-  footer: 'Generado con pathfinder: https://legiosai.github.io/pathfinder/',
+  footer: 'Generado con pathfinder: https://pathfinder.legios.com.ar/',
 };
 
 /** Every interface string by language. Read by the tests and the static page build. */

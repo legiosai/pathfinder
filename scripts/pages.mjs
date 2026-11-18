@@ -355,7 +355,7 @@ ${catalog.certifications.map((c) => entry(pathsOf((l) => certPath(c.id, l)), c.c
 `;
 }
 
-/** robots.txt. Crawlers only read it at the root of a host, so it starts to count once the site has its own domain. */
+/** robots.txt. Crawlers only read it at the root of a host, which the site's own domain gives it. */
 export const robots = ({ site }) => `User-agent: *
 Allow: /
 

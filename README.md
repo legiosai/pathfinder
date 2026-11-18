@@ -2,7 +2,7 @@
 
 Pick an IT certification and plan the study. Open source, runs in your browser.
 
-**Use it:** https://legiosai.github.io/pathfinder/
+**Use it:** https://pathfinder.legios.com.ar/
 
 - **Certifications:** one list with search and filters by provider, level and price. "For me" ranks it by the skills you want and the ones you already use.
 - **Ask for a recommendation:** a chat on the home page. Say what you are after in your own words, in English or Spanish ("junior dev, want cloud security, under $200, 5 hours a week"), and get an answer from Claude with a few certifications from the catalog, each with the reason for it and links to its page, a plan and practice. The conversation can go on ("something cheaper?") and is kept in your browser until you start a new chat. When the AI can't answer (offline, busy, rate limited), a built-in matcher answers on your device instead and says so, and can hand what it read to "For me".

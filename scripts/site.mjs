@@ -2,8 +2,9 @@
 // Canonical links, Open Graph tags, sitemap.xml, robots.txt, the plan export footer and the
 // share images are built from it. SITE_URL in the environment overrides it for one build.
 // Pages and assets link to each other with relative paths, so the same build works under a
-// subpath (/pathfinder/) or at the root of a domain.
-export const DEFAULT_SITE = 'https://legiosai.github.io/pathfinder/';
+// subpath (/pathfinder/) or at the root of a domain. The old GitHub Pages address
+// (legiosai.github.io/pathfinder/) redirects here.
+export const DEFAULT_SITE = 'https://pathfinder.legios.com.ar/';
 export const SITE = (process.env.SITE_URL || DEFAULT_SITE).replace(/\/?$/, '/');
 
 // Where the chat sends messages (POST <CHAT_API>/chat). site/chat.js carries the default and the
