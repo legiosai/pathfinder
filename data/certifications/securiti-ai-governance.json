@@ -15,12 +15,28 @@
   "exam": {
     "minutes": null,
     "style": "knowledge",
-    "format": "Course certificate with eight modules/quizzes and a final assessment. Provider estimates 2–2.5 hours for the course; that is not a personal exam-preparation estimate."
+    "format": "Free on-demand course certificate: 8 modules with 8 quizzes and a final certification exam, all online, with no prerequisites. Securiti estimates 2–2.5 hours for the course; that is not a personal exam-preparation estimate. A badge for each module and a certificate on completion, which qualifies for 1.5 IAPP CPE credits.",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "free_routes": [
+      {
+        "text": "The course, quizzes, final exam and certificate are free; registering saves progress and earns the badges.",
+        "url": "https://education.securiti.ai/certifications/ai-governance/"
+      }
+    ]
   },
   "scope": "AI discovery, risk assessment, data relationships, input/output controls and governance.",
   "requirements": "",
   "ai_policy": "Review the course's assessment instructions; completion time does not imply unaided applied mastery.",
-  "caveats": [],
+  "caveats": [
+    "The course page does not state the number of final-exam questions, the passing score or whether the certificate expires."
+  ],
   "skills": [
     "governance",
     "ai-security"
@@ -34,7 +50,7 @@
     "Y12"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
     {
       "title": "Securiti AI Security & Governance course",

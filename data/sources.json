@@ -183,14 +183,16 @@
     "title": "LangChain · Certified Agent Engineer exam",
     "url": "https://academy.langchain.com/pages/certifications-lcae",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Current $99, 40 questions, 120 minutes, four lifecycle domains and 24-month validity; page labels preparation courses prerequisites and lists one free resit under conditions. Purchase/course-completion gate not tested."
+    "note": "Read 27 Oct 2026. Current $99, 40 questions, 120 minutes, four lifecycle domains and 24-month validity; page labels preparation courses prerequisites and lists one free resit under conditions. Purchase/course-completion gate not tested. Reread 2026-11-17: 28/40 to pass, English, online proctored, one free resit per purchase.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X02",
     "title": "LangChain · official exam rules",
     "url": "https://support.langchain.com/articles/5297173898-what-is-the-langchain-certified-agent-engineer-exam",
     "kind": "Provider / current page read",
-    "note": "Official support article read 27 Oct 2026; dated 14 Aug. Specified LangChain-owned resources allowed; AI assistants and general search prohibited. Course completion alone does not grant this certification."
+    "note": "Official support article read 27 Oct 2026; dated 14 Aug. Specified LangChain-owned resources allowed; AI assistants and general search prohibited. Course completion alone does not grant this certification. Reread 2026-11-17 (article dated Oct 16, 2026): 28 correct to pass, English only, live proctored online, five free prerequisite courses.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X03",
@@ -250,7 +252,8 @@
     "title": "AWS · free agent identity and database microcredentials",
     "url": "https://aws.amazon.com/blogs/training-and-certification/prove-your-agentic-ai-skills-two-new-microcredentials-now-available/",
     "kind": "Provider / current page read",
-    "note": "Official 29 Sep 2026 announcement read 27 Oct. Both are free timed assessed labs without subscription and award Credly badges. Separate from AWS Certification exams. Linked Skill Builder page required JavaScript; signed-in assessment access/time limits not tested."
+    "note": "Official 29 Sep 2026 announcement read 27 Oct. Both are free timed assessed labs without subscription and award Credly badges. Separate from AWS Certification exams. Linked Skill Builder page required JavaScript; signed-in assessment access/time limits not tested. Reread 2026-11-17: no multiple-choice questions; free with no subscription; time limit not stated.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X11",
@@ -306,14 +309,16 @@
     "title": "IAPP · AI Governance Professional scope",
     "url": "https://iapp.org/certify/aigp",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Issuer scope: responsible AI, legal/framework context and lifecycle governance."
+    "note": "Read 27 Oct 2026. Issuer scope: responsible AI, legal/framework context and lifecycle governance. Reread 2026-11-17: links the free BoK, study guide, FAQs and candidate handbook; exam facts are on the store page and FAQs.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X19",
     "title": "IAPP · AIGP exam store",
     "url": "https://store.iapp.org/aigp-exam/",
     "kind": "Provider / price not retrievable",
-    "note": "Accessed 27 Oct 2026; price did not render in retrieved page. Historical launch pricing and third-party quotes are not a current payable quote. Recheck cost and current exam/maintenance terms."
+    "note": "Read 2026-11-17. Store page now renders: USD 799 non-member, USD 649 member (USD 625 non-member for prior AIGP candidates or holders of another IAPP certification); English; 100 questions in 2.75 hours with a 15-minute break; online (OnVUE) or test center; two-year term with 20 CPE credits and a USD 250 maintenance fee for non-members.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X24",
@@ -379,7 +384,8 @@
     "title": "CSA · TAISE",
     "url": "https://cloudsecurityalliance.org/education/taise",
     "kind": "Issuer page",
-    "note": "Read/indexed issuer text 27 Oct 2026: $795 training-plus-exam only, 60 questions/120 minutes, 80% raw threshold and two attempts. No signed-in delivery flow tested."
+    "note": "Read/indexed issuer text 27 Oct 2026: $795 training-plus-exam only, 60 questions/120 minutes, 80% raw threshold and two attempts. No signed-in delivery flow tested. Reread 2026-11-17: 2 exam attempts valid for 2 years; self-paced training only in English.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y08",
@@ -414,7 +420,8 @@
     "title": "Securiti · AI Security and Governance course",
     "url": "https://education.securiti.ai/certifications/ai-governance/",
     "kind": "Provider course page",
-    "note": "Read 27 Oct 2026: free course, eight modules/quizzes, final assessment and issuer-estimated 2–2.5-hour duration. No signed-in completion or badge earned."
+    "note": "Read 27 Oct 2026: free course, eight modules/quizzes, final assessment and issuer-estimated 2–2.5-hour duration. No signed-in completion or badge earned. Reread 2026-11-17: also 1.5 IAPP CPE credits and module badges; no question count, passing score or certificate expiry stated.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y13",
@@ -471,7 +478,8 @@
     "title": "IAPP · AIGP Body of Knowledge and Exam Blueprint v2.1 (PDF)",
     "url": "https://assets.contentstack.io/v3/assets/bltd4dd5b2d705252bc/blt0d33152fd20bc134/AIGP_Cert%20BOK.pdf",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-03. Gives a question range per domain (I 16–20, II 19–23, III 21–25, IV 21–25), not fixed weights."
+    "note": "Read 2026-11-03. Gives a question range per domain (I 16–20, II 19–23, III 21–25, IV 21–25), not fixed weights. Reread 2026-11-17: still version 2.1, effective February 2, 2026.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z06",
@@ -1780,6 +1788,86 @@
     "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542875%2FClaude+Certified+Developer+%E2%80%93+Foundations+Exam+Guide.pdf",
     "kind": "Issuer exam guide",
     "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCDV-F: 53 items, 120 minutes, online proctored and/or test center, 720 on 100–1,000, 12-month validity.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E27",
+    "title": "LangChain · LCAE exam guide (PDF)",
+    "url": "https://pub-dffa5f25c09c49488e245c43fcd4d0b5.r2.dev/exam_guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the LCAE page: 2-hour solo exam, live proctored by Talview, semi-open-book (LangSmith, LangChain docs and Academy only; no web search or AI tools); four sections of 10 questions, 25% each; one free resit per purchase, further resits at full fee; accommodations by Talview support ticket.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E28",
+    "title": "LangChain Academy · LCAE Practice Exam",
+    "url": "https://academy.langchain.com/courses/lcae-practice-exam",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Free practice exam with sections for Build, Test, Deploy and Monitor.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E29",
+    "title": "LangChain Academy · LCAE prerequisite courses",
+    "url": "https://academy.langchain.com/bundles/lcae-prerequisite-courses",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Free bundle of the six courses the LCAE page lists as prerequisites; LangChain says exam questions draw on them.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E30",
+    "title": "CSA · TAISE Prep Kit",
+    "url": "https://cloudsecurityalliance.org/artifacts/taise-prep-kit",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Free download (no account needed): knowledge guide, curriculum, FAQ and sample questions. FAQ: open-book, online, unproctored exam of 60 single-answer questions (6 per module), 2 hours, 80% to pass, no scheduling or test centers; token with 2 attempts valid 2 years (extendable 6 months), no wait between attempts; accommodations and ESL extra time through CSA support; corporate team-training discounts.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E31",
+    "title": "CSA Training · Trusted AI Safety Expert Exam Bundle",
+    "url": "https://training.cloudsecurityalliance.org/trusted-ai-safety-expert-exam-bundle",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. $795 self-paced course with one year of access (about 21.2 hours) and a TAISE exam token; training and exam are not sold separately.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E32",
+    "title": "IAPP · Certification FAQs",
+    "url": "https://iapp.org/certify/faqs",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. AIGP: 100 questions in 2.75 hours; passing score 300 on a 100–500 scale; translated exams exist only for some CIPP/CIPM exams (not AIGP); OnVUE online or test center; accommodations by request form; maintenance by CPE plus a USD 250 maintenance fee per term or USD 295 annual membership; discounted price for holders of another IAPP certification and for retakes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E33",
+    "title": "IAPP · Certification candidate handbook v5.3.2 (PDF)",
+    "url": "https://assets.contentstack.io/v3/assets/bltd4dd5b2d705252bc/blteb8b5d531fd78971/IAPP-Certification_Handbook.pdf",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Effective June 1, 2026: exams bought in the IAPP store and taken within one year through Pearson VUE (test center or OnVUE); 15-minute break at the halfway point; 100–500 scale with 300 to pass; retakes need a new purchase and at least seven days after the prior attempt; membership or maintenance fee needed for the certification to become active; accommodations can take up to 30 days.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E34",
+    "title": "IAPP Store · AIGP Practice Exam (digital)",
+    "url": "https://store.iapp.org/aigp-practice-exam-digital/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. USD 60; 100 practice questions in a PDF, written by IAPP-selected experts from the AIGP body of knowledge.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E35",
+    "title": "IAPP · AIGP training",
+    "url": "https://iapp.org/train/aigp-training",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Paid AIGP training online, live online, in person and for groups.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E36",
+    "title": "AWS · Certification FAQs (Microcredential section)",
+    "url": "https://aws.amazon.com/certification/faqs/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Microcredentials suit people with more than six months of experience in the topic; 25-day wait after a failed lab attempt; Credly badge on passing; valid 12 months; renewal from 9 months after passing; each Skill Builder page lists recommended preparation.",
     "checked_on": "2026-11-17"
   }
 ]
