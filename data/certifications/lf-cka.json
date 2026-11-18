@@ -16,14 +16,29 @@
     "minutes": 120,
     "style": "practical",
     "format": "Online, proctored, performance-based exam: 15–20 tasks solved at a command line running Kubernetes (v1.37 at the time of checking), in two hours. No prerequisites.",
+    "questions": "15–20 performance-based tasks",
+    "question_count": 20,
     "passing": "66%",
-    "validity": "2 years"
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "retake": "One free retake is included if the first attempt is not passed; it must be taken within the 12 months of eligibility that start at purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time.",
+    "accommodations": "Candidates with disabilities send the Test Accommodations Form at least two weeks before the exam, before scheduling it; requests are reviewed case by case."
   },
   "scope": "Installing, configuring and running Kubernetes clusters: cluster architecture, workloads and scheduling, services and networking, storage and troubleshooting, tested at the command line.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [
-    "The exam environment moves to each new Kubernetes minor version within about 4–8 weeks of its release. The curriculum PDF linked from the certification page is the older v1.35 file; the CNCF repository's v1.37 curriculum has the same weights."
+    "The exam environment moves to each new Kubernetes minor version within about 4–8 weeks of its release. The curriculum PDF linked from the certification page is the older v1.35 file; the CNCF repository's v1.37 curriculum has the same weights.",
+    "Exam tasks are shown in English, Japanese or Simplified Chinese, and candidates can switch language during the exam."
   ],
   "skills": [
     "kubernetes",
@@ -59,7 +74,10 @@
     "P65",
     "P68",
     "P69",
-    "P74"
+    "P74",
+    "E37",
+    "E38",
+    "E39"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

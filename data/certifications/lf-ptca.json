@@ -10,17 +10,31 @@
   "fee": {
     "usd": 250,
     "basis": "Exam only",
-    "note": ""
+    "note": "Published exam-only price; includes one retake and 12 months to schedule. The $299 PTCA Certification Pathway adds four self-paced modules; a bundle with the THRIVE-ONE annual subscription costs $495."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "Online proctored multiple-choice exam, 120 minutes, two-year validity; no formal prerequisites listed."
+    "format": "Online, proctored multiple-choice exam, 120 minutes. No prerequisites.",
+    "passing": "75%",
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "retake": "One free retake is included if the first attempt is not passed; it must be taken within the 12 months of eligibility that start at purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time.",
+    "accommodations": "Candidates with disabilities send the Test Accommodations Form at least two weeks before the exam, before scheduling it; requests are reviewed case by case."
   },
   "scope": "Fundamentals, model development, performance/optimization and data handling.",
   "requirements": "",
   "ai_policy": "Check the exam resource policy.",
-  "caveats": [],
+  "caveats": [
+    "Length conflict: the PTCA certification and pathway pages give 120 minutes, but the Linux Foundation multiple-choice FAQ and instructions linked from them still say every multiple-choice exam except the CNPA lasts 90 minutes with 60 questions. The 120 minutes are used here and no question count is listed. The 75% pass mark comes from that FAQ, which applies it to all multiple-choice exams."
+  ],
   "skills": [
     "deep-learning",
     "python",
@@ -48,12 +62,34 @@
     }
   ],
   "sources": [
-    "Y05"
+    "Y05",
+    "P71",
+    "P72",
+    "E37",
+    "E38",
+    "E39",
+    "E40",
+    "E41"
   ],
   "reports": [
     "Z03"
   ],
-  "checked_on": "2026-10-27",
-  "prep": [],
-  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-03."
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Linux Foundation: PTCA Certification Pathway",
+      "url": "https://training.linuxfoundation.org/certification/ptca-certification-pathway/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Four self-paced modules aligned with the PTCA domains (LFD2000–LFD2003) plus the exam, $299."
+    },
+    {
+      "title": "PyTorch tutorials: Learn the Basics",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/intro.html",
+      "kind": "docs",
+      "cost": "free",
+      "note": "Linked from the certification page as PyTorch basics."
+    }
+  ],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-17."
 }

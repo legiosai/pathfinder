@@ -288,7 +288,8 @@
     "title": "Linux Foundation · CKAD",
     "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. $445 exam-only page, two-hour CLI performance exam, no formal prerequisites; two exam attempts and two simulator attempts listed. Checkout/promotion and timed Kubernetes baseline not tested."
+    "note": "Read 27 Oct 2026. $445 exam-only page, two-hour CLI performance exam, no formal prerequisites; two exam attempts and two simulator attempts listed. Checkout/promotion and timed Kubernetes baseline not tested. Re-read 2026-11-17: 15–20 command-line tasks on Kubernetes v1.37, $445 with two exam attempts and two simulator sessions.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X16",
@@ -340,7 +341,8 @@
     "title": "Linux Foundation · MCPA",
     "url": "https://training.linuxfoundation.org/certification/model-context-protocol-associate-mcpa/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: scope, $250, 90-minute MCQ exam, two-year validity, no formal prerequisites and current referenced protocol version."
+    "note": "Read 27 Oct 2026: scope, $250, 90-minute MCQ exam, two-year validity, no formal prerequisites and current referenced protocol version. Re-read 2026-11-17: still 90 minutes and $250 with one retake, MCP specification 2026-07-28; buying through an Agentic AI Foundation event registration saves 20%.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y02",
@@ -370,14 +372,16 @@
     "title": "Linux Foundation · PTCA",
     "url": "https://training.linuxfoundation.org/certification/pytorch-certified-associate-ptca/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: $250 exam-only, $299 pathway, 120-minute MCQ assessment and scope."
+    "note": "Read 27 Oct 2026: $250 exam-only, $299 pathway, 120-minute MCQ assessment and scope. Re-read 2026-11-17: still 120 minutes and $250; the multiple-choice FAQ it links gives 90 minutes and 60 questions for these exams.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y06",
     "title": "Linux Foundation · OTCA",
     "url": "https://training.linuxfoundation.org/certification/opentelemetry-certified-associate-otca/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: observability scope, $250, 90 minutes and no formal prerequisites. Adjacent engineering credential, not AI-specific."
+    "note": "Read 27 Oct 2026: observability scope, $250, 90 minutes and no formal prerequisites. Adjacent engineering credential, not AI-specific. Re-read 2026-11-17: unchanged; links the multiple-choice exam instructions and FAQ (60 questions, 75% to pass).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y07",
@@ -1868,6 +1872,46 @@
     "url": "https://aws.amazon.com/certification/faqs/",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Microcredentials suit people with more than six months of experience in the topic; 25-day wait after a failed lab attempt; Credly badge on passing; valid 12 months; renewal from 9 months after passing; each Skill Builder page lists recommended preparation.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E37",
+    "title": "Linux Foundation · Certification FAQ",
+    "url": "https://training.linuxfoundation.org/about/faqs/certification-faq/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams are delivered online and can be taken from anywhere; 12 months from purchase to schedule and take the exam; retakes (when eligible) must be done within 12 months of the original purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time; test accommodations are given for a documented need, case by case; only the CKS has a prerequisite.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E38",
+    "title": "Linux Foundation · Candidate Handbook: Language",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2/language",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Language grid: CKA, CKAD and CKS tasks in English, Japanese and Simplified Chinese (switchable during the exam); KCNA in English, plus Japanese-only and Chinese-only versions registered separately (Chinese through training.linuxfoundation.cn); OTCA, PTCA and MCPA in English only.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E39",
+    "title": "Linux Foundation · Candidate Handbook: Exam Preparation Checklist",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2/exam-preparation-checklist",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Test Accommodations: candidates with disabilities (such as those covered by the ADA) submit the Test Accommodations Form at least two weeks before the planned exam and must not schedule the exam first; the proctoring partner then contacts them to schedule. The results screen offers a retake when one is available.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E40",
+    "title": "PyTorch Foundation · PyTorch Certification",
+    "url": "https://pytorch.org/pytorch-certification/",
+    "kind": "Issuer program page",
+    "note": "Read 2026-11-17. PTCA includes a free retake and 12 months of eligibility; the credential stays valid for two years after passing; the PTCA Certification Pathway bundles all learning modules with the exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E41",
+    "title": "Linux Foundation · PTCA Certification Pathway",
+    "url": "https://training.linuxfoundation.org/certification/ptca-certification-pathway/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. $299 pathway with four self-paced modules (LFD2000 PyTorch Fundamentals, LFD2001 Data Handling, LFD2002 Model Development, LFD2003 Optimizing PyTorch) plus the PTCA exam; exam valid 2 years, one retake, 120 minutes.",
     "checked_on": "2026-11-17"
   }
 ]
