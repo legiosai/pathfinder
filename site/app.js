@@ -69,6 +69,7 @@ const CATS = {
   'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
   Cybersecurity: { icon: 'lock-keyhole', c: '--cat-cyber' },
   'Data & analytics': { icon: 'database', c: '--cat-data' },
+  Networking: { icon: 'network', c: '--cat-net' },
 };
 const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
 const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;
