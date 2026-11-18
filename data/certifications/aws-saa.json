@@ -2,7 +2,7 @@
   "id": "aws-saa",
   "name": "AWS Certified Solutions Architect – Associate",
   "provider": "AWS",
-  "code": "SAA",
+  "code": "SAA-C03",
   "type": "certification",
   "category": "Cloud & platform",
   "level": "associate",

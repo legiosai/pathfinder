@@ -270,14 +270,16 @@
     "title": "Google Cloud · Professional Agentic Architect",
     "url": "https://cloud.google.com/learn/certification/agentic-architect",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Page says GA registration opens mid-November; current beta metadata must not be passed off as bookable GA terms. Announced $200 retail price and two-part exam/lab structure. No appointment tested."
+    "note": "Read 27 Oct 2026 (beta). Re-read 2026-11-17: the page now lists the standard exam with no beta notice: 2 hours, $200 plus tax where applicable, English, 50–60 multiple choice questions, online-proctored or onsite-proctored, valid 1 year, no prerequisites, 3+ years building cloud solutions including 1+ year building agentic solutions on Google Cloud recommended. Two parts: the Pearson-delivered exam, then separate hands-on labs in Google Skills.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X17",
     "title": "Google Cloud · Agentic Architect beta and GA FAQ",
     "url": "https://support.google.com/cloud-certification/answer/18080541",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Beta registration/exam window closed 30 Sep. GA announced mid-November; two-hour proctored exam plus separate required labs."
+    "note": "Read 27 Oct 2026. Re-read 2026-11-17: GA in mid-November with the same two-part structure as the beta; the GA exam is a 2-hour session with results in 7–10 business days, after which passing candidates have two months to complete two labs; both parts are required. $200; valid one year with a continuing education path; standard retake waits of 14, 60 and 365 days.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X18",
@@ -438,7 +440,8 @@
     "title": "Google Cloud · Professional Agentic Architect exam guide",
     "url": "https://services.google.com/fh/files/misc/professional_agentic_architect_exam_guide_english.pdf",
     "kind": "Issuer exam guide",
-    "note": "Domain weights read 2026-11-03."
+    "note": "Domain weights read 2026-11-03. Re-read 2026-11-17: PDF dated 4 November 2026, same five sections and approximate weights (~13, ~17, ~33, ~22 and ~15%).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z05",
@@ -1075,7 +1078,8 @@
     "title": "CompTIA · CySA+ V3 (CS0-003)",
     "url": "https://www.comptia.org/en-us/certifications/cybersecurity-analyst/v3/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Retiring version: CS0-003 launched June 6, 2023; retires in English on December 22, 2026 and in Japanese, Portuguese and Spanish on March 23, 2027; domain weights 33/30/20/17."
+    "note": "Read 2026-11-17. Retiring version: CS0-003 launched June 6, 2023; retires in English on December 22, 2026 and in Japanese, Portuguese and Spanish on March 23, 2027; domain weights 33/30/20/17.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S08",
@@ -1173,7 +1177,8 @@
     "title": "ISC2 · One Million Certified in Cybersecurity",
     "url": "https://www.isc2.org/landing/1mcc",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. The free CC course and exam program closed new enrollments effective May 20, 2026; codes already issued must be used by December 31, 2026. The CC exam fee is U.S. $199, and passing candidates pay a U.S. $50 AMF."
+    "note": "Read 2026-11-17. The free CC course and exam program closed new enrollments effective May 20, 2026; candidates holding an unexpired program exam code may schedule and sit the exam by December 31, 2026. The CC exam fee is U.S. $199, and passing candidates pay a U.S. $50 AMF.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S29",
@@ -1453,7 +1458,8 @@
     "title": "OffSec · OSCP+ scaled scoring update",
     "url": "https://www.offsec.com/blog/oscp-grading-update/",
     "kind": "Provider announcement",
-    "note": "Published 2026-10-21, read 2026-11-17. Exams taken through 2026-11-30 pass at 70 of 100 points; from 2026-12-01 (08:00 GMT, including rescheduled exams) results use a scaled score per exam set with no single raw-point pass mark. Format, duration, content, proctoring, retakes and fees unchanged."
+    "note": "Published 2026-10-21, read 2026-11-17. Exams taken through 2026-11-30 pass at 70 of 100 points; from 2026-12-01 (08:00 GMT, including rescheduled exams) results use a scaled score per exam set with no single raw-point pass mark. Format, duration, content, proctoring, retakes and fees unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S78",
@@ -1577,6 +1583,22 @@
     "url": "https://www.iprofesional.com/finanzas/468686-dolar-tarjeta-caro-recargo-extra-golpea-consumos-noviembre-2026",
     "kind": "Press / directly read",
     "note": "Read 2026-11-17. The card dollar in November 2026 is the official retail rate plus the 30% percepción on account of Ganancias; paying the card balance with your own dollars avoids the surcharge.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D06",
+    "title": "OffSec · OSCP+ Equated Scaled Scoring FAQ",
+    "url": "https://help.offsec.com/hc/en-us/articles/54589877508884-OSCP-Equated-Scaled-Scoring-FAQ",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 through the help center API (article updated 2026-11-10). Exams starting before 1 December 2026 at 08:00 GMT keep the fixed pass mark of 70; from then results use equated scaled scores from 100 to 500, with 400 to pass on every exam set. Format, proctoring and rules do not change.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D07",
+    "title": "OffSec · OSCP+ Exam Guide",
+    "url": "https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17 through the help center API (article edited 2026-10-21). 23 hours 45 minutes in a private VPN lab plus 24 hours to upload the report; three standalone machines (60 points) and one Active Directory set (40 points), 100 raw points at most; scaled scoring for exams from 1 December 2026 08:00 GMT. LLMs and AI chatbots are strictly prohibited during the exam; tools with built-in AI features need not be disabled.",
     "checked_on": "2026-11-17"
   }
 ]

@@ -28,6 +28,20 @@
     "CS0-004 (V4) launched on June 23, 2026. CS0-003 (V3) retires in English on December 22, 2026, and in Japanese, Portuguese and Spanish on March 23, 2027; its domains and weights differ (Security Operations 33%, Vulnerability Management 30%, Incident Response Management 20%, Reporting and Communication 17%). Buy the voucher for the version you will sit: CompTIA vouchers are exam series specific and sometimes exam code specific.",
     "Renewal: the certification lasts three years. Renew with 60 CEUs plus a $150 CE fee per three-year cycle, by passing the latest version of the exam, or with some higher-level CompTIA certifications."
   ],
+  "timeline": [
+    {
+      "date": "2026-12-22",
+      "kind": "retires",
+      "text": "CS0-003 (V3) retires in English. Its successor, CS0-004 (V4), has been available since June 23, 2026.",
+      "source": "S07"
+    },
+    {
+      "date": "2027-03-23",
+      "kind": "retires",
+      "text": "CS0-003 (V3) retires in Japanese, Portuguese and Spanish.",
+      "source": "S07"
+    }
+  ],
   "skills": [
     "security",
     "networking"

@@ -18,8 +18,8 @@ test('a certification page carries its facts as plain HTML', () => {
   // Without a practice set, whatever data/practice holds: the title and links change with one.
   const { practice_questions, ...bare } = catalog.certifications.find((c) => c.id === 'aws-aif-c01');
   const html = page('aws-aif-c01', 'en', bare);
-  assert.match(html, /<title>AWS AI Practitioner \(AIF-C01\): exam domains, price and study plan · pathfinder<\/title>/);
-  assert.match(html, /<meta name="description" content="AWS AI Practitioner \(AIF-C01\): US\$100 exam, 90 minutes, 65 questions\./);
+  assert.match(html, /<title>AWS Certified AI Practitioner \(AIF-C01\): exam domains, price and study plan · pathfinder<\/title>/);
+  assert.match(html, /<meta name="description" content="AWS Certified AI Practitioner \(AIF-C01\): US\$100 exam, 90 minutes, 65 questions\./);
   assert.match(html, /<link rel="canonical" href="https:\/\/example\.test\/sub\/c\/aws-aif-c01\/">/);
   assert.match(html, /hreflang="es" href="https:\/\/example\.test\/sub\/es\/c\/aws-aif-c01\/"/);
   assert.match(html, /hreflang="x-default" href="https:\/\/example\.test\/sub\/c\/aws-aif-c01\/"/);

@@ -15,18 +15,25 @@
   "exam": {
     "minutes": null,
     "style": "practical",
-    "format": "24-hour proctored hands-on exam in a private VPN lab: three standalone machines graded on initial access and privilege escalation, plus one Active Directory set of three machines in a simulated breach. OffSec then gives 24 more hours to submit a penetration test report.",
-    "passing": "70 of 100 points (exams through 2026-11-30); scaled score from 2026-12-01",
+    "format": "Proctored hands-on exam of 23 hours 45 minutes in a private VPN lab: three standalone machines graded on initial access and privilege escalation (60 points), plus one Active Directory set of three machines in a simulated breach (40 points). OffSec then gives 24 more hours to submit a penetration test report.",
+    "passing": "70 of 100 points for exams starting before 2026-12-01 08:00 GMT; from then, a scaled score of 400 on a 100–500 scale",
     "validity": "3 years"
   },
   "scope": "Hands-on penetration testing of standalone Windows and Linux hosts and an Active Directory network: finding and exploiting vulnerabilities, escalating privileges and reporting the findings.",
   "requirements": "",
-  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "ai_policy": "LLMs and AI chatbots (ChatGPT, Gemini, OffSec KAI and the like) are strictly prohibited during the exam; tools with built-in AI features do not need to be disabled.",
   "caveats": [
-    "OffSec moves the OSCP+ exam to scaled scoring for exams taken on or after 1 December 2026 (08:00 GMT), including exams rescheduled past that time: there is no longer a single raw-point pass mark across exam sets. Exams taken through 30 November 2026 pass at 70 of 100 points. OffSec says format, duration, content, proctoring, retake policy and fees stay the same.",
+    "OffSec moves the OSCP+ exam to equated scaled scoring for exams starting on or after 1 December 2026 at 08:00 GMT, including exams rescheduled past that time: raw points are converted to a 100–500 scale adjusted for each exam set's difficulty, and 400 passes on every set. Exams starting earlier pass at 70 of 100 points. OffSec says format, duration, content, proctoring, retake policy and fees stay the same.",
     "Passing earns both OSCP and OSCP+. OSCP+ expires three years after issue unless renewed by a recertification exam within 6 months of the expiry date, another qualifying OffSec exam (OSEP, OSWA, OSED or OSEE) or OffSec's CPE program; the OSCP itself does not expire.",
-    "OffSec publishes no domain weights; the exam is scored per machine and per Active Directory set.",
-    "The OSCP+ exam guide and exam FAQ on help.offsec.com could not be read on 2026-11-17 (the help center blocks automated readers), so the exam-day rules there, including OffSec's rule on AI tools, were not checked for this entry."
+    "OffSec publishes no domain weights; the exam is scored per machine and per Active Directory set."
+  ],
+  "timeline": [
+    {
+      "date": "2026-12-01",
+      "kind": "changes",
+      "text": "Scaled scoring starts for exams beginning at or after 08:00 GMT: results on a 100–500 scale with 400 to pass, instead of 70 of 100 raw points.",
+      "source": "D06"
+    }
   ],
   "skills": [
     "security",
@@ -39,7 +46,9 @@
   "sources": [
     "S75",
     "S76",
-    "S77"
+    "S77",
+    "D06",
+    "D07"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
