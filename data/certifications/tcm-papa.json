@@ -15,7 +15,11 @@
   "exam": {
     "minutes": null,
     "style": "practical",
-    "format": "Unproctored practical application assessment: two days testing, then two days for the report; one free retake and 12-month training access listed."
+    "format": "Unproctored practical assessment of an agentic AI application: two full days to test, then two days to write a professional report. No flags and no multiple-choice questions.",
+    "passing": "Exploit the AI application and submit an accepted professional report",
+    "delivery": [
+      "online"
+    ]
   },
   "scope": "Agent application testing, prompt injection, data exposure, output handling, excessive agency and retrieval-related attacks.",
   "requirements": "",
@@ -23,6 +27,16 @@
   "caveats": [
     "Issuer advertises 20% for qualifying students/teachers and other groups, subject to proof/approval. $249 becomes $199.20 before tax if approved; not account-verified."
   ],
+  "access": {
+    "discounts": [
+      {
+        "text": "Black Friday sale: $199 instead of $249 until November 30, 2026 at 11:59 PM ET.",
+        "url": "https://certifications.tcm-sec.com/papa/",
+        "until": "2026-11-30"
+      }
+    ],
+    "retake": "Every exam voucher includes one free retake; the voucher and the training access last 12 months."
+  },
   "skills": [
     "ai-security",
     "security",
@@ -38,6 +52,6 @@
   "reports": [
     "W01"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": []
 }

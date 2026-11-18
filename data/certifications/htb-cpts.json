@@ -17,7 +17,10 @@
     "style": "practical",
     "format": "Black-box web, external and internal penetration test of a real-world Active Directory network over VPN, with no multiple-choice questions. The lab stays open for 10 days and the report must be uploaded within those 10 days; candidates submit flags, need a points threshold and a commercial-grade report that an instructor grades.",
     "passing": "Points threshold (not published) plus an accepted report",
-    "validity": "Does not expire"
+    "validity": "Does not expire",
+    "delivery": [
+      "online"
+    ]
   },
   "scope": "Practical penetration testing: web, external and internal testing of an Active Directory network, exploitation, lateral movement and professional reporting.",
   "requirements": "Complete the HTB Academy Penetration Tester job-role path (28 modules, each with a skills assessment) to 100% and hold an exam voucher before starting the exam.",
@@ -27,6 +30,9 @@
     "Results are delivered within 20 business days of submitting the report.",
     "HTB publishes no domain weights and no exact points threshold."
   ],
+  "access": {
+    "retake": "Each voucher includes two attempts: after the instructor's feedback on a failed first attempt you have 14 days to start the retake, which also runs for 10 days."
+  },
   "skills": [
     "security",
     "networking"

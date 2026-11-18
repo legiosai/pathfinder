@@ -341,7 +341,8 @@
     "title": "TCM Security · PAPA",
     "url": "https://certifications.tcm-sec.com/papa/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: $249 training/exam offer, two-day assessment plus two-day report, AI-tools permission and conditional 20% discounts. Account eligibility, coupon and checkout not tested."
+    "note": "Read 27 Oct 2026: $249 training/exam offer, two-day assessment plus two-day report and conditional 20% discounts. Re-read 2026-11-17: Black Friday sale at $199 until November 30 at 11:59 PM ET; every voucher includes one free retake; vouchers and training access last 12 months; to pass, exploit an agentic AI application with any tools and submit a professional report. No flags and no multiple-choice questions.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y05",
@@ -1508,7 +1509,8 @@
     "title": "INE · eJPT certification",
     "url": "https://ine.com/security/certifications/ejpt-certification/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam domains with weights (35/25/25/15); needs an INE subscription and an exam voucher (included in INE Fundamentals Annual and the eJPT + Prep Bundle); vouchers expire 180 days after purchase with one free retake within 14 days; auto-graded results within hours; valid three years. No prices, exam length or passing score on the page."
+    "note": "Read 2026-11-17. Exam domains with weights (35/25/25/15); needs an INE subscription and an exam voucher (included in INE Fundamentals Annual and the eJPT + Prep Bundle); vouchers expire 180 days after purchase with one free retake within 14 days; auto-graded results within hours; valid three years. No prices, exam length or passing score on the page.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S79",
@@ -1522,7 +1524,8 @@
     "title": "Hack The Box · HTB CPTS",
     "url": "https://academy.hackthebox.com/preview/certifications/htb-certified-penetration-testing-specialist",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Requires the Penetration Tester job-role path (28 modules) at 100% and a voucher; two attempts per voucher; exam lab open 10 days with the report due within 10 days; flags, a points threshold and a commercial-grade report; results within 20 business days; vouchers expire one year after purchase; HTB Academy certifications do not expire. No voucher price shown."
+    "note": "Read 2026-11-17. Requires the Penetration Tester job-role path (28 modules) at 100% and a voucher; two attempts per voucher; exam lab open 10 days with the report due within 10 days; flags, a points threshold and a commercial-grade report; results within 20 business days; vouchers expire one year after purchase; HTB Academy certifications do not expire. No voucher price shown.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S81",

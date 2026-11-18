@@ -18,7 +18,10 @@
     "format": "Hands-on practical exam: 45 questions answered from a lab within a 48-hour window. Auto-graded; results usually arrive within a few hours with a breakdown by section.",
     "questions": "45",
     "question_count": 45,
-    "validity": "3 years"
+    "validity": "3 years",
+    "delivery": [
+      "online"
+    ]
   },
   "scope": "Entry-level penetration testing: assessment methodologies and information gathering, host and network auditing, host and network penetration testing, and web application testing.",
   "requirements": "No formal prerequisites. INE requires an active INE subscription alongside the exam voucher.",
@@ -29,6 +32,9 @@
     "Vouchers expire 180 days after purchase. The included free retake must be taken within 14 days of a failed attempt, and both attempts must be submitted before the voucher expires.",
     "INE describes renewal options for the three-year credential but does not detail them on the certification page."
   ],
+  "access": {
+    "retake": "The voucher includes one free retake, to be taken within 14 days of a failed attempt and before the voucher expires 180 days after purchase."
+  },
   "skills": [
     "security",
     "networking"
