@@ -1,0 +1,136 @@
+{
+  "id": "cisco-ccna-cybersecurity",
+  "name": "CCNA Cybersecurity",
+  "provider": "Cisco",
+  "code": "200-201 CCNACBR",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 300,
+    "basis": "Exam only",
+    "note": "USD list price plus tax; Pearson VUE lists the price in other countries and currencies, and Cisco Learning Credits are accepted. Cisco also sells a $300 voucher valid for 365 days and Exam Safeguard Plus at $450, which adds a second attempt within 90 days if the first one fails."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Understanding Cisco Cybersecurity Operations Fundamentals (200-201 CCNACBR) v1.2: 120 minutes through Pearson VUE, at a test center or online, in English. Multiple-choice, drag-and-drop and performance-based questions; pass/fail, with results usually online within 48 hours. Cisco does not publish the number of questions or the passing score.",
+    "validity": "3 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Day-to-day security operations center work: security concepts, security monitoring, host-based analysis, network intrusion analysis, and security policies and procedures, including incident handling and SOC metrics.",
+  "requirements": "No formal prerequisites. Cisco says the exam assumes foundational networking and IT knowledge.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "This is the former CyberOps Associate (later Cybersecurity Associate). Cisco renamed it CCNA Cybersecurity on February 3, 2026, and the exam code changed from 200-201 CBROPS to 200-201 CCNACBR; active holders were moved over automatically, and Cisco said the exam and training did not change with the rename. Some Cisco pages (the exam price table, the Networking Academy course) still use the old names.",
+    "The exam topics web page lists a few automation and AI topics numbered 6.x without a weight; the v1.2 PDF has five domains only. The domains here follow the PDF.",
+    "Recertify within three years by passing the current CCNA Cybersecurity exam or a higher-level Cisco exam, or by earning 30 continuing education credits."
+  ],
+  "skills": [
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "security",
+    "soc-analyst"
+  ],
+  "domains": [
+    {
+      "name": "Security Concepts",
+      "weight": 20
+    },
+    {
+      "name": "Security Monitoring",
+      "weight": 25
+    },
+    {
+      "name": "Host-Based Analysis",
+      "weight": 20
+    },
+    {
+      "name": "Network Intrusion Analysis",
+      "weight": 20
+    },
+    {
+      "name": "Security Policies and Procedures",
+      "weight": 15
+    }
+  ],
+  "sources": [
+    "F20",
+    "F21",
+    "F22",
+    "F23",
+    "F24",
+    "F25",
+    "F26",
+    "F27",
+    "F28",
+    "F29",
+    "P79"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CCNACBR v1.2 (200-201) exam topics",
+      "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-201-CCNACBR-v1.2_02July2025.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "200-201 CCNACBR exam topics and study guide",
+      "url": "https://learningnetwork.cisco.com/s/ccnacbr-exam-topics",
+      "kind": "docs",
+      "cost": "free",
+      "note": "The same topics as a web page, with the question types and links to free community resources."
+    },
+    {
+      "title": "Introduction to Cybersecurity (Cisco Networking Academy)",
+      "url": "https://www.netacad.com/courses/introduction-to-cybersecurity",
+      "kind": "course",
+      "cost": "free",
+      "note": "Free self-paced course of about 6 hours: the basics, not the whole exam."
+    },
+    {
+      "title": "Introducción a Ciberseguridad (Cisco Networking Academy)",
+      "url": "https://www.netacad.com/courses/introduction-to-cybersecurity?courseLang=es-XL",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same free course in Spanish."
+    },
+    {
+      "title": "CyberOps Associate (Cisco Networking Academy)",
+      "url": "https://www.netacad.com/courses/cyberops-associate",
+      "kind": "course",
+      "cost": "paid",
+      "note": "The full course for this exam, instructor-led only through a Networking Academy, which sets the price; also offered in Spanish."
+    },
+    {
+      "title": "Cisco U. CBROPS learning path",
+      "url": "https://u.cisco.com/paths/understanding-cisco-cybersecurity-operations-fundamentals-21477",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Cisco U. subscription with assessments and labs."
+    },
+    {
+      "title": "Cisco U. CCNACBR practice exam",
+      "url": "https://u.cisco.com/exams/4528",
+      "kind": "practice",
+      "cost": "paid"
+    }
+  ],
+  "domains_note": "Weights from Cisco's Understanding Cisco Cybersecurity Operations Fundamentals v1.2 (200-201) exam topics PDF (dated July 2, 2025), linked from the Learning Network exam topics page, read 2026-11-17.",
+  "access": {
+    "retake": "Wait five calendar days, starting the day after a failed attempt, before retaking; a passed exam cannot be taken again for 180 days. Exam Safeguard Plus ($450) includes a second attempt within 90 days.",
+    "accommodations": "Cisco accepts testing accommodation requests for associate exams through Pearson VUE; request them before booking."
+  }
+}

@@ -1731,5 +1731,437 @@
     "kind": "Issuer course page",
     "note": "Read 2026-11-17 in a browser. Networking Basics in Spanish: free, self-paced, 22 hours, 13 labs; covers network types, media, IPv4 and IPv6 addressing, DHCP, ARP, routing between networks, TCP/UDP and application services. CCNA: Introduction to Networks is offered in Spanish only instructor-led through an academy.",
     "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F01",
+    "title": "CompTIA · Network+ certification page",
+    "url": "https://www.comptia.org/en-us/certifications/network/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Exam V9, code N10-009, launched June 20, 2024, retirement estimated 2027 (usually three years after launch); maximum of 90 multiple-choice and performance-based questions, 90 minutes, 720 on a 100–900 scale; English, German, Japanese, Portuguese and Spanish; recommended CompTIA A+ plus 9–12 months in a junior network role. Domain weights 23/20/19/14/24. US store: Network+ voucher $399, voucher with Retake Assurance $519, CertMaster Learn $499, Practice $209, CertMaster Study in Spanish $144. FAQ: entry-level, Pearson VUE test centers or online with a remote proctor, valid three years, 30 CEUs over three years to renew.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F02",
+    "title": "CompTIA · Network+ N10-009 exam objectives (PDF)",
+    "url": "https://lecbyo.files.cmp.optimizely.com/download/35a7403ab73211ef9dcda6f347fbf652",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Exam objectives document version 6.0 on CompTIA's file host: maximum of 90 questions, multiple-choice and performance-based, 90 minutes, a minimum of 9–12 months of experience in IT networking recommended; five domains with weights 23%, 20%, 19%, 14% and 24%.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F03",
+    "title": "CompTIA · Certification retake policy",
+    "url": "https://www.comptia.org/en-us/resources/test-policies/comptia-certification-retake-policy/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. No waiting period between the first and second attempt; at least 14 calendar days before a third or later attempt; full price for every attempt, with no free retests or retake discounts; a passed exam can't be retaken under the same code without consent.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F04",
+    "title": "CompTIA · Candidate testing policies",
+    "url": "https://www.comptia.org/en-us/resources/test-policies/candidate-testing-policies/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams run at test centers or online through Pearson OnVUE in a single session; English as a Second Language is a 30-minute extension for exams delivered in English in non-English-speaking countries where no localized version is available, granted automatically at Pearson VUE registration in eligible countries; disability accommodations go through Pearson VUE.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F05",
+    "title": "CompTIA · Renewing Network+",
+    "url": "https://www.comptia.org/en-us/resources/ce/renew-options/renewing-network-single/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Network+ needs 30 CEUs for renewal; options include CertMaster CE, other CompTIA or industry certifications, and approved training.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F06",
+    "title": "CompTIA · Continuing education renewal fees",
+    "url": "https://www.comptia.org/en-us/resources/ce/learn/continuing-education-renewal-fees/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Total CE fee for the three-year period: Network+ $150 (Security+ $150, A+ $75), due by the certification's expiration date.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F07",
+    "title": "LPI · Linux Essentials overview",
+    "url": "https://www.lpi.org/our-certifications/linux-essentials-overview/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Current version 2.0 (exam 010-200); previous version 1.6 (010-160) available until April 2027. No prerequisites; 40 questions in 60 minutes; lifetime validity; exam in English at Pearson VUE test centers and online through OnVUE, with French, German, Italian, Japanese, Portuguese and Spanish translations to be released within the next few months.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F08",
+    "title": "LPI · Linux Essentials exam 010 objectives",
+    "url": "https://www.lpi.org/our-certifications/exam-010-objectives/",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Objectives version 2.0, exam 010-200: five topics (011–015) with 18 weighted objectives totalling 40; objectives translated into several languages including Spanish; 40 questions in 60 minutes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F09",
+    "title": "LPI · Exam pricing",
+    "url": "https://www.lpi.org/exam-pricing/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Linux Essentials 010 voucher by country: United States USD 120, Argentina and Mexico USD 100, Spain EUR 110.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F10",
+    "title": "LPI · Policies",
+    "url": "https://www.lpi.org/policies/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Retakes: wait one week after a first attempt and 14 days after a second or later one; a passed exam can't be retaken for two years; different versions count as the same exam. Linux Essentials is a standalone exam outside the LPIC program.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F11",
+    "title": "LPI · Frequently asked questions",
+    "url": "https://www.lpi.org/about-lpi/frequently-asked-questions/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Every LPI exam is scored from 200 to 800 with 500 to pass; Linux Essentials is an educational certificate program, not a professional certification; the OnVUE interface is in English only.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F12",
+    "title": "LPI · Learning Materials for Linux Essentials 2.0",
+    "url": "https://learning.lpi.org/en/learning-materials/010-200/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Free lessons for each 010-200 objective, online and as PDF, also published in Spanish, French, German, Italian and Portuguese; LPI Learning says the materials are free.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F13",
+    "title": "Red Hat · RHCSA exam (EX200)",
+    "url": "https://www.redhat.com/en/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Performance-based exam based on Red Hat Enterprise Linux 10; full objectives list (no weights); no internet or documents allowed, shipped product documentation available; configurations must persist after reboot; recommended RH124 and RH134, or RH199, or comparable experience; RHCSA is required for the Red Hat Certified Engineer titles in Enterprise Linux and Ansible. The Spanish page carries the same objectives in Spanish.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F14",
+    "title": "Red Hat · Red Hat Certified System Administrator",
+    "url": "https://www.redhat.com/en/services/certification/rhcsa",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. The credential is earned by passing EX200; the skills list still includes basic container management, which the current EX200 objectives do not list.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F15",
+    "title": "Red Hat · Training and certification FAQ",
+    "url": "https://www.redhat.com/en/services/training-and-certification/faq",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Remote exams, testing centers and on-site classroom testing; a free retake after an unsuccessful first individual exam attempt; results by email within three U.S. business days with pass/fail and a score by objective; certifications current for three years, renewed by retaking, expanding or advancing; EX200 is the base exam for the Enterprise Linux and Ansible tracks since the May 11, 2026 framework; 90-day no-cost Learning Subscription trial.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F16",
+    "title": "Red Hat · Training policies",
+    "url": "https://www.redhat.com/en/about/red-hat-training-policies",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Individual exams at a Red Hat testing center or online as a Red Hat Remote Exam; one year from purchase to take them; one free retake per purchased exam when the first attempt is a no pass or no show, within the same year; the same exam can't be taken twice in one day; special accommodation requests at least two weeks ahead.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F17",
+    "title": "Red Hat · Training catalog, EX200 individual exam",
+    "url": "https://training-lms.redhat.com/lmt/clmsBrowseV2.prMain?site=redhat&in_region=us&in_keyword=EX200",
+    "kind": "Provider / price page",
+    "note": "Read 2026-11-17 (logged out). United States: Red Hat Certified System Administrator (RHCSA) exam (EX200K), individual exam, 3 hours, USD 500. The Argentina catalog lists the same exam at ARS 448,544 before taxes. Since May 4, 2026, a government photo ID must be verified before an individual exam can be scheduled.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F18",
+    "title": "Red Hat · Learning Subscription trial",
+    "url": "https://www.redhat.com/en/services/training/learning-subscription/trial",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. No-cost trial for people without a paid Learning Subscription, introducing Red Hat Enterprise Linux and other platforms; it can be renewed after it expires.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F20",
+    "title": "Cisco · CCNA Cybersecurity certification",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/certifications/cybersecurity/ccna-cybersecurity/index.html",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. One exam, Understanding Cisco Cybersecurity Operations Fundamentals (200-201 CCNACBR) v1.2; 120 minutes, English, pass/fail with results usually online within 48 hours; $300 or Cisco Learning Credits, vouchers $300 valid 365 days, Exam Safeguard Plus $450 with a second attempt within 90 days; no formal prerequisites but foundational networking and IT knowledge assumed; aimed at SOC analyst and security operations roles; valid three years, renewed by passing the current exam or a higher-level one or with 30 CE credits; five-day wait before a retake.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F21",
+    "title": "Cisco · Understanding Cisco Cybersecurity Operations Fundamentals (200-201 CCNACBR) exam",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccnacbr.html",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. 120-minute exam, English, $300 or Cisco Learning Credits; passing it earns CCNA Cybersecurity. Links the exam topics, a Cisco U. learning path and a Cisco U. practice exam. The old cbrops.html address redirects here.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F22",
+    "title": "Cisco Learning Network · 200-201 CCNACBR exam topics and study guide",
+    "url": "https://learningnetwork.cisco.com/s/ccnacbr-exam-topics",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. v1.2 topics with weights (Security Concepts 20%, Security Monitoring 25%, Host-Based Analysis 20%, Network Intrusion Analysis 20%, Security Policies and Procedures 15%); question types include performance-based, multiple choice and drag-and-drop; $300, 120 minutes, English. The page also lists a few automation and AI topics numbered 6.x without a weight that the PDF does not have.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F23",
+    "title": "Cisco · CCNACBR v1.2 (200-201) exam topics (PDF)",
+    "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-201-CCNACBR-v1.2_02July2025.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. 120-minute exam associated with CCNA Cybersecurity; five domains: Security Concepts 20%, Security Monitoring 25%, Host-Based Analysis 20%, Network Intrusion Analysis 20%, Security Policies and Procedures 15%.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F24",
+    "title": "Cisco Blogs · Learn with Cisco: Evolving for the Age of AI, Automation, and Cloud",
+    "url": "https://blogs.cisco.com/learning/par-merat-announces-learn-with-cisco",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Post dated May 27, 2025: the cybersecurity certifications are rebranded under CCNA and CCNP, launching in February 2026, and active CyberOps or Cybersecurity holders are recognized as CCNA or CCNP Cybersecurity.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F25",
+    "title": "Cisco Live · CISCOU-1048 certification roadmap session (PDF)",
+    "url": "https://www.ciscolive.com/c/dam/r/ciscolive/global-event/docs/2025/pdf/CISCOU-1048.pdf",
+    "kind": "Issuer presentation",
+    "note": "Read 2026-11-17. Cisco Live 2025 slides: Cybersecurity Associate re-branded to CCNA Cybersecurity, exam 200-201 CBROPS becomes 200-201 CCNACBR, no changes to existing exams or training, current holders migrated on February 3, 2026.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F26",
+    "title": "Pearson VUE · Cisco certification exams",
+    "url": "https://www.pearsonvue.com/us/en/cisco.html",
+    "kind": "Exam delivery partner page",
+    "note": "Read 2026-11-17. Cisco exams are delivered at Pearson VUE test centers or online with OnVUE; all written, proctored Cisco exams can be taken online except 400-007; OnVUE is not offered in China, Cuba, Iran, North Korea, Sudan and Slovenia.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F27",
+    "title": "Cisco Networking Academy · CyberOps Associate course",
+    "url": "https://www.netacad.com/courses/cyberops-associate",
+    "kind": "Issuer course page",
+    "note": "Read 2026-11-17. Instructor-led course through a Networking Academy that prepares for the certification under its former Cybersecurity Associate name; offered in Arabic, Chinese, English, Spanish, French, Portuguese and Ukrainian.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F28",
+    "title": "Cisco Networking Academy · Introduction to Cybersecurity",
+    "url": "https://www.netacad.com/courses/introduction-to-cybersecurity",
+    "kind": "Issuer course page",
+    "note": "Read 2026-11-17. Free self-paced course of about 6 hours, part of the Junior Cybersecurity Analyst career path, available in many languages including Spanish (Introducción a Ciberseguridad).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F29",
+    "title": "Cisco U. · Understanding Cisco Cybersecurity Operations Fundamentals learning path",
+    "url": "https://u.cisco.com/paths/understanding-cisco-cybersecurity-operations-fundamentals-21477",
+    "kind": "Issuer training page",
+    "note": "Read 2026-11-17. Learning path and the CCNACBR practice exam (u.cisco.com/exams/4528) are sold as Cisco U. subscriptions (180 or 365 days).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F30",
+    "title": "Fortinet · NSE Certification Program updates",
+    "url": "https://www.fortinet.com/nse-training-update",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. From July 15, 2026 the program has eight NSE levels; NSE 1 and NSE 2 require completing an online course, NSE 3 the online course plus an online exam; all certifications valid two years; active FCF holders received NSE 1 and NSE 2, and active FCA holders NSE 3; the Introduction to the Threat Landscape and Getting Started in Cybersecurity courses were replaced by Cybersecurity and Cloud Fundamentals.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F31",
+    "title": "Fortinet · How to get certified for cybersecurity",
+    "url": "https://www.fortinet.com/training-certification",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. NSE 1 to NSE 4 descriptions; all self-paced courses are free of charge (labs are paid); exams for NSE 4–8 are proctored by Pearson VUE or ProctorU; all Fortinet certifications expire two years after being earned.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F32",
+    "title": "Fortinet Training Institute · NSE 1 in Cybersecurity",
+    "url": "https://training.fortinet.com/local/staticpage/view.php?page=nse_1",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Pass the NSE 1 Cybersecurity and Cloud Fundamentals online exam at the end of the course; active two years from completion; renew by completing the current course, earning or renewing any NSE 1–7 certification, or passing an NSE 8 practical exam; a FortiCloud account is needed to log in.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F33",
+    "title": "Fortinet Training Institute · NSE 3 in Cybersecurity",
+    "url": "https://training.fortinet.com/local/staticpage/view.php?page=nse_3",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. Pass the NSE 3 FortiGate Operator online exam at the end of the course; active two years; renew by completing the course and passing the online exam, earning or renewing any NSE 3–7 certification, or passing an NSE 8 practical exam; renewing NSE 3 also renews active NSE 1 and NSE 2. The NSE 2 page (Introduction to the Next Generation Firewall) follows the same model.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F34",
+    "title": "Fortinet Training Institute · Cybersecurity and Cloud Fundamentals course",
+    "url": "https://training.fortinet.com/local/staticpage/view.php?page=library_cybersecurity-and-cloud-fundamentals",
+    "kind": "Issuer course page",
+    "note": "Read 2026-11-17. Self-paced online course for NSE 1, about 11 hours; agenda from the threat landscape and malware to cryptography, secure networking, access control, endpoint security and cloud security; prerequisites listed as basic networking, protocols, operating systems and hardware.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F35",
+    "title": "Fortinet Training Institute · FortiGate Operator course",
+    "url": "https://training.fortinet.com/local/staticpage/view.php?page=library_fortigate-operator",
+    "kind": "Issuer course page",
+    "note": "Read 2026-11-17. Self-paced FortiGate 7.6 Operator course for NSE 3, about 8 hours, FortiOS 7.6; recommends Networking Fundamentals, NSE 1 and NSE 2 first; agenda covers firewall policies, logging, authentication, SSL inspection, antivirus, web filtering, IPS, application control, ZTNA, IPsec VPN, Security Fabric and HA.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F36",
+    "title": "Fortinet Training Institute Help Desk · Are all courses available online?",
+    "url": "https://helpdesk.training.fortinet.com/support/solutions/articles/73000524101-are-all-courses-available-online-",
+    "kind": "Issuer FAQ",
+    "note": "Read 2026-11-17. NSE 1, NSE 2 and NSE 3 courses are self-paced online only and open to everyone free of charge.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F37",
+    "title": "Fortinet Training Institute Help Desk · Which new certification will I receive on July 15, 2026?",
+    "url": "https://helpdesk.training.fortinet.com/support/solutions/articles/73000665774-what-will-happen-to-my-existing-certifications-and-which-new-certification-will-i-receive-on-july-15",
+    "kind": "Issuer FAQ",
+    "note": "Read 2026-11-17. Active FCF holders received NSE 1 and NSE 2 with the same dates; active FCA holders received NSE 3; FCF, FCA, FCP, FCSS and FCX stay in the certification history.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F38",
+    "title": "Fortinet Training Institute Help Desk · Exam Policy - Recertification",
+    "url": "https://helpdesk.training.fortinet.com/en/support/solutions/articles/73000672593-exam-policy-recertification",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. NSE 1–8 certifications expire two years after issue and can be renewed any time before expiry; an expired certification requires meeting the initial requirements again.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F39",
+    "title": "Fortinet · NSE Training & Certification Program Ordering Guide (PDF)",
+    "url": "https://www.fortinet.com/content/dam/fortinet/assets/data-sheets/og-nse-program.pdf",
+    "kind": "Issuer ordering guide",
+    "note": "Read 2026-11-17. Revision dated November 10, 2026: all self-paced lessons are free of charge; exam vouchers exist only for NSE 4–7 exams and NSE 8 recertification; NSE 1 and NSE 2 require completing the online course, NSE 3 the course and an online exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F40",
+    "title": "Microsoft · Cloud and AI Security Engineer Associate (SC-500)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/cloud-and-ai-security-engineer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Exam SC-500 leads to Microsoft Certified: Cloud and AI Security Engineer Associate (Intermediate level); 120 minutes, proctored, interactive components possible; offered in English, Japanese, Simplified and Traditional Chinese, Korean, German, French, Italian, Portuguese (Brazil) and Spanish; scheduled through Pearson VUE; price by the country where it is proctored (US$165 for the United States, US$99 for Argentina on this date); free self-paced course SC-500T00 (12 learning paths); the practice assessment is not available yet; retake 24 hours after the first attempt.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F41",
+    "title": "Microsoft · Study guide for Exam SC-500",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-500",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17 (page last updated 05/13/2026; no 'skills measured as of' date). 700 or greater to pass; 30 extra minutes on request when the exam isn't in your language. Skills: manage identity, access, and governance 20–25%; secure storage, databases, and networking 25–30%; secure compute 20–25% (includes implementing security for AI: Purview DSPM, Copilot Studio agents, Entra Agent ID, AI Gateway in API Management, Defender for AI, Foundry guardrails); manage and monitor security posture 20–25% (Defender for Cloud, Sentinel, Security Copilot). A Spanish machine translation is published at the es-es address.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F42",
+    "title": "Microsoft · Azure Security Engineer Associate (AZ-500, retired)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-security-engineer/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Warns that the certification, Exam AZ-500 and its renewal assessments were retired on August 31, 2026; it can no longer be earned or renewed. The AZ-500 study guide says the exam retired at 11:59 PM Central Standard Time and links to the SC-500 study guide.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F43",
+    "title": "Microsoft · Exam retake policies",
+    "url": "https://learn.microsoft.com/en-us/credentials/support/retake-policy",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Role-based exams: 24 hours before the first retake, 14 days between later attempts, at most five attempts in 12 months; retakes are paid. Beta exams can be taken once during the beta; a failed beta can be retaken once the exam is live.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F44",
+    "title": "Microsoft · About online exams with Pearson VUE",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/online-exams",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Microsoft exams can be taken online with a Pearson VUE proctor (OnVUE) in most countries or at a test center; greeters and proctors speak English even when the exam is in another language; no help from people or AI tools during the exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F45",
+    "title": "Microsoft · Offers (Exam Replay)",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals",
+    "kind": "Issuer offer",
+    "note": "Read 2026-11-17. Exam Replay, sold through Pearson VUE: one exam voucher plus one retake of the same exam, both taken within 12 months of purchase; online exams allowed. No price on the page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F46",
+    "title": "Microsoft · Student discounts",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts",
+    "kind": "Issuer offer",
+    "note": "Read 2026-11-17. Academic pricing on certification exams in most countries (not India or China) after verifying student status in the Learn profile. No amount on the page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F47",
+    "title": "AWS · Certified Machine Learning Engineer – Associate",
+    "url": "https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Registration for the updated exam (MLA-C02) beta is open: 170 minutes, 85 multiple choice and multiple response questions, US$75 beta price, English only (Japanese, Korean and Simplified Chinese at general availability, date TBD); the table lists its exam code as ME1-C02. Beta registration opened September 1, 2026 and delivery began September 29, 2026; results typically within 5 business days. MLA-C01 (130 minutes, 65 questions, US$150) ended in English on September 28, 2026 and stays in Korean, Japanese and Simplified Chinese until MLA-C02 is generally available. Pearson VUE test center or online; valid 3 years; at least 1 year with SageMaker AI, Amazon Bedrock and other ML engineering services recommended.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F48",
+    "title": "AWS · MLA-C02 exam guide",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Multiple choice and multiple response; 50 scored and 15 unscored questions; 720 to pass (100–1,000), compensatory scoring; pass/fail designation does not apply to the beta. Domains: data preparation for ML and AI 28%, ML model and foundation model development 24%, deployment and orchestration of ML and AI workflows 24%, operating, monitoring and securing ML and AI solutions 24%. Covers traditional ML and foundation models, RAG, agents and CI/CD. The MLA-C01 guide address now returns a not-found page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F49",
+    "title": "AWS · Comparison of MLA-C01 and MLA-C02",
+    "url": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/mla-02-comparison.html",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. MLA-C01 in use until September 28, 2026 and MLA-C02 from September 29, 2026. MLA-C01 weights: data preparation 28%, model development 26%, deployment and orchestration 22%, monitoring, maintenance and security 24%. MLA-C02 adds vector databases, embeddings, RAG, foundation model fine-tuning and evaluation, agents, Bedrock Guardrails and FM cost management; drops SageMaker Neo edge optimization and bring-your-own-container.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F50",
+    "title": "AWS · Certification policies after testing",
+    "url": "https://aws.amazon.com/certification/policies/after-testing/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. After a failed exam, wait 14 calendar days to retake and pay the full fee for each attempt; no limit on attempts; a passed exam can't be retaken for two years. Beta exams can be taken only once.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F51",
+    "title": "Google · Cybersecurity Certificate (Grow with Google)",
+    "url": "https://grow.google/certificates/cybersecurity/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Self-paced program on Coursera, under six months at 5–10 hours a week; no experience required; US$49 a month in the U.S. and Canada after a 7-day free trial; covers Python, Linux, SQL, SIEM tools (Chronicle, Splunk), Suricata, tcpdump and Wireshark; graduates get discounted access to the CompTIA Security+ exam and training; job titles include SOC analyst; employer consortium of 150+ U.S. companies.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F52",
+    "title": "Coursera · Google Cybersecurity Professional Certificate",
+    "url": "https://www.coursera.org/professional-certificates/google-cybersecurity",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Beginner level, '9 course series' (the description and FAQ still say 8 courses), 6 months at 7 hours a week, 170 hours of instruction with practice-based assessments, hands-on labs and portfolio activities; course hours 10, 9, 12, 23, 19, 17, 25, 13 and 6. Taught in English; the language dialog lists Spanish among automatic translations (instructional content only). US$49 a month in the U.S. and Canada after a 7-day trial; most learners finish for under US$300; financial aid available. Credly badge with an ACE recommendation of up to 9 college credits (7 ECTS).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F53",
+    "title": "Coursera · Fundamentos de la ciberseguridad (Google, Spanish)",
+    "url": "https://www.coursera.org/learn/fundamentos-de-la-ciberseguridad",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. First course of the Spanish version, taught in Spanish (13 assignments), listed as part of the 'Ciberseguridad de Google Professional Certificate'; enrolling also enrolls you in that certificate. Other Spanish courses of the series are online. The Spanish program's own address now redirects to the English program page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F54",
+    "title": "Coursera · Apply for financial aid",
+    "url": "https://www.coursera.support/s/article/209819033-Apply-for-Financial-Aid-or-a-Scholarship",
+    "kind": "Platform policy",
+    "note": "Read 2026-11-17. Financial aid is applied for per course (150-word application, reviewed in up to 16 days; canceled if you start a free trial) and gives a discount that depends on the application and location; it can lower the cost but can't cover it in full. 180 days to finish each course.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "F55",
+    "title": "Grow with Google España · Certificado Profesional de Google en Ciberseguridad",
+    "url": "https://grow.google/intl/es/google-career-certificates/cybersecurity/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Spanish page for the program: no experience needed, 100% online, under six months at your own pace; links to the Coursera enrollment page.",
+    "checked_on": "2026-11-17"
   }
 ]

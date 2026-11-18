@@ -42,6 +42,7 @@ const en = {
   'cat.Cloud & platform': 'Cloud & platform',
   'cat.Cybersecurity': 'Cybersecurity',
   'cat.Data & analytics': 'Data & analytics',
+  'cat.Networking': 'Networking',
 
   'search.placeholder': 'Search name, code or topic',
   'search.aria': 'Search certifications',
@@ -395,6 +396,7 @@ const es = {
   'cat.Cloud & platform': 'Cloud y plataforma',
   'cat.Cybersecurity': 'Ciberseguridad',
   'cat.Data & analytics': 'Datos y analítica',
+  'cat.Networking': 'Redes',
 
   'search.placeholder': 'Buscá por nombre, código o tema',
   'search.aria': 'Buscar certificaciones',
@@ -725,6 +727,8 @@ const ES_LABELS = {
   'roles.data-engineer': 'Ingeniería de datos',
   'roles.platform': 'Plataforma / DevOps',
   'roles.security': 'Seguridad',
+  'roles.soc-analyst': 'Analista SOC',
+  'roles.pentester': 'Pentester',
   'roles.governance': 'Riesgo y gobernanza',
   'roles.business': 'Negocio / no técnico',
   'skills.llm-apps': 'Aplicaciones con LLM',

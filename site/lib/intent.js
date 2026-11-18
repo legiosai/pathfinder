@@ -8,9 +8,9 @@
 // it, so the interface can show what it understood and let people remove what it got wrong.
 
 /** Catalog categories the vocabulary can point at. One without certifications yet simply matches nothing. */
-export const AREAS = ['AI engineering', 'ML foundations', 'AI security', 'Cloud & platform', 'Cybersecurity', 'Data & analytics'];
+export const AREAS = ['AI engineering', 'ML foundations', 'AI security', 'Cloud & platform', 'Cybersecurity', 'Data & analytics', 'Networking'];
 
-const [AI, ML, AISEC, CLOUD, SEC, DATA] = AREAS;
+const [AI, ML, AISEC, CLOUD, SEC, DATA, NET] = AREAS;
 
 /** Ceiling used for "cheap", "barato" and the like, in US dollars. */
 export const CHEAP_USD = 150;
@@ -56,7 +56,11 @@ const TOPICS = [
   [{ skills: ['devops'], areas: [CLOUD], asRole: 'platform' }, 'devops', 'dev ops', 'cicd', 'ci cd', 'continuous integration', 'continuous delivery', 'continuous deployment', 'integracion continua', 'despliegue continuo', 'entrega continua', 'gitlab', 'jenkins', 'git', 'gitops', 'pipelines', 'release engineering', 'platform engineering', 'ingenieria de plataforma', 'automation', 'automatizacion'],
   [{ skills: ['observability'], areas: [CLOUD] }, 'observability', 'observabilidad', 'monitoring', 'monitoreo', 'monitorizacion', 'opentelemetry', 'otel', 'prometheus', 'grafana', 'logging', 'logs', 'tracing', 'trazas', 'telemetry', 'telemetria', 'apm'],
   [{ skills: ['gpu-infra'], areas: [CLOUD] }, 'gpu', 'gpus', 'ai infrastructure', 'infraestructura de ia', 'infraestructura para ia', 'ai infra', 'hpc', 'high performance computing', 'data center', 'datacenter', 'data centers', 'centro de datos', 'centros de datos', 'ai factory', 'inference', 'inferencia', 'model serving', 'triton'],
-  [{ skills: ['networking'], areas: [CLOUD] }, 'networking', 'networks', 'network', 'redes', 'redes de computadoras', 'redes informaticas', 'tcp ip', 'routing', 'switching', 'enrutamiento', 'dns', 'vpn', 'infiniband', 'conectividad', 'connectivity'],
+  [{ skills: ['linux'], areas: [CLOUD] }, 'linux', 'gnu linux', 'unix', 'bash', 'bash scripting', 'shell', 'shell scripting', 'scripting en bash', 'terminal', 'command line', 'linea de comandos', 'linux administration', 'linux admin', 'administracion linux', 'administracion de linux', 'administracion de servidores linux', 'servidores linux', 'linux servers', 'ubuntu', 'debian', 'fedora', 'centos', 'rocky linux', 'almalinux', 'operating systems', 'operating system', 'sistemas operativos', 'sistema operativo'],
+
+  // Networking
+  [{ skills: ['networking'], areas: [NET] }, 'networking', 'networks', 'network', 'redes', 'redes de computadoras', 'redes informaticas', 'tcp ip', 'routing', 'switching', 'enrutamiento', 'dns', 'vpn', 'conectividad', 'connectivity', 'network fundamentals', 'fundamentos de redes', 'network administration', 'administracion de redes', 'subnetting', 'subredes', 'direccionamiento ip', 'ip addressing', 'lan', 'wan', 'wifi', 'wireless', 'redes inalambricas', 'cableado', 'cabling', 'telecomunicaciones', 'telecommunications'],
+  [{ skills: ['networking'], areas: [CLOUD] }, 'infiniband'],
 
   // Cybersecurity
   [{ skills: ['security'], areas: [SEC], generic: true }, 'security', 'cybersecurity', 'cyber security', 'cyber', 'ciberseguridad', 'seguridad', 'seguridad informatica', 'seguridad de la informacion', 'information security', 'infosec', 'it security'],
@@ -93,8 +97,9 @@ const TOPICS = [
   [{ skills: ['llm-apps', 'devops'], provider: 'GitHub' }, 'copilot', 'github copilot'],
   [{ provider: 'HashiCorp' }, 'hashicorp'],
   [{ skills: ['iac'], provider: 'HashiCorp' }, 'terraform'],
-  [{ provider: 'Red Hat' }, 'red hat', 'redhat', 'rhel'],
-  [{ provider: 'Red Hat', code: true }, 'rhcsa', 'rhce'],
+  [{ provider: 'Red Hat' }, 'red hat', 'redhat'],
+  [{ skills: ['linux'], provider: 'Red Hat' }, 'rhel', 'red hat enterprise linux'],
+  [{ skills: ['linux'], provider: 'Red Hat', code: true }, 'rhcsa', 'rhce'],
   [{ skills: ['kubernetes'], provider: 'Red Hat' }, 'openshift'],
   [{ skills: ['agents'], provider: 'LangChain' }, 'langchain', 'langgraph', 'langsmith'],
   [{ skills: ['security'], provider: 'OffSec' }, 'offsec', 'offensive security'],
@@ -108,7 +113,8 @@ const TOPICS = [
   [{ skills: ['security'], provider: 'TCM Security' }, 'tcm', 'tcm security'],
   [{ provider: 'CompTIA' }, 'comptia'],
   [{ skills: ['security'], provider: 'CompTIA', code: true }, 'securityplus', 'security plus', 'sec plus', 'pentestplus', 'pentest plus', 'cysaplus', 'cysa', 'caspplus', 'securityx'],
-  [{ skills: ['networking'], provider: 'CompTIA', code: true }, 'networkplus', 'network plus'],
+  [{ skills: ['networking'], provider: 'CompTIA', code: true }, 'networkplus', 'network plus', 'net plus'],
+  [{ skills: ['linux'], provider: 'CompTIA', code: true }, 'linuxplus', 'linux plus'],
   [{ skills: ['security'], provider: 'ISC2' }, 'isc2'],
   [{ skills: ['security'], provider: 'ISC2', code: true }, 'cissp', 'ccsp', 'sscp'],
   [{ skills: ['security', 'governance'], provider: 'ISACA' }, 'isaca'],
@@ -120,6 +126,12 @@ const TOPICS = [
   [{ skills: ['security'], provider: 'INE', code: true }, 'ejpt'],
   [{ skills: ['networking'], provider: 'Cisco' }, 'cisco'],
   [{ skills: ['networking'], provider: 'Cisco', code: true }, 'ccna', 'ccnp'],
+  [{ skills: ['security'], provider: 'Cisco', code: true }, 'ccna cybersecurity', 'ccna ciberseguridad', 'ccna cyber', 'ccna cyberops', 'cyberops', 'cyber ops', 'cyberops associate', 'cbrops', 'ccnacbr'],
+  [{ skills: ['security', 'networking'], provider: 'Fortinet' }, 'fortinet', 'fortigate', 'fortios', 'nse', 'fortinet nse'],
+  [{ skills: ['security', 'networking'], provider: 'Fortinet', code: true }, 'fcf', 'fca', 'fcp', 'fcss'],
+  [{ provider: 'LPI' }, 'lpi', 'linux professional institute'],
+  [{ skills: ['linux'], provider: 'LPI', code: true }, 'linux essentials', 'lpic', 'lpic 1', 'lpic1'],
+  [{ skills: ['security'], provider: 'Google' }, 'google cybersecurity', 'google cybersecurity certificate', 'google cybersecurity professional certificate', 'ciberseguridad de google', 'certificado de ciberseguridad de google', 'certificado profesional de ciberseguridad de google'],
 ];
 
 // Roles. `implies` applies only when the role is a goal ("I want to become a data engineer"),
@@ -132,12 +144,15 @@ const ROLES = [
   [{ roles: ['platform'], implies: { areas: [CLOUD] } }, 'cloud engineer', 'ingeniero cloud', 'ingeniera cloud', 'ingeniero de nube', 'ingeniero en la nube', 'ingeniero de cloud', 'cloud admin', 'cloud administrator', 'administrador cloud'],
   [{ roles: ['platform'], implies: { skills: ['devops'], areas: [CLOUD] } }, 'devops engineer', 'ingeniero devops', 'ingeniera devops', 'devops specialist', 'sre', 'site reliability', 'site reliability engineer', 'platform engineer', 'ingeniero de plataforma', 'ingeniera de plataforma', 'infrastructure engineer', 'ingeniero de infraestructura', 'ingeniera de infraestructura', 'sysadmin', 'sys admin', 'system administrator', 'systems administrator', 'administrador de sistemas', 'administradora de sistemas', 'operations engineer', 'it ops', 'it operations'],
   [{ roles: ['platform'] }, 'it support', 'support engineer', 'help desk', 'helpdesk', 'mesa de ayuda', 'soporte tecnico', 'tecnico de soporte', 'soporte it'],
-  [{ roles: ['platform'], implies: { skills: ['networking'], areas: [CLOUD] } }, 'network engineer', 'network administrator', 'ingeniero de redes', 'ingeniera de redes', 'administrador de redes', 'administradora de redes'],
+  [{ roles: ['platform'], implies: { skills: ['networking'], areas: [NET] } }, 'network engineer', 'network administrator', 'network technician', 'network support', 'ingeniero de redes', 'ingeniera de redes', 'administrador de redes', 'administradora de redes', 'tecnico de redes', 'tecnica de redes', 'soporte de redes'],
+  [{ roles: ['platform'], implies: { skills: ['linux'], areas: [CLOUD] } }, 'linux administrator', 'linux sysadmin', 'linux engineer', 'administrador linux', 'administradora linux', 'administrador de linux', 'administradora de linux', 'sysadmin linux', 'ingeniero linux', 'ingeniera linux'],
   [{ roles: ['ml-engineer'], implies: { skills: ['ml-foundations'], areas: [ML] } }, 'ml engineer', 'machine learning engineer', 'ingeniero de ml', 'ingeniera de ml', 'ingeniero de machine learning', 'ingeniera de machine learning', 'mle', 'researcher', 'ai researcher', 'ml researcher', 'investigador', 'investigadora'],
   [{ roles: ['ml-engineer', 'developer'], implies: { skills: ['llm-apps'], areas: [AI] } }, 'ai engineer', 'ai developer', 'ingeniero de ia', 'ingeniera de ia', 'desarrollador de ia', 'desarrolladora de ia', 'llm engineer', 'genai engineer', 'prompt engineer'],
   [{ roles: ['ml-engineer', 'data-engineer'], implies: { skills: ['ml-foundations', 'data'], areas: [ML, DATA] } }, 'data scientist', 'cientifico de datos', 'cientifica de datos'],
   [{ roles: ['data-engineer'], implies: { skills: ['data'], areas: [DATA] } }, 'data engineer', 'ingeniero de datos', 'ingeniera de datos', 'data analyst', 'analista de datos', 'bi analyst', 'analista bi', 'analista de bi', 'bi developer', 'desarrollador bi', 'analytics engineer', 'dba', 'database administrator', 'administrador de bases de datos', 'administrador de base de datos'],
-  [{ roles: ['security'], implies: { skills: ['security'], areas: [SEC] } }, 'security engineer', 'security analyst', 'soc analyst', 'analista soc', 'analista de seguridad', 'ingeniero de seguridad', 'ingeniera de seguridad', 'pentester', 'pen tester', 'ethical hacker', 'hacker etico', 'hacker', 'red teamer', 'security researcher', 'investigador de seguridad', 'ciso', 'security consultant', 'consultor de seguridad', 'consultora de seguridad', 'especialista en seguridad', 'especialista en ciberseguridad'],
+  [{ roles: ['security', 'soc-analyst'], implies: { skills: ['security'], areas: [SEC] } }, 'soc analyst', 'analista soc', 'analista de soc', 'analista en un soc', 'security operations analyst', 'analista de operaciones de seguridad', 'cybersecurity analyst', 'analista de ciberseguridad', 'blue teamer', 'incident responder'],
+  [{ roles: ['security', 'pentester'], implies: { skills: ['security'], areas: [SEC] } }, 'pentester', 'pen tester', 'penetration tester', 'ethical hacker', 'hacker etico', 'hacker etica', 'hacker', 'red teamer'],
+  [{ roles: ['security'], implies: { skills: ['security'], areas: [SEC] } }, 'security engineer', 'security analyst', 'analista de seguridad', 'ingeniero de seguridad', 'ingeniera de seguridad', 'security researcher', 'investigador de seguridad', 'ciso', 'security consultant', 'consultor de seguridad', 'consultora de seguridad', 'especialista en seguridad', 'especialista en ciberseguridad'],
   [{ roles: ['governance'], implies: { skills: ['governance'], areas: [AISEC] } }, 'risk manager', 'risk analyst', 'compliance officer', 'compliance analyst', 'auditor', 'auditora', 'grc analyst', 'privacy officer', 'dpo', 'lawyer', 'abogado', 'abogada', 'oficial de cumplimiento', 'analista de riesgos', 'analista de riesgo', 'analista de cumplimiento'],
   [{ roles: ['business'] }, 'manager', 'gerente', 'product manager', 'project manager', 'product owner', 'scrum master', 'jefe', 'jefa', 'director', 'directora', 'executive', 'ejecutivo', 'ejecutiva', 'founder', 'fundador', 'fundadora', 'emprendedor', 'emprendedora', 'business', 'negocio', 'negocios', 'non technical', 'not technical', 'no tecnico', 'no tecnica', 'sales', 'ventas', 'marketing', 'consultant', 'consultor', 'consultora', 'recruiter', 'reclutador', 'reclutadora', 'business analyst', 'analista de negocio', 'analista funcional', 'recursos humanos'],
 ];

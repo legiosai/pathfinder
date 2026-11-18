@@ -1,0 +1,94 @@
+{
+  "id": "redhat-rhcsa",
+  "name": "Red Hat Certified System Administrator",
+  "provider": "Red Hat",
+  "code": "EX200",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 500,
+    "basis": "Exam only",
+    "note": "US price for the EX200 individual exam in Red Hat's training catalog; it includes one free retake if the first attempt fails. Prices vary by country (the Argentina catalog shows ARS 448,544 before taxes)."
+  },
+  "exam": {
+    "minutes": 180,
+    "style": "practical",
+    "format": "Hands-on, performance-based exam on Red Hat Enterprise Linux 10: real administration tasks on live systems, without internet access or notes; the documentation shipped with the product is available. Configurations must survive a reboot. Taken at a Red Hat testing center or online as a Red Hat Remote Exam.",
+    "passing": "Not published (results show pass/fail and a score per objective)",
+    "validity": "3 years",
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Core Red Hat Enterprise Linux 10 administration: command-line tools and documentation, simple shell scripts, booting and running systems, local storage with partitions and LVM, VFAT, ext4, XFS and NFS file systems and autofs, software from RPM and Flatpak repositories, scheduled tasks and services, IPv4 and IPv6 networking, users and groups, and security with firewalld, SSH keys and SELinux.",
+  "requirements": "Since May 4, 2026, candidates must upload a government-issued photo ID and have it verified before they can schedule a Red Hat individual exam.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The exam is based on Red Hat Enterprise Linux 10, and Red Hat's catalog lists it as EX200K. Prep material written for earlier RHEL versions may not match the current objectives.",
+    "The RHCSA certification page still lists basic container management among the skills, but the current EX200 objectives do not include containers.",
+    "Red Hat recommends Red Hat System Administration I and II (RH124 and RH134) or the RHCSA Rapid Track course (RH199), or comparable experience administering RHEL. RHCSA is required for the Red Hat Certified Engineer titles in Enterprise Linux and in Ansible.",
+    "Staying certified: certifications are current for three years. Renew by passing the current exam again, by earning another certification at the same level, or a higher one; expired certifications must be earned again.",
+    "Red Hat does not publish the passing score or task weights on the exam page."
+  ],
+  "skills": [
+    "linux"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [],
+  "sources": [
+    "F13",
+    "F14",
+    "F15",
+    "F16",
+    "F17",
+    "F18"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "EX200 exam objectives",
+      "url": "https://www.redhat.com/en/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "The 'Objectives' tab of the exam page."
+    },
+    {
+      "title": "Objetivos del examen EX200",
+      "url": "https://www.redhat.com/es/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam",
+      "kind": "official-guide",
+      "cost": "free",
+      "lang": "es",
+      "note": "The exam page in Spanish, with the objectives translated."
+    },
+    {
+      "title": "Red Hat Learning Subscription trial",
+      "url": "https://www.redhat.com/en/services/training/learning-subscription/trial",
+      "kind": "course",
+      "cost": "free",
+      "note": "No-cost trial with limited access to courses and hands-on labs."
+    },
+    {
+      "title": "Red Hat Developer subscription for individuals",
+      "url": "https://developers.redhat.com/products/rhel/download",
+      "kind": "docs",
+      "cost": "free",
+      "note": "No-cost membership that includes RHEL, useful to practise the tasks on your own machine."
+    },
+    {
+      "title": "RHCSA Rapid Track course (RH199)",
+      "url": "https://www.redhat.com/en/services/training/rh199-red-hat-certified-system-administrator-rapid-track-course",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Combines RH124 and RH134 in one course."
+    }
+  ],
+  "access": {
+    "retake": "One free retake when the first attempt at a purchased individual exam is a no pass or a no-show, taken within a year of purchase; later attempts are paid, and the same exam cannot be taken twice in one day."
+  }
+}

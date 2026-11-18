@@ -60,6 +60,7 @@
   --cat-ml: #1baf7a;
   --cat-cyber: #0e8fa3;
   --cat-data: #c98a00;
+  --cat-net: #c2378a;
   --k-learn: #2a78d6;
   --k-practice: #1baf7a;
   --k-mock: #eb6834;
@@ -103,7 +104,7 @@
     --e-btn: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.45);
     --e-inset: inset 0 1px 2px rgb(0 0 0 / 0.3);
     --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a6a39a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
-    --cat-ai: #9085e9; --cat-cloud: #3987e5; --cat-sec: #e66767; --cat-ml: #199e70; --cat-cyber: #2bb0c4; --cat-data: #d39a1c;
+    --cat-ai: #9085e9; --cat-cloud: #3987e5; --cat-sec: #e66767; --cat-ml: #199e70; --cat-cyber: #2bb0c4; --cat-data: #d39a1c; --cat-net: #e26aac;
     --k-learn: #3987e5; --k-practice: #199e70; --k-mock: #d95926;
     --d1: #3987e5; --d2: #d95926; --d3: #199e70; --d4: #c98500;
     --d5: #d55181; --d6: #008300; --d7: #9085e9; --d8: #e66767; --d-rest: #77736b;
@@ -138,7 +139,7 @@
   --e-btn: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.45);
   --e-inset: inset 0 1px 2px rgb(0 0 0 / 0.3);
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a6a39a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
-  --cat-ai: #9085e9; --cat-cloud: #3987e5; --cat-sec: #e66767; --cat-ml: #199e70; --cat-cyber: #2bb0c4; --cat-data: #d39a1c;
+  --cat-ai: #9085e9; --cat-cloud: #3987e5; --cat-sec: #e66767; --cat-ml: #199e70; --cat-cyber: #2bb0c4; --cat-data: #d39a1c; --cat-net: #e26aac;
   --k-learn: #3987e5; --k-practice: #199e70; --k-mock: #d95926;
   --d1: #3987e5; --d2: #d95926; --d3: #199e70; --d4: #c98500;
   --d5: #d55181; --d6: #008300; --d7: #9085e9; --d8: #e66767; --d-rest: #77736b;

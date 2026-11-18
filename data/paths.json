@@ -11,15 +11,15 @@
       },
       "steps": [
         {
-          "certs": ["isc2-cc", "microsoft-sc-900"],
-          "note": { "en": "Vocabulary and core concepts, no experience needed.", "es": "Vocabulario y conceptos base, sin experiencia previa." }
+          "certs": ["isc2-cc", "google-cybersecurity-certificate", "comptia-network-plus", "microsoft-sc-900", "fortinet-nse-1"],
+          "note": { "en": "Vocabulary and core concepts, no experience needed; Fortinet's NSE 1 is free. Network+ if you'd rather start with networks.", "es": "Vocabulario y conceptos base, sin experiencia previa; la NSE 1 de Fortinet es gratis. Network+ si preferís arrancar por redes." }
         },
         {
           "certs": ["comptia-security-plus"],
           "note": { "en": "The baseline many security job posts ask for.", "es": "La base que piden muchas búsquedas laborales de seguridad." }
         },
         {
-          "certs": ["comptia-cysa-plus", "microsoft-sc-200"],
+          "certs": ["comptia-cysa-plus", "microsoft-sc-200", "cisco-ccna-cybersecurity"],
           "note": { "en": "Detection, analysis and response, the daily work of a SOC.", "es": "Detección, análisis y respuesta: el trabajo diario de un SOC." }
         },
         {
@@ -69,7 +69,7 @@
           "note": { "en": "Learn to build on one cloud before securing it.", "es": "Aprender a construir en una nube antes de asegurarla." }
         },
         {
-          "certs": ["aws-scs-c03", "google-cloud-security-engineer"],
+          "certs": ["aws-scs-c03", "microsoft-sc-500", "google-cloud-security-engineer"],
           "note": { "en": "The cloud provider's own security exam.", "es": "El examen de seguridad del propio proveedor." }
         },
         {
@@ -171,6 +171,52 @@
       ]
     },
     {
+      "id": "linux-sysadmin",
+      "category": "Cloud & platform",
+      "title": { "en": "Linux administration", "es": "Administración Linux" },
+      "summary": {
+        "en": "Run the Linux servers that cloud, DevOps and security work sits on.",
+        "es": "Administrar los servidores Linux sobre los que corren cloud, DevOps y seguridad."
+      },
+      "steps": [
+        {
+          "certs": ["lpi-linux-essentials"],
+          "note": { "en": "The command line and Linux basics, multiple choice.", "es": "La línea de comandos y las bases de Linux, multiple choice." }
+        },
+        {
+          "certs": ["redhat-rhcsa"],
+          "note": { "en": "A hands-on exam on live systems: users, storage, services and security.", "es": "Un examen práctico sobre sistemas reales: usuarios, almacenamiento, servicios y seguridad." }
+        },
+        {
+          "certs": ["lf-cka", "hashicorp-terraform-associate"],
+          "note": { "en": "Next, run containers or automate the infrastructure.", "es": "Después, correr contenedores o automatizar la infraestructura." }
+        }
+      ]
+    },
+    {
+      "id": "networking",
+      "category": "Networking",
+      "title": { "en": "Networking", "es": "Redes" },
+      "summary": {
+        "en": "Build and run the networks everything else depends on.",
+        "es": "Armar y operar las redes de las que depende todo lo demás."
+      },
+      "steps": [
+        {
+          "certs": ["comptia-network-plus"],
+          "note": { "en": "How networks work, from cabling to troubleshooting, not tied to one vendor.", "es": "Cómo funcionan las redes, del cableado a resolver fallas, sin atarte a una marca." }
+        },
+        {
+          "certs": ["cisco-ccna"],
+          "note": { "en": "Configure routers and switches: the networking exam employers know best.", "es": "Configurar routers y switches: el examen de redes que más conocen las empresas." }
+        },
+        {
+          "certs": ["fortinet-nse-3", "comptia-security-plus"],
+          "note": { "en": "Secure the network: firewalls and security basics.", "es": "Asegurar la red: firewalls y bases de seguridad." }
+        }
+      ]
+    },
+    {
       "id": "ai-engineering",
       "category": "AI engineering",
       "title": { "en": "Build with AI", "es": "Construir con IA" },
@@ -184,8 +230,8 @@
           "note": { "en": "What models can and can't do, and the vocabulary.", "es": "Qué pueden y qué no pueden hacer los modelos, y el vocabulario." }
         },
         {
-          "certs": ["microsoft-ai-103", "databricks-genai-engineer", "langchain-lcae"],
-          "note": { "en": "Build retrieval and agent applications on one platform.", "es": "Construir aplicaciones con búsqueda y agentes sobre una plataforma." }
+          "certs": ["microsoft-ai-103", "databricks-genai-engineer", "langchain-lcae", "aws-mla-c02"],
+          "note": { "en": "Build retrieval and agent applications on one platform, or train and deploy models on AWS.", "es": "Construir aplicaciones con búsqueda y agentes sobre una plataforma, o entrenar y desplegar modelos en AWS." }
         },
         {
           "certs": ["aws-aip-c01", "nvidia-ncp-aai"],

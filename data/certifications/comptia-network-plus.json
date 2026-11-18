@@ -1,0 +1,118 @@
+{
+  "id": "comptia-network-plus",
+  "name": "CompTIA Network+",
+  "provider": "CompTIA",
+  "code": "N10-009",
+  "type": "certification",
+  "category": "Networking",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 399,
+    "basis": "Exam only",
+    "note": "US list price for one Network+ voucher in the store on CompTIA's Network+ page; prices are set by country and currency. The same store lists a voucher with Retake Assurance at $519 and bundles with CertMaster training."
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "Up to 90 multiple-choice and performance-based questions in 90 minutes, at a Pearson VUE test center or online with a remote proctor. CompTIA recommends CompTIA A+ and 9–12 months of hands-on networking experience; it is a recommendation, not a prerequisite.",
+    "questions": "Maximum of 90",
+    "question_count": 90,
+    "passing": "720 scaled (100–900)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "de",
+      "ja",
+      "pt",
+      "es"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Vendor-neutral networking: the OSI model, IP addressing, ports and protocols, network architecture and cloud and virtual networking concepts, deploying wired and wireless devices, documentation and monitoring, network security hardening, and troubleshooting with common tools.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "N10-009 (V9) launched on June 20, 2024. CompTIA estimates its retirement for 2027 (usually three years after launch) and had not announced the next version when this was checked.",
+    "Every attempt is paid in full: CompTIA gives no free retests or retake discounts, except through a voucher bought with Retake Assurance.",
+    "Renewal: the certification lasts three years. Renew with 30 CEUs plus a $150 CE fee per three-year cycle, through CertMaster CE, or with some higher-level CompTIA certifications, which also renew Network+."
+  ],
+  "skills": [
+    "networking",
+    "security"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Networking Concepts",
+      "weight": 23
+    },
+    {
+      "name": "Network Implementation",
+      "weight": 20
+    },
+    {
+      "name": "Network Operations",
+      "weight": 19
+    },
+    {
+      "name": "Network Security",
+      "weight": 14
+    },
+    {
+      "name": "Network Troubleshooting",
+      "weight": 24
+    }
+  ],
+  "sources": [
+    "F01",
+    "F02",
+    "F03",
+    "F04",
+    "F05",
+    "F06"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Network+ N10-009 exam objectives",
+      "url": "https://lecbyo.files.cmp.optimizely.com/download/35a7403ab73211ef9dcda6f347fbf652",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Document version 6.0, on CompTIA's file host."
+    },
+    {
+      "title": "CompTIA CertMaster Learn",
+      "url": "https://www.comptia.org/en-us/resources/certmaster-training/learn/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "CompTIA's self-paced course; $499 for Network+ in the US store."
+    },
+    {
+      "title": "CompTIA CertMaster Practice",
+      "url": "https://www.comptia.org/en-us/resources/certmaster-training/practice/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "CompTIA's adaptive practice questions; $209 for Network+."
+    },
+    {
+      "title": "Network+ CertMaster Study, versión en español",
+      "url": "https://www.comptia.org/en-us/certifications/network/",
+      "kind": "course",
+      "cost": "paid",
+      "lang": "es",
+      "note": "Spanish edition sold in the store on the Network+ page, $144."
+    }
+  ],
+  "domains_note": "Weights from the CompTIA Network+ N10-009 exam objectives, document version 6.0, read 2026-11-17; the Network+ certification page shows the same five weights.",
+  "access": {
+    "retake": "No wait before a second attempt and at least 14 calendar days before a third or later one; each attempt costs the full price unless the voucher includes Retake Assurance.",
+    "accommodations": "English as a Second Language adds 30 minutes, automatically, only to exams taken in English in non-English-speaking countries where no localized version is offered; Network+ is offered in Spanish."
+  }
+}
