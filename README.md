@@ -13,7 +13,7 @@ Find and compare IT certifications. Prepare with exam guides and practice questi
 - **English and Spanish**, light and dark, installable and usable offline. When a new version is out, a notice offers to refresh instead of swapping files under an open page.
 - **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links to practice and compare. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
 - **Comparison pages** (`c/vs/<a>-vs-<b>/`) for pairs people often weigh against each other, listed in `data/comparisons.json`: a table of both certifications' facts, the differences in plain sentences built from the same data (no verdicts) and a link to compare in the app.
-- **Study path pages** (`p/<id>/`, index at `p/`) for each suggested path in `data/paths.json`, step by step, linked from the certification pages they mention.
+- **Paths** shows the suggested certification orders in `data/paths.json` by goal. Each path also has a shareable page (`p/<id>/`, index at `p/`) linked from the certifications it mentions.
 
 ## Privacy
 

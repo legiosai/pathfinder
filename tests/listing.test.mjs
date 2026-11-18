@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { activeFilters, emptyFilters, examInSpanish, filterCerts, filtersFromParams, filtersToParams, sortCerts } from '../site/lib/listing.js';
-import { nextSteps, pathsFor, similar } from '../site/lib/related.js';
+import { nextSteps, similar } from '../site/lib/related.js';
 import { bundle, loadCatalog } from '../scripts/catalog.mjs';
 
 const catalog = bundle(await loadCatalog(new URL('..', import.meta.url).pathname), '2026-11-17');
@@ -74,10 +74,8 @@ test('filters go into the address and come back the same', () => {
   assert.deepEqual(activeFilters(f({ sort: 'name', max: 0 })), ['max']);
 });
 
-test('paths by category, the next step after a certification and similar ones', () => {
+test('the next step after a certification and similar certifications', () => {
   const { paths } = catalog;
-  assert.ok(pathsFor(paths, 'Cybersecurity').every((p) => p.category === 'Cybersecurity'));
-  assert.equal(pathsFor(paths, '').length, paths.length);
   const next = nextSteps('aws-clf-c02', paths).flatMap((s) => s.certs);
   assert.ok(next.includes('aws-saa'));
   assert.ok(!next.includes('aws-clf-c02'));

@@ -110,6 +110,8 @@ test('uncached study path links open the study path offline', async () => {
     setTimeout() {},
   });
   for (const [path, target] of [
+    ['p/', '#paths'],
+    ['es/p/', '?lang=es#paths'],
     ['p/cloud-aws/', '#path?id=cloud-aws'],
     ['es/p/cloud-aws/', '?lang=es#path?id=cloud-aws'],
     ['c/aws-saa/', '#cert?id=aws-saa'],

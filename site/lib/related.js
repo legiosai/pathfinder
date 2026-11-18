@@ -2,9 +2,6 @@
 
 const LEVELS = ['entry', 'associate', 'professional', 'expert'];
 
-/** Paths for a catalog category, or every path when the category is empty. */
-export const pathsFor = (paths, category = '') => (paths || []).filter((p) => !category || p.category === category);
-
 /**
  * The certifications that follow `id` in any path: for each path and step holding it, the next
  * step's certifications, with the path and that step's note. Each certification appears once.

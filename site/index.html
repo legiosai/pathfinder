@@ -46,7 +46,7 @@
     var lang = asked === "es" || asked === "en" ? asked : saved === "es" || saved === "en" ? saved : (navigator.language || "").toLowerCase().indexOf("es") === 0 ? "es" : "en";
     if (lang !== "es") return;
     document.documentElement.lang = "es";
-    var T = {"skip":"Saltar al contenido","nav.aria":"Secciones","nav.certs":"Certificaciones","nav.certsShort":"Catálogo","nav.ask":"Asesor IA","nav.askShort":"Asesor","nav.compare":"Comparar","nav.about":"Acerca de","nav.aboutShort":"Info","loading":"Cargando…","foot":"pathfinder · MIT · <a href=\"https://github.com/legiosai/pathfinder\">GitHub</a> · íconos de <a href=\"https://lucide.dev\">Lucide</a> y <a href=\"https://simpleicons.org\">Simple Icons</a> · los logos y las insignias son marcas de sus dueños","foot.index":"Índice de certificaciones","lang.switch":"EN","lang.aria":"View in English"};
+    var T = {"skip":"Saltar al contenido","nav.aria":"Secciones","nav.certs":"Certificaciones","nav.certsShort":"Catálogo","nav.ask":"Asesor IA","nav.askShort":"Asesor","nav.paths":"Caminos","nav.compare":"Comparar","nav.about":"Acerca de","nav.aboutShort":"Info","loading":"Cargando…","foot":"pathfinder · MIT · <a href=\"https://github.com/legiosai/pathfinder\">GitHub</a> · íconos de <a href=\"https://lucide.dev\">Lucide</a> y <a href=\"https://simpleicons.org\">Simple Icons</a> · los logos y las insignias son marcas de sus dueños","foot.index":"Índice de certificaciones","lang.switch":"EN","lang.aria":"View in English"};
     var html = new WeakMap();
     // Elements arrive while the page is parsed, their text after them, so each change is checked
     // again; the comparisons stop the loop once an element holds its Spanish text.
@@ -167,6 +167,7 @@
     <nav aria-label="Sections" data-i18n-attr="aria-label:nav.aria">
       <a href="#" data-route="list"><svg class="i"><use href="#i-layout-grid"/></svg><span class="long" data-i18n="nav.certs">Certifications</span><span class="short" data-i18n="nav.certsShort">Catalog</span></a>
       <a href="#ask" data-route="ask" class="nav-ask"><svg class="i"><use href="#i-sparkles"/></svg><span class="long" data-i18n="nav.ask">Ask AI</span><span class="short" data-i18n="nav.askShort">Ask AI</span></a>
+      <a href="#paths" data-route="paths"><svg class="i"><use href="#i-route"/></svg><span data-i18n="nav.paths">Paths</span></a>
       <a href="#compare" data-route="compare" id="nav-compare" hidden><svg class="i"><use href="#i-columns-3"/></svg><span data-i18n="nav.compare">Compare</span><b id="compare-count"></b></a>
       <a href="#about" data-route="about"><svg class="i"><use href="#i-info"/></svg><span class="long" data-i18n="nav.about">About</span><span class="short" data-i18n="nav.aboutShort">About</span></a>
     </nav>
@@ -196,14 +197,6 @@
         <button type="button" class="btn icon-btn mq-toggle" id="mq-toggle" aria-pressed="false" aria-label="Pause the moving badges" data-i18n-attr="aria-label:hero.pause"><svg class="i"><use href="#i-pause"/></svg></button>
       </div>
     </div>
-
-    <section class="paths" id="paths" aria-labelledby="paths-title" hidden>
-      <div class="paths-head">
-        <h2 id="paths-title" data-i18n="paths.title">Where to start</h2>
-        <p class="hint" data-i18n="paths.lede">Suggested orders by goal, one step at a time.</p>
-      </div>
-      <div class="path-strip" id="path-strip"></div>
-    </section>
 
     <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
 
@@ -284,6 +277,18 @@
 
   <section id="view-cert" class="view" hidden>
     <div id="cert-body"></div>
+  </section>
+
+  <section id="view-paths" class="view" aria-labelledby="paths-title" hidden>
+    <div class="page-head paths-head">
+      <span class="head-icon"><svg class="i" aria-hidden="true"><use href="#i-route"/></svg></span>
+      <div>
+        <h1 id="paths-title" data-i18n="paths.title">Where to start</h1>
+        <p class="hint" data-i18n="paths.lede">Certification paths by goal.</p>
+      </div>
+    </div>
+    <ul class="path-grid" id="path-grid" role="list"></ul>
+    <p class="empty" id="paths-empty" data-i18n="paths.empty" hidden>No certification paths are available.</p>
   </section>
 
   <section id="view-compare" class="view" hidden>

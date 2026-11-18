@@ -358,7 +358,7 @@ button:disabled, button:disabled:hover { opacity: 0.45; cursor: not-allowed; tra
 .search input { padding-left: 42px; }
 /* The hero sits on the page itself: no box, no tint. Title, line, search and stats on one centred
    column with an even rhythm, then the badge wall. */
-.hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 0 0; margin-bottom: 56px; }
+.hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 0 0; margin-bottom: 32px; }
 .hero-text { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 760px; }
 .hero h1 { font-size: clamp(2.15rem, 1.3rem + 3.4vw, 3.75rem); line-height: 1; letter-spacing: -0.04em; font-weight: 720; text-wrap: balance; }
 .hero-text p { color: var(--muted); margin: 16px 0 28px; max-width: 48ch; font-size: var(--fs-lg); line-height: 1.55; text-wrap: pretty; }
@@ -409,7 +409,7 @@ img.badge.official { object-fit: contain; user-select: none; }
 .mq-track a { display: block; flex: none; margin-right: 22px; border-radius: var(--r-md); transition: transform var(--t) var(--ease); }
 .mq-track a:hover { transform: scale(1.14); }
 .mq-track .badge { width: 64px; height: 72px; display: block; filter: drop-shadow(0 4px 8px rgb(31 26 15 / 0.12)); }
-.mq-toggle { position: absolute; right: 0; bottom: -42px; width: 32px; height: 32px; min-height: 32px; padding: 0; border: 0; border-radius: var(--r-pill); background: none; box-shadow: none; color: var(--subtle); }
+.mq-toggle { position: absolute; right: 0; bottom: 8px; width: 36px; height: 36px; min-height: 36px; padding: 0; border-radius: var(--r-pill); background: var(--raised); color: var(--muted); }
 .mq-toggle:hover { color: var(--text); background: var(--surface-2); }
 .mq-toggle .i { width: 14px; height: 14px; }
 
@@ -432,23 +432,22 @@ img.badge.official { object-fit: contain; user-select: none; }
 .toolbar #for-me { margin-left: auto; }
 .toolbar .chip span { min-height: 44px; padding: 0 15px; font-weight: 550; }
 
-/* "Where to start": one compact card per study path, in a row that scrolls sideways. */
-/* The heading tucks in beside the badge wall's pause button, which hangs below the hero. */
-.paths { margin: -52px 0 16px; }
-.paths-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; min-height: 32px; margin-bottom: 8px; padding-right: 48px; }
-.paths-head h2 { font-size: var(--fs-lg); }
-.paths-head .hint { font-size: var(--fs-sm); }
-.path-strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(250px, 300px); gap: 12px; overflow-x: auto; scroll-snap-type: x proximity; padding: 3px 3px 8px; margin: -3px -3px 0; scrollbar-width: thin; }
-.path-card { display: flex; flex-direction: column; gap: 6px; padding: 11px 14px 12px; min-width: 0; color: inherit; text-decoration: none; scroll-snap-align: start; transition: border-color var(--t-fast), box-shadow var(--t-fast); }
-.path-card:hover { border-color: color-mix(in srgb, var(--c) 40%, var(--line)); box-shadow: var(--e-2); }
-.path-top { display: flex; align-items: center; gap: 10px; }
-.path-top b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--head); font-weight: 650; font-size: 1rem; line-height: 1.3; letter-spacing: -0.012em; }
-.path-sum { color: var(--muted); font-size: var(--fs-sm); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* One line of steps; a long chain fades out at the edge (the path page lists them all). */
-.path-chain { display: flex; align-items: center; gap: 4px; margin-top: auto; padding-top: 2px; overflow: hidden; mask-image: linear-gradient(90deg, #000 88%, transparent); }
-.step-b { flex-shrink: 0; display: inline-flex; align-items: baseline; gap: 3px; padding: 1px 8px; border-radius: var(--r-pill); font-size: var(--fs-xs); font-weight: 650; line-height: 1.6; white-space: nowrap; color: color-mix(in srgb, var(--c, var(--accent)) 62%, var(--text)); background: color-mix(in srgb, var(--c, var(--accent)) 10%, var(--surface)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c, var(--accent)) 20%, transparent); }
-.step-b small { font-weight: 550; opacity: 0.75; }
-.step-arrow { flex-shrink: 0; display: inline-flex; color: var(--faint); }
+/* ---------- study path cards ---------- */
+.paths-head { align-items: flex-start; }
+.paths-head .hint { margin: 6px 0 0; }
+.path-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(285px, 100%), 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+.path-card { display: flex; min-width: 0; transition: border-color var(--t-fast), box-shadow var(--t-fast); }
+.path-card:hover, .path-card:focus-within { border-color: color-mix(in srgb, var(--c) 44%, var(--line)); box-shadow: var(--e-2); }
+.path-link { display: flex; flex: 1; flex-direction: column; gap: 10px; min-width: 0; padding: 16px; border-radius: inherit; color: inherit; text-decoration: none; }
+.path-top { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; }
+.path-top h2 { font-size: 1.125rem; text-wrap: pretty; overflow-wrap: anywhere; }
+.path-top > .i { width: 16px; height: 16px; color: var(--subtle); }
+.path-sum { margin: 0; color: var(--muted); font-size: var(--fs-md); line-height: 1.5; overflow-wrap: anywhere; }
+.path-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; list-style: none; margin: auto 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); }
+.path-chain li { display: flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
+.step-b { padding: 2px 6px; border-radius: var(--r-pill); font-size: var(--fs-sm); font-weight: 650; line-height: 1.55; overflow-wrap: anywhere; color: color-mix(in srgb, var(--c) 48%, var(--text)); background: color-mix(in srgb, var(--c) 10%, var(--surface)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 20%, transparent); }
+.step-b small { font-size: 0.9em; font-weight: 550; }
+.step-arrow { flex: none; display: inline-flex; color: var(--subtle); }
 .step-arrow .i { width: 12px; height: 12px; }
 
 /* The count of results is the heading of the grid; the order sits beside it. */
@@ -861,12 +860,12 @@ mark.es { padding: 0; border-radius: 3px; background: color-mix(in srgb, var(--g
 }
 
 @media (max-width: 900px) {
-  .hero { padding-top: 28px; margin-bottom: 48px; }
+  .hero { padding-top: 28px; }
   .hero-stats > span + span::before { margin: 0 10px; }
   .marquee { width: calc(100% + 40px); margin: 36px -20px 0; gap: 10px; }
   .mq-track a { margin-right: 14px; }
   .mq-track .badge { width: 50px; height: 56px; }
-  .mq-toggle { right: 20px; bottom: -40px; }
+  .mq-toggle { right: 20px; }
   .hero-search kbd { display: none; }
   .hero-search input { padding-right: 16px; }
   .cols, .pa-stats { grid-template-columns: 1fr; }
@@ -880,7 +879,7 @@ mark.es { padding: 0; border-radius: 3px; background: color-mix(in srgb, var(--g
   .page-head { margin-bottom: 22px; }
   .head-icon { width: 40px; height: 40px; }
   .head-icon .i { width: 20px; height: 20px; }
-  .hero { padding-top: 16px; margin-bottom: 44px; }
+  .hero { padding-top: 16px; margin-bottom: 24px; }
   .hero-stats { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; justify-items: start; }
   .hero-stats > span:nth-child(odd)::before { display: none; }
   .hero-text p { font-size: 1.04rem; margin: 12px 0 22px; }
@@ -907,14 +906,9 @@ mark.es { padding: 0; border-radius: 3px; background: color-mix(in srgb, var(--g
   .mini { grid-template-columns: 40px minmax(0, 1fr); }
   .mini-meta { grid-column: 2; justify-items: start; grid-auto-flow: column; justify-content: start; gap: 10px; }
 
-  /* Categories and paths scroll sideways on phones. */
+  /* Category filters scroll sideways on phones. */
   .cats { flex-wrap: nowrap; overflow-x: auto; padding: 3px 3px 9px; margin: -3px -3px 4px; scrollbar-width: none; mask-image: linear-gradient(90deg, #000 90%, transparent); }
   .cats::-webkit-scrollbar { display: none; }
-  .paths { margin-top: -40px; margin-bottom: 18px; }
-  .paths-head .hint { flex-basis: 100%; }
-  /* Narrow cards: the summary gets two lines. */
-  .path-sum { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-  .path-strip { grid-auto-columns: minmax(240px, 80%); }
   .list-bar { margin-top: 2px; }
   .not-found { padding: 28px 20px; }
   .nf-search { flex-direction: column; }

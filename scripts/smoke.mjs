@@ -22,7 +22,16 @@ const freePort = () =>
 
 // Each check opens `path` and waits until `ready` (an expression run in the page) is true.
 const VIEWS = [
-  ['home', '', `document.querySelectorAll('#certs > *').length > 10 && !document.querySelector('#view-list').hidden && !!document.querySelector('#view-list h1')?.offsetHeight && !document.querySelector('nav a[href="#plan"], nav a[href="#progress"], #view-plan, #view-progress')`],
+  ['home', '', `document.querySelectorAll('#certs > *').length > 10
+    && !document.querySelector('#view-list').hidden && !!document.querySelector('#view-list h1')?.offsetHeight
+    && !document.querySelector('nav a[href="#plan"], nav a[href="#progress"], #view-plan, #view-progress')
+    && !document.querySelector('#view-list .path-grid') && document.querySelector('#view-paths').hidden`],
+  ['paths tab', '#paths', `!document.querySelector('#view-paths').hidden
+    && document.querySelector('nav a[data-route="ask"] + a[aria-current="page"]').hash === '#paths'
+    && document.querySelectorAll('#path-grid .path-card').length >= 12`],
+  ['path detail', '#path?id=cloud-aws', `!document.querySelector('#view-path').hidden
+    && document.querySelector('nav a[data-route="paths"]').getAttribute('aria-current') === 'page'
+    && document.querySelector('#path-body a.back').hash === '#paths'`],
   ['certification', '#cert?id=aws-saa', `!document.querySelector('#view-cert').hidden && /Solutions Architect/.test(document.querySelector('#cert-body h1')?.textContent || '')`],
   ['old plan link', '#plan?cert=aws-saa&hours=40', `location.hash === '#cert?id=aws-saa' && !document.querySelector('#view-cert').hidden && /Solutions Architect/.test(document.querySelector('#cert-body h1')?.textContent || '')`],
   ['practice', '#practice?cert=aws-clf-c02', `!document.querySelector('#view-practice').hidden && !!document.querySelector('#practice-body button')`],

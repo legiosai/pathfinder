@@ -7,7 +7,7 @@ import { t, getLang, setLang, dates, label, hoursNote, lib, applyStatic } from '
 import { examText } from './lib/examtext.js';
 import { createSearch } from './lib/search.js';
 import { SORTS, activeFilters, emptyFilters, examInSpanish, examOnline, filterCerts, filtersFromParams, filtersToParams, sortCerts } from './lib/listing.js';
-import { nextSteps, pathsFor, shortName, similar } from './lib/related.js';
+import { nextSteps, shortName, similar } from './lib/related.js';
 import { STUDY_KEYS, createStudyBackup, hasStudyData, parseStudyBackup, restoreStudyBackup } from './lib/backup.js';
 import { mountChat } from './chat.js';
 
@@ -156,10 +156,10 @@ function parseHash() {
   return { name, params: new URLSearchParams(query) };
 }
 
-const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', path: 'path', compare: 'compare', practice: 'practice', about: 'about' };
+const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', paths: 'paths', cert: 'cert', path: 'path', compare: 'compare', practice: 'practice', about: 'about' };
 let lastView = null;
 let lastCert = null;
-let listScroll = 0;
+const scrollPositions = { list: 0, paths: 0 };
 let jumpToResults = false;
 
 function route() {
@@ -185,10 +185,11 @@ function renderRoute() {
   const practiceId = params.get('cert');
   if (view !== 'practice') stopPracticeTimer();
 
-  if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
+  if (lastView !== view && Object.hasOwn(scrollPositions, lastView)) scrollPositions[lastView] = window.scrollY;
   $$('.view').forEach((v) => (v.hidden = v.id !== `view-${view}`));
+  const currentTab = view === 'cert' ? 'list' : view === 'path' ? 'paths' : view;
   $$('nav a').forEach((a) => {
-    if (a.dataset.route === (['cert', 'path'].includes(view) ? 'list' : view)) a.setAttribute('aria-current', 'page');
+    if (a.dataset.route === currentTab) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
 
@@ -208,6 +209,7 @@ function renderRoute() {
     if (BY_ID.has(certId)) renderCert(certId);
     else notFound('#cert-body', t('cert.notFound'), certId);
   }
+  if (view === 'paths') renderPaths();
   if (view === 'path') renderPath(certId);
   if (view === 'compare') {
     const ids = (params.get('ids') || '').split(',').filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE);
@@ -219,7 +221,7 @@ function renderRoute() {
 
   const from = { view: lastView, cert: lastCert };
   const moved = view !== lastView || (['cert', 'path'].includes(view) && certId !== lastCert);
-  if (moved) window.scrollTo(0, view === 'list' ? listScroll : 0);
+  if (moved) window.scrollTo(0, scrollPositions[view] ?? 0);
   if (view === 'list' && jumpToResults) {
     jumpToResults = false;
     showResults();
@@ -230,7 +232,7 @@ function renderRoute() {
   lastView = view;
   lastCert = ['cert', 'path'].includes(view) ? certId : null;
 
-  const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), about: t('about.title') };
+  const titles = { ask: t('chat.title'), paths: t('nav.paths'), practice: t('practice.title'), compare: t('compare.title'), about: t('about.title') };
   if (view === 'cert' && BY_ID.has(certId)) document.title = `${BY_ID.get(certId).name} · pathfinder`;
   else if (!['cert', 'path'].includes(view)) document.title = titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
   if (moved && from.view !== null) arrive(view, from, !composer);
@@ -253,6 +255,7 @@ function arrive(view, from, focus) {
   const section = $(`#view-${view}`);
   let target = null;
   if (view === 'list' && from.view === 'cert' && from.cert) target = $(`#certs a[href="#cert?id=${CSS.escape(from.cert)}"]`);
+  if (view === 'paths' && from.view === 'path' && from.cert) target = $(`#path-grid a[href="#path?id=${CSS.escape(from.cert)}"]`);
   target ||= $('h1', section);
   if (focus && target) {
     if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) target.setAttribute('tabindex', '-1');
@@ -419,7 +422,6 @@ function renderList() {
   $('#list-note').hidden = !varies;
   $('#list-note').innerHTML = varies ? `${icon('info')}<span>${esc(t('list.varies', { n: varies }))}</span>` : '';
   renderSuggest(filters.q, list);
-  renderPaths();
   syncListUrl();
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
@@ -470,33 +472,34 @@ function card(c, score, i = 0) {
 }
 
 // ---------- study paths ----------
-// data/paths.json: suggested orders by goal. The home page shows one compact card per path of the
-// chosen category, and each opens #path?id=… with its steps.
+// data/paths.json: suggested certification orders by goal.
 const pathText = (v) => (v ? v[getLang()] || v.en : '');
 const pathById = (id) => (DATA.paths || []).find((p) => p.id === id);
 
-function chain(p) {
-  const step = (s) => {
-    const [first, ...alts] = s.certs.map((id) => BY_ID.get(id)).filter(Boolean);
-    return first ? `<span class="step-b">${esc(shortName(first))}${alts.length ? `<small>+${alts.length}</small>` : ''}</span>` : '';
-  };
-  return p.steps.map(step).join(`<span class="step-arrow" aria-hidden="true">${icon('arrow-right')}</span>`);
+function pathCard(path) {
+  const { icon: categoryIcon, c: color } = CATS[path.category] || { icon: 'layers', c: '--accent' };
+  const steps = path.steps.map(({ certs }) => certs.map((id) => BY_ID.get(id)).filter(Boolean)).filter((certs) => certs.length);
+  const chain = steps.map(([first, ...alternatives], i) => {
+    const n = alternatives.length;
+    const description = n ? t('paths.alternatives', { x: first.name, n }) : first.name;
+    return `<li>${i ? `<span class="step-arrow" aria-hidden="true">${icon('arrow-right')}</span>` : ''}
+      <span class="step-b" aria-hidden="true">${esc(shortName(first))}${n ? ` <small>+${n}</small>` : ''}</span>
+      <span class="sr">${esc(description)}</span></li>`;
+  }).join('');
+  const id = esc(path.id);
+  return `<li class="card path-card" style="--c:var(${color})">
+    <a class="path-link" href="#path?id=${id}" aria-labelledby="path-title-${id}">
+      <div class="path-top">${tile(categoryIcon, color, 'sm')}<h2 id="path-title-${id}">${esc(pathText(path.title))}</h2>${icon('arrow-right')}</div>
+      <p class="path-sum">${esc(pathText(path.summary))}</p>
+      <ol class="path-chain" role="list" aria-label="${esc(t('paths.order'))}">${chain}</ol>
+    </a>
+  </li>`;
 }
 
 function renderPaths() {
-  const shown = pathsFor(DATA.paths, filters.cat);
-  $('#paths').hidden = !shown.length;
-  $('#path-strip').innerHTML = shown
-    .map((p) => {
-      const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
-      const names = p.steps.map((s) => s.certs.map((id) => BY_ID.get(id)).filter(Boolean).map(shortName).reduce((a, b) => t('paths.or', { a, b }))).join(', ');
-      return `<a class="card path-card" href="#path?id=${esc(p.id)}" style="--c:var(${m.c})" title="${esc(pathText(p.summary))}">
-        <span class="path-top">${tile(m.icon, m.c, 'xs')}<b>${esc(pathText(p.title))}</b></span>
-        <span class="path-sum">${esc(pathText(p.summary))}</span>
-        <span class="path-chain" role="img" aria-label="${esc(t('paths.chain', { x: names }))}">${chain(p)}</span>
-      </a>`;
-    })
-    .join('');
+  const paths = DATA.paths || [];
+  $('#paths-empty').hidden = paths.length > 0;
+  $('#path-grid').innerHTML = paths.map(pathCard).join('');
 }
 
 function renderPath(id) {
@@ -504,8 +507,8 @@ function renderPath(id) {
   if (!p) return notFound('#path-body', t('paths.notFound'), id);
   const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
   $('#path-body').innerHTML = `
-    <a class="back" href="#list">${icon('arrow-left')}${t('cert.back')}</a>
-    <div class="page-head path-head">${tile(m.icon, m.c)}<div><p class="eyebrow">${esc(t('paths.title'))} · ${esc(catName(p.category))}</p><h1 tabindex="-1">${esc(pathText(p.title))}</h1></div></div>
+    <a class="back" href="#paths">${icon('arrow-left')}${t('paths.back')}</a>
+    <div class="page-head path-head">${tile(m.icon, m.c)}<div><p class="eyebrow">${esc(catName(p.category))}</p><h1 tabindex="-1">${esc(pathText(p.title))}</h1></div></div>
     <p class="path-lede">${esc(pathText(p.summary))}</p>
     <ol class="path-steps">${p.steps
       .map(
@@ -1639,7 +1642,7 @@ function renderMarquee() {
   rows.forEach((row, r) => {
     // Mouse shortcuts only: the same links follow in the list, so the rows stay out of the tab order.
     // The first badges of each row are on screen as the page opens; the rest load as they drift in.
-    const set = (copy) => row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false, eager: !copy && i < 6 })}</a>`).join('');
+    const set = (copy) => row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false, eager: !copy && i < 6 })}</a>`).join('');
     $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 3.6 : 3.1)).toFixed(1)}s"><div class="mq-set">${set(false)}</div><div class="mq-set mq-copy">${set(true)}</div></div>`;
   });
 }
