@@ -151,6 +151,23 @@ last user message of `mock:ask`, `mock:refusal`, `mock:overloaded`, `mock:intern
 `mock:upstream` produces that case, for testing the UI's error states, and `mock:tools` a reply
 with every event.
 
+### Eval
+
+`scripts/eval.mjs` replays 13 conversations (vague beginner, low budget in Argentina, an ordered
+path, CISSP with one year, US$100 in three weeks, "¿algo más barato?", off-topic, dumps, prompt
+injection, a certification not in the catalog, a bare code, an exam in Spanish) and checks each
+reply automatically: valid ids, cards whenever it recommends, warnings over budget and on
+restricted picks, nothing over budget called cheap, no markdown, at most ~150 words, the person's
+language, at most one question, no invented certification codes, no prompt leak.
+
+```sh
+node scripts/eval.mjs http://127.0.0.1:8813 --catalog ../dist/catalog.json   # the site's mock
+node scripts/eval.mjs https://pathfinder-api.legios.com.ar --out eval.json  # production, ~US$0.30
+```
+
+Against a non-local endpoint it waits 8 s between cases to stay under the rate limit. Exit code 1
+when any check fails; `--only id,id` runs a subset.
+
 ## Deploy
 
 ### Vercel (production)
