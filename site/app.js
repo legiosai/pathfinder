@@ -650,7 +650,13 @@ function statusHtml(p) {
   if (d.suggestedMinutes) fixes.push(t('plan.fixLen', { x: len(d.suggestedMinutes) }));
   fixes.push(t('plan.fixDays'));
   fixes.push(t('plan.fixExam', { d: day(p.examDate) }));
-  return `<div class="status warn">${icon('triangle-alert')}${esc(t('plan.noFit', { d: day(d.targetDate), needed: d.needed, available: d.available, fixes }))}</div>`;
+  // The sessions stop before the exam anyway; say what was cut to get there.
+  const cut = p.cut
+    ? `<p>${esc(t('plan.cut', { n: p.sessions.length, h: p.hours, N: p.cut.sessions, H: p.cut.hours }))}</p>
+      <ul class="cut-kinds" aria-label="${esc(t('plan.cutAria'))}">${p.cut.kinds.map((k) => `<li><span class="k ${kindN(k.kind)}" ${kindStyle(k.kind)}>${icon(KIND[k.kind].icon)}</span>${esc(kindLabel(k.kind))} <b>${k.from} → ${k.to}</b></li>`).join('')}</ul>
+      ${p.cut.grouped ? `<p>${esc(t('plan.cutGrouped'))}</p>` : ''}`
+    : '';
+  return `<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.noFit', { d: day(d.targetDate), needed: d.needed, available: d.available, fixes }))}</b></p>${cut}</div></div>`;
 }
 
 function monthsHtml(p, done) {
@@ -829,7 +835,7 @@ function renderPlan() {
       if (box.checked && (done.size === p.sessions.length || kind === 'final' || kind === 'mock')) celebrate(done.size === p.sessions.length ? 220 : 90);
     }),
   );
-  $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(localPlan(p)), 'text/calendar'));
+  $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(localPlan(p), new Date(), { exam: t('plan.examDay') }), 'text/calendar'));
   $('#dl-md').addEventListener('click', () => download(`${p.cert.id}-plan.md`, toMarkdown(localPlan(p), { resources: cert.prep || [], text: markdownText() }), 'text/markdown'));
   $('#track-plan').addEventListener('click', () => setTracked(progressKey, trackParams(), !isTracked(progressKey)));
   $('#print-plan').addEventListener('click', () => window.print());
