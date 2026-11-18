@@ -369,7 +369,8 @@
     "title": "GIAC · AI Platform Security",
     "url": "https://www.giac.org/certifications/ai-security-platform-security-gaips",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: technical scope, 54 questions/two hours and CyberLive description. Actual account-specific exam form not tested."
+    "note": "Read 27 Oct 2026. Re-read 2026-11-17: one proctored exam, 54 questions, 2 hours, 65% to pass for exam versions released on or after 25 July 2026; CyberLive hands-on testing; remote through ProctorU or onsite at Pearson VUE; 120 days from activation to sit it.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y09",
@@ -1443,21 +1444,24 @@
     "title": "GIAC · Security Essentials (GSEC)",
     "url": "https://www.giac.org/certifications/security-essentials-gsec/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. One proctored exam, 106 questions, 4 hours, 72% to pass for exam versions released on or after 6 April 2026; ProctorU remote or Pearson VUE; 120 days from activation; CyberLive hands-on testing described; 26 exam objectives listed without weights; no prerequisites stated."
+    "note": "Read 2026-11-17. One proctored exam, 106 questions, 4 hours, 72% to pass for exam versions released on or after 6 April 2026; ProctorU remote or Pearson VUE; 120 days from activation; CyberLive hands-on testing described; 26 exam objectives listed without weights; no prerequisites stated.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S71",
     "title": "GIAC · Certification pricing and fees",
     "url": "https://www.giac.org/pricing",
     "kind": "Provider / price page",
-    "note": "Read 2026-11-17. GSEC: certification attempt US$999, retake US$899, 45-day extension US$479, renewal US$499 (US$249 for additional renewals within two years of a full-price one), practice exam US$399. Prices in USD, excluding sales tax."
+    "note": "Read 2026-11-17. GSEC: certification attempt US$999, retake US$899, 45-day extension US$479, renewal US$499 (US$249 for additional renewals within two years of a full-price one), practice exam US$399. GAIPS: attempt US$999, retake US$899, extension US$479, renewal US$499, practice exam US$399. Prices in USD, excluding sales tax.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S72",
     "title": "GIAC · How to renew",
     "url": "https://www.giac.org/renewal/how-to-renew",
     "kind": "Issuer policy",
-    "note": "Read 2026-11-17. Renew with 36 CPEs or by retaking the exam, then pay the renewal fee; the certification stays active for four more years."
+    "note": "Read 2026-11-17. Renew with 36 CPEs or by retaking the exam, then pay the renewal fee; the certification stays active for four more years.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S73",
@@ -1681,6 +1685,14 @@
     "url": "https://cert.eccouncil.org/exam-retake-policy.html",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. After a failed exam, candidates can buy an ECC Exam Centre voucher to retake at a discounted price. No wait before the second attempt; 14 days before the third, fourth and fifth; at most five attempts in 12 months, then a 12-month wait.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D14",
+    "title": "GIAC · Retakes and extensions",
+    "url": "https://www.giac.org/knowledge-base/retakes-and-extensions",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. After any failed exam, a 30-day wait before the next sitting (an emergency waiver still leaves 14 days); a retake can be bought for 30 days after the attempt deadline and extends it by 60 days; after three failed attempts, wait one year before a new certification attempt.",
     "checked_on": "2026-11-17"
   }
 ]
