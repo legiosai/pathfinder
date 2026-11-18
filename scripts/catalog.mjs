@@ -44,6 +44,7 @@ export async function loadCatalog(root) {
       if (e.code === 'ENOENT') return {};
       throw e;
     }),
+    comparisons: (await read('comparisons.json').catch(() => ({ pairs: [] }))).pairs,
   };
 }
 
@@ -64,7 +65,7 @@ function isDate(d) {
 }
 
 /** Returns a list of human-readable problems. Empty means valid. */
-export function validate({ certifications, sources, reports, taxonomy, practice = [], paths = [], regions = {} }) {
+export function validate({ certifications, sources, reports, taxonomy, practice = [], paths = [], regions = {}, comparisons = [] }) {
   const errors = [];
   const err = (where, msg) => errors.push(`${where}: ${msg}`);
   const str = (v) => typeof v === 'string';
@@ -226,6 +227,18 @@ export function validate({ certifications, sources, reports, taxonomy, practice 
       for (const s of r?.sources || []) if (!sourceIds.has(s)) err(w, `unknown source ${s}`);
       if (!isDate(r?.checked_on)) err(w, 'checked_on must be YYYY-MM-DD');
     }
+  }
+  const pairs = new Set();
+  for (const pair of comparisons) {
+    const w = `comparisons.json ${JSON.stringify(pair)}`;
+    if (!Array.isArray(pair) || pair.length !== 2 || pair[0] === pair[1]) {
+      err(w, 'each pair needs two different certification ids');
+      continue;
+    }
+    for (const id of pair) if (!certIds.has(id)) err(w, `unknown certification ${id}`);
+    const key = [...pair].sort().join(' ');
+    if (pairs.has(key)) err(w, 'duplicate pair');
+    pairs.add(key);
   }
   return errors;
 }

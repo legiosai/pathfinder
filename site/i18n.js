@@ -394,10 +394,11 @@ const en = {
   'foot.catalog': 'Catalog {d}',
   'foot.index': 'Certification index',
   offline: 'Offline: showing the saved copy.',
+  'update.ready': 'New version',
+  'update.reload': 'Refresh',
+  'home.title': 'Choose an IT certification and plan your study · pathfinder',
 
   // Static certification pages, written at build time by scripts/pages.mjs.
-  'page.title': '{name} ({code}): exam domains, price and study plan',
-  'page.titlePractice': '{name} ({code}): practice questions, exam domains and study plan',
   'page.desc': ({ name, code, usd, fee, minutes, questions, practice }) => {
     const facts = [usd === 0 ? 'free exam' : usd ? `${fee} exam` : '', minutes ? `${minutes} minutes` : '', questions ? `${questions} questions` : ''].filter(Boolean);
     return `${name} (${code})${facts.length ? `: ${facts.join(', ')}` : ''}. Exam domains and weights, prep resources${practice ? `, ${practice} practice questions` : ''} and a free study plan.`;
@@ -800,9 +801,10 @@ const es = {
   'foot.catalog': 'Catálogo {d}',
   'foot.index': 'Índice de certificaciones',
   offline: 'Sin conexión: mostrando la copia guardada.',
+  'update.ready': 'Hay una versión nueva',
+  'update.reload': 'Actualizar',
+  'home.title': 'Elegí una certificación de IT y planificá tu estudio · pathfinder',
 
-  'page.title': '{name} ({code}): dominios del examen, precio y plan de estudio',
-  'page.titlePractice': '{name} ({code}): preguntas de práctica, dominios del examen y plan de estudio',
   'page.desc': ({ name, code, usd, fee, minutes, questions, practice }) => {
     const facts = [usd === 0 ? 'examen gratis' : usd ? `examen de ${fee}` : '', minutes ? `${minutes} minutos` : '', questions ? `${questions} preguntas` : ''].filter(Boolean);
     return `${name} (${code})${facts.length ? `: ${facts.join(', ')}` : ''}. Dominios y pesos del examen, recursos para prepararte${practice ? `, ${practice} preguntas de práctica` : ''} y un plan de estudio gratis.`;
@@ -944,7 +946,7 @@ const ES_MARKDOWN = {
   sessions: 'Sesiones',
   paid: ' (pago)',
   inferred: '> Los temas salen del resumen del alcance. Reemplazalos por los objetivos oficiales del examen.',
-  footer: 'Generado con pathfinder: https://legiosai.github.io/pathfinder/',
+  footer: 'Generado con pathfinder: https://pathfinder.legios.com.ar/',
 };
 
 /** Every interface string by language. Read by the tests and the static page build. */

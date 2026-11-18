@@ -1,4 +1,4 @@
-# Validates the catalog and runs the tests on every pull request.
+# Validates the catalog, runs the tests and opens the built site in headless Chrome on every pull request.
 name: CI
 
 on:
@@ -19,3 +19,5 @@ jobs:
           node-version: 22
       - run: npm test
       - run: npm run build
+      # Chrome comes preinstalled on ubuntu-latest.
+      - run: npm run smoke

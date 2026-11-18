@@ -4,7 +4,6 @@ import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistake
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
 import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
 import Fuse from './vendor/fuse.js';
-import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
 import { mountChat } from './chat.js';
 
@@ -225,7 +224,7 @@ function renderRoute() {
   lastCert = view === 'cert' ? certId : null;
 
   const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
-  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : 'pathfinder';
+  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
 }
 
 // ---------- compare state ----------
@@ -953,7 +952,10 @@ function celebrate(count) {
   if (reducedMotion()) return;
   const css = getComputedStyle(document.documentElement);
   const colors = ['--accent', '--k-learn', '--k-practice', '--k-mock', '--d4'].map((v) => css.getPropertyValue(v).trim()).filter(Boolean);
-  confetti({ particleCount: count, spread: 75, startVelocity: 38, origin: { y: 0.75 }, colors, disableForReducedMotion: true });
+  // Loaded on the first celebration, so the first visit doesn't wait for it.
+  import('./vendor/confetti.js')
+    .then(({ default: confetti }) => confetti({ particleCount: count, spread: 75, startVelocity: 38, origin: { y: 0.75 }, colors, disableForReducedMotion: true }))
+    .catch(() => {});
 }
 
 function effectiveTheme() {
@@ -1970,8 +1972,9 @@ function renderMarquee() {
   order.forEach((c, i) => rows[i % 2].push(c));
   rows.forEach((row, r) => {
     // Mouse shortcuts only: the same links follow in the list, so the rows stay out of the tab order.
-    const set = row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false })}</a>`).join('');
-    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 3.6 : 3.1)).toFixed(1)}s"><div class="mq-set">${set}</div><div class="mq-set mq-copy">${set}</div></div>`;
+    // The first badges of each row are on screen as the page opens; the rest load as they drift in.
+    const set = (copy) => row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false, eager: !copy && i < 6 })}</a>`).join('');
+    $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 3.6 : 3.1)).toFixed(1)}s"><div class="mq-set">${set(false)}</div><div class="mq-set mq-copy">${set(true)}</div></div>`;
   });
 }
 
@@ -2154,7 +2157,7 @@ function localize() {
 async function init() {
   applyStatic();
   try {
-    const res = await fetch('catalog.json', { cache: 'no-cache' });
+    const res = await fetch('catalog.json'); // the build adds ?v=<build>, like index.html's preload
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     DATA = await res.json();
   } catch (err) {
@@ -2194,12 +2197,61 @@ async function init() {
   registerWorker();
 }
 
+// The offline copy (sw.js) is registered once the page has loaded, so it never competes with the
+// first visit's downloads. A newer build's worker waits instead of taking over an open page: if this
+// page already is that build (it came from the network), the worker takes over quietly; otherwise a
+// notice offers to refresh, and the page reloads once the new worker is in charge.
 function registerWorker() {
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
   if (!('serviceWorker' in navigator) || (location.protocol !== 'https:' && !local)) return;
-  navigator.serviceWorker.register('sw.js').catch(() => {
-    /* offline support is optional */
-  });
+  const sw = navigator.serviceWorker;
+  const build = new URL(import.meta.url).searchParams.get('v') || 'dev';
+  let reloading = false;
+  sw.addEventListener('controllerchange', () => reloading && location.reload());
+  const versionOf = (worker) =>
+    new Promise((resolve) => {
+      const channel = new MessageChannel();
+      channel.port1.onmessage = (e) => resolve(e.data);
+      worker.postMessage('version', [channel.port2]);
+      setTimeout(() => resolve(null), 2000);
+    });
+  const offer = async (worker) => {
+    if (!worker || !sw.controller) return; // a first install has nothing to replace
+    if ((await versionOf(worker)) === build) return worker.postMessage('activate');
+    if ($('#update')) return;
+    const note = document.createElement('div');
+    note.id = 'update';
+    note.className = 'update';
+    note.setAttribute('role', 'status');
+    note.innerHTML = `<span data-i18n="update.ready">${esc(t('update.ready'))}</span><button type="button" class="btn primary" data-i18n="update.reload">${esc(t('update.reload'))}</button>`;
+    $('button', note).addEventListener('click', () => {
+      reloading = true;
+      worker.postMessage('activate');
+    });
+    document.body.append(note);
+  };
+  const start = () =>
+    sw
+      .register('sw.js')
+      .then((reg) => {
+        offer(reg.waiting);
+        reg.addEventListener('updatefound', () => {
+          const worker = reg.installing;
+          worker?.addEventListener('statechange', () => worker.state === 'installed' && offer(worker));
+        });
+        // A tab left open for days still hears about new builds: look again when it comes back, at most hourly.
+        let checked = Date.now();
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState !== 'visible' || Date.now() - checked < 3600e3) return;
+          checked = Date.now();
+          reg.update().catch(() => {});
+        });
+      })
+      .catch(() => {
+        /* offline support is optional */
+      });
+  if (document.readyState === 'complete') start();
+  else addEventListener('load', start, { once: true });
 }
 
 init();

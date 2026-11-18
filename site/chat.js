@@ -12,7 +12,6 @@
 
 import { FIRST_BYTE_MS, STALL_MS, decide, formatText, fromStore, paused, resolveApi, secondsLeft, toRequest, toStore, userText } from './lib/chat.js';
 import { json, readEvents } from './lib/sse.js';
-import { parseIntent, recommend } from './lib/intent.js';
 import { rank } from './lib/match.js';
 import { estimateHours } from './lib/planner.js';
 import { t, getLang, label, lib } from './i18n.js';
@@ -111,7 +110,15 @@ export function mountChat({ data, helpers, onRefine }) {
     }
     return map;
   };
-  const readAll = () => parseIntent(userText(messages.filter((m) => !m.live)), { certs });
+  // lib/intent.js is large and only needed to answer on the device or to fill "For me", so it loads
+  // once the page is up instead of holding up the first render.
+  let intentLib = null;
+  const intentReady = import('./lib/intent.js').then((lib) => {
+    intentLib = lib;
+    if (!isBusy() && messages.some((m) => m.picks?.length)) render(); // may add "Fine-tune in For me"
+  });
+  intentReady.catch(() => {}); // answer() waits for it and reports a failure there
+  const readAll = () => intentLib.parseIntent(userText(messages.filter((m) => !m.live)), { certs });
 
   /** Fill `msg` with the matcher's answer to everything the person has written so far. */
   function answerHere(msg) {
@@ -122,7 +129,7 @@ export function mountChat({ data, helpers, onRefine }) {
     else {
       const names = labels();
       const ranked = rank(certs, intent.profile, names);
-      const { picks } = recommend(certs, ranked, intent, { limit: PICKS, labels: names, estimate: (c) => estimateHours(c, intent.profile, levelHours).hours });
+      const { picks } = intentLib.recommend(certs, ranked, intent, { limit: PICKS, labels: names, estimate: (c) => estimateHours(c, intent.profile, levelHours).hours });
       msg.key = picks.length ? 'chat.picks' : 'chat.local.none';
       // The reasons stay in English here, as lib/intent.js writes them, and are translated when shown.
       if (picks.length) msg.picks = picks.map((p) => ({ id: p.id, why: p.reasons[0] || '' }));
@@ -186,7 +193,7 @@ export function mountChat({ data, helpers, onRefine }) {
     // "Fine-tune in For me" goes with the latest answer that has picks, when the text names a topic.
     let refineAt = -1;
     const lastPicks = messages.findLastIndex((m) => m.role === 'assistant' && m.picks?.length && !m.live);
-    if (lastPicks >= 0 && lastPicks === messages.findLastIndex((m) => m.role === 'assistant') && readAll().topical) refineAt = lastPicks;
+    if (intentLib && lastPicks >= 0 && lastPicks === messages.findLastIndex((m) => m.role === 'assistant') && readAll().topical) refineAt = lastPicks;
     log.innerHTML = `<li class="msg bot"><div class="msg-text"><p>${esc(t('chat.hello'))}</p></div></li>${messages.map((m, i) => bubble(m, i, refineAt)).join('')}`;
     fresh.hidden = !messages.length;
     setTicker();
@@ -362,8 +369,10 @@ export function mountChat({ data, helpers, onRefine }) {
       }
     }
     if (d.pauseUntil) pause = { reason: d.reason, until: d.pauseUntil };
-    if (d.fallback) answerHere(msg);
-    else if (!msg.content.trim()) msg.key = 'chat.picks'; // picks without words
+    if (d.fallback) {
+      await intentReady;
+      answerHere(msg);
+    } else if (!msg.content.trim()) msg.key = 'chat.picks'; // picks without words
     msg.reason = d.reason || undefined;
     msg.retry = d.retry || undefined;
     msg.retryAt = d.retryAt || undefined;
@@ -425,7 +434,7 @@ export function mountChat({ data, helpers, onRefine }) {
       box.focus({ preventScroll: true });
       answer();
     }
-    if (act === 'refine') onRefine(readAll());
+    if (act === 'refine' && intentLib) onRefine(readAll());
   });
 
   if (api !== API && dev) dev.textContent = ` · ${t('chat.dev', { x: api })}`;

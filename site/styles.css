@@ -204,6 +204,12 @@ nav .short { display: none; }
 
 main { flex: 1; padding-top: var(--sp-8); padding-bottom: 88px; }
 .loading { color: var(--muted); }
+/* While the catalog loads, keep the footer below the fold, so it doesn't jump down once the view fills in. */
+main:has(> .loading) { min-height: 100vh; }
+/* "New version · Refresh", shown when a newer build is ready for offline use (registerWorker in app.js). */
+.update { position: fixed; left: 50%; bottom: 16px; translate: -50% 0; z-index: 20; display: flex; align-items: center; gap: 14px; max-width: calc(100% - 32px); padding: 6px 6px 6px 18px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--raised); color: var(--text); box-shadow: var(--e-3); font-size: var(--fs-md); font-weight: 550; white-space: nowrap; }
+.update .btn { min-height: 34px; padding-block: 0; border-radius: var(--r-pill); }
+@media print { .update { display: none; } }
 
 /* ---------- footer ---------- */
 .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 24px; padding-top: 24px; padding-bottom: 36px; color: var(--subtle); font-size: var(--fs-sm); line-height: 1.6; border-top: 1px solid var(--line); }
@@ -472,6 +478,8 @@ img.badge.official { object-fit: contain; user-select: none; }
 .result-count { color: var(--muted); font-size: var(--fs-md); font-weight: 550; margin: 6px 0 14px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 .cert-card { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 20px; overflow: hidden; transition: transform var(--t) var(--ease), border-color var(--t), box-shadow var(--t); }
+/* The list holds every certification: cards far from the screen skip layout and paint until they near it. */
+#certs > .cert-card { content-visibility: auto; contain-intrinsic-size: auto 216px; }
 .cert-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 128px; background: radial-gradient(85% 100% at 0% 0%, color-mix(in srgb, var(--pc) 14%, transparent), transparent 72%); pointer-events: none; }
 .cert-card:hover { border-color: color-mix(in srgb, var(--pc) 38%, var(--line)); box-shadow: var(--e-3), 0 18px 40px -26px var(--pc); }
 .cert-card .row { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 14px; }
@@ -843,6 +851,34 @@ details.more > summary:hover { color: var(--text); }
 .idx a { font-weight: 600; text-decoration: none; }
 .idx a:hover { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
 .idx small { color: var(--muted); font-size: var(--fs-md); font-variant-numeric: tabular-nums; }
+/* Comparison pages (c/vs/…): one fact per row, one certification per column. */
+.vs-scroll { overflow-x: auto; }
+.vs-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.94rem; line-height: 1.45; }
+.vs-table th, .vs-table td { text-align: left; vertical-align: top; padding: 11px 12px 11px 0; border-top: 1px solid var(--line); }
+.vs-table thead th, .vs-table thead td { border-top: 0; padding-top: 0; }
+.vs-table th[scope="row"] { width: 24%; color: var(--muted); font-weight: 600; }
+.vs-table td { width: 38%; }
+.vs-table thead a { display: flex; align-items: center; gap: 10px; font-weight: 650; text-decoration: none; }
+.vs-table thead a:hover span { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
+.vs-table small { display: block; margin-top: 2px; color: var(--muted); font-size: var(--fs-sm); }
+.vs-table ol { margin: 0; padding-left: 18px; }
+.vs-table ol li + li { margin-top: 4px; }
+.vs-table ol b { font-weight: 650; font-variant-numeric: tabular-nums; }
+.vs-actions { margin: 0 0 20px; }
+/* Study path pages (p/…). */
+.path-note { max-width: 70ch; margin: -8px 0 20px; }
+.path-step .idx { margin: 10px 0 16px; }
+/* Narrow screens: each fact's name on its own line, the two values side by side under it. */
+@media (max-width: 640px) {
+  .vs-table, .vs-table thead, .vs-table tbody { display: block; min-width: 0; }
+  .vs-table tr { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; border-top: 1px solid var(--line); }
+  .vs-table thead tr { border-top: 0; padding-bottom: 8px; }
+  .vs-table thead td { display: none; }
+  .vs-table th, .vs-table td { width: auto; padding: 3px 0; border-top: 0; overflow-wrap: anywhere; }
+  .vs-table th[scope="row"] { grid-column: 1 / -1; width: auto; padding-top: 11px; font-size: var(--fs-sm); }
+  .vs-table tbody td { padding-bottom: 11px; }
+  .vs-table thead a { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
 
 /* ---------- motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
