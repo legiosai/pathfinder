@@ -1,0 +1,83 @@
+{
+  "id": "fortinet-nse-3",
+  "name": "NSE 3 in Cybersecurity",
+  "provider": "Fortinet",
+  "code": "NSE 3",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 0,
+    "basis": "Free course and online exam",
+    "note": "Fortinet says the NSE 1, NSE 2 and NSE 3 courses are open to everyone free of charge as self-paced online training; its exam vouchers and fee list cover NSE 4 and above only. Optional on-demand labs are paid."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "Self-paced online FortiGate 7.6 Operator course (about 8 hours), then the NSE 3 FortiGate Operator online exam on the Fortinet Training Institute. Fortinet does not publish the number of questions, the time limit or the passing score; its proctored exams start at NSE 4.",
+    "validity": "2 years",
+    "delivery": [
+      "online"
+    ]
+  },
+  "scope": "Operating a FortiGate firewall (FortiOS 7.6): system settings and basic networking, firewall policies, logging, user authentication, SSL inspection, antivirus, web filtering, intrusion prevention and application control, ZTNA and IPsec VPN, the Security Fabric, high availability and routine maintenance.",
+  "requirements": "No certification prerequisites. Fortinet recommends the topics of Networking Fundamentals, NSE 1 (Cybersecurity and Cloud Fundamentals) and NSE 2 (Introduction to the Next Generation Firewall), or equivalent experience. Enrolling needs a free FortiCloud account.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "NSE 3 replaced the Fortinet Certified Associate (FCA) in Cybersecurity on July 15, 2026, when Fortinet moved to an eight-level NSE program; active FCA holders received NSE 3.",
+    "Valid two years. Renew by completing the course and passing the online exam again, or by earning or renewing any NSE 3–7 certification; renewing NSE 3 also renews active NSE 1 and NSE 2."
+  ],
+  "skills": [
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "security",
+    "platform"
+  ],
+  "domains": [],
+  "sources": [
+    "F30",
+    "F31",
+    "F33",
+    "F35",
+    "F36",
+    "F37",
+    "F38",
+    "F39"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "FortiGate 7.6 Operator (NSE 3 course)",
+      "url": "https://training.fortinet.com/local/staticpage/view.php?page=library_fortigate-operator",
+      "kind": "course",
+      "cost": "free",
+      "note": "The official course, about 8 hours, with demos and simulations; the exam follows it."
+    },
+    {
+      "title": "Cybersecurity and Cloud Fundamentals (NSE 1 course)",
+      "url": "https://training.fortinet.com/local/staticpage/view.php?page=library_cybersecurity-and-cloud-fundamentals",
+      "kind": "course",
+      "cost": "free",
+      "note": "Recommended before NSE 3."
+    },
+    {
+      "title": "Introduction to the Next Generation Firewall (NSE 2 course)",
+      "url": "https://training.fortinet.com/local/staticpage/view.php?page=nse_2",
+      "kind": "course",
+      "cost": "free",
+      "note": "Recommended before NSE 3."
+    }
+  ],
+  "access": {
+    "free_routes": [
+      {
+        "text": "Fortinet offers the NSE 1, NSE 2 and NSE 3 courses free of charge to everyone as self-paced online training.",
+        "url": "https://helpdesk.training.fortinet.com/support/solutions/articles/73000524101-are-all-courses-available-online-"
+      }
+    ]
+  }
+}
