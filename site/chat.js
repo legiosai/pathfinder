@@ -594,9 +594,23 @@ export function mountChat({ data, helpers, onRefine }) {
     if ((act === 'reply' || act === 'example') && !isBusy()) sendChosen(e.target.closest('[data-act]').dataset.text);
   });
 
+  // On phones the page fits the visible height, keyboard included (styles.css reads --chat-vh), and
+  // short heights get a compact head. The conversation keeps its end in view when the keyboard opens.
+  const vv = window.visualViewport;
+  function fit() {
+    const height = Math.round(vv ? vv.height : window.innerHeight);
+    const atEnd = messages.length && log.scrollHeight - log.scrollTop - log.clientHeight < 40;
+    document.documentElement.style.setProperty('--chat-vh', `${height}px`);
+    document.documentElement.classList.toggle('chat-short', height < 600);
+    if (atEnd) log.scrollTop = log.scrollHeight;
+    edge();
+  }
+  (vv || window).addEventListener('resize', fit, { passive: true });
+
   if (api !== API && dev) dev.textContent = ` · ${t('chat.dev', { x: api })}`;
   setBusy(false);
   render();
+  fit();
   // An empty chat shows its greeting and examples from the top; a conversation its latest message.
   const toEnd = () => {
     log.scrollTop = messages.length ? log.scrollHeight : 0;
@@ -606,6 +620,7 @@ export function mountChat({ data, helpers, onRefine }) {
   return {
     /** The chat page just opened: show the latest message (a hidden log can't scroll). */
     shown() {
+      fit();
       toEnd();
     },
     /** Re-render in the current language (app.js calls this after switching). */

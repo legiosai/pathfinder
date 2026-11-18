@@ -1089,6 +1089,23 @@ details.more > summary:hover { color: var(--text); }
   .c-compare tbody th { grid-column: 1 / -1; width: auto; padding: 8px 0 0; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.04em; }
   .c-compare tbody td { padding: 2px 0 8px; font-size: var(--fs-sm); }
 
+  /* On phones the chat page fills the visible height, above the on-screen keyboard too (chat.js
+     keeps --chat-vh at the visual viewport's height): the conversation is the only thing that
+     scrolls and the composer stays at the bottom. */
+  body:has(#view-ask:not([hidden])) { height: var(--chat-vh, 100dvh); min-height: 0; overflow: hidden; }
+  body:has(#view-ask:not([hidden])) .foot { display: none; }
+  body:has(#view-ask:not([hidden])) main { display: flex; flex-direction: column; min-height: 0; padding-top: 12px; padding-bottom: 0; }
+  #view-ask:not([hidden]) { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+  #view-ask .ask-wrap { display: flex; flex: 1; flex-direction: column; min-height: 0; width: 100%; }
+  #view-ask .ask-head { gap: 8px; margin-bottom: 8px; }
+  #view-ask .ask-head .head-icon { display: none; }
+  #view-ask .ask-head h1 { font-size: var(--fs-lg); letter-spacing: -0.01em; }
+  #view-ask .chat { flex: 1; min-height: 0; height: auto; margin: 0; padding: 0 0 max(8px, env(safe-area-inset-bottom)); gap: 8px; border: 0; border-radius: 0; background: none; animation: none; }
+  #view-ask .chat-log { padding-bottom: 8px; }
+  /* Short screens (or the keyboard is up): a one-line title, and the privacy note once the chat has started. */
+  :root.chat-short body:has(#view-ask:not([hidden])) main { padding-top: 4px; }
+  :root.chat-short #view-ask .ask-head { margin-bottom: 2px; }
+  :root.chat-short #view-ask .chat:not(.chat-empty) .chat-note { display: none; }
   .c-links { justify-content: flex-start; margin: 2px 0 0 -8px; }
   .chat-note { text-align: left; }
   #for-me { scroll-margin-top: 130px; }
