@@ -35,3 +35,13 @@ export function memoryLimiter({
     },
   };
 }
+
+/** Allows a request only when every limiter does; each one counts it. */
+export function allOf(...limiters: Limiter[]): Limiter {
+  return {
+    async limit(options) {
+      const results = await Promise.all(limiters.map((l) => l.limit(options)));
+      return { success: results.every((r) => r.success) };
+    },
+  };
+}

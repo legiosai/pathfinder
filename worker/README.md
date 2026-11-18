@@ -193,10 +193,11 @@ curl https://pathfinder-api.legios.com.ar/health
 
 `pathfinder-api.legios.com.ar` is a DNS-only CNAME to `cname.vercel-dns.com` in Cloudflare.
 Vercel has no rate-limit binding, so `vercel/limiter.ts` counts requests per IP in each function
-instance's memory: it stops one visitor's burst, not traffic spread across instances. The address
+instance's memory, 8 a minute and 40 an hour: it stops one visitor's burst, not traffic spread across instances. The address
 is the one Vercel sets (`x-real-ip`); `cf-connecting-ip` is never read there, since on Vercel a
-client can send any value in it. Firewall rate-limit rules on the project count across instances,
-and the key's budget is the hard ceiling. To switch the chat off, set `CHAT_ENABLED=0` in the project's
+client can send any value in it. The project's firewall rule (10 a minute per IP on POST `/chat`) counts across instances,
+and the key's monthly budget is the hard ceiling: when it runs out, model calls fail and the
+site falls back to its on-device matcher until the budget resets. To switch the chat off, set `CHAT_ENABLED=0` in the project's
 environment variables and redeploy.
 
 ### Cloudflare Workers (alternative)

@@ -5,7 +5,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { Env } from '../src/config';
 import { createHandler, vercelClientIp } from '../src/handler';
-import { memoryLimiter } from './limiter';
+import { allOf, memoryLimiter } from './limiter';
 
 // Node's process, declared here so the Worker's type set (no @types/node) still checks this file.
 declare const process: { env: Record<string, string | undefined> };
@@ -31,7 +31,9 @@ const handle = createHandler({
   clientIp: vercelClientIp,
 });
 
-const limiter = memoryLimiter({ limit: 8, periodMs: 60_000 });
+// 8 a minute stops a burst; 40 an hour stops one address from spending the month's budget in a day.
+// The project's firewall also limits 10 a minute per address, across instances.
+const limiter = allOf(memoryLimiter({ limit: 8, periodMs: 60_000 }), memoryLimiter({ limit: 40, periodMs: 3_600_000 }));
 
 function env(): Env {
   return {

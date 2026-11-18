@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Env } from '../src/config';
 import { clientIp, createHandler, vercelClientIp } from '../src/handler';
-import { memoryLimiter } from '../vercel/limiter';
+import { allOf, memoryLimiter } from '../vercel/limiter';
 import { context, env, harness, ORIGIN } from './helpers';
 
 describe('clientIp', () => {
@@ -62,5 +62,21 @@ describe('memoryLimiter', () => {
     await limiter.limit({ key: 'z' });
     // x and y expired and were pruned, so x starts a fresh window.
     expect((await limiter.limit({ key: 'x' })).success).toBe(true);
+  });
+});
+
+describe('allOf', () => {
+  it('allows a request only while every limiter allows it', async () => {
+    let t = 0;
+    const limiter = allOf(
+      memoryLimiter({ limit: 2, periodMs: 60_000, now: () => t }),
+      memoryLimiter({ limit: 3, periodMs: 3_600_000, now: () => t }),
+    );
+    const ok = async () => (await limiter.limit({ key: 'a' })).success;
+    expect([await ok(), await ok(), await ok()]).toEqual([true, true, false]);
+    t = 60_000; // the minute window resets; the hour window has counted 3
+    expect(await ok()).toBe(false);
+    t = 3_600_000;
+    expect(await ok()).toBe(true);
   });
 });
