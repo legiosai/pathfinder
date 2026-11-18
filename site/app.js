@@ -6,6 +6,7 @@ import { providerMark, providerColor, badge, donut, hbars, columns, domainColor 
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
+import { examText } from './lib/examtext.js';
 import { mountChat } from './chat.js';
 
 const MAX_COMPARE = 4;
@@ -158,6 +159,9 @@ function fee(cert) {
   if (usd === 0) return t('fee.free');
   return `US$${usd % 1 ? usd.toFixed(2) : usd}`;
 }
+
+/** An exam or fee fact as the issuer writes it, in the interface language when its shape is known. */
+const ex = (text) => examText(text, getLang());
 
 function duration(cert) {
   const m = cert.exam.minutes;
@@ -457,11 +461,11 @@ function renderCert(id) {
       </div>
     </div>
     <div class="stat-grid">
-      ${stat('badge-dollar-sign', t('stat.price'), fee(c), c.fee.basis)}
+      ${stat('badge-dollar-sign', t('stat.price'), fee(c), ex(c.fee.basis))}
       ${stat('clock', t('stat.length'), duration(c))}
-      ${stat('list-checks', t('stat.questions'), c.exam.questions)}
-      ${stat('target', t('stat.passing'), c.exam.passing)}
-      ${stat('calendar-check', t('stat.valid'), c.exam.validity)}
+      ${stat('list-checks', t('stat.questions'), ex(c.exam.questions))}
+      ${stat('target', t('stat.passing'), ex(c.exam.passing))}
+      ${stat('calendar-check', t('stat.valid'), ex(c.exam.validity))}
       ${stat('pen-line', t('stat.format'), LABELS[c.exam.style])}
       ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status])}
     </div>
@@ -489,9 +493,9 @@ function renderCompare() {
           <div class="head">${badge(c, 46, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div></div>
           ${row('badge-dollar-sign', t('stat.price'), esc(fee(c)))}
           ${row('clock', t('stat.length'), esc(duration(c)))}
-          ${row('list-checks', t('stat.questions'), esc(c.exam.questions || '—'))}
-          ${row('target', t('stat.passing'), esc(c.exam.passing || '—'))}
-          ${row('calendar-check', t('stat.valid'), esc(c.exam.validity || '—'))}
+          ${row('list-checks', t('stat.questions'), esc(ex(c.exam.questions) || '—'))}
+          ${row('target', t('stat.passing'), esc(ex(c.exam.passing) || '—'))}
+          ${row('calendar-check', t('stat.valid'), esc(ex(c.exam.validity) || '—'))}
           ${row('gauge', t('stat.level'), lvl(c.level))}
           ${row('pen-line', t('stat.format'), esc(LABELS[c.exam.style]))}
           ${row(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), esc(LABELS[c.status]))}
