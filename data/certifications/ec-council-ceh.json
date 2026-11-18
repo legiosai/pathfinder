@@ -19,7 +19,11 @@
     "questions": "125",
     "question_count": 125,
     "passing": "60–85% (cut score set per exam form)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Ethical hacking methods and tools: reconnaissance, scanning and enumeration, system hacking and malware, network and perimeter attacks, web application, wireless, mobile, IoT/OT and cloud hacking, and cryptography.",
   "requirements": "Eligibility comes from official EC-Council training (an Accredited Training Center, EC-Council's online learning or an academic partner) or, without training, an approved eligibility application: verifiable proof of at least two years of information security work in the exam domains and a non-refundable US$100 fee. Approval usually takes 5–10 working days and lasts 90 days; a voucher is valid for one year.",
@@ -30,6 +34,9 @@
     "Retakes are bought separately unless a training package includes them; at most five attempts in 12 months, with 14-day waits from the third attempt.",
     "EC-Council's pages disagree on delivery: the certification page lists the ECC Exam Centre and Pearson VUE, while a FAQ on the same page says the exam is only available at the ECC Exam Centre. The store sells both vouchers."
   ],
+  "access": {
+    "retake": "Retake vouchers for the ECC Exam Centre are sold at a discounted price. No wait before the second attempt, 14 days before the third to fifth, and at most five attempts in 12 months."
+  },
   "skills": [
     "security",
     "networking"
@@ -83,7 +90,8 @@
     "S66",
     "S67",
     "S68",
-    "S69"
+    "S69",
+    "D13"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

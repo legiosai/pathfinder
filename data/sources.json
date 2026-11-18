@@ -1393,7 +1393,8 @@
     "title": "EC-Council · Certified Ethical Hacker certification (312-50)",
     "url": "https://cert.eccouncil.org/certified-ethical-hacker.html",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Exam 312-50 at the ECC Exam Centre and Pearson VUE (its FAQ also says ECC Exam Centre only); 4 hours, 125 questions; cut scores 60–85% per form; eligibility by official training or two years of InfoSec experience with a non-refundable US$100 application fee; approval valid three months; voucher valid one year; not open book; links Exam Blueprint v5.0."
+    "note": "Read 2026-11-17. Exam 312-50 at the ECC Exam Centre and Pearson VUE (its FAQ also says ECC Exam Centre only); 4 hours, 125 questions; cut scores 60–85% per form; eligibility by official training or two years of InfoSec experience with a non-refundable US$100 application fee; approval valid three months; voucher valid one year; not open book; links Exam Blueprint v5.0.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S64",
@@ -1672,6 +1673,14 @@
     "url": "https://www.isc2.org/exams/after-your-exam",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Retakes for every ISC2 certification: after the first attempt wait 30 test-free days, after the second 60, after the third and later 90; at most four attempts in a 12-month period per certification.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D13",
+    "title": "EC-Council · Exam retake policy",
+    "url": "https://cert.eccouncil.org/exam-retake-policy.html",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. After a failed exam, candidates can buy an ECC Exam Centre voucher to retake at a discounted price. No wait before the second attempt; 14 days before the third, fourth and fifth; at most five attempts in 12 months, then a 12-month wait.",
     "checked_on": "2026-11-17"
   }
 ]
