@@ -38,6 +38,8 @@ export const ALIASES = {
   'aws-aif-c01': ['ai practitioner'],
   'ec-council-ceh': ['ceh'],
   'isc2-cc': ['certified in cybersecurity'],
+  'redhat-rhcsa': ['rhcsa'],
+  'lpi-linux-essentials': ['linux essentials'],
 };
 
 /** Words that ask for free certifications instead of naming one. */
@@ -127,6 +129,7 @@ export function createSearch(certs, Fuse, { doc = () => ({}) } = {}) {
     },
   );
   const isFree = new Set(certs.filter((c) => c.fee?.usd === 0).map((c) => c.id));
+  const words = new Map(certs.map((c) => [c.id, c.name.toLowerCase().split(/[^a-z0-9+]+/)]));
 
   return function search(q) {
     const { text, free } = readQuery(q);
@@ -136,7 +139,10 @@ export function createSearch(certs, Fuse, { doc = () => ({}) } = {}) {
     if (!key) {
       if (free) ids = all.map((c) => c.id);
     } else if (byCode.has(key)) {
-      ids = exact = byCode.get(key);
+      exact = byCode.get(key);
+      // Then the ones that carry it as a word of their name: "ccna" → CCNA, then CCNA Cybersecurity.
+      const word = text.trim().toLowerCase();
+      ids = [...new Set([...exact, ...certs.filter((c) => words.get(c.id).includes(word)).map((c) => c.id)])];
     } else {
       const hits = fuse.search(text);
       // A full name, then codes and names that start with what was typed ("pentest" → PenTest+).

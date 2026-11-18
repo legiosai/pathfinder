@@ -47,7 +47,7 @@ test('codes, nicknames and spellings of a code find the one certification', () =
 });
 
 test('nicknames of certifications added later work once they are in the catalog', () => {
-  for (const [q, id] of [['net+', 'comptia-network-plus'], ['a+', 'comptia-a-plus']]) {
+  for (const [q, id] of [['net+', 'comptia-network-plus'], ['a+', 'comptia-a-plus'], ['rhcsa', 'redhat-rhcsa']]) {
     if (has(id)) assert.deepEqual(search(q).exact, [id], q);
   }
 });
@@ -96,4 +96,16 @@ test('every certification answers to its own code', () => {
     assert.ok(codes.has(compact(c.code)) || names.has(compact(c.code)), c.id);
     assert.ok(search(c.code).ids.includes(c.id), c.code);
   }
+});
+
+test('a code also lists the certifications that carry it in their name, after the exact one', () => {
+  const cert = (id, name, code, provider) => ({ id, name, code, provider, category: 'Networking', scope: '', fee: { usd: 300 } });
+  const certs = [
+    cert('cisco-ccna', 'Cisco Certified Network Associate', 'CCNA', 'Cisco'),
+    cert('cisco-ccna-cybersecurity', 'CCNA Cybersecurity', '200-201 CCNACBR', 'Cisco'),
+    cert('claude-architect-foundations', 'Claude Certified Architect – Foundations', 'CCA-F', 'Anthropic'),
+  ];
+  const r = createSearch(certs, Fuse)('ccna');
+  assert.deepEqual(r.exact, ['cisco-ccna']);
+  assert.deepEqual(r.ids, ['cisco-ccna', 'cisco-ccna-cybersecurity']);
 });
