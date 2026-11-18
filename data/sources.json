@@ -2003,5 +2003,21 @@
     "kind": "Issuer course page",
     "note": "Read 2026-11-17. The AI267LS Red Hat Learning Subscription Course is 50% off local MSRP through December 31, 2026 (discount applied at checkout, AI267LS only); course based on OpenShift 4.20 and OpenShift AI 3.3; EX267 listed as the next exam.",
     "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E53",
+    "title": "Oracle · Oracle Certification Program Guidelines",
+    "url": "https://www.oracle.com/education/certification/guidelines/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Online non-proctored exams can be retaken at any time; exams in a special promotion follow the promotion's terms; a passed exam cannot be retaken; Oracle Cloud Infrastructure certifications are valid for 24 months (Cloud Applications 18 months); passing scores are set per exam version.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E54",
+    "title": "Oracle MyLearn · Become an Oracle Agentic AI Foundations Associate (learning path)",
+    "url": "https://mylearn.oracle.com/ou/learning-path/become-an-oracle-agentic-ai-foundations-associate-2026/163239",
+    "kind": "Issuer course page",
+    "note": "Checked 2026-11-17: the page loads but renders only in a browser, so its contents could not be read directly. Linked as Oracle's free learning path for the 1Z0-1157-26 exam.",
+    "checked_on": "2026-11-17"
   }
 ]

@@ -10,17 +10,34 @@
   "fee": {
     "usd": 0,
     "basis": "Exam only",
-    "note": "Oracle announces a free certification exam. Signed-in access and final account terms were not tested."
+    "note": "Oracle offers this certification exam free, with a free learning path on Oracle MyLearn."
   },
   "exam": {
     "minutes": 60,
     "style": "knowledge",
-    "format": "Issuer announcement lists 40 questions and 60 minutes. MyLearn uses an exam-unproctored URL but also displays generic proctoring instructions; actual delivery controls remain unverified."
+    "format": "Online multiple-choice exam on Oracle MyLearn: 40 questions in 60 minutes. The MyLearn exam URL marks it as unproctored, but the page also shows webcam and proctoring instructions.",
+    "questions": "40",
+    "question_count": 40,
+    "delivery": [
+      "online"
+    ]
   },
-  "scope": "Agentic AI foundations on Oracle Cloud Infrastructure (OCI).",
+  "access": {
+    "free_routes": [
+      {
+        "text": "The exam is free on Oracle MyLearn, next to the free learning path that prepares for it.",
+        "url": "https://mylearn.oracle.com/ou/learning-path/become-an-oracle-agentic-ai-foundations-associate-2026/163239"
+      }
+    ],
+    "retake": "Oracle's general policy: online non-proctored exams can be retaken at any time, exams under a special promotion follow that promotion's terms, and a passed exam cannot be retaken."
+  },
+  "scope": "Agentic AI foundations on Oracle Cloud Infrastructure (OCI): agents, the Model Context Protocol (MCP) and Oracle-specific tools.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "Oracle's guidelines say Oracle Cloud Infrastructure certifications are valid for 24 months, but the pages read do not say whether this credential counts as one, so no validity is listed.",
+    "Oracle's exam page, blog and MyLearn pages were blocked or rendered only in a browser for this check, so the passing score and any learning-path completion needed to unlock the free exam are not listed; confirm them on MyLearn."
+  ],
   "skills": [
     "oci",
     "agents",
@@ -32,9 +49,19 @@
   "domains": [],
   "sources": [
     "X11",
-    "X25"
+    "X25",
+    "E53",
+    "E54"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
-  "prep": []
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Oracle MyLearn: Become an Oracle Agentic AI Foundations Associate",
+      "url": "https://mylearn.oracle.com/ou/learning-path/become-an-oracle-agentic-ai-foundations-associate-2026/163239",
+      "kind": "course",
+      "cost": "free",
+      "note": "Oracle's free learning path for this exam."
+    }
+  ]
 }
