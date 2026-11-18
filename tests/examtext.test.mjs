@@ -66,6 +66,24 @@ const ES = {
   'Subscription + voucher': 'Suscripción + voucher',
   'Course bundle, from': 'Paquete con curso, desde',
   'Free course': 'Curso gratis',
+  // Phrases arriving from the catalog work in progress.
+  'Exam + required labs': 'Examen + labs obligatorios',
+  '3 years (OSAI+)': '3 años (OSAI+)',
+  '75 of 100 points': '75 de 100 puntos',
+  '70 of 100 points for exams starting before 2026-12-01 08:00 GMT; from then, a scaled score of 400 on a 100–500 scale':
+    '70 de 100 puntos en exámenes que empiezan antes del 1/12/2026 a las 08:00 GMT; desde entonces, un puntaje escalado de 400 en una escala de 100–500',
+  'Exploit the AI application and submit an accepted professional report': 'Explotar la aplicación de IA y entregar un informe profesional aprobado',
+  '300 on a 100–500 scale': '300 en una escala de 100–500',
+  '28 of 40 correct (70%)': '28 de 40 correctas (70%)',
+  '15–20 performance-based tasks': '15–20 tareas prácticas',
+  '30 multiple-choice (plus 3 hands-on lab challenges)': '30 de opción múltiple (y 3 desafíos prácticos de laboratorio)',
+  '85 (beta; 65 with 50 scored in the standard exam)': '85 (beta; 65 con 50 que cuentan en el examen normal)',
+  'Exam only (beta price)': 'Solo el examen (precio beta)',
+  'Free course and online test': 'Curso y prueba online gratis',
+  'Free course and online exam': 'Curso y examen online gratis',
+  'Coursera subscription': 'Suscripción a Coursera',
+  Lifetime: 'De por vida',
+  'Not published (results show pass/fail and a score per objective)': 'No se publica (el resultado muestra si aprobaste y un puntaje por objetivo)',
 };
 
 test('every exam and fee phrase of the catalog has its Spanish form', () => {
