@@ -1,20 +1,19 @@
 import { emptyProfile, rank } from './lib/match.js';
-import { applyMoves, behind, buildPlan, countStudyDays, estimateHours, planTopics, reschedule, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
 import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
-import { providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
+import { providerColor, badge, donut, domainColor } from './visuals.js';
 import Fuse from './vendor/fuse.js';
-import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
+import { t, getLang, setLang, dates, label, hoursNote, lib, applyStatic } from './i18n.js';
 import { examText } from './lib/examtext.js';
 import { createSearch } from './lib/search.js';
 import { SORTS, activeFilters, emptyFilters, examInSpanish, examOnline, filterCerts, filtersFromParams, filtersToParams, sortCerts } from './lib/listing.js';
-import { nextSteps, pathsFor, shortName, similar } from './lib/related.js';
+import { nextSteps, shortName, similar } from './lib/related.js';
 import { STUDY_KEYS, createStudyBackup, hasStudyData, parseStudyBackup, restoreStudyBackup } from './lib/backup.js';
 import { mountChat } from './chat.js';
 
 const MAX_COMPARE = 4;
 const KEYS = {
-  ...STUDY_KEYS,
+  practice: STUDY_KEYS.practice,
   profile: 'pathfinder:profile',
   compare: 'pathfinder:compare',
   theme: 'pathfinder:theme',
@@ -92,27 +91,13 @@ const PREP = {
 };
 const prepKind = (r) => ({ icon: (PREP[r.kind] || { icon: 'file-text' }).icon, label: PREP[r.kind] ? t(`prep.${r.kind}`) : r.kind });
 const catName = (cat) => t(`cat.${cat}`);
-const kindLabel = (k) => t(`kind.${k}`);
-const sname = (s) => lib(s.name.replace(/ \((\d+\/\d+)\)$/, '')) + (s.name.match(/ \(\d+\/\d+\)$/)?.[0] || '');
-
-const KIND = {
-  baseline: { icon: 'flag' },
-  learn: { icon: 'book-open', c: '--k-learn' },
-  practice: { icon: 'wrench', c: '--k-practice' },
-  mock: { icon: 'timer', c: '--k-mock' },
-  review: { icon: 'scan-search' },
-  remediate: { icon: 'refresh-cw' },
-  final: { icon: 'trophy' },
-};
-const kindStyle = (k) => (KIND[k].c ? `style="--kc:var(${KIND[k].c})"` : '');
-const kindN = (k) => (KIND[k].c ? '' : 'n');
 
 function ring(value, size = 40, cls = '', label = '') {
   const r = size / 2 - 3;
   const c = 2 * Math.PI * r;
   return `<span class="ring ${cls}" ${label ? `aria-label="${esc(label)}" role="img"` : 'aria-hidden="true"'}>
     <svg width="${size}" height="${size}"><circle class="track" cx="${size / 2}" cy="${size / 2}" r="${r}"/>${value > 0 ? `<circle class="val" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-dasharray="${(c * value) / 100} ${c}"/>` : ''}</svg>
-    <b>${Math.round(value)}${cls.includes('pct') ? '%' : ''}</b></span>`;
+    <b>${Math.round(value)}</b></span>`;
 }
 
 function dbar(cert, big = false) {
@@ -133,19 +118,11 @@ function utc(s) {
   const [y, m, d] = s.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d));
 }
-const iso = (dt) => dt.toISOString().slice(0, 10);
 
 function day(s, { weekday = true, year = false } = {}) {
   const d = utc(s);
   const D = dates();
   return `${weekday ? `${D.days[d.getUTCDay()]} ` : ''}${d.getUTCDate()} ${D.months[d.getUTCMonth()]}${year ? ` ${d.getUTCFullYear()}` : ''}`;
-}
-
-function span(a, b) {
-  const x = utc(a);
-  const y = utc(b);
-  if (x.getUTCMonth() === y.getUTCMonth()) return `${x.getUTCDate()}–${y.getUTCDate()} ${dates().months[y.getUTCMonth()]}`;
-  return `${day(a, { weekday: false })} – ${day(b, { weekday: false })}`;
 }
 
 function len(m) {
@@ -179,10 +156,10 @@ function parseHash() {
   return { name, params: new URLSearchParams(query) };
 }
 
-const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', path: 'path', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
+const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', paths: 'paths', cert: 'cert', path: 'path', compare: 'compare', practice: 'practice', about: 'about' };
 let lastView = null;
 let lastCert = null;
-let listScroll = 0;
+const scrollPositions = { list: 0, paths: 0 };
 let jumpToResults = false;
 
 function route() {
@@ -194,16 +171,25 @@ function route() {
 }
 
 function renderRoute() {
-  const { name, params } = parseHash();
-  let view = VIEWS[name] || 'list';
+  let { name, params } = parseHash();
+  // Old plan links still open the certification, and the old Progress link leads to the backup.
+  if (name === 'plan' || name === 'progress') {
+    const id = params.get('cert');
+    let fallback = '#about';
+    if (name === 'plan') fallback = BY_ID.has(id) ? `#cert?id=${encodeURIComponent(id)}` : '#list';
+    history.replaceState(null, '', fallback);
+    ({ name, params } = parseHash());
+  }
+  const view = VIEWS[name] || 'list';
   const certId = params.get('id');
   const practiceId = params.get('cert');
   if (view !== 'practice') stopPracticeTimer();
 
-  if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
+  if (lastView !== view && Object.hasOwn(scrollPositions, lastView)) scrollPositions[lastView] = window.scrollY;
   $$('.view').forEach((v) => (v.hidden = v.id !== `view-${view}`));
+  const currentTab = view === 'cert' ? 'list' : view === 'path' ? 'paths' : view;
   $$('nav a').forEach((a) => {
-    if (a.dataset.route === (['cert', 'path'].includes(view) ? 'list' : view)) a.setAttribute('aria-current', 'page');
+    if (a.dataset.route === currentTab) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
 
@@ -223,20 +209,19 @@ function renderRoute() {
     if (BY_ID.has(certId)) renderCert(certId);
     else notFound('#cert-body', t('cert.notFound'), certId);
   }
+  if (view === 'paths') renderPaths();
   if (view === 'path') renderPath(certId);
   if (view === 'compare') {
     const ids = (params.get('ids') || '').split(',').filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE);
     if (ids.length) setCompare(ids);
     renderCompare();
   }
-  if (view === 'plan') enterPlan(params);
   if (view === 'practice') renderPractice(practiceId, params);
-  if (view === 'progress') renderProgress();
   if (view === 'ask') chat?.shown();
 
   const from = { view: lastView, cert: lastCert };
   const moved = view !== lastView || (['cert', 'path'].includes(view) && certId !== lastCert);
-  if (moved) window.scrollTo(0, view === 'list' ? listScroll : 0);
+  if (moved) window.scrollTo(0, scrollPositions[view] ?? 0);
   if (view === 'list' && jumpToResults) {
     jumpToResults = false;
     showResults();
@@ -247,7 +232,7 @@ function renderRoute() {
   lastView = view;
   lastCert = ['cert', 'path'].includes(view) ? certId : null;
 
-  const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
+  const titles = { ask: t('chat.title'), paths: t('nav.paths'), practice: t('practice.title'), compare: t('compare.title'), about: t('about.title') };
   if (view === 'cert' && BY_ID.has(certId)) document.title = `${BY_ID.get(certId).name} · pathfinder`;
   else if (!['cert', 'path'].includes(view)) document.title = titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
   if (moved && from.view !== null) arrive(view, from, !composer);
@@ -258,7 +243,7 @@ function renderRoute() {
 // count per view or certification shown; search words and filters never leave the page.
 let counted = '';
 function countView(view, certId) {
-  const id = ['cert', 'path', 'plan', 'practice'].includes(view) && /^[a-z0-9-]{2,60}$/.test(certId || '') ? certId : '';
+  const id = ['cert', 'path', 'practice'].includes(view) && /^[a-z0-9-]{2,60}$/.test(certId || '') ? certId : '';
   const path = `/#${view}${id ? `/${id}` : ''}`;
   if (path === counted) return;
   counted = path;
@@ -270,6 +255,7 @@ function arrive(view, from, focus) {
   const section = $(`#view-${view}`);
   let target = null;
   if (view === 'list' && from.view === 'cert' && from.cert) target = $(`#certs a[href="#cert?id=${CSS.escape(from.cert)}"]`);
+  if (view === 'paths' && from.view === 'path' && from.cert) target = $(`#path-grid a[href="#path?id=${CSS.escape(from.cert)}"]`);
   target ||= $('h1', section);
   if (focus && target) {
     if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) target.setAttribute('tabindex', '-1');
@@ -330,7 +316,16 @@ function updateForMe() {
   $('#more-count').textContent = extra ? `· ${extra}` : '';
 }
 
+function setFiltersOpen(open) {
+  const panel = $('#filter-panel');
+  const toggle = $('#filters-toggle');
+  if (!open && panel.contains(document.activeElement)) toggle.focus();
+  panel.hidden = !open;
+  toggle.setAttribute('aria-expanded', String(open));
+}
+
 function setProfileOpen(open) {
+  if (open) setFiltersOpen(true);
   $('#profile').hidden = !open;
   $('#for-me').setAttribute('aria-expanded', String(open));
 }
@@ -430,13 +425,14 @@ function renderList() {
   const hits = filters.q ? new Map(lastSearch.ids.map((id, i) => [id, i])) : null;
   const list = sortCerts(filterCerts(all, filters, { hits }), filters.sort, { hits, scores });
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === filters.cat)));
+  const filterCount = activeFilters(filters).filter((key) => key !== 'q').length;
+  $('#filters-toggle span').textContent = filterCount ? t('filter.withCount', { n: filterCount }) : t('filter.title');
   $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores && !hits && filters.sort === 'recommended' });
   // A price ceiling keeps the certifications priced by country; say so next to the filter.
   const varies = filters.max ? list.filter((c) => c.fee.usd == null).length : 0;
   $('#list-note').hidden = !varies;
   $('#list-note').innerHTML = varies ? `${icon('info')}<span>${esc(t('list.varies', { n: varies }))}</span>` : '';
   renderSuggest(filters.q, list);
-  renderPaths();
   syncListUrl();
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
@@ -487,43 +483,43 @@ function card(c, score, i = 0) {
 }
 
 // ---------- study paths ----------
-// data/paths.json: suggested orders by goal. The home page shows one compact card per path of the
-// chosen category, and each opens #path?id=… with its steps.
+// data/paths.json: suggested certification orders by goal.
 const pathText = (v) => (v ? v[getLang()] || v.en : '');
 const pathById = (id) => (DATA.paths || []).find((p) => p.id === id);
 
-function chain(p) {
-  const step = (s) => {
-    const [first, ...alts] = s.certs.map((id) => BY_ID.get(id)).filter(Boolean);
-    return first ? `<span class="step-b">${esc(shortName(first))}${alts.length ? `<small>+${alts.length}</small>` : ''}</span>` : '';
-  };
-  return p.steps.map(step).join(`<span class="step-arrow" aria-hidden="true">${icon('arrow-right')}</span>`);
+function pathCard(path) {
+  const { icon: categoryIcon, c: color } = CATS[path.category] || { icon: 'layers', c: '--accent' };
+  const steps = path.steps.map(({ certs }) => certs.map((id) => BY_ID.get(id)).filter(Boolean)).filter((certs) => certs.length);
+  const chain = steps.map(([first, ...alternatives], i) => {
+    const n = alternatives.length;
+    const description = n ? t('paths.alternatives', { x: first.name, n }) : first.name;
+    return `<li>${i ? `<span class="step-arrow" aria-hidden="true">${icon('arrow-right')}</span>` : ''}
+      <span class="step-b" aria-hidden="true">${esc(shortName(first))}${n ? ` <small>+${n}</small>` : ''}</span>
+      <span class="sr">${esc(description)}</span></li>`;
+  }).join('');
+  const id = esc(path.id);
+  return `<li class="card path-card" style="--c:var(${color})">
+    <a class="path-link" href="#path?id=${id}" aria-labelledby="path-title-${id}">
+      <div class="path-top">${tile(categoryIcon, color, 'sm')}<h2 id="path-title-${id}">${esc(pathText(path.title))}</h2>${icon('arrow-right')}</div>
+      <p class="path-sum">${esc(pathText(path.summary))}</p>
+      <ol class="path-chain" role="list" aria-label="${esc(t('paths.order'))}">${chain}</ol>
+    </a>
+  </li>`;
 }
 
 function renderPaths() {
-  const shown = pathsFor(DATA.paths, filters.cat);
-  $('#paths').hidden = !shown.length;
-  $('#path-strip').innerHTML = shown
-    .map((p) => {
-      const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
-      const names = p.steps.map((s) => s.certs.map((id) => BY_ID.get(id)).filter(Boolean).map(shortName).reduce((a, b) => t('paths.or', { a, b }))).join(', ');
-      return `<a class="card path-card" href="#path?id=${esc(p.id)}" style="--c:var(${m.c})" title="${esc(pathText(p.summary))}">
-        <span class="path-top">${tile(m.icon, m.c, 'xs')}<b>${esc(pathText(p.title))}</b></span>
-        <span class="path-sum">${esc(pathText(p.summary))}</span>
-        <span class="path-chain" role="img" aria-label="${esc(t('paths.chain', { x: names }))}">${chain(p)}</span>
-      </a>`;
-    })
-    .join('');
+  const paths = DATA.paths || [];
+  $('#paths-empty').hidden = paths.length > 0;
+  $('#path-grid').innerHTML = paths.map(pathCard).join('');
 }
 
 function renderPath(id) {
   const p = pathById(id);
   if (!p) return notFound('#path-body', t('paths.notFound'), id);
   const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
-  const first = p.steps[0].certs.find((c) => BY_ID.has(c));
   $('#path-body').innerHTML = `
-    <a class="back" href="#list">${icon('arrow-left')}${t('cert.back')}</a>
-    <div class="page-head path-head">${tile(m.icon, m.c)}<div><p class="eyebrow">${esc(t('paths.title'))} · ${esc(catName(p.category))}</p><h1 tabindex="-1">${esc(pathText(p.title))}</h1></div></div>
+    <a class="back" href="#paths">${icon('arrow-left')}${t('paths.back')}</a>
+    <div class="page-head path-head">${tile(m.icon, m.c)}<div><p class="eyebrow">${esc(catName(p.category))}</p><h1 tabindex="-1">${esc(pathText(p.title))}</h1></div></div>
     <p class="path-lede">${esc(pathText(p.summary))}</p>
     <ol class="path-steps">${p.steps
       .map(
@@ -537,10 +533,7 @@ function renderPath(id) {
         </li>`,
       )
       .join('')}</ol>
-    <div class="path-cta">
-      ${first ? `<a class="btn primary" href="#plan?cert=${esc(first)}">${icon('route')}${t('paths.planFirst')}</a>` : ''}
-      <p class="hint">${esc(t('paths.note'))}</p>
-    </div>`;
+    <p class="hint path-note">${esc(t('paths.note'))}</p>`;
   document.title = `${pathText(p.title)} · pathfinder`;
 }
 
@@ -578,7 +571,7 @@ function notFound(target, title, id) {
 }
 
 // ---------- certification page ----------
-/** The planner's starting range for the level, "25–45 h". */
+/** The estimated study hours for certifications at this level. */
 function studyHours(c) {
   const range = DATA.taxonomy.levels.find((l) => l.id === c.level)?.hours;
   return range ? `${range[0]}–${range[1]} h` : '';
@@ -645,7 +638,7 @@ function renderCert(id) {
   ].filter(Boolean);
   const langs = examLangs(c);
   const when = (d) => day(d, { weekday: false, year: true });
-  const today = todayLocal();
+  const today = localDay(Date.now());
 
   // Dated changes: a version retiring, a new outline, a deadline.
   const timeline = (c.timeline || []).filter((e) => e && e.date && e.text);
@@ -749,6 +742,7 @@ function renderCert(id) {
   ].filter(Boolean);
   // One row when they fit, otherwise two even rows on wide screens.
   const cols = stats.length <= 7 ? stats.length : Math.ceil(stats.length / 2);
+  const practice = c.practice_questions ? `<a class="btn primary" href="#practice?cert=${esc(c.id)}">${icon('dumbbell')}${t('practice.btn')}</a>` : '';
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}${t('cert.back')}</a>
@@ -759,11 +753,10 @@ function renderCert(id) {
         <h1 tabindex="-1">${esc(c.name)}</h1>
         <p class="scope">${esc(c.scope)}</p>
         <div class="cert-actions">
-          <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('cert.plan')}</a>
-          ${c.practice_questions ? `<a class="btn" href="#practice?cert=${esc(c.id)}">${icon('dumbbell')}${t('practice.btn')}</a>` : ''}
+          ${practice}
           <button type="button" class="btn" data-act="compare" data-id="${esc(c.id)}" aria-pressed="${inCompare}" ${full ? `disabled title="${t('compare.full')}"` : ''}>${icon(inCompare ? 'check' : 'columns-3')}${inCompare ? t('compare.in') : t('compare.btn')}</button>
           <button type="button" class="btn" data-act="share" data-id="${esc(c.id)}">${icon('share-2')}${t('cert.share')}</button>
-          ${official ? ext(official.url, `${icon('external-link')}${t('cert.issuer')}`, 'btn') : ''}
+          ${official ? ext(official.url, `${icon('external-link')}${t('cert.issuer')}`, practice ? 'btn' : 'btn primary') : ''}
         </div>
       </div>
     </div>
@@ -771,14 +764,11 @@ function renderCert(id) {
     ${ar ? `<div class="ar-note">${icon('info')}<div><p><b>${esc(t('cert.ar'))}.</b> ${esc(arLead)}</p>${arRest ? `<details><summary>${t('cert.arMore')}</summary><p>${esc(arRest)}</p></details>` : ''}</div></div>` : ''}
     <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>
     ${nextHtml || nearHtml ? `<div class="cols cert-next">${nextHtml}${nearHtml}</div>` : ''}
-    <div class="cta-bar" id="cta-bar">
-      <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('cert.plan')}</a>
-      ${c.practice_questions ? `<a class="btn" href="#practice?cert=${esc(c.id)}">${icon('dumbbell')}${t('practice.btn')}</a>` : ''}
-    </div>`;
+    ${practice ? `<div class="cta-bar" id="cta-bar">${practice}</div>` : ''}`;
   watchCta();
 }
 
-// On phones a bar with the plan and practice buttons stays at the bottom once the ones at the top scroll away.
+// On phones, practice stays available once the certification's actions scroll away.
 let ctaWatch = null;
 function watchCta() {
   ctaWatch?.disconnect();
@@ -838,7 +828,7 @@ function renderCompare() {
       ${row('bot', t('stat.ai'), (c) => text(c.ai_policy))}
       <div class="cmp-r cmp-actions" role="row"><div class="cmp-label" role="rowheader"></div>${certs
         .map(
-          (c) => `<div class="cmp-v" role="cell"><a class="btn" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('compare.plan')}</a><button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button></div>`,
+          (c) => `<div class="cmp-v" role="cell"><button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button></div>`,
         )
         .join('')}</div>
     </div>`;
@@ -873,446 +863,6 @@ async function copyOrShare(text, button, spot) {
   const input = $('input', spot);
   input.focus();
   input.select();
-}
-
-// ---------- plan ----------
-let hoursTouched = false;
-let suggested = null;
-
-function todayLocal() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-}
-
-function fillPlanForm() {
-  const f = $('#plan-form');
-  const groups = {};
-  for (const c of [...DATA.certifications].sort((a, b) => a.name.localeCompare(b.name))) (groups[c.provider] ||= []).push(c);
-  f.cert.innerHTML = Object.keys(groups)
-    .sort()
-    .map((p) => `<optgroup label="${esc(p)}">${groups[p].map((c) => `<option value="${esc(c.id)}">${esc(c.name)} (${esc(c.code)})</option>`).join('')}</optgroup>`)
-    .join('');
-  $('#days').innerHTML = [1, 2, 3, 4, 5, 6, 0]
-    .map((d) => `<label><input type="checkbox" name="days" value="${d}" ${[1, 3, 5, 6].includes(d) ? 'checked' : ''}><span></span></label>`)
-    .join('');
-  labelDays();
-  f.start.value = todayLocal();
-}
-
-function labelDays() {
-  const D = dates();
-  $$('#days label').forEach((l) => {
-    const d = Number($('input', l).value);
-    l.title = D.dayNames[d];
-    $('input', l).setAttribute('aria-label', D.dayNames[d]);
-    $('span', l).textContent = D.days[d];
-  });
-}
-
-function setEstimate() {
-  const f = $('#plan-form');
-  const cert = BY_ID.get(f.cert.value);
-  const levelHours = Object.fromEntries(DATA.taxonomy.levels.map((l) => [l.id, l.hours]));
-  suggested = estimateHours(cert, profile, levelHours).hours;
-  if (!hoursTouched) f.hours.value = suggested;
-  updateHint();
-}
-
-function updateHint() {
-  const f = $('#plan-form');
-  const cert = BY_ID.get(f.cert.value);
-  const off = Number(f.hours.value) !== suggested;
-  $('#hours-hint').innerHTML = `${esc(t('plan.suggested', { h: suggested, level: LABELS[cert.level].toLowerCase() }))}${off ? ` · <button type="button" class="link" data-act="use-hours">${t('plan.useIt')}</button>` : ''}`;
-}
-
-const confidenceKey = (id) => `${KEYS.confidence}${id}`;
-
-function renderConfidence() {
-  const cert = BY_ID.get($('#plan-form').cert.value);
-  const { topics } = planTopics(cert);
-  const saved = store.get(confidenceKey(cert.id), {});
-  $('#confidence-rows').innerHTML = topics
-    .map((tp, i) => {
-      const current = saved[tp.name] || 3;
-      const options = [1, 2, 3, 4, 5]
-        .map((n) => `<label><input type="radio" name="conf-${i}" value="${n}" data-topic="${esc(tp.name)}" ${n === current ? 'checked' : ''}><span>${n}</span></label>`)
-        .join('');
-      return `<div class="conf-row"><span>${esc(lib(tp.name))}</span><div class="scale" role="radiogroup" aria-label="${esc(t('plan.confAria', { x: lib(tp.name) }))}">${options}</div></div>`;
-    })
-    .join('');
-  setRatedLabel(Object.keys(saved).length);
-}
-
-function setRatedLabel(n) {
-  $('#confidence summary span').textContent = n ? t('plan.rated', { n }) : t('plan.rate');
-}
-
-function readConfidence() {
-  const out = {};
-  $$('#confidence-rows input:checked').forEach((i) => {
-    if (i.value !== '3') out[i.dataset.topic] = Number(i.value);
-  });
-  return out;
-}
-
-function enterPlan(params) {
-  const f = $('#plan-form');
-  const id = params.get('cert');
-  // No certification asked for and none picked yet on this visit, or one the catalog doesn't
-  // have: ask, instead of planning for whichever comes first in the list.
-  if (id ? !BY_ID.has(id) : !f.dataset.init) return choosePlanCert(id);
-  showPlanForm(true);
-  if (id && f.cert.value !== id) {
-    f.cert.value = id;
-    hoursTouched = false;
-  }
-  if (params.get('hours')) {
-    f.hours.value = params.get('hours');
-    hoursTouched = true;
-  }
-  if (params.get('start')) f.start.value = params.get('start');
-  if (params.get('len')) setSessionLength(f.sessionMinutes, params.get('len'));
-  if (params.get('time')) f.startTime.value = params.get('time');
-  if (params.get('exam')) f.targetDate.value = params.get('exam');
-  if (params.get('days')) {
-    const days = params.get('days').split(',');
-    $$('input[name="days"]', f).forEach((i) => (i.checked = days.includes(i.value)));
-  }
-  f.dataset.init = '1';
-  setEstimate();
-  renderConfidence();
-  renderPlan();
-}
-
-function showPlanForm(on) {
-  $('#plan-choose').hidden = on;
-  $('#plan-form').hidden = !on;
-  $('#plan-output').hidden = !on;
-}
-
-/** Lowercase without accents, for matching what people type. */
-const fold = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-
-/** A link row with the certification's badge, for the choosers. */
-const certRow = (c, href, sub) =>
-  `<li><a class="choose-row" href="${esc(href)}">${badge(c, 34, { label: false })}<span><b>${esc(c.name)}</b><small>${esc(sub)}</small></span>${icon('arrow-right')}</a></li>`;
-
-function choosePlanCert(unknown) {
-  showPlanForm(false);
-  const plans = Object.values(trackedPlans()).filter((params) => BY_ID.has(params.cert));
-  const picks = compare.map((id) => BY_ID.get(id)).filter(Boolean);
-  const box = $('#plan-choose');
-  box.innerHTML = `
-    ${unknown ? `<div class="status warn">${icon('triangle-alert')}<span>${esc(t('plan.unknown', { x: unknown }))}</span></div>` : ''}
-    <section class="card panel choose">
-      <h2>${icon('search')}${t('plan.choose')}</h2>
-      <input type="search" id="plan-q" placeholder="${esc(t('plan.chooseSearch'))}" aria-label="${esc(t('plan.chooseSearch'))}" autocomplete="off" spellcheck="false">
-      <ul class="choose-list" id="plan-q-list"></ul>
-      <p class="hint" id="plan-q-hint"></p>
-    </section>
-    ${plans.length ? `<section class="card panel"><h2>${icon('activity')}${t('plan.yourPlans')}</h2><ul class="choose-list">${plans
-      .map((params) => {
-        const c = BY_ID.get(params.cert);
-        return certRow(c, `#plan?${new URLSearchParams(params)}`, `${c.provider} · ${c.code}${params.exam ? ` · ${t('progress.examOn', { d: day(params.exam) })}` : ''}`);
-      })
-      .join('')}</ul></section>` : ''}
-    ${picks.length ? `<section class="card panel"><h2>${icon('columns-3')}${t('plan.inCompare')}</h2><ul class="choose-list">${picks.map((c) => certRow(c, `#plan?cert=${c.id}`, `${c.provider} · ${c.code}`)).join('')}</ul></section>` : ''}`;
-  const input = $('#plan-q');
-  const paint = () => {
-    const q = fold(input.value.trim());
-    const words = q.split(/\s+/).filter(Boolean);
-    const hay = (c) => fold(`${c.name} ${c.code} ${c.provider}`);
-    // The exact code first, then the more words found in the code, then names that start with it.
-    const rank = (c) => (fold(c.code) === q ? -99 : 0) - 2 * words.filter((w) => fold(c.code).includes(w)).length - (fold(c.name).startsWith(q) ? 1 : 0);
-    const hits = words.length ? DATA.certifications.filter((c) => words.every((w) => hay(c).includes(w))).sort((a, b) => rank(a) - rank(b)).slice(0, 8) : [];
-    $('#plan-q-list').innerHTML = hits.map((c) => certRow(c, `#plan?cert=${c.id}`, `${c.provider} · ${c.code}`)).join('');
-    $('#plan-q-hint').innerHTML = words.length && !hits.length ? esc(t('plan.chooseNone')) : words.length ? '' : t('plan.chooseHint');
-  };
-  input.addEventListener('input', paint);
-  input.addEventListener('keydown', (e) => {
-    const first = $('#plan-q-list a');
-    if (e.key !== 'Enter' || !first) return;
-    e.preventDefault();
-    location.hash = first.getAttribute('href');
-  });
-  paint();
-  if (matchMedia('(pointer: fine)').matches) input.focus({ preventScroll: true });
-}
-
-// A shared or tracked plan can carry any length the list doesn't offer (2 h 15,
-// say). Without an option for it the select goes blank and the plan fails.
-function setSessionLength(select, value) {
-  const m = Math.round(Number(value));
-  if (!(m >= 15)) return;
-  if (![...select.options].some((o) => Number(o.value) === m)) {
-    const after = [...select.options].find((o) => Number(o.value) > m);
-    select.insertBefore(new Option(len(m), String(m)), after || null);
-  }
-  select.value = String(m);
-}
-
-function planParams() {
-  const f = $('#plan-form');
-  return {
-    cert: f.cert.value,
-    hours: f.hours.value,
-    start: f.start.value,
-    len: f.sessionMinutes.value,
-    time: f.startTime.value,
-    exam: f.targetDate.value,
-    days: $$('input[name="days"]:checked', f).map((i) => i.value).join(','),
-  };
-}
-
-/** Sessions per kind as small chips: "Practice 2 · Fix 1". */
-const kindCounts = (sessions) => {
-  const n = new Map();
-  for (const s of sessions) n.set(s.kind, (n.get(s.kind) || 0) + 1);
-  return `<ul class="cut-kinds">${[...n].map(([k, c]) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${esc(kindLabel(k))} <b>${c}</b></li>`).join('')}</ul>`;
-};
-
-/** Behind on the plan: how far, and what rescheduling from today would do. Empty when on track. */
-function behindHtml(p, done, days, key) {
-  const today = todayLocal();
-  const late = behind(p.sessions, [...done], today);
-  if (!late.count) return '';
-  const target = p.deadline?.targetDate || null;
-  const r = reschedule({ sessions: p.sessions, done: [...done], today, days, targetDate: target });
-  const skipped = p.sessions.filter((s) => r.skipped.includes(s.n));
-  const what = !r.available
-    ? `<p>${esc(t('plan.reschedNone', { d: day(target) }))}</p>`
-    : skipped.length
-      ? `<p>${esc(t('plan.reschedCut', { n: r.remaining, a: r.available }))}</p>${kindCounts(skipped)}`
-      : `<p>${esc(t(target ? 'plan.reschedFits' : 'plan.reschedOpen', { n: r.remaining, a: r.available }))}</p>`;
-  return `<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.behind', { n: late.count, d: day(late.since) }))}</b></p>${what}
-    ${r.available ? `<p><button type="button" class="btn" data-act="resched" data-key="${esc(key)}">${icon('calendar-clock')}${t('plan.reschedule')}</button></p>` : ''}</div></div>`;
-}
-
-function statusHtml(p, done, days, key) {
-  const d = p.deadline;
-  const moved = p.rescheduled
-    ? `<div class="status info resched">${icon('calendar-clock')}<span>${esc(t('plan.rescheduled', { d: day(p.rescheduled.on) }))}${p.skipped?.length ? ` ${esc(t('plan.leftOut'))}` : ''}</span>${p.skipped?.length ? kindCounts(p.skipped) : ''}<button type="button" class="link" data-act="unresched" data-key="${esc(key)}">${t('plan.undo')}</button></div>`
-    : '';
-  // Behind replaces the "fits" line: it no longer holds until the plan is rescheduled.
-  const late = behindHtml(p, done, days, key);
-  if (late && (!d || d.fits)) return late + moved;
-  if (!d) return `<div class="status info">${icon('flag')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>${moved}`;
-  if (d.fits) {
-    // After a reschedule the spare days are the ones left after the last session.
-    const next = utc(p.sessions.at(-1).date);
-    next.setUTCDate(next.getUTCDate() + 1);
-    const spare = p.rescheduled ? countStudyDays(iso(next), d.targetDate, days) : d.spare;
-    return `<div class="status good">${icon('circle-check')}${esc(t('plan.fits', { d: day(d.targetDate), spare }))}</div>${moved}`;
-  }
-  const fixes = [];
-  if (d.suggestedMinutes) fixes.push(t('plan.fixLen', { x: len(d.suggestedMinutes) }));
-  fixes.push(t('plan.fixDays'));
-  fixes.push(t('plan.fixExam', { d: day(p.examDate) }));
-  // The sessions stop before the exam anyway; say what was cut to get there.
-  const cut = p.cut
-    ? `<p>${esc(t('plan.cut', { n: p.sessions.length, h: p.hours, N: p.cut.sessions, H: p.cut.hours }))}</p>
-      <ul class="cut-kinds" aria-label="${esc(t('plan.cutAria'))}">${p.cut.kinds.map((k) => `<li><span class="k ${kindN(k.kind)}" ${kindStyle(k.kind)}>${icon(KIND[k.kind].icon)}</span>${esc(kindLabel(k.kind))} <b>${k.from} → ${k.to}</b></li>`).join('')}</ul>
-      ${p.cut.grouped ? `<p>${esc(t('plan.cutGrouped'))}</p>` : ''}`
-    : '';
-  return `${late}<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.noFit', { d: day(d.targetDate), needed: d.needed, available: d.available, fixes }))}</b></p>${cut}</div></div>${moved}`;
-}
-
-function monthsHtml(p, done) {
-  const byDate = new Map(p.sessions.map((s) => [s.date, s]));
-  const today = todayLocal();
-  const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
-  const first = utc(p.sessions[0].date);
-  const last = utc([p.sessions.at(-1).date, examDay].sort().at(-1));
-  const out = [];
-  let y = first.getUTCFullYear();
-  let m = first.getUTCMonth();
-  while (y < last.getUTCFullYear() || (y === last.getUTCFullYear() && m <= last.getUTCMonth())) {
-    const lead = (new Date(Date.UTC(y, m, 1)).getUTCDay() + 6) % 7;
-    const days = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
-    const cells = dates().dow.map((d) => `<span class="dow">${d}</span>`);
-    for (let i = 0; i < lead; i++) cells.push('<span></span>');
-    for (let d = 1; d <= days; d++) {
-      const date = iso(new Date(Date.UTC(y, m, d)));
-      const s = byDate.get(date);
-      const isToday = date === today ? ' today' : '';
-      if (s) {
-        const state = done.has(s.n) ? ' done' : date < today ? ' missed' : '';
-        cells.push(`<span class="d s ${kindN(s.kind)}${state}${isToday}" data-n="${s.n}" ${kindStyle(s.kind)} title="${esc(`${day(date)} · ${kindLabel(s.kind)}: ${cap(sname(s))}`)}">${icon(KIND[s.kind].icon)}</span>`);
-      } else if (date === examDay) {
-        cells.push(`<span class="d exam${isToday}" title="${esc(`${day(date)} · ${t('plan.examDay')}`)}">${icon('target')}</span>`);
-      } else {
-        cells.push(`<span class="d${isToday}">${d}</span>`);
-      }
-    }
-    out.push(`<div class="card month"><h3>${dates().monthNames[m]} ${y}</h3><div class="mgrid">${cells.join('')}</div></div>`);
-    if (m === 11) {
-      y += 1;
-      m = 0;
-    } else {
-      m += 1;
-    }
-  }
-  return out.join('');
-}
-
-function renderPlan() {
-  const f = $('#plan-form');
-  const out = $('#plan-output');
-  const cert = BY_ID.get(f.cert.value);
-  const days = $$('input[name="days"]:checked', f).map((i) => Number(i.value));
-  let p;
-  try {
-    p = buildPlan({
-      cert,
-      hours: Number(f.hours.value),
-      start: f.start.value || todayLocal(),
-      days,
-      sessionMinutes: Number(f.sessionMinutes.value),
-      startTime: f.startTime.value || '19:00',
-      confidence: readConfidence(),
-      targetDate: f.targetDate.value || null,
-    });
-  } catch (err) {
-    out.innerHTML = `<p class="empty">${esc(lib(err.message))}.</p>`;
-    return;
-  }
-  const planStart = p.sessions[0].date;
-  const progressKey = `${KEYS.progress}${p.cert.id}:${planStart}`;
-  p = movedPlan(p, progressKey, days);
-  const done = new Set(store.get(progressKey, []));
-  const tracked = isTracked(progressKey);
-  if (tracked) setTracked(progressKey, trackParams(), true);
-  const pct = () => Math.round((done.size / p.sessions.length) * 100);
-
-  // Calendar weeks, Monday first.
-  const first = utc(p.sessions[0].date);
-  const monday = new Date(first);
-  monday.setUTCDate(first.getUTCDate() - ((first.getUTCDay() + 6) % 7));
-  const weeks = new Map();
-  for (const s of p.sessions) {
-    const w = Math.floor((utc(s.date) - monday) / (7 * 86400000));
-    if (!weeks.has(w)) weeks.set(w, []);
-    weeks.get(w).push(s);
-  }
-  const weekRange = (w) => {
-    const a = new Date(monday);
-    a.setUTCDate(monday.getUTCDate() + w * 7);
-    const b = new Date(a);
-    b.setUTCDate(a.getUTCDate() + 6);
-    return span(iso(a), iso(b));
-  };
-  const today = todayLocal();
-  const stopState = (s) => (done.has(s.n) ? ' done' : s.date < today ? ' missed' : s.date === today ? ' today' : '');
-  const stopTag = (s) => (done.has(s.n) ? '' : s.date < today ? `<span class="tag warn">${t('progress.legendMissed')}</span>` : s.date === today ? `<span class="tag">${t('progress.today')}</span>` : '');
-  // Sessions that have practice to go with them link to it: the session's domain, a full timed
-  // mock, a short diagnostic, or the review queue. The run ticks the session off when it ends.
-  const PRACTICE_LINK = { baseline: 'practice.linkBaseline', practice: 'practice.linkDomain', mock: 'practice.linkMock', remediate: 'practice.linkReview' };
-  const practiceHref = (s) => {
-    if (s.kind === 'remediate') return `#practice?cert=${cert.id}&tab=review`;
-    const q = new URLSearchParams({ cert: cert.id, plan: planStart, s: s.n });
-    if (s.kind === 'practice' && s.topic) q.set('domain', s.topic);
-    if (s.kind === 'mock') q.set('mode', 'mock');
-    if (s.kind === 'baseline') q.set('size', '10');
-    return `#practice?${q}`;
-  };
-  const stop = (s) => `<li class="stop${stopState(s)}" data-kind="${s.kind}">
-      <span class="node ${kindN(s.kind)}" ${kindStyle(s.kind)}>${icon(KIND[s.kind].icon)}</span>
-      <div class="card body">
-        <small>${day(s.date)} · ${kindLabel(s.kind)}${stopTag(s)}</small>
-        <b>${esc(cap(sname(s)))}</b>
-        <span class="len">${icon('clock')}${len(s.minutes)}</span>
-        ${cert.practice_questions && PRACTICE_LINK[s.kind] ? `<a class="pa-link" href="${esc(practiceHref(s))}">${icon('dumbbell')}${t(PRACTICE_LINK[s.kind])}</a>` : ''}
-        <label class="check"><input type="checkbox" data-n="${s.n}" aria-label="${esc(t('plan.sessionDone', { n: s.n }))}" ${done.has(s.n) ? 'checked' : ''}><span>${icon('check')}</span></label>
-      </div></li>`;
-  const kinds = [...new Set(p.sessions.map((s) => s.kind))];
-  const mockSession = p.sessions.find((s) => s.kind === 'mock');
-  const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
-  const byTopic = new Map();
-  for (const s of p.sessions) {
-    // A session that covers several domains splits its time between them.
-    const names = s.topics || (s.topic ? [s.topic] : []);
-    for (const n of names) byTopic.set(n, (byTopic.get(n) || 0) + s.minutes / names.length);
-  }
-  const topicRows = p.topics
-    .map((tp, i) => ({ label: lib(tp), value: Math.round(((byTopic.get(tp) || 0) / 60) * 10) / 10, color: domainColor(i) }))
-    .filter((r) => r.value > 0);
-  const weekRows = [...weeks].map(([w, items], i) => ({
-    label: t('plan.wk', { n: i + 1 }),
-    value: Math.round((items.reduce((sum, s) => sum + s.minutes, 0) / 60) * 10) / 10,
-    title: t('plan.weekTitle', { n: i + 1, r: weekRange(w), h: Math.round((items.reduce((sum, s) => sum + s.minutes, 0) / 60) * 10) / 10 }),
-    mark: items.some((s) => s.kind === 'mock'),
-  }));
-  const summaryStat = (ic, label, value) => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${label}</small><b>${value}</b></div></div>`;
-
-  out.innerHTML = `
-    <div class="plan-summary">
-      ${summaryStat('calendar-days', t('plan.sessions'), p.sessions.length)}
-      ${summaryStat('clock', t('plan.studyTime'), `${p.hours} h`)}
-      ${summaryStat('flag', t('plan.fromTo'), `${day(p.sessions[0].date, { weekday: false })} – ${day(p.sessions.at(-1).date, { weekday: false })}`)}
-      ${summaryStat('target', p.deadline ? t('plan.examDay') : t('plan.earliest'), day(examDay))}
-      <div class="card progress-card" id="progress">${ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }))}<div><b id="progress-n">${t('plan.of', { a: done.size, b: p.sessions.length })}</b><small>${t('plan.done')}</small></div></div>
-    </div>
-    <div id="plan-status">${statusHtml(p, done, days, progressKey)}</div>
-    <div class="plan-actions">
-      <button type="button" class="btn primary" id="dl-ics">${icon('calendar-plus')}${t('plan.calendar')}</button>
-      <button type="button" class="btn" id="track-plan" aria-pressed="${tracked}">${icon('activity')}<span>${tracked ? t('plan.tracking') : t('plan.track')}</span></button>
-      <button type="button" class="btn" id="dl-md">${icon('download')}Markdown</button>
-      <button type="button" class="btn" id="copy-plan">${icon('link')}${t('copyLink')}</button>
-      <button type="button" class="btn" id="print-plan">${icon('printer')}${t('plan.print')}</button>
-    </div>
-    ${p.inferredTopics ? `<p class="note">${esc(t('plan.inferred'))}</p>` : ''}
-    <div class="months">${monthsHtml(p, done)}</div>
-    <ul class="kinds">${kinds.map((k) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${kindLabel(k)}</li>`).join('')}<li><span class="k exam">${icon('target')}</span>${t('plan.examDay')}</li></ul>
-    <div class="plan-charts">
-      <section class="card panel"><h2>${icon('chart-bar')}${t('plan.byTopic')}</h2>${hbars(topicRows)}</section>
-      <section class="card panel"><h2>${icon('chart-column')}${t('plan.perWeek')}</h2>${columns(weekRows, 'h', t('plan.perWeekAria'))}<p class="hint">${t('plan.mockWeeks')}</p></section>
-    </div>
-    ${[...weeks]
-      .map(([w, items], i) => `<h3 class="week">${t('plan.week', { n: i + 1 })} <small>${weekRange(w)}</small></h3><ol class="trail">${items.map(stop).join('')}</ol>`)
-      .join('')}
-    <div class="plan-extra">
-      <section class="card panel"><h2>${icon('info')}${t('plan.what')}</h2>
-        <dl class="keydl">${kinds.map((k) => `<dt><span class="kinds"><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span></span>${kindLabel(k)}</dt><dd>${esc(k === 'mock' ? kindDetail('mock', mockSession.detail, mockSession.minutes) : kindDetail(k, KIND_DETAIL[k]))}</dd>`).join('')}</dl>
-      </section>
-      ${cert.prep && cert.prep.length ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('plan.resources')}</h2><div class="resources">${cert.prep
-        .map((r) => {
-          const k = prepKind(r);
-          return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`, 'res');
-        })
-        .join('')}</div></section>` : ''}
-    </div>`;
-
-  $$('#plan-output .check input').forEach((box) =>
-    box.addEventListener('change', () => {
-      const n = Number(box.dataset.n);
-      if (box.checked) done.add(n);
-      else done.delete(n);
-      store.set(progressKey, [...done]);
-      const session = p.sessions.find((x) => x.n === n);
-      const li = box.closest('.stop');
-      li.className = `stop${stopState(session)}`;
-      $('.tag', li)?.remove();
-      $('small', li).insertAdjacentHTML('beforeend', stopTag(session));
-      const cell = $(`#plan-output .mgrid [data-n="${n}"]`);
-      if (cell) {
-        cell.classList.toggle('done', box.checked);
-        cell.classList.toggle('missed', !box.checked && session.date < today);
-      }
-      $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }));
-      $('#plan-status').innerHTML = statusHtml(p, done, days, progressKey);
-      $('#progress-n').textContent = t('plan.of', { a: done.size, b: p.sessions.length });
-      if (box.checked && !isTracked(progressKey)) setTracked(progressKey, trackParams(), true);
-      const kind = p.sessions.find((s) => s.n === n)?.kind;
-      if (box.checked && (done.size === p.sessions.length || kind === 'final' || kind === 'mock')) celebrate(done.size === p.sessions.length ? 220 : 90);
-    }),
-  );
-  // Practice from a session counts for this plan, so it shows in Progress like a ticked session does.
-  $$('#plan-output .pa-link').forEach((a) => a.addEventListener('click', () => isTracked(progressKey) || setTracked(progressKey, trackParams(), true)));
-  $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(localPlan(p), new Date(), { exam: t('plan.examDay') }), 'text/calendar'));
-  $('#dl-md').addEventListener('click', () => download(`${p.cert.id}-plan.md`, toMarkdown(localPlan(p), { resources: cert.prep || [], text: markdownText() }), 'text/markdown'));
-  $('#track-plan').addEventListener('click', () => setTracked(progressKey, trackParams(), !isTracked(progressKey)));
-  $('#print-plan').addEventListener('click', () => window.print());
-  $('#copy-plan').addEventListener('click', (e) => copy(`${location.origin}${location.pathname}#plan?${new URLSearchParams(planParams())}`, e.currentTarget));
 }
 
 function celebrate(count) {
@@ -1376,25 +926,9 @@ function bind() {
       if (view === 'list') renderList();
     }
     if (btn.dataset.act === 'share') share(btn.dataset.id);
-    if (btn.dataset.act === 'untrack') {
-      setTracked(btn.dataset.key, null, false);
-      renderProgress();
-    }
-    if (btn.dataset.act === 'resched' || btn.dataset.act === 'unresched') {
-      const onPlan = !$('#view-plan').hidden;
-      const params = onPlan ? trackParams() : trackedPlans()[btn.dataset.key];
-      if (params) (btn.dataset.act === 'resched' ? rescheduleFrom : undoReschedule)(btn.dataset.key, params);
-      if (onPlan) renderPlan();
-      else renderProgress();
-    }
-    if (btn.dataset.act === 'use-hours') {
-      hoursTouched = false;
-      $('#plan-form').hours.value = suggested;
-      updateHint();
-      renderPlan();
-    }
   });
 
+  $('#filters-toggle').addEventListener('click', () => setFiltersOpen($('#filter-panel').hidden));
   $('#filters').addEventListener('input', renderList);
   $('#sort').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
@@ -1427,30 +961,6 @@ function bind() {
     store.set(KEYS.profile, profile);
     fillProfile();
     renderList();
-  });
-
-  const plan = $('#plan-form');
-  plan.addEventListener('submit', (e) => e.preventDefault());
-  plan.addEventListener('input', (e) => {
-    if (e.target.dataset.topic) return;
-    if (e.target.name === 'hours') hoursTouched = true;
-    if (e.target.name === 'cert') {
-      hoursTouched = false;
-      setEstimate();
-      renderConfidence();
-      // Keep the address on the certification shown, so back, reload and links agree with it.
-      history.replaceState(null, '', `#plan?cert=${encodeURIComponent(e.target.value)}`);
-    }
-    updateHint();
-    renderPlan();
-  });
-  $('#confidence').addEventListener('change', (e) => {
-    if (!e.target.dataset.topic) return;
-    const cert = $('#plan-form').cert.value;
-    const rated = readConfidence();
-    store.set(confidenceKey(cert), rated);
-    setRatedLabel(Object.keys(rated).length);
-    renderPlan();
   });
 
   $('#theme').addEventListener('click', () => {
@@ -1508,6 +1018,10 @@ const domainBars = (per, target = null) =>
     )
     .join('')}</ul>`;
 
+/** A link row with the certification's badge, for the practice directory. */
+const certRow = (c, href, sub) =>
+  `<li><a class="choose-row" href="${esc(href)}">${badge(c, 34, { label: false })}<span><b>${esc(c.name)}</b><small>${esc(sub)}</small></span>${icon('arrow-right')}</a></li>`;
+
 /** A certification without practice questions, or none named: say so and list the ones that have them. */
 function practiceMissing(c) {
   const sets = DATA.certifications.filter((x) => x.practice_questions);
@@ -1518,19 +1032,6 @@ function practiceMissing(c) {
       .map((x) => certRow(x, `#practice?cert=${x.id}`, `${x.provider} · ${x.code} · ${t('practice.count', { n: x.practice_questions })}`))
       .join('')}</ul></section>`;
 }
-
-/** The tracked plan session a practice link came from (?plan=<first session date>&s=<n>). */
-function planSession(certId, params) {
-  const start = params.get('plan');
-  const n = Number(params.get('s'));
-  if (!start || !n) return null;
-  const key = `${KEYS.progress}${certId}:${start}`;
-  const tracked = trackedPlans()[key];
-  const session = tracked && planFrom(tracked, key)?.sessions.find((s) => s.n === n);
-  return session ? { key, n, session, params: tracked } : null;
-}
-
-const sessionName = (s) => `${kindLabel(s.kind)}: ${cap(sname(s))}`;
 
 async function renderPractice(id, params) {
   stopPracticeTimer();
@@ -1549,7 +1050,7 @@ async function renderPractice(id, params) {
   const keys = practiceKeys(id);
   const history = () => store.get(keys.history, emptyHistory());
   const review = () => loadReview(store.get(keys.review, null), history(), Date.now());
-  const ctx = { id, c, set, keys, history, review, params, from: planSession(id, params), tab: params.get('tab') || 'start', attempt: params.get('attempt') };
+  const ctx = { id, c, set, keys, history, review, params, tab: params.get('tab') || 'start', attempt: params.get('attempt') };
   practiceState = ctx;
   const run = store.get(keys.run, null);
   if (run && run.timed && !run.paused && run.end <= Date.now()) return finishPractice(ctx, run);
@@ -1574,10 +1075,10 @@ function practiceHome(ctx, run) {
   if (ctx.tab === 'bank') return practiceBank(ctx);
   if (ctx.tab === 'mistakes') return practiceMistakes(ctx);
   if (ctx.tab === 'review') return practiceReviewTab(ctx);
-  const { c, set, id, from } = ctx;
+  const { c, set, id } = ctx;
   const full = examSize(c);
   const hist = ctx.history();
-  // From a plan session: its domain in study mode, a mock at full length with the clock, or 10 questions.
+  // A practice link can select a domain, mock mode, or question count.
   const preset = {
     domain: c.domains.some((d) => d.name === ctx.params.get('domain')) ? ctx.params.get('domain') : '',
     mock: ctx.params.get('mode') === 'mock',
@@ -1591,7 +1092,6 @@ function practiceHome(ctx, run) {
   const radio = (name, value, label, on) => `<label><input type="radio" name="${name}" value="${esc(value)}" ${on ? 'checked' : ''}><span>${esc(label)}</span></label>`;
   // One primary action: continue the run in progress, or start a new one.
   $('#practice-body').innerHTML = `${practiceHead(ctx, 'start')}
-    ${from ? `<div class="status info pa-resume">${icon('route')}<span>${esc(t('practice.fromPlan', { x: sessionName(from.session), d: day(from.session.date) }))}</span></div>` : ''}
     ${run ? `<div class="status pa-resume">${icon('timer')}<span>${esc(t('practice.resume', { a: Object.keys(run.answers).length, b: run.ids.length }))}</span>
       <a class="btn primary" href="#practice?cert=${esc(id)}&run=1">${t('practice.continue')}</a><button type="button" class="btn" id="pa-discard">${t('practice.discard')}</button></div>` : ''}
     ${due ? `<div class="status pa-resume">${icon('refresh-cw')}<span>${esc(t('practice.reviewDue', { n: due }))}</span><a class="btn" href="#practice?cert=${esc(id)}&review=due">${t('practice.reviewStart')}</a></div>` : ''}
@@ -1613,7 +1113,7 @@ function practiceHome(ctx, run) {
       <p class="hint" id="pa-short" hidden></p>
     </section>
     ${hist.attempts.length
-      ? `<div class="progress-cols">
+      ? `<div class="pa-stats">
           <section class="card panel"><h2>${icon('chart-bar')}${t('practice.overall')}</h2>${domainBars(totals(hist, c.domains))}<p class="hint">${esc(t('practice.notScore'))}</p></section>
           <section class="card panel"><h2>${icon('activity')}${t('practice.history')}</h2><ul class="pa-history">${past
             .map((a) => `<li><span>${esc(when(a.when))}</span><b>${a.pct === null ? '—' : `${a.pct}%`}</b><small>${a.ok}/${a.n}</small><a href="#practice?cert=${esc(id)}&attempt=${esc(a.id)}">${t('practice.open')}</a></li>`)
@@ -1660,7 +1160,6 @@ function practiceHome(ctx, run) {
       checked: [],
       mode: study ? 'study' : 'exam',
       domain: domain() || null,
-      from: from ? { key: from.key, n: from.n } : null,
       cur: 0,
       timed,
       minutes: minutes(),
@@ -1850,12 +1349,6 @@ function finishPractice(ctx, run) {
   }
   const when = Date.now();
   const meta = { mode: run.mode || 'exam', ...(run.domain ? { domain: run.domain } : {}) };
-  if (run.from) {
-    // A run started from a plan session ticks it off once at least half of it was answered.
-    const ticked = result.n * 2 >= run.ids.length;
-    if (ticked) store.set(run.from.key, [...new Set([...store.get(run.from.key, []), run.from.n])]);
-    meta.from = { ...run.from, ticked };
-  }
   // Read the schedule before the history changes: with no schedule saved yet, it starts from the old history.
   const review = ctx.review();
   store.set(keys.history, record(ctx.history(), result, answers, when, meta));
@@ -1887,32 +1380,10 @@ function practiceResult(ctx) {
   const missed = new Set(a.wrong);
   const answered = set.questions.filter((q) => a.answers[q.id]);
   const due = dueCount(ctx);
-  // The plan session this run came from: marked done (with undo), or offered when too little was answered.
-  const tracked = a.from && trackedPlans()[a.from.key];
-  const session = tracked && planFrom(tracked, a.from.key)?.sessions.find((s) => s.n === a.from.n);
-  const sessionHtml = () => {
-    if (!session) return '';
-    const done = store.get(a.from.key, []).includes(a.from.n);
-    const text = t(done ? 'practice.sessionDone' : a.from.ticked ? 'practice.sessionOpen' : 'practice.sessionOffer', { x: sessionName(session) });
-    return `<div class="status ${done ? 'good' : 'info'} pa-resume" id="pa-session" role="status">${icon(done ? 'circle-check' : 'route')}<span>${esc(text)}</span>
-      <button type="button" class="btn" id="pa-session-toggle">${t(done ? 'practice.undo' : 'practice.markDone')}</button>
-      <a class="btn" href="#plan?${esc(new URLSearchParams(tracked).toString())}">${icon('route')}${t('practice.toPlan')}</a></div>`;
-  };
-  const bindSession = () =>
-    $('#pa-session-toggle')?.addEventListener('click', () => {
-      const done = new Set(store.get(a.from.key, []));
-      if (done.has(a.from.n)) done.delete(a.from.n);
-      else done.add(a.from.n);
-      store.set(a.from.key, [...done]);
-      $('#pa-session').outerHTML = sessionHtml();
-      bindSession();
-      $('#pa-session-toggle').focus();
-    });
   const paint = (onlyWrong) => {
     const list = onlyWrong ? answered.filter((q) => missed.has(q.id)) : answered;
     $('#practice-body').innerHTML = `<a class="back" href="#practice?cert=${esc(id)}">${icon('arrow-left')}${t('practice.back')}</a>
       <div class="page-head"><span class="head-icon">${icon('target')}</span><h1>${t('practice.result')}</h1></div>
-      ${sessionHtml()}
       <section class="card panel pa-score">
         <b class="pa-big">${a.pct}%</b>
         <div><p>${esc(t('practice.resultOf', { ok: a.ok, n: a.n }))}</p>
@@ -1930,7 +1401,6 @@ function practiceResult(ctx) {
       <div class="pa-reviewhead"><h2>${t('practice.review')}</h2><div class="segmented"><label><input type="radio" name="pa-rev" value="all" ${onlyWrong ? '' : 'checked'}><span>${t('practice.reviewAll')}</span></label><label><input type="radio" name="pa-rev" value="wrong" ${onlyWrong ? 'checked' : ''}><span>${t('practice.reviewWrong')} (${missed.size})</span></label></div></div>
       ${list.map((q) => reviewCard(q, a.answers[q.id], missed.has(q.id) ? `<span class="tag warn">${icon('flag')}</span>` : '')).join('')}`;
     $$('input[name="pa-rev"]').forEach((r) => r.addEventListener('change', () => paint(r.value === 'wrong' && r.checked)));
-    bindSession();
   };
   paint(a.wrong.length > 0);
 }
@@ -2101,24 +1571,7 @@ function practiceMistakes(ctx) {
   );
 }
 
-function practiceProgress() {
-  const rows = DATA.certifications
-    .filter((c) => c.practice_questions)
-    .map((c) => {
-      const keys = practiceKeys(c.id);
-      const history = store.get(keys.history, emptyHistory());
-      const now = Date.now();
-      const due = Object.values(loadReview(store.get(keys.review, null), history, now).cards).filter((card) => card.due <= now).length;
-      return { c, attempts: history.attempts, due };
-    })
-    .filter((x) => x.attempts.length);
-  if (!rows.length) return '';
-  return `<section class="card panel"><h2>${icon('dumbbell')}${t('practice.progress')}</h2><ul class="pa-history">${rows
-    .map(({ c, attempts, due }) => `<li><span>${esc(c.code)}</span><small>${esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct }))}</small>${due ? `<a href="#practice?cert=${esc(c.id)}&tab=review">${icon('refresh-cw')}${esc(t('practice.progressDue', { n: due }))}</a>` : ''}<a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
-    .join('')}</ul></section>`;
-}
-
-// ---------- tracked plans and progress ----------
+// ---------- study backups ----------
 function bindStudyBackup() {
   const fileInput = $('#study-backup-file');
   const restoreButton = $('#study-backup-restore');
@@ -2129,7 +1582,7 @@ function bindStudyBackup() {
   };
   $('#study-backup-download').addEventListener('click', () => {
     try {
-      download(`pathfinder-study-${todayLocal()}.json`, createStudyBackup(localStorage), 'application/json');
+      download(`pathfinder-study-${localDay(Date.now())}.json`, createStudyBackup(localStorage), 'application/json');
       show('backup.downloaded');
     } catch {
       show('backup.downloadFailed');
@@ -2154,14 +1607,13 @@ function bindStudyBackup() {
         return;
       }
       const restore = () => {
-        if ($('#view-progress').hidden) return false;
+        if ($('#view-about').hidden) return false;
         if (hasStudyData(localStorage) && !window.confirm(t('backup.replace'))) return false;
         restoreStudyBackup(localStorage, data);
         return true;
       };
       // Coordinate two simultaneous restores in different tabs when Web Locks is available.
       const restored = navigator.locks ? await navigator.locks.request('pathfinder:restore-study', restore) : restore();
-      if (restored) renderProgress();
       show(restored ? 'backup.restored' : 'backup.canceled');
     } catch {
       show('backup.restoreFailed');
@@ -2169,194 +1621,6 @@ function bindStudyBackup() {
       restoreButton.disabled = false;
     }
   });
-}
-
-const trackedPlans = () => store.get(KEYS.plans, {});
-const isTracked = (key) => key in trackedPlans();
-
-function trackParams() {
-  const params = planParams();
-  return { ...params, start: params.start || todayLocal() };
-}
-
-function setTracked(key, params, on) {
-  const plans = trackedPlans();
-  if (on) plans[key] = params;
-  else delete plans[key];
-  store.set(KEYS.plans, plans);
-  const btn = $('#track-plan');
-  if (btn) {
-    btn.setAttribute('aria-pressed', String(on));
-    $('span', btn).textContent = on ? t('plan.tracking') : t('plan.track');
-  }
-}
-
-// Rescheduling saves new dates (and sessions left out) per plan, next to its ticks. They belong to
-// the plan they were made on: a plan rebuilt with other settings drops them.
-const reschedKey = (key) => key.replace(KEYS.progress, KEYS.resched);
-const planSig = (p) => `${p.sessions.length}:${p.hours}:${p.sessions.at(-1).date}`;
-const daysOf = (params) => params.days.split(',').filter(Boolean).map(Number);
-
-function savedMoves(base, key) {
-  const saved = store.get(reschedKey(key), null);
-  return saved && saved.sig === planSig(base) ? saved : null;
-}
-
-function movedPlan(base, key, days) {
-  const saved = savedMoves(base, key);
-  return saved ? { ...applyMoves(base, saved, days), rescheduled: saved } : base;
-}
-
-/** Move what is left of a plan onto the study days from today, keeping one step of undo. */
-function rescheduleFrom(key, params) {
-  const base = planFrom(params);
-  if (!base) return;
-  const days = daysOf(params);
-  const saved = savedMoves(base, key);
-  const p = saved ? applyMoves(base, saved, days) : base;
-  const r = reschedule({ sessions: p.sessions, done: store.get(key, []), today: todayLocal(), days, targetDate: params.exam || null });
-  store.set(reschedKey(key), {
-    sig: planSig(base),
-    on: todayLocal(),
-    dates: { ...saved?.dates, ...r.dates },
-    skipped: [...(saved?.skipped || []), ...r.skipped],
-    prev: saved ? { on: saved.on, dates: saved.dates, skipped: saved.skipped } : null,
-  });
-  if (!isTracked(key)) setTracked(key, params, true);
-}
-
-function undoReschedule(key) {
-  const saved = store.get(reschedKey(key), null);
-  store.set(reschedKey(key), saved?.prev ? { sig: saved.sig, ...saved.prev, prev: null } : null);
-}
-
-/** A tracked plan rebuilt from its settings; with its key, its saved moves applied too. */
-function planFrom(params, key = null) {
-  const cert = BY_ID.get(params.cert);
-  if (!cert) return null;
-  try {
-    const plan = buildPlan({
-      cert,
-      hours: Number(params.hours),
-      start: params.start,
-      days: params.days.split(',').filter(Boolean).map(Number),
-      sessionMinutes: Number(params.len) || 90,
-      startTime: params.time || '19:00',
-      confidence: store.get(confidenceKey(cert.id), {}),
-      targetDate: params.exam || null,
-    });
-    return key ? movedPlan(plan, key, daysOf(params)) : plan;
-  } catch {
-    return null;
-  }
-}
-
-/** Sessions in date order: done, missed (past and not ticked) or planned. */
-function progressData() {
-  const today = todayLocal();
-  const plans = Object.entries(trackedPlans())
-    .map(([key, params]) => ({ key, params, plan: planFrom(params, key) }))
-    .filter((x) => x.plan);
-  const sessions = [];
-  for (const x of plans) {
-    x.done = new Set(store.get(x.key, []));
-    for (const s of x.plan.sessions) sessions.push({ ...s, plan: x, done: x.done.has(s.n), past: s.date < today, today: s.date === today });
-  }
-  sessions.sort((a, b) => a.date.localeCompare(b.date) || a.n - b.n);
-  // Streak: completed sessions in a row, counting back from today. Today's open session is not a miss yet.
-  let streak = 0;
-  for (const s of [...sessions].filter((x) => x.date <= today).reverse()) {
-    if (s.done) streak += 1;
-    else if (s.today) continue;
-    else break;
-  }
-  return { today, plans, sessions, streak };
-}
-
-function renderProgress() {
-  const body = $('#progress-body');
-  const { today, plans, sessions, streak } = progressData();
-  if (!plans.length) {
-    body.innerHTML = `<div class="card empty-card">${tile('activity', '--accent')}<p>${esc(t('progress.empty'))}</p><a class="btn primary" href="#plan">${icon('route')}${t('progress.start')}</a></div>${practiceProgress()}`;
-    return;
-  }
-  const done = sessions.filter((s) => s.done);
-  const hours = Math.round((done.reduce((m, s) => m + s.minutes, 0) / 60) * 10) / 10;
-  const missed = sessions.filter((s) => s.past && !s.done).length;
-  const upcoming = sessions.filter((s) => !s.done && !s.past).slice(0, 6);
-  const tileStat = (ic, lbl, value, sub = '') => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${lbl}</small><b>${value}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>`;
-
-  // Five weeks of scheduled sessions: two back, this one, two ahead. Monday first.
-  const now = utc(today);
-  const start = new Date(now);
-  start.setUTCDate(now.getUTCDate() - ((now.getUTCDay() + 6) % 7) - 14);
-  const byDate = new Map();
-  for (const s of sessions) (byDate.get(s.date) || byDate.set(s.date, []).get(s.date)).push(s);
-  const cells = dates().dow.map((d) => `<span class="dow">${d}</span>`);
-  for (let i = 0; i < 35; i++) {
-    const d = new Date(start);
-    d.setUTCDate(start.getUTCDate() + i);
-    const date = iso(d);
-    const list = byDate.get(date) || [];
-    const state = !list.length ? '' : list.every((s) => s.done) ? 'done' : list.some((s) => s.past && !s.done) ? 'missed' : 'planned';
-    const title = list.map((s) => `${s.plan.plan.cert.code} · ${kindLabel(s.kind)}: ${cap(sname(s))}`).join('\n');
-    cells.push(`<span class="d ${state}${date === today ? ' today' : ''}" ${title ? `title="${esc(`${day(date)}\n${title}`)}"` : ''}>${d.getUTCDate()}</span>`);
-  }
-
-  const next = (s) => `<li class="card up">
-      ${badge(BY_ID.get(s.plan.params.cert), 34, { label: false })}
-      <div><small>${day(s.date)}${s.today ? ` · ${t('progress.today')}` : ''} · ${len(s.minutes)}</small><b>${esc(kindLabel(s.kind))}: ${esc(cap(sname(s)))}</b><span class="who">${esc(s.plan.plan.cert.code)}</span></div>
-      <a class="btn icon-btn" href="#plan?${esc(new URLSearchParams(s.plan.params).toString())}" aria-label="${esc(t('progress.open'))}">${icon('arrow-right')}</a>
-    </li>`;
-
-  const planCard = (x) => {
-    const c = BY_ID.get(x.params.cert);
-    const total = x.plan.sessions.length;
-    const pct = Math.round((x.done.size / total) * 100);
-    const nextOne = x.plan.sessions.find((s) => !x.done.has(s.n) && s.date >= today) || x.plan.sessions.find((s) => !x.done.has(s.n));
-    const examDay = x.plan.deadline ? x.plan.deadline.targetDate : x.plan.examDate;
-    const late = behind(x.plan.sessions, [...x.done], today);
-    const room = late.count && reschedule({ sessions: x.plan.sessions, done: [...x.done], today, days: daysOf(x.params), targetDate: x.params.exam || null }).available;
-    return `<article class="card plan-card" style="--pc:${providerColor(c.provider)}">
-      <div class="head">${badge(c, 52, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div>${ring(pct, 52, 'good pct', t('plan.pctDone', { p: pct }))}</div>
-      <p class="meta"><span>${icon('calendar-days')}${t('plan.of', { a: x.done.size, b: total })} ${t('plan.done')}</span><span>${icon('target')}${esc(t('progress.examOn', { d: day(examDay) }))}</span></p>
-      ${nextOne ? `<p class="meta next">${icon('arrow-right')}<span>${esc(t('progress.nextOne', { x: `${day(nextOne.date)} · ${kindLabel(nextOne.kind)}: ${cap(sname(nextOne))}` }))}</span></p>` : ''}
-      ${late.count ? `<p class="meta late">${icon('triangle-alert')}<span>${esc(t('progress.behindPlan', { n: late.count }))}${room ? '' : ` ${esc(t('plan.reschedNone', { d: day(examDay) }))}`}</span>${room ? `<button type="button" class="link" data-act="resched" data-key="${esc(x.key)}">${t('plan.reschedule')}</button>` : ''}</p>` : ''}
-      <div class="plan-card-actions"><a class="btn" href="#plan?${esc(new URLSearchParams(x.params).toString())}">${icon('route')}${t('progress.open')}</a><button type="button" class="link" data-act="untrack" data-key="${esc(x.key)}">${t('progress.stop')}</button></div>
-    </article>`;
-  };
-
-  body.innerHTML = `
-    <div class="plan-summary progress-summary">
-      ${tileStat('flame', t('progress.streak'), streak, t('progress.streakUnit', { n: streak }))}
-      ${tileStat('clock', t('progress.hours'), `${hours} h`)}
-      ${tileStat('circle-check', t('progress.sessions'), t('plan.of', { a: done.length, b: sessions.length }))}
-      ${tileStat('route', t('progress.plans'), plans.length)}
-    </div>
-    ${missed ? `<div class="status warn">${icon('triangle-alert')}${esc(t('progress.behind', { n: missed }))}</div>` : ''}
-    <div class="progress-cols">
-      <section class="card panel"><h2>${icon('calendar-clock')}${t('progress.next')}</h2>${upcoming.length ? `<ol class="up-list">${upcoming.map(next).join('')}</ol>` : `<p class="hint">${t('progress.nothingNext')}</p>`}</section>
-      <section class="card panel"><h2>${icon('calendar-days')}${t('progress.weeks')}</h2><div class="mgrid strip">${cells.join('')}</div>
-        <ul class="strip-key"><li><span class="d done"></span>${t('progress.legendDone')}</li><li><span class="d missed"></span>${t('progress.legendMissed')}</li><li><span class="d planned"></span>${t('progress.legendPlanned')}</li><li><span class="d today"></span>${t('progress.today')}</li></ul>
-      </section>
-    </div>
-    <div class="plan-cards">${plans.map(planCard).join('')}</div>
-    ${practiceProgress()}`;
-}
-
-// Calendar and Markdown exports in the interface language.
-function localPlan(p) {
-  if (getLang() === 'en') return p;
-  const D = dates();
-  return {
-    ...p,
-    sessions: p.sessions.map((s) => ({
-      ...s,
-      weekday: D.days[utc(s.date).getUTCDay()],
-      title: `${kindLabel(s.kind)}: ${cap(sname(s))}`,
-      detail: kindDetail(s.kind, s.detail, s.minutes),
-    })),
-  };
 }
 
 async function share(id) {
@@ -2390,7 +1654,7 @@ function renderMarquee() {
   rows.forEach((row, r) => {
     // Mouse shortcuts only: the same links follow in the list, so the rows stay out of the tab order.
     // The first badges of each row are on screen as the page opens; the rest load as they drift in.
-    const set = (copy) => row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" title="${esc(c.name)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false, eager: !copy && i < 6 })}</a>`).join('');
+    const set = (copy) => row.map((c, i) => `<a href="#cert?id=${esc(c.id)}" tabindex="-1" style="--k:${i}">${badge(c, 64, { label: false, eager: !copy && i < 6 })}</a>`).join('');
     $(`#mq-${r + 1}`).innerHTML = `<div class="mq-track" style="--dur:${(row.length * (r ? 3.6 : 3.1)).toFixed(1)}s"><div class="mq-set">${set(false)}</div><div class="mq-set mq-copy">${set(true)}</div></div>`;
   });
 }
@@ -2569,8 +1833,6 @@ function localize() {
   fillFilters();
   renderCats();
   renderProviders();
-  labelDays();
-  setRatedLabel(Object.keys(readConfidence()).length);
   setThemeButton();
   chat?.localize();
 }
@@ -2603,7 +1865,6 @@ async function init() {
   renderCats();
   renderProviders();
   setThemeButton();
-  fillPlanForm();
   bind();
   // Sticky parts of a view (the compare header) sit under the top bar, whose height changes on phones.
   const top = $('.top');

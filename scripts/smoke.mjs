@@ -22,11 +22,33 @@ const freePort = () =>
 
 // Each check opens `path` and waits until `ready` (an expression run in the page) is true.
 const VIEWS = [
-  ['home', '', `document.querySelectorAll('#certs > *').length > 10 && !document.querySelector('#view-list').hidden && !!document.querySelector('#view-list h1')?.offsetHeight`],
+  ['home', '', `document.querySelectorAll('#certs > *').length > 10
+    && !document.querySelector('#view-list').hidden && !!document.querySelector('#view-list h1')?.offsetHeight
+    && !document.querySelector('nav a[href="#plan"], nav a[href="#progress"], #view-plan, #view-progress')
+    && !document.querySelector('#view-list .path-grid') && document.querySelector('#view-paths').hidden
+    && document.querySelector('#filter-panel').hidden
+    && document.querySelector('#filters-toggle').getAttribute('aria-expanded') === 'false'`],
+  ['catalog filter disclosure', '?lang=en#list?cat=Cybersecurity&max=200', `(() => {
+    const button = document.querySelector('#filters-toggle');
+    const panel = document.querySelector('#filter-panel');
+    if (!panel?.hidden || button?.textContent.trim() !== 'Filters (2)') return false;
+    button.click();
+    const opened = !panel.hidden && button.getAttribute('aria-expanded') === 'true'
+      && panel.querySelector('[data-cat="Cybersecurity"]').getAttribute('aria-pressed') === 'true'
+      && panel.querySelector('select[name="price"]').value === '200';
+    button.click();
+    return opened && panel.hidden && button.getAttribute('aria-expanded') === 'false';
+  })()`],
+  ['paths tab', '#paths', `!document.querySelector('#view-paths').hidden
+    && document.querySelector('nav a[data-route="ask"] + a[aria-current="page"]').hash === '#paths'
+    && document.querySelectorAll('#path-grid .path-card').length >= 12`],
+  ['path detail', '#path?id=cloud-aws', `!document.querySelector('#view-path').hidden
+    && document.querySelector('nav a[data-route="paths"]').getAttribute('aria-current') === 'page'
+    && document.querySelector('#path-body a.back').hash === '#paths'`],
   ['certification', '#cert?id=aws-saa', `!document.querySelector('#view-cert').hidden && /Solutions Architect/.test(document.querySelector('#cert-body h1')?.textContent || '')`],
-  ['plan', '#plan?cert=aws-saa', `!document.querySelector('#view-plan').hidden && document.querySelector('#plan-output').children.length > 0`],
+  ['old plan link', '#plan?cert=aws-saa&hours=40', `location.hash === '#cert?id=aws-saa' && !document.querySelector('#view-cert').hidden && /Solutions Architect/.test(document.querySelector('#cert-body h1')?.textContent || '')`],
   ['practice', '#practice?cert=aws-clf-c02', `!document.querySelector('#view-practice').hidden && !!document.querySelector('#practice-body button')`],
-  ['progress backup', '#progress', `!document.querySelector('#view-progress').hidden && document.querySelector('#study-backup-download').offsetHeight > 0 && document.querySelector('#study-backup-restore').offsetHeight > 0`],
+  ['old Progress link and backup', '#progress', `location.hash === '#about' && !document.querySelector('#view-about').hidden && document.querySelector('#study-backup-download').offsetHeight > 0 && document.querySelector('#study-backup-restore').offsetHeight > 0`],
   ['compare', '#compare?ids=aws-saa,microsoft-az-104', `!document.querySelector('#view-compare').hidden && document.querySelectorAll('#compare-body .cmp-cert').length === 2`],
   // The chat page only: nothing is sent, so the test never reaches the chat's endpoint.
   ['ask', '#ask', `!document.querySelector('#view-ask').hidden && document.querySelectorAll('#chat-log > li').length > 0 && !!document.querySelector('#chat-input')`],

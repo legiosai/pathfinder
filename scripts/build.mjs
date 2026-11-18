@@ -26,7 +26,8 @@ await mkdir(dist, { recursive: true });
 await cp(join(root, 'site'), dist, { recursive: true });
 // The sources carry the default address; point them at SITE before the asset hash is taken.
 if (SITE !== DEFAULT_SITE) {
-  for (const f of ['index.html', 'i18n.js', 'lib/planner.js']) await writeFile(join(dist, f), (await readFile(join(dist, f), 'utf8')).replaceAll(DEFAULT_SITE, SITE));
+  const html = await readFile(join(dist, 'index.html'), 'utf8');
+  await writeFile(join(dist, 'index.html'), html.replaceAll(DEFAULT_SITE, SITE));
 }
 // The same for the chat endpoint (see scripts/site.mjs), which site/chat.js carries as a constant.
 if (!/^https?:\/\/[\w.:[\]-]+(\/[\w./~-]*)?$/.test(CHAT_API)) throw new Error(`build: CHAT_API is not a plain http(s) address: ${CHAT_API}`);

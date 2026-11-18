@@ -704,7 +704,7 @@ const PENALTY = { avoided: 25, upcoming: 5, late: 10 };
  * On top of the "For me" score it leaves out issuers and areas the text ruled out, lowers skills it
  * ruled out, nudges named issuers, areas and practice sets up, and checks study time against the
  * hours and deadline given. Picks need at least one link to what was asked for.
- * `estimate(cert)` returns planning hours (lib/planner.js estimateHours). Returns { picks, more, left }:
+ * `estimate(cert)` returns estimated study hours. Returns { picks, more, left }:
  * `more` related ones did not make the cut, `left` were ruled out (budget, eligibility, what you skipped).
  */
 export function recommend(certs, ranked, intent, { limit = 5, labels = {}, estimate = null } = {}) {

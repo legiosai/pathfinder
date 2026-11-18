@@ -128,23 +128,3 @@ export function donut(domains, size = 168, { label = 'domains', aria = 'Exam dom
     <text x="80" y="98" text-anchor="middle" class="donut-l">${esc(label)}</text>
   </svg>`;
 }
-
-/** Horizontal bars: rows of {label, value, color, title}. Values are shown as text, so colour is never the only cue. */
-export function hbars(rows, unit = 'h') {
-  const max = Math.max(...rows.map((r) => r.value), 1);
-  return `<ul class="hbars">${rows
-    .map(
-      (r) => `<li title="${esc(r.title || `${r.label}: ${r.value} ${unit}`)}"><span class="hb-label">${esc(r.label)}</span><span class="hb-track"><i style="width:${(r.value / max) * 100}%;background:${r.color}"></i></span><b>${r.value} ${unit}</b></li>`,
-    )
-    .join('')}</ul>`;
-}
-
-/** Vertical columns for one series: [{label, value, title, mark}] where mark highlights a column. */
-export function columns(rows, unit = 'h', aria = 'Study hours per week') {
-  const max = Math.max(...rows.map((r) => r.value), 1);
-  return `<div class="cols-chart" role="img" aria-label="${esc(aria)}">${rows
-    .map(
-      (r) => `<div class="col${r.mark ? ' mark' : ''}" title="${esc(r.title || `${r.label}: ${r.value} ${unit}`)}"><b>${r.value}</b><span class="col-bar"><i style="height:${(r.value / max) * 100}%"></i></span><small>${esc(r.label)}</small></div>`,
-    )
-    .join('')}</div>`;
-}

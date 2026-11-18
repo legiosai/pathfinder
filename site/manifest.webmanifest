@@ -1,7 +1,7 @@
 {
   "name": "pathfinder",
   "short_name": "pathfinder",
-  "description": "Compare IT certifications and turn any of them into a dated study plan.",
+  "description": "Compare IT certifications and find exam guides and practice questions.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
@@ -15,7 +15,6 @@
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
   ],
   "shortcuts": [
-    { "name": "Study plan", "url": "./#plan", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Progress", "url": "./#progress", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Practice", "url": "./#practice", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }

@@ -89,6 +89,7 @@ self.addEventListener('fetch', (event) => {
       networkFirst(event, { fallbackUrl: path ? null : home, timeout: PAGE_TIMEOUT_MS }).catch(() => {
         if (!path) return caches.match(home);
         const app = path.startsWith('es/') ? `${home}?lang=es` : home;
+        if (/^(?:es\/)?p\/?$/.test(path)) return Response.redirect(`${app}#paths`, 302);
         const vs = path.match(/^(?:es\/)?c\/vs\/([\w.-]+?)-vs-([\w.-]+?)\/?$/);
         if (vs) return Response.redirect(`${app}#compare?ids=${vs[1]},${vs[2]}`, 302);
         const detail = path.match(/^(?:es\/)?(c|p)\/([\w.-]+)\/?$/);

@@ -10,6 +10,15 @@ const EXPERIENCE_TARGET = { new: 0, some: 1, experienced: 2 };
 
 const WEIGHTS = { interest: 45, role: 20, readiness: 20, level: 15 };
 
+const DEFAULT_LEVEL_HOURS = {
+  entry: [10, 25],
+  associate: [25, 45],
+  professional: [40, 80],
+  expert: [80, 160],
+};
+
+const EXPERIENCE_FACTOR = { new: 1.25, some: 1, experienced: 0.85 };
+
 export function emptyProfile() {
   return {
     roles: [],
@@ -24,6 +33,16 @@ export function emptyProfile() {
 
 function overlap(list, set) {
   return list.filter((x) => set.has(x));
+}
+
+/** Estimate study time from the level, prior experience, and skills the learner already uses. */
+export function estimateHours(cert, profile = {}, levelHours = DEFAULT_LEVEL_HOURS) {
+  const [lo, hi] = levelHours[cert.level] || DEFAULT_LEVEL_HOURS.associate;
+  const known = new Set(profile.known || []);
+  const coverage = cert.skills.length ? overlap(cert.skills, known).length / cert.skills.length : 0;
+  const factor = EXPERIENCE_FACTOR[profile.experience] ?? 1;
+  const hours = Math.round((lo + (hi - lo) * (1 - coverage)) * factor);
+  return { hours, low: Math.round(lo * factor), high: Math.round(hi * factor), coverage };
 }
 
 /**

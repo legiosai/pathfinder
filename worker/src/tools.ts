@@ -38,7 +38,7 @@ const id = { type: 'string', description: 'Exact certification id from the catal
 export const SHOW_TOOL: Tool = {
   name: TOOL_NAMES.show,
   description:
-    "Shows certification cards under your reply, each linked to its page, a study plan and practice. Call it whenever you recommend or offer catalog certifications as options: one to five picks, best fit first. Each why is one short sentence in the person's language on why it fits them.",
+    "Shows certification cards under your reply, each linked to its exam details and any available practice questions. Call it whenever you recommend or offer catalog certifications as options: one to five picks, best fit first. Each why is one short sentence in the person's language on why it fits them.",
   strict: true,
   eager_input_streaming: true,
   input_schema: {

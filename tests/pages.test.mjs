@@ -23,7 +23,7 @@ test('a certification page carries its facts as plain HTML', () => {
   // Without a practice set, whatever data/practice holds: the title and links change with one.
   const { practice_questions, ...bare } = catalog.certifications.find((c) => c.id === 'aws-aif-c01');
   const html = page('aws-aif-c01', 'en', bare);
-  assert.match(html, /<title>AWS Certified AI Practitioner \(AIF-C01\): price and study plan<\/title>/);
+  assert.match(html, /<title>AWS Certified AI Practitioner \(AIF-C01\): exam domains and price<\/title>/);
   assert.match(html, /<meta name="description" content="AWS Certified AI Practitioner \(AIF-C01\): US\$100 exam, 90 minutes, 65 questions\./);
   assert.match(html, /<link rel="canonical" href="https:\/\/example\.test\/sub\/c\/aws-aif-c01\/">/);
   assert.match(html, /hreflang="es" href="https:\/\/example\.test\/sub\/es\/c\/aws-aif-c01\/"/);
@@ -31,7 +31,7 @@ test('a certification page carries its facts as plain HTML', () => {
   assert.match(html, /og:image" content="https:\/\/example\.test\/sub\/og\/aws-aif-c01\.jpg"/);
   for (const text of ['US$100', '65 (50 scored)', '700 scaled (100–1,000)', '3 years', 'Applications of foundation models', '28%', 'AIF-C01 exam guide', 'Checked 17 Nov 2026 against the issuer.']) assert.ok(html.includes(text), text);
   // Links into the app and assets are relative, so the page works under a subpath or at a domain root.
-  assert.match(html, /href="\.\.\/\.\.\/#plan\?cert=aws-aif-c01"/);
+  assert.match(html, /href="\.\.\/\.\.\/#cert\?id=aws-aif-c01"/);
   assert.match(html, /href="\.\.\/\.\.\/#compare\?ids=aws-aif-c01,[\w-]+/);
   assert.match(html, /href="\.\.\/\.\.\/styles\.css\?v=test"/);
   assert.doesNotMatch(html, /#practice\?cert=aws-aif-c01/, 'no practice link without a practice set');
@@ -57,7 +57,7 @@ test('structured data states only catalog facts', () => {
 test('the Spanish page is in Spanish and opens the app in Spanish', () => {
   const html = page('aws-clf-c02', 'es');
   assert.match(html, /<html lang="es">/);
-  assert.match(html, /<title>AWS Certified Cloud Practitioner \(CLF-C02\) · pathfinder<\/title>/);
+  assert.match(html, /<title>AWS Certified Cloud Practitioner \(CLF-C02\): preguntas de práctica<\/title>/);
   assert.match(html, /<meta property="og:locale" content="es_AR">/);
   assert.match(html, /<link rel="canonical" href="https:\/\/example\.test\/sub\/es\/c\/aws-clf-c02\/">/);
   assert.match(html, /href="\.\.\/\.\.\/\.\.\/\?lang=es#practice\?cert=aws-clf-c02"/);
@@ -139,6 +139,7 @@ test('every static page has a title search results show whole, and structured da
     const title = titleOf(html);
     assert.ok(title.length > 10 && title.length <= TITLE_MAX, `${label}: "${title}" is ${title.length} characters`);
     assert.doesNotMatch(html, /undefined|NaN|\[object Object\]|>null</, label);
+    assert.doesNotMatch(html, /href="[^"]*#(?:plan|progress)[?"]/, label);
     const data = jsonLd(html);
     assert.equal(data['@context'], 'https://schema.org', label);
     for (const lang of [...LANGS, 'x-default']) assert.match(html, new RegExp(`hreflang="${lang}"`), `${label} ${lang}`);
@@ -160,7 +161,6 @@ test('comparison pairs are validated and their pages state facts from both certi
   assert.match(html, /<table class="vs-table">/);
   for (const text of ['US$199', 'US$439', '100–125 (CAT)', 'Maximum of 90', 'Security Principles', '24%', 'a difference of US$240']) assert.ok(html.includes(text), text);
   assert.match(html, /href="\.\.\/\.\.\/\.\.\/#compare\?ids=isc2-cc,comptia-security-plus"/);
-  assert.match(html, /href="\.\.\/\.\.\/\.\.\/#plan\?cert=isc2-cc"/);
   assert.match(html, /href="\.\.\/\.\.\/\.\.\/c\/isc2-cc\/"/);
   const [webPage] = jsonLd(html)['@graph'];
   assert.deepEqual(webPage.about.map((x) => x['@id']), [`${site}c/isc2-cc/#credential`, `${site}c/comptia-security-plus/#credential`]);
@@ -190,7 +190,6 @@ test('study path pages list every step with links to the certifications and the 
     for (const id of step.certs) assert.ok(html.includes(`href="../../c/${id}/"`), id);
   });
   const first = path.steps[0].certs;
-  assert.ok(html.includes(`href="../../#plan?cert=${first[0]}"`));
   assert.ok(html.includes(`href="../../#compare?ids=${first.slice(0, 4).join(',')}"`));
   assert.ok(html.includes('href="../../c/vs/isc2-cissp-vs-isaca-cism/"'), 'links the comparison of a step with one');
   const es = pathPage({ ...common, lang: 'es', path });

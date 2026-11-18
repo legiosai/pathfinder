@@ -1,24 +1,23 @@
 # pathfinder
 
-Pick an IT certification and plan the study. Open source, runs in your browser.
+Find and compare IT certifications. Prepare with exam guides and practice questions. Free and open source.
 
 **Use it:** https://pathfinder.legios.com.ar/
 
 - **Certifications:** one list with search and filters by provider, level and price. "For me" ranks it by the skills you want and the ones you already use.
-- **Ask for a recommendation:** a chat on the home page. Say what you are after in your own words, in English or Spanish ("junior dev, want cloud security, under $200, 5 hours a week"), and get an answer from Claude with a few certifications from the catalog, each with the reason for it and links to its page, a plan and practice. The conversation can go on ("something cheaper?") and is kept in your browser until you start a new chat. When the AI can't answer (offline, busy, rate limited), a built-in matcher answers on your device instead and says so, and can hand what it read to "For me".
+- **Ask for a recommendation:** a chat on the home page. Say what you are after in your own words, in English or Spanish ("junior dev, want cloud security, under $200, 5 hours a week"), and get an answer from Claude with a few certifications from the catalog, each with the reason for it and links to its page and any available practice questions. The conversation can go on ("something cheaper?") and is kept in your browser until you start a new chat. When the AI can't answer (offline, busy, rate limited), a built-in matcher answers on your device instead and says so, and can hand what it read to "For me".
 - **Each certification:** price, exam format, passing score, validity, exam domains, prep resources and sources.
 - **Compare:** up to four side by side, with a shareable link.
-- **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date and the plan ends before it (when it doesn't fit, it says what was cut), rate your topics to shift time, tick sessions off, reschedule what is left from today when you fall behind, and export to your calendar (`.ics`, with the exam day) or Markdown. Practice and mock sessions open the matching practice and are ticked off when you finish it.
 - **Practice:** original questions for some certifications (CompTIA Security+, ISC2 CC, AWS Cloud Practitioner, AWS AI Practitioner, AWS Solutions Architect Associate, Microsoft Azure Fundamentals, Microsoft Security Fundamentals and Claude Architect Foundations for now), picked by exam domain, in exam mode (a timer you can pause, results at the end) or study mode (the answer and its explanation after each question), with keyboard keys, marked questions, accuracy by domain next to the exam's passing score, review with explanations and a list of your mistakes. Questions you miss or mark come back in **Review**, spaced out further each time you get them right.
-- **Progress:** every plan you track in one place: streak, hours done, what comes next, how far behind you are, questions due for review and five weeks of sessions at a glance. Download a study backup from this page and restore it in another browser to transfer your plans, completed sessions, topic ratings, reschedules, practice history and review schedule.
+- **Study backup** in About lets you move practice history and reviews between browsers. Backups also include any previously saved plans, completed sessions, topic ratings and reschedules.
 - **English and Spanish**, light and dark, installable and usable offline. When a new version is out, a notice offers to refresh instead of swapping files under an open page.
-- **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links into the plan, practice and compare views. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
-- **Comparison pages** (`c/vs/<a>-vs-<b>/`) for pairs people often weigh against each other, listed in `data/comparisons.json`: a table of both certifications' facts, the differences in plain sentences built from the same data (no verdicts) and links into the app's compare and plan views.
-- **Study path pages** (`p/<id>/`, index at `p/`) for each suggested path in `data/paths.json`, step by step, linked from the certification pages they mention.
+- **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links to practice and compare. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
+- **Comparison pages** (`c/vs/<a>-vs-<b>/`) for pairs people often weigh against each other, listed in `data/comparisons.json`: a table of both certifications' facts, the differences in plain sentences built from the same data (no verdicts) and a link to compare in the app.
+- **Paths** shows the suggested certification orders in `data/paths.json` by goal. Each path also has a shareable page (`p/<id>/`, index at `p/`) linked from the certifications it mentions.
 
 ## Privacy
 
-No cookies and no personal data. The site counts visits with Vercel Web Analytics, which records the page, the country, the browser and where the visit came from, without cookies and without anything that identifies you; for the app it records which view or certification was open, never what you searched or typed. Messages you type in the chat go to pathfinder's server on Vercel, which passes them through Vercel AI Gateway to Claude (Anthropic); pathfinder does not store the conversations, and your browser keeps the transcript until you start a new chat. Everything else (plans, progress, practice) stays in your browser. If the AI is unavailable, an on-device matcher answers instead.
+No cookies and no personal data. The site counts visits with Vercel Web Analytics, which records the page, the country, the browser and where the visit came from, without cookies and without anything that identifies you; for the app it records which view or certification was open, never what you searched or typed. Messages you type in the chat go to pathfinder's server on Vercel, which passes them through Vercel AI Gateway to Claude (Anthropic); pathfinder does not store the conversations, and your browser keeps the transcript until you start a new chat. Your preferences, comparisons and practice history stay in your browser. If the AI is unavailable, an on-device matcher answers instead.
 
 ## The catalog
 
@@ -28,7 +27,7 @@ The catalog lists 94 certifications in AI engineering, ML foundations, AI securi
 - `data/practice/<id>.json`: original practice questions for a certification, in English and Spanish, under CC BY 4.0. They are never real or recalled exam questions.
 - `data/sources.json`: issuer pages and references.
 - `data/reports.json`: public candidate reports (how people prepared, effort, limits). They describe experiences; they do not set a pass rate.
-- `data/taxonomy.json`: skills, roles, levels and the rough hour ranges the planner starts from.
+- `data/taxonomy.json`: skills, roles, levels and the estimated study-hour ranges.
 - `data/paths.json`: suggested study paths by goal, an editorial order rather than any issuer's official path.
 - `data/comparisons.json`: the pairs that get a comparison page. Both ids must exist in the catalog.
 

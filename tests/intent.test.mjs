@@ -2,8 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { AREAS, CHEAP_USD, intentFrom, normalize, parseIntent, recommend, signalKey, vocabulary, withoutSignal } from '../site/lib/intent.js';
-import { emptyProfile, rank } from '../site/lib/match.js';
-import { estimateHours } from '../site/lib/planner.js';
+import { emptyProfile, estimateHours, rank } from '../site/lib/match.js';
 import { bundle, loadCatalog } from '../scripts/catalog.mjs';
 
 const root = new URL('..', import.meta.url).pathname;

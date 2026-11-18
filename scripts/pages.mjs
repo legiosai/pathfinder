@@ -1,7 +1,7 @@
 // Static pages for search engines and link previews: one per certification and language, a
 // certification index, comparisons of curated pairs (data/comparisons.json), the study paths
 // (data/paths.json), sitemap.xml and robots.txt. Everything on them comes from the catalog bundle;
-// the app at the site root stays the place to plan, practise and compare.
+// the app at the site root stays the place to practise and compare.
 import { t, label, dates } from '../site/i18n.js';
 import { badge, donut, domainColor, providerColor } from '../site/visuals.js';
 
@@ -58,17 +58,16 @@ const FLAG = { restricted: 'lock', upcoming: 'clock' };
 // the app downloads.
 const TEXT = {
   en: {
-    'title.cert': 'exam domains, price and study plan',
-    'title.certShort': 'price and study plan',
-    'title.practice': 'practice questions and study plan',
-    'title.practiceShort': 'practice and study plan',
+    'title.cert': 'exam domains and price',
+    'title.certShort': 'exam and price',
+    'title.practice': 'exam and practice questions',
+    'title.practiceShort': 'practice questions',
     'vs.suffix': 'price, exam and domains',
     'vs.desc': ({ a, b }) => `${a} and ${b} side by side: level, price, exam length, questions, passing score, validity and exam domains, as their issuers publish them.`,
     'vs.lede': 'Both exams side by side, with the facts their issuers publish.',
     'vs.table': 'Side by side',
     'vs.diff': 'How they differ',
     'vs.app': 'Compare in the app',
-    'vs.plan': 'Plan {x}',
     'vs.list': 'Compared with',
     'vs.all': 'Comparisons',
     'row.issuer': 'Issuer',
@@ -112,29 +111,27 @@ const TEXT = {
     'path.desc': ({ summary, order }) => `${summary} Suggested order: ${order}.`,
     'path.note': 'An order suggested by pathfinder, not an official path from any issuer. Each step lists alternatives, the best known first.',
     'path.step': 'Step {n}',
-    'path.plan': 'Plan {x}',
     'path.compare': 'Compare this step',
     'path.list': 'In study paths',
     'path.indexTitle': 'IT certification paths by goal',
     'path.indexDesc': ({ n }) => `${n} suggested orders of IT certifications by goal, from a first exam to senior roles, with the facts of each certification.`,
     'path.all': 'Study paths',
-    'index.titleShort': 'IT certifications: prices, domains and study plans',
+    'index.titleShort': 'IT certifications: prices and exam domains',
     'error.title': 'Page not found',
     'error.text': 'Check the address or browse the catalog to find a certification.',
     'cat.Networking': 'Networking',
   },
   es: {
-    'title.cert': 'dominios del examen, precio y plan de estudio',
-    'title.certShort': 'precio y plan de estudio',
-    'title.practice': 'preguntas de práctica y plan de estudio',
-    'title.practiceShort': 'práctica y plan de estudio',
+    'title.cert': 'dominios del examen y precio',
+    'title.certShort': 'examen y precio',
+    'title.practice': 'examen y preguntas de práctica',
+    'title.practiceShort': 'preguntas de práctica',
     'vs.suffix': 'precio, examen y dominios',
     'vs.desc': ({ a, b }) => `${a} y ${b} lado a lado: nivel, precio, duración, preguntas, puntaje para aprobar, vigencia y dominios del examen, según lo que publica cada emisor.`,
     'vs.lede': 'Los dos exámenes lado a lado, con los datos que publica cada emisor.',
     'vs.table': 'Lado a lado',
     'vs.diff': 'En qué se diferencian',
     'vs.app': 'Comparar en la app',
-    'vs.plan': 'Planificar {x}',
     'vs.list': 'Comparada con',
     'vs.all': 'Comparaciones',
     'row.issuer': 'Emisor',
@@ -178,13 +175,12 @@ const TEXT = {
     'path.desc': ({ summary, order }) => `${summary} Orden sugerido: ${order}.`,
     'path.note': 'Un orden sugerido por pathfinder, no una ruta oficial de ningún emisor. Cada paso lista alternativas, la más conocida primero.',
     'path.step': 'Paso {n}',
-    'path.plan': 'Planificar {x}',
     'path.compare': 'Comparar este paso',
     'path.list': 'En rutas de estudio',
     'path.indexTitle': 'Rutas de certificaciones de IT por objetivo',
     'path.indexDesc': ({ n }) => `${n} órdenes sugeridos de certificaciones de IT por objetivo, desde un primer examen hasta roles senior, con los datos de cada certificación.`,
     'path.all': 'Rutas de estudio',
-    'index.titleShort': 'Certificaciones de IT: precios, dominios y planes de estudio',
+    'index.titleShort': 'Certificaciones de IT: precios y dominios del examen',
     'error.title': 'Página no encontrada',
     'error.text': 'Revisá la dirección o buscá una certificación en el catálogo.',
     'cat.Networking': 'Redes',
@@ -271,8 +267,6 @@ function layout({ lang, path, title, description, alternates, image, jsonld, bod
   const other = LANGS.find((l) => l !== lang);
   const nav = [
     [`${up}${indexPath(lang)}`, 'layout-grid', `<span class="long">${t('nav.certs', {}, lang)}</span><span class="short">${t('nav.certsShort', {}, lang)}</span>`, inIndex],
-    [`${up}${appQuery(lang)}#plan`, 'route', `<span>${esc(t('nav.plan', {}, lang))}</span>`],
-    [`${up}${appQuery(lang)}#progress`, 'activity', `<span>${esc(t('nav.progress', {}, lang))}</span>`],
     [`${up}${appQuery(lang)}#about`, 'info', `<span>${esc(t('nav.about', {}, lang))}</span>`],
   ];
   const content = `<a class="skip" href="#main">${t('skip', {}, lang)}</a>
@@ -388,7 +382,7 @@ ${cards}
 `;
 }
 
-/** One certification's page: the facts as plain HTML, with links into the app's plan, practice and compare views. */
+/** One certification's page, with the exam facts and links to practice and compare. */
 export function certPage({ cert: c, catalog, lang, site, v, symbols, ogImages, comparisons = [] }) {
   const path = certPath(c.id, lang);
   const up = upFrom(path);
@@ -468,11 +462,10 @@ export function certPage({ cert: c, catalog, lang, site, v, symbols, ogImages, c
       <h1>${esc(c.name)}</h1>
       <p class="scope">${esc(c.scope)}</p>
       <div class="cert-actions">
-        <a class="btn primary" href="${esc(`${app}#plan?cert=${c.id}`)}">${icon('route')}${t('cert.plan', {}, lang)}</a>
-        ${practice ? `<a class="btn" href="${esc(`${app}#practice?cert=${c.id}`)}">${icon('dumbbell')}${t('practice.planLink', {}, lang)}</a>` : ''}
+        ${practice ? `<a class="btn primary" href="${esc(`${app}#practice?cert=${c.id}`)}">${icon('dumbbell')}${t('practice.btn', {}, lang)}</a>` : ''}
         <a class="btn" href="${esc(`${app}#compare?ids=${compareIds}`)}">${icon('columns-3')}${t('page.compare', {}, lang)}</a>
         <a class="btn" href="${esc(`${app}#cert?id=${c.id}`)}">${icon('layout-grid')}${t('page.app', {}, lang)}</a>
-        ${official ? ext(official.url, `${icon('external-link')}${t('cert.issuer', {}, lang)}`, 'btn') : ''}
+        ${official ? ext(official.url, `${icon('external-link')}${t('cert.issuer', {}, lang)}`, practice ? 'btn' : 'btn primary') : ''}
       </div>
       ${practice ? `<p class="hint page-note">${esc(t('practice.intro', { n: practice }, lang))}</p>` : ''}
       ${lang === 'en' ? '' : `<p class="hint page-note">${esc(t('about.langNote', {}, lang))}</p>`}
@@ -682,7 +675,6 @@ export function vsPage({ pair: [a, b], catalog, lang, site, v, symbols }) {
   <p class="page-lede">${esc(say('vs.lede', {}, lang))} ${esc(t('about.price', {}, lang))}</p>
   <div class="cert-actions vs-actions">
     <a class="btn primary" href="${esc(`${app}#compare?ids=${a.id},${b.id}`)}">${icon('columns-3')}${esc(say('vs.app', {}, lang))}</a>
-    ${both.map((c) => `<a class="btn" href="${esc(`${app}#plan?cert=${c.id}`)}">${icon('route')}${esc(say('vs.plan', { x: shortName(c) }, lang))}</a>`).join('\n    ')}
   </div>
   <section class="card panel"><h2>${icon('list-checks')}${esc(say('vs.table', {}, lang))}</h2><div class="vs-scroll">${table}</div></section>
   <section class="card panel"><h2>${icon('info')}${esc(say('vs.diff', {}, lang))}</h2><ul class="notes">${differences(a, b, catalog, lang).map((x) => `<li>${icon('arrow-right')}<span>${esc(x)}</span></li>`).join('')}</ul></section>
@@ -726,14 +718,13 @@ export function pathPage({ path: p, catalog, lang, site, v, symbols, comparisons
   const stepHtml = (s, i) => {
     const pairs = s.list.flatMap((x, k) => s.list.slice(k + 1).map((y) => pairKey(x.id, y.id))).filter(Boolean);
     const actions = [
-      `<a class="btn" href="${esc(`${app}#plan?cert=${s.list[0].id}`)}">${icon('route')}${esc(say('path.plan', { x: shortName(s.list[0]) }, lang))}</a>`,
       s.list.length > 1 ? `<a class="btn" href="${esc(`${app}#compare?ids=${s.list.slice(0, 4).map((c) => c.id).join(',')}`)}">${icon('columns-3')}${esc(say('path.compare', {}, lang))}</a>` : '',
       ...pairs.map(([m, n]) => `<a class="btn" href="${esc(`${up}${vsPath(m, n, lang)}`)}">${icon('columns-3')}${esc(`${shortName(byId.get(m))} vs ${shortName(byId.get(n))}`)}</a>`),
-    ];
+    ].filter(Boolean);
     return `<section class="card panel path-step"><h2>${icon('flag')}${esc(say('path.step', { n: i + 1 }, lang))}</h2>
     <p class="hint">${esc(s.note[lang])}</p>
     <ul class="idx">${s.list.map((c) => indexRow(c, lang, `${up}${certPath(c.id, lang)}`)).join('')}</ul>
-    <div class="cert-actions">${actions.filter(Boolean).join('')}</div>
+    ${actions.length ? `<div class="cert-actions">${actions.join('')}</div>` : ''}
   </section>`;
   };
   const body = `  <a class="back" href="${esc(up + pathIndexPath(lang))}">${icon('arrow-left')}${esc(say('path.all', {}, lang))}</a>

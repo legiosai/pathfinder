@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Choose an IT certification and plan your study · pathfinder</title>
-<meta name="description" content="Compare IT certifications from AWS, Microsoft, Google Cloud, CompTIA, ISC2 and more: price, exam format and domains, with a dated study plan and practice questions. Free and open source.">
+<title>Compare IT certifications · pathfinder</title>
+<meta name="description" content="Compare IT certifications from AWS, Microsoft, Google Cloud, CompTIA, ISC2 and more: exam prices, formats, domains, study resources and practice questions. Free and open source.">
 <link rel="alternate" hreflang="en" href="https://pathfinder.legios.com.ar/">
 <link rel="alternate" hreflang="es" href="https://pathfinder.legios.com.ar/?lang=es">
 <link rel="alternate" hreflang="x-default" href="https://pathfinder.legios.com.ar/">
 <!-- ?lang=es is the Spanish alternate: it gets its own canonical address and description. -->
-<script>(() => { const es = new URLSearchParams(location.search).get("lang") === "es"; document.head.append(Object.assign(document.createElement("link"), { rel: "canonical", href: "https://pathfinder.legios.com.ar/" + (es ? "?lang=es" : "") })); if (es) document.querySelector('meta[name="description"]').content = "Compará certificaciones de IT de AWS, Microsoft, Google Cloud, CompTIA, ISC2 y más: precio, formato y dominios del examen, con un plan de estudio con fechas y preguntas de práctica. Gratis y de código abierto."; })();</script>
+<script>(() => { const es = new URLSearchParams(location.search).get("lang") === "es"; document.head.append(Object.assign(document.createElement("link"), { rel: "canonical", href: "https://pathfinder.legios.com.ar/" + (es ? "?lang=es" : "") })); if (es) document.querySelector('meta[name="description"]').content = "Compará certificaciones de IT de AWS, Microsoft, Google Cloud, CompTIA, ISC2 y más: precios, formatos, dominios, materiales de estudio y preguntas de práctica. Gratis y de código abierto."; })();</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="pathfinder">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_AR">
-<meta property="og:title" content="pathfinder · pick a certification, plan the climb">
-<meta property="og:description" content="Compare IT certifications and turn any of them into a dated study plan. Open source, runs in your browser.">
+<meta property="og:title" content="pathfinder · compare IT certifications">
+<meta property="og:description" content="Compare exam prices and requirements. Find study resources and practice questions. Open source, runs in your browser.">
 <meta property="og:url" content="https://pathfinder.legios.com.ar/">
 <meta property="og:image" content="https://pathfinder.legios.com.ar/og/home.jpg">
 <meta property="og:image:width" content="1200">
@@ -32,7 +32,7 @@
 <script>try { const t = JSON.parse(localStorage.getItem("pathfinder:theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); }; if (/(^|\.)pathfinder\.legios\.com\.ar$|\.vercel\.app$/.test(location.hostname)) { const s = document.createElement("script"); s.defer = true; s.src = "/_vercel/insights/script.js"; s.dataset.disableAutoTrack = "1"; document.head.append(s); }</script>
 <script type="module" src="app.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"pathfinder","url":"https://pathfinder.legios.com.ar/","description":"Compare IT certifications and plan your study: price, exam format and domains, a dated study plan and practice questions. Free and open source.","inLanguage":["en","es"],"isAccessibleForFree":true}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"pathfinder","url":"https://pathfinder.legios.com.ar/","description":"Compare IT certifications by exam price, format and domains. Find study resources and practice questions. Free and open source.","inLanguage":["en","es"],"isAccessibleForFree":true}</script>
 </head>
 <body>
 <script>
@@ -46,7 +46,7 @@
     var lang = asked === "es" || asked === "en" ? asked : saved === "es" || saved === "en" ? saved : (navigator.language || "").toLowerCase().indexOf("es") === 0 ? "es" : "en";
     if (lang !== "es") return;
     document.documentElement.lang = "es";
-    var T = {"skip":"Saltar al contenido","nav.aria":"Secciones","nav.certs":"Certificaciones","nav.certsShort":"Catálogo","nav.ask":"Asesor IA","nav.askShort":"Asesor","nav.plan":"Plan","nav.compare":"Comparar","nav.progress":"Progreso","nav.about":"Acerca de","nav.aboutShort":"Info","loading":"Cargando…","foot":"pathfinder · MIT · <a href=\"https://github.com/legiosai/pathfinder\">GitHub</a> · íconos de <a href=\"https://lucide.dev\">Lucide</a> y <a href=\"https://simpleicons.org\">Simple Icons</a> · los logos y las insignias son marcas de sus dueños","foot.index":"Índice de certificaciones","lang.switch":"EN","lang.aria":"View in English"};
+    var T = {"skip":"Saltar al contenido","nav.aria":"Secciones","nav.certs":"Certificaciones","nav.certsShort":"Catálogo","nav.ask":"Asesor IA","nav.askShort":"Asesor","nav.paths":"Caminos","nav.compare":"Comparar","nav.about":"Acerca de","nav.aboutShort":"Info","loading":"Cargando…","foot":"pathfinder · MIT · <a href=\"https://github.com/legiosai/pathfinder\">GitHub</a> · íconos de <a href=\"https://lucide.dev\">Lucide</a> y <a href=\"https://simpleicons.org\">Simple Icons</a> · los logos y las insignias son marcas de sus dueños","foot.index":"Índice de certificaciones","lang.switch":"EN","lang.aria":"View in English"};
     var html = new WeakMap();
     // Elements arrive while the page is parsed, their text after them, so each change is checked
     // again; the comparisons stop the loop once an element holds its Spanish text.
@@ -167,9 +167,8 @@
     <nav aria-label="Sections" data-i18n-attr="aria-label:nav.aria">
       <a href="#" data-route="list"><svg class="i"><use href="#i-layout-grid"/></svg><span class="long" data-i18n="nav.certs">Certifications</span><span class="short" data-i18n="nav.certsShort">Catalog</span></a>
       <a href="#ask" data-route="ask" class="nav-ask"><svg class="i"><use href="#i-sparkles"/></svg><span class="long" data-i18n="nav.ask">Ask AI</span><span class="short" data-i18n="nav.askShort">Ask AI</span></a>
-      <a href="#plan" data-route="plan"><svg class="i"><use href="#i-route"/></svg><span data-i18n="nav.plan">Plan</span></a>
+      <a href="#paths" data-route="paths"><svg class="i"><use href="#i-route"/></svg><span data-i18n="nav.paths">Paths</span></a>
       <a href="#compare" data-route="compare" id="nav-compare" hidden><svg class="i"><use href="#i-columns-3"/></svg><span data-i18n="nav.compare">Compare</span><b id="compare-count"></b></a>
-      <a href="#progress" data-route="progress"><svg class="i"><use href="#i-activity"/></svg><span data-i18n="nav.progress">Progress</span></a>
       <a href="#about" data-route="about"><svg class="i"><use href="#i-info"/></svg><span class="long" data-i18n="nav.about">About</span><span class="short" data-i18n="nav.aboutShort">About</span></a>
     </nav>
     <button type="button" class="btn lang" id="lang" aria-label="Ver en español"><svg class="i"><use href="#i-languages"/></svg><span>ES</span></button>
@@ -184,7 +183,7 @@
   <section id="view-list" class="view" hidden>
     <div class="hero">
       <div class="hero-text">
-        <h1 data-i18n-html="hero.title">Pick a certification.<br>Plan the climb.</h1>
+        <h1 data-i18n="hero.title">Find your next IT certification</h1>
         <p id="list-lede" data-i18n="hero.lede"></p>
         <div class="hero-search" role="search"><label class="search"><svg class="i"><use href="#i-search"/></svg><input id="q" form="filters" type="search" name="q" placeholder="Search name, code or topic" aria-label="Search certifications" aria-keyshortcuts="/" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="q-pop" data-i18n-attr="placeholder:search.placeholder;aria-label:search.aria"><kbd aria-hidden="true">/</kbd></label>
           <div class="q-pop" id="q-pop" hidden><ul class="q-list" id="q-list" role="listbox" aria-label="Matching certifications" data-i18n-attr="aria-label:search.listAria"></ul><div class="q-foot" id="q-foot"></div></div>
@@ -199,62 +198,63 @@
       </div>
     </div>
 
-    <section class="paths" id="paths" aria-labelledby="paths-title" hidden>
-      <div class="paths-head">
-        <h2 id="paths-title" data-i18n="paths.title">Where to start</h2>
-        <p class="hint" data-i18n="paths.lede">Suggested orders by goal, one step at a time.</p>
-      </div>
-      <div class="path-strip" id="path-strip"></div>
-    </section>
-
-    <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
-
-    <form id="filters" class="toolbar" autocomplete="off">
-      <select name="level" aria-label="Level" data-i18n-attr="aria-label:filter.level"></select>
-      <select name="price" aria-label="Price" data-i18n-attr="aria-label:filter.price">
-        <option value="" data-i18n="price.any">Any price</option>
-        <option value="0" data-i18n="price.free">Free</option>
-        <option value="100">US$100</option>
-        <option value="200">US$200</option>
-        <option value="300">US$300</option>
-      </select>
-      <select name="prov" aria-label="Provider" data-i18n-attr="aria-label:aria.provider"></select>
-      <label class="chip toggle" id="f-online" hidden><input type="checkbox" name="online"><span data-i18n="filter.online">Online</span></label>
-      <label class="chip toggle" id="f-es" hidden><input type="checkbox" name="es"><span data-i18n="filter.es">Exam in Spanish</span></label>
-      <button type="button" class="btn" id="for-me" aria-expanded="false" aria-controls="profile"><svg class="i"><use href="#i-sliders-horizontal"/></svg><span>For me</span></button>
-    </form>
-
-    <form id="profile" class="profile card" autocomplete="off" hidden>
-      <div class="profile-group">
-        <span class="label" data-i18n="profile.want">What do you want to learn?</span>
-        <div class="chips" id="want"></div>
-      </div>
-      <div class="profile-group">
-        <span class="label" data-i18n="profile.exp">Experience</span>
-        <div class="segmented" id="experience">
-          <label><input type="radio" name="experience" value="new"><span data-i18n="exp.new">New</span></label>
-          <label><input type="radio" name="experience" value="some"><span data-i18n="exp.some">1–3 years</span></label>
-          <label><input type="radio" name="experience" value="experienced"><span data-i18n="exp.experienced">3+ years</span></label>
-        </div>
-      </div>
-      <details class="profile-more" id="profile-more">
-        <summary><svg class="i"><use href="#i-chevron-down"/></svg><span data-i18n="profile.more">Role and tools you already use</span><small id="more-count"></small></summary>
-        <div class="profile-group">
-          <span class="label" data-i18n="profile.role">Your role</span>
-          <div class="chips" id="roles"></div>
-        </div>
-        <div class="profile-group">
-          <span class="label" data-i18n="profile.known">What do you already use?</span>
-          <div class="chips" id="known"></div>
-        </div>
-      </details>
-      <button type="button" class="link" id="reset-profile" data-i18n="profile.clear">Clear all</button>
-    </form>
-
     <div class="list-bar">
       <h2 class="result-count" id="list-head" tabindex="-1"></h2>
-      <label class="sort"><span data-i18n="sort.label">Order</span><select id="sort" name="sort"></select></label>
+      <div class="list-controls">
+        <label class="sort"><span data-i18n="sort.label">Order</span><select id="sort" name="sort"></select></label>
+        <button type="button" class="btn filter-toggle" id="filters-toggle" aria-expanded="false" aria-controls="filter-panel">
+          <svg class="i" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
+          <span data-i18n="filter.title">Filters</span>
+        </button>
+      </div>
     </div>
+
+    <div class="card filter-panel" id="filter-panel" hidden>
+      <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
+
+      <form id="filters" class="toolbar" autocomplete="off">
+        <select name="level" aria-label="Level" data-i18n-attr="aria-label:filter.level"></select>
+        <select name="price" aria-label="Price" data-i18n-attr="aria-label:filter.price">
+          <option value="" data-i18n="price.any">Any price</option>
+          <option value="0" data-i18n="price.free">Free</option>
+          <option value="100">US$100</option>
+          <option value="200">US$200</option>
+          <option value="300">US$300</option>
+        </select>
+        <select name="prov" aria-label="Provider" data-i18n-attr="aria-label:aria.provider"></select>
+        <label class="chip toggle" id="f-online" hidden><input type="checkbox" name="online"><span data-i18n="filter.online">Online</span></label>
+        <label class="chip toggle" id="f-es" hidden><input type="checkbox" name="es"><span data-i18n="filter.es">Exam in Spanish</span></label>
+        <button type="button" class="btn" id="for-me" aria-expanded="false" aria-controls="profile"><svg class="i"><use href="#i-sliders-horizontal"/></svg><span>For me</span></button>
+      </form>
+
+      <form id="profile" class="profile card" autocomplete="off" hidden>
+        <div class="profile-group">
+          <span class="label" data-i18n="profile.want">What do you want to learn?</span>
+          <div class="chips" id="want"></div>
+        </div>
+        <div class="profile-group">
+          <span class="label" data-i18n="profile.exp">Experience</span>
+          <div class="segmented" id="experience">
+            <label><input type="radio" name="experience" value="new"><span data-i18n="exp.new">New</span></label>
+            <label><input type="radio" name="experience" value="some"><span data-i18n="exp.some">1–3 years</span></label>
+            <label><input type="radio" name="experience" value="experienced"><span data-i18n="exp.experienced">3+ years</span></label>
+          </div>
+        </div>
+        <details class="profile-more" id="profile-more">
+          <summary><svg class="i"><use href="#i-chevron-down"/></svg><span data-i18n="profile.more">Role and tools you already use</span><small id="more-count"></small></summary>
+          <div class="profile-group">
+            <span class="label" data-i18n="profile.role">Your role</span>
+            <div class="chips" id="roles"></div>
+          </div>
+          <div class="profile-group">
+            <span class="label" data-i18n="profile.known">What do you already use?</span>
+            <div class="chips" id="known"></div>
+          </div>
+        </details>
+        <button type="button" class="link" id="reset-profile" data-i18n="profile.clear">Clear all</button>
+      </form>
+    </div>
+
     <p class="list-note" id="list-note" hidden></p>
     <div class="grid" id="certs"></div>
   </section>
@@ -288,6 +288,18 @@
     <div id="cert-body"></div>
   </section>
 
+  <section id="view-paths" class="view" aria-labelledby="paths-title" hidden>
+    <div class="page-head paths-head">
+      <span class="head-icon"><svg class="i" aria-hidden="true"><use href="#i-route"/></svg></span>
+      <div>
+        <h1 id="paths-title" data-i18n="paths.title">Where to start</h1>
+        <p class="hint" data-i18n="paths.lede">Certification paths by goal.</p>
+      </div>
+    </div>
+    <ul class="path-grid" id="path-grid" role="list"></ul>
+    <p class="empty" id="paths-empty" data-i18n="paths.empty" hidden>No certification paths are available.</p>
+  </section>
+
   <section id="view-compare" class="view" hidden>
     <div class="page-head">
       <span class="head-icon"><svg class="i"><use href="#i-columns-3"/></svg></span>
@@ -296,62 +308,8 @@
     <div id="compare-body"></div>
   </section>
 
-  <section id="view-plan" class="view" hidden>
-    <div class="page-head">
-      <span class="head-icon"><svg class="i"><use href="#i-route"/></svg></span>
-      <h1 data-i18n="plan.title">Study plan</h1>
-    </div>
-    <div id="plan-choose" hidden></div>
-    <form id="plan-form" class="plan-form card" autocomplete="off">
-      <label class="field wide"><span data-i18n="plan.cert">Certification</span> <select name="cert" required></select></label>
-      <label class="field"><span data-i18n="plan.start">Start</span> <input type="date" name="start" required></label>
-      <label class="field"><span data-i18n="plan.exam">Exam date</span> <input type="date" name="targetDate"></label>
-      <label class="field"><span data-i18n="plan.hours">Hours</span> <input type="number" name="hours" min="2" max="400" step="1" required inputmode="numeric"></label>
-      <label class="field"><span data-i18n="plan.session">Session</span>
-        <select name="sessionMinutes">
-          <option value="45">45 min</option>
-          <option value="60">1 h</option>
-          <option value="90" selected>1 h 30</option>
-          <option value="120">2 h</option>
-          <option value="150">2 h 30</option>
-          <option value="180">3 h</option>
-        </select>
-      </label>
-      <label class="field"><span data-i18n="plan.time">Time</span> <input type="time" name="startTime" value="19:00" required></label>
-      <fieldset class="field days">
-        <legend data-i18n="plan.days">Study days</legend>
-        <div class="days-row" id="days"></div>
-      </fieldset>
-      <p class="hint" id="hours-hint"></p>
-      <details class="rate" id="confidence">
-        <summary><svg class="i"><use href="#i-gauge"/></svg><span>Rate your topics</span></summary>
-        <p class="hint" data-i18n="plan.rateHint">1 = new to me, 5 = I could teach it. Weaker topics get more sessions.</p>
-        <div id="confidence-rows"></div>
-      </details>
-    </form>
-    <div id="plan-output" aria-live="polite"></div>
-  </section>
-
   <section id="view-practice" class="view" hidden>
     <div id="practice-body"></div>
-  </section>
-
-  <section id="view-progress" class="view" hidden>
-    <div class="page-head">
-      <span class="head-icon"><svg class="i"><use href="#i-activity"/></svg></span>
-      <h1 data-i18n="progress.title">Progress</h1>
-    </div>
-    <div id="progress-body"></div>
-    <section class="card panel study-backup" aria-labelledby="study-backup-title">
-      <h2 id="study-backup-title" data-i18n="backup.title">Study backup</h2>
-      <p class="hint" data-i18n="backup.help">Save your plans and practice progress to a file you can restore in another browser.</p>
-      <div class="study-backup-actions">
-        <button type="button" class="btn" id="study-backup-download"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg><span data-i18n="backup.download">Download backup</span></button>
-        <button type="button" class="btn" id="study-backup-restore"><svg class="i" aria-hidden="true"><use href="#i-refresh-cw"/></svg><span data-i18n="backup.restore">Restore backup</span></button>
-        <input type="file" id="study-backup-file" accept=".json,application/json" hidden>
-      </div>
-      <p id="study-backup-status" class="hint" role="status"></p>
-    </section>
   </section>
 
   <section id="view-about" class="view" hidden>
@@ -363,12 +321,23 @@
       <article class="card about-card">
         <span class="tile"><svg class="i"><use href="#i-route"/></svg></span>
         <h2 data-i18n="about.what">What it is</h2>
-        <p data-i18n="about.whatP">pathfinder helps you pick an IT certification and plan the study. It is open source and runs in your browser: your choices, plans and progress stay on this device.</p>
+        <p data-i18n="about.whatP">Pathfinder helps you compare IT certifications and prepare with exam guides and practice questions. It is free and open source.</p>
       </article>
       <article class="card about-card" id="privacy">
         <span class="tile"><svg class="i"><use href="#i-lock"/></svg></span>
         <h2 data-i18n="about.privacy">Privacy</h2>
         <p data-i18n-html="about.privacyP"></p>
+      </article>
+      <article class="card about-card" aria-labelledby="study-backup-title">
+        <span class="tile"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></span>
+        <h2 id="study-backup-title" data-i18n="backup.title">Study backup</h2>
+        <p class="hint" data-i18n="backup.help">Move your practice history and review schedule to another browser. Backups also include previously saved plans.</p>
+        <div class="study-backup-actions">
+          <button type="button" class="btn" id="study-backup-download"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg><span data-i18n="backup.download">Download backup</span></button>
+          <button type="button" class="btn" id="study-backup-restore"><svg class="i" aria-hidden="true"><use href="#i-refresh-cw"/></svg><span data-i18n="backup.restore">Restore backup</span></button>
+          <input type="file" id="study-backup-file" accept=".json,application/json" hidden>
+        </div>
+        <p id="study-backup-status" class="hint" role="status"></p>
       </article>
       <article class="card about-card">
         <span class="tile"><svg class="i"><use href="#i-file-text"/></svg></span>

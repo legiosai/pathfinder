@@ -142,37 +142,6 @@ export function splitLead(text) {
 
 // ---------- hand-offs ----------
 
-const DAYS = { 1: [6], 2: [3, 6], 3: [1, 3, 5], 4: [1, 3, 5, 6], 5: [1, 2, 3, 4, 5], 6: [1, 2, 3, 4, 5, 6], 7: [1, 2, 3, 4, 5, 6, 0] };
-
-/**
- * Study days and session length (minutes) that add up to about `hoursPerWeek`: sessions of about
- * an hour and a half, at most six days, lengths in quarters of an hour between 30 and 240.
- */
-export function weeklySchedule(hoursPerWeek) {
-  if (!(hoursPerWeek > 0)) return null;
-  const n = Math.min(6, Math.max(1, Math.round(hoursPerWeek / 1.5)));
-  const len = Math.min(240, Math.max(30, Math.round((hoursPerWeek * 60) / n / 15) * 15));
-  return { days: DAYS[n], len };
-}
-
-/**
- * The study plan link for a certification. With weekly hours the plan gets matching days and
- * session length; with a roadmap estimate for it, the total hours too (weeks x hours a week).
- * Without them the plan page estimates on its own.
- */
-export function planHref(id, profile = {}, roadmap = null) {
-  const params = new URLSearchParams({ cert: id });
-  const hpw = roadmap?.hours_per_week || profile?.hours_per_week;
-  const step = roadmap?.steps?.find((s) => s.id === id);
-  if (hpw && step?.weeks) params.set('hours', String(Math.min(400, Math.max(2, Math.round(step.weeks * hpw)))));
-  const schedule = weeklySchedule(hpw);
-  if (schedule) {
-    params.set('days', schedule.days.join(','));
-    params.set('len', String(schedule.len));
-  }
-  return `#plan?${params}`;
-}
-
 /**
  * The "For me" hand-off: what lib/intent.js read in the conversation, with what the AI recorded on
  * top. `fromProfile` is lib/intent.js's reading of the profile's role and goal; its roles and skills
