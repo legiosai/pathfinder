@@ -15,12 +15,33 @@
   "exam": {
     "minutes": 90,
     "style": "knowledge",
-    "format": "45 scored questions with possible unscored items, 90 minutes, two-year validity; six months of relevant hands-on experience recommended."
+    "format": "45 scored multiple-choice questions plus up to 10 unscored items, 90 minutes, proctored through Kryterion, in English, Japanese, Brazilian Portuguese or Korean. No test aids. Two-year validity; six months of relevant hands-on experience recommended.",
+    "questions": "45 scored (plus up to 10 unscored)",
+    "question_count": 45,
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja",
+      "pt-BR",
+      "ko"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "retake": "Retakes are allowed after a 14-day wait with no limit on attempts; each attempt costs the full USD 200, and Databricks issues no free retake vouchers."
   },
   "scope": "End-to-end generative AI applications on Databricks.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "Databricks does not publish passing scores; it says they are set statistically and can change as the exam is updated.",
+    "This entry follows the exam version published March 18, 2026 (exam guide updated the same day, although the PDF's file name says August 2026). Databricks asks candidates to recheck the exam guide two weeks before their exam date.",
+    "The exam listing offers online or test-center delivery, while the exam guide lists online proctoring only.",
+    "Recertification is due every two years by passing the current version of the exam."
+  ],
   "skills": [
     "data",
     "rag",
@@ -60,18 +81,33 @@
   ],
   "sources": [
     "X09",
-    "Z03"
+    "Z03",
+    "P82"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
+    {
+      "title": "Generative AI Engineer Associate exam guide (March 2026)",
+      "url": "https://www.databricks.com/sites/default/files/2026-10/databricks-certified-gen-ai-associate-exam-guide-august-2026.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Exam outline, recommended courses and sample questions."
+    },
     {
       "title": "Databricks training",
       "url": "https://www.databricks.com/learn/training/home",
       "kind": "course",
       "cost": "free",
-      "note": "Free and paid courses, including exam preparation."
+      "note": "Free and paid courses. The guide lists the paid instructor-led Generative AI Engineering with Databricks and self-paced Databricks Academy courses: Building RAG Agents with Agent Bricks, Building Agentic Applications on Databricks, Agent Evaluation on Databricks, and Deploying and Monitoring Agent Applications on Databricks."
+    },
+    {
+      "title": "AI Prep Guide for any Databricks certification",
+      "url": "https://www.databricks.com/sites/default/files/2026-06/ai-prep-guide-any-databricks-certification.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Linked from the exam page; includes a hands-on checklist that fits Databricks Free Edition."
     }
   ],
-  "domains_note": "Weights from the Databricks Certified Generative AI Engineer Associate exam guide (exam guide updated March 18, 2026), linked from the live listing, read 2026-11-03; the listing (X09) shows the same weights, naming section 4 'Assembling and Deploying Apps'."
+  "domains_note": "Weights from the Databricks Certified Generative AI Engineer Associate exam guide (exam published and guide updated March 18, 2026), linked from the live listing, which shows the same weights and names section 4 'Assembling and Deploying Apps'. Read 2026-11-17."
 }

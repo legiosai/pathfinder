@@ -229,14 +229,16 @@
     "title": "Databricks · Context Engineer Associate",
     "url": "https://www.databricks.com/learn/certification/context-engineer-associate",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Live listing: $200, 45 scored questions, possible unscored items, 90 minutes and two-year validity. Context/memory/retrieval/MCP/governance scope; six months of platform work recommended, not required. Account/practice access not tested."
+    "note": "Read 27 Oct 2026. Live listing: $200, 45 scored questions, possible unscored items, 90 minutes and two-year validity. Context/memory/retrieval/MCP/governance scope; six months of platform work recommended, not required. Account/practice access not tested. Reread 2026-11-17: English only, online or test center, 14-day retake wait at $200 per attempt, passing score not published.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X09",
     "title": "Databricks · Generative AI Engineer Associate",
     "url": "https://www.databricks.com/learn/certification/genai-engineer-associate",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026 at the current genai URL; guessed generative-ai URL returned 404. $200, 45 scored questions, 90 minutes, two-year validity, recommended hands-on experience; current app/RAG/deployment/evaluation scope."
+    "note": "Read 27 Oct 2026 at the current genai URL; guessed generative-ai URL returned 404. $200, 45 scored questions, 90 minutes, two-year validity, recommended hands-on experience; current app/RAG/deployment/evaluation scope. Reread 2026-11-17: English, Japanese, Brazilian Portuguese, Korean; online or test center; 14-day retake wait at $200 per attempt; passing score not published.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X10",
@@ -313,7 +315,8 @@
     "title": "Databricks · current-linked Context Engineer exam guide",
     "url": "https://www.databricks.com/sites/default/files/2026-10/Databricks-Certified-Context-Engineer-Associate-Exam-Guide-August-2026.pdf",
     "kind": "Provider / current page read",
-    "note": "Read official PDF text via live listing link on 27 Oct 2026. Filename says August, path October, internal publication/update table July 29; do not infer a new effective date from the filename. Confirms scored/unscored distinction and platform scope. No PDF republished."
+    "note": "Read official PDF text via live listing link on 27 Oct 2026. Filename says August, path October, internal publication/update table July 29; do not infer a new effective date from the filename. Confirms scored/unscored distinction and platform scope. No PDF republished. Reread 2026-11-17: exam published and guide updated July 29, 2026; up to 10 unscored items; online proctored or test center; English.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X25",
@@ -448,7 +451,8 @@
     "title": "Databricks · Generative AI Engineer Associate exam guide",
     "url": "https://www.databricks.com/sites/default/files/2026-10/databricks-certified-gen-ai-associate-exam-guide-august-2026.pdf",
     "kind": "Issuer exam guide",
-    "note": "Domain weights read 2026-11-03."
+    "note": "Domain weights read 2026-11-03. Reread 2026-11-17: exam published and guide updated March 18, 2026; up to 10 unscored items; delivery listed as online proctored only; four languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z04",
