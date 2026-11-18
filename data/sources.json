@@ -4,14 +4,16 @@
     "title": "AWS · AI Practitioner alternative",
     "url": "https://aws.amazon.com/certification/certified-ai-practitioner/",
     "kind": "Provider / comparison",
-    "note": "Alternative path: published $100 exam fee and foundational AI/AWS scope."
+    "note": "Read 2026-11-17. $100, 65 questions, 90 minutes, Pearson VUE test center or online proctored, valid 3 years. Languages listed: Arabic, English, French (France), German, Italian, Japanese, Korean, Portuguese (Brazil), Spanish (Latin America), Spanish (Spain), Simplified Chinese and Traditional Chinese, with the German and Italian versions retired after October 15, 2026.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "A02",
     "title": "AWS · Certification benefits",
     "url": "https://aws.amazon.com/certification/benefits/",
     "kind": "Provider / conditional benefit",
-    "note": "AWS advertises a 50% exam-discount benefit."
+    "note": "Read 2026-11-17. Certified holders get a 50% discount voucher to apply toward recertification or any other exam, plus digital badges and event perks.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "A03",
@@ -179,14 +181,16 @@
     "title": "AWS · Generative AI Developer Professional",
     "url": "https://aws.amazon.com/certification/certified-generative-ai-developer-professional/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. $300, 75 questions, 180 minutes; target experience and no required prior certification."
+    "note": "Read 27 Oct 2026. Re-read 2026-11-17: $300, 75 questions (multiple choice or multiple response), 180 minutes, Pearson VUE test center or online proctored; English, Japanese, Korean and Simplified Chinese. The page does not state the validity period.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X04",
     "title": "AWS · AIP-C01 current HTML exam guide",
     "url": "https://docs.aws.amazon.com/aws-certification/latest/ai-professional-01/ai-professional-01.html",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Integration/production scope and target experience; five domains include security, testing and efficiency. Model development/training is outside the target role. Scaled passing score is not a raw percentage."
+    "note": "Read 27 Oct 2026. Re-read 2026-11-17: 65 scored and 10 unscored questions, multiple choice and multiple response; pass/fail on a scaled score of 100–1,000 with 750 to pass. Model development/training is outside the target role.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X05",
@@ -249,14 +253,16 @@
     "title": "AWS · Solutions Architect Associate",
     "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. $150, 65 questions/130 minutes, three-year validity and recommended AWS design experience. Personal next-exam discount not checked. Re-read 2026-11-17: still $150, 65 multiple choice or multiple response questions, 130 minutes."
+    "note": "Read 27 Oct 2026. $150, 65 questions/130 minutes, three-year validity and recommended AWS design experience. Re-read 2026-11-17: still $150, 65 multiple choice or multiple response questions, 130 minutes, Pearson VUE test center or online proctored; English, French (France), Italian, Japanese, Korean, Portuguese (Brazil), Spanish (Latin America), Spanish (Spain), Simplified Chinese and Traditional Chinese, with the Italian version retired after December 31, 2026.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X14",
     "title": "AWS · Security Specialty current listing",
     "url": "https://aws.amazon.com/certification/certified-security-specialty/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026; current guide search identifies SCS-C03. $300, 65 questions/170 minutes, three-year validity; target experience differs from mandatory eligibility. Page lists Spanish/Portuguese/Simplified Chinese retirement after 31 Dec 2026 and a conditional 50% next-exam benefit."
+    "note": "Read 27 Oct 2026. Re-read 2026-11-17: $300, 65 multiple choice or multiple response questions, 170 minutes, Pearson VUE test center or online proctored, valid 3 years; English, Japanese, Korean, Portuguese (Brazil), Simplified Chinese and Spanish (Latin America), with the Simplified Chinese, Spanish (Latin America) and Portuguese (Brazil) versions retired after December 31, 2026; 50% next-exam benefit.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X15",
@@ -426,7 +432,8 @@
     "title": "AWS · SCS-C03 exam guide",
     "url": "https://docs.aws.amazon.com/aws-certification/latest/security-specialty-03/security-specialty-03.html",
     "kind": "Issuer exam guide",
-    "note": "Domain weights read 2026-11-03."
+    "note": "Domain weights read 2026-11-03. Re-read 2026-11-17: 50 scored and 15 unscored questions (multiple choice, multiple response, ordering and matching); pass/fail on a scaled score of 100–1,000 with 750 to pass.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z03",
@@ -469,7 +476,8 @@
     "title": "AWS · Certified Cloud Practitioner",
     "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-05. $100, 65 questions, 90 minutes, three-year validity, Pearson VUE center or online."
+    "note": "Read 2026-11-05: $100, 65 questions, 90 minutes, three-year validity, Pearson VUE center or online. Re-read 2026-11-17: offered in Arabic, English, French (France), German, Italian, Japanese, Korean, Portuguese (Brazil), Spanish (Latin America), Spanish (Spain), Simplified Chinese and Traditional Chinese; the German and Italian versions are retired after December 31, 2026.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z09",
@@ -518,7 +526,8 @@
     "title": "AWS · Certified Developer – Associate",
     "url": "https://aws.amazon.com/certification/certified-developer-associate/",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD, Pearson VUE test center or online; valid 3 years, renewed by passing the latest version or the DevOps Engineer – Professional; 50% off the next exam after a first AWS Certification. Links the DVA-C03 guide and exam prep plan."
+    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD, Pearson VUE test center or online; English, Japanese, Korean, Portuguese (Brazil), Simplified Chinese and Spanish (Latin America); valid 3 years, renewed by passing the latest version or the DevOps Engineer – Professional; 50% off the next exam after a first AWS Certification. Links the DVA-C03 guide and exam prep plan.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P02",
@@ -532,14 +541,16 @@
     "title": "AWS · Comparison of DVA-C02 and DVA-C03",
     "url": "https://docs.aws.amazon.com/aws-certification/latest/developer-associate-03/dva-03-comparison.html",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17. DVA-C02 in use until November 30, 2026, DVA-C03 from December 1, 2026; old weights 32/26/24/18%; DVA-C03 adds AI-assisted development, AI service security and container deployment."
+    "note": "Read 2026-11-17. DVA-C02 in use until November 30, 2026, DVA-C03 from December 1, 2026; old weights 32/26/24/18%; DVA-C03 adds AI-assisted development, AI service security and container deployment.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P04",
     "title": "AWS · Certified CloudOps Engineer – Associate",
     "url": "https://aws.amazon.com/certification/certified-cloudops-engineer-associate/",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. 130 minutes, 65 questions, 150 USD; English and Japanese, with Simplified Chinese and Korean retired after November 19, 2026; valid 3 years. Explains the rename from SysOps Administrator – Associate with SOA-C03."
+    "note": "Read 2026-11-17. 130 minutes, 65 questions, 150 USD; English and Japanese, with Simplified Chinese and Korean retired after November 19, 2026; valid 3 years. Explains the rename from SysOps Administrator – Associate with SOA-C03.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P05",
@@ -567,7 +578,8 @@
     "title": "AWS · Certified Solutions Architect – Professional",
     "url": "https://aws.amazon.com/certification/certified-solutions-architect-professional/",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD, Pearson VUE test center or online; valid 3 years. Links the SAP-C03 guide and exam prep plan."
+    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD, Pearson VUE test center or online; English, Japanese, Korean, Portuguese (Brazil), Simplified Chinese and Spanish (Latin America); valid 3 years. Links the SAP-C03 guide and exam prep plan.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P09",
@@ -581,14 +593,16 @@
     "title": "AWS · Comparison of SAP-C02 and SAP-C03",
     "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/sap-03-comparison.html",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17. SAP-C02 in use until November 16, 2026, SAP-C03 from November 17, 2026; SAP-C02 had four domains (26/29/25/20%)."
+    "note": "Read 2026-11-17. SAP-C02 in use until November 16, 2026, SAP-C03 from November 17, 2026; SAP-C02 had four domains (26/29/25/20%).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P11",
     "title": "AWS · Certified DevOps Engineer – Professional",
     "url": "https://aws.amazon.com/certification/certified-devops-engineer-professional/",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD; Korean version retired after December 31, 2026; valid 3 years."
+    "note": "Read 2026-11-17. 180 minutes, 75 multiple choice or multiple response questions, 300 USD; Korean version retired after December 31, 2026; valid 3 years.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P12",
@@ -602,7 +616,8 @@
     "title": "AWS · Certified Data Engineer – Associate",
     "url": "https://aws.amazon.com/certification/certified-data-engineer-associate/",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD; English, Japanese, Korean and Simplified Chinese; valid 3 years."
+    "note": "Read 2026-11-17. 130 minutes, 65 multiple choice or multiple response questions, 150 USD; English, Japanese, Korean and Simplified Chinese; valid 3 years.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P14",
@@ -623,7 +638,8 @@
     "title": "AWS · Exam pricing (before testing)",
     "url": "https://aws.amazon.com/certification/policies/before-testing/",
     "kind": "Issuer policy",
-    "note": "Read 2026-11-17. Associate 150 USD, Professional and Specialty 300 USD; local-currency prices for countries that use EUR, AUD, JPY, KRW, CNY and INR (vouchers only), updated at least yearly; applicable taxes may apply."
+    "note": "Read 2026-11-17. Associate 150 USD, Professional and Specialty 300 USD; local-currency prices for countries that use EUR, AUD, JPY, KRW, CNY and INR (vouchers only), updated at least yearly; applicable taxes may apply. Accommodations: non-native English speakers taking an exam in English can request a 30-minute extension (ESL +30) once, before registering; it applies to all later registrations.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P17",
@@ -637,7 +653,8 @@
     "title": "AWS · Certification exam guides",
     "url": "https://docs.aws.amazon.com/aws-certification/latest/examguides/aws-certification-exam-guides.html",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-17. Lists current guides; DVA-C03 and SAP-C03 registration opened October 27, 2026; last day for DVA-C02 is November 30, 2026 and for SAP-C02 was November 16, 2026."
+    "note": "Read 2026-11-17. Lists current guides; DVA-C03 and SAP-C03 registration opened October 27, 2026; last day for DVA-C02 is November 30, 2026 and for SAP-C02 was November 16, 2026.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P20",
@@ -1599,6 +1616,14 @@
     "url": "https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide",
     "kind": "Issuer exam guide",
     "note": "Read 2026-11-17 through the help center API (article edited 2026-10-21). 23 hours 45 minutes in a private VPN lab plus 24 hours to upload the report; three standalone machines (60 points) and one Active Directory set (40 points), 100 raw points at most; scaled scoring for exams from 1 December 2026 08:00 GMT. LLMs and AI chatbots are strictly prohibited during the exam; tools with built-in AI features need not be disabled.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D08",
+    "title": "AWS · Exam policies: after testing",
+    "url": "https://aws.amazon.com/certification/policies/after-testing/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. After a failed exam, wait 14 calendar days to retake; no limit on attempts, but each attempt costs the full registration fee. A passed exam cannot be retaken for two years unless a new version (new guide and code) is out.",
     "checked_on": "2026-11-17"
   }
 ]

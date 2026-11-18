@@ -24,7 +24,7 @@ test('a certification page carries its facts as plain HTML', () => {
   assert.match(html, /hreflang="es" href="https:\/\/example\.test\/sub\/es\/c\/aws-aif-c01\/"/);
   assert.match(html, /hreflang="x-default" href="https:\/\/example\.test\/sub\/c\/aws-aif-c01\/"/);
   assert.match(html, /og:image" content="https:\/\/example\.test\/sub\/og\/aws-aif-c01\.jpg"/);
-  for (const text of ['US$100', '65 (50 scored)', '700 scaled (100–1,000)', '3 years', 'Applications of foundation models', '28%', 'AIF-C01 exam guide', 'Checked 27 Oct 2026 against the issuer.']) assert.ok(html.includes(text), text);
+  for (const text of ['US$100', '65 (50 scored)', '700 scaled (100–1,000)', '3 years', 'Applications of foundation models', '28%', 'AIF-C01 exam guide', 'Checked 17 Nov 2026 against the issuer.']) assert.ok(html.includes(text), text);
   // Links into the app and assets are relative, so the page works under a subpath or at a domain root.
   assert.match(html, /href="\.\.\/\.\.\/#plan\?cert=aws-aif-c01"/);
   assert.match(html, /href="\.\.\/\.\.\/#compare\?ids=aws-aif-c01,[\w-]+/);

@@ -19,7 +19,17 @@
     "questions": "75 (65 scored)",
     "question_count": 75,
     "passing": "750 scaled (100–1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "ko",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Provisioning, operating and managing distributed systems on AWS: SDLC and CI/CD automation, configuration management and infrastructure as code, resilient solutions, monitoring and logging, incident and event response, and automated security and compliance.",
   "requirements": "",
@@ -27,6 +37,24 @@
   "caveats": [
     "The Korean version is retired after December 31, 2026.",
     "Passing this exam also renews an active AWS Developer – Associate or CloudOps Engineer (formerly SysOps Administrator) – Associate certification."
+  ],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-12-31",
+      "kind": "retires",
+      "text": "Last day for the Korean version of the exam.",
+      "source": "P11"
+    }
   ],
   "skills": [
     "aws",
@@ -70,7 +98,9 @@
     "P01",
     "P04",
     "P16",
-    "P17"
+    "P17",
+    "A02",
+    "D08"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

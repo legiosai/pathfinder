@@ -19,12 +19,48 @@
     "questions": "65 (50 scored)",
     "question_count": 65,
     "passing": "700 scaled (100–1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ar",
+      "fr-FR",
+      "de",
+      "it",
+      "ja",
+      "ko",
+      "pt-BR",
+      "es-419",
+      "es-ES",
+      "zh-Hans",
+      "zh-Hant"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Overall knowledge of the AWS Cloud: its value, the shared responsibility model, security, core services, costs and billing.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-12-31",
+      "kind": "retires",
+      "text": "Last day for the German and Italian versions of the exam.",
+      "source": "Z08"
+    }
+  ],
   "skills": [
     "aws",
     "security",
@@ -43,10 +79,13 @@
   ],
   "sources": [
     "Z08",
-    "Z09"
+    "Z09",
+    "A02",
+    "P16",
+    "D08"
   ],
   "reports": [],
-  "checked_on": "2026-11-05",
+  "checked_on": "2026-11-17",
   "prep": [
     {
       "title": "CLF-C02 exam guide",
