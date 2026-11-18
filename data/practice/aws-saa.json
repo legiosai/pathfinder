@@ -104,8 +104,8 @@
     {
      "key": "A",
      "text": {
-      "en": "Store the credentials in AWS Secrets Manager with automatic rotation turned on, and have the function retrieve the secret at runtime.",
-      "es": "Guardar las credenciales en AWS Secrets Manager con la rotación automática activada, y que la función lea el secreto en tiempo de ejecución."
+      "en": "Store the credentials in AWS Secrets Manager with automatic rotation turned on, and have the function retrieve the current secret at runtime.",
+      "es": "Guardar las credenciales en AWS Secrets Manager con rotación automática, y que la función lea el secreto vigente al ejecutarse."
      }
     },
     {
@@ -501,7 +501,7 @@
     {
      "key": "D",
      "text": {
-      "en": "Put orders in an Amazon SQS queue that fulfillment workers poll, scaling on the queue backlog.",
+      "en": "Put orders in an Amazon SQS queue that fulfillment workers poll, and scale the workers on the queue backlog.",
       "es": "Poner los pedidos en una cola de Amazon SQS y que la consulten workers de despacho que escalen según la cantidad de mensajes en la cola."
      }
     }
@@ -1344,7 +1344,7 @@
      "key": "D",
      "text": {
       "en": "Move the instances to public subnets and give them public IP addresses so that they reach S3 directly.",
-      "es": "Mover las instancias a subredes públicas y darles IP públicas para que lleguen directo a S3."
+      "es": "Mover las instancias a subredes públicas y darles direcciones IP públicas para que lleguen directo a S3."
      }
     }
    ],
