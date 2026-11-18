@@ -1,0 +1,1871 @@
+{
+ "cert": "microsoft-sc-900",
+ "license": "CC BY 4.0",
+ "note": "Original practice questions written for pathfinder from the SC-900 study guide (skills measured as of October 21, 2026) and the Microsoft Learn documentation for Microsoft Entra, Azure, Microsoft Defender, Microsoft Sentinel and Microsoft Purview, checked on November 17, 2026. Not taken from any exam or question bank.",
+ "questions": [
+  {
+   "id": "sc900-001",
+   "domain": "Describe the concepts of security, compliance, and identity",
+   "prompt": {
+    "en": "A company used to trust any device connected to its office network. Under its new policy, every request to a corporate app is authenticated and authorized using the user's identity, location, device health and the sensitivity of the data, even when the request comes from inside the office. Which Zero Trust principle does this policy apply?",
+    "es": "Una empresa antes confiaba en cualquier dispositivo conectado a la red de su oficina. Con su nueva política, cada pedido a una aplicación corporativa se autentica y se autoriza según la identidad del usuario, la ubicación, el estado del dispositivo y la sensibilidad de los datos, aunque el pedido venga de adentro de la oficina. ¿Qué principio de Zero Trust aplica esta política?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Verify explicitly",
+      "es": "Verificar explícitamente"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Use least privileged access",
+      "es": "Usar acceso con privilegios mínimos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Defense in depth",
+      "es": "Defensa en profundidad"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Assume breach",
+      "es": "Asumir que hubo una brecha"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Verify explicitly means always authenticating and authorizing based on all available signals, such as identity, location, device health, the service and the data classification, instead of trusting the network a request comes from. Least privileged access limits how much access is granted, with just-in-time and just-enough access. Assume breach is about segmenting access and limiting the blast radius. Defense in depth is a layered strategy, not one of the three Zero Trust principles.",
+    "es": "Verificar explícitamente significa autenticar y autorizar siempre según todas las señales disponibles, como la identidad, la ubicación, el estado del dispositivo, el servicio y la clasificación de los datos, en lugar de confiar en la red de la que viene el pedido. Los privilegios mínimos limitan cuánto acceso se da, con acceso just-in-time y just-enough. Asumir una brecha apunta a segmentar el acceso y reducir el radio de impacto. La defensa en profundidad es una estrategia en capas, no uno de los tres principios de Zero Trust."
+   }
+  },
+  {
+   "id": "sc900-002",
+   "domain": "Describe the concepts of security, compliance, and identity",
+   "prompt": {
+    "en": "A developer is deciding where to use encryption and where to use hashing in a new app. Which TWO statements about hashing are true? (Select TWO.)",
+    "es": "Un desarrollador está decidiendo dónde usar cifrado y dónde usar hashing en una aplicación nueva. ¿Qué afirmaciones sobre el hashing son verdaderas? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The length of the hash grows with the length of the input",
+      "es": "La longitud del hash crece con la longitud de la entrada"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The same input always produces the same hash value",
+      "es": "La misma entrada siempre produce el mismo valor de hash"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Hashing uses a public key to hash data and a private key to reverse it",
+      "es": "El hashing usa una clave pública para hashear y una privada para revertirlo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Both sides need the same shared secret key to reverse a hash",
+      "es": "Los dos extremos necesitan la misma clave secreta compartida para revertir un hash"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "The original text can't be recovered from the hash",
+      "es": "El texto original no se puede recuperar a partir del hash"
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "E"
+   ],
+   "explanation": {
+    "en": "A hash function is deterministic and one-way: the same input gives the same fixed-length output, and there's no key that turns it back into the input. That's why passwords are stored as salted hashes and checked by hashing what the user types. Public and private key pairs belong to asymmetric encryption, and a shared secret key belongs to symmetric encryption. The hash length is set by the algorithm, whatever the size of the input.",
+    "es": "Una función de hash es determinística y de un solo sentido: la misma entrada da la misma salida de longitud fija, y no hay ninguna clave que permita volver a la entrada. Por eso las contraseñas se guardan como hashes con sal y se verifican hasheando lo que escribe el usuario. Los pares de clave pública y privada son del cifrado asimétrico, y la clave secreta compartida es del cifrado simétrico. La longitud del hash la fija el algoritmo, sea cual sea el tamaño de la entrada."
+   }
+  },
+  {
+   "id": "sc900-003",
+   "domain": "Describe the concepts of security, compliance, and identity",
+   "prompt": {
+    "en": "A retailer collects customer data in Brazil, stores it in a datacenter in the United States and processes it in Ireland. Its lawyers warn that the data is subject to the laws of each of those countries. Which concept describes this?",
+    "es": "Una cadena de comercios recolecta datos de clientes en Brasil, los guarda en un datacenter de Estados Unidos y los procesa en Irlanda. Sus abogados advierten que los datos quedan sujetos a las leyes de cada uno de esos países. ¿Qué concepto describe esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Data sovereignty",
+      "es": "Soberanía de los datos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Data classification",
+      "es": "Clasificación de los datos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Data residency",
+      "es": "Residencia de los datos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Data privacy",
+      "es": "Privacidad de los datos"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Data sovereignty is the idea that data is subject to the laws and regulations of each country or region where it's collected, held or processed, so one data set can fall under several jurisdictions at once. Data residency rules govern where data may be physically stored and when it can be transferred. Data privacy is about handling personal data properly, and data classification labels data by sensitivity.",
+    "es": "La soberanía de los datos es la idea de que los datos quedan sujetos a las leyes y regulaciones de cada país o región donde se recolectan, se guardan o se procesan, así que un mismo conjunto de datos puede caer bajo varias jurisdicciones a la vez. Las reglas de residencia definen dónde se pueden guardar físicamente los datos y cuándo se pueden transferir. La privacidad trata del manejo correcto de los datos personales, y la clasificación etiqueta los datos según su sensibilidad."
+   }
+  },
+  {
+   "id": "sc900-004",
+   "domain": "Describe the concepts of security, compliance, and identity",
+   "prompt": {
+    "en": "Employees of a partner company need to use a project portal that a manufacturer hosts. The manufacturer's identity provider is set up to trust sign-ins from the partner's identity provider, so partner employees use their own work accounts and the manufacturer never stores their passwords. What is this arrangement called?",
+    "es": "Los empleados de una empresa socia necesitan usar un portal de proyectos que aloja un fabricante. El proveedor de identidad del fabricante está configurado para confiar en los inicios de sesión del proveedor de identidad de la socia, así que sus empleados usan sus propias cuentas de trabajo y el fabricante nunca guarda sus contraseñas. ¿Cómo se llama este esquema?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Federation",
+      "es": "Federación"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Directory synchronization",
+      "es": "Sincronización de directorios"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Role-based access control",
+      "es": "Control de acceso basado en roles"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Single sign-on within one identity provider",
+      "es": "Single sign-on dentro de un solo proveedor de identidad"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Federation is a trust relationship between identity providers: the manufacturer accepts the partner's authentication, so users sign in with their home accounts and the resource side never handles their credentials. The trust can go in one direction only. Directory synchronization copies identities from one directory into another. Single sign-on within one identity provider doesn't cross organizations, and role-based access control decides what a signed-in user may do, not where they authenticate.",
+    "es": "La federación es una relación de confianza entre proveedores de identidad: el fabricante acepta la autenticación de la socia, así que los usuarios entran con sus cuentas de origen y el lado del recurso nunca maneja sus credenciales. La confianza puede ir en un solo sentido. La sincronización de directorios copia identidades de un directorio a otro. El single sign-on dentro de un solo proveedor no cruza organizaciones, y el control de acceso basado en roles decide qué puede hacer un usuario ya autenticado, no dónde se autentica."
+   }
+  },
+  {
+   "id": "sc900-005",
+   "domain": "Describe the concepts of security, compliance, and identity",
+   "prompt": {
+    "en": "A company's on-premises domain controllers authenticate users with Kerberos, organize computers into organizational units and push settings to them with Group Policy. Which service provides these capabilities?",
+    "es": "Los controladores de dominio locales de una empresa autentican a los usuarios con Kerberos, organizan las computadoras en unidades organizativas y les aplican configuraciones con Group Policy. ¿Qué servicio brinda estas capacidades?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Intune",
+      "es": "Microsoft Intune"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Active Directory Domain Services",
+      "es": "Active Directory Domain Services (AD DS)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Entra ID",
+      "es": "Microsoft Entra ID"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Entra Cloud Sync",
+      "es": "Microsoft Entra Cloud Sync"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "AD DS is the on-premises directory service in Windows Server: domain controllers authenticate users with Kerberos or NTLM, and admins organize objects into organizational units and manage them with Group Policy. Microsoft Entra ID is a cloud identity provider built around modern protocols such as OpenID Connect, OAuth and SAML, without OUs or Group Policy. Cloud Sync only synchronizes identities from AD DS to Entra ID, and Intune manages devices from the cloud.",
+    "es": "AD DS es el servicio de directorio local de Windows Server: los controladores de dominio autentican a los usuarios con Kerberos o NTLM, y los administradores organizan los objetos en unidades organizativas y los administran con Group Policy. Microsoft Entra ID es un proveedor de identidad en la nube pensado para protocolos modernos como OpenID Connect, OAuth y SAML, sin OU ni Group Policy. Cloud Sync sólo sincroniza identidades de AD DS a Entra ID, e Intune administra dispositivos desde la nube."
+   }
+  },
+  {
+   "id": "sc900-006",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "An app running on an Azure virtual machine needs to read secrets from Azure Key Vault. The security team doesn't want any credential stored in the app's code or configuration, and wants the identity removed automatically if the VM is deleted. What should the developers use?",
+    "es": "Una aplicación que corre en una máquina virtual de Azure necesita leer secretos de Azure Key Vault. El equipo de seguridad no quiere ninguna credencial guardada en el código ni en la configuración de la aplicación, y quiere que la identidad se borre sola si se elimina la VM. ¿Qué deberían usar los desarrolladores?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A system-assigned managed identity enabled on the virtual machine itself",
+      "es": "Una identidad administrada asignada por el sistema, habilitada en la propia VM"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A guest user account invited to the tenant for the app",
+      "es": "Una cuenta de usuario invitado en el tenant para la aplicación"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A user-assigned managed identity shared by several VMs",
+      "es": "Una identidad administrada asignada por el usuario, compartida por varias VMs"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An app registration with a client secret in the app settings",
+      "es": "Un registro de aplicación con un client secret en la configuración"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Managed identities are service principals that Microsoft Entra ID manages for you, so no credential appears in code. A system-assigned identity is tied to one Azure resource and is deleted with it, which matches the requirement. A user-assigned identity is a separate resource that outlives the VMs using it and must be deleted explicitly. A client secret is exactly the stored credential the team wants to avoid, and guest accounts are for external people, not workloads.",
+    "es": "Las identidades administradas son service principals que Microsoft Entra ID administra por vos, así que no aparece ninguna credencial en el código. Una identidad asignada por el sistema está atada a un recurso de Azure y se borra con él, que es lo que pide el requisito. Una asignada por el usuario es un recurso aparte que sobrevive a las VMs que la usan y hay que borrarla a mano. Un client secret es justo la credencial guardada que se quiere evitar, y las cuentas de invitado son para personas externas, no para cargas de trabajo."
+   }
+  },
+  {
+   "id": "sc900-007",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "A company is rolling out AI agents that act on their own to triage tickets and update records in business apps. It wants each agent to have its own identity in Microsoft Entra, with a designated human sponsor, Conditional Access based on the agent's risk and lifecycle governance. What should it use?",
+    "es": "Una empresa está desplegando agentes de IA que actúan por su cuenta para clasificar tickets y actualizar registros en aplicaciones de negocio. Quiere que cada agente tenga su propia identidad en Microsoft Entra, con un responsable humano (sponsor) designado, Conditional Access según el riesgo del agente y gobierno de su ciclo de vida. ¿Qué debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Guest user accounts created through B2B collaboration",
+      "es": "Cuentas de usuario invitado creadas con colaboración B2B"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A shared service account used by all the agents",
+      "es": "Una cuenta de servicio compartida por todos los agentes"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Entra Agent ID",
+      "es": "Microsoft Entra Agent ID"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "One app registration with a single client secret for every agent",
+      "es": "Un único registro de aplicación con un solo client secret para todos los agentes"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Microsoft Entra Agent ID provides agent identities: purpose-built identities for AI agents, distinct from traditional workload identities, that support Conditional Access based on agent risk and lifecycle governance with owners and sponsors. They cover agents acting for a user and agents acting on their own. A shared service account or one app registration for every agent makes it impossible to tell agents apart or govern them one by one, and B2B guest accounts are meant for external people.",
+    "es": "Microsoft Entra Agent ID da identidades de agente: identidades pensadas para agentes de IA, distintas de las identidades de carga de trabajo tradicionales, que admiten Conditional Access según el riesgo del agente y gobierno del ciclo de vida con dueños y sponsors. Sirven para agentes que actúan en nombre de un usuario y para agentes autónomos. Una cuenta compartida o un solo registro de aplicación para todos impide distinguir a los agentes o gobernarlos uno por uno, y las cuentas de invitado B2B son para personas externas."
+   }
+  },
+  {
+   "id": "sc900-008",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "A company with two Active Directory forests that aren't connected to each other wants its users to have one identity for on-premises and cloud apps. It wants Microsoft's recommended synchronization tool, with a lightweight agent and high availability through multiple agents. What should it deploy?",
+    "es": "Una empresa con dos bosques de Active Directory que no están conectados entre sí quiere que sus usuarios tengan una sola identidad para aplicaciones locales y en la nube. Quiere la herramienta de sincronización que recomienda Microsoft, con un agente liviano y alta disponibilidad usando varios agentes. ¿Qué debería desplegar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Entra Cloud Sync",
+      "es": "Microsoft Entra Cloud Sync"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Entra Domain Services",
+      "es": "Microsoft Entra Domain Services"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Entra B2B collaboration",
+      "es": "Colaboración B2B de Microsoft Entra"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Entra Connect Sync",
+      "es": "Microsoft Entra Connect Sync"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Microsoft Entra Cloud Sync is the recommended tool for hybrid identity: a lightweight provisioning agent connects AD DS with Entra ID, the configuration lives in the cloud, several agents give high availability and disconnected multi-forest setups are supported. Connect Sync is the earlier on-premises sync server that Cloud Sync is replacing. B2B collaboration invites external users, and Entra Domain Services provides managed domain services in Azure rather than synchronizing your forests.",
+    "es": "Microsoft Entra Cloud Sync es la herramienta recomendada para identidad híbrida: un agente de aprovisionamiento liviano conecta AD DS con Entra ID, la configuración vive en la nube, varios agentes dan alta disponibilidad y se admiten varios bosques desconectados. Connect Sync es el servidor de sincronización local anterior, que Cloud Sync está reemplazando. La colaboración B2B invita a usuarios externos, y Entra Domain Services ofrece servicios de dominio administrados en Azure, no sincroniza tus bosques."
+   }
+  },
+  {
+   "id": "sc900-009",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "After a wave of adversary-in-the-middle phishing that stole one-time codes, a company wants to move its administrators to phishing-resistant authentication in Microsoft Entra ID. Which TWO methods qualify? (Select TWO.)",
+    "es": "Después de una ola de phishing adversary-in-the-middle que robó códigos de un solo uso, una empresa quiere pasar a sus administradores a autenticación resistente al phishing en Microsoft Entra ID. ¿Qué métodos califican? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Hardware OATH tokens that show a new code every 30 seconds",
+      "es": "Tokens OATH de hardware que muestran un código nuevo cada 30 segundos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "SMS verification codes",
+      "es": "Códigos de verificación por SMS"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Approving a push notification in Microsoft Authenticator",
+      "es": "Aprobar una notificación push en Microsoft Authenticator"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Passkeys (FIDO2), such as a FIDO2 security key",
+      "es": "Passkeys (FIDO2), como una llave de seguridad FIDO2"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Windows Hello for Business",
+      "es": "Windows Hello for Business"
+     }
+    }
+   ],
+   "correct": [
+    "D",
+    "E"
+   ],
+   "explanation": {
+    "en": "Passkeys and Windows Hello for Business sign a challenge with a private key that never leaves the device, and the credential is bound to the real sign-in service, so a look-alike page can't relay it. SMS and OATH codes can be typed into a fake page and replayed by the attacker in real time. Approving a push, even with number matching, only shows the user approved something, and an attacker relaying the sign-in can still get that approval.",
+    "es": "Las passkeys y Windows Hello for Business firman un desafío con una clave privada que nunca sale del dispositivo, y la credencial queda atada al servicio real de inicio de sesión, así que una página falsa no puede reenviarla. Los códigos SMS y OATH se pueden escribir en una página falsa y el atacante los reutiliza en tiempo real. Aprobar un push, aun con number matching, sólo muestra que el usuario aprobó algo, y un atacante que reenvía el inicio de sesión igual puede conseguir esa aprobación."
+   }
+  },
+  {
+   "id": "sc900-010",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "A small nonprofit uses the free edition of Microsoft Entra ID and has no Conditional Access licenses. It wants all users to register for MFA, administrators to always use MFA and legacy authentication to be blocked, with as little setup as possible. What should it use?",
+    "es": "Una ONG chica usa la edición gratuita de Microsoft Entra ID y no tiene licencias de Conditional Access. Quiere que todos los usuarios se registren en MFA, que los administradores siempre usen MFA y que se bloquee la autenticación heredada, con la menor configuración posible. ¿Qué debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Security defaults",
+      "es": "Los security defaults"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Custom Conditional Access policies",
+      "es": "Políticas personalizadas de Conditional Access"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Privileged Identity Management for all users",
+      "es": "Privileged Identity Management para todos los usuarios"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Entra ID Protection risk policies",
+      "es": "Las políticas de riesgo de Microsoft Entra ID Protection"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Security defaults are a preconfigured set of protections at no extra cost: MFA registration for everyone, MFA for administrators and for users when needed, and blocking of legacy authentication. They're meant for organizations on the free tier and are on by default in new tenants. Custom Conditional Access policies need Entra ID P1, while ID Protection risk policies and PIM need P2 or ID Governance licenses, so none of them fits this budget.",
+    "es": "Los security defaults son un conjunto de protecciones preconfiguradas sin costo extra: registro de MFA para todos, MFA para administradores y para usuarios cuando hace falta, y bloqueo de la autenticación heredada. Están pensados para organizaciones con el nivel gratuito y vienen activados en los tenants nuevos. Las políticas personalizadas de Conditional Access requieren Entra ID P1, y las de riesgo de ID Protection y PIM requieren P2 o ID Governance, así que ninguna entra en este presupuesto."
+   }
+  },
+  {
+   "id": "sc900-011",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "Users at a company called Fabrikam keep choosing passwords such as Fabrikam2026! or F@brikam1. Which Microsoft Entra feature blocks these passwords when users change or reset them?",
+    "es": "Los usuarios de una empresa llamada Fabrikam siguen eligiendo contraseñas como Fabrikam2026! o F@brikam1. ¿Qué función de Microsoft Entra bloquea esas contraseñas cuando los usuarios las cambian o las restablecen?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A sign-in risk policy in Microsoft Entra ID Protection",
+      "es": "Una política de riesgo de inicio de sesión en Microsoft Entra ID Protection"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Smart lockout thresholds for failed sign-ins",
+      "es": "Los umbrales de smart lockout para inicios de sesión fallidos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A custom banned password list in Password Protection",
+      "es": "Una lista personalizada de contraseñas prohibidas en Password Protection"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Self-service password reset with two required methods",
+      "es": "El restablecimiento de contraseña de autoservicio (SSPR) con dos métodos"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Password Protection checks every new password against Microsoft's global banned password list plus a custom list where you add terms specific to the organization, such as its name, products or locations. Passwords are normalized first, so substitutions like @ for a are caught too. Smart lockout slows down guessing at sign-in, SSPR lets users reset forgotten passwords, and a sign-in risk policy reacts to suspicious sign-ins, but none of them rejects weak new passwords.",
+    "es": "Password Protection compara cada contraseña nueva con la lista global de contraseñas prohibidas de Microsoft más una lista personalizada donde agregás términos propios de la organización, como su nombre, productos o ciudades. Como normaliza las contraseñas, también detecta cambios como @ por a. Smart lockout frena los intentos de adivinar al iniciar sesión, SSPR permite restablecer contraseñas olvidadas y una política de riesgo reacciona ante inicios de sesión sospechosos, pero ninguna rechaza contraseñas nuevas débiles."
+   }
+  },
+  {
+   "id": "sc900-012",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "A company wants users to be prompted for MFA when they open the HR app from a device that isn't marked as compliant, and blocked entirely when they sign in from countries where it has no offices. Which Microsoft Entra feature enforces this?",
+    "es": "Una empresa quiere que a los usuarios se les pida MFA cuando abren la aplicación de RR. HH. desde un dispositivo que no figura como compatible, y que se los bloquee del todo cuando inician sesión desde países donde no tiene oficinas. ¿Qué función de Microsoft Entra aplica esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Security defaults",
+      "es": "Los security defaults"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Access reviews",
+      "es": "Las revisiones de acceso"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Privileged Identity Management",
+      "es": "Privileged Identity Management"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Conditional Access",
+      "es": "Conditional Access"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Conditional Access is the Zero Trust policy engine of Microsoft Entra ID: after first-factor authentication it evaluates signals such as the user, the app, device compliance and location, including named locations and countries, and then blocks access or grants it with requirements like MFA. PIM controls activation of privileged roles, access reviews periodically recertify who keeps access, and security defaults apply one fixed baseline that can't target a single app or country.",
+    "es": "Conditional Access es el motor de políticas Zero Trust de Microsoft Entra ID: después de la autenticación del primer factor evalúa señales como el usuario, la aplicación, el cumplimiento del dispositivo y la ubicación, incluidas ubicaciones con nombre y países, y bloquea el acceso o lo permite con requisitos como MFA. PIM controla la activación de roles privilegiados, las revisiones de acceso recertifican cada tanto quién mantiene acceso y los security defaults aplican una base fija que no apunta a una aplicación o a un país."
+   }
+  },
+  {
+   "id": "sc900-013",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "A help desk technician needs to reset passwords for regular users in Microsoft Entra ID, and nothing more. Following the principle of least privilege, which role should the technician get?",
+    "es": "Un técnico de mesa de ayuda necesita restablecer contraseñas de usuarios comunes en Microsoft Entra ID, y nada más. Siguiendo el principio de privilegios mínimos, ¿qué rol debería recibir?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Security Reader",
+      "es": "Security Reader"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Global Administrator",
+      "es": "Global Administrator"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Owner on the Azure subscription",
+      "es": "Owner en la suscripción de Azure"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Password Administrator",
+      "es": "Password Administrator"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Password Administrator is a built-in Microsoft Entra role that can reset passwords for non-administrators and other Password Administrators, which covers the task without extra rights. Global Administrator can manage everything in the tenant, far more than needed. Owner is an Azure RBAC role over Azure resources such as VMs and storage, a separate system from Microsoft Entra roles. Security Reader can only view security information and can't reset anything.",
+    "es": "Password Administrator es un rol integrado de Microsoft Entra que puede restablecer contraseñas de usuarios que no son administradores y de otros Password Administrators, lo que cubre la tarea sin derechos de más. Global Administrator puede administrar todo el tenant, mucho más de lo necesario. Owner es un rol de Azure RBAC sobre recursos de Azure como VMs y almacenamiento, un sistema separado de los roles de Microsoft Entra. Security Reader sólo puede ver información de seguridad y no restablece nada."
+   }
+  },
+  {
+   "id": "sc900-014",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "Partners' guest accounts in a company's Microsoft Entra tenant keep their group memberships long after their projects end. The company wants group owners to confirm every quarter which guests still need access, and access removed when owners don't respond. What should it set up?",
+    "es": "Las cuentas de invitado de los socios en el tenant de Microsoft Entra de una empresa conservan sus pertenencias a grupos mucho después de que terminan sus proyectos. La empresa quiere que los dueños de cada grupo confirmen cada trimestre qué invitados siguen necesitando acceso, y que se quite el acceso si los dueños no responden. ¿Qué debería configurar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Recurring access reviews in Microsoft Entra ID Governance",
+      "es": "Revisiones de acceso periódicas en Microsoft Entra ID Governance"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "User risk policies in Microsoft Entra ID Protection",
+      "es": "Políticas de riesgo de usuario en Microsoft Entra ID Protection"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A Conditional Access policy that requires MFA for guests",
+      "es": "Una política de Conditional Access que exija MFA a los invitados"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Dynamic membership rules based on the department attribute",
+      "es": "Reglas de pertenencia dinámica según el atributo de departamento"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Access reviews let owners, managers or the users themselves recertify group memberships, app access and role assignments on a schedule such as quarterly, and can automatically remove access that is denied or not reviewed. MFA for guests protects their sign-ins but doesn't remove access they no longer need. User risk policies react to compromised accounts, and dynamic rules depend on attributes that guest accounts usually don't keep up to date.",
+    "es": "Las revisiones de acceso permiten que dueños, gerentes o los propios usuarios recertifiquen pertenencias a grupos, acceso a aplicaciones y asignaciones de roles según un cronograma, por ejemplo trimestral, y pueden quitar solas el acceso denegado o no revisado. Exigir MFA a los invitados protege sus inicios de sesión pero no quita el acceso que ya no necesitan. Las políticas de riesgo de usuario reaccionan ante cuentas comprometidas, y las reglas dinámicas dependen de atributos que las cuentas de invitado no suelen tener al día."
+   }
+  },
+  {
+   "id": "sc900-015",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "A company has six permanent Global Administrators and wants to reduce standing privilege with Microsoft Entra Privileged Identity Management (PIM). Which TWO capabilities does PIM provide for this? (Select TWO.)",
+    "es": "Una empresa tiene seis Global Administrators permanentes y quiere reducir los privilegios permanentes con Microsoft Entra Privileged Identity Management (PIM). ¿Qué capacidades le da PIM para esto? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Eligible assignments that admins activate just in time, for a limited period",
+      "es": "Asignaciones elegibles que los administradores activan just-in-time, por un tiempo limitado"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Synchronization of admin accounts from on-premises AD DS",
+      "es": "Sincronización de cuentas de administrador desde AD DS local"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Detection of leaked credentials found on the dark web",
+      "es": "Detección de credenciales filtradas que aparecen en la dark web"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Approval and a written justification required before a role is activated",
+      "es": "Aprobación y una justificación escrita obligatorias antes de activar un rol"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Automatic blocking of sign-ins that come from anonymous IP addresses",
+      "es": "Bloqueo automático de los inicios de sesión que vienen de direcciones IP anónimas"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "D"
+   ],
+   "explanation": {
+    "en": "PIM replaces permanent (active) role assignments with eligible ones: admins activate the role only when they need it, for a limited time, and activation can require approval, a justification, MFA and notifications, with an audit history of every activation. Leaked-credential and anonymous IP detections come from Microsoft Entra ID Protection, and synchronizing accounts from AD DS is the job of Microsoft Entra Cloud Sync or Connect Sync.",
+    "es": "PIM reemplaza las asignaciones de rol permanentes (activas) por asignaciones elegibles: los administradores activan el rol sólo cuando lo necesitan, por un tiempo limitado, y la activación puede exigir aprobación, una justificación, MFA y notificaciones, con un historial de auditoría de cada activación. Las detecciones de credenciales filtradas y de IP anónimas son de Microsoft Entra ID Protection, y sincronizar cuentas desde AD DS es tarea de Microsoft Entra Cloud Sync o Connect Sync."
+   }
+  },
+  {
+   "id": "sc900-016",
+   "domain": "Describe the capabilities of Microsoft Entra",
+   "prompt": {
+    "en": "Microsoft finds a user's username and password in a credential dump posted online. The company wants that user to be forced to change their password securely the next time they sign in. Which feature detects this and can enforce the response?",
+    "es": "Microsoft encuentra el nombre de usuario y la contraseña de un usuario en un volcado de credenciales publicado en internet. La empresa quiere que ese usuario tenga que cambiar la contraseña de forma segura la próxima vez que inicie sesión. ¿Qué función detecta esto y puede aplicar la respuesta?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Entra access reviews, with a review of that user's groups",
+      "es": "Las revisiones de acceso de Microsoft Entra, con una revisión de los grupos del usuario"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Entra Password Protection, with the global banned list",
+      "es": "Microsoft Entra Password Protection, con la lista global de contraseñas prohibidas"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Entra ID Protection, with a user risk-based Conditional Access policy",
+      "es": "Microsoft Entra ID Protection, con una política de Conditional Access basada en el riesgo de usuario"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Privileged Identity Management, with an alert on role activation",
+      "es": "Privileged Identity Management, con una alerta sobre la activación de roles"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Leaked credentials are a user risk detection in Microsoft Entra ID Protection: they raise the probability that the account itself is compromised. A risk-based policy, usually built in Conditional Access, can then require a secure password change, with MFA, at the next sign-in. Password Protection only screens new passwords as they're set, access reviews recertify access on a schedule, and PIM governs privileged role activation.",
+    "es": "Las credenciales filtradas son una detección de riesgo de usuario en Microsoft Entra ID Protection: aumentan la probabilidad de que la cuenta misma esté comprometida. Después, una política basada en riesgo, en general armada en Conditional Access, puede exigir un cambio de contraseña seguro, con MFA, en el próximo inicio de sesión. Password Protection sólo controla las contraseñas nuevas al definirlas, las revisiones de acceso recertifican el acceso según un cronograma y PIM gobierna la activación de roles privilegiados."
+   }
+  },
+  {
+   "id": "sc900-017",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A public web app runs behind Azure Application Gateway. It's receiving SQL injection attempts and, separately, large volumetric floods aimed at its public IP address. Which TWO services address these threats? (Select TWO.)",
+    "es": "Una aplicación web pública corre detrás de Azure Application Gateway. Está recibiendo intentos de inyección SQL y, por otro lado, grandes inundaciones volumétricas dirigidas a su IP pública. ¿Qué servicios atienden estas amenazas? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Web Application Firewall on the Application Gateway",
+      "es": "Azure Web Application Firewall en el Application Gateway"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure DDoS Protection on the virtual network",
+      "es": "Azure DDoS Protection en la red virtual"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A network security group that allows inbound traffic only on port 443",
+      "es": "Un network security group que permita tráfico entrante sólo en el puerto 443"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Bastion deployed in the same virtual network",
+      "es": "Azure Bastion desplegado en la misma red virtual"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Azure Key Vault holding the app's connection strings",
+      "es": "Azure Key Vault con los connection strings de la aplicación"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "B"
+   ],
+   "explanation": {
+    "en": "WAF inspects HTTP requests at layer 7 and blocks common exploits such as SQL injection and cross-site scripting, while Azure DDoS Protection mitigates volumetric attacks at layers 3 and 4 with tuned thresholds and telemetry. Microsoft recommends combining them, because neither covers the other's layer. Bastion provides RDP and SSH to VMs, Key Vault stores secrets, and an NSG allowing port 443 still lets both the injections and the flood through.",
+    "es": "El WAF inspecciona los pedidos HTTP en la capa 7 y bloquea ataques comunes como la inyección SQL y el cross-site scripting, mientras que Azure DDoS Protection mitiga los ataques volumétricos en las capas 3 y 4, con umbrales ajustados y telemetría. Microsoft recomienda combinarlos, porque ninguno cubre la capa del otro. Bastion da RDP y SSH a las VMs, Key Vault guarda secretos y un NSG que permite el puerto 443 igual deja pasar las inyecciones y la inundación."
+   }
+  },
+  {
+   "id": "sc900-018",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A company with a hub-and-spoke network in Azure wants one central, stateful service that filters traffic between its virtual networks and lets outbound web traffic reach only an approved list of fully qualified domain names (FQDNs). What should it deploy in the hub?",
+    "es": "Una empresa con una red hub-and-spoke en Azure quiere un único servicio central y con estado que filtre el tráfico entre sus redes virtuales y deje salir el tráfico web sólo hacia una lista aprobada de nombres de dominio completos (FQDN). ¿Qué debería desplegar en el hub?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Bastion",
+      "es": "Azure Bastion"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A network security group on each subnet",
+      "es": "Un network security group en cada subred"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Azure Firewall",
+      "es": "Azure Firewall"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure DDoS Network Protection",
+      "es": "Azure DDoS Network Protection"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Azure Firewall is a managed, stateful firewall as a service that you deploy centrally to filter traffic across virtual networks and subscriptions, with application rules based on FQDNs and threat intelligence filtering. NSGs filter by IP address, port and protocol at each subnet or network interface, but they can't filter by domain name and aren't a central service. DDoS Protection absorbs floods, and Bastion provides remote access to VMs.",
+    "es": "Azure Firewall es un firewall administrado y con estado, como servicio, que se despliega de forma central para filtrar el tráfico entre redes virtuales y suscripciones, con reglas de aplicación basadas en FQDN y filtrado por inteligencia de amenazas. Los NSG filtran por IP, puerto y protocolo en cada subred o interfaz de red, pero no filtran por nombre de dominio ni son un servicio central. DDoS Protection absorbe inundaciones, y Bastion da acceso remoto a las VMs."
+   }
+  },
+  {
+   "id": "sc900-019",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "An NSG on a subnet has two custom inbound rules: priority 200 denies RDP (port 3389) from any source, and priority 300 allows RDP from the administrator's IP address. What happens when the administrator tries to connect over RDP from that address?",
+    "es": "Un NSG en una subred tiene dos reglas de entrada personalizadas: la de prioridad 200 deniega RDP (puerto 3389) desde cualquier origen, y la de prioridad 300 permite RDP desde la IP del administrador. ¿Qué pasa cuando el administrador intenta conectarse por RDP desde esa dirección?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "It's allowed, because allow rules are evaluated before deny rules",
+      "es": "Se permite, porque las reglas de permitir se evalúan antes que las de denegar"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "It's allowed, because the rule with the more specific source always wins",
+      "es": "Se permite, porque siempre gana la regla con el origen más específico"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "It's denied by the default rules, which run before any custom rule",
+      "es": "La deniegan las reglas predeterminadas, que corren antes que las personalizadas"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "It's denied, because the deny rule at priority 200 is processed before the allow",
+      "es": "Se deniega, porque la regla deny de prioridad 200 se procesa antes que la regla allow"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "NSG rules are processed in priority order, lowest number first, and processing stops at the first match. The deny at 200 matches the administrator's traffic before the allow at 300 is reached, so RDP is blocked. Neither specificity nor allow versus deny changes that order. The default rules have the highest numbers (65000 and up), so custom rules run before them. To fix this, give the allow rule a lower number than the deny.",
+    "es": "Las reglas de un NSG se procesan por prioridad, del número más bajo al más alto, y el procesamiento se detiene en la primera coincidencia. El deny de 200 coincide con el tráfico del administrador antes de llegar al allow de 300, así que RDP queda bloqueado. Ni la especificidad ni el tipo de regla cambian ese orden. Las reglas predeterminadas tienen los números más altos (de 65000 para arriba), así que las personalizadas corren antes. Para arreglarlo, hay que darle al allow un número más bajo que al deny."
+   }
+  },
+  {
+   "id": "sc900-020",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "Administrators need RDP and SSH access to Azure VMs that have no public IP addresses. The company doesn't want to expose ports 3389 or 22 to the internet or install any client software. What should it use?",
+    "es": "Los administradores necesitan acceso RDP y SSH a VMs de Azure que no tienen IP públicas. La empresa no quiere exponer los puertos 3389 ni 22 a internet ni instalar ningún software cliente. ¿Qué debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Azure Web Application Firewall",
+      "es": "Azure Web Application Firewall"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Bastion",
+      "es": "Azure Bastion"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A public IP on each VM, with an NSG rule for the admins",
+      "es": "Una IP pública en cada VM, con una regla de NSG para los administradores"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure DDoS IP Protection",
+      "es": "Azure DDoS IP Protection"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Azure Bastion is a platform-managed service deployed in the virtual network that opens RDP and SSH sessions from the Azure portal over TLS, reaching the VMs on their private IPs, so they need no public IP, agent or special client. Public IPs with NSG rules still expose the management ports to the internet. WAF protects web applications over HTTP, and DDoS IP Protection mitigates floods against public IPs; neither provides remote access.",
+    "es": "Azure Bastion es un servicio administrado por la plataforma que se despliega en la red virtual y abre sesiones RDP y SSH desde el portal de Azure por TLS, llegando a las VMs por sus IP privadas, así que no necesitan IP pública, agente ni cliente especial. Las IP públicas con reglas de NSG igual exponen los puertos de administración a internet. El WAF protege aplicaciones web sobre HTTP, y DDoS IP Protection mitiga inundaciones contra IP públicas; ninguno da acceso remoto."
+   }
+  },
+  {
+   "id": "sc900-021",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "Developers keep a database connection string, a third-party API key and a TLS certificate in configuration files in source control. The security team wants these kept centrally, with access controlled and logged. Which Azure service should hold them?",
+    "es": "Los desarrolladores tienen un connection string de base de datos, una API key de un tercero y un certificado TLS en archivos de configuración dentro del control de versiones. El equipo de seguridad quiere guardarlos de forma central, con acceso controlado y registrado. ¿Qué servicio de Azure debería contenerlos?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Defender for Cloud",
+      "es": "Microsoft Defender for Cloud"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Azure Key Vault",
+      "es": "Azure Key Vault"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Purview Information Protection",
+      "es": "Microsoft Purview Information Protection"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Azure Storage with a shared access signature",
+      "es": "Azure Storage con una shared access signature"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Azure Key Vault centrally stores and manages secrets such as connection strings and API keys, cryptographic keys and certificates, including certificate renewal. Access is controlled through Microsoft Entra ID and RBAC and logged for auditing, and keys can be protected by hardware security modules. A storage account with a SAS token is just another credential to protect. Purview labels and protects documents and email, and Defender for Cloud assesses posture rather than storing secrets.",
+    "es": "Azure Key Vault guarda y administra de forma central secretos como connection strings y API keys, claves criptográficas y certificados, incluida su renovación. El acceso se controla con Microsoft Entra ID y RBAC y queda registrado para auditoría, y las claves se pueden proteger con módulos de seguridad de hardware (HSM). Una cuenta de storage con un token SAS es una credencial más para proteger. Purview etiqueta y protege documentos y correo, y Defender for Cloud evalúa la postura en lugar de guardar secretos."
+   }
+  },
+  {
+   "id": "sc900-022",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A company has just onboarded its Azure subscriptions to Microsoft Defender for Cloud and hasn't enabled any paid plan. Which TWO capabilities does it already get? (Select TWO.)",
+    "es": "Una empresa acaba de incorporar sus suscripciones de Azure a Microsoft Defender for Cloud y no activó ningún plan pago. ¿Qué capacidades ya tiene? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A secure score that summarizes its security posture",
+      "es": "Un secure score que resume su postura de seguridad"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Threat detection alerts for its virtual machines",
+      "es": "Alertas de detección de amenazas para sus máquinas virtuales"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Hardening recommendations based on the Microsoft cloud security benchmark",
+      "es": "Recomendaciones de hardening basadas en el Microsoft cloud security benchmark"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Malware scanning of the files uploaded to its storage accounts",
+      "es": "Escaneo de malware de los archivos que se suben a sus cuentas de storage"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Attack path analysis across its cloud resources",
+      "es": "Análisis de rutas de ataque sobre sus recursos en la nube"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "C"
+   ],
+   "explanation": {
+    "en": "Foundational CSPM is free and turned on at onboarding: asset discovery, continuous assessment against the Microsoft cloud security benchmark, which is assigned by default, hardening recommendations and the secure score. Attack path analysis and the cloud security explorer are part of the paid Defender CSPM plan. Threat alerts for VMs and malware scanning of uploads are workload protection features of Defender for Servers and Defender for Storage.",
+    "es": "El CSPM básico (foundational) es gratuito y se activa al incorporar las suscripciones: descubrimiento de recursos, evaluación continua contra el Microsoft cloud security benchmark, que se asigna por defecto, recomendaciones de hardening y el secure score. El análisis de rutas de ataque y el cloud security explorer son parte del plan pago Defender CSPM. Las alertas de amenazas para VMs y el escaneo de malware de lo que se sube son funciones de protección de cargas de trabajo de Defender for Servers y Defender for Storage."
+   }
+  },
+  {
+   "id": "sc900-023",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A company's Azure SQL databases and virtual machines are already assessed for misconfigurations in Defender for Cloud. It now wants security alerts when someone attempts SQL injection or brute-forces logins against them. What does it need to enable?",
+    "es": "Las bases Azure SQL y las máquinas virtuales de una empresa ya se evalúan en Defender for Cloud para detectar malas configuraciones. Ahora quiere alertas de seguridad cuando alguien intente inyección SQL o ataques de fuerza bruta contra los inicios de sesión. ¿Qué tiene que activar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Governance rules that assign recommendations to resource owners",
+      "es": "Reglas de gobierno que asignen las recomendaciones a los dueños de los recursos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The Defender plans for those resource types (workload protection)",
+      "es": "Los planes de Defender para esos tipos de recursos (protección de cargas de trabajo)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "The regulatory compliance dashboard with ISO 27001 added to it",
+      "es": "El panel de cumplimiento normativo con ISO 27001 agregado"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A custom security initiative with more Azure Policy definitions",
+      "es": "Una iniciativa de seguridad personalizada con más definiciones de Azure Policy"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Posture management finds weaknesses, but detecting attacks in progress is the job of cloud workload protection, delivered through Defender plans per resource type, such as Defender for Servers and Defender for Databases. When a plan detects a threat, it raises a security alert with its severity and remediation steps. Initiatives, compliance standards and governance rules all work on recommendations about configuration, not on live threats.",
+    "es": "La gestión de postura encuentra debilidades, pero detectar ataques en curso es tarea de la protección de cargas de trabajo en la nube, que llega con los planes de Defender por tipo de recurso, como Defender for Servers y Defender for Databases. Cuando un plan detecta una amenaza, genera una alerta de seguridad con su severidad y los pasos para remediar. Las iniciativas, los estándares de cumplimiento y las reglas de gobierno trabajan sobre recomendaciones de configuración, no sobre amenazas en vivo."
+   }
+  },
+  {
+   "id": "sc900-024",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "When Microsoft Sentinel creates a high-severity incident about a compromised account, the SOC wants the account disabled, a ticket opened in its IT service management tool and the on-call analyst notified, all without human action. Which Sentinel capability should it use?",
+    "es": "Cuando Microsoft Sentinel crea un incidente de severidad alta sobre una cuenta comprometida, el SOC quiere que se deshabilite la cuenta, se abra un ticket en su herramienta de gestión de servicios de IT y se avise al analista de guardia, todo sin intervención humana. ¿Qué capacidad de Sentinel debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A workbook that charts incidents by severity",
+      "es": "Un workbook que grafique los incidentes por severidad"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "An automation rule that runs a playbook",
+      "es": "Una regla de automatización que ejecute un playbook"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A hunting query saved as a bookmark",
+      "es": "Una consulta de hunting guardada como marcador"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A data connector for the IT service management tool",
+      "es": "Un conector de datos para la herramienta de gestión de servicios de IT"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "This is the SOAR side of Sentinel. Automation rules react to incidents based on conditions such as severity and can trigger playbooks, which are workflows built on Azure Logic Apps that take actions like disabling the account, opening a ticket and sending notifications. Workbooks visualize data, hunting queries look proactively for threats that no rule has caught, and data connectors bring data into Sentinel rather than acting on incidents.",
+    "es": "Esto es el lado SOAR de Sentinel. Las reglas de automatización reaccionan a los incidentes según condiciones como la severidad y pueden disparar playbooks, que son flujos construidos sobre Azure Logic Apps que ejecutan acciones como deshabilitar la cuenta, abrir un ticket y mandar avisos. Los workbooks visualizan datos, las consultas de hunting buscan de forma proactiva amenazas que ninguna regla detectó y los conectores de datos traen datos a Sentinel en lugar de actuar sobre los incidentes."
+   }
+  },
+  {
+   "id": "sc900-025",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A company ingests its firewall, Microsoft Entra ID and AWS CloudTrail logs into Microsoft Sentinel. It wants Sentinel to query that data on a schedule, raise alerts when it finds suspicious patterns and group related alerts into incidents. Which feature does this?",
+    "es": "Una empresa ingiere en Microsoft Sentinel los logs de su firewall, de Microsoft Entra ID y de AWS CloudTrail. Quiere que Sentinel consulte esos datos de forma programada, genere alertas cuando encuentre patrones sospechosos y agrupe las alertas relacionadas en incidentes. ¿Qué función hace esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Notebooks",
+      "es": "Los notebooks"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Workbooks",
+      "es": "Los workbooks"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Data connectors",
+      "es": "Los conectores de datos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Analytics rules",
+      "es": "Las reglas de análisis"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Analytics rules are Sentinel's detections: they run queries against the collected data on a schedule, generate alerts when they find suspicious activity and group related alerts into incidents for the team to investigate. Data connectors are how the firewall, Entra ID and CloudTrail data got into Sentinel in the first place. Workbooks are dashboards for visualizing data, and notebooks support advanced hunting and analysis led by an analyst rather than scheduled detection.",
+    "es": "Las reglas de análisis son las detecciones de Sentinel: ejecutan consultas sobre los datos recolectados de forma programada, generan alertas cuando encuentran actividad sospechosa y agrupan las alertas relacionadas en incidentes para que el equipo investigue. Los conectores de datos son los que trajeron a Sentinel los datos del firewall, de Entra ID y de CloudTrail. Los workbooks son tableros para visualizar datos, y los notebooks sirven para hunting y análisis que guía un analista, no para detectar de forma programada."
+   }
+  },
+  {
+   "id": "sc900-026",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "Several phishing emails reached users' Exchange Online inboxes before Microsoft updated its verdict on them. The company wants such messages to be moved out of inboxes automatically after delivery. Which Microsoft Defender for Office 365 feature does this?",
+    "es": "Varios mails de phishing llegaron a las bandejas de Exchange Online de los usuarios antes de que Microsoft actualizara su veredicto sobre ellos. La empresa quiere que esos mensajes salgan de las bandejas automáticamente después de la entrega. ¿Qué función de Microsoft Defender for Office 365 hace esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Message trace",
+      "es": "El seguimiento de mensajes (message trace)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Zero-hour auto purge (ZAP)",
+      "es": "Zero-hour auto purge (ZAP)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Safe Attachments",
+      "es": "Safe Attachments"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Attack simulation training",
+      "es": "Attack simulation training"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Zero-hour auto purge acts retroactively: when a message already delivered to an Exchange Online mailbox is later identified as phishing, spam or malware, ZAP moves it to junk or quarantine. Safe Attachments detonates attachments in a sandbox before delivery, so it acts too early to catch these. Attack simulation training runs fake phishing campaigns to train users, and message trace shows the path and status of a message without changing it.",
+    "es": "Zero-hour auto purge actúa de forma retroactiva: cuando un mensaje ya entregado a un buzón de Exchange Online se identifica después como phishing, spam o malware, ZAP lo pasa a correo no deseado o a cuarentena. Safe Attachments detona los adjuntos en un sandbox antes de la entrega, así que actúa demasiado temprano para atrapar estos. Attack simulation training lanza campañas de phishing simuladas para entrenar a los usuarios, y el seguimiento de mensajes muestra el recorrido y el estado de un mensaje sin cambiarlo."
+   }
+  },
+  {
+   "id": "sc900-027",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A SOC wants to detect pass-the-hash, reconnaissance against Active Directory and other lateral movement involving its on-premises domain controllers, using sensors installed on those servers. Which service fits?",
+    "es": "Un SOC quiere detectar pass-the-hash, reconocimiento contra Active Directory y otros movimientos laterales que involucren a sus controladores de dominio locales, usando sensores instalados en esos servidores. ¿Qué servicio encaja?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Entra ID Protection",
+      "es": "Microsoft Entra ID Protection"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Defender for Identity",
+      "es": "Microsoft Defender for Identity"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Defender for Office 365",
+      "es": "Microsoft Defender for Office 365"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Defender for Cloud Apps",
+      "es": "Microsoft Defender for Cloud Apps"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Defender for Identity uses sensors on domain controllers and on AD FS and AD CS servers to read events and network traffic, builds behavioral baselines and detects reconnaissance, compromised credentials, lateral movement and domain dominance. Entra ID Protection works on cloud sign-ins and user risk in Entra ID, not on on-premises AD traffic. Defender for Cloud Apps covers SaaS apps, and Defender for Office 365 covers email and collaboration tools.",
+    "es": "Defender for Identity usa sensores en los controladores de dominio y en los servidores de AD FS y AD CS para leer eventos y tráfico de red, arma líneas base de comportamiento y detecta reconocimiento, credenciales comprometidas, movimiento lateral y toma de control del dominio (domain dominance). Entra ID Protection trabaja sobre inicios de sesión y riesgo de usuario en Entra ID, no sobre el tráfico de AD local. Defender for Cloud Apps cubre aplicaciones SaaS, y Defender for Office 365 cubre correo y herramientas de colaboración."
+   }
+  },
+  {
+   "id": "sc900-028",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A company suspects employees are uploading work files to file-sharing and AI apps that IT never approved. It wants to find out which cloud apps are in use, see a risk assessment for each and mark risky ones as unsanctioned. Which service should it use?",
+    "es": "Una empresa sospecha que los empleados suben archivos de trabajo a aplicaciones para compartir archivos y de IA que IT nunca aprobó. Quiere averiguar qué aplicaciones en la nube se usan, ver una evaluación de riesgo de cada una y marcar las riesgosas como no autorizadas. ¿Qué servicio debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Defender Vulnerability Management",
+      "es": "Microsoft Defender Vulnerability Management"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Defender for Cloud",
+      "es": "Microsoft Defender for Cloud"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Defender for Cloud Apps",
+      "es": "Microsoft Defender for Cloud Apps"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Purview Compliance Manager",
+      "es": "Microsoft Purview Compliance Manager"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Defender for Cloud Apps is Microsoft's cloud access security broker (CASB). Its cloud discovery analyzes traffic logs against a catalog of thousands of apps, scores each on more than 90 risk factors and lets you sanction or unsanction them, which is how you tackle shadow IT. Defender for Cloud protects your own Azure and multicloud resources, Compliance Manager tracks regulatory controls, and Vulnerability Management finds weaknesses on devices.",
+    "es": "Defender for Cloud Apps es el cloud access security broker (CASB) de Microsoft. Su descubrimiento en la nube analiza los logs de tráfico contra un catálogo de miles de aplicaciones, evalúa cada una con más de 90 factores de riesgo y permite marcarlas como autorizadas o no, que es como se ataca el shadow IT. Defender for Cloud protege tus propios recursos de Azure y multicloud, Compliance Manager sigue controles regulatorios y Vulnerability Management encuentra debilidades en los dispositivos."
+   }
+  },
+  {
+   "id": "sc900-029",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A security team gets thousands of CVEs from scans of its laptops and servers. It wants them prioritized by active exploitation, breach likelihood and how critical each device is, and wants to send remediation tasks to IT through Intune. Which solution does this?",
+    "es": "Un equipo de seguridad recibe miles de CVE de los escaneos de sus notebooks y servidores. Quiere priorizarlos según si se están explotando, la probabilidad de una brecha y qué tan crítico es cada dispositivo, y mandarle tareas de remediación a IT por Intune. ¿Qué solución hace esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Sentinel workbooks",
+      "es": "Los workbooks de Microsoft Sentinel"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Entra ID Governance",
+      "es": "Microsoft Entra ID Governance"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Purview Compliance Manager",
+      "es": "Microsoft Purview Compliance Manager"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Defender Vulnerability Management",
+      "es": "Microsoft Defender Vulnerability Management"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Defender Vulnerability Management inventories software, certificates, firmware and browser extensions across devices, and prioritizes weaknesses using Microsoft threat intelligence, breach likelihood, business context and device assessments. It can create remediation tasks in Microsoft Intune and track their progress. Sentinel workbooks only chart data you already have, Compliance Manager tracks regulatory controls, and ID Governance manages access rights, not software flaws.",
+    "es": "Defender Vulnerability Management inventaría software, certificados, firmware y extensiones de navegador en los dispositivos, y prioriza las debilidades con inteligencia de amenazas de Microsoft, probabilidad de brecha, contexto de negocio y evaluación de los dispositivos. Puede crear tareas de remediación en Microsoft Intune y seguir su avance. Los workbooks de Sentinel sólo grafican datos que ya tenés, Compliance Manager sigue controles regulatorios e ID Governance administra derechos de acceso, no fallas de software."
+   }
+  },
+  {
+   "id": "sc900-030",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "A SOC is moving its daily work to the Microsoft Defender portal. Which TWO things can analysts do there? (Select TWO.)",
+    "es": "Un SOC está pasando su trabajo diario al portal de Microsoft Defender. ¿Qué cosas pueden hacer ahí los analistas? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Download Microsoft's SOC 2 audit reports for the cloud services it uses",
+      "es": "Descargar los informes de auditoría SOC 2 de Microsoft sobre los servicios en la nube que usa"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Make administrators eligible for Microsoft Entra roles through PIM",
+      "es": "Hacer que los administradores sean elegibles para roles de Microsoft Entra con PIM"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Work one incident that groups related alerts from endpoints, email, identities and apps",
+      "es": "Trabajar un solo incidente que agrupa alertas relacionadas de endpoints, correo, identidades y aplicaciones"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Run advanced hunting queries across Defender XDR and Microsoft Sentinel data",
+      "es": "Ejecutar consultas de advanced hunting sobre datos de Defender XDR y de Microsoft Sentinel"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Publish retention labels to users' mailboxes and OneDrive accounts",
+      "es": "Publicar etiquetas de retención en los buzones y las cuentas de OneDrive de los usuarios"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "D"
+   ],
+   "explanation": {
+    "en": "The Defender portal is Microsoft's unified security operations portal: Defender XDR correlates alerts from its services into one incident that tells the whole attack story, and advanced hunting runs KQL queries across that data and, once Sentinel is onboarded to the portal, across Sentinel data too. Retention labels are published from the Microsoft Purview portal, PIM assignments are made in the Microsoft Entra admin center, and audit reports come from the Service Trust Portal.",
+    "es": "El portal de Defender es el portal unificado de operaciones de seguridad: Defender XDR junta las alertas de sus servicios en un solo incidente con toda la historia del ataque, y el advanced hunting ejecuta consultas KQL sobre esos datos y, una vez que Sentinel se incorpora al portal, también sobre los de Sentinel. Las etiquetas de retención se publican desde el portal de Microsoft Purview, las asignaciones de PIM se hacen en el centro de administración de Microsoft Entra y los informes de auditoría salen del Service Trust Portal."
+   }
+  },
+  {
+   "id": "sc900-031",
+   "domain": "Describe the capabilities of Microsoft security solutions",
+   "prompt": {
+    "en": "An analyst working in the Defender portal wants Microsoft's report on a newly tracked ransomware group: who it targets, the techniques it uses, related indicators of compromise and whether the organization has active alerts or exposed devices linked to it. Where should the analyst look?",
+    "es": "Una analista que trabaja en el portal de Defender quiere el informe de Microsoft sobre un grupo de ransomware que se empezó a seguir hace poco: a quién ataca, qué técnicas usa, los indicadores de compromiso relacionados y si la organización tiene alertas activas o dispositivos expuestos vinculados a ese grupo. ¿Dónde debería mirar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Cloud discovery in Defender for Cloud Apps",
+      "es": "Cloud discovery en Defender for Cloud Apps"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The secure score page in Defender for Cloud",
+      "es": "La página de secure score en Defender for Cloud"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Activity explorer in Microsoft Purview",
+      "es": "Activity explorer en Microsoft Purview"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Threat analytics, under Threat intelligence",
+      "es": "Threat analytics, dentro de Threat intelligence"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Threat analytics reports, in the Threat intelligence section of the Defender portal, analyze threats and actors that Microsoft tracks and include guidance on defending against them; each report also uses your own data to show related alerts and how exposed your devices are. Intel profiles and Intel explorer add actor details and indicators. Secure score measures posture, Activity explorer tracks actions on labeled content, and cloud discovery finds the SaaS apps people use.",
+    "es": "Los informes de threat analytics, en la sección Threat intelligence del portal de Defender, analizan amenazas y actores que sigue Microsoft e incluyen guías para defenderse; cada informe además usa tus propios datos para mostrar alertas relacionadas y qué tan expuestos están tus dispositivos. Intel profiles e Intel explorer suman detalles de los actores e indicadores. El secure score mide la postura, Activity explorer sigue las acciones sobre contenido etiquetado y cloud discovery encuentra las aplicaciones SaaS que usa la gente."
+   }
+  },
+  {
+   "id": "sc900-032",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "An external auditor asks a company for independent audit reports, such as ISO 27001 and SOC 2, that show how Microsoft secures the cloud services the company uses. Where can the company get them?",
+    "es": "Un auditor externo le pide a una empresa informes de auditoría independientes, como ISO 27001 y SOC 2, que muestren cómo Microsoft protege los servicios en la nube que usa la empresa. ¿Dónde puede conseguirlos?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The regulatory compliance dashboard in Defender for Cloud",
+      "es": "El panel de cumplimiento normativo de Defender for Cloud"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Compliance Manager in the Microsoft Purview portal",
+      "es": "Compliance Manager en el portal de Microsoft Purview"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "The Microsoft Service Trust Portal",
+      "es": "El Microsoft Service Trust Portal"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "The audit log in Microsoft Purview Audit",
+      "es": "El registro de Microsoft Purview Audit"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "The Service Trust Portal is where Microsoft publishes audit reports produced by independent auditors, along with whitepapers and compliance guides on how its cloud services protect data; some documents require signing in with an organizational account. Compliance Manager and the Defender for Cloud dashboard assess your own configuration against standards, and Purview Audit records user and admin activity in your tenant, not Microsoft's certifications.",
+    "es": "El Service Trust Portal es donde Microsoft publica los informes de auditoría hechos por auditores independientes, junto con documentos técnicos y guías de cumplimiento sobre cómo sus servicios en la nube protegen los datos; algunos documentos requieren iniciar sesión con una cuenta de la organización. Compliance Manager y el panel de Defender for Cloud evalúan tu propia configuración contra estándares, y Purview Audit registra la actividad de usuarios y administradores en tu tenant, no las certificaciones de Microsoft."
+   }
+  },
+  {
+   "id": "sc900-033",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "A compliance officer must show progress toward ISO 27001 for the company's Microsoft 365 environment. She wants a prebuilt assessment, step-by-step actions she can assign to colleagues with evidence attached, and a view of which controls Microsoft already handles. Which solution should she use?",
+    "es": "Una responsable de cumplimiento tiene que mostrar el avance hacia ISO 27001 en el entorno de Microsoft 365 de la empresa. Quiere una evaluación ya armada, acciones paso a paso que pueda asignar a sus colegas con evidencia adjunta y una vista de qué controles ya maneja Microsoft. ¿Qué solución debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The Microsoft Service Trust Portal",
+      "es": "El Microsoft Service Trust Portal"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Purview Insider Risk Management",
+      "es": "Microsoft Purview Insider Risk Management"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Purview Compliance Manager",
+      "es": "Microsoft Purview Compliance Manager"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Purview eDiscovery",
+      "es": "Microsoft Purview eDiscovery"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Compliance Manager offers assessments built from templates for hundreds of regulations and standards, improvement actions you can assign, test and document with evidence, and a split between your controls, shared controls and Microsoft-managed controls. Its compliance score shows progress. The Service Trust Portal only publishes Microsoft's own audit reports, eDiscovery finds content for legal cases, and Insider Risk Management looks for risky user activity.",
+    "es": "Compliance Manager ofrece evaluaciones armadas a partir de plantillas para cientos de regulaciones y estándares, acciones de mejora que podés asignar, probar y documentar con evidencia, y una división entre tus controles, los compartidos y los que administra Microsoft. Su compliance score muestra el avance. El Service Trust Portal sólo publica los informes de auditoría de Microsoft, eDiscovery encuentra contenido para casos legales e Insider Risk Management busca actividad riesgosa de los usuarios."
+   }
+  },
+  {
+   "id": "sc900-034",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "Management asks what the compliance score in Microsoft Purview Compliance Manager actually measures. Which TWO statements are correct? (Select TWO.)",
+    "es": "La dirección pregunta qué mide en realidad el compliance score de Microsoft Purview Compliance Manager. ¿Qué afirmaciones son correctas? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "It only counts the controls that the organization implements by itself",
+      "es": "Sólo cuenta los controles que la organización implementa por su cuenta"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "It tracks completed improvement actions, each worth points based on its risk",
+      "es": "Sigue las acciones de mejora completadas, cada una con puntos según su riesgo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A score of 100% certifies that the organization complies with the regulation",
+      "es": "Un puntaje del 100 % certifica que la organización cumple con la regulación"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "It includes points for actions Microsoft completed as the cloud provider",
+      "es": "Incluye puntos por acciones que Microsoft completó como proveedor de la nube"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "It's calculated from the number of open security alerts in the Defender portal",
+      "es": "Se calcula a partir de la cantidad de alertas de seguridad abiertas en el portal de Defender"
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "D"
+   ],
+   "explanation": {
+    "en": "Compliance Manager awards points for completed improvement actions, with values that depend on the risk involved, and the score combines your points with Microsoft-managed points for actions Microsoft already handles as the provider. It helps you prioritize and track progress, but it isn't a certification: only an auditor or regulator can determine that you comply. Security alerts feed Defender XDR incidents, not the compliance score.",
+    "es": "Compliance Manager da puntos por las acciones de mejora completadas, con valores que dependen del riesgo involucrado, y el puntaje combina tus puntos con los administrados por Microsoft, por acciones que Microsoft ya resuelve como proveedor. Te ayuda a priorizar y seguir el avance, pero no es una certificación: sólo un auditor o un regulador puede determinar que cumplís. Las alertas de seguridad alimentan los incidentes de Defender XDR, no el compliance score."
+   }
+  },
+  {
+   "id": "sc900-035",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "A company wants documents classified as Confidential to be encrypted so that only employees can open them, to show a \"Confidential\" header and to keep that protection even after they're emailed outside the company. What should it use?",
+    "es": "Una empresa quiere que los documentos clasificados como Confidencial queden cifrados para que sólo los empleados puedan abrirlos, que muestren un encabezado \"Confidencial\" y que conserven esa protección aun después de mandarlos por mail fuera de la empresa. ¿Qué debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "SharePoint site permissions limited to employees",
+      "es": "Permisos del sitio de SharePoint limitados a los empleados"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Sensitivity labels, published through a label policy",
+      "es": "Etiquetas de confidencialidad, publicadas con una política de etiquetas"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Retention labels applied to each of the documents",
+      "es": "Etiquetas de retención aplicadas a cada uno de los documentos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A DLP policy that blocks all external sharing",
+      "es": "Una política de DLP que bloquee todo el uso compartido externo"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Sensitivity labels classify content and can apply encryption that travels with the file wherever it goes, plus content markings such as headers, footers and watermarks. Label policies publish the labels to users and can set a default label or require a justification to lower one. Retention labels decide how long content is kept, a DLP policy that blocks sharing would stop the email instead of protecting the file, and site permissions don't follow a file once it leaves the site.",
+    "es": "Las etiquetas de confidencialidad clasifican el contenido y pueden aplicar un cifrado que viaja con el archivo adonde vaya, además de marcas como encabezados, pies de página y marcas de agua. Las políticas de etiquetas las publican a los usuarios y pueden fijar una etiqueta predeterminada o exigir una justificación para bajarla. Las etiquetas de retención deciden cuánto se guarda el contenido, una política de DLP que bloquee el envío frenaría el mail sin proteger el archivo, y los permisos del sitio no lo siguen cuando sale."
+   }
+  },
+  {
+   "id": "sc900-036",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "A bank wants to warn users with a policy tip when they try to share a document containing credit card numbers outside the company in Exchange, SharePoint or Teams, and to block copying such files to USB drives on Windows devices. What should it configure?",
+    "es": "Un banco quiere avisarles a los usuarios con una sugerencia de directiva (policy tip) cuando intenten compartir fuera de la empresa un documento con números de tarjeta de crédito en Exchange, SharePoint o Teams, y bloquear la copia de esos archivos a pendrives en los equipos Windows. ¿Qué debería configurar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A Conditional Access policy that blocks unmanaged devices",
+      "es": "Una política de Conditional Access que bloquee dispositivos no administrados"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "An insider risk management policy for data leaks",
+      "es": "Una política de insider risk management para fugas de datos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A retention policy for the Exchange and SharePoint locations",
+      "es": "Una política de retención para las ubicaciones de Exchange y SharePoint"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A Microsoft Purview DLP policy that also covers devices",
+      "es": "Una política de DLP de Microsoft Purview que también cubra los dispositivos"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Data loss prevention policies detect sensitive information types, such as credit card numbers, in email, SharePoint, OneDrive, Teams and, with endpoint DLP, on Windows and macOS devices, and can show policy tips, block actions or let users override with a justification. Insider risk management correlates many signals to find risky users rather than enforcing a rule on each action. Retention keeps or deletes content, and Conditional Access controls sign-ins, not what's inside files.",
+    "es": "Las políticas de DLP detectan tipos de información confidencial, como números de tarjeta, en el correo, SharePoint, OneDrive, Teams y, con DLP de endpoints, en equipos Windows y macOS, y pueden mostrar sugerencias, bloquear acciones o dejar seguir con una justificación. Insider risk management correlaciona muchas señales para encontrar usuarios riesgosos, en vez de aplicar una regla en cada acción. La retención guarda o borra contenido, y Conditional Access controla inicios de sesión, no lo que hay en los archivos."
+   }
+  },
+  {
+   "id": "sc900-037",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "A company keeps everything in a SharePoint site for five years with a retention policy, but its signed contracts must be kept for ten years and declared as records. Which TWO statements about retention labels apply to this plan? (Select TWO.)",
+    "es": "Una empresa guarda todo lo de un sitio de SharePoint durante cinco años con una política de retención, pero sus contratos firmados tienen que guardarse diez años y declararse como registros. ¿Qué afirmaciones sobre las etiquetas de retención aplican a este plan? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The site's retention policy will delete the contracts after five years",
+      "es": "La política de retención del sitio va a borrar los contratos a los cinco años"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Retention labels can only be applied to whole sites and mailboxes",
+      "es": "Las etiquetas de retención sólo se pueden aplicar a sitios y buzones completos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A retention label can give individual items, such as each contract, ten-year retention",
+      "es": "Una etiqueta de retención puede darles a elementos individuales, como cada contrato, diez años de retención"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An item can carry several retention labels at once, one for each regulation that applies",
+      "es": "Un elemento puede tener varias etiquetas de retención a la vez, una por cada regulación que aplique"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "A retention label can mark an item as a record, which restricts edits and deletion",
+      "es": "Una etiqueta de retención puede marcar un elemento como registro, lo que restringe ediciones y borrados"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "E"
+   ],
+   "explanation": {
+    "en": "Retention policies set the same retention for a whole location such as a site or mailbox, while retention labels work item by item and can declare an item a record, which blocks certain edits and deletion and keeps proof of disposition. A labeled contract is kept for the longer period, so the five-year policy doesn't delete it early. Each item can carry only one retention label at a time, and labels apply to items, not to whole sites.",
+    "es": "Las políticas de retención fijan la misma retención para toda una ubicación, como un sitio o un buzón, y las etiquetas van elemento por elemento y pueden declarar un elemento como registro, lo que bloquea ciertas ediciones y el borrado y deja prueba de la eliminación. Un contrato etiquetado se conserva por el período más largo, así que la política de cinco años no lo borra antes. Cada elemento puede tener una sola etiqueta de retención a la vez, y las etiquetas se aplican a elementos, no a sitios completos."
+   }
+  },
+  {
+   "id": "sc900-038",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "A compliance admin wants to see which users changed a document's sensitivity label from Confidential to Public last month, and which labeled files were copied to USB drives. Which tool should she use?",
+    "es": "Una administradora de cumplimiento quiere ver qué usuarios cambiaron la etiqueta de confidencialidad de un documento de Confidencial a Público el mes pasado, y qué archivos etiquetados se copiaron a pendrives. ¿Qué herramienta debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Activity explorer",
+      "es": "Activity explorer"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Purview Data Map",
+      "es": "Microsoft Purview Data Map"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Content explorer",
+      "es": "Content explorer"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Compliance Manager",
+      "es": "Compliance Manager"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Activity explorer shows what users do with labeled and classified content over time, such as label changes and downgrades and, with endpoint DLP signals, file copies to removable media or printing. Content explorer shows a current snapshot of where labeled or sensitive items are and, with special permissions, their contents, but not the history of actions. Compliance Manager tracks regulatory controls, and Data Map catalogs data sources for data governance.",
+    "es": "Activity explorer muestra qué hacen los usuarios con el contenido etiquetado y clasificado a lo largo del tiempo, como cambios y bajas de etiqueta y, con las señales de DLP de endpoints, copias a medios extraíbles o impresiones. Content explorer muestra una foto actual de dónde están los elementos etiquetados o sensibles y, con permisos especiales, su contenido, pero no el historial de acciones. Compliance Manager sigue controles regulatorios, y Data Map cataloga orígenes de datos para el gobierno de datos."
+   }
+  },
+  {
+   "id": "sc900-039",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "HR has noticed that some employees download large amounts of customer data in the weeks before they resign. The company wants alerts that correlate resignation dates from an HR connector with unusual downloads, while keeping user names pseudonymized for investigators. Which solution fits?",
+    "es": "RR. HH. notó que algunos empleados descargan grandes cantidades de datos de clientes en las semanas antes de renunciar. La empresa quiere alertas que crucen las fechas de renuncia de un conector de RR. HH. con descargas inusuales, manteniendo seudonimizados los nombres de usuario para los investigadores. ¿Qué solución encaja?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Microsoft Purview Audit (Standard)",
+      "es": "Microsoft Purview Audit (Standard)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Microsoft Entra access reviews",
+      "es": "Las revisiones de acceso de Entra"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Microsoft Defender for Identity",
+      "es": "Microsoft Defender for Identity"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Microsoft Purview Insider Risk Management",
+      "es": "Microsoft Purview Insider Risk Management"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Insider Risk Management uses policy templates such as data theft by departing users, combines signals from Microsoft 365, devices and an HR connector, and raises alerts on risky activity. Privacy is built in: user names can be pseudonymized and access to cases is controlled by role. Defender for Identity looks for attacks on Active Directory, Audit records activity without scoring risk, and access reviews recertify access rather than spotting data theft.",
+    "es": "Insider Risk Management usa plantillas de políticas como el robo de datos de usuarios que se van, combina señales de Microsoft 365, de los dispositivos y de un conector de RR. HH., y genera alertas ante actividad riesgosa. La privacidad viene incorporada: los nombres de usuario se pueden seudonimizar y el acceso a los casos se controla por rol. Defender for Identity busca ataques contra Active Directory, Audit registra actividad sin evaluar el riesgo y las revisiones de acceso recertifican accesos, no detectan robos de datos."
+   }
+  },
+  {
+   "id": "sc900-040",
+   "domain": "Describe the capabilities of Microsoft compliance solutions",
+   "prompt": {
+    "en": "Investigators need to find out who deleted a set of files from a SharePoint site ten months ago. The company only has Audit (Standard). What should it know about this request?",
+    "es": "Los investigadores necesitan saber quién borró un conjunto de archivos de un sitio de SharePoint hace diez meses. La empresa sólo tiene Audit (Standard). ¿Qué debería saber sobre este pedido?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Audit (Standard) keeps records for 10 years, so a search will find the deletions",
+      "es": "Audit (Standard) guarda los registros 10 años, así que una búsqueda va a encontrar los borrados"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The audit log must be turned on site by site before any record is created",
+      "es": "El registro de auditoría hay que activarlo sitio por sitio antes de que se cree algún registro"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Audit (Standard) keeps records for 180 days, so the events are already gone",
+      "es": "Audit (Standard) guarda los registros durante 180 días, así que esos eventos ya se perdieron"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "SharePoint file activity isn't audited, so it has to use eDiscovery instead",
+      "es": "La actividad de archivos de SharePoint no se audita, así que tiene que usar eDiscovery"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Audit (Standard) is on by default and keeps records for 180 days, so activity from ten months ago is already gone. Audit (Premium) keeps Entra ID, Exchange, OneDrive and SharePoint records for one year by default and supports retention policies of up to 10 years with an add-on license. SharePoint file deletions are audited events, and eDiscovery searches content such as documents and mail for legal cases, not a log of who did what.",
+    "es": "Audit (Standard) viene activado por defecto y guarda los registros 180 días, así que la actividad de hace diez meses ya no está. Audit (Premium) guarda por un año, por defecto, los registros de Entra ID, Exchange, OneDrive y SharePoint, y admite políticas de retención de hasta 10 años con una licencia adicional. Los borrados de archivos en SharePoint son eventos auditados, y eDiscovery busca contenido como documentos y correos para casos legales, no un registro de quién hizo qué."
+   }
+  }
+ ]
+}
