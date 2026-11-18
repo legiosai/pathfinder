@@ -17,8 +17,21 @@
     "style": "knowledge",
     "format": "150 multiple-choice questions in 4 hours, at a PSI test centre or remotely proctored, in English, Chinese, Spanish, Japanese, French or German. Registration opens a six-month window to sit the exam. Scores are scaled; pretest items are not scored.",
     "questions": "150",
+    "question_count": 150,
     "passing": "450 scaled (200–800)",
-    "validity": "1 year"
+    "validity": "1 year",
+    "languages": [
+      "en",
+      "es",
+      "zh-Hans",
+      "ja",
+      "fr",
+      "de"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Managing an enterprise information security program: governance and strategy, risk management, program development and management, and incident readiness and response.",
   "requirements": "Anyone can sit the exam. To be certified: five or more years of CISM work experience across at least three of the four domains, gained within the 10 years before applying and verified by a supervisor; ISACA's candidate guide allows waivers for up to two of those years. Apply within five years of passing, pay the US$50 application fee and follow ISACA's Code of Professional Ethics and CPE policy.",
@@ -27,6 +40,29 @@
     "The exam moved to a new content outline on 3 November 2026: more emphasis on security strategy and program development, plus enterprise architecture and information security architecture. The weights here are the new ones. ISACA released updated prep material on 1 September 2026; material written for the 2022 outline predates the new content areas.",
     "Validity is yearly: ISACA renews the certification each calendar year with the maintenance fee and at least 20 CPE hours, and 120 over each three-year cycle. From 1 January 2027 at least 90 of those 120 hours must align with the exam content outline.",
     "Up to four attempts in a rolling 12 months (waits of 30, 90 and 90 days), each paid in full."
+  ],
+  "access": {
+    "discounts": [
+      {
+        "text": "ISACA members pay US$575 for the exam instead of US$760.",
+        "url": "https://www.isaca.org/credentialing/cism"
+      }
+    ],
+    "retake": "Up to four attempts in a rolling 12 months: wait 30 days before the second attempt and 90 days before the third and the fourth. Each attempt is paid in full."
+  },
+  "timeline": [
+    {
+      "date": "2026-11-03",
+      "kind": "changes",
+      "text": "The updated CISM exam is in use: same four domains and weights, more on security strategy and program development, and new enterprise and information security architecture content.",
+      "source": "S52"
+    },
+    {
+      "date": "2027-01-01",
+      "kind": "changes",
+      "text": "New CPE rule: at least 90 of the 120 CPE hours in each three-year cycle must align with the CISM exam content outline.",
+      "source": "S56"
+    }
   ],
   "skills": [
     "security"

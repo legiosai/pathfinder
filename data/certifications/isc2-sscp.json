@@ -17,8 +17,17 @@
     "style": "knowledge",
     "format": "Computerized adaptive test (CAT) at Pearson VUE test centers: 100–125 multiple choice and advanced items in 2 hours. Offered in English, Japanese and Spanish.",
     "questions": "100–125 (CAT)",
+    "question_count": 125,
     "passing": "700 scaled (out of 1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "es"
+    ],
+    "delivery": [
+      "test-center"
+    ]
   },
   "scope": "Hands-on operational security: security concepts and practices, access controls, risk monitoring and analysis, incident response and recovery, cryptography, network and communications security, and systems and application security.",
   "requirements": "To be certified: one year of full-time experience in one or more of the seven SSCP domains; a relevant bachelor's or master's degree can satisfy it, and part-time work and internships count. Without it, passing makes you an Associate of ISC2 with up to two years to earn the experience. Within nine months of passing, an ISC2-certified member (or ISC2, with proof of employment) must endorse the application.",
@@ -29,6 +38,9 @@
     "An exam-only purchase is one attempt that must be taken within 365 days. ISC2 also sells Peace of Mind Protection (two attempts within 180 days); its price is not on the pricing page.",
     "Staying certified: U.S. $135 a year and 60 CPE credits per three-year cycle. Associates of ISC2 pay U.S. $50 a year and earn 15 CPE credits a year."
   ],
+  "access": {
+    "retake": "Wait 30 days after a failed first attempt, 60 after the second and 90 after later ones; at most four attempts in 12 months. An exam-only purchase covers one attempt (Peace of Mind Protection covers two)."
+  },
   "skills": [
     "security",
     "identity",
@@ -75,7 +87,8 @@
     "S30",
     "S31",
     "S32",
-    "S33"
+    "S33",
+    "D12"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

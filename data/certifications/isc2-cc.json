@@ -17,8 +17,19 @@
     "style": "knowledge",
     "format": "Computerized adaptive test (CAT) at Pearson VUE test centers: 100–125 multiple choice and advanced items in 2 hours. Offered in English, Chinese, Japanese, German and Spanish (Chinese only in set windows).",
     "questions": "100–125 (CAT)",
+    "question_count": 125,
     "passing": "700 scaled (out of 1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "de",
+      "es"
+    ],
+    "delivery": [
+      "test-center"
+    ]
   },
   "scope": "Foundational security principles, security governance and risk, identity and access management, networking and cloud security concepts, and security operations and incident response, with foundational AI topics across the outline.",
   "requirements": "No work experience or degree required; ISC2 recommends basic IT knowledge. After passing, candidates complete an application and pay the U.S. $50 annual maintenance fee; no endorsement is needed.",
@@ -30,13 +41,32 @@
     "An exam-only purchase is one attempt that must be taken within 365 days. ISC2 also sells Peace of Mind Protection (two attempts within 180 days); its price is not on the pricing page.",
     "Staying certified: U.S. $50 a year (members who hold only CC) and 45 CPE credits per three-year cycle."
   ],
+  "access": {
+    "free_routes": [
+      {
+        "text": "One Million Certified in Cybersecurity: an unexpired exam code issued by the program covers the exam if you sit it by December 31, 2026. The program closed to new enrollments on May 20, 2026.",
+        "url": "https://www.isc2.org/landing/1mcc",
+        "until": "2026-12-31"
+      }
+    ],
+    "retake": "Wait 30 days after a failed first attempt, 60 after the second and 90 after later ones; at most four attempts in 12 months. An exam-only purchase covers one attempt (Peace of Mind Protection covers two)."
+  },
+  "timeline": [
+    {
+      "date": "2026-12-31",
+      "kind": "deadline",
+      "text": "Last day to sit the exam with a One Million Certified in Cybersecurity exam code.",
+      "source": "S28"
+    }
+  ],
   "skills": [
     "security",
     "identity",
     "networking"
   ],
   "roles": [
-    "security"
+    "security",
+    "soc-analyst"
   ],
   "domains": [
     {
@@ -68,7 +98,8 @@
     "S29",
     "S30",
     "S31",
-    "S33"
+    "S33",
+    "D12"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

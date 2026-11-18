@@ -1,0 +1,104 @@
+{
+  "id": "lpi-linux-essentials",
+  "name": "LPI Linux Essentials",
+  "provider": "LPI",
+  "code": "010-200",
+  "type": "certificate",
+  "category": "Cloud & platform",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 120,
+    "basis": "Exam only",
+    "note": "US price for one exam voucher. LPI prices by country: USD 100 in Argentina and Mexico and EUR 110 in Spain on LPI's pricing page."
+  },
+  "exam": {
+    "minutes": 60,
+    "style": "knowledge",
+    "format": "40 questions in 60 minutes, at a Pearson VUE test center or online through OnVUE. No prerequisites.",
+    "questions": "40",
+    "question_count": 40,
+    "passing": "500 scaled (200–800)",
+    "validity": "Lifetime",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Linux and open source basics: distributions, major open source applications and licenses, the command line, files and directories, archives, redirection and simple shell scripts, hardware, processes and logs, network configuration, users, groups and file permissions, SSH, systemd, and cloud and container concepts.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Version 2.0 (exam 010-200) is the current one. Version 1.6 (010-160) can still be taken until April 2027; LPI gives no exact day. Prep material written for 1.6 does not match the 2.0 objectives, which add systemd, SSH, cloud computing and containers.",
+    "Version 2.0 is offered in English only for now: LPI says French, German, Italian, Japanese, Portuguese and Spanish translations will be released within the next few months. The OnVUE online interface is in English only.",
+    "Linux Essentials is a standalone certificate outside the LPIC track and does not expire."
+  ],
+  "skills": [
+    "linux"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "The Linux Operating System and Open Source Software",
+      "weight": 17.5
+    },
+    {
+      "name": "Command Line Basics",
+      "weight": 22.5
+    },
+    {
+      "name": "Data Processing",
+      "weight": 22.5
+    },
+    {
+      "name": "Linux System Administration Basics",
+      "weight": 20
+    },
+    {
+      "name": "Security and Filesystem Permissions",
+      "weight": 17.5
+    }
+  ],
+  "sources": [
+    "F07",
+    "F08",
+    "F09",
+    "F10",
+    "F11",
+    "F12"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Linux Essentials 010 exam objectives (version 2.0)",
+      "url": "https://www.lpi.org/our-certifications/exam-010-objectives/",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "LPI Learning Materials: Linux Essentials 2.0",
+      "url": "https://learning.lpi.org/en/learning-materials/010-200/",
+      "kind": "course",
+      "cost": "free",
+      "note": "Lessons for every objective, online and as PDF."
+    },
+    {
+      "title": "LPI Learning Materials: Linux Essentials 2.0 (en español)",
+      "url": "https://learning.lpi.org/es/learning-materials/010-200/",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same lessons in Spanish, online and as PDF."
+    }
+  ],
+  "domains_note": "LPI weights each objective, and the weights add up to 40, one per question. These are the topic totals (7, 9, 9, 8 and 7) as a share of 40, from the Linux Essentials 010 objectives version 2.0, read 2026-11-17.",
+  "access": {
+    "retake": "Wait one week after a first attempt and 14 days after a second or later one; a passed exam cannot be retaken for two years."
+  }
+}

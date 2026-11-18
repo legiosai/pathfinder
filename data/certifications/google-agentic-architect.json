@@ -6,21 +6,38 @@
   "type": "certification",
   "category": "AI engineering",
   "level": "professional",
-  "status": "upcoming",
+  "status": "available",
   "fee": {
     "usd": 200,
-    "basis": "Announced retail",
-    "note": "Announced retail price, not a verified available appointment. The $120 beta registration closed on 30 September 2026."
+    "basis": "Exam + required labs",
+    "note": "US list price plus tax where applicable; Google says the certification costs $200. The $120 beta closed on 30 September 2026."
   },
   "exam": {
-    "minutes": null,
+    "minutes": 120,
     "style": "knowledge",
-    "format": "Official FAQ announces GA in mid-November 2026, with a two-hour proctored exam plus required separate hands-on labs. Passing the exam alone does not earn the credential."
+    "format": "Two parts: a 2-hour proctored exam of 50–60 multiple choice questions, delivered by Pearson online or at a test center, then two hands-on labs in Google Skills. Candidates who pass the exam get two months to finish the labs; both parts are needed to earn the certification.",
+    "questions": "50–60",
+    "question_count": 60,
+    "validity": "1 year",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Designing agentic systems on Google Cloud.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "Valid for one year, unlike the two years of Google Cloud's other professional certifications; Google says a continuing education path will keep it active.",
+    "Passing the exam alone does not certify: results arrive in 7–10 business days, and the labs must be completed within two months. If the labs are not finished in time, the exam has to be taken again.",
+    "Google reports pass/fail only and does not publish a passing score."
+  ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third. Failing the exam, or not finishing the labs within two months, means taking the exam again."
+  },
   "skills": [
     "gcp",
     "agents",
@@ -54,10 +71,11 @@
   "sources": [
     "X16",
     "X17",
-    "Z04"
+    "Z04",
+    "P59"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [],
-  "domains_note": "Weights from the Google Cloud Professional Agentic Architect exam guide linked from the certification page, read 2026-11-03. Google marks each weight as approximate (~) and they cover the multiple-choice exam only; the required hands-on labs are separate and unweighted. The page still describes the beta; GA opens mid-November 2026, so recheck the guide at GA."
+  "domains_note": "Weights from the Google Cloud Professional Agentic Architect exam guide (PDF dated 4 November 2026), read 2026-11-17; unchanged from the beta guide. Google marks each weight as approximate (~) and they cover the multiple-choice exam only; the required hands-on labs are separate and unweighted."
 }

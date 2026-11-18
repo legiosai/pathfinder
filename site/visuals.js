@@ -76,11 +76,12 @@ const LEVEL_PIPS = { entry: 1, associate: 2, professional: 3, expert: 4 };
 // Gradient ids must be unique per badge: a gradient defined inside a hidden view does not paint elsewhere.
 let uid = 0;
 
-/** The issuer's official badge when the catalog has one, otherwise a generated hexagon: issuer colour, logo, code ribbon and level pips. */
-export function badge(cert, size = 64, { label = true } = {}) {
+/** The issuer's official badge when the catalog has one, otherwise a generated hexagon: issuer colour, logo, code ribbon and level pips.
+ *  Official images load lazily; pass `eager` for the few that are visible as the page opens. */
+export function badge(cert, size = 64, { label = true, eager = false } = {}) {
   if (cert.badge && cert.badge.src) {
     const alt = label ? `${esc(cert.provider)} ${esc(cert.code)} badge` : '';
-    return `<img class="badge official" src="${esc(cert.badge.src)}" width="${size}" height="${(size * 112) / 100}" alt="${alt}" decoding="async" draggable="false">`;
+    return `<img class="badge official" src="${esc(cert.badge.src)}" width="${size}" height="${Math.round((size * 112) / 100)}" alt="${alt}"${eager ? '' : ' loading="lazy"'} decoding="async" draggable="false">`;
   }
   const p = providerOf(cert.provider);
   const id = `pfg${++uid}`;

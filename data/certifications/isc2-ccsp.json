@@ -17,8 +17,18 @@
     "style": "knowledge",
     "format": "Computerized adaptive test (CAT) at Pearson VUE test centers: 100–150 multiple choice and advanced items in 3 hours. Offered in English, Chinese, German and Japanese (Chinese only in set windows).",
     "questions": "100–150 (CAT)",
+    "question_count": 150,
     "passing": "700 scaled (out of 1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "de"
+    ],
+    "delivery": [
+      "test-center"
+    ]
   },
   "scope": "Vendor-neutral cloud security: cloud concepts, architecture and design, cloud data security, platform and infrastructure security, application security, security operations, and legal, risk and compliance.",
   "requirements": "To be certified: five years of cumulative full-time IT experience, three of them in cybersecurity and one in one or more of the six CCSP domains. A relevant degree or CSA's CCSK can waive one year (one at most); an active CISSP replaces the whole requirement. Without the experience, passing makes you an Associate of ISC2 with six years to earn it. Within nine months of passing, an ISC2-certified member (or ISC2, with proof of employment) must endorse the application.",
@@ -29,6 +39,9 @@
     "The fee is not refunded if the exam is not taken within 365 days of purchase.",
     "Staying certified: U.S. $135 a year and 90 CPE credits per three-year cycle. Associates of ISC2 pay U.S. $50 a year and earn 15 CPE credits a year."
   ],
+  "access": {
+    "retake": "Wait 30 days after a failed first attempt, 60 after the second and 90 after later ones; at most four attempts in 12 months. An exam-only purchase covers one attempt (Peace of Mind Protection covers two)."
+  },
   "skills": [
     "security",
     "identity",
@@ -72,7 +85,8 @@
     "S30",
     "S31",
     "S32",
-    "S33"
+    "S33",
+    "D12"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

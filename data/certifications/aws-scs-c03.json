@@ -4,7 +4,7 @@
   "provider": "AWS",
   "code": "SCS-C03",
   "type": "certification",
-  "category": "Cloud & platform",
+  "category": "Cybersecurity",
   "level": "professional",
   "status": "available",
   "fee": {
@@ -15,12 +15,48 @@
   "exam": {
     "minutes": 170,
     "style": "knowledge",
-    "format": "65 questions, 170 minutes, three-year validity. AWS's intended audience has five years in IT security and two securing AWS workloads; no prior certification is required."
+    "format": "65 questions (multiple choice, multiple response, ordering and matching), 170 minutes, at a Pearson VUE test center or online proctored. AWS's intended audience has five years in IT security and two securing AWS workloads; no prior certification is required.",
+    "questions": "65 (50 scored)",
+    "question_count": 65,
+    "passing": "750 scaled (100–1,000)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "ko",
+      "pt-BR",
+      "es-419",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Securing AWS workloads: identity and access, data protection, detection, incident response and infrastructure security.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "The Spanish (Latin America) version is retired after December 31, 2026, along with Portuguese (Brazil) and Simplified Chinese."
+  ],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-12-31",
+      "kind": "retires",
+      "text": "Last day for the Spanish (Latin America), Portuguese (Brazil) and Simplified Chinese versions; from 2027 the exam is offered in English, Japanese and Korean.",
+      "source": "X14"
+    }
+  ],
   "skills": [
     "aws",
     "security",
@@ -57,10 +93,23 @@
   ],
   "sources": [
     "X14",
-    "Z02"
+    "Z02",
+    "A02",
+    "P16",
+    "D08",
+    "D15"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
-  "prep": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Exam Prep Plan: AWS Certified Security - Specialty (SCS-C03 - Español LATAM)",
+      "url": "https://skillbuilder.aws/learning-plan/2D57DTTB9T/exam-prep-plan-security--specialty-scsc03--espaol-latam/BM513MEW66",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's 4-step exam prep plan in Latin American Spanish; some trainings in it need a Skill Builder subscription."
+    }
+  ],
   "domains_note": "Weights from the AWS Certification Exam Guide (SCS-C03), read 2026-11-03."
 }

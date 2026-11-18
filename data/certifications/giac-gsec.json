@@ -17,8 +17,13 @@
     "style": "hybrid",
     "format": "One proctored web-based exam: 106 questions in 4 hours, remotely through ProctorU or at a Pearson VUE test centre, with CyberLive hands-on lab testing described on the exam page. Open book for printed material only. The attempt must be completed within 120 days of activation.",
     "questions": "106",
+    "question_count": 106,
     "passing": "72%",
-    "validity": "4 years"
+    "validity": "4 years",
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Hands-on security essentials: access control and passwords, network architecture and protocols, cryptography, Linux and Windows security, AWS and Azure operations, endpoint and web security, incident handling, logging and SIEM, and vulnerability scanning.",
   "requirements": "",
@@ -29,13 +34,17 @@
     "The exam page describes CyberLive hands-on testing but does not say how many items are hands-on.",
     "Renewal every four years: 36 CPE credits or a retake, plus the US$499 renewal fee (US$249 for additional renewals within two years of a full-price renewal)."
   ],
+  "access": {
+    "retake": "After a failed attempt wait 30 days; a retake costs US$899 and can be bought until 30 days after the attempt deadline. After three failed attempts, wait one year."
+  },
   "skills": [
     "security",
     "networking",
     "identity"
   ],
   "roles": [
-    "security"
+    "security",
+    "soc-analyst"
   ],
   "domains": [],
   "sources": [
@@ -43,7 +52,8 @@
     "S71",
     "S72",
     "S73",
-    "S74"
+    "S74",
+    "D14"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

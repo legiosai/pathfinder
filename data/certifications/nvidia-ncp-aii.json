@@ -1,6 +1,6 @@
 {
   "id": "nvidia-ncp-aii",
-  "name": "AI Infrastructure",
+  "name": "NVIDIA-Certified Professional: AI Infrastructure",
   "provider": "NVIDIA",
   "code": "NCP-AII",
   "type": "certification",
@@ -10,17 +10,42 @@
   "fee": {
     "usd": 400,
     "basis": "Exam only",
-    "note": ""
+    "note": "Additional taxes may apply in some countries."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "70–75 questions listed; 120 minutes. Lab metadata: Not listed in reviewed metadata."
+    "format": "70–75 questions; 120 minutes. Pass/fail; NVIDIA does not publish a passing score.",
+    "questions": "70–75",
+    "question_count": 75,
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Attendees of NVIDIA's certification roadmap webinar on 19 November 2026 (one session for EMEA/APAC, one for the Americas and LATAM) receive a 50% discount code for an NVIDIA certification exam.",
+        "url": "https://www.nvidia.com/en-us/events/webinars/nvidia-certification-roadmap-ai-stack/",
+        "until": "2026-11-19"
+      }
+    ],
+    "retake": "After a failed attempt you buy the exam again and wait 14 days before retaking it, with at most five attempts per exam in 12 months.",
+    "accommodations": "Non-native English speakers can ask for extra time (approved case by case) and candidates can ask for disability accommodations, both through an NVIDIA support case opened before the exam."
   },
   "scope": "Deploying and managing AI infrastructure.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [],
+  "timeline": [
+    {
+      "date": "2026-11-19",
+      "kind": "deadline",
+      "text": "NVIDIA's certification webinar sessions; attendees receive a 50% exam discount code.",
+      "source": "E15"
+    }
+  ],
   "skills": [
     "gpu-infra",
     "networking"
@@ -51,10 +76,20 @@
     }
   ],
   "sources": [
-    "N15"
+    "N15",
+    "E14",
+    "E15"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
-  "prep": [],
-  "domains_note": "Weights from NVIDIA's NCP-AII exam page (Exam Preparation Topics, Exam Weight per section), read 2026-11-03."
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "NCP-AII practice questions (Learning Mode)",
+      "url": "https://www.nvidia.com/en-us/learn/certification/ai-infrastructure-professional/#practice-test",
+      "kind": "practice",
+      "cost": "free",
+      "note": "Sample questions with the answer and an explanation, embedded in NVIDIA's exam page."
+    }
+  ],
+  "domains_note": "Weights from NVIDIA's NCP-AII exam page (Exam Preparation Topics, Exam Weight per section), read 2026-11-03 and rechecked 2026-11-17."
 }

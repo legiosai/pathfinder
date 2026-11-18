@@ -10,15 +10,46 @@
   "fee": {
     "usd": null,
     "basis": "Regional exam price",
-    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes."
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. US price USD 165; USD 99 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America; EUR 126 in Spain (Microsoft's price list, 2026-11-17)."
   },
   "exam": {
     "minutes": 100,
     "style": "knowledge",
     "format": "Proctored 100-minute exam through Pearson VUE; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
     "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
     "passing": "700 scaled (1–1,000)",
-    "validity": "1 year; renewable free online"
+    "validity": "1 year; renewable free online",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans",
+      "ko",
+      "de",
+      "fr",
+      "es",
+      "pt-BR",
+      "zh-Hant",
+      "it"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Academic pricing for students in most countries (not India or China): identify as a student in your Microsoft Learn profile and verify your status before registering.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts"
+      },
+      {
+        "text": "Exam Replay (Pearson VUE): one exam plus one retake of the same exam, both within 12 months of purchase; USD 230 on the US store. Not valid for Fundamentals exams.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals"
+      }
+    ],
+    "retake": "After a failed attempt you wait 24 hours to retake, then 14 days between later attempts, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "You can request 30 extra minutes only when the exam is not offered in your preferred language (this one is offered in Spanish); other accommodations are requested through Pearson VUE before you schedule."
   },
   "scope": "Preparing, modeling, visualizing and analyzing data in Power BI, and managing and securing Power BI; Power Query and DAX are expected.",
   "requirements": "",
@@ -56,7 +87,15 @@
     "P34",
     "Z12",
     "Z13",
-    "Z14"
+    "Z14",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
@@ -75,11 +114,19 @@
       "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
     },
     {
+      "title": "Curso PL-300T00-A: Diseño y administración de soluciones de análisis mediante Power BI",
+      "url": "https://learn.microsoft.com/es-es/training/courses/pl-300t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same course on Microsoft Learn in Spanish; the self-paced learning paths are free, the instructor-led delivery is paid."
+    },
+    {
       "title": "Official PL-300 practice assessment",
-      "url": "https://aka.ms/PL300-PA",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/practice/assessment?assessment-type=practice&assessmentId=48&practice-assessment-type=certification",
       "kind": "practice",
       "cost": "free",
-      "note": "On AI Skills Navigator; needs a sign-in."
+      "note": "Free on Microsoft Learn. Microsoft no longer updates these Learn practice assessments and recommends the newer one on AI Skills Navigator, which needs a sign-in."
     }
   ],
   "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn PL-300 study guide (25–30%, 25–30%, 25–30%, 15–20%; skills measured as of April 20, 2026), rounded to whole numbers that add up to 100. Rounding ties go to the domains listed first. Read 2026-11-17."

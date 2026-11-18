@@ -10,17 +10,31 @@
   "fee": {
     "usd": 70.5,
     "basis": "Exam only",
-    "note": "USD list price plus applicable taxes/fees; no free retake included."
+    "note": "USD 70.50 plus locally applicable taxes and fees; no free retake included."
   },
   "exam": {
     "minutes": 60,
     "style": "knowledge",
-    "format": "One-hour multiple-choice exam, Terraform 1.12, two-year credential validity."
+    "format": "One-hour online proctored exam (through Certiverse) of true/false, multiple-choice and multiple-answer questions on Terraform 1.12, in English only. Credentials are valid for two years.",
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "retake": "No free retake: each attempt is a new purchase, with 7 days between attempts, at most 4 attempts in a rolling 365 days, and no retake of a passed exam until the credential expires.",
+    "accommodations": "Accommodations, including extra time, are requested in Certiverse while scheduling, at least 3 business days ahead; candidates whose first language is not English can ask for extra time (HashiCorp asks for 5 business days' notice)."
   },
   "scope": "Infrastructure as code with Terraform: core workflow, state, modules and configuration. It validates infrastructure skills, not AI.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "HashiCorp does not publish the passing score or the number of questions.",
+    "Recertification opens 18 months after the credential is earned (six months before it expires): retake the current Associate exam, or pass the Terraform Professional or a Terraform Authoring and Operations Advanced exam."
+  ],
   "skills": [
     "iac",
     "devops"
@@ -30,11 +44,37 @@
   ],
   "domains": [],
   "sources": [
-    "X12"
+    "X12",
+    "E42",
+    "E43",
+    "E44",
+    "E45",
+    "E46",
+    "E47",
+    "E48"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
+    {
+      "title": "Terraform Associate (004) learning path (study guide)",
+      "url": "https://developer.hashicorp.com/terraform/tutorials/certification-004/associate-study-004",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Terraform Associate (004) exam content list",
+      "url": "https://developer.hashicorp.com/terraform/tutorials/certification-004/associate-review-004",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Resources per exam objective, and the differences between the 003 and 004 versions."
+    },
+    {
+      "title": "Terraform Associate (004) sample questions",
+      "url": "https://developer.hashicorp.com/terraform/tutorials/certification-004/associate-questions-004",
+      "kind": "practice",
+      "cost": "free"
+    },
     {
       "title": "Terraform Associate (004) tutorials",
       "url": "https://developer.hashicorp.com/terraform/tutorials/certification-004",

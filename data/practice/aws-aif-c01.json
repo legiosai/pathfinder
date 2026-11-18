@@ -35,8 +35,8 @@
     {
      "key": "D",
      "text": {
-      "en": "Batch inference over the full shipment list",
-      "es": "Inferencia por lotes (batch) sobre la lista completa de envíos"
+      "en": "Batch inference over the full shipment list each night",
+      "es": "Inferencia por lotes (batch) sobre la lista completa de envíos cada noche"
      }
     }
    ],
@@ -156,8 +156,8 @@
     {
      "key": "B",
      "text": {
-      "en": "Use a deep learning model so it can learn the effect of the 50% cap.",
-      "es": "Usar un modelo de deep learning para que aprenda el efecto del tope del 50%."
+      "en": "Use deep learning so it can learn the effect of the 50% cap.",
+      "es": "Usar deep learning para que aprenda el efecto del tope del 50%."
      }
     },
     {
@@ -268,8 +268,8 @@
     {
      "key": "D",
      "text": {
-      "en": "Use a traditional ML model with per-decision feature attributions",
-      "es": "Usar un modelo de ML tradicional con atribución de variables por decisión"
+      "en": "Use a traditional ML model that reports feature attributions for each individual decision",
+      "es": "Usar un modelo de ML tradicional que informe la atribución de variables de cada decisión individual"
      }
     }
    ],
@@ -337,8 +337,8 @@
     {
      "key": "A",
      "text": {
-      "en": "Monitor production data and prediction quality, and retrain on drift.",
-      "es": "Monitorear los datos de producción y la calidad de las predicciones, y reentrenar ante el drift."
+      "en": "Monitor production data and prediction quality, and retrain when drift appears.",
+      "es": "Monitorear los datos de producción y la calidad de las predicciones, y reentrenar cuando aparezca drift."
      }
     },
     {
@@ -441,7 +441,7 @@
     {
      "key": "C",
      "text": {
-      "en": "Split each contract into smaller chunks and embed each one.",
+      "en": "Split each contract into smaller chunks and create a separate embedding for each one.",
       "es": "Dividir cada contrato en fragmentos (chunks) más chicos y generar un embedding por cada uno."
      }
     },
@@ -531,8 +531,8 @@
     {
      "key": "C",
      "text": {
-      "en": "Ask the model for more detailed answers so customers ask fewer follow-ups",
-      "es": "Pedirle al modelo respuestas más detalladas para que los clientes repregunten menos"
+      "en": "Ask for more detailed answers so customers ask fewer follow-ups",
+      "es": "Pedir respuestas más detalladas para que los clientes repregunten menos"
      }
     },
     {
@@ -576,7 +576,7 @@
     {
      "key": "C",
      "text": {
-      "en": "Move to the model with the largest context window available and keep sending everything.",
+      "en": "Move to the largest context window available and keep sending everything.",
       "es": "Pasar al modelo con la ventana de contexto más grande y seguir mandando todo."
      }
     },
@@ -584,7 +584,7 @@
      "key": "D",
      "text": {
       "en": "Repeat the system prompt at the end of every user message to keep it in focus.",
-      "es": "Repetir el system prompt al final de cada mensaje del usuario para que no pierda foco."
+      "es": "Repetir el system prompt al final de cada mensaje para que no pierda foco."
      }
     }
    ],
@@ -1359,8 +1359,8 @@
     {
      "key": "A",
      "text": {
-      "en": "Compare approval and error rates by subgroup with SageMaker Clarify",
-      "es": "Comparar tasas de aprobación y de error por subgrupo con SageMaker Clarify"
+      "en": "Compare approval and error rates by subgroup with Amazon SageMaker Clarify",
+      "es": "Comparar tasas de aprobación y de error por subgrupo con Amazon SageMaker Clarify"
      }
     },
     {
@@ -1373,8 +1373,8 @@
     {
      "key": "C",
      "text": {
-      "en": "Remove the region column from the training data, which removes any regional bias",
-      "es": "Sacar la columna de región de los datos de entrenamiento, con lo que desaparece cualquier sesgo regional"
+      "en": "Drop the region column, which removes any regional bias",
+      "es": "Sacar la columna de región, con lo que desaparece cualquier sesgo regional"
      }
     },
     {

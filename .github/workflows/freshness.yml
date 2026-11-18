@@ -1,0 +1,40 @@
+# Once a week, lists what in the catalog needs a fresh look (old checks, dated changes, ending
+# offers, announced exams, broken links) in one open issue labelled "freshness", created or updated.
+# Never runs on pull requests.
+name: Data freshness
+
+on:
+  schedule:
+    - cron: '17 10 * * 1' # Mondays, 10:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: freshness
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: node scripts/freshness.mjs --out freshness.md
+      - name: Create or update the freshness issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh label create freshness --repo "$REPO" --color c5def5 --description "Catalog data to re-check" 2>/dev/null || true
+          number=$(gh issue list --repo "$REPO" --label freshness --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --repo "$REPO" --body-file freshness.md
+          else
+            gh issue create --repo "$REPO" --title "Catalog freshness" --label freshness --body-file freshness.md
+          fi

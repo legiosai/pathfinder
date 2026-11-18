@@ -17,8 +17,15 @@
     "style": "knowledge",
     "format": "100 multiple-choice and multiple-select questions (unscored items may be included), 115 minutes, online proctored or at a test center, in English, Japanese, Korean, French or Spanish.",
     "questions": "100",
+    "question_count": 100,
     "passing": "750 scaled (0–1,000)",
-    "validity": "2 years"
+    "validity": "2 years",
+    "languages": ["en", "ja", "ko", "fr", "es"],
+    "delivery": ["online", "test-center"]
+  },
+  "access": {
+    "retake": "Wait seven days after each failed attempt, with at most four attempts at the same exam in 12 months; every attempt costs the full fee, with no free retakes or retake discounts.",
+    "accommodations": "Candidates living in countries where English is not the standard language get 30 extra minutes on exams that have no translated version, if requested and approved before registering."
   },
   "scope": "The Snowflake AI Data Cloud: architecture, accounts and virtual warehouses, data loading and unloading, structured, semi-structured and unstructured data, performance optimization, governance, data protection and data collaboration.",
   "requirements": "",

@@ -1,0 +1,127 @@
+{
+  "id": "aws-mla-c02",
+  "name": "AWS Certified Machine Learning Engineer – Associate",
+  "provider": "AWS",
+  "code": "MLA-C02",
+  "type": "certification",
+  "category": "ML foundations",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 75,
+    "basis": "Exam only (beta price)",
+    "note": "Beta price for MLA-C02. MLA-C01 cost US$150, the standard AWS Associate price; AWS has not published the MLA-C02 price after the beta. Taxes may apply."
+  },
+  "exam": {
+    "minutes": 170,
+    "style": "knowledge",
+    "format": "85 multiple choice and multiple response questions in 170 minutes while MLA-C02 is in beta (the extra time and questions are unscored items); the exam guide describes 65 questions (50 scored, 15 unscored) for the standard exam. Pearson VUE test center or online proctoring. AWS recommends at least one year with Amazon SageMaker AI, Amazon Bedrock and other ML engineering services, and one year in a related role (backend developer, DevOps, data engineer or data scientist).",
+    "questions": "85 (beta; 65 with 50 scored in the standard exam)",
+    "question_count": 85,
+    "passing": "720 scaled (100–1,000)",
+    "validity": "3 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Building, deploying and running ML and generative AI workloads on AWS: data preparation (including embeddings, vector stores and RAG documents), training and fine-tuning traditional models and foundation models, deployment and CI/CD orchestration including agents, and monitoring, cost control and security of ML and AI systems.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The exam is changing version. MLA-C01 ended in English on September 28, 2026 and stays available in Korean, Japanese and Simplified Chinese until MLA-C02 reaches general availability. In English, only the MLA-C02 beta can be booked: it opened on September 29, 2026, has no announced end or general availability date, and can be taken only once (a retake waits for the standard version). The certification page lists the beta exam code as ME1-C02.",
+    "Beta results typically arrive within five business days. MLA-C02 adds foundation models, RAG, vector databases, agents, Bedrock Guardrails and FM cost management, so material written for MLA-C01 misses part of the outline; the MLA-C01 weights were 28/26/22/24%.",
+    "The certification is valid for three years, whichever version you pass."
+  ],
+  "skills": [
+    "aws",
+    "ml-foundations",
+    "data",
+    "llm-apps",
+    "rag",
+    "devops"
+  ],
+  "roles": [
+    "ml-engineer",
+    "data-engineer"
+  ],
+  "domains": [
+    {
+      "name": "Data Preparation for ML and AI",
+      "weight": 28
+    },
+    {
+      "name": "ML Model and Foundation Model (FM) Development",
+      "weight": 24
+    },
+    {
+      "name": "Deployment and Orchestration of ML and AI Workflows",
+      "weight": 24
+    },
+    {
+      "name": "Operating, Monitoring, and Securing ML and AI Solutions",
+      "weight": 24
+    }
+  ],
+  "sources": [
+    "F47",
+    "F48",
+    "F49",
+    "F50",
+    "A02",
+    "P16",
+    "P17"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "MLA-C02 exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.html",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Comparison of MLA-C01 and MLA-C02",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/mla-02-comparison.html",
+      "kind": "docs",
+      "cost": "free",
+      "note": "What was added, removed and moved between the two versions."
+    },
+    {
+      "title": "AWS Skill Builder exam prep plan for MLA-C02",
+      "url": "https://skillbuilder.aws/category/exam-prep/machine-learning-engineer-associate-MLA-C02",
+      "kind": "course",
+      "cost": "free",
+      "note": "AWS's four-step plan. The Official Practice Question Set and exam prep courses are free; the Official Practice Exam needs a Skill Builder subscription."
+    }
+  ],
+  "domains_note": "Weights from the AWS Certification Exam Guide for MLA-C02, linked from the certification page, read 2026-11-17.",
+  "access": {
+    "discounts": [
+      {
+        "text": "AWS Certified people get a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt, wait 14 calendar days and pay the full fee again; there is no limit on attempts. The beta can be taken only once.",
+    "accommodations": "Non-native English speakers can request 30 extra minutes (ESL +30) once in their AWS Certification account before booking an exam in English."
+  },
+  "timeline": [
+    {
+      "date": "2026-09-28",
+      "kind": "retires",
+      "text": "Last day to take MLA-C01 in English; it stays in Korean, Japanese and Simplified Chinese until MLA-C02 is generally available.",
+      "source": "F47"
+    },
+    {
+      "date": "2026-09-29",
+      "kind": "opens",
+      "text": "MLA-C02 beta delivery begins (English only, US$75); general availability date not announced.",
+      "source": "F47"
+    }
+  ]
+}

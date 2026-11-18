@@ -17,8 +17,19 @@
     "style": "knowledge",
     "format": "65 multiple choice and multiple response questions, 130 minutes, at a Pearson VUE test center or online proctored; the SOA-C03 guide lists no other question types (no exam labs). AWS recommends one year of deploying, managing and operating workloads on AWS and one year in an operations role such as system administrator.",
     "questions": "65 (50 scored)",
+    "question_count": 65,
     "passing": "720 scaled (100–1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "ko",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Deploying, managing and operating workloads on AWS: monitoring, logging and remediation, reliability and business continuity, deployment and automation with infrastructure as code, security and compliance, and networking and content delivery.",
   "requirements": "",
@@ -27,6 +38,24 @@
     "Renamed: SOA-C03 is the updated version of the AWS Certified SysOps Administrator – Associate (SOA-C02), whose last exam day was September 29, 2025. Existing SysOps Administrator holders keep that title for its 3 years; the CloudOps name applies only to those who pass SOA-C03.",
     "The Simplified Chinese and Korean versions are retired after November 19, 2026; English and Japanese remain.",
     "Renewal: recertify within 3 years by passing the latest version of this exam, or by earning the AWS Certified DevOps Engineer – Professional, which renews this certification automatically."
+  ],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-11-19",
+      "kind": "retires",
+      "text": "Last day for the Simplified Chinese and Korean versions; English and Japanese remain.",
+      "source": "P04"
+    }
   ],
   "skills": [
     "aws",
@@ -67,7 +96,8 @@
     "P07",
     "P16",
     "A02",
-    "P17"
+    "P17",
+    "D08"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

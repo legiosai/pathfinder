@@ -10,17 +10,37 @@
   "fee": {
     "usd": 445,
     "basis": "Exam only",
-    "note": "Published exam-only price; page includes two exam attempts and two simulator attempts. Promotions and checkout were not tested."
+    "note": "Published exam-only price; includes two exam attempts, two exam-simulator sessions and 12 months to schedule. Bundles with a course or a subscription cost more."
   },
   "exam": {
     "minutes": 120,
     "style": "practical",
-    "format": "Two-hour command-line performance exam with no formal prerequisites; container/microservice working knowledge is assumed."
+    "format": "Online, proctored, performance-based exam: 15–20 tasks solved at a command line running Kubernetes (v1.37 at the time of checking), in two hours. No prerequisites; working knowledge of container runtimes and microservice architecture is assumed.",
+    "questions": "15–20 performance-based tasks",
+    "question_count": 20,
+    "passing": "66%",
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "retake": "One free retake is included if the first attempt is not passed; it must be taken within the 12 months of eligibility that start at purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time.",
+    "accommodations": "Candidates with disabilities send the Test Accommodations Form at least two weeks before the exam, before scheduling it; requests are reviewed case by case."
   },
   "scope": "Designing, building and deploying cloud-native applications on Kubernetes, tested at the command line.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "The exam environment moves to each new Kubernetes minor version within about 4–8 weeks of its release.",
+    "Exam tasks are shown in English, Japanese or Simplified Chinese, and candidates can switch language during the exam.",
+    "Passing the CKAD also renews the KCNA automatically (Linux Foundation CARE program)."
+  ],
   "skills": [
     "kubernetes",
     "devops"
@@ -52,17 +72,44 @@
     }
   ],
   "sources": [
-    "X15"
+    "X15",
+    "P68",
+    "P69",
+    "P71",
+    "P74",
+    "E37",
+    "E38",
+    "E39"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
     {
-      "title": "CNCF exam curriculum",
-      "url": "https://github.com/cncf/curriculum",
+      "title": "CKAD curriculum v1.37 (CNCF)",
+      "url": "https://github.com/cncf/curriculum/blob/main/CKAD_Curriculum_v1.37.pdf",
       "kind": "official-guide",
       "cost": "free"
+    },
+    {
+      "title": "Linux Foundation: Kubernetes for Developers (LFD259)",
+      "url": "https://training.linuxfoundation.org/training/kubernetes-for-developers/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Its topics are aligned with the CKAD domains; also sold in a bundle with the exam."
+    },
+    {
+      "title": "Linux Foundation: Introduction to Kubernetes (LFS158)",
+      "url": "https://training.linuxfoundation.org/training/introduction-to-kubernetes/",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "Killer.sh CKAD simulator",
+      "url": "https://killer.sh/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "Two 36-hour sessions of 17 graded questions are included with the exam registration."
     }
   ],
-  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-03."
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-17; the CNCF CKAD curriculum v1.37 PDF gives the same weights."
 }

@@ -83,3 +83,38 @@ test('readEvents stops reading when the handler returns false', async () => {
   });
   assert.deepEqual(seen, ['text', 'text', 'picks']);
 });
+
+// A whole answer as the endpoint sends it since it has tools: every event after the text, in order.
+const TOOLS_STREAM = [
+  'event: text\ndata: {"t":"Arrancá por CLF-C02."}\n\n',
+  'event: picks\ndata: {"picks":[{"id":"aws-clf-c02","why":"Base","warning":"Se pasa de tu presupuesto."}]}\n\n',
+  'event: roadmap\ndata: {"steps":[{"id":"aws-clf-c02","weeks":4,"note":"Base"},{"id":"aws-aif-c01","weeks":5,"note":"IA"}],"hours_per_week":5}\n\n',
+  'event: comparison\ndata: {"ids":["aws-clf-c02","microsoft-az-900"]}\n\n',
+  'event: profile\ndata: {"profile":{"hours_per_week":5,"country":"AR"}}\n\n',
+  'event: replies\ndata: {"replies":["¿Algo más barato?","Armame el plan"]}\n\n',
+  'event: done\ndata: {}\n\n',
+].join('');
+
+test('reads the tool events of an answer, however the stream is cut', () => {
+  const whole = all([TOOLS_STREAM]);
+  assert.deepEqual(
+    whole.map((e) => e.event),
+    ['text', 'picks', 'roadmap', 'comparison', 'profile', 'replies', 'done'],
+  );
+  assert.equal(json(whole[1].data).picks[0].warning, 'Se pasa de tu presupuesto.');
+  assert.deepEqual(json(whole[2].data).steps.map((s) => s.weeks), [4, 5]);
+  assert.deepEqual(json(whole[5].data).replies, ['¿Algo más barato?', 'Armame el plan']);
+  for (const size of [1, 7, 33]) {
+    const chunks = [];
+    for (let i = 0; i < TOOLS_STREAM.length; i += size) chunks.push(TOOLS_STREAM.slice(i, i + size));
+    assert.deepEqual(all(chunks), whole, `chunks of ${size}`);
+  }
+});
+
+test('readEvents delivers events it does not know, for the page to ignore', async () => {
+  const seen = [];
+  await readEvents(body(['event: future\ndata: {"x":1}\n\n', TOOLS_STREAM]), (e) => {
+    seen.push(e.event);
+  });
+  assert.deepEqual(seen, ['future', 'text', 'picks', 'roadmap', 'comparison', 'profile', 'replies', 'done']);
+});

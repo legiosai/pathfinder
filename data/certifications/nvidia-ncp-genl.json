@@ -1,6 +1,6 @@
 {
   "id": "nvidia-ncp-genl",
-  "name": "Generative AI LLMs",
+  "name": "NVIDIA-Certified Professional: Generative AI LLMs",
   "provider": "NVIDIA",
   "code": "NCP-GENL",
   "type": "certification",
@@ -10,17 +10,45 @@
   "fee": {
     "usd": 200,
     "basis": "Exam only",
-    "note": ""
+    "note": "Additional taxes may apply in some countries."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "60–70 questions listed; 120 minutes. Lab metadata: Not listed in reviewed metadata."
+    "format": "60–70 questions; 120 minutes; online, remotely proctored. Pass/fail; NVIDIA does not publish a passing score.",
+    "questions": "60–70",
+    "question_count": 70,
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Attendees of NVIDIA's certification roadmap webinar on 19 November 2026 (one session for EMEA/APAC, one for the Americas and LATAM) receive a 50% discount code for an NVIDIA certification exam.",
+        "url": "https://www.nvidia.com/en-us/events/webinars/nvidia-certification-roadmap-ai-stack/",
+        "until": "2026-11-19"
+      }
+    ],
+    "retake": "After a failed attempt you buy the exam again and wait 14 days before retaking it, with at most five attempts per exam in 12 months.",
+    "accommodations": "Non-native English speakers can ask for extra time (approved case by case) and candidates can ask for disability accommodations, both through an NVIDIA support case opened before the exam."
   },
   "scope": "Advanced LLM development, customization and deployment.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [],
+  "timeline": [
+    {
+      "date": "2026-11-19",
+      "kind": "deadline",
+      "text": "NVIDIA's certification webinar sessions; attendees receive a 50% exam discount code.",
+      "source": "E15"
+    }
+  ],
   "skills": [
     "llm-apps",
     "deep-learning",
@@ -73,10 +101,56 @@
     }
   ],
   "sources": [
-    "N12"
+    "N12",
+    "E14",
+    "E15",
+    "E18"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
-  "prep": [],
-  "domains_note": "Weights from NVIDIA's NCP-GENL exam page Exam Blueprint table, read 2026-11-03. The linked study guide PDF gives the same weights."
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "NVIDIA-Certified Professional: Gen AI LLMs Exam Study Guide",
+      "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/a38r3688v26wf6u414c64805b8i6awa3.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Topics with weights, recommended NVIDIA training and readings; linked from the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Building RAG Agents With LLMs (S-FX-15)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-15+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, 8 hours, US$90 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Adding New Knowledge to LLMs (C-FX-26)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+C-FX-26+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Instructor-led, 8 hours, US$500 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Model Parallelism: Building and Deploying Large Neural Networks (C-FX-07)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+C-FX-07+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Instructor-led, 8 hours, US$500 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Deploying RAG Pipelines for Production at Scale (C-FX-18)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+C-FX-18+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "8 hours, US$500 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Optimizing CUDA ML Codes With NVIDIA Nsight's Profiling Tools (S-AC-03)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-03+V2",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, 4 hours, US$30 per the exam page."
+    }
+  ],
+  "domains_note": "Weights from NVIDIA's NCP-GENL exam page Exam Blueprint table, read 2026-11-03 and rechecked 2026-11-17. The linked study guide PDF gives the same weights."
 }

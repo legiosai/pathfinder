@@ -10,21 +10,62 @@
   "fee": {
     "usd": 125,
     "basis": "Exam only",
-    "note": ""
+    "note": "USD list price before any partner-tier discount, paid at Pearson checkout."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
     "format": "60 multiple-choice and multiple-response items in 120 minutes, proctored online or at a Pearson VUE test center. 12-month validity; on-time renewal is a free, non-proctored assessment. Each sitting draws 4 scenarios from a bank of 6.",
     "questions": "60",
+    "question_count": 60,
     "passing": "720 scaled (100–1,000)",
-    "validity": "12 months"
+    "validity": "12 months",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "free_routes": [
+      {
+        "text": "Global Premier partners get a 100% discount on every Claude certification exam through December 31, 2026.",
+        "url": "https://anthropic-partners.skilljar.com/page/faq-certifications",
+        "until": "2026-12-31"
+      }
+    ],
+    "discounts": [
+      {
+        "text": "Select, Preferred and Global Premier partners get 50% off each exam, retakes included, applied at Pearson checkout; Registered-tier partners pay full price.",
+        "url": "https://anthropic-partners.skilljar.com/page/faq-certifications"
+      }
+    ],
+    "retake": "Wait 14, 30 and then 90 days after each failed attempt, with at most four attempts at the same exam in any 12 months; each attempt costs the standard fee (the partner discount applies), and both limits reset when the exam moves to a new version.",
+    "accommodations": "Request accommodations through Pearson VUE before scheduling, at least 10 days ahead; candidates with English as a second language can apply to Pearson for extra time."
   },
   "scope": "Agent architecture; Tools / MCP; Claude Code workflows; Prompts / output structure; Context / reliability",
   "requirements": "Restricted to Claude Partner Network organizations: registration needs a company email domain recognized on the partner record. A personal Claude subscription is not enough.",
   "ai_policy": "The reviewed Claude certification rules prohibit AI assistance during the closed-book exam.",
   "caveats": [
-    "Retakes need a wait of 14, 30 and then 90 days after each failed attempt, with at most four attempts in 12 months; each attempt pays the fee."
+    "Retakes need a wait of 14, 30 and then 90 days after each failed attempt, with at most four attempts in 12 months; each attempt pays the fee.",
+    "The v1.0 exam guide allows cancelling or rescheduling up to 24 hours before the appointment, while the current policies page and FAQ allow up to one hour before an online (OnVUE) exam and 48 hours before a test-center exam; missing the deadline forfeits the fee."
+  ],
+  "timeline": [
+    {
+      "date": "2026-11-12",
+      "kind": "changes",
+      "text": "Registration moved to Pearson: candidates sign in through Partner Academy with single sign-on and pay at Pearson checkout, where partner discounts are applied.",
+      "source": "E20"
+    },
+    {
+      "date": "2026-12-31",
+      "kind": "deadline",
+      "text": "Last day of the 100% exam discount for Global Premier partners; the standard 50% partner discount applies after that.",
+      "source": "E20"
+    }
   ],
   "skills": [
     "agents",
@@ -63,7 +104,11 @@
     "C01",
     "C03",
     "C08",
-    "C16"
+    "C16",
+    "E23",
+    "E20",
+    "E21",
+    "E22"
   ],
   "reports": [
     "E03",
@@ -74,7 +119,7 @@
     "R09",
     "R10"
   ],
-  "checked_on": "2026-11-03",
+  "checked_on": "2026-11-17",
   "domains_note": "Weights from the official exam guide v1.0 (effective July 2026), linked from the certification page.",
   "prep": [
     {
@@ -83,6 +128,13 @@
       "kind": "official-guide",
       "cost": "free",
       "note": "Objectives, sample questions and preparation exercises. Read it first."
+    },
+    {
+      "title": "Claude Certified Architect – Foundations prep courses (Partner Academy)",
+      "url": "https://anthropic-partners.skilljar.com/page/claude-certified-architect-foundations-prep-courses",
+      "kind": "course",
+      "cost": "free",
+      "note": "Free courses Anthropic lists for this exam on the partner-only Academy. Exam and prep content are offered in English and Japanese."
     },
     {
       "title": "Anthropic Academy: Building with the Claude API",

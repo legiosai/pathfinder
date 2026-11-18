@@ -82,8 +82,11 @@ export function grade({ questions, domains, ids, answers }) {
 
 export const emptyHistory = () => ({ attempts: [], questions: {} });
 
-/** A new history with this attempt added. Unanswered questions are not recorded as seen. */
-export function record(history, result, answers, when) {
+/**
+ * A new history with this attempt added. Unanswered questions are not recorded as seen. `meta`
+ * describes the run (its mode, a domain, the plan session it came from) and is kept on the attempt.
+ */
+export function record(history, result, answers, when, meta = {}) {
   const questions = { ...history.questions };
   const touch = (id, missed) => {
     const old = questions[id] || { seen: 0, wrong: 0 };
@@ -92,6 +95,7 @@ export function record(history, result, answers, when) {
   result.right.forEach((id) => touch(id, false));
   result.wrong.forEach((id) => touch(id, true));
   const attempt = {
+    ...meta,
     id: `a${when}`,
     when,
     total: result.total,

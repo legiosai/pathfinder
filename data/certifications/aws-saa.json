@@ -2,7 +2,7 @@
   "id": "aws-saa",
   "name": "AWS Certified Solutions Architect – Associate",
   "provider": "AWS",
-  "code": "SAA",
+  "code": "SAA-C03",
   "type": "certification",
   "category": "Cloud & platform",
   "level": "associate",
@@ -17,13 +17,48 @@
     "style": "knowledge",
     "format": "65 multiple choice and multiple response questions, 130 minutes, three-year validity; AWS recommends at least one year designing AWS solutions.",
     "questions": "65 (50 scored)",
+    "question_count": 65,
     "passing": "720 scaled (100–1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "fr-FR",
+      "it",
+      "ja",
+      "ko",
+      "pt-BR",
+      "es-419",
+      "es-ES",
+      "zh-Hans",
+      "zh-Hant"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Designing secure, resilient, high-performing and cost-optimized architectures on AWS.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-12-31",
+      "kind": "retires",
+      "text": "Last day for the Italian version of the exam.",
+      "source": "X13"
+    }
+  ],
   "skills": [
     "aws",
     "architecture",
@@ -55,7 +90,11 @@
   "sources": [
     "X13",
     "X14",
-    "Z01"
+    "Z01",
+    "A02",
+    "P16",
+    "D08",
+    "D15"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
@@ -71,6 +110,14 @@
       "url": "https://skillbuilder.aws/",
       "kind": "course",
       "cost": "free"
+    },
+    {
+      "title": "Exam Prep Plan: AWS Certified Solutions Architect - Associate (SAA-C03 - Español LATAM)",
+      "url": "https://skillbuilder.aws/learning-plan/UYRXS2DF85/exam-prep-plan-aws-certified-solutions-architect--associate-saac03--espaol-latam/QFKBUHE7QG",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's 4-step exam prep plan in Latin American Spanish; some trainings in it need a Skill Builder subscription."
     }
   ],
   "domains_note": "Weights from the AWS Certification Exam Guide (SAA-C03), the guide linked from the live SAA listing, read 2026-11-03."

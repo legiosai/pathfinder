@@ -10,17 +10,32 @@
   "fee": {
     "usd": 0,
     "basis": "Assessed lab",
-    "note": "Issuer announces free access without a Skill Builder subscription; signed-in assessment was not tested."
+    "note": "Free on AWS Skill Builder; no subscription required."
   },
   "exam": {
     "minutes": null,
     "style": "practical",
-    "format": "Timed hands-on AWS lab; a Credly badge follows a pass. This is separate from AWS Certification exams."
+    "format": "Timed hands-on lab in a live AWS environment on AWS Skill Builder covering agent identities and access (Bedrock AgentCore, Cognito, IAM, JWT and SigV4, CloudTrail). No multiple-choice questions; pass or fail, with a Credly badge on passing. Separate from AWS Certification exams; AWS suggests more than six months of experience in the topic.",
+    "validity": "12 months",
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "free_routes": [
+      {
+        "text": "The assessment is free on AWS Skill Builder; no subscription required.",
+        "url": "https://aws.amazon.com/blogs/training-and-certification/prove-your-agentic-ai-skills-two-new-microcredentials-now-available/"
+      }
+    ],
+    "retake": "Wait 25 days after a failed lab attempt before trying again; a microcredential that is still valid can be renewed from nine months after passing."
   },
   "scope": "Securing an AI agent's identities and access on AWS, including IAM and token-based authentication, in a timed hands-on lab.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "AWS calls the lab timed, but its public announcement and certification FAQ do not give the time limit."
+  ],
   "skills": [
     "aws",
     "identity",
@@ -33,9 +48,18 @@
   ],
   "domains": [],
   "sources": [
-    "X10"
+    "X10",
+    "E36"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
-  "prep": []
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AWS Securing Agent Identities Demonstrated on AWS Skill Builder",
+      "url": "https://skillbuilder.aws/learn/Z8M87YZWXB/aws-securing-agent-identities-demonstrated/9ZRC3U51YT",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "The assessment's page; AWS's FAQ says each microcredential page lists recommended preparation courses."
+    }
+  ]
 }

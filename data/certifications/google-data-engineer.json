@@ -17,7 +17,16 @@
     "style": "knowledge",
     "format": "40–50 multiple choice and multiple select questions in 2 hours, online-proctored or at a test center (Pearson VUE since March 2026). English and Japanese. No prerequisites; Google recommends 3+ years of industry experience including 1+ year designing and managing solutions on Google Cloud.",
     "questions": "40–50",
-    "validity": "2 years"
+    "question_count": 50,
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Designing, building, securing and operating data processing systems on Google Cloud: ingestion and processing, storage, preparing data for analysis, and automating data workloads.",
   "requirements": "",
@@ -26,6 +35,9 @@
     "Google reports pass/fail only and does not publish a passing score.",
     "Certified holders can renew with a shorter renewal exam (1 hour, 20 questions, $100, with its own guide) or through designated courses and skill badges in Google Skills, which add one year."
   ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third."
+  },
   "skills": [
     "gcp",
     "data",

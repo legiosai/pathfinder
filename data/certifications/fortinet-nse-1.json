@@ -1,0 +1,77 @@
+{
+  "id": "fortinet-nse-1",
+  "name": "NSE 1 in Cybersecurity",
+  "provider": "Fortinet",
+  "code": "NSE 1",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 0,
+    "basis": "Free course and online test",
+    "note": "Fortinet says the NSE 1, NSE 2 and NSE 3 courses are open to everyone free of charge as self-paced online training; its exam vouchers and fee list cover NSE 4 and above only. Optional on-demand labs are paid."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "Self-paced online course, Cybersecurity and Cloud Fundamentals (about 11 hours), with an online test at the end, on the Fortinet Training Institute. Fortinet does not publish the number of questions, the time limit or the passing score.",
+    "validity": "2 years",
+    "delivery": [
+      "online"
+    ]
+  },
+  "scope": "Cybersecurity and cloud basics: the threat landscape, social engineering and malware, cryptography and PKI, secure networking, authentication and access control, endpoint security, securing data and applications, and cloud security and virtualization.",
+  "requirements": "No certification prerequisites. The course asks for a basic understanding of networking, network protocols and applications, operating systems, and computer hardware. Enrolling needs a free FortiCloud account.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "NSE 1 replaced the Fortinet Certified Fundamentals (FCF) in Cybersecurity on July 15, 2026, when Fortinet moved to an eight-level NSE program; active FCF holders received NSE 1 and NSE 2. The FCF courses (Introduction to the Threat Landscape, Getting Started in Cybersecurity, Technical Introduction to Cybersecurity) were retired, so study material written for FCF does not match.",
+    "Fortinet's pages differ on the test: the NSE 1 page says to pass the online exam at the end of the course, while the program updates page and the ordering guide list only completing the course.",
+    "NSE 2 in Cybersecurity (the free Introduction to the Next Generation Firewall course) is the next level and is earned the same way.",
+    "Valid two years from completion. Renew by completing the current course again, or by earning or renewing any NSE 1–7 certification."
+  ],
+  "skills": [
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [],
+  "sources": [
+    "F30",
+    "F31",
+    "F32",
+    "F34",
+    "F36",
+    "F37",
+    "F38",
+    "F39"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Cybersecurity and Cloud Fundamentals (NSE 1 course)",
+      "url": "https://training.fortinet.com/local/staticpage/view.php?page=library_cybersecurity-and-cloud-fundamentals",
+      "kind": "course",
+      "cost": "free",
+      "note": "The official course, about 11 hours; the test is at the end."
+    },
+    {
+      "title": "NSE 1 in Cybersecurity requirements",
+      "url": "https://training.fortinet.com/local/staticpage/view.php?page=nse_1",
+      "kind": "docs",
+      "cost": "free",
+      "note": "Requirements, badges and renewal."
+    }
+  ],
+  "access": {
+    "free_routes": [
+      {
+        "text": "Fortinet offers the NSE 1, NSE 2 and NSE 3 courses free of charge to everyone as self-paced online training.",
+        "url": "https://helpdesk.training.fortinet.com/support/solutions/articles/73000524101-are-all-courses-available-online-"
+      }
+    ]
+  }
+}
