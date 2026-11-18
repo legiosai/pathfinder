@@ -124,6 +124,7 @@ the client IP only to count requests.
 | `CATALOG_URL` | `https://pathfinder.legios.com.ar/catalog.json` | catalog the prompt is built from |
 | `CHAT_ENABLED` | `1` | kill switch: `0` answers `503 disabled` without calling Claude |
 | `MOCK` | `0` | `1` streams a canned reply instead of calling Claude |
+| `EXTRA_ORIGINS` | (none) | comma-separated https origins allowed besides the site, such as a staging copy |
 
 The `CHAT_LIMITER` binding allows **8 chat requests per minute per client IP**. Cloudflare
 counts per location and the count is eventually consistent, so treat it as a guard against
@@ -175,7 +176,7 @@ when any check fails; `--only id,id` runs a subset.
 Needs `VERCEL_TOKEN` with access to the team that owns the `pathfinder-chat` project. The project
 has one secret, `AI_GATEWAY_API_KEY`: an AI Gateway key with its own monthly budget, so a
 traffic spike stops at the budget instead of running up the bill. `MODEL` defaults to
-`anthropic/claude-sonnet-5-5`; `EFFORT`, `CATALOG_URL`, `CHAT_ENABLED` and `MOCK` work as below.
+`anthropic/claude-sonnet-5-5`; `EFFORT`, `CATALOG_URL`, `CHAT_ENABLED`, `MOCK` and `EXTRA_ORIGINS` work as below.
 
 ```sh
 cd worker
