@@ -10,7 +10,7 @@
   "fee": {
     "usd": null,
     "basis": "Regional exam price",
-    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location."
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. US price USD 165; USD 99 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America; EUR 126 in Spain (Microsoft's price list, 2026-11-17)."
   },
   "exam": {
     "minutes": 100,
@@ -19,7 +19,37 @@
     "questions": "40–60 (Microsoft's usual range)",
     "question_count": 60,
     "passing": "700 scaled (1–1,000)",
-    "validity": "1 year"
+    "validity": "1 year; renewable free online",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans",
+      "ko",
+      "fr",
+      "de",
+      "es",
+      "pt-BR",
+      "zh-Hant",
+      "it"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Academic pricing for students in most countries (not India or China): identify as a student in your Microsoft Learn profile and verify your status before registering.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts"
+      },
+      {
+        "text": "Exam Replay (Pearson VUE): one exam plus one retake of the same exam, both within 12 months of purchase; USD 230 on the US store. Not valid for Fundamentals exams.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals"
+      }
+    ],
+    "retake": "After a failed attempt you wait 24 hours to retake, then 14 days between later attempts, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "You can request 30 extra minutes only when the exam is not offered in your preferred language (this one is offered in Spanish); other accommodations are requested through Pearson VUE before you schedule."
   },
   "scope": "Security operations with Microsoft Defender XDR, Microsoft Sentinel, Entra ID, Purview and Defender for Cloud: setting up the SOC environment, automation and detections, responding to incidents and hunting threats with KQL.",
   "requirements": "",
@@ -28,6 +58,14 @@
     "Microsoft says most of its exams have 40–60 questions but does not publish the count for SC-200.",
     "Skills measured were updated on 21 October 2026 (minor changes to data ingestion); the objectives include investigating incidents with Microsoft Security Copilot and hunting through the Sentinel MCP Server. Localized versions are updated about eight weeks after the English one.",
     "The certification expires after 12 months; renewal is free through an online assessment on Microsoft Learn."
+  ],
+  "timeline": [
+    {
+      "date": "2026-10-21",
+      "kind": "changes",
+      "text": "New skills outline for the English exam (minor changes to data ingestion). Localized versions, such as Spanish, are updated about eight weeks after the English one.",
+      "source": "S86"
+    }
   ],
   "skills": [
     "security",
@@ -57,7 +95,15 @@
     "S86",
     "Z12",
     "Z13",
-    "Z14"
+    "Z14",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
@@ -76,11 +122,19 @@
       "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
     },
     {
+      "title": "Curso SC-200T00-A: Defensa contra ciberamenazas con la plataforma de operaciones de seguridad de Microsoft",
+      "url": "https://learn.microsoft.com/es-es/training/courses/sc-200t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same course on Microsoft Learn in Spanish; the self-paced learning paths are free, the instructor-led delivery is paid."
+    },
+    {
       "title": "Official SC-200 practice assessment",
-      "url": "https://aka.ms/SC200-PA",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/security-operations-analyst/practice/assessment?assessment-type=practice&assessmentId=59&practice-assessment-type=certification",
       "kind": "practice",
       "cost": "free",
-      "note": "On AI Skills Navigator; needs a sign-in."
+      "note": "Free on Microsoft Learn. Microsoft no longer updates these Learn practice assessments and recommends the newer one on AI Skills Navigator, which needs a sign-in."
     }
   ],
   "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn SC-200 study guide (40–45%, 35–40%, 20–25%; skills measured as of October 21, 2026), scaled to add up to 100. Read 2026-11-17."

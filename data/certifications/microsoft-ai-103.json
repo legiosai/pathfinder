@@ -10,17 +10,53 @@
   "fee": {
     "usd": null,
     "basis": "Regional exam price",
-    "note": "Microsoft prices by exam country/region. A US quote should not be applied automatically."
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. US price USD 165; USD 99 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America; EUR 126 in Spain (Microsoft's price list, 2026-11-17)."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "120-minute assessment covering Foundry AI solutions, agents, vision, text/speech and information extraction; may include interactive components."
+    "format": "Proctored 120-minute exam through Pearson VUE covering Foundry AI solutions, agents, vision, text and speech, and information extraction; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online",
+    "languages": [
+      "en",
+      "zh-Hans",
+      "zh-Hant",
+      "fr",
+      "de",
+      "ja",
+      "ko",
+      "it",
+      "pt-BR",
+      "es"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Academic pricing for students in most countries (not India or China): identify as a student in your Microsoft Learn profile and verify your status before registering.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts"
+      },
+      {
+        "text": "Exam Replay (Pearson VUE): one exam plus one retake of the same exam, both within 12 months of purchase; USD 230 on the US store. Not valid for Fundamentals exams.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals"
+      }
+    ],
+    "retake": "After a failed attempt you wait 24 hours to retake, then 14 days between later attempts, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "You can request 30 extra minutes only when the exam is not offered in your preferred language (this one is offered in Spanish); other accommodations are requested through Pearson VUE before you schedule."
   },
   "scope": "Building AI apps and agents on Azure with Microsoft Foundry. It replaces the retired Azure AI Engineer credential.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AI-103."
+  ],
   "skills": [
     "azure",
     "llm-apps",
@@ -30,18 +66,50 @@
   "roles": [
     "developer"
   ],
-  "domains": [],
+  "domains": [
+    {
+      "name": "Plan and manage an Azure AI solution",
+      "weight": 28
+    },
+    {
+      "name": "Implement generative AI and agentic solutions",
+      "weight": 33
+    },
+    {
+      "name": "Implement computer vision solutions",
+      "weight": 13
+    },
+    {
+      "name": "Implement text analysis solutions",
+      "weight": 13
+    },
+    {
+      "name": "Implement information extraction solutions",
+      "weight": 13
+    }
+  ],
   "sources": [
     "X05",
     "X06",
-    "X07"
+    "X07",
+    "Z12",
+    "Z13",
+    "Z14",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08"
   ],
   "reports": [
     "U02",
     "U03",
     "X22"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
     {
       "title": "AI-103 study guide",
@@ -50,10 +118,33 @@
       "cost": "free"
     },
     {
+      "title": "Microsoft Learn: Develop AI apps and agents on Azure (AI-103T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/ai-103t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Curso AI-103T00-A: Desarrollo de aplicaciones y agentes de IA en Azure",
+      "url": "https://learn.microsoft.com/es-es/training/courses/ai-103t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same course on Microsoft Learn in Spanish; the self-paced learning paths are free, the instructor-led delivery is paid."
+    },
+    {
       "title": "Microsoft Learn: preparing for AI-103 (video)",
       "url": "https://www.youtube.com/watch?v=BEUoruZBHgc",
       "kind": "course",
       "cost": "free"
+    },
+    {
+      "title": "Official AI-103 practice assessment",
+      "url": "https://aiskillsnavigator.microsoft.com/credentials/cert-3fb198f57997226a824aa5f52a1a22af9a4597941b2288ed39371c7a9e6bd7c9",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
     }
-  ]
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AI-103 study guide (25–30%, 30–35%, 10–15%, 10–15%, 10–15%; skills measured as of April 16, 2026), scaled to add up to 100 and rounded to whole numbers. Read 2026-11-17."
 }

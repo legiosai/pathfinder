@@ -10,18 +10,38 @@
   "fee": {
     "usd": 250,
     "basis": "Exam only",
-    "note": ""
+    "note": "Published exam-only price; includes one retake and 12 months to schedule. A bundle with the THRIVE-ONE annual subscription costs $495."
   },
   "exam": {
     "minutes": 90,
     "style": "knowledge",
-    "format": "Current live product listing: online proctored multiple-choice exam, 90 minutes, two-year validity and one retake. The issuer launch release says 120 minutes; confirm the current appointment terms."
+    "format": "Online, proctored multiple-choice exam: 60 questions in 90 minutes. No prerequisites. The exam follows MCP specification version 2026-07-28.",
+    "questions": "60",
+    "question_count": 60,
+    "passing": "75%",
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Buying the exam through an Agentic AI Foundation (AAIF) event registration saves 20%.",
+        "url": "https://training.linuxfoundation.org/certification/model-context-protocol-associate-mcpa/"
+      }
+    ],
+    "retake": "One free retake is included if the first attempt is not passed; it must be taken within the 12 months of eligibility that start at purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time.",
+    "accommodations": "Candidates with disabilities send the Test Accommodations Form at least two weeks before the exam, before scheduling it; requests are reviewed case by case."
   },
   "scope": "MCP fundamentals, architecture, interaction/execution, security/governance and use cases. The listing references specification version 2026-07-28.",
   "requirements": "",
   "ai_policy": "Exam resource rules must be checked before booking.",
   "caveats": [
-    "Duration conflict: the current product listing says 90 minutes; the 14 September launch announcement says 120. The live listing is used here, but no signed-in appointment was checked. Beta anecdotes do not settle the current duration."
+    "Duration conflict: the 14 September 2026 launch release says 120 minutes, while the current certification page and the Linux Foundation multiple-choice FAQ both say 90 minutes, which is used here. The 60-question count and 75% pass mark come from the Linux Foundation multiple-choice exam instructions and FAQ linked from the certification page."
   ],
   "skills": [
     "mcp",
@@ -57,20 +77,25 @@
   ],
   "sources": [
     "Y01",
-    "Y15"
+    "Y15",
+    "P71",
+    "P72",
+    "E37",
+    "E38",
+    "E39"
   ],
   "reports": [
     "V05",
     "V06"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
     {
-      "title": "Model Context Protocol specification (latest)",
-      "url": "https://modelcontextprotocol.io/specification/latest",
+      "title": "Model Context Protocol specification, version 2026-07-28",
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28",
       "kind": "docs",
       "cost": "free",
-      "note": "The exam listing references specification version 2026-07-28."
+      "note": "The version the certification page tells candidates to study."
     },
     {
       "title": "Model Context Protocol documentation",
@@ -91,5 +116,5 @@
       "cost": "free"
     }
   ],
-  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-03."
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-17; the 14 September 2026 launch release gives the same weights."
 }

@@ -27,7 +27,8 @@
     "title": "Anthropic · Claude Certified Architect – Foundations exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: still links the v1.0 guide, terms and exam policy; registration now continues to Pearson.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C03",
@@ -41,21 +42,24 @@
     "title": "Anthropic · Claude Certified Associate – Foundations exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: the exam page now only says that exam details, guides and policies live on the certifications page (C16).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C06",
     "title": "Anthropic · Claude Certified Developer – Foundations exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: the exam page now only says that exam details, guides and policies live on the certifications page (C16).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C07",
     "title": "Anthropic · Claude Certified Architect – Professional exam page",
     "url": "https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies."
+    "note": "Read 3 November 2026. Exam page with price, registration and the official v1.0 exam guide (PDF): format, domain weights, objectives, policies. Reread 2026-11-17: the exam page now only says that exam details, guides and policies live on the certifications page (C16).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "C08",
@@ -69,112 +73,128 @@
     "title": "Anthropic Partner Academy · Claude certifications overview",
     "url": "https://anthropic-partners.skilljar.com/page/partner-certifications",
     "kind": "Provider / directly read",
-    "note": "Read 3 November 2026. Lists the four exams and links each official exam guide, terms and exam policy."
+    "note": "Read 3 November 2026. Lists the four exams and links each official exam guide, terms and exam policy. Reread 2026-11-17: lists the four exams at $99, $125, $125 and $175 USD with prep courses and guide PDFs.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N01",
     "title": "NVIDIA · NCA-GENL exam page and current blueprint",
     "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-associate/",
     "kind": "Provider / verified",
-    "note": "Exam facts, five domain weights, current preparation links. Live page inspected on 27 Oct 2026; use this as the syllabus authority."
+    "note": "Exam facts, five domain weights, current preparation links. Live page inspected on 27 Oct 2026; use this as the syllabus authority. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N10",
     "title": "NVIDIA · NCA-AMAD AI Models and Application Development",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-model-application-development-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested."
+    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested. Re-read 2026-11-17: the page now says hands-on lab 'No' and language 'Multiple' without naming languages; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N11",
     "title": "NVIDIA · NCA-GENM Generative AI Multimodal",
     "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-multimodal-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: the page gives 50–60 questions in one place and 50 in another.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N12",
     "title": "NVIDIA · NCP-GENL Generative AI LLMs",
     "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N13",
     "title": "NVIDIA · NCP-AAI Agentic AI",
     "url": "https://www.nvidia.com/en-us/learn/certification/agentic-ai-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: the blueprint weights add up to 98%.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N14",
     "title": "NVIDIA · NCA-AIIO AI Infrastructure and Operations",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-infrastructure-operations-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N15",
     "title": "NVIDIA · NCP-AII AI Infrastructure",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-infrastructure-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N16",
     "title": "NVIDIA · NCP-AIO AI Operations",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-operations-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested."
+    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested. Re-read 2026-11-17: 30 multiple-choice questions plus 3 lab challenges, each section worth 50%.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N17",
     "title": "NVIDIA · NCP-AIN AI Networking",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-networking-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: price now $500, hands-on lab 'Yes', English, valid two years.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N18",
     "title": "NVIDIA · NCP-ARI AI Rack and Interconnect",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-rack-and-interconnect-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N19",
     "title": "NVIDIA · NCP-ADS Accelerated Data Science",
     "url": "https://www.nvidia.com/en-us/learn/certification/accelerated-data-science-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N20",
     "title": "NVIDIA · NCA-ADS Accelerated Data Science",
     "url": "https://www.nvidia.com/en-us/learn/certification/accelerated-data-science-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N21",
     "title": "NVIDIA · NCP-OUSD OpenUSD Development",
     "url": "https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/",
-    "kind": "Provider / catalog only; detail timeout",
-    "note": "Price/time from catalog; individual page timed out. Questions, lab and account availability unverified."
+    "kind": "Provider / directly read",
+    "note": "Price/time first taken from the catalog when the page timed out; the page itself was read 2026-11-17: 60–70 questions, 120 minutes, online, no hands-on lab listed.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X01",
     "title": "LangChain · Certified Agent Engineer exam",
     "url": "https://academy.langchain.com/pages/certifications-lcae",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Current $99, 40 questions, 120 minutes, four lifecycle domains and 24-month validity; page labels preparation courses prerequisites and lists one free resit under conditions. Purchase/course-completion gate not tested."
+    "note": "Read 27 Oct 2026. Current $99, 40 questions, 120 minutes, four lifecycle domains and 24-month validity; page labels preparation courses prerequisites and lists one free resit under conditions. Purchase/course-completion gate not tested. Reread 2026-11-17: 28/40 to pass, English, online proctored, one free resit per purchase.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X02",
     "title": "LangChain · official exam rules",
     "url": "https://support.langchain.com/articles/5297173898-what-is-the-langchain-certified-agent-engineer-exam",
     "kind": "Provider / current page read",
-    "note": "Official support article read 27 Oct 2026; dated 14 Aug. Specified LangChain-owned resources allowed; AI assistants and general search prohibited. Course completion alone does not grant this certification."
+    "note": "Official support article read 27 Oct 2026; dated 14 Aug. Specified LangChain-owned resources allowed; AI assistants and general search prohibited. Course completion alone does not grant this certification. Reread 2026-11-17 (article dated Oct 16, 2026): 28 correct to pass, English only, live proctored online, five free prerequisite courses.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X03",
@@ -197,14 +217,16 @@
     "title": "Microsoft · Azure AI Apps and Agents Developer AI-103",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Current credential, Python/Foundry scope, 120-minute assessment, possible interactive components and country-based pricing."
+    "note": "Read 27 Oct 2026 and again 2026-11-17. Current credential (Intermediate level), Python/Foundry scope, 120-minute proctored exam with possible interactive components, price by country or region; offered in English, Chinese (Simplified and Traditional), French, German, Japanese, Korean, Italian, Portuguese (Brazil) and Spanish.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X06",
     "title": "Microsoft · AI-103 study guide",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",
     "kind": "Provider / current page read",
-    "note": "Objective text read 27 Oct 2026 despite a generic authorization banner. Includes agents, operations/identity, vision, text/speech and extraction; objectives dated 16 Apr 2026. No account-only practice assessment was taken."
+    "note": "Read 27 Oct 2026 and again 2026-11-17. Skills measured as of April 16, 2026: plan and manage an Azure AI solution 25–30%, generative AI and agentic solutions 30–35%, computer vision 10–15%, text analysis 10–15%, information extraction 10–15%; 700 to pass; associate certifications expire annually and renew through a free online assessment; 30 extra minutes can be requested when the exam isn't offered in your preferred language.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X07",
@@ -218,21 +240,24 @@
     "title": "Databricks · Context Engineer Associate",
     "url": "https://www.databricks.com/learn/certification/context-engineer-associate",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Live listing: $200, 45 scored questions, possible unscored items, 90 minutes and two-year validity. Context/memory/retrieval/MCP/governance scope; six months of platform work recommended, not required. Account/practice access not tested."
+    "note": "Read 27 Oct 2026. Live listing: $200, 45 scored questions, possible unscored items, 90 minutes and two-year validity. Context/memory/retrieval/MCP/governance scope; six months of platform work recommended, not required. Account/practice access not tested. Reread 2026-11-17: English only, online or test center, 14-day retake wait at $200 per attempt, passing score not published.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X09",
     "title": "Databricks · Generative AI Engineer Associate",
     "url": "https://www.databricks.com/learn/certification/genai-engineer-associate",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026 at the current genai URL; guessed generative-ai URL returned 404. $200, 45 scored questions, 90 minutes, two-year validity, recommended hands-on experience; current app/RAG/deployment/evaluation scope."
+    "note": "Read 27 Oct 2026 at the current genai URL; guessed generative-ai URL returned 404. $200, 45 scored questions, 90 minutes, two-year validity, recommended hands-on experience; current app/RAG/deployment/evaluation scope. Reread 2026-11-17: English, Japanese, Brazilian Portuguese, Korean; online or test center; 14-day retake wait at $200 per attempt; passing score not published.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X10",
     "title": "AWS · free agent identity and database microcredentials",
     "url": "https://aws.amazon.com/blogs/training-and-certification/prove-your-agentic-ai-skills-two-new-microcredentials-now-available/",
     "kind": "Provider / current page read",
-    "note": "Official 29 Sep 2026 announcement read 27 Oct. Both are free timed assessed labs without subscription and award Credly badges. Separate from AWS Certification exams. Linked Skill Builder page required JavaScript; signed-in assessment access/time limits not tested."
+    "note": "Official 29 Sep 2026 announcement read 27 Oct. Both are free timed assessed labs without subscription and award Credly badges. Separate from AWS Certification exams. Linked Skill Builder page required JavaScript; signed-in assessment access/time limits not tested. Reread 2026-11-17: no multiple-choice questions; free with no subscription; time limit not stated.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X11",
@@ -246,7 +271,8 @@
     "title": "HashiCorp · Terraform Associate 004",
     "url": "https://developer.hashicorp.com/certifications/terraform-associate",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. 004, Terraform 1.12, one-hour multiple-choice exam, two-year validity, $70.50 plus local taxes/fees; no free retake."
+    "note": "Read 27 Oct 2026. 004, Terraform 1.12, one-hour multiple-choice exam, two-year validity, $70.50 plus local taxes/fees; no free retake. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X13",
@@ -269,7 +295,8 @@
     "title": "Linux Foundation · CKAD",
     "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. $445 exam-only page, two-hour CLI performance exam, no formal prerequisites; two exam attempts and two simulator attempts listed. Checkout/promotion and timed Kubernetes baseline not tested."
+    "note": "Read 27 Oct 2026. $445 exam-only page, two-hour CLI performance exam, no formal prerequisites; two exam attempts and two simulator attempts listed. Checkout/promotion and timed Kubernetes baseline not tested. Re-read 2026-11-17: 15–20 command-line tasks on Kubernetes v1.37, $445 with two exam attempts and two simulator sessions.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X16",
@@ -292,21 +319,24 @@
     "title": "IAPP · AI Governance Professional scope",
     "url": "https://iapp.org/certify/aigp",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Issuer scope: responsible AI, legal/framework context and lifecycle governance."
+    "note": "Read 27 Oct 2026. Issuer scope: responsible AI, legal/framework context and lifecycle governance. Reread 2026-11-17: links the free BoK, study guide, FAQs and candidate handbook; exam facts are on the store page and FAQs.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X19",
     "title": "IAPP · AIGP exam store",
     "url": "https://store.iapp.org/aigp-exam/",
     "kind": "Provider / price not retrievable",
-    "note": "Accessed 27 Oct 2026; price did not render in retrieved page. Historical launch pricing and third-party quotes are not a current payable quote. Recheck cost and current exam/maintenance terms."
+    "note": "Read 2026-11-17. Store page now renders: USD 799 non-member, USD 649 member (USD 625 non-member for prior AIGP candidates or holders of another IAPP certification); English; 100 questions in 2.75 hours with a 15-minute break; online (OnVUE) or test center; two-year term with 20 CPE credits and a USD 250 maintenance fee for non-members.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X24",
     "title": "Databricks · current-linked Context Engineer exam guide",
     "url": "https://www.databricks.com/sites/default/files/2026-10/Databricks-Certified-Context-Engineer-Associate-Exam-Guide-August-2026.pdf",
     "kind": "Provider / current page read",
-    "note": "Read official PDF text via live listing link on 27 Oct 2026. Filename says August, path October, internal publication/update table July 29; do not infer a new effective date from the filename. Confirms scored/unscored distinction and platform scope. No PDF republished."
+    "note": "Read official PDF text via live listing link on 27 Oct 2026. Filename says August, path October, internal publication/update table July 29; do not infer a new effective date from the filename. Confirms scored/unscored distinction and platform scope. No PDF republished. Reread 2026-11-17: exam published and guide updated July 29, 2026; up to 10 unscored items; online proctored or test center; English.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X25",
@@ -320,21 +350,24 @@
     "title": "Linux Foundation · MCPA",
     "url": "https://training.linuxfoundation.org/certification/model-context-protocol-associate-mcpa/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: scope, $250, 90-minute MCQ exam, two-year validity, no formal prerequisites and current referenced protocol version."
+    "note": "Read 27 Oct 2026: scope, $250, 90-minute MCQ exam, two-year validity, no formal prerequisites and current referenced protocol version. Re-read 2026-11-17: still 90 minutes and $250 with one retake, MCP specification 2026-07-28; buying through an Agentic AI Foundation event registration saves 20%.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y02",
     "title": "GitHub · Agentic AI Developer GH-600",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: current role, 120 minutes, proctored assessment and regional pricing. Generic page success UI is not an earned credential."
+    "note": "Read 27 Oct 2026 and again 2026-11-17: 120-minute proctored exam with possible interactive components, scheduled through Pearson VUE, offered only in English, price by country or region. The page states no renewal period.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y03",
     "title": "GitHub · GH-600 guide",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-600",
     "kind": "Issuer guide",
-    "note": "Objective text read 27 Oct 2026: SDLC, tools, state, evaluation, coordination and guardrails. Generic renewal text is not used as proof of this credential's exact renewal policy."
+    "note": "Objective text read 27 Oct 2026 and again 2026-11-17: six domains with weight ranges, 700 to pass, 30 extra minutes when the exam isn't offered in your preferred language. Its renewal paragraph is Microsoft's general text for associate certifications, not a GH-600 rule.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y04",
@@ -349,21 +382,24 @@
     "title": "Linux Foundation · PTCA",
     "url": "https://training.linuxfoundation.org/certification/pytorch-certified-associate-ptca/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: $250 exam-only, $299 pathway, 120-minute MCQ assessment and scope."
+    "note": "Read 27 Oct 2026: $250 exam-only, $299 pathway, 120-minute MCQ assessment and scope. Re-read 2026-11-17: still 120 minutes and $250; the multiple-choice FAQ it links gives 90 minutes and 60 questions for these exams.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y06",
     "title": "Linux Foundation · OTCA",
     "url": "https://training.linuxfoundation.org/certification/opentelemetry-certified-associate-otca/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: observability scope, $250, 90 minutes and no formal prerequisites. Adjacent engineering credential, not AI-specific."
+    "note": "Read 27 Oct 2026: observability scope, $250, 90 minutes and no formal prerequisites. Adjacent engineering credential, not AI-specific. Re-read 2026-11-17: unchanged; links the multiple-choice exam instructions and FAQ (60 questions, 75% to pass).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y07",
     "title": "CSA · TAISE",
     "url": "https://cloudsecurityalliance.org/education/taise",
     "kind": "Issuer page",
-    "note": "Read/indexed issuer text 27 Oct 2026: $795 training-plus-exam only, 60 questions/120 minutes, 80% raw threshold and two attempts. No signed-in delivery flow tested."
+    "note": "Read/indexed issuer text 27 Oct 2026: $795 training-plus-exam only, 60 questions/120 minutes, 80% raw threshold and two attempts. No signed-in delivery flow tested. Reread 2026-11-17: 2 exam attempts valid for 2 years; self-paced training only in English.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y08",
@@ -385,7 +421,8 @@
     "title": "Red Hat · EX267 Certified Developer in AI",
     "url": "https://www.redhat.com/en/services/training/ex267-red-hat-certified-developer-in-ai",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026 via old URL redirect. Current title/scope and OpenShift versions; regional fee and exam duration not verified. AI267LS offer includes an attempt."
+    "note": "Read 27 Oct 2026 via old URL redirect. Current title/scope and OpenShift versions; regional fee and exam duration not verified. AI267LS offer includes an attempt. Re-read 2026-11-17: no exam length, passing score or languages stated; parts of the page still use the former name, Red Hat Certified Specialist in OpenShift AI.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y11",
@@ -399,7 +436,8 @@
     "title": "Securiti · AI Security and Governance course",
     "url": "https://education.securiti.ai/certifications/ai-governance/",
     "kind": "Provider course page",
-    "note": "Read 27 Oct 2026: free course, eight modules/quizzes, final assessment and issuer-estimated 2–2.5-hour duration. No signed-in completion or badge earned."
+    "note": "Read 27 Oct 2026: free course, eight modules/quizzes, final assessment and issuer-estimated 2–2.5-hour duration. No signed-in completion or badge earned. Reread 2026-11-17: also 1.5 IAPP CPE credits and module badges; no question count, passing score or certificate expiry stated.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y13",
@@ -443,7 +481,8 @@
     "title": "Databricks · Generative AI Engineer Associate exam guide",
     "url": "https://www.databricks.com/sites/default/files/2026-10/databricks-certified-gen-ai-associate-exam-guide-august-2026.pdf",
     "kind": "Issuer exam guide",
-    "note": "Domain weights read 2026-11-03."
+    "note": "Domain weights read 2026-11-03. Reread 2026-11-17: exam published and guide updated March 18, 2026; up to 10 unscored items; delivery listed as online proctored only; four languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z04",
@@ -458,14 +497,16 @@
     "title": "IAPP · AIGP Body of Knowledge and Exam Blueprint v2.1 (PDF)",
     "url": "https://assets.contentstack.io/v3/assets/bltd4dd5b2d705252bc/blt0d33152fd20bc134/AIGP_Cert%20BOK.pdf",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-03. Gives a question range per domain (I 16–20, II 19–23, III 21–25, IV 21–25), not fixed weights."
+    "note": "Read 2026-11-03. Gives a question range per domain (I 16–20, II 19–23, III 21–25, IV 21–25), not fixed weights. Reread 2026-11-17: still version 2.1, effective February 2, 2026.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z06",
     "title": "NVIDIA · NCA-ADS Exam Study Guide (PDF)",
     "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/328u55865k15h7h0r28e70o023andi0r.pdf",
     "kind": "Issuer exam guide",
-    "note": "Domain weights read 2026-11-03."
+    "note": "Domain weights read 2026-11-03. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z07",
@@ -495,7 +536,8 @@
     "title": "Microsoft · Azure Fundamentals AZ-900",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Current certification (page updated 2026-11-13), 45-minute proctored exam with possible interactive components, regional pricing, Pearson VUE or Certiport scheduling, 13 languages."
+    "note": "Read 2026-11-17. Current certification (page updated 2026-11-13), 45-minute proctored exam with possible interactive components, regional pricing, Pearson VUE or Certiport scheduling, 13 languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z11",
@@ -665,7 +707,8 @@
     "title": "Microsoft · Azure Administrator Associate (AZ-104)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, price by country or region, 12-month renewal; last updated 04/17/2026."
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, price by country or region, 12-month renewal; last updated 04/17/2026. Offered in 10 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P21",
@@ -742,7 +785,8 @@
     "title": "Microsoft · Azure Data Fundamentals (DP-900)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-data-fundamentals/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 45-minute proctored exam, interactive components possible, Pearson VUE or Certiport scheduling, price by country or region; last updated 07/21/2026; not a prerequisite for other certifications."
+    "note": "Read 2026-11-17. 45-minute proctored exam, interactive components possible, Pearson VUE or Certiport scheduling, price by country or region; last updated 07/21/2026; not a prerequisite for other certifications. Offered in 13 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P32",
@@ -756,7 +800,8 @@
     "title": "Microsoft · Power BI Data Analyst Associate (PL-300)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, Power Query and DAX expected, price by country or region, 12-month renewal; last updated 04/20/2026."
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, Power Query and DAX expected, price by country or region, 12-month renewal; last updated 04/20/2026. Offered in 10 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P34",
@@ -770,7 +815,8 @@
     "title": "Microsoft · Fabric Data Engineer Associate (DP-700)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, SQL, PySpark and KQL expected, price by country or region, renewable; last updated 10/19/2026."
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, SQL, PySpark and KQL expected, price by country or region, renewable; last updated 10/19/2026. Offered in 10 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P36",
@@ -791,7 +837,8 @@
     "title": "Microsoft · Azure AI Cloud Developer Associate (AI-200)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 120-minute proctored exam through Pearson VUE, interactive components possible, Python, containers, vector databases and Azure SDKs expected, price by country or region; last updated 10/07/2026."
+    "note": "Read 2026-11-17. 120-minute proctored exam through Pearson VUE, interactive components possible, Python, containers, vector databases and Azure SDKs expected, price by country or region; last updated 10/07/2026. Offered in 13 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P39",
@@ -1551,7 +1598,8 @@
     "title": "Microsoft · Security, Compliance, and Identity Fundamentals SC-900",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/security-compliance-and-identity-fundamentals/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Current certification (Beginner level, last updated 10/21/2026); 45-minute proctored exam with possible interactive components; price by country or region; Pearson VUE or Certiport scheduling; 13 languages."
+    "note": "Read 2026-11-17. Current certification (Beginner level, last updated 10/21/2026); 45-minute proctored exam with possible interactive components; price by country or region; Pearson VUE or Certiport scheduling; 13 languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S84",
@@ -1565,7 +1613,8 @@
     "title": "Microsoft · Security Operations Analyst Associate SC-200",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/security-operations-analyst/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Current certification (Intermediate level, last updated 10/21/2026); 100-minute proctored exam with possible interactive components; price by country or region; renewal every 12 months; 10 languages."
+    "note": "Read 2026-11-17. Current certification (Intermediate level, last updated 10/21/2026); 100-minute proctored exam with possible interactive components; price by country or region; renewal every 12 months; 10 languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S86",
@@ -2162,6 +2211,438 @@
     "url": "https://grow.google/intl/es/google-career-certificates/cybersecurity/",
     "kind": "Provider / current page read",
     "note": "Read 2026-11-17. Spanish page for the program: no experience needed, 100% online, under six months at your own pace; links to the Coursera enrollment page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E01",
+    "title": "Microsoft · Exam retake policy",
+    "url": "https://learn.microsoft.com/en-us/credentials/support/retake-policy",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (page updated 2026-07-27). Role-based, specialty and fundamentals exams: wait 24 hours after a first failed attempt, then 14 days between later attempts; at most five attempts in 12 months; a passed exam can't be retaken until the certification expires; retakes are paid. Renewal assessments can be retried without limit (24 hours apart after the second try).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E02",
+    "title": "Microsoft · Exam price list behind the country selector",
+    "url": "https://learn.microsoft.com/en-us/credentials/exam-pricing.json",
+    "kind": "Issuer price data",
+    "note": "Read 2026-11-17. The data the exam pages use to show the price for each country. AZ-900, AI-901, DP-900 and SC-900: USD 99 in the US, USD 59 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America, EUR 76 in Spain. AZ, AI, DP, PL and SC role-based exams (and GH-600, priced as AZ): USD 165 in the US, USD 99 in those Latin American countries, EUR 126 in Spain. Prices exclude taxes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E03",
+    "title": "Microsoft · Certification exam offers",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals",
+    "kind": "Issuer offer page",
+    "note": "Read 2026-11-17. Exam Replay with Pearson VUE: one Microsoft Certification exam voucher plus one retake of the same exam, both taken within 12 months of purchase, online allowed; the retake can only be scheduled after a failed first attempt. Links the student discount page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E04",
+    "title": "Pearson VUE MindHub · Microsoft Exam Replay",
+    "url": "https://www.mindhub.com/p/Microsoft-Exam-Replay",
+    "kind": "Exam provider store",
+    "note": "Read 2026-11-17. US store price USD 230 for one exam voucher plus one retake; vouchers expire 12 months after purchase; valid for role-based exams, not for Fundamentals, MOS or beta exams.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E05",
+    "title": "Microsoft · Student discounts",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts",
+    "kind": "Issuer offer page",
+    "note": "Read 2026-11-17 (page updated 2025-06-30). Academic pricing on Microsoft Certification exams in most countries except India and China, after identifying as a student in the Microsoft Learn profile and verifying academic status.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E06",
+    "title": "Microsoft · Available exam accommodations and documentation requirements",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/available-exam-accommodations-document-requirements",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (page updated 2026-11-09). Extra time for English as a second language only when the exam is not available in the candidate's preferred language; no extra time when the exam is offered in that language but taken in another. Five minutes were added to every exam for unscheduled breaks. The study guides put the language extra time at 30 minutes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E07",
+    "title": "Microsoft · About online exams with Pearson VUE",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/online-exams",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (page updated 2026-07-23). Online proctored exams from home or office in most countries, or at a Pearson VUE test center; greeters, proctors and the proctoring software work in English even when the exam is in another language.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E08",
+    "title": "Microsoft · Practice assessments for Microsoft Certifications",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications",
+    "kind": "Issuer prep index",
+    "note": "Read 2026-11-17. Official list of each exam's free practice assessment. AZ-104, AZ-305, AZ-400, AZ-900, DP-700, DP-900, PL-300, SC-200 and SC-900 link to Microsoft Learn; AI-103 and AI-200 link to AI Skills Navigator; AI-901 and GH-600 are not listed. The aka.ms/AZ900-PA short link sent to the DP-900 page on AI Skills Navigator.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E09",
+    "title": "Microsoft · Exam AZ-305 page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/az-305/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Ten languages: English, Japanese, Chinese (Simplified), Korean, German, French, Spanish, Portuguese (Brazil), Chinese (Traditional), Italian; no retirement date; price by country before taxes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E10",
+    "title": "Microsoft · Exam AZ-400 page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/az-400/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Ten languages: English, Japanese, Chinese (Simplified), Korean, German, French, Spanish, Portuguese (Brazil), Chinese (Traditional), Italian. The exam page still shows no retirement date, while the certification page and study guide announce February 1, 2027.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E11",
+    "title": "Microsoft · Exam AI-901 page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-901/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Thirteen languages: English, Arabic (Saudi Arabia), Chinese (Simplified), Chinese (Traditional), French, German, Indonesian (Indonesia), Italian, Japanese, Korean, Portuguese (Brazil), Russian, Spanish; no retirement date.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E12",
+    "title": "Microsoft · GitHub Copilot certification page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/github-copilot/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Notice shared by the GitHub certification pages: GitHub certifications are valid for 2 years; GitHub is moving to Microsoft's renewal process, and certifications that expire before it is available are extended by 6 months.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E13",
+    "title": "GitHub Docs · Registering for a GitHub Certifications exam",
+    "url": "https://docs.github.com/en/get-started/showcase-your-expertise-with-github-certifications/registering-for-a-github-certifications-exam",
+    "kind": "Issuer docs",
+    "note": "Read 2026-11-17. GitHub Certifications exams are scheduled through Pearson VUE at a local test center or online with a proctor, up to 90 days ahead, with a government ID.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E14",
+    "title": "NVIDIA · Certification Programs and certification FAQ",
+    "url": "https://www.nvidia.com/en-us/learn/certification/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. FAQ: exams are pass/fail and no score is given; after a failed attempt the exam is bought again with a 14-day wait, at most five attempts per exam in 12 months; certifications are valid two years and are renewed by passing the exam again; exams are in English, some also in Simplified Chinese; extra time for non-native speakers (case by case) and disability accommodations are requested by support case before the exam; remotely proctored exams allow no breaks; taxes may apply in some countries. The catalog cards list NCP-AIN and NCP-AIO at $500 and promote the 19 Nov 2026 webinar with a 50% exam discount code.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E15",
+    "title": "NVIDIA · Webinar: NVIDIA Certification, Your Roadmap Across the AI Stack",
+    "url": "https://www.nvidia.com/en-us/events/webinars/nvidia-certification-roadmap-ai-stack/",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Registration form offers two sessions on Thursday 19 Nov 2026 (9 a.m. CET for EMEA/APAC; 9 a.m. PT / 2 p.m. BRT for the Americas and LATAM); all attendees receive a 50% discount code for an NVIDIA Certification exam. The page header still shows an older date (15 Jul 2026); localized sessions for China (25 Nov) and Japan (2 Dec) are linked separately.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E16",
+    "title": "NVIDIA · NVIDIA-Certified Professional: Accelerated Data Science Exam Study Guide (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/6ql1cb8q776an2012vu86kpjxrvysm3q.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-ADS exam page. Official name, six topic areas with the same weights as the exam page (14/19/17/16/15/19), recommended training and readings.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E17",
+    "title": "NVIDIA · NVIDIA-Certified Professional: Agentic AI Exam Study Guide (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/64tei188l3tt132l265u1ipjoexdl1p5.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-AAI exam page. Ten topic areas whose weights add up to 92% (Deployment and Scaling 5%, Run, Monitor, and Maintain 7%), while the exam page's blueprint adds up to 98% (13% and 5% for those two).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E18",
+    "title": "NVIDIA · NVIDIA-Certified Professional: Gen AI LLMs Exam Study Guide (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/a38r3688v26wf6u414c64805b8i6awa3.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-GENL exam page. Ten topic areas with the same weights as the exam page, recommended NVIDIA courses and readings.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E19",
+    "title": "NVIDIA · NCP: OpenUSD Development Exam Study Guide 1.1.0 (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/sjrg2vjhic7285sph487x53f5e54erf7.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-OUSD exam page. Eight topic areas with the same weights as the exam page, references per objective, and official sample questions with an answer key.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E20",
+    "title": "Anthropic Partner Academy · Claude certification FAQ",
+    "url": "https://anthropic-partners.skilljar.com/page/faq-certifications",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams and prep content in English and Japanese; online (OnVUE) or Pearson test center; 120 minutes, 720 to pass on 100–1,000; retake waits of 14, 30 and 90 days, at most 4 attempts per rolling 12 months, full fee each; 12-month validity with free on-time renewal; prices $99/$125/$125/$175 before partner discounts; 50% off for Select, Preferred and Global Premier partners, 100% for Global Premier through Dec 31, 2026; since Nov 12, 2026 payment at Pearson checkout via SSO; accommodations and ESL extra time through Pearson; practice exam retired.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E21",
+    "title": "Anthropic Partner Academy · Claude certification policies",
+    "url": "https://anthropic-partners.skilljar.com/page/policies-certifications",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Retake waits of 14, 30 and 90 days, at most four attempts at the same exam in 12 months, each at the standard fee with the partner discount; limits reset with a new exam version; 12-month validity, renewed free through an open-book online assessment; reschedule or cancel up to 1 hour before OnVUE and 48 hours before a test-center exam; accommodations through Pearson.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E22",
+    "title": "Anthropic Partner Academy · Claude certification exam prep courses",
+    "url": "https://anthropic-partners.skilljar.com/page/claude-certification-exam-prep-courses",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Prep course bundles for Associate Foundations, Developer Foundations, Developer Professional, Architect Foundations and Architect Professional; the certifications page calls them free courses on the Partner Academy.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E23",
+    "title": "Anthropic · Claude Certified Architect – Foundations exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542750%2FClaude+Certified+Architect+%E2%80%93+Foundations+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCAR-F: 60 items, 120 minutes, online proctored and/or test center, 720 on 100–1,000, 12-month validity; 4 scenarios drawn at random per sitting.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E24",
+    "title": "Anthropic · Claude Certified Architect – Professional exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542810%2FClaude+Certified+Architect+%E2%80%93+Professional+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCAR-P: 63 items, 120 minutes, online proctoring or a Pearson test center, 720 on 100–1,000, 12-month validity; retakes after 14, 30 and 90 days, up to four attempts in 12 months; cancel or reschedule up to 24 hours before.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E25",
+    "title": "Anthropic · Claude Certified Associate – Foundations exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542847%2FClaude+Certified+Associate+%E2%80%93+Foundations+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCAO-F: 60 items, 120 minutes, online proctored and/or test center, 720 on 100–1,000, 12-month validity.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E26",
+    "title": "Anthropic · Claude Certified Developer – Foundations exam guide v1.0 (PDF)",
+    "url": "https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542875%2FClaude+Certified+Developer+%E2%80%93+Foundations+Exam+Guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Version 1.0, effective July 2026, CCDV-F: 53 items, 120 minutes, online proctored and/or test center, 720 on 100–1,000, 12-month validity.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E27",
+    "title": "LangChain · LCAE exam guide (PDF)",
+    "url": "https://pub-dffa5f25c09c49488e245c43fcd4d0b5.r2.dev/exam_guide.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the LCAE page: 2-hour solo exam, live proctored by Talview, semi-open-book (LangSmith, LangChain docs and Academy only; no web search or AI tools); four sections of 10 questions, 25% each; one free resit per purchase, further resits at full fee; accommodations by Talview support ticket.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E28",
+    "title": "LangChain Academy · LCAE Practice Exam",
+    "url": "https://academy.langchain.com/courses/lcae-practice-exam",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Free practice exam with sections for Build, Test, Deploy and Monitor.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E29",
+    "title": "LangChain Academy · LCAE prerequisite courses",
+    "url": "https://academy.langchain.com/bundles/lcae-prerequisite-courses",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Free bundle of the six courses the LCAE page lists as prerequisites; LangChain says exam questions draw on them.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E30",
+    "title": "CSA · TAISE Prep Kit",
+    "url": "https://cloudsecurityalliance.org/artifacts/taise-prep-kit",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Free download (no account needed): knowledge guide, curriculum, FAQ and sample questions. FAQ: open-book, online, unproctored exam of 60 single-answer questions (6 per module), 2 hours, 80% to pass, no scheduling or test centers; token with 2 attempts valid 2 years (extendable 6 months), no wait between attempts; accommodations and ESL extra time through CSA support; corporate team-training discounts.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E31",
+    "title": "CSA Training · Trusted AI Safety Expert Exam Bundle",
+    "url": "https://training.cloudsecurityalliance.org/trusted-ai-safety-expert-exam-bundle",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. $795 self-paced course with one year of access (about 21.2 hours) and a TAISE exam token; training and exam are not sold separately.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E32",
+    "title": "IAPP · Certification FAQs",
+    "url": "https://iapp.org/certify/faqs",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. AIGP: 100 questions in 2.75 hours; passing score 300 on a 100–500 scale; translated exams exist only for some CIPP/CIPM exams (not AIGP); OnVUE online or test center; accommodations by request form; maintenance by CPE plus a USD 250 maintenance fee per term or USD 295 annual membership; discounted price for holders of another IAPP certification and for retakes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E33",
+    "title": "IAPP · Certification candidate handbook v5.3.2 (PDF)",
+    "url": "https://assets.contentstack.io/v3/assets/bltd4dd5b2d705252bc/blteb8b5d531fd78971/IAPP-Certification_Handbook.pdf",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Effective June 1, 2026: exams bought in the IAPP store and taken within one year through Pearson VUE (test center or OnVUE); 15-minute break at the halfway point; 100–500 scale with 300 to pass; retakes need a new purchase and at least seven days after the prior attempt; membership or maintenance fee needed for the certification to become active; accommodations can take up to 30 days.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E34",
+    "title": "IAPP Store · AIGP Practice Exam (digital)",
+    "url": "https://store.iapp.org/aigp-practice-exam-digital/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. USD 60; 100 practice questions in a PDF, written by IAPP-selected experts from the AIGP body of knowledge.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E35",
+    "title": "IAPP · AIGP training",
+    "url": "https://iapp.org/train/aigp-training",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Paid AIGP training online, live online, in person and for groups.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E36",
+    "title": "AWS · Certification FAQs (Microcredential section)",
+    "url": "https://aws.amazon.com/certification/faqs/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Microcredentials suit people with more than six months of experience in the topic; 25-day wait after a failed lab attempt; Credly badge on passing; valid 12 months; renewal from 9 months after passing; each Skill Builder page lists recommended preparation.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E37",
+    "title": "Linux Foundation · Certification FAQ",
+    "url": "https://training.linuxfoundation.org/about/faqs/certification-faq/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams are delivered online and can be taken from anywhere; 12 months from purchase to schedule and take the exam; retakes (when eligible) must be done within 12 months of the original purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time; test accommodations are given for a documented need, case by case; only the CKS has a prerequisite.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E38",
+    "title": "Linux Foundation · Candidate Handbook: Language",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2/language",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Language grid: CKA, CKAD and CKS tasks in English, Japanese and Simplified Chinese (switchable during the exam); KCNA in English, plus Japanese-only and Chinese-only versions registered separately (Chinese through training.linuxfoundation.cn); OTCA, PTCA and MCPA in English only.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E39",
+    "title": "Linux Foundation · Candidate Handbook: Exam Preparation Checklist",
+    "url": "https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2/exam-preparation-checklist",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Test Accommodations: candidates with disabilities (such as those covered by the ADA) submit the Test Accommodations Form at least two weeks before the planned exam and must not schedule the exam first; the proctoring partner then contacts them to schedule. The results screen offers a retake when one is available.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E40",
+    "title": "PyTorch Foundation · PyTorch Certification",
+    "url": "https://pytorch.org/pytorch-certification/",
+    "kind": "Issuer program page",
+    "note": "Read 2026-11-17. PTCA includes a free retake and 12 months of eligibility; the credential stays valid for two years after passing; the PTCA Certification Pathway bundles all learning modules with the exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E41",
+    "title": "Linux Foundation · PTCA Certification Pathway",
+    "url": "https://training.linuxfoundation.org/certification/ptca-certification-pathway/",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. $299 pathway with four self-paced modules (LFD2000 PyTorch Fundamentals, LFD2001 Data Handling, LFD2002 Model Development, LFD2003 Optimizing PyTorch) plus the PTCA exam; exam valid 2 years, one retake, 120 minutes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E42",
+    "title": "HashiCorp Certifications · What are the HashiCorp exam retake rules?",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049773991-What-are-the-HashiCorp-exam-retake-rules",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (updated 2026-11-12). Associate exams include no free retake (each attempt is a new purchase); 7 days between attempts; at most 4 attempts in a rolling 365 days; a passed exam cannot be retaken until the credential expires; a missed appointment needs a new purchase.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E43",
+    "title": "HashiCorp Certifications · I require special accommodations for my exam",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360046049832-I-require-special-accommodations-for-my-exam-what-should-I-do",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Reasonable accommodation requests (extra time, other accommodations such as a female proctor or special equipment) are made in Certiverse while scheduling, at least 3 business days before the exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E44",
+    "title": "HashiCorp Certifications · Are your exams available in other languages?",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360045232492-Are-your-exams-available-in-other-languages",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Exams are only available in English; no translation resources allowed; candidates whose first language is not English can request extra time as an accommodation, ideally 5 business days before the appointment.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E45",
+    "title": "HashiCorp Certifications · What is the passing score?",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360047382831-What-is-the-passing-score",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. HashiCorp does not publish its passing scores.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E46",
+    "title": "HashiCorp · Sample Questions: Terraform Associate 004",
+    "url": "https://developer.hashicorp.com/terraform/tutorials/certification-004/associate-questions-004",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Associate-level exams use true/false, multiple-choice and multiple-answer questions; free sample questions for the 004 exam. The same collection has the 004 learning path (study guide) and exam content list.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E47",
+    "title": "HashiCorp Certifications · Exam appointment rules and requirements",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125-Exam-appointment-rules-and-requirements",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (updated 2026-02-13). Exams are taken on the candidate's own computer through Certiverse, an online delivery and proctoring system; the certification portal is tied to a GitHub account; accommodation requests are linked from here.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E48",
+    "title": "HashiCorp Certifications · Recertification policies and processes",
+    "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/9677396620941-Recertification-policies-and-processes",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (updated 2026-09-01). Credentials expire 2 years after issuance; recertification can begin 18 months after earning; Associate credentials renew by retaking the same exam or passing a Professional or Advanced exam for the same product.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E49",
+    "title": "Red Hat · Training and certification FAQ",
+    "url": "https://www.redhat.com/en/services/training-and-certification/faq",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Testing options: remote exams, testing centers and on-site/classroom; a free retake after an unsuccessful first individual exam attempt, further attempts paid; certifications are current for 3 years from the date earned and must be renewed before expiry (retake, level up or advance).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E50",
+    "title": "Red Hat · Red Hat Training Policies",
+    "url": "https://www.redhat.com/en/about/red-hat-training-policies",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Individual exams are delivered at a Red Hat testing center or online as a Remote Exam; one year from purchase to take the exam; one free retake after a NO PASS or NO SHOW, to be scheduled and taken within one year of the original purchase; the same exam cannot be taken twice in a day; special accommodation requests (disabilities, head coverings) at least two weeks in advance.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E51",
+    "title": "Red Hat · Ways to test",
+    "url": "https://www.redhat.com/en/services/certification/ways-to-test",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. All Red Hat exams are available as individual exams taken remotely or on a preconfigured testing station at a Red Hat or Red Hat partner location; classroom exams at Red Hat testing facilities.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E52",
+    "title": "Red Hat · AI267 Developing and Deploying AI/ML Applications on Red Hat OpenShift AI",
+    "url": "https://www.redhat.com/en/services/training/ai267-developing-and-deploying-ai/ml-applications-on-red-hat-openshift-ai",
+    "kind": "Issuer course page",
+    "note": "Read 2026-11-17. The AI267LS Red Hat Learning Subscription Course is 50% off local MSRP through December 31, 2026 (discount applied at checkout, AI267LS only); course based on OpenShift 4.20 and OpenShift AI 3.3; EX267 listed as the next exam.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E53",
+    "title": "Oracle · Oracle Certification Program Guidelines",
+    "url": "https://www.oracle.com/education/certification/guidelines/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Online non-proctored exams can be retaken at any time; exams in a special promotion follow the promotion's terms; a passed exam cannot be retaken; Oracle Cloud Infrastructure certifications are valid for 24 months (Cloud Applications 18 months); passing scores are set per exam version.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E54",
+    "title": "Oracle MyLearn · Become an Oracle Agentic AI Foundations Associate (learning path)",
+    "url": "https://mylearn.oracle.com/ou/learning-path/become-an-oracle-agentic-ai-foundations-associate-2026/163239",
+    "kind": "Issuer course page",
+    "note": "Checked 2026-11-17: the page loads but renders only in a browser, so its contents could not be read directly. Linked as Oracle's free learning path for the 1Z0-1157-26 exam.",
     "checked_on": "2026-11-17"
   }
 ]

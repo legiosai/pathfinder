@@ -10,17 +10,35 @@
   "fee": {
     "usd": 795,
     "basis": "Training + exam",
-    "note": ""
+    "note": "Sold only as a training + exam bundle (no exam-only option): the self-paced course with one year of access, the study guide and an exam token with two attempts valid for two years. Instructor-led options are listed on CSA's training schedule."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "Exam-based certificate. Issuer lists 60 questions, 120 minutes, two attempts and an 80% raw passing requirement; no exam-only purchase."
+    "format": "Exam-based certificate. 60 multiple-choice questions (6 per module), 120 minutes, 80% to pass. Open book, online and unproctored on CSA Exams, taken any time after purchase without scheduling. No exam-only purchase.",
+    "questions": "60",
+    "question_count": 60,
+    "passing": "80%",
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "CSA offers corporate team-training discounts, and CSA corporate members get training benefits they can use on TAISE; terms on request.",
+        "url": "https://cloudsecurityalliance.org/artifacts/taise-prep-kit"
+      }
+    ],
+    "retake": "The bundle's exam token includes two attempts, valid two years and extendable six months at a time on request, with no waiting period between them; extra attempts are requested from CSA support.",
+    "accommodations": "Testing accommodations, including extra time for candidates whose first language is not English, are requested from CSA support and considered case by case."
   },
   "scope": "AI architecture, use cases, ethics, lifecycle threats, governance, security and data privacy.",
   "requirements": "",
-  "ai_policy": "Recheck current resource and delivery rules.",
-  "caveats": [],
+  "ai_policy": "CSA describes the exam as open book, online and unproctored; check the CSA Exams rules before using any tool.",
+  "caveats": [
+    "The two-year validity CSA lists applies to the exam token and its two attempts, not to the certificate; the TAISE page and prep-kit FAQ read for this entry give no certificate expiry."
+  ],
   "skills": [
     "governance",
     "ai-security"
@@ -72,14 +90,30 @@
     }
   ],
   "sources": [
-    "Y07"
+    "Y07",
+    "E30",
+    "E31"
   ],
   "reports": [
     "W04",
     "W05"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
+    {
+      "title": "TAISE Prep Kit",
+      "url": "https://cloudsecurityalliance.org/artifacts/taise-prep-kit",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Free download with a knowledge guide, curriculum, FAQ, overview presentation and sample questions."
+    },
+    {
+      "title": "Trusted AI Safety Expert Exam Bundle",
+      "url": "https://training.cloudsecurityalliance.org/trusted-ai-safety-expert-exam-bundle",
+      "kind": "course",
+      "cost": "paid",
+      "note": "USD 795 self-paced course (about 21 hours, one year of access) with the exam token; the training and exam are not sold separately."
+    },
     {
       "title": "NIST AI Risk Management Framework",
       "url": "https://www.nist.gov/itl/ai-risk-management-framework",
@@ -87,5 +121,5 @@
       "cost": "free"
     }
   ],
-  "domains_note": "Converted from item counts on the CSA TAISE page (Exam Details: '60 multiple-choice questions (6 per module)'; Exam Modules: 10 modules), read 2026-11-03. 6/60 = 10% per module, exact. Module names as the issuer writes them (including 'Data Security and Privacy AI Systems' and 'Continuous Learning and Adaption')."
+  "domains_note": "Converted from item counts on the CSA TAISE page (Exam Details: '60 multiple-choice questions (6 per module)'; Exam Modules: 10 modules), read 2026-11-17. 6/60 = 10% per module, exact. Module names as the issuer writes them (including 'Data Security and Privacy AI Systems' and 'Continuous Learning and Adaption')."
 }
