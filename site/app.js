@@ -251,6 +251,7 @@ function renderRoute() {
   if (view === 'cert' && BY_ID.has(certId)) document.title = `${BY_ID.get(certId).name} · pathfinder`;
   else if (!['cert', 'path'].includes(view)) document.title = titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
   if (moved && from.view !== null) arrive(view, from, !composer);
+  if (view === 'plan' && params.has('session')) focusPlanSession(params.get('session'));
   countView(view, certId || params.get('cert'));
 }
 
@@ -973,7 +974,7 @@ function enterPlan(params) {
   if (params.get('start')) f.start.value = params.get('start');
   if (params.get('len')) setSessionLength(f.sessionMinutes, params.get('len'));
   if (params.get('time')) f.startTime.value = params.get('time');
-  if (params.get('exam')) f.targetDate.value = params.get('exam');
+  if (params.has('exam')) f.targetDate.value = params.get('exam');
   if (params.get('days')) {
     const days = params.get('days').split(',');
     $$('input[name="days"]', f).forEach((i) => (i.checked = days.includes(i.value)));
@@ -986,8 +987,18 @@ function enterPlan(params) {
 
 function showPlanForm(on) {
   $('#plan-choose').hidden = on;
-  $('#plan-form').hidden = !on;
+  $('#plan-settings').hidden = !on;
   $('#plan-output').hidden = !on;
+}
+
+function focusPlanSession(value) {
+  const number = Number(value);
+  if ($('#plan-output').hidden || !Number.isSafeInteger(number) || number < 1) return;
+  const row = $(`#plan-schedule [data-session="${number}"]`);
+  if (!row) return;
+  $('#plan-schedule').open = true;
+  row.focus({ preventScroll: true });
+  row.scrollIntoView({ block: 'center' });
 }
 
 /** Lowercase without accents, for matching what people type. */
@@ -1064,6 +1075,48 @@ function planParams() {
   };
 }
 
+function planHref(params, session) {
+  const query = new URLSearchParams(params);
+  if (session) query.set('session', session);
+  return `#plan?${query}`;
+}
+
+const PRACTICE_LINK = { baseline: 'practice.linkBaseline', practice: 'practice.linkDomain', mock: 'practice.linkMock', remediate: 'practice.linkReview' };
+
+/** Keep the same plan session link whether it appears on Plan or Progress. */
+function sessionPractice(cert, s, start) {
+  const label = PRACTICE_LINK[s.kind];
+  if (!cert.practice_questions || !label) return null;
+  if (s.kind === 'remediate') return { href: `#practice?cert=${cert.id}&tab=review`, label };
+  const query = new URLSearchParams({ cert: cert.id, plan: start, s: s.n });
+  if (s.kind === 'practice' && s.topic) query.set('domain', s.topic);
+  if (s.kind === 'mock') query.set('mode', 'mock');
+  if (s.kind === 'baseline') query.set('size', '10');
+  return { href: `#practice?${query}`, label };
+}
+
+function nextSessionCard(cert, s, { today, start, params, trackKey = '' } = {}) {
+  if (!s) return `<p class="status good">${icon('circle-check')}${esc(t('study.complete'))}</p>`;
+  const date = s.date === today ? t('progress.today') : s.date < today ? t('study.overdue', { d: day(s.date) }) : day(s.date);
+  const practice = sessionPractice(cert, s, start);
+  const baseline = s.kind === 'baseline';
+  const guide = baseline && cert.prep?.find((r) => r.kind === 'official-guide');
+  const source = baseline && (guide || DATA.sources[cert.sources[0]]);
+  const title = baseline ? t(practice ? 'study.diagnosticTitle' : 'study.objectivesTitle') : sessionName(s);
+  const detail = baseline ? t(practice ? 'study.startDiagnostic' : 'study.checkObjectives') : kindDetail(s.kind, s.detail, s.minutes);
+  const open = planHref(params, s.n);
+  let action = `<a class="btn primary" href="${esc(open)}">${icon('arrow-right')}${t('study.openSession')}</a>`;
+  if (practice) action = `<a class="btn primary" href="${esc(practice.href)}"${trackKey ? ` data-track-plan="${esc(trackKey)}"` : ''}>${icon('dumbbell')}${t(practice.label)}</a>`;
+  else if (source) action = ext(source.url, icon('book-open') + esc(t(guide ? 'study.examGuide' : 'cert.issuer')), 'btn primary');
+  return `<section class="card panel study-next">
+    <h2>${t('study.next')}</h2>
+    <p class="study-next-meta">${esc(cert.code)} · ${esc(date)} · ${esc(len(s.minutes))}</p>
+    <strong>${esc(title)}</strong>
+    <p class="hint">${esc(detail)}</p>
+    <div class="study-next-actions">${action}${practice || source ? `<a class="link" href="${esc(open)}">${t('study.openSession')}</a>` : ''}</div>
+  </section>`;
+}
+
 /** Sessions per kind as small chips: "Practice 2 · Fix 1". */
 const kindCounts = (sessions) => {
   const n = new Map();
@@ -1096,7 +1149,7 @@ function statusHtml(p, done, days, key) {
   // Behind replaces the "fits" line: it no longer holds until the plan is rescheduled.
   const late = behindHtml(p, done, days, key);
   if (late && (!d || d.fits)) return late + moved;
-  if (!d) return `<div class="status info">${icon('flag')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>${moved}`;
+  if (!d) return moved;
   if (d.fits) {
     // After a reschedule the spare days are the ones left after the last session.
     const next = utc(p.sessions.at(-1).date);
@@ -1120,9 +1173,10 @@ function statusHtml(p, done, days, key) {
 function monthsHtml(p, done) {
   const byDate = new Map(p.sessions.map((s) => [s.date, s]));
   const today = todayLocal();
-  const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
+  const examDay = p.deadline?.targetDate;
   const first = utc(p.sessions[0].date);
-  const last = utc([p.sessions.at(-1).date, examDay].sort().at(-1));
+  const end = p.sessions.at(-1).date;
+  const last = utc(examDay && examDay > end ? examDay : end);
   const out = [];
   let y = first.getUTCFullYear();
   let m = first.getUTCMonth();
@@ -1158,6 +1212,8 @@ function monthsHtml(p, done) {
 function renderPlan() {
   const f = $('#plan-form');
   const out = $('#plan-output');
+  const scheduleOpen = $('#plan-schedule', out)?.open;
+  const detailsOpen = $('#plan-details', out)?.open;
   const cert = BY_ID.get(f.cert.value);
   const days = $$('input[name="days"]:checked', f).map((i) => Number(i.value));
   let p;
@@ -1173,6 +1229,7 @@ function renderPlan() {
       targetDate: f.targetDate.value || null,
     });
   } catch (err) {
+    $('#plan-settings').open = true;
     out.innerHTML = `<p class="empty">${esc(lib(err.message))}.</p>`;
     return;
   }
@@ -1182,7 +1239,8 @@ function renderPlan() {
   const done = new Set(store.get(progressKey, []));
   const tracked = isTracked(progressKey);
   if (tracked) setTracked(progressKey, trackParams(), true);
-  const pct = () => Math.round((done.size / p.sessions.length) * 100);
+  const countDone = () => p.sessions.filter((s) => done.has(s.n)).length;
+  const doneLabel = () => `${t('plan.of', { a: countDone(), b: p.sessions.length })} ${t('plan.done')}`;
 
   // Calendar weeks, Monday first.
   const first = utc(p.sessions[0].date);
@@ -1202,31 +1260,23 @@ function renderPlan() {
     return span(iso(a), iso(b));
   };
   const today = todayLocal();
+  const nextHtml = () => nextSessionCard(cert, p.sessions.find((s) => !done.has(s.n)), { today, start: planStart, params: trackParams(), trackKey: progressKey });
   const stopState = (s) => (done.has(s.n) ? ' done' : s.date < today ? ' missed' : s.date === today ? ' today' : '');
   const stopTag = (s) => (done.has(s.n) ? '' : s.date < today ? `<span class="tag warn">${t('progress.legendMissed')}</span>` : s.date === today ? `<span class="tag">${t('progress.today')}</span>` : '');
-  // Sessions that have practice to go with them link to it: the session's domain, a full timed
-  // mock, a short diagnostic, or the review queue. The run ticks the session off when it ends.
-  const PRACTICE_LINK = { baseline: 'practice.linkBaseline', practice: 'practice.linkDomain', mock: 'practice.linkMock', remediate: 'practice.linkReview' };
-  const practiceHref = (s) => {
-    if (s.kind === 'remediate') return `#practice?cert=${cert.id}&tab=review`;
-    const q = new URLSearchParams({ cert: cert.id, plan: planStart, s: s.n });
-    if (s.kind === 'practice' && s.topic) q.set('domain', s.topic);
-    if (s.kind === 'mock') q.set('mode', 'mock');
-    if (s.kind === 'baseline') q.set('size', '10');
-    return `#practice?${q}`;
-  };
-  const stop = (s) => `<li class="stop${stopState(s)}" data-kind="${s.kind}">
+  const stop = (s) => {
+    const practice = sessionPractice(cert, s, planStart);
+    return `<li class="stop${stopState(s)}" data-kind="${s.kind}" data-session="${s.n}" tabindex="-1">
       <span class="node ${kindN(s.kind)}" ${kindStyle(s.kind)}>${icon(KIND[s.kind].icon)}</span>
       <div class="card body">
         <small>${day(s.date)} · ${kindLabel(s.kind)}${stopTag(s)}</small>
         <b>${esc(cap(sname(s)))}</b>
         <span class="len">${icon('clock')}${len(s.minutes)}</span>
-        ${cert.practice_questions && PRACTICE_LINK[s.kind] ? `<a class="pa-link" href="${esc(practiceHref(s))}">${icon('dumbbell')}${t(PRACTICE_LINK[s.kind])}</a>` : ''}
+        ${practice ? `<a class="pa-link" href="${esc(practice.href)}" data-track-plan="${esc(progressKey)}">${icon('dumbbell')}${t(practice.label)}</a>` : ''}
         <label class="check"><input type="checkbox" data-n="${s.n}" aria-label="${esc(t('plan.sessionDone', { n: s.n }))}" ${done.has(s.n) ? 'checked' : ''}><span>${icon('check')}</span></label>
       </div></li>`;
+  };
   const kinds = [...new Set(p.sessions.map((s) => s.kind))];
   const mockSession = p.sessions.find((s) => s.kind === 'mock');
-  const examDay = p.deadline ? p.deadline.targetDate : p.examDate;
   const byTopic = new Map();
   for (const s of p.sessions) {
     // A session that covers several domains splits its time between them.
@@ -1242,34 +1292,34 @@ function renderPlan() {
     title: t('plan.weekTitle', { n: i + 1, r: weekRange(w), h: Math.round((items.reduce((sum, s) => sum + s.minutes, 0) / 60) * 10) / 10 }),
     mark: items.some((s) => s.kind === 'mock'),
   }));
-  const summaryStat = (ic, label, value) => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${label}</small><b>${value}</b></div></div>`;
-
   out.innerHTML = `
-    <div class="plan-summary">
-      ${summaryStat('calendar-days', t('plan.sessions'), p.sessions.length)}
-      ${summaryStat('clock', t('plan.studyTime'), `${p.hours} h`)}
-      ${summaryStat('flag', t('plan.fromTo'), `${day(p.sessions[0].date, { weekday: false })} – ${day(p.sessions.at(-1).date, { weekday: false })}`)}
-      ${summaryStat('target', p.deadline ? t('plan.examDay') : t('plan.earliest'), day(examDay))}
-      <div class="card progress-card" id="progress">${ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }))}<div><b id="progress-n">${t('plan.of', { a: done.size, b: p.sessions.length })}</b><small>${t('plan.done')}</small></div></div>
+    <div class="study-plan-intro">
+      <div><h2>${esc(cert.name)}</h2><p class="hint">${esc(t('plan.estimate', { n: p.sessions.length, h: p.hours, d: day(p.sessions.at(-1).date, { weekday: false, year: true }) }))}</p>
+      <p class="hint" id="progress-n">${esc(doneLabel())}</p></div>
+      <div class="study-plan-actions"><button type="button" class="btn" id="track-plan" aria-pressed="${tracked}">${icon('activity')}<span>${tracked ? t('plan.tracking') : t('plan.track')}</span></button>
+      <a class="link" href="#progress" id="plan-open-progress"${tracked ? '' : ' hidden'}>${t('plan.openProgress')}</a></div>
     </div>
+    <div id="plan-next-session">${nextHtml()}</div>
     <div id="plan-status">${statusHtml(p, done, days, progressKey)}</div>
+    <details class="study-disclosure" id="plan-schedule"${scheduleOpen ? ' open' : ''}>
+      <summary>${t('plan.schedule')}</summary>
+      ${[...weeks].map(([w, items], i) => `<h3 class="week">${t('plan.week', { n: i + 1 })} <small>${weekRange(w)}</small></h3><ol class="trail">${items.map(stop).join('')}</ol>`).join('')}
+    </details>
+    <details class="study-disclosure" id="plan-details"${detailsOpen ? ' open' : ''}>
+    <summary>${t('plan.details')}</summary>
     <div class="plan-actions">
       <button type="button" class="btn primary" id="dl-ics">${icon('calendar-plus')}${t('plan.calendar')}</button>
-      <button type="button" class="btn" id="track-plan" aria-pressed="${tracked}">${icon('activity')}<span>${tracked ? t('plan.tracking') : t('plan.track')}</span></button>
       <button type="button" class="btn" id="dl-md">${icon('download')}Markdown</button>
       <button type="button" class="btn" id="copy-plan">${icon('link')}${t('copyLink')}</button>
       <button type="button" class="btn" id="print-plan">${icon('printer')}${t('plan.print')}</button>
     </div>
     ${p.inferredTopics ? `<p class="note">${esc(t('plan.inferred'))}</p>` : ''}
     <div class="months">${monthsHtml(p, done)}</div>
-    <ul class="kinds">${kinds.map((k) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${kindLabel(k)}</li>`).join('')}<li><span class="k exam">${icon('target')}</span>${t('plan.examDay')}</li></ul>
+    <ul class="kinds">${kinds.map((k) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${kindLabel(k)}</li>`).join('')}${p.deadline ? `<li><span class="k exam">${icon('target')}</span>${t('plan.examDay')}</li>` : ''}</ul>
     <div class="plan-charts">
       <section class="card panel"><h2>${icon('chart-bar')}${t('plan.byTopic')}</h2>${hbars(topicRows)}</section>
       <section class="card panel"><h2>${icon('chart-column')}${t('plan.perWeek')}</h2>${columns(weekRows, 'h', t('plan.perWeekAria'))}<p class="hint">${t('plan.mockWeeks')}</p></section>
     </div>
-    ${[...weeks]
-      .map(([w, items], i) => `<h3 class="week">${t('plan.week', { n: i + 1 })} <small>${weekRange(w)}</small></h3><ol class="trail">${items.map(stop).join('')}</ol>`)
-      .join('')}
     <div class="plan-extra">
       <section class="card panel"><h2>${icon('info')}${t('plan.what')}</h2>
         <dl class="keydl">${kinds.map((k) => `<dt><span class="kinds"><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span></span>${kindLabel(k)}</dt><dd>${esc(k === 'mock' ? kindDetail('mock', mockSession.detail, mockSession.minutes) : kindDetail(k, KIND_DETAIL[k]))}</dd>`).join('')}</dl>
@@ -1280,7 +1330,8 @@ function renderPlan() {
           return ext(r.url, `${tile(k.icon, '--accent', 'sm')}<span><b>${esc(r.title)}</b><span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`, 'res');
         })
         .join('')}</div></section>` : ''}
-    </div>`;
+    </div>
+    </details>`;
 
   $$('#plan-output .check input').forEach((box) =>
     box.addEventListener('change', () => {
@@ -1298,16 +1349,15 @@ function renderPlan() {
         cell.classList.toggle('done', box.checked);
         cell.classList.toggle('missed', !box.checked && session.date < today);
       }
-      $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }));
       $('#plan-status').innerHTML = statusHtml(p, done, days, progressKey);
-      $('#progress-n').textContent = t('plan.of', { a: done.size, b: p.sessions.length });
+      $('#progress-n').textContent = doneLabel();
+      $('#plan-next-session').innerHTML = nextHtml();
       if (box.checked && !isTracked(progressKey)) setTracked(progressKey, trackParams(), true);
       const kind = p.sessions.find((s) => s.n === n)?.kind;
-      if (box.checked && (done.size === p.sessions.length || kind === 'final' || kind === 'mock')) celebrate(done.size === p.sessions.length ? 220 : 90);
+      const complete = countDone() === p.sessions.length;
+      if (box.checked && (complete || kind === 'final' || kind === 'mock')) celebrate(complete ? 220 : 90);
     }),
   );
-  // Practice from a session counts for this plan, so it shows in Progress like a ticked session does.
-  $$('#plan-output .pa-link').forEach((a) => a.addEventListener('click', () => isTracked(progressKey) || setTracked(progressKey, trackParams(), true)));
   $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(localPlan(p), new Date(), { exam: t('plan.examDay') }), 'text/calendar'));
   $('#dl-md').addEventListener('click', () => download(`${p.cert.id}-plan.md`, toMarkdown(localPlan(p), { resources: cert.prep || [], text: markdownText() }), 'text/markdown'));
   $('#track-plan').addEventListener('click', () => setTracked(progressKey, trackParams(), !isTracked(progressKey)));
@@ -1453,6 +1503,24 @@ function bind() {
     renderPlan();
   });
 
+  $('#plan-output').addEventListener('click', (e) => {
+    // Practice launched from the plan can complete that session once the run is finished.
+    const link = e.target.closest('a[data-track-plan]');
+    if (link && !isTracked(link.dataset.trackPlan)) setTracked(link.dataset.trackPlan, trackParams(), true);
+  });
+  let scheduleWasOpen;
+  window.addEventListener('beforeprint', () => {
+    const schedule = $('#plan-schedule');
+    if (!schedule || $('#view-plan').hidden || scheduleWasOpen !== undefined) return;
+    scheduleWasOpen = schedule.open;
+    schedule.open = true;
+  });
+  window.addEventListener('afterprint', () => {
+    const schedule = $('#plan-schedule');
+    if (schedule && scheduleWasOpen !== undefined) schedule.open = scheduleWasOpen;
+    scheduleWasOpen = undefined;
+  });
+
   $('#theme').addEventListener('click', () => {
     const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
@@ -1591,7 +1659,7 @@ function practiceHome(ctx, run) {
   const radio = (name, value, label, on) => `<label><input type="radio" name="${name}" value="${esc(value)}" ${on ? 'checked' : ''}><span>${esc(label)}</span></label>`;
   // One primary action: continue the run in progress, or start a new one.
   $('#practice-body').innerHTML = `${practiceHead(ctx, 'start')}
-    ${from ? `<div class="status info pa-resume">${icon('route')}<span>${esc(t('practice.fromPlan', { x: sessionName(from.session), d: day(from.session.date) }))}</span></div>` : ''}
+    ${from ? `<div class="status info pa-resume">${icon('route')}<span>${esc(t('practice.fromPlan', { d: day(from.session.date) }))}</span></div>` : ''}
     ${run ? `<div class="status pa-resume">${icon('timer')}<span>${esc(t('practice.resume', { a: Object.keys(run.answers).length, b: run.ids.length }))}</span>
       <a class="btn primary" href="#practice?cert=${esc(id)}&run=1">${t('practice.continue')}</a><button type="button" class="btn" id="pa-discard">${t('practice.discard')}</button></div>` : ''}
     ${due ? `<div class="status pa-resume">${icon('refresh-cw')}<span>${esc(t('practice.reviewDue', { n: due }))}</span><a class="btn" href="#practice?cert=${esc(id)}&review=due">${t('practice.reviewStart')}</a></div>` : ''}
@@ -2111,10 +2179,11 @@ function practiceProgress() {
       const due = Object.values(loadReview(store.get(keys.review, null), history, now).cards).filter((card) => card.due <= now).length;
       return { c, attempts: history.attempts, due };
     })
-    .filter((x) => x.attempts.length);
+    .filter((x) => x.attempts.length || x.due)
+    .sort((a, b) => b.due - a.due);
   if (!rows.length) return '';
   return `<section class="card panel"><h2>${icon('dumbbell')}${t('practice.progress')}</h2><ul class="pa-history">${rows
-    .map(({ c, attempts, due }) => `<li><span>${esc(c.code)}</span><small>${esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct }))}</small>${due ? `<a href="#practice?cert=${esc(c.id)}&tab=review">${icon('refresh-cw')}${esc(t('practice.progressDue', { n: due }))}</a>` : ''}<a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
+    .map(({ c, attempts, due }) => `<li><span>${esc(c.code)}</span><small>${attempts.length ? esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct })) : ''}</small>${due ? `<a href="#practice?cert=${esc(c.id)}&review=due">${icon('refresh-cw')}${esc(t('practice.progressDue', { n: due }))}</a>` : ''}<a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
     .join('')}</ul></section>`;
 }
 
@@ -2188,6 +2257,7 @@ function setTracked(key, params, on) {
   if (btn) {
     btn.setAttribute('aria-pressed', String(on));
     $('span', btn).textContent = on ? t('plan.tracking') : t('plan.track');
+    $('#plan-open-progress').hidden = !on;
   }
 }
 
@@ -2260,31 +2330,25 @@ function progressData() {
   const sessions = [];
   for (const x of plans) {
     x.done = new Set(store.get(x.key, []));
-    for (const s of x.plan.sessions) sessions.push({ ...s, plan: x, done: x.done.has(s.n), past: s.date < today, today: s.date === today });
+    for (const s of x.plan.sessions) sessions.push({ ...s, plan: x, done: x.done.has(s.n), past: s.date < today });
   }
   sessions.sort((a, b) => a.date.localeCompare(b.date) || a.n - b.n);
-  // Streak: completed sessions in a row, counting back from today. Today's open session is not a miss yet.
-  let streak = 0;
-  for (const s of [...sessions].filter((x) => x.date <= today).reverse()) {
-    if (s.done) streak += 1;
-    else if (s.today) continue;
-    else break;
-  }
-  return { today, plans, sessions, streak };
+  return { today, plans, sessions };
 }
 
 function renderProgress() {
   const body = $('#progress-body');
-  const { today, plans, sessions, streak } = progressData();
+  const { today, plans, sessions } = progressData();
+  const practice = practiceProgress();
   if (!plans.length) {
-    body.innerHTML = `<div class="card empty-card">${tile('activity', '--accent')}<p>${esc(t('progress.empty'))}</p><a class="btn primary" href="#plan">${icon('route')}${t('progress.start')}</a></div>${practiceProgress()}`;
+    body.innerHTML = `${practice}<div class="card empty-card">${tile('activity', '--accent')}<p>${esc(t('progress.empty'))}</p><a class="btn primary" href="#plan">${icon('route')}${t('progress.start')}</a></div>`;
     return;
   }
-  const done = sessions.filter((s) => s.done);
-  const hours = Math.round((done.reduce((m, s) => m + s.minutes, 0) / 60) * 10) / 10;
-  const missed = sessions.filter((s) => s.past && !s.done).length;
-  const upcoming = sessions.filter((s) => !s.done && !s.past).slice(0, 6);
-  const tileStat = (ic, lbl, value, sub = '') => `<div class="card stat">${tile(ic, '--accent', 'sm')}<div><small>${lbl}</small><b>${value}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>`;
+  const calendarOpen = $('#progress-calendar', body)?.open;
+  const next = sessions.find((s) => !s.done);
+  const nextHtml = next
+    ? nextSessionCard(BY_ID.get(next.plan.params.cert), next, { today, start: next.plan.key.split(':').at(-1), params: next.plan.params })
+    : nextSessionCard(null, null);
 
   // Five weeks of scheduled sessions: two back, this one, two ahead. Monday first.
   const now = utc(today);
@@ -2303,45 +2367,33 @@ function renderProgress() {
     cells.push(`<span class="d ${state}${date === today ? ' today' : ''}" ${title ? `title="${esc(`${day(date)}\n${title}`)}"` : ''}>${d.getUTCDate()}</span>`);
   }
 
-  const next = (s) => `<li class="card up">
-      ${badge(BY_ID.get(s.plan.params.cert), 34, { label: false })}
-      <div><small>${day(s.date)}${s.today ? ` · ${t('progress.today')}` : ''} · ${len(s.minutes)}</small><b>${esc(kindLabel(s.kind))}: ${esc(cap(sname(s)))}</b><span class="who">${esc(s.plan.plan.cert.code)}</span></div>
-      <a class="btn icon-btn" href="#plan?${esc(new URLSearchParams(s.plan.params).toString())}" aria-label="${esc(t('progress.open'))}">${icon('arrow-right')}</a>
-    </li>`;
-
   const planCard = (x) => {
     const c = BY_ID.get(x.params.cert);
     const total = x.plan.sessions.length;
-    const pct = Math.round((x.done.size / total) * 100);
-    const nextOne = x.plan.sessions.find((s) => !x.done.has(s.n) && s.date >= today) || x.plan.sessions.find((s) => !x.done.has(s.n));
-    const examDay = x.plan.deadline ? x.plan.deadline.targetDate : x.plan.examDate;
+    const completed = x.plan.sessions.filter((s) => x.done.has(s.n)).length;
+    const pct = Math.round((completed / total) * 100);
+    const examDay = x.plan.deadline?.targetDate;
     const late = behind(x.plan.sessions, [...x.done], today);
     const room = late.count && reschedule({ sessions: x.plan.sessions, done: [...x.done], today, days: daysOf(x.params), targetDate: x.params.exam || null }).available;
     return `<article class="card plan-card" style="--pc:${providerColor(c.provider)}">
       <div class="head">${badge(c, 52, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div>${ring(pct, 52, 'good pct', t('plan.pctDone', { p: pct }))}</div>
-      <p class="meta"><span>${icon('calendar-days')}${t('plan.of', { a: x.done.size, b: total })} ${t('plan.done')}</span><span>${icon('target')}${esc(t('progress.examOn', { d: day(examDay) }))}</span></p>
-      ${nextOne ? `<p class="meta next">${icon('arrow-right')}<span>${esc(t('progress.nextOne', { x: `${day(nextOne.date)} · ${kindLabel(nextOne.kind)}: ${cap(sname(nextOne))}` }))}</span></p>` : ''}
-      ${late.count ? `<p class="meta late">${icon('triangle-alert')}<span>${esc(t('progress.behindPlan', { n: late.count }))}${room ? '' : ` ${esc(t('plan.reschedNone', { d: day(examDay) }))}`}</span>${room ? `<button type="button" class="link" data-act="resched" data-key="${esc(x.key)}">${t('plan.reschedule')}</button>` : ''}</p>` : ''}
-      <div class="plan-card-actions"><a class="btn" href="#plan?${esc(new URLSearchParams(x.params).toString())}">${icon('route')}${t('progress.open')}</a><button type="button" class="link" data-act="untrack" data-key="${esc(x.key)}">${t('progress.stop')}</button></div>
+      <p class="meta"><span>${icon('calendar-days')}${t('plan.of', { a: completed, b: total })} ${t('plan.done')}</span>${examDay ? `<span>${icon('target')}${esc(t('progress.examOn', { d: day(examDay) }))}</span>` : ''}</p>
+      ${late.count ? `<p class="meta late">${icon('triangle-alert')}<span>${esc(t('progress.behindPlan', { n: late.count }))}${!room && examDay ? ` ${esc(t('plan.reschedNone', { d: day(examDay) }))}` : ''}</span>${room ? `<button type="button" class="link" data-act="resched" data-key="${esc(x.key)}">${t('plan.reschedule')}</button>` : ''}</p>` : ''}
+      <div class="plan-card-actions"><a class="btn" href="${esc(planHref(x.params))}">${icon('route')}${t('progress.open')}</a><button type="button" class="link" data-act="untrack" data-key="${esc(x.key)}">${t('progress.stop')}</button></div>
     </article>`;
   };
 
   body.innerHTML = `
-    <div class="plan-summary progress-summary">
-      ${tileStat('flame', t('progress.streak'), streak, t('progress.streakUnit', { n: streak }))}
-      ${tileStat('clock', t('progress.hours'), `${hours} h`)}
-      ${tileStat('circle-check', t('progress.sessions'), t('plan.of', { a: done.length, b: sessions.length }))}
-      ${tileStat('route', t('progress.plans'), plans.length)}
-    </div>
-    ${missed ? `<div class="status warn">${icon('triangle-alert')}${esc(t('progress.behind', { n: missed }))}</div>` : ''}
-    <div class="progress-cols">
-      <section class="card panel"><h2>${icon('calendar-clock')}${t('progress.next')}</h2>${upcoming.length ? `<ol class="up-list">${upcoming.map(next).join('')}</ol>` : `<p class="hint">${t('progress.nothingNext')}</p>`}</section>
-      <section class="card panel"><h2>${icon('calendar-days')}${t('progress.weeks')}</h2><div class="mgrid strip">${cells.join('')}</div>
-        <ul class="strip-key"><li><span class="d done"></span>${t('progress.legendDone')}</li><li><span class="d missed"></span>${t('progress.legendMissed')}</li><li><span class="d planned"></span>${t('progress.legendPlanned')}</li><li><span class="d today"></span>${t('progress.today')}</li></ul>
-      </section>
-    </div>
+    ${nextHtml}
+    ${practice}
+    <h2 class="study-section-title">${t('plan.yourPlans')}</h2>
     <div class="plan-cards">${plans.map(planCard).join('')}</div>
-    ${practiceProgress()}`;
+    <details class="study-disclosure" id="progress-calendar"${calendarOpen ? ' open' : ''}>
+      <summary>${t('progress.weeks')}</summary>
+      <div class="card panel"><div class="mgrid strip">${cells.join('')}</div>
+        <ul class="strip-key"><li><span class="d done"></span>${t('progress.legendDone')}</li><li><span class="d missed"></span>${t('progress.legendMissed')}</li><li><span class="d planned"></span>${t('progress.legendPlanned')}</li><li><span class="d today"></span>${t('progress.today')}</li></ul>
+      </div>
+    </details>`;
 }
 
 // Calendar and Markdown exports in the interface language.

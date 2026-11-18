@@ -302,33 +302,36 @@
       <h1 data-i18n="plan.title">Study plan</h1>
     </div>
     <div id="plan-choose" hidden></div>
-    <form id="plan-form" class="plan-form card" autocomplete="off">
-      <label class="field wide"><span data-i18n="plan.cert">Certification</span> <select name="cert" required></select></label>
-      <label class="field"><span data-i18n="plan.start">Start</span> <input type="date" name="start" required></label>
-      <label class="field"><span data-i18n="plan.exam">Exam date</span> <input type="date" name="targetDate"></label>
-      <label class="field"><span data-i18n="plan.hours">Hours</span> <input type="number" name="hours" min="2" max="400" step="1" required inputmode="numeric"></label>
-      <label class="field"><span data-i18n="plan.session">Session</span>
-        <select name="sessionMinutes">
-          <option value="45">45 min</option>
-          <option value="60">1 h</option>
-          <option value="90" selected>1 h 30</option>
-          <option value="120">2 h</option>
-          <option value="150">2 h 30</option>
-          <option value="180">3 h</option>
-        </select>
-      </label>
-      <label class="field"><span data-i18n="plan.time">Time</span> <input type="time" name="startTime" value="19:00" required></label>
-      <fieldset class="field days">
-        <legend data-i18n="plan.days">Study days</legend>
-        <div class="days-row" id="days"></div>
-      </fieldset>
-      <p class="hint" id="hours-hint"></p>
-      <details class="rate" id="confidence">
-        <summary><svg class="i"><use href="#i-gauge"/></svg><span>Rate your topics</span></summary>
-        <p class="hint" data-i18n="plan.rateHint">1 = new to me, 5 = I could teach it. Weaker topics get more sessions.</p>
-        <div id="confidence-rows"></div>
-      </details>
-    </form>
+    <details id="plan-settings" class="study-disclosure" hidden>
+      <summary data-i18n="plan.settings">Adjust schedule</summary>
+      <form id="plan-form" class="plan-form card" autocomplete="off">
+        <label class="field wide"><span data-i18n="plan.cert">Certification</span> <select name="cert" required></select></label>
+        <label class="field"><span data-i18n="plan.start">Start</span> <input type="date" name="start" required></label>
+        <label class="field"><span data-i18n="plan.exam">Exam date (optional)</span> <input type="date" name="targetDate"></label>
+        <label class="field"><span data-i18n="plan.hours">Hours</span> <input type="number" name="hours" min="2" max="400" step="1" required inputmode="numeric"></label>
+        <label class="field"><span data-i18n="plan.session">Session</span>
+          <select name="sessionMinutes">
+            <option value="45">45 min</option>
+            <option value="60">1 h</option>
+            <option value="90" selected>1 h 30</option>
+            <option value="120">2 h</option>
+            <option value="150">2 h 30</option>
+            <option value="180">3 h</option>
+          </select>
+        </label>
+        <label class="field"><span data-i18n="plan.time">Time</span> <input type="time" name="startTime" value="19:00" required></label>
+        <fieldset class="field days">
+          <legend data-i18n="plan.days">Study days</legend>
+          <div class="days-row" id="days"></div>
+        </fieldset>
+        <p class="hint" id="hours-hint"></p>
+        <details class="rate" id="confidence">
+          <summary><svg class="i"><use href="#i-gauge"/></svg><span>Rate your topics</span></summary>
+          <p class="hint" data-i18n="plan.rateHint">1 = new to me, 5 = I could teach it. Weaker topics get more sessions.</p>
+          <div id="confidence-rows"></div>
+        </details>
+      </form>
+    </details>
     <div id="plan-output" aria-live="polite"></div>
   </section>
 
