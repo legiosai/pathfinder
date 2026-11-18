@@ -975,12 +975,18 @@ details.more > summary:hover { color: var(--text); }
   .lang { margin-left: auto; }
   .lang + .theme { margin-left: 0; }
   .theme { margin-left: auto; }
-  .top-inner nav { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; width: 100%; margin-left: 0; order: 3; overflow: visible; }
-  nav a { flex-direction: column; justify-content: center; gap: 3px; min-height: 48px; padding: 6px 2px; font-size: var(--fs-xs); text-align: center; white-space: nowrap; position: relative; }
+  /* Tabs share the width by the length of their labels, so six fit down to 320px in both languages. */
+  .top-inner nav { display: flex; gap: 2px; width: 100%; margin-left: 0; order: 3; overflow: visible; }
+  nav a { flex: 1 1 auto; min-width: 0; flex-direction: column; justify-content: center; gap: 3px; min-height: 48px; padding: 6px 3px; font-size: var(--fs-xs); text-align: center; white-space: nowrap; position: relative; }
   nav a .i { width: 18px; height: 18px; }
   nav .long { display: none; }
   nav .short { display: inline; }
   nav #compare-count { position: absolute; top: 3px; right: 50%; transform: translateX(19px); font-size: 0.62rem; min-width: 18px; height: 18px; }
+}
+
+@media (max-width: 380px) {
+  .top-inner { padding-left: 12px; padding-right: 12px; }
+  nav a { padding: 6px 1px; font-size: 0.6875rem; }
 }
 
 @media print {

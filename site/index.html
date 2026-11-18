@@ -26,6 +26,50 @@
 <script type="module" src="app.js"></script>
 </head>
 <body>
+<script>
+// Before the first paint, a visitor who reads Spanish gets the page frame (navigation, "Cargando…",
+// footer) in Spanish instead of English while app.js loads. Same choice as detect() in i18n.js;
+// the strings are copies of i18n.js's, kept equal by tests/shell.test.mjs. app.js takes over after.
+(function () {
+  try {
+    var asked = new URLSearchParams(location.search).get("lang"), saved = null;
+    try { saved = JSON.parse(localStorage.getItem("pathfinder:lang")); } catch (e) {}
+    var lang = asked === "es" || asked === "en" ? asked : saved === "es" || saved === "en" ? saved : (navigator.language || "").toLowerCase().indexOf("es") === 0 ? "es" : "en";
+    if (lang !== "es") return;
+    document.documentElement.lang = "es";
+    var T = {"skip":"Saltar al contenido","nav.aria":"Secciones","nav.certs":"Certificaciones","nav.certsShort":"Catálogo","nav.ask":"Asesor IA","nav.askShort":"Asesor","nav.plan":"Plan","nav.compare":"Comparar","nav.progress":"Progreso","nav.about":"Acerca de","nav.aboutShort":"Info","loading":"Cargando…","foot":"pathfinder · MIT · <a href=\"https://github.com/legiosai/pathfinder\">GitHub</a> · íconos de <a href=\"https://lucide.dev\">Lucide</a> y <a href=\"https://simpleicons.org\">Simple Icons</a> · los logos y las insignias son marcas de sus dueños","foot.index":"Índice de certificaciones","lang.switch":"EN","lang.aria":"View in English"};
+    var html = new WeakMap();
+    // Elements arrive while the page is parsed, their text after them, so each change is checked
+    // again; the comparisons stop the loop once an element holds its Spanish text.
+    var fix = function (el) {
+      if (!el || el.nodeType !== 1) return;
+      var k = el.getAttribute("data-i18n");
+      if (k && T[k] != null && el.textContent !== T[k]) el.textContent = T[k];
+      k = el.getAttribute("data-i18n-html");
+      if (k && T[k] != null && html.get(el) !== el.innerHTML) { el.innerHTML = T[k]; html.set(el, el.innerHTML); }
+      k = el.getAttribute("data-i18n-attr");
+      if (k) k.split(";").forEach(function (pair) { var p = pair.split(":"), v = T[p[1].trim()]; if (v != null && el.getAttribute(p[0].trim()) !== v) el.setAttribute(p[0].trim(), v); });
+      if (el.id === "lang") {
+        if (el.getAttribute("aria-label") !== T["lang.aria"]) el.setAttribute("aria-label", T["lang.aria"]);
+        var s = el.querySelector("span");
+        if (s && s.textContent !== T["lang.switch"]) s.textContent = T["lang.switch"];
+      }
+    };
+    var watch = new MutationObserver(function (records) {
+      records.forEach(function (r) {
+        fix(r.target);
+        if (r.target.parentNode && r.target.parentNode.id === "lang") fix(r.target.parentNode);
+        r.addedNodes.forEach(function (n) {
+          fix(n);
+          if (n.firstElementChild) n.querySelectorAll("[data-i18n],[data-i18n-html],[data-i18n-attr],#lang").forEach(fix);
+        });
+      });
+    });
+    watch.observe(document.documentElement, { childList: true, subtree: true });
+    document.addEventListener("DOMContentLoaded", function () { watch.disconnect(); });
+  } catch (e) {}
+})();
+</script>
 <!-- UI icons: Lucide v1.59.0 (ISC License, Copyright (c) 2026 Lucide Icons and Contributors), full text in LICENSE-lucide.txt. Brand logos: Simple Icons v16.35.0 (CC0); trademarks of their owners. -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
 <symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/> <rect width="7" height="7" x="14" y="3" rx="1"/> <rect width="7" height="7" x="14" y="14" rx="1"/> <rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
