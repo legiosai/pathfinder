@@ -198,54 +198,63 @@
       </div>
     </div>
 
-    <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
-
-    <form id="filters" class="toolbar" autocomplete="off">
-      <select name="level" aria-label="Level" data-i18n-attr="aria-label:filter.level"></select>
-      <select name="price" aria-label="Price" data-i18n-attr="aria-label:filter.price">
-        <option value="" data-i18n="price.any">Any price</option>
-        <option value="0" data-i18n="price.free">Free</option>
-        <option value="100">US$100</option>
-        <option value="200">US$200</option>
-        <option value="300">US$300</option>
-      </select>
-      <select name="prov" aria-label="Provider" data-i18n-attr="aria-label:aria.provider"></select>
-      <label class="chip toggle" id="f-online" hidden><input type="checkbox" name="online"><span data-i18n="filter.online">Online</span></label>
-      <label class="chip toggle" id="f-es" hidden><input type="checkbox" name="es"><span data-i18n="filter.es">Exam in Spanish</span></label>
-      <button type="button" class="btn" id="for-me" aria-expanded="false" aria-controls="profile"><svg class="i"><use href="#i-sliders-horizontal"/></svg><span>For me</span></button>
-    </form>
-
-    <form id="profile" class="profile card" autocomplete="off" hidden>
-      <div class="profile-group">
-        <span class="label" data-i18n="profile.want">What do you want to learn?</span>
-        <div class="chips" id="want"></div>
-      </div>
-      <div class="profile-group">
-        <span class="label" data-i18n="profile.exp">Experience</span>
-        <div class="segmented" id="experience">
-          <label><input type="radio" name="experience" value="new"><span data-i18n="exp.new">New</span></label>
-          <label><input type="radio" name="experience" value="some"><span data-i18n="exp.some">1–3 years</span></label>
-          <label><input type="radio" name="experience" value="experienced"><span data-i18n="exp.experienced">3+ years</span></label>
-        </div>
-      </div>
-      <details class="profile-more" id="profile-more">
-        <summary><svg class="i"><use href="#i-chevron-down"/></svg><span data-i18n="profile.more">Role and tools you already use</span><small id="more-count"></small></summary>
-        <div class="profile-group">
-          <span class="label" data-i18n="profile.role">Your role</span>
-          <div class="chips" id="roles"></div>
-        </div>
-        <div class="profile-group">
-          <span class="label" data-i18n="profile.known">What do you already use?</span>
-          <div class="chips" id="known"></div>
-        </div>
-      </details>
-      <button type="button" class="link" id="reset-profile" data-i18n="profile.clear">Clear all</button>
-    </form>
-
     <div class="list-bar">
       <h2 class="result-count" id="list-head" tabindex="-1"></h2>
-      <label class="sort"><span data-i18n="sort.label">Order</span><select id="sort" name="sort"></select></label>
+      <div class="list-controls">
+        <label class="sort"><span data-i18n="sort.label">Order</span><select id="sort" name="sort"></select></label>
+        <button type="button" class="btn filter-toggle" id="filters-toggle" aria-expanded="false" aria-controls="filter-panel">
+          <svg class="i" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
+          <span data-i18n="filter.title">Filters</span>
+        </button>
+      </div>
     </div>
+
+    <div class="card filter-panel" id="filter-panel" hidden>
+      <div class="cats" id="cats" role="group" aria-label="Category" data-i18n-attr="aria-label:aria.category"></div>
+
+      <form id="filters" class="toolbar" autocomplete="off">
+        <select name="level" aria-label="Level" data-i18n-attr="aria-label:filter.level"></select>
+        <select name="price" aria-label="Price" data-i18n-attr="aria-label:filter.price">
+          <option value="" data-i18n="price.any">Any price</option>
+          <option value="0" data-i18n="price.free">Free</option>
+          <option value="100">US$100</option>
+          <option value="200">US$200</option>
+          <option value="300">US$300</option>
+        </select>
+        <select name="prov" aria-label="Provider" data-i18n-attr="aria-label:aria.provider"></select>
+        <label class="chip toggle" id="f-online" hidden><input type="checkbox" name="online"><span data-i18n="filter.online">Online</span></label>
+        <label class="chip toggle" id="f-es" hidden><input type="checkbox" name="es"><span data-i18n="filter.es">Exam in Spanish</span></label>
+        <button type="button" class="btn" id="for-me" aria-expanded="false" aria-controls="profile"><svg class="i"><use href="#i-sliders-horizontal"/></svg><span>For me</span></button>
+      </form>
+
+      <form id="profile" class="profile card" autocomplete="off" hidden>
+        <div class="profile-group">
+          <span class="label" data-i18n="profile.want">What do you want to learn?</span>
+          <div class="chips" id="want"></div>
+        </div>
+        <div class="profile-group">
+          <span class="label" data-i18n="profile.exp">Experience</span>
+          <div class="segmented" id="experience">
+            <label><input type="radio" name="experience" value="new"><span data-i18n="exp.new">New</span></label>
+            <label><input type="radio" name="experience" value="some"><span data-i18n="exp.some">1–3 years</span></label>
+            <label><input type="radio" name="experience" value="experienced"><span data-i18n="exp.experienced">3+ years</span></label>
+          </div>
+        </div>
+        <details class="profile-more" id="profile-more">
+          <summary><svg class="i"><use href="#i-chevron-down"/></svg><span data-i18n="profile.more">Role and tools you already use</span><small id="more-count"></small></summary>
+          <div class="profile-group">
+            <span class="label" data-i18n="profile.role">Your role</span>
+            <div class="chips" id="roles"></div>
+          </div>
+          <div class="profile-group">
+            <span class="label" data-i18n="profile.known">What do you already use?</span>
+            <div class="chips" id="known"></div>
+          </div>
+        </details>
+        <button type="button" class="link" id="reset-profile" data-i18n="profile.clear">Clear all</button>
+      </form>
+    </div>
+
     <p class="list-note" id="list-note" hidden></p>
     <div class="grid" id="certs"></div>
   </section>

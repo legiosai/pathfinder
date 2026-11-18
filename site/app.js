@@ -316,7 +316,16 @@ function updateForMe() {
   $('#more-count').textContent = extra ? `· ${extra}` : '';
 }
 
+function setFiltersOpen(open) {
+  const panel = $('#filter-panel');
+  const toggle = $('#filters-toggle');
+  if (!open && panel.contains(document.activeElement)) toggle.focus();
+  panel.hidden = !open;
+  toggle.setAttribute('aria-expanded', String(open));
+}
+
 function setProfileOpen(open) {
+  if (open) setFiltersOpen(true);
   $('#profile').hidden = !open;
   $('#for-me').setAttribute('aria-expanded', String(open));
 }
@@ -416,6 +425,8 @@ function renderList() {
   const hits = filters.q ? new Map(lastSearch.ids.map((id, i) => [id, i])) : null;
   const list = sortCerts(filterCerts(all, filters, { hits }), filters.sort, { hits, scores });
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === filters.cat)));
+  const filterCount = activeFilters(filters).filter((key) => key !== 'q').length;
+  $('#filters-toggle span').textContent = filterCount ? t('filter.withCount', { n: filterCount }) : t('filter.title');
   $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores && !hits && filters.sort === 'recommended' });
   // A price ceiling keeps the certifications priced by country; say so next to the filter.
   const varies = filters.max ? list.filter((c) => c.fee.usd == null).length : 0;
@@ -917,6 +928,7 @@ function bind() {
     if (btn.dataset.act === 'share') share(btn.dataset.id);
   });
 
+  $('#filters-toggle').addEventListener('click', () => setFiltersOpen($('#filter-panel').hidden));
   $('#filters').addEventListener('input', renderList);
   $('#sort').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());

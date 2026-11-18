@@ -57,6 +57,8 @@ const en = {
 
   'search.placeholder': 'Search name, code or topic',
   'search.aria': 'Search certifications',
+  'filter.title': 'Filters',
+  'filter.withCount': 'Filters ({n})',
   'filter.level': 'Level',
   'filter.allLevels': 'All levels',
   'filter.allProviders': 'All providers',
@@ -448,6 +450,8 @@ const es = {
 
   'search.placeholder': 'Buscá por nombre, código o tema',
   'search.aria': 'Buscar certificaciones',
+  'filter.title': 'Filtros',
+  'filter.withCount': 'Filtros ({n})',
   'filter.level': 'Nivel',
   'filter.allLevels': 'Todos los niveles',
   'filter.allProviders': 'Todos los proveedores',

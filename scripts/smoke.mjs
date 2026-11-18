@@ -25,7 +25,20 @@ const VIEWS = [
   ['home', '', `document.querySelectorAll('#certs > *').length > 10
     && !document.querySelector('#view-list').hidden && !!document.querySelector('#view-list h1')?.offsetHeight
     && !document.querySelector('nav a[href="#plan"], nav a[href="#progress"], #view-plan, #view-progress')
-    && !document.querySelector('#view-list .path-grid') && document.querySelector('#view-paths').hidden`],
+    && !document.querySelector('#view-list .path-grid') && document.querySelector('#view-paths').hidden
+    && document.querySelector('#filter-panel').hidden
+    && document.querySelector('#filters-toggle').getAttribute('aria-expanded') === 'false'`],
+  ['catalog filter disclosure', '?lang=en#list?cat=Cybersecurity&max=200', `(() => {
+    const button = document.querySelector('#filters-toggle');
+    const panel = document.querySelector('#filter-panel');
+    if (!panel?.hidden || button?.textContent.trim() !== 'Filters (2)') return false;
+    button.click();
+    const opened = !panel.hidden && button.getAttribute('aria-expanded') === 'true'
+      && panel.querySelector('[data-cat="Cybersecurity"]').getAttribute('aria-pressed') === 'true'
+      && panel.querySelector('select[name="price"]').value === '200';
+    button.click();
+    return opened && panel.hidden && button.getAttribute('aria-expanded') === 'false';
+  })()`],
   ['paths tab', '#paths', `!document.querySelector('#view-paths').hidden
     && document.querySelector('nav a[data-route="ask"] + a[aria-current="page"]').hash === '#paths'
     && document.querySelectorAll('#path-grid .path-card').length >= 12`],

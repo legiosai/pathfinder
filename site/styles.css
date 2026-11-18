@@ -399,7 +399,7 @@ button:disabled, button:disabled:hover { opacity: 0.45; cursor: not-allowed; tra
 .hero-stats b { margin-right: 5px; color: var(--text); font-weight: 650; font-variant-numeric: tabular-nums; }
 .mq-set { display: flex; }
 img.badge.official { object-fit: contain; user-select: none; }
-#list-head { scroll-margin-top: 84px; }
+#list-head { scroll-margin-top: calc(var(--top-h, 64px) + 12px); }
 
 /* Two rows of every badge, drifting in opposite directions. The rows are decorative shortcuts:
    hidden from assistive tech and the tab order, since the list below links the same pages. */
@@ -450,8 +450,13 @@ img.badge.official { object-fit: contain; user-select: none; }
 .step-arrow { flex: none; display: inline-flex; color: var(--subtle); }
 .step-arrow .i { width: 12px; height: 12px; }
 
-/* The count of results is the heading of the grid; the order sits beside it. */
+/* The results heading and the controls above the catalog. */
 .list-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; margin: 0 0 10px; }
+.list-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; margin-left: auto; }
+.filter-toggle { min-height: 34px; padding: 4px 10px; font-size: var(--fs-md); border-radius: var(--r-sm); }
+.filter-panel { padding: 16px; margin-bottom: 16px; }
+.filter-panel .toolbar { margin-bottom: 0; }
+.filter-panel .profile { margin: 16px 0 0; }
 h2.result-count { margin: 0; font-family: var(--font); font-size: var(--fs-md); font-weight: 550; letter-spacing: 0; line-height: 1.5; }
 .sort { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: var(--fs-sm); font-weight: 600; }
 .sort select { width: auto; min-height: 34px; padding: 4px 34px 4px 11px; font-size: var(--fs-md); border-radius: var(--r-sm); background-position: right 9px center; }
@@ -917,7 +922,11 @@ mark.es { padding: 0; border-radius: 3px; background: color-mix(in srgb, var(--g
   .toolbar select { padding-left: 11px; padding-right: 30px; background-position: right 8px center; font-size: 0.9rem; }
   /* Online sits beside the providers and the Spanish filter beside "For me", so three rows hold six controls. */
   .toolbar .chip { flex: 0 1 auto; }
-  .sort select { max-width: 170px; }
+  .list-controls { flex-wrap: nowrap; min-width: 0; }
+  .sort { min-width: 0; }
+  .sort select { width: 100%; max-width: 170px; }
+  .sort select, .filter-toggle { min-height: 44px; }
+  .filter-toggle { flex: none; }
   .toolbar .chip span { justify-content: center; }
   .sort > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .cat { min-height: 40px; }
@@ -1088,7 +1097,7 @@ mark.es { padding: 0; border-radius: 3px; background: color-mix(in srgb, var(--g
 .send[data-state="stop"] .i { width: 14px; height: 14px; fill: currentColor; }
 .chat-note { margin: -2px 0 0; color: var(--subtle); font-size: var(--fs-xs); line-height: 1.5; text-align: center; text-wrap: balance; }
 .chat-note a { color: var(--muted); }
-#for-me { scroll-margin-top: 90px; }
+#for-me { scroll-margin-top: calc(var(--top-h, 64px) + 12px); }
 
 @media (prefers-reduced-motion: no-preference) {
   .typing i { animation: dot 1.2s ease-in-out infinite both; }
