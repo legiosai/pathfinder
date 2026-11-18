@@ -40,7 +40,8 @@
     "security"
   ],
   "roles": [
-    "security"
+    "security",
+    "pentester"
   ],
   "domains": [],
   "sources": [

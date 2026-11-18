@@ -38,7 +38,8 @@
     "networking"
   ],
   "roles": [
-    "security"
+    "security",
+    "pentester"
   ],
   "domains": [],
   "sources": [

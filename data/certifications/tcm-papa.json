@@ -43,7 +43,8 @@
     "llm-apps"
   ],
   "roles": [
-    "security"
+    "security",
+    "pentester"
   ],
   "domains": [],
   "sources": [

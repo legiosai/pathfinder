@@ -59,7 +59,8 @@
     "identity"
   ],
   "roles": [
-    "security"
+    "security",
+    "soc-analyst"
   ],
   "domains": [
     {
