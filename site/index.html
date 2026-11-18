@@ -342,6 +342,16 @@
       <h1 data-i18n="progress.title">Progress</h1>
     </div>
     <div id="progress-body"></div>
+    <section class="card panel study-backup" aria-labelledby="study-backup-title">
+      <h2 id="study-backup-title" data-i18n="backup.title">Study backup</h2>
+      <p class="hint" data-i18n="backup.help">Save your plans and practice progress to a file you can restore in another browser.</p>
+      <div class="study-backup-actions">
+        <button type="button" class="btn" id="study-backup-download"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg><span data-i18n="backup.download">Download backup</span></button>
+        <button type="button" class="btn" id="study-backup-restore"><svg class="i" aria-hidden="true"><use href="#i-refresh-cw"/></svg><span data-i18n="backup.restore">Restore backup</span></button>
+        <input type="file" id="study-backup-file" accept=".json,application/json" hidden>
+      </div>
+      <p id="study-backup-status" class="hint" role="status"></p>
+    </section>
   </section>
 
   <section id="view-about" class="view" hidden>

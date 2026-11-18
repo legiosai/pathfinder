@@ -26,6 +26,7 @@ const VIEWS = [
   ['certification', '#cert?id=aws-saa', `!document.querySelector('#view-cert').hidden && /Solutions Architect/.test(document.querySelector('#cert-body h1')?.textContent || '')`],
   ['plan', '#plan?cert=aws-saa', `!document.querySelector('#view-plan').hidden && document.querySelector('#plan-output').children.length > 0`],
   ['practice', '#practice?cert=aws-clf-c02', `!document.querySelector('#view-practice').hidden && !!document.querySelector('#practice-body button')`],
+  ['progress backup', '#progress', `!document.querySelector('#view-progress').hidden && document.querySelector('#study-backup-download').offsetHeight > 0 && document.querySelector('#study-backup-restore').offsetHeight > 0`],
   ['compare', '#compare?ids=aws-saa,microsoft-az-104', `!document.querySelector('#view-compare').hidden && document.querySelectorAll('#compare-body .cmp-cert').length === 2`],
   // The chat page only: nothing is sent, so the test never reaches the chat's endpoint.
   ['ask', '#ask', `!document.querySelector('#view-ask').hidden && document.querySelectorAll('#chat-log > li').length > 0 && !!document.querySelector('#chat-input')`],
