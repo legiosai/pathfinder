@@ -191,7 +191,6 @@ function renderRoute() {
   const certId = params.get('id');
   if (view === 'cert' && !BY_ID.has(certId)) view = 'list';
   const practiceId = params.get('cert');
-  if (view === 'practice' && !BY_ID.get(practiceId)?.practice_questions) view = 'list';
   if (view !== 'practice') stopPracticeTimer();
 
   if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
@@ -591,11 +590,13 @@ function readConfidence() {
 function enterPlan(params) {
   const f = $('#plan-form');
   const id = params.get('cert');
-  if (id && BY_ID.has(id) && f.cert.value !== id) {
+  // No certification asked for and none picked yet on this visit, or one the catalog doesn't
+  // have: ask, instead of planning for whichever comes first in the list.
+  if (id ? !BY_ID.has(id) : !f.dataset.init) return choosePlanCert(id);
+  showPlanForm(true);
+  if (id && f.cert.value !== id) {
     f.cert.value = id;
     hoursTouched = false;
-  } else if (!id && !f.dataset.init && compare.length) {
-    f.cert.value = compare[0];
   }
   if (params.get('hours')) {
     f.hours.value = params.get('hours');
@@ -613,6 +614,61 @@ function enterPlan(params) {
   setEstimate();
   renderConfidence();
   renderPlan();
+}
+
+function showPlanForm(on) {
+  $('#plan-choose').hidden = on;
+  $('#plan-form').hidden = !on;
+  $('#plan-output').hidden = !on;
+}
+
+/** Lowercase without accents, for matching what people type. */
+const fold = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+/** A link row with the certification's badge, for the choosers. */
+const certRow = (c, href, sub) =>
+  `<li><a class="choose-row" href="${esc(href)}">${badge(c, 34, { label: false })}<span><b>${esc(c.name)}</b><small>${esc(sub)}</small></span>${icon('arrow-right')}</a></li>`;
+
+function choosePlanCert(unknown) {
+  showPlanForm(false);
+  const plans = Object.values(trackedPlans()).filter((params) => BY_ID.has(params.cert));
+  const picks = compare.map((id) => BY_ID.get(id)).filter(Boolean);
+  const box = $('#plan-choose');
+  box.innerHTML = `
+    ${unknown ? `<div class="status warn">${icon('triangle-alert')}<span>${esc(t('plan.unknown', { x: unknown }))}</span></div>` : ''}
+    <section class="card panel choose">
+      <h2>${icon('search')}${t('plan.choose')}</h2>
+      <input type="search" id="plan-q" placeholder="${esc(t('plan.chooseSearch'))}" aria-label="${esc(t('plan.chooseSearch'))}" autocomplete="off" spellcheck="false">
+      <ul class="choose-list" id="plan-q-list"></ul>
+      <p class="hint" id="plan-q-hint"></p>
+    </section>
+    ${plans.length ? `<section class="card panel"><h2>${icon('activity')}${t('plan.yourPlans')}</h2><ul class="choose-list">${plans
+      .map((params) => {
+        const c = BY_ID.get(params.cert);
+        return certRow(c, `#plan?${new URLSearchParams(params)}`, `${c.provider} · ${c.code}${params.exam ? ` · ${t('progress.examOn', { d: day(params.exam) })}` : ''}`);
+      })
+      .join('')}</ul></section>` : ''}
+    ${picks.length ? `<section class="card panel"><h2>${icon('columns-3')}${t('plan.inCompare')}</h2><ul class="choose-list">${picks.map((c) => certRow(c, `#plan?cert=${c.id}`, `${c.provider} · ${c.code}`)).join('')}</ul></section>` : ''}`;
+  const input = $('#plan-q');
+  const paint = () => {
+    const q = fold(input.value.trim());
+    const words = q.split(/\s+/).filter(Boolean);
+    const hay = (c) => fold(`${c.name} ${c.code} ${c.provider}`);
+    // The exact code first, then the more words found in the code, then names that start with it.
+    const rank = (c) => (fold(c.code) === q ? -99 : 0) - 2 * words.filter((w) => fold(c.code).includes(w)).length - (fold(c.name).startsWith(q) ? 1 : 0);
+    const hits = words.length ? DATA.certifications.filter((c) => words.every((w) => hay(c).includes(w))).sort((a, b) => rank(a) - rank(b)).slice(0, 8) : [];
+    $('#plan-q-list').innerHTML = hits.map((c) => certRow(c, `#plan?cert=${c.id}`, `${c.provider} · ${c.code}`)).join('');
+    $('#plan-q-hint').innerHTML = words.length && !hits.length ? esc(t('plan.chooseNone')) : words.length ? '' : t('plan.chooseHint');
+  };
+  input.addEventListener('input', paint);
+  input.addEventListener('keydown', (e) => {
+    const first = $('#plan-q-list a');
+    if (e.key !== 'Enter' || !first) return;
+    e.preventDefault();
+    location.hash = first.getAttribute('href');
+  });
+  paint();
+  if (matchMedia('(pointer: fine)').matches) input.focus({ preventScroll: true });
 }
 
 // A shared or tracked plan can carry any length the list doesn't offer (2 h 15,
@@ -958,6 +1014,8 @@ function bind() {
       hoursTouched = false;
       setEstimate();
       renderConfidence();
+      // Keep the address on the certification shown, so back, reload and links agree with it.
+      history.replaceState(null, '', `#plan?cert=${encodeURIComponent(e.target.value)}`);
     }
     updateHint();
     renderPlan();
@@ -1021,10 +1079,22 @@ const domainBars = (per) =>
     )
     .join('')}</ul>`;
 
+/** A certification without practice questions, or none named: say so and list the ones that have them. */
+function practiceMissing(c) {
+  const sets = DATA.certifications.filter((x) => x.practice_questions);
+  $('#practice-body').innerHTML = `${c ? `<a class="back" href="#cert?id=${esc(c.id)}">${icon('arrow-left')}${esc(c.name)}</a>` : ''}
+    <div class="page-head"><span class="head-icon">${icon('dumbbell')}</span><h1>${t('practice.title')}</h1></div>
+    <div class="status info">${icon('info')}<span>${esc(c ? t('practice.noSet', { x: c.name }) : t('practice.pickSet'))}${c ? ` <a href="#cert?id=${esc(c.id)}">${esc(t('practice.toCert'))}</a>` : ''}</span></div>
+    <section class="card panel"><h2>${icon('dumbbell')}${t('practice.withSets')}</h2><ul class="choose-list">${sets
+      .map((x) => certRow(x, `#practice?cert=${x.id}`, `${x.provider} · ${x.code} · ${t('practice.count', { n: x.practice_questions })}`))
+      .join('')}</ul></section>`;
+}
+
 async function renderPractice(id, params) {
   stopPracticeTimer();
   const body = $('#practice-body');
   const c = BY_ID.get(id);
+  if (!c?.practice_questions) return practiceMissing(c);
   let set;
   try {
     set = await loadPractice(id);
