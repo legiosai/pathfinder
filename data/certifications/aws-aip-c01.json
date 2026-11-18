@@ -15,12 +15,35 @@
   "exam": {
     "minutes": 180,
     "style": "knowledge",
-    "format": "75 questions, 180 minutes. AWS targets production developers with two years of application experience and one year implementing GenAI."
+    "format": "75 multiple choice and multiple response questions, 180 minutes, at a Pearson VUE test center or online proctored. AWS targets production developers with two years of application experience and one year implementing GenAI.",
+    "questions": "75 (65 scored)",
+    "question_count": 75,
+    "passing": "750 scaled (100–1,000)",
+    "languages": [
+      "en",
+      "ja",
+      "ko",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "Building, deploying and troubleshooting production generative AI applications on AWS.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
   "skills": [
     "aws",
     "llm-apps",
@@ -57,12 +80,15 @@
   ],
   "sources": [
     "X03",
-    "X04"
+    "X04",
+    "A02",
+    "P16",
+    "D08"
   ],
   "reports": [
     "X23"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [],
   "domains_note": "Weights from the AWS Certification Exam Guide (AIP-C01), read 2026-11-03."
 }

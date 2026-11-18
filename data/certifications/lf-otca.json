@@ -10,17 +10,33 @@
   "fee": {
     "usd": 250,
     "basis": "Exam only",
-    "note": ""
+    "note": "Published exam-only price; includes two exam attempts and 12 months to schedule. A bundle with the THRIVE-ONE annual subscription costs $495."
   },
   "exam": {
     "minutes": 90,
     "style": "knowledge",
-    "format": "Online proctored multiple-choice exam, 90 minutes; no formal prerequisites listed, two-year validity and a retake listed."
+    "format": "Online, proctored multiple-choice exam: 60 questions in 90 minutes. No prerequisites.",
+    "questions": "60",
+    "question_count": 60,
+    "passing": "75%",
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "retake": "One free retake is included if the first attempt is not passed; it must be taken within the 12 months of eligibility that start at purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time.",
+    "accommodations": "Candidates with disabilities send the Test Accommodations Form at least two weeks before the exam, before scheduling it; requests are reviewed case by case."
   },
   "scope": "Observability fundamentals, API/SDK, Collector and maintaining/debugging telemetry pipelines. This is an adjacent engineering credential, not an AI exam.",
   "requirements": "",
   "ai_policy": "Check the current exam resource rules; preparation includes unaided instrumentation and troubleshooting.",
-  "caveats": [],
+  "caveats": [
+    "The 60-question count and 75% pass mark come from the Linux Foundation multiple-choice exam instructions and FAQ linked from the certification page, which cover all its multiple-choice exams except the CNPA."
+  ],
   "skills": [
     "observability",
     "devops"
@@ -47,13 +63,38 @@
     }
   ],
   "sources": [
-    "Y06"
+    "Y06",
+    "P71",
+    "P72",
+    "P74",
+    "E37",
+    "E38",
+    "E39"
   ],
   "reports": [
     "W02",
     "W03"
   ],
-  "checked_on": "2026-10-27",
-  "prep": [],
-  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-03."
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "OTCA curriculum (CNCF)",
+      "url": "https://github.com/cncf/curriculum/blob/main/OTCA_Curriculum.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Linux Foundation: Getting Started with OpenTelemetry (LFS148)",
+      "url": "https://training.linuxfoundation.org/training/getting-started-with-opentelemetry-lfs148/",
+      "kind": "course",
+      "cost": "free"
+    },
+    {
+      "title": "OpenTelemetry documentation",
+      "url": "https://opentelemetry.io/docs/",
+      "kind": "docs",
+      "cost": "free"
+    }
+  ],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-17; the CNCF OTCA curriculum PDF gives the same weights."
 }

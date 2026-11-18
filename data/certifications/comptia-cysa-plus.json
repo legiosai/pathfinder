@@ -1,0 +1,122 @@
+{
+  "id": "comptia-cysa-plus",
+  "name": "CompTIA Cybersecurity Analyst (CySA+)",
+  "provider": "CompTIA",
+  "code": "CS0-004",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 439,
+    "basis": "Exam only",
+    "note": "US list price for one CySA+ voucher on CompTIA's store. Vouchers are country and currency specific, so the price differs by country. The same page lists a voucher with Retake Assurance at $579 and CertMaster bundles with a voucher from $593."
+  },
+  "exam": {
+    "minutes": 165,
+    "style": "knowledge",
+    "format": "Up to 85 multiple-choice and performance-based questions in 165 minutes. English, with French, Japanese, Spanish and Portuguese announced as coming soon. CompTIA recommends about four years of hands-on experience as a SOC analyst (level 2) or vulnerability analyst; it is a recommendation, not a prerequisite.",
+    "questions": "Maximum of 85",
+    "question_count": 85,
+    "passing": "750 scaled (100–900)",
+    "validity": "3 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Security operations center (SOC) analysis: detecting and analyzing malicious activity, vulnerability management, incident response and management, and reporting and communication.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "CS0-004 (V4) launched on June 23, 2026. CS0-003 (V3) retires in English on December 22, 2026, and in Japanese, Portuguese and Spanish on March 23, 2027; its domains and weights differ (Security Operations 33%, Vulnerability Management 30%, Incident Response Management 20%, Reporting and Communication 17%). Buy the voucher for the version you will sit: CompTIA vouchers are exam series specific and sometimes exam code specific.",
+    "Renewal: the certification lasts three years. Renew with 60 CEUs plus a $150 CE fee per three-year cycle, by passing the latest version of the exam, or with some higher-level CompTIA certifications."
+  ],
+  "access": {
+    "retake": "No wait between the first and second attempt; at least 14 days before the third and later ones. Every attempt is paid in full, unless you bought a voucher with Retake Assurance, which includes one retake.",
+    "accommodations": "In a non-English-speaking country, taking the exam in English when there is no localized version gives 30 extra minutes (ESL), added automatically at Pearson VUE."
+  },
+  "timeline": [
+    {
+      "date": "2026-12-22",
+      "kind": "retires",
+      "text": "CS0-003 (V3) retires in English. Its successor, CS0-004 (V4), has been available since June 23, 2026.",
+      "source": "S07"
+    },
+    {
+      "date": "2027-03-23",
+      "kind": "retires",
+      "text": "CS0-003 (V3) retires in Japanese, Portuguese and Spanish.",
+      "source": "S07"
+    }
+  ],
+  "skills": [
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "security",
+    "soc-analyst"
+  ],
+  "domains": [
+    {
+      "name": "Security Operations",
+      "weight": 34
+    },
+    {
+      "name": "Vulnerability Management",
+      "weight": 26
+    },
+    {
+      "name": "Incident Response and Management",
+      "weight": 24
+    },
+    {
+      "name": "Reporting and Communication",
+      "weight": 16
+    }
+  ],
+  "sources": [
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "D09",
+    "D10",
+    "D11"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CySA+ CS0-004 exam objectives",
+      "url": "https://lecbyo.files.cmp.optimizely.com/download/68b1eae88e5011f08868a275d699e612",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "CompTIA-hosted PDF, document version 2.0."
+    },
+    {
+      "title": "CompTIA CertMaster Learn",
+      "url": "https://www.comptia.org/en-us/resources/certmaster-training/learn/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "CompTIA's self-paced course; $599 for CySA+ V4 on the certification page."
+    },
+    {
+      "title": "CompTIA CertMaster Practice",
+      "url": "https://www.comptia.org/en-us/resources/certmaster-training/practice/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "CompTIA's adaptive practice questions; $209 for CySA+."
+    }
+  ],
+  "domains_note": "Weights from the CompTIA CySA+ (CS0-004) exam objectives, document version 2.0, read 2026-11-17; the CySA+ V4 page shows the same four weights."
+}

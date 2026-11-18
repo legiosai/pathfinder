@@ -1,6 +1,6 @@
 {
   "id": "nvidia-nca-genl",
-  "name": "Generative AI LLMs",
+  "name": "NVIDIA-Certified Associate: Generative AI LLMs",
   "provider": "NVIDIA",
   "code": "NCA-GENL",
   "type": "certification",
@@ -10,19 +10,42 @@
   "fee": {
     "usd": 125,
     "basis": "Exam only",
-    "note": ""
+    "note": "Additional taxes may apply in some countries."
   },
   "exam": {
     "minutes": 60,
     "style": "knowledge",
-    "format": "50–60 questions listed; 60 minutes. Lab metadata: Not listed in reviewed metadata.",
+    "format": "50–60 multiple-choice questions; 60 minutes. Pass/fail; NVIDIA does not publish a passing score.",
     "questions": "50–60",
-    "validity": "2 years"
+    "question_count": 60,
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Attendees of NVIDIA's certification roadmap webinar on 19 November 2026 (one session for EMEA/APAC, one for the Americas and LATAM) receive a 50% discount code for an NVIDIA certification exam.",
+        "url": "https://www.nvidia.com/en-us/events/webinars/nvidia-certification-roadmap-ai-stack/",
+        "until": "2026-11-19"
+      }
+    ],
+    "retake": "After a failed attempt you buy the exam again and wait 14 days before retaking it, with at most five attempts per exam in 12 months.",
+    "accommodations": "Non-native English speakers can ask for extra time (approved case by case) and candidates can ask for disability accommodations, both through an NVIDIA support case opened before the exam."
   },
   "scope": "LLM fundamentals: core machine learning, data analysis, experimentation, software development and trustworthy AI.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [],
+  "timeline": [
+    {
+      "date": "2026-11-19",
+      "kind": "deadline",
+      "text": "NVIDIA's certification webinar sessions; attendees receive a 50% exam discount code.",
+      "source": "E15"
+    }
+  ],
   "skills": [
     "ml-foundations",
     "llm-apps",
@@ -36,11 +59,11 @@
   ],
   "domains": [
     {
-      "name": "Core machine learning and AI knowledge",
+      "name": "Core Machine Learning and AI Knowledge",
       "weight": 30
     },
     {
-      "name": "Data analysis and visualization",
+      "name": "Data Analysis",
       "weight": 14
     },
     {
@@ -48,7 +71,7 @@
       "weight": 22
     },
     {
-      "name": "Software development",
+      "name": "Software Development",
       "weight": 24
     },
     {
@@ -57,14 +80,16 @@
     }
   ],
   "sources": [
-    "N01"
+    "N01",
+    "E14",
+    "E15"
   ],
   "reports": [
     "E01",
     "R04"
   ],
-  "checked_on": "2026-10-27",
-  "domains_note": "Weights from the live NVIDIA exam page.",
+  "checked_on": "2026-11-17",
+  "domains_note": "Weights from NVIDIA's NCA-GENL exam page (Exam Preparation Topics, Exam Weight per section), rechecked 2026-11-17.",
   "prep": [
     {
       "title": "NVIDIA DLI: Rapid Application Development with LLMs (S-FX-26)",

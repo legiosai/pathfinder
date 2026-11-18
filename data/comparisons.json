@@ -1,0 +1,17 @@
+{
+  "note": "Pairs of certifications people often weigh against each other. Each pair gets a static comparison page (c/vs/<a>-vs-<b>/ and es/c/vs/<a>-vs-<b>/) built only from the catalog's facts: no verdicts.",
+  "pairs": [
+    ["comptia-security-plus", "comptia-cysa-plus"],
+    ["microsoft-az-900", "aws-clf-c02"],
+    ["isc2-cc", "comptia-security-plus"],
+    ["aws-saa", "microsoft-az-104"],
+    ["lf-cka", "lf-ckad"],
+    ["isc2-cissp", "isaca-cism"],
+    ["ec-council-ceh", "offsec-oscp"],
+    ["ine-ejpt", "comptia-pentest-plus"],
+    ["aws-aif-c01", "microsoft-ai-901"],
+    ["microsoft-dp-900", "microsoft-pl-300"],
+    ["google-cloud-engineer", "aws-saa"],
+    ["microsoft-sc-900", "isc2-cc"]
+  ]
+}

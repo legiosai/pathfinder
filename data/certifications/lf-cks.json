@@ -1,0 +1,114 @@
+{
+  "id": "lf-cks",
+  "name": "Certified Kubernetes Security Specialist",
+  "provider": "Linux Foundation",
+  "code": "CKS",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 445,
+    "basis": "Exam only",
+    "note": "Published exam-only price; includes two exam attempts, two exam-simulator sessions and 12 months to schedule. Bundles with a course or a subscription cost more."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "practical",
+    "format": "Online, proctored, performance-based exam: 15–20 tasks solved at a command line running Kubernetes (v1.37 at the time of checking), in two hours. A passed CKA is required first.",
+    "questions": "15–20 performance-based tasks",
+    "question_count": 20,
+    "passing": "67%",
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "retake": "One free retake is included if the first attempt is not passed; it must be taken within the 12 months of eligibility that start at purchase, with no enforced wait beyond scoring (up to 24 hours) and the 24-hour booking lead time.",
+    "accommodations": "Candidates with disabilities send the Test Accommodations Form at least two weeks before the exam, before scheduling it; requests are reviewed case by case."
+  },
+  "scope": "Securing container-based applications and Kubernetes platforms during build, deployment and runtime: cluster setup and hardening, system hardening, microservice vulnerabilities, supply chain security, and monitoring, logging and runtime security.",
+  "requirements": "Candidates must have taken and passed the Certified Kubernetes Administrator (CKA) exam before attempting the CKS. The CNCF program page adds that the CKA does not have to be active.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The curriculum PDF linked from the certification page is the older v1.34 file; the CNCF repository's v1.37 curriculum has the same weights.",
+    "Earning or recertifying the CKS on or after June 18, 2026 also extends the CKA to the new CKS expiry date (Linux Foundation CARE program).",
+    "Exam tasks are shown in English, Japanese or Simplified Chinese, and candidates can switch language during the exam."
+  ],
+  "skills": [
+    "kubernetes",
+    "security",
+    "observability"
+  ],
+  "roles": [
+    "security",
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Cluster Setup",
+      "weight": 15
+    },
+    {
+      "name": "Cluster Hardening",
+      "weight": 15
+    },
+    {
+      "name": "System Hardening",
+      "weight": 10
+    },
+    {
+      "name": "Minimize Microservice Vulnerabilities",
+      "weight": 20
+    },
+    {
+      "name": "Supply Chain Security",
+      "weight": 20
+    },
+    {
+      "name": "Monitoring, Logging and Runtime Security",
+      "weight": 20
+    }
+  ],
+  "sources": [
+    "P67",
+    "P68",
+    "P70",
+    "P73",
+    "P74",
+    "E37",
+    "E38",
+    "E39"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CKS curriculum v1.37 (CNCF)",
+      "url": "https://github.com/cncf/curriculum/blob/main/CKS_Curriculum%20v1.37.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Linux Foundation: Kubernetes Security Essentials (LFS260)",
+      "url": "https://training.linuxfoundation.org/training/kubernetes-security-essentials-lfs260/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Designed as preparation for the CKS; also sold in a bundle with the exam."
+    },
+    {
+      "title": "Killer.sh CKS simulator",
+      "url": "https://killer.sh/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "Two 36-hour sessions of 17 graded questions are included with the exam registration."
+    }
+  ],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-17; the CNCF CKS curriculum v1.37 PDF gives the same weights."
+}

@@ -21,8 +21,8 @@
     {
      "key": "B",
      "text": {
-      "en": "Updating the VMs' operating system",
-      "es": "Actualizar el sistema operativo de las VMs"
+      "en": "Updating and patching the operating system inside each VM",
+      "es": "Actualizar y parchear el sistema operativo de las VMs"
      }
     },
     {
@@ -209,8 +209,8 @@
     {
      "key": "B",
      "text": {
-      "en": "You choose the VM size and patch its OS, and Azure runs the network.",
-      "es": "Elegís el tamaño de la VM y parcheás su sistema operativo, y Azure maneja la red."
+      "en": "You pick the VM size and patch its OS; Azure runs the network.",
+      "es": "Elegís el tamaño de la VM y parcheás su sistema operativo; Azure maneja la red."
      }
     },
     {
@@ -524,8 +524,8 @@
     {
      "key": "B",
      "text": {
-      "en": "Spread the VMs across availability zones",
-      "es": "Repartir las VMs entre zonas de disponibilidad"
+      "en": "Spread the VMs across two availability zones in the region",
+      "es": "Repartir las VMs entre dos zonas de disponibilidad de la región"
      }
     },
     {
@@ -804,14 +804,14 @@
      "key": "A",
      "text": {
       "en": "A private endpoint for the database in the virtual network",
-      "es": "Un private endpoint de la base en la red virtual"
+      "es": "Un private endpoint para la base de datos dentro de la red virtual"
      }
     },
     {
      "key": "B",
      "text": {
-      "en": "The database's public endpoint, with a firewall rule for the app",
-      "es": "El endpoint público de la base, con una regla de firewall para la app"
+      "en": "The public endpoint, with a firewall rule for the app",
+      "es": "El endpoint público, con una regla de firewall para la app"
      }
     },
     {
@@ -1313,8 +1313,8 @@
     {
      "key": "B",
      "text": {
-      "en": "Tag resources by department and project",
-      "es": "Etiquetar los recursos por área y por proyecto"
+      "en": "Tag resources with their department and project names",
+      "es": "Etiquetar los recursos con su área y su proyecto"
      }
     },
     {
@@ -1719,8 +1719,8 @@
     {
      "key": "A",
      "text": {
-      "en": "Azure Service Health and Resource Health alerts",
-      "es": "Alertas de Azure Service Health y Resource Health"
+      "en": "Service Health and Resource Health alerts",
+      "es": "Alertas de Service Health y Resource Health"
      }
     },
     {

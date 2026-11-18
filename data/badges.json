@@ -20,14 +20,39 @@
     "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-generative-ai-developer-professional"
   },
   {
+    "id": "aws-dea-c01",
+    "image_url": "https://images.credly.com/images/e5c85d7f-4e50-431e-b5af-fa9d9b0596e7/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-data-engineer-associate"
+  },
+  {
+    "id": "aws-dop-c02",
+    "image_url": "https://images.credly.com/images/bd31ef42-d460-493e-8503-39592aaf0458/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-devops-engineer-professional"
+  },
+  {
+    "id": "aws-dva-c03",
+    "image_url": "https://images.credly.com/images/b9feab85-1a43-4f6c-99a5-631b88d5461b/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-developer-associate"
+  },
+  {
     "id": "aws-saa",
     "image_url": "https://images.credly.com/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png",
     "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-solutions-architect-associate"
   },
   {
+    "id": "aws-sap-c03",
+    "image_url": "https://images.credly.com/images/2d84e428-9078-49b6-a804-13c15383d0de/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-solutions-architect-professional"
+  },
+  {
     "id": "aws-scs-c03",
     "image_url": "https://images.credly.com/images/53acdae5-d69f-4dda-b650-d02ed7a50dd7/image.png",
     "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-security-specialty"
+  },
+  {
+    "id": "aws-soa-c03",
+    "image_url": "https://images.credly.com/images/88a6405e-0f26-442a-95ed-f9b9db4c857e/blob",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-cloudops-engineer-associate"
   },
   {
     "id": "claude-architect-foundations",
@@ -60,6 +85,11 @@
     "page_url": "https://www.databricks.com/learn/certification/context-engineer-associate"
   },
   {
+    "id": "databricks-data-engineer-associate",
+    "image_url": "https://www.databricks.com/sites/default/files/2025-10/associate-badge-de.png",
+    "page_url": "https://www.databricks.com/learn/certification/data-engineer-associate"
+  },
+  {
     "id": "databricks-genai-engineer",
     "image_url": "https://www.databricks.com/sites/default/files/2025-10/associate-badge-gen-ai.png",
     "page_url": "https://www.databricks.com/learn/certification/genai-engineer-associate"
@@ -80,6 +110,26 @@
     "page_url": "https://www.credly.com/org/google-cloud/badge/professional-agentic-architect-certification"
   },
   {
+    "id": "google-cloud-architect",
+    "image_url": "https://images.credly.com/images/71c579e0-51fd-4247-b493-d2fa8167157a/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/professional-cloud-architect-certification"
+  },
+  {
+    "id": "google-cloud-digital-leader",
+    "image_url": "https://images.credly.com/images/44994cda-b5b0-44cb-9a6d-d29b57163073/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/cloud-digital-leader-certification"
+  },
+  {
+    "id": "google-cloud-engineer",
+    "image_url": "https://images.credly.com/images/08096465-cbfc-4c3e-93e5-93c5aa61f23e/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/associate-cloud-engineer-certification"
+  },
+  {
+    "id": "google-data-engineer",
+    "image_url": "https://images.credly.com/images/2d613ff8-8879-430b-b2d8-925fa29785e8/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/professional-data-engineer-certification"
+  },
+  {
     "id": "hashicorp-terraform-associate",
     "image_url": "https://images.credly.com/images/6f614b71-3f2e-488e-8b29-71e90d4dbf80/blob",
     "page_url": "https://www.credly.com/org/ibm-professional-certification-program/badge/hashicorp-certified-terraform-associate-004"
@@ -95,9 +145,24 @@
     "page_url": "https://certs.langchain.com/group/830001"
   },
   {
+    "id": "lf-cka",
+    "image_url": "https://images.credly.com/images/8b8ed108-e77d-4396-ac59-2504583b9d54/cka_from_cncfsite__281_29.png",
+    "page_url": "https://www.credly.com/org/the-linux-foundation/badge/cka-certified-kubernetes-administrator"
+  },
+  {
     "id": "lf-ckad",
     "image_url": "https://images.credly.com/images/cc8adc83-1dc6-4d57-8e20-22171247e052/blob",
     "page_url": "https://www.credly.com/org/the-linux-foundation/badge/ckad-certified-kubernetes-application-developer"
+  },
+  {
+    "id": "lf-cks",
+    "image_url": "https://images.credly.com/images/9945dfcb-1cca-4529-85e6-db1be3782210/kubernetes-security-specialist-logo2.png",
+    "page_url": "https://www.credly.com/org/the-linux-foundation/badge/cks-certified-kubernetes-security-specialist"
+  },
+  {
+    "id": "lf-kcna",
+    "image_url": "https://images.credly.com/images/f28f1d88-428a-47f6-95b5-7da1dd6c1000/KCNA_badge.png",
+    "page_url": "https://www.credly.com/org/the-linux-foundation/badge/kcna-kubernetes-and-cloud-native-associate"
   },
   {
     "id": "lf-mcpa",
@@ -190,8 +255,128 @@
     "page_url": "https://education.securiti.ai/certifications/ai-governance/"
   },
   {
+    "id": "snowflake-snowpro-core",
+    "image_url": "https://s3.us-east-1.amazonaws.com/accredible-api-templates/17217634052294912642396856123542.png",
+    "page_url": "https://achieve.snowflake.com/group/513324"
+  },
+  {
     "id": "tcm-papa",
     "image_url": "https://certifications.tcm-sec.com/wp-content/uploads/2025/11/PAPA-badge.webp",
     "page_url": "https://certifications.tcm-sec.com/papa/"
+  },
+  {
+    "id": "comptia-cysa-plus",
+    "image_url": "https://images.credly.com/images/dcd99b5b-da24-40a6-9364-62126d590c37/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-cysa-ce-certification"
+  },
+  {
+    "id": "comptia-pentest-plus",
+    "image_url": "https://images.credly.com/images/c7ac176b-15a3-4726-827a-e8cee8fe44dc/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-pentest-ce-certification"
+  },
+  {
+    "id": "comptia-security-plus",
+    "image_url": "https://images.credly.com/images/80d8a06a-c384-42bf-ad36-db81bce5adce/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-security-ce-certification"
+  },
+  {
+    "id": "comptia-securityx",
+    "image_url": "https://images.credly.com/images/5343b652-c9a0-418e-bfaf-7ed5a2ddd0c4/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-securityx-ce-certification"
+  },
+  {
+    "id": "giac-gsec",
+    "image_url": "https://images.credly.com/images/8e6bde54-8a33-4ec0-9d70-90fcde581bcf/image.png",
+    "page_url": "https://www.credly.com/org/global-information-assurance-certification-giac/badge/giac-security-essentials-certification-gsec"
+  },
+  {
+    "id": "google-cloud-security-engineer",
+    "image_url": "https://images.credly.com/images/4ea0ec5c-6258-4c26-9282-6ed233c0c7ac/image.png",
+    "page_url": "https://www.credly.com/org/google-cloud/badge/professional-cloud-security-engineer-certification"
+  },
+  {
+    "id": "htb-cpts",
+    "image_url": "https://images.credly.com/images/e63aa507-b974-4e67-bae6-1e425f6e2a99/image.png",
+    "page_url": "https://www.credly.com/org/hack-the-box/badge/hack-the-box-certified-penetration-testing-specialist-htb-cpts"
+  },
+  {
+    "id": "ine-ejpt",
+    "image_url": "https://us-east-1.graphassets.com/AwCYQkwjSUCbfkm08Ct1Mz/cmcc3wze0lx3007irps13e6k3",
+    "page_url": "https://ine.com/security/certifications/ejpt-certification/"
+  },
+  {
+    "id": "isaca-cisa",
+    "image_url": "https://images.credly.com/images/d8b54d17-692a-4151-8e2e-e3c8c1a89ec1/b415cf50edc1955df11b9046c68b7e2debbd41f1.png",
+    "page_url": "https://www.credly.com/org/isaca/badge/certified-information-systems-auditor-cisa"
+  },
+  {
+    "id": "isaca-cism",
+    "image_url": "https://images.credly.com/images/d0891dee-6360-496c-9981-40652523b502/dbdea6794f1a6bbcc18d90eea923421aac7df6b5.png",
+    "page_url": "https://www.credly.com/org/isaca/badge/certified-information-security-manager-cism"
+  },
+  {
+    "id": "isc2-cc",
+    "image_url": "https://images.credly.com/images/2030e43f-8003-4d4b-9630-847add403c87/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/certified-in-cybersecurity-cc"
+  },
+  {
+    "id": "isc2-ccsp",
+    "image_url": "https://images.credly.com/images/38b12225-5b48-44e1-8750-20928cc595ea/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/certified-cloud-security-professional-ccsp"
+  },
+  {
+    "id": "isc2-cissp",
+    "image_url": "https://images.credly.com/images/6eeb0a98-33cb-4f72-bfc3-f89d65a3286c/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/certified-information-systems-security-professional-cissp"
+  },
+  {
+    "id": "isc2-sscp",
+    "image_url": "https://images.credly.com/images/c4320f01-2ff4-4508-984a-415fc94e3aec/image.png",
+    "page_url": "https://www.credly.com/org/isc2/badge/systems-security-certified-practitioner-sscp"
+  },
+  {
+    "id": "offsec-oscp",
+    "image_url": "https://www.offsec.com/_astro/OSCP-plus.BZHuApYA_T49m1.svg",
+    "page_url": "https://www.offsec.com/courses/pen-200/"
+  },
+  {
+    "id": "aws-mla-c02",
+    "image_url": "https://images.credly.com/images/1a634b4e-3d6b-4a74-b118-c0dcb429e8d2/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-machine-learning-engineer-associate"
+  },
+  {
+    "id": "cisco-ccna-cybersecurity",
+    "image_url": "https://images.credly.com/images/99c33c3f-ab7e-46dc-9490-01837434c649/blob",
+    "page_url": "https://www.credly.com/org/cisco/badge/ccna-cybersecurity"
+  },
+  {
+    "id": "comptia-network-plus",
+    "image_url": "https://images.credly.com/images/c70ba73e-3c8a-46fa-9d60-4a9af94ad662/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-network-ce-certification.1"
+  },
+  {
+    "id": "fortinet-nse-1",
+    "image_url": "https://images.credly.com/images/0dc7965b-8507-4312-9c12-1add6c50fa49/blob",
+    "page_url": "https://www.credly.com/org/fortinet/badge/fortinet-nse-1-certified-in-cybersecurity"
+  },
+  {
+    "id": "fortinet-nse-3",
+    "image_url": "https://images.credly.com/images/7ca06297-1543-4ed2-b9fc-7f0af8635700/blob",
+    "page_url": "https://www.credly.com/org/fortinet/badge/fortinet-nse-3-certified-in-cybersecurity"
+  },
+  {
+    "id": "google-cybersecurity-certificate",
+    "image_url": "https://images.credly.com/images/ddcc63a4-8ee9-42ef-8a68-cb7e39cfbfef/blob",
+    "page_url": "https://www.credly.com/org/coursera/badge/google-cybersecurity-professional-certificate-v-2"
+  },
+  {
+    "id": "lpi-linux-essentials",
+    "image_url": "https://images.credly.com/images/1d36cb36-20fc-4961-8d70-6307c015d1aa/blob",
+    "page_url": "https://www.credly.com/org/linux-professional-institute/badge/linux-essentials-certificate"
+  },
+  {
+    "id": "redhat-rhcsa",
+    "image_url": "https://images.credly.com/images/572de0ba-2c59-4816-a59d-b0e1687e45ee/image.png",
+    "page_url": "https://www.credly.com/org/red-hat-inc/badge/red-hat-certified-system-administrator-rhcsa"
   }
 ]

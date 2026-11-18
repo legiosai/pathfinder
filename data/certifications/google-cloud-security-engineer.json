@@ -1,0 +1,105 @@
+{
+  "id": "google-cloud-security-engineer",
+  "name": "Google Cloud Professional Cloud Security Engineer",
+  "provider": "Google Cloud",
+  "code": "PCSE",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 200,
+    "basis": "Exam only",
+    "note": "Plus tax where applicable. Every attempt, including renewal, is paid."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Two-hour proctored exam, online or at a test center, with 50–60 multiple choice and multiple select questions, in English or Japanese. No prerequisites; Google recommends 3+ years of industry experience including more than one year designing and managing solutions on Google Cloud.",
+    "questions": "50–60",
+    "question_count": 60,
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Securing Google Cloud: identity and access, resource hierarchy and policies, network boundaries and private connectivity, data protection, security operations and automation, AI workload and software supply chain security, and compliance controls.",
+  "requirements": "",
+  "ai_policy": "Google's exam terms forbid using any artificial intelligence software, program or application during the exam.",
+  "caveats": [
+    "Google does not use an exam code; PCSE is the catalog's short form.",
+    "Google marks every section weight as approximate (~) and does not publish a passing score.",
+    "Professional certifications are valid for two years. Renewal means passing the exam again, from 60 days before the expiry date; exam fees and the retake policy apply.",
+    "Retakes: up to four attempts in two years, waiting 14 days after the first failure, 60 days after the second and 365 days after the third."
+  ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third."
+  },
+  "skills": [
+    "gcp",
+    "security",
+    "identity",
+    "networking"
+  ],
+  "roles": [
+    "security",
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Configuring access",
+      "weight": 25
+    },
+    {
+      "name": "Securing communications and establishing boundary protection",
+      "weight": 22
+    },
+    {
+      "name": "Ensuring data protection",
+      "weight": 23
+    },
+    {
+      "name": "Managing operations",
+      "weight": 19
+    },
+    {
+      "name": "Supporting compliance requirements",
+      "weight": 11
+    }
+  ],
+  "sources": [
+    "S87",
+    "S88",
+    "S89",
+    "P59"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Professional Cloud Security Engineer exam guide",
+      "url": "https://services.google.com/fh/files/misc/professional_cloud_security_engineer_exam_guide_english.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Google Skills: Professional Security Engineer Certification learning path",
+      "url": "https://www.skills.google/paths/15",
+      "kind": "course",
+      "cost": "paid",
+      "note": "25 activities; the path page does not say which are free."
+    },
+    {
+      "title": "Official sample questions",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfSuKEE8cUQWj9sfak7QG9hpaljBC89Y22KoWMQFgoECZjzUg/viewform",
+      "kind": "practice",
+      "cost": "free"
+    }
+  ],
+  "domains_note": "Weights from the Google Cloud Professional Cloud Security Engineer exam guide linked from the certification page, read 2026-11-17. Google marks each weight as approximate (~); the guide carries no version or date."
+}

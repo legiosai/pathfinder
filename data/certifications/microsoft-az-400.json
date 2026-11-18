@@ -1,0 +1,153 @@
+{
+  "id": "microsoft-az-400",
+  "name": "Microsoft DevOps Engineer Expert",
+  "provider": "Microsoft",
+  "code": "AZ-400",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. US price USD 165; USD 99 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America; EUR 126 in Spain (Microsoft's price list, 2026-11-17)."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "knowledge",
+    "format": "Proctored exam through Pearson VUE; Microsoft does not publish its length: associate and expert exams run 100 minutes, or 120 when they may contain labs, and the time is shown at registration. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans",
+      "ko",
+      "de",
+      "fr",
+      "es",
+      "pt-BR",
+      "zh-Hant",
+      "it"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Academic pricing for students in most countries (not India or China): identify as a student in your Microsoft Learn profile and verify your status before registering.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts"
+      },
+      {
+        "text": "Exam Replay (Pearson VUE): one exam plus one retake of the same exam, both within 12 months of purchase; USD 230 on the US store. Not valid for Fundamentals exams.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals"
+      }
+    ],
+    "retake": "After a failed attempt you wait 24 hours to retake, then 14 days between later attempts, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "You can request 30 extra minutes only when the exam is not offered in your preferred language (this one is offered in Spanish); other accommodations are requested through Pearson VUE before you schedule."
+  },
+  "scope": "Designing and implementing DevOps with Azure DevOps and GitHub: processes and communication, source control, build and release pipelines (including infrastructure as code), security and compliance, and instrumentation.",
+  "requirements": "The certification also requires Microsoft Certified: Azure Administrator Associate (AZ-104) or Microsoft Certified: Azure Developer Associate (AZ-204, retired on July 31, 2026).",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Exam AZ-400, the DevOps Engineer Expert certification and its renewal assessment retire on February 1, 2027. The announced successor, Microsoft Certified: Agentic DevOps Engineer Expert (Exam AZ-401), was in beta on 2026-11-17 with general availability expected in December 2026; it pairs AZ-401 with GH-300 or AZ-104.",
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AZ-400."
+  ],
+  "timeline": [
+    {
+      "date": "2027-02-01",
+      "kind": "retires",
+      "text": "Exam AZ-400, the DevOps Engineer Expert certification and its renewal assessment retire.",
+      "source": "P24"
+    }
+  ],
+  "skills": [
+    "azure",
+    "devops",
+    "iac",
+    "observability",
+    "security"
+  ],
+  "roles": [
+    "platform",
+    "developer"
+  ],
+  "domains": [
+    {
+      "name": "Design and implement processes and communications",
+      "weight": 13
+    },
+    {
+      "name": "Design and implement a source control strategy",
+      "weight": 13
+    },
+    {
+      "name": "Design and implement build and release pipelines",
+      "weight": 54
+    },
+    {
+      "name": "Develop a security and compliance plan",
+      "weight": 13
+    },
+    {
+      "name": "Implement an instrumentation strategy",
+      "weight": 7
+    }
+  ],
+  "sources": [
+    "P24",
+    "P25",
+    "P26",
+    "P30",
+    "Z12",
+    "Z13",
+    "Z14",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08",
+    "E10"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AZ-400 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-400",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Design and Implement Microsoft DevOps solutions (AZ-400T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/az-400t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Curso AZ-400T00-A: Diseño e implementación de soluciones de Microsoft DevOps",
+      "url": "https://learn.microsoft.com/es-es/training/courses/az-400t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same course on Microsoft Learn in Spanish; the self-paced learning paths are free, the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official AZ-400 practice assessment",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/az-400/practice/assessment?assessment-type=practice&assessmentId=56",
+      "kind": "practice",
+      "cost": "free",
+      "note": "Free on Microsoft Learn. Microsoft no longer updates these Learn practice assessments and recommends the newer one on AI Skills Navigator, which needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AZ-400 study guide (10–15%, 10–15%, 50–55%, 10–15%, 5–10%; skills measured as of July 27, 2026), scaled to add up to 100 and rounded to whole numbers. Read 2026-11-17."
+}

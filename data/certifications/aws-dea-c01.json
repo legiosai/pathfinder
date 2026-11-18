@@ -1,0 +1,101 @@
+{
+  "id": "aws-dea-c01",
+  "name": "AWS Certified Data Engineer – Associate",
+  "provider": "AWS",
+  "code": "DEA-C01",
+  "type": "certification",
+  "category": "Data & analytics",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 150,
+    "basis": "Exam only",
+    "note": "USD list price; taxes may apply. AWS charges set local-currency prices in countries that use the euro (€128), Australian dollar (A$224), Japanese yen (¥20,000), Korean won, Chinese yuan and Indian rupee (vouchers only), updated at least once a year. After you earn one AWS Certification, the next exam is 50% off."
+  },
+  "exam": {
+    "minutes": 130,
+    "style": "knowledge",
+    "format": "65 multiple choice and multiple response questions, 130 minutes, at a Pearson VUE test center or online proctored. AWS recommends the equivalent of 2–3 years in data engineering and at least 1–2 years of hands-on experience with AWS services.",
+    "questions": "65 (50 scored)",
+    "question_count": 65,
+    "passing": "720 scaled (100–1,000)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "ko",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Building and running data pipelines on AWS: ingestion, transformation and orchestration, choosing data stores and modeling and cataloging data, operating and monitoring pipelines and data quality, and data security, privacy and governance.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "skills": [
+    "aws",
+    "data",
+    "security"
+  ],
+  "roles": [
+    "data-engineer"
+  ],
+  "domains": [
+    {
+      "name": "Data Ingestion and Transformation",
+      "weight": 34
+    },
+    {
+      "name": "Data Store Management",
+      "weight": 26
+    },
+    {
+      "name": "Data Operations and Support",
+      "weight": 22
+    },
+    {
+      "name": "Data Security and Governance",
+      "weight": 18
+    }
+  ],
+  "sources": [
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "A02",
+    "D08"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "DEA-C01 exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/data-engineer-associate-01/data-engineer-associate-01.html",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "AWS Skill Builder: DEA-C01 exam prep plan",
+      "url": "https://skillbuilder.aws/category/exam-prep/data-engineer-associate-DEA-C01",
+      "kind": "course",
+      "cost": "free",
+      "note": "The 4-step plan linked from the certification page. The Official Practice Question Set and the Exam Prep course are free; the Official Practice Exam needs a Skill Builder subscription."
+    }
+  ],
+  "domains_note": "Weights from the AWS Certification Exam Guide (DEA-C01, guide version 1.1, December 12, 2025), the guide linked from the live certification page. Read 2026-11-17."
+}

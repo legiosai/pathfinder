@@ -1,0 +1,122 @@
+{
+  "id": "aws-dva-c03",
+  "name": "AWS Certified Developer – Associate",
+  "provider": "AWS",
+  "code": "DVA-C03",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 150,
+    "basis": "Exam only",
+    "note": "USD list price; taxes may apply. AWS charges set local-currency prices in countries that use the euro (€128), Australian dollar (A$224), Japanese yen (¥20,000), Korean won, Chinese yuan and Indian rupee (vouchers only), updated at least once a year. After you earn one AWS Certification, the next exam is 50% off."
+  },
+  "exam": {
+    "minutes": 130,
+    "style": "knowledge",
+    "format": "65 multiple choice and multiple response questions, 130 minutes, at a Pearson VUE test center or online proctored. AWS recommends one or more years of hands-on experience developing and maintaining applications on AWS.",
+    "questions": "65 (50 scored)",
+    "question_count": 65,
+    "passing": "720 scaled (100–1,000)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "ko",
+      "pt-BR",
+      "es-419",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Developing, testing, deploying and debugging applications on AWS: service APIs, SDKs and CLI, CI/CD deployment, application and data security, troubleshooting and optimization, including AI-assisted development tools and managed AI services.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Exam version change: registration for DVA-C03 opened on October 27, 2026 and it is in use from December 1, 2026; the last day to take DVA-C02 is November 30, 2026. These facts and weights are for DVA-C03 (DVA-C02 weighted its domains 32/26/24/18%).",
+    "Renewal: recertify within 3 years by passing the latest version of this exam, or by earning the AWS Certified DevOps Engineer – Professional, which renews this certification automatically."
+  ],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-11-30",
+      "kind": "retires",
+      "text": "Last day to take DVA-C02.",
+      "source": "P18"
+    },
+    {
+      "date": "2026-12-01",
+      "kind": "opens",
+      "text": "DVA-C03 becomes the exam (registration opened October 27, 2026).",
+      "source": "P03"
+    }
+  ],
+  "skills": [
+    "aws",
+    "devops",
+    "security",
+    "observability"
+  ],
+  "roles": [
+    "developer"
+  ],
+  "domains": [
+    {
+      "name": "Development with AWS Services",
+      "weight": 30
+    },
+    {
+      "name": "Security",
+      "weight": 26
+    },
+    {
+      "name": "Testing and Deployment",
+      "weight": 22
+    },
+    {
+      "name": "Troubleshooting and Optimization",
+      "weight": 22
+    }
+  ],
+  "sources": [
+    "P01",
+    "P02",
+    "P03",
+    "P16",
+    "P17",
+    "P18",
+    "A02",
+    "D08"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "DVA-C03 exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/developer-associate-03/developer-associate-03.html",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "AWS Skill Builder: DVA-C03 exam prep plan",
+      "url": "https://skillbuilder.aws/category/exam-prep/developer-associate-DVA-C03",
+      "kind": "course",
+      "cost": "free",
+      "note": "The 4-step plan linked from the certification page. The Official Practice Question Set and the Exam Prep course are free; the Official Practice Exam needs a Skill Builder subscription."
+    }
+  ],
+  "domains_note": "Weights from the AWS Certification Exam Guide (DVA-C03), the guide linked from the live certification page. Read 2026-11-17."
+}

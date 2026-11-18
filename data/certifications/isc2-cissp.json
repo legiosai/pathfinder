@@ -1,0 +1,129 @@
+{
+  "id": "isc2-cissp",
+  "name": "Certified Information Systems Security Professional",
+  "provider": "ISC2",
+  "code": "CISSP",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": 749,
+    "basis": "Exam only",
+    "note": "U.S. list price for the Americas, Asia Pacific, the Middle East and Africa; EMEA pays EUR 719.04 and the UK GBP 606.69. Taxes depend on the exam location."
+  },
+  "exam": {
+    "minutes": 180,
+    "style": "knowledge",
+    "format": "Computerized adaptive test (CAT) in all five languages (English, Chinese, German, Japanese, Spanish): 100–150 multiple choice and advanced items in 3 hours at ISC2-authorized Pearson VUE centers. Chinese only in set windows.",
+    "questions": "100–150 (CAT)",
+    "question_count": 150,
+    "passing": "700 scaled (out of 1,000)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "zh",
+      "de",
+      "ja",
+      "es"
+    ],
+    "delivery": [
+      "test-center"
+    ]
+  },
+  "scope": "Designing, engineering and managing an organization's security program: security and risk management, asset security, architecture and engineering, network security, identity and access management, assessment and testing, security operations and software development security.",
+  "requirements": "To be certified: five years of cumulative full-time experience in two or more of the eight CISSP domains; a relevant degree or a credential on ISC2's approved list can satisfy one year, and part-time work and internships count. Without the experience, passing makes you an Associate of ISC2 with six years to earn it. Within nine months of passing, an ISC2-certified member (or ISC2, with proof of employment) must endorse the application.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "A new CISSP outline takes effect April 15, 2027. Domain 1 becomes Security Governance and Risk Management, AI ethics is added, and the weights change to 13.6, 12, 12.8, 12.8, 13.6, 11.2, 12.8 and 11.2% for domains 1–8; length and item range stay the same. Exams before that date follow the April 15, 2024 outline used here.",
+    "Prices and taxes follow the exam location: ISC2 lists U.S. dollars for most regions, euros for EMEA and pounds for the UK. Pearson VUE charges U.S. $50 to reschedule and U.S. $100 to cancel. Confirm at checkout.",
+    "An exam-only purchase is one attempt that must be taken within 365 days. ISC2 also sells Peace of Mind Protection (two attempts within 180 days); its price is not on the pricing page.",
+    "Staying certified: U.S. $135 a year and 120 CPE credits per three-year cycle (40 a year suggested). Associates of ISC2 pay U.S. $50 a year and earn 15 CPE credits a year."
+  ],
+  "access": {
+    "retake": "Wait 30 days after a failed first attempt, 60 after the second and 90 after later ones; at most four attempts in 12 months. An exam-only purchase covers one attempt (Peace of Mind Protection covers two)."
+  },
+  "timeline": [
+    {
+      "date": "2027-04-15",
+      "kind": "changes",
+      "text": "New exam outline: Domain 1 becomes Security Governance and Risk Management, AI ethics is added and all eight weights change; length and item range stay the same.",
+      "source": "S37"
+    }
+  ],
+  "skills": [
+    "security",
+    "identity",
+    "networking",
+    "architecture"
+  ],
+  "roles": [
+    "security",
+    "governance",
+    "architect"
+  ],
+  "domains": [
+    {
+      "name": "Security and Risk Management",
+      "weight": 16
+    },
+    {
+      "name": "Asset Security",
+      "weight": 10
+    },
+    {
+      "name": "Security Architecture and Engineering",
+      "weight": 13
+    },
+    {
+      "name": "Communication and Network Security",
+      "weight": 13
+    },
+    {
+      "name": "Identity and Access Management (IAM)",
+      "weight": 13
+    },
+    {
+      "name": "Security Assessment and Testing",
+      "weight": 12
+    },
+    {
+      "name": "Security Operations",
+      "weight": 13
+    },
+    {
+      "name": "Software Development Security",
+      "weight": 10
+    }
+  ],
+  "sources": [
+    "S36",
+    "S37",
+    "S38",
+    "S29",
+    "S30",
+    "S31",
+    "S32",
+    "S33",
+    "D12"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CISSP Certification Exam Outline",
+      "url": "https://www.isc2.org/certifications/cissp/cissp-certification-exam-outline",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "The April 2024 outline and the one effective April 15, 2027, as PDF in five languages."
+    },
+    {
+      "title": "ISC2 official CISSP training",
+      "url": "https://www.isc2.org/training/3-ways-to-train/cissp",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, online instructor-led or classroom."
+    }
+  ],
+  "domains_note": "Weights from the ISC2 CISSP Certification Exam Outline effective April 15, 2024, read 2026-11-17. The outline effective April 15, 2027 changes them (see caveats)."
+}

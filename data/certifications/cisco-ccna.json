@@ -1,0 +1,128 @@
+{
+  "id": "cisco-ccna",
+  "name": "Cisco Certified Network Associate",
+  "provider": "Cisco",
+  "code": "200-301 CCNA",
+  "type": "certification",
+  "category": "Networking",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 300,
+    "basis": "Exam only",
+    "note": "USD list price plus tax; Pearson VUE lists the price in other countries and currencies. Cisco Learning Credits are also accepted."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "120-minute exam (Implementing and Administering Cisco Solutions, 200-301 CCNA v1.1) through Pearson VUE, in person or online, in English or Japanese. No prerequisites. Cisco does not publish the number of questions or the passing score; the score report shows it.",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Network fundamentals, network access (switching, VLANs and wireless), IP connectivity and routing, IP services, security fundamentals, and network automation and programmability.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Version 1.1 can be taken until February 2, 2027; version 2.0 starts on February 3, 2027 with reorganized domains (Network Infrastructure and Connectivity 25%, Switching and Network Access 25%, IP Routing 20%, Network Services and Security 20%, AI, and Network Operations and Management 10%) and may ask candidates to evaluate output from agentic AI and digital network assistants. The domains here are v1.1's.",
+    "Recertify within three years by passing the current CCNA exam or a higher-level Cisco exam, or by earning 30 continuing education credits.",
+    "Cisco's pages disagree on languages: the exam page lists English and Japanese, while the CCNA page lists English for v1.1 and English and Japanese for v2.0. Neither offers Spanish."
+  ],
+  "access": {
+    "retake": "After a failed attempt wait five calendar days to retake; after passing, wait 180 days before taking the same exam again."
+  },
+  "timeline": [
+    {
+      "date": "2027-02-02",
+      "kind": "retires",
+      "text": "Last day to test on CCNA v1.1.",
+      "source": "P75"
+    },
+    {
+      "date": "2027-02-03",
+      "kind": "changes",
+      "text": "CCNA v2.0 starts, with reorganized domains and AI topics such as evaluating output from agentic AI and digital network assistants.",
+      "source": "P78"
+    }
+  ],
+  "skills": [
+    "networking",
+    "security"
+  ],
+  "roles": [
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Network Fundamentals",
+      "weight": 20
+    },
+    {
+      "name": "Network Access",
+      "weight": 20
+    },
+    {
+      "name": "IP Connectivity",
+      "weight": 25
+    },
+    {
+      "name": "IP Services",
+      "weight": 10
+    },
+    {
+      "name": "Security Fundamentals",
+      "weight": 15
+    },
+    {
+      "name": "Automation and Programmability",
+      "weight": 10
+    }
+  ],
+  "sources": [
+    "P75",
+    "P76",
+    "P77",
+    "P78",
+    "P79",
+    "D17"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CCNA v1.1 (200-301) exam topics",
+      "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301-CCNA-v1.1.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "CCNA v2.0 (200-301) exam topics",
+      "url": "https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301_CCNA_v2.0_Exam_Topics_PDF.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "For exams taken from February 3, 2027."
+    },
+    {
+      "title": "Cisco CCNA Prep",
+      "url": "https://learnwith.cisco.com/stayontrack",
+      "kind": "course",
+      "cost": "free",
+      "note": "Cisco's free prep program: webinars, lab activities, a learning path and a practice exam. It does not say which exam version it targets."
+    },
+    {
+      "title": "Cisco Networking Academy: Conceptos básicos de redes",
+      "url": "https://www.netacad.com/courses/networking-basics?courseLang=es-XL",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "Free, self-paced Networking Basics course in Spanish (22 hours, 13 labs): the addressing, routing and protocol basics CCNA builds on, not a full CCNA course."
+    }
+  ],
+  "domains_note": "Weights from Cisco's CCNA Exam v1.1 (200-301) exam topics PDF, linked from the CCNA certification page, read 2026-11-17. Version 2.0 (from February 3, 2027) has different domains; see the caveats."
+}

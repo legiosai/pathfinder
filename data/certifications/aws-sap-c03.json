@@ -1,0 +1,125 @@
+{
+  "id": "aws-sap-c03",
+  "name": "AWS Certified Solutions Architect – Professional",
+  "provider": "AWS",
+  "code": "SAP-C03",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 300,
+    "basis": "Exam only",
+    "note": "USD list price; taxes may apply. AWS charges set local-currency prices in countries that use the euro (€256), Australian dollar (A$449), Japanese yen (¥40,000), Korean won, Chinese yuan and Indian rupee (vouchers only), updated at least once a year. After you earn one AWS Certification, the next exam is 50% off."
+  },
+  "exam": {
+    "minutes": 180,
+    "style": "knowledge",
+    "format": "75 multiple choice and multiple response questions, 180 minutes, at a Pearson VUE test center or online proctored. AWS recommends two or more years of experience using AWS services to design and implement cloud solutions.",
+    "questions": "75 (65 scored)",
+    "question_count": 75,
+    "passing": "720 scaled (100–1,000)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "ko",
+      "pt-BR",
+      "es-419",
+      "zh-Hans"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Designing optimized AWS solutions for complex organizations, based on the Well-Architected Framework: cloud-native, serverless and AI-integrated architectures across multiple accounts, security, compliance and governance, cost optimization, resilience and migration, and operational excellence.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Exam version change: SAP-C03 is in use from November 17, 2026 (registration opened October 27, 2026); the last day to take SAP-C02 was November 16, 2026. SAP-C02's four domains (26/29/25/20%) were reorganized into the five listed here, so older prep material follows a different outline."
+  ],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-11-16",
+      "kind": "retires",
+      "text": "Last day to take SAP-C02.",
+      "source": "P18"
+    },
+    {
+      "date": "2026-11-17",
+      "kind": "opens",
+      "text": "SAP-C03 becomes the exam (registration opened October 27, 2026).",
+      "source": "P10"
+    }
+  ],
+  "skills": [
+    "aws",
+    "architecture",
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "architect"
+  ],
+  "domains": [
+    {
+      "name": "Architecture Design and Implementation Built for the Cloud",
+      "weight": 25
+    },
+    {
+      "name": "Security, Compliance, and Governance",
+      "weight": 25
+    },
+    {
+      "name": "Cost-Optimized Architecture Design",
+      "weight": 15
+    },
+    {
+      "name": "Resilience, Migration, and Business Continuity",
+      "weight": 15
+    },
+    {
+      "name": "Operational Excellence and Automation",
+      "weight": 20
+    }
+  ],
+  "sources": [
+    "P08",
+    "P09",
+    "P10",
+    "P16",
+    "P17",
+    "P18",
+    "A02",
+    "D08"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "SAP-C03 exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/solutions-architect-professional-03.html",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "AWS Skill Builder: SAP-C03 exam prep plan",
+      "url": "https://skillbuilder.aws/category/exam-prep/solutions-architect-professional-SAP-C03",
+      "kind": "course",
+      "cost": "free",
+      "note": "The exam prep plan linked from the certification page. The Official Practice Question Set and the Exam Prep course are free; the Official Practice Exam needs a Skill Builder subscription."
+    }
+  ],
+  "domains_note": "Weights from the AWS Certification Exam Guide (SAP-C03), the guide linked from the live certification page. Read 2026-11-17."
+}

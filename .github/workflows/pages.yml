@@ -1,4 +1,5 @@
-# Publishes the site to https://legiosai.github.io/pathfinder/ on every push to main.
+# Publishes the site to https://pathfinder.legios.com.ar/ on every push to main
+# (legiosai.github.io/pathfinder/ redirects there).
 name: Publish to GitHub Pages
 
 on:
@@ -11,9 +12,10 @@ permissions:
   pages: write
   id-token: write
 
+# A cancelled deploy can leave Pages half updated, so a newer run waits for the current one.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:

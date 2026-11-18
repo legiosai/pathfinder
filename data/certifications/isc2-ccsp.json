@@ -1,0 +1,110 @@
+{
+  "id": "isc2-ccsp",
+  "name": "Certified Cloud Security Professional",
+  "provider": "ISC2",
+  "code": "CCSP",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": 599,
+    "basis": "Exam only",
+    "note": "U.S. list price for the Americas, Asia Pacific, the Middle East and Africa; EMEA pays EUR 575.04 and the UK GBP 485.19. Taxes depend on the exam location."
+  },
+  "exam": {
+    "minutes": 180,
+    "style": "knowledge",
+    "format": "Computerized adaptive test (CAT) at Pearson VUE test centers: 100–150 multiple choice and advanced items in 3 hours. Offered in English, Chinese, German and Japanese (Chinese only in set windows).",
+    "questions": "100–150 (CAT)",
+    "question_count": 150,
+    "passing": "700 scaled (out of 1,000)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "de"
+    ],
+    "delivery": [
+      "test-center"
+    ]
+  },
+  "scope": "Vendor-neutral cloud security: cloud concepts, architecture and design, cloud data security, platform and infrastructure security, application security, security operations, and legal, risk and compliance.",
+  "requirements": "To be certified: five years of cumulative full-time IT experience, three of them in cybersecurity and one in one or more of the six CCSP domains. A relevant degree or CSA's CCSK can waive one year (one at most); an active CISSP replaces the whole requirement. Without the experience, passing makes you an Associate of ISC2 with six years to earn it. Within nine months of passing, an ISC2-certified member (or ISC2, with proof of employment) must endorse the application.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The current outline took effect August 1, 2026; check that prep material matches it.",
+    "Prices and taxes follow the exam location: ISC2 lists U.S. dollars for most regions, euros for EMEA and pounds for the UK. Pearson VUE charges U.S. $50 to reschedule and U.S. $100 to cancel. Confirm at checkout.",
+    "The fee is not refunded if the exam is not taken within 365 days of purchase.",
+    "Staying certified: U.S. $135 a year and 90 CPE credits per three-year cycle. Associates of ISC2 pay U.S. $50 a year and earn 15 CPE credits a year."
+  ],
+  "access": {
+    "retake": "Wait 30 days after a failed first attempt, 60 after the second and 90 after later ones; at most four attempts in 12 months. An exam-only purchase covers one attempt (Peace of Mind Protection covers two)."
+  },
+  "skills": [
+    "security",
+    "identity",
+    "architecture"
+  ],
+  "roles": [
+    "security",
+    "architect",
+    "governance"
+  ],
+  "domains": [
+    {
+      "name": "Cloud Concepts, Architecture and Design",
+      "weight": 17
+    },
+    {
+      "name": "Cloud Data Security",
+      "weight": 20
+    },
+    {
+      "name": "Cloud Platform and Infrastructure Security",
+      "weight": 17
+    },
+    {
+      "name": "Cloud Application Security",
+      "weight": 16
+    },
+    {
+      "name": "Cloud Security Operations",
+      "weight": 17
+    },
+    {
+      "name": "Legal, Risk and Compliance",
+      "weight": 13
+    }
+  ],
+  "sources": [
+    "S39",
+    "S40",
+    "S29",
+    "S30",
+    "S31",
+    "S32",
+    "S33",
+    "D12"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CCSP Certification Exam Outline",
+      "url": "https://www.isc2.org/certifications/ccsp/ccsp-certification-exam-outline",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Outline effective August 1, 2026, as PDF in four languages."
+    },
+    {
+      "title": "ISC2 official CCSP training",
+      "url": "https://www.isc2.org/training/3-ways-to-train/ccsp",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, online instructor-led or classroom."
+    }
+  ],
+  "domains_note": "Weights from the ISC2 CCSP Certification Exam Outline effective August 1, 2026 (English PDF 01-2026 V2), read 2026-11-17."
+}

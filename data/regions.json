@@ -1,0 +1,14 @@
+{
+  "AR": {
+    "en": "Paying an exam fee in US dollars with an Argentine card adds a 30% tax collection (percepción, ARCA RG 5617/2024) to the part of the card bill you pay in pesos; paying that part with your own dollars, from a dollar account, avoids it. The 30% counts as a payment on account of Ganancias or Bienes Personales in your annual tax return, and people registered for neither can ask ARCA for a refund from 1 January of the following year. Rules as of November 2026.",
+    "es": "Si pagás un examen en dólares con una tarjeta argentina, la parte del resumen que cancelás en pesos suma una percepción del 30 % (RG 5617/2024 de ARCA); si esa parte la pagás con dólares propios, desde una cuenta en dólares, no se cobra. Ese 30 % es un pago a cuenta de Ganancias o de Bienes Personales en tu declaración jurada anual, y si no estás inscripto en ninguno de los dos podés pedirle la devolución a ARCA desde el 1 de enero del año siguiente. Reglas vigentes a noviembre de 2026.",
+    "sources": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05"
+    ],
+    "checked_on": "2026-11-17"
+  }
+}

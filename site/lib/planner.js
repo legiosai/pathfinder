@@ -145,31 +145,12 @@ export function studyDates(start, days, n) {
 }
 
 /**
- * Build a dated plan.
- * opts: { cert, hours, start, days, sessionMinutes, startTime, confidence, targetDate }
- * Returns { cert, hours, sessionMinutes, startTime, inferredTopics, topics, sessions[], examDate, weeks, deadline }
- * `examDate` is the earliest date the pace allows; `deadline` compares it with `targetDate` when given.
+ * The kinds of session in order: 1 baseline, learning, practice, a mock and its review, remediation,
+ * a second mock and review when there are two, and a final. `regularSlots` counts every session but
+ * the mocks. When there are fewer flexible slots than topics, a learning session covers several.
  */
-export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, startTime = '19:00', confidence = {}, targetDate = null }) {
-  if (!(hours > 0)) throw new Error('Hours must be positive');
-  if (!(sessionMinutes >= 15)) throw new Error('Sessions must be at least 15 minutes');
-  const examMinutes = cert.exam.minutes || 90;
-  const { topics: baseTopics, inferred } = planTopics(cert);
-  const topics = weightTopics(baseTopics, confidence);
-
-  // Mocks run as long as the exam, so they get their own length. Regular sessions
-  // are 1 baseline, learning, practice, one review per mock, remediation and a final.
-  // A short budget keeps one mock, so the time goes to learning one domain per
-  // session; shorter still, a learning session covers several domains. The plan
-  // stays close to the hours asked instead of growing to fit a fixed outline.
-  const budget = hours * 60;
-  const reservedFor = (mocks) => 1 + mocks + 1;
-  const roomFor = (mocks) => mocks * examMinutes + (reservedFor(mocks) + topics.length) * sessionMinutes;
-  const mockCount = cert.exam.style === 'practical' || budget < roomFor(2) ? 1 : 2;
-  const fixedMinutes = mockCount * examMinutes;
-  const reserved = reservedFor(mockCount);
-  const regularSlots = Math.max(reserved + 1, Math.round((budget - fixedMinutes) / sessionMinutes));
-
+function outline(topics, regularSlots, mockCount, examMinutes) {
+  const reserved = 1 + mockCount + 1;
   const flexible = regularSlots - reserved;
   const grouped = flexible < topics.length;
   const learnCount = grouped ? flexible : Math.max(topics.length, Math.round(flexible * 0.6));
@@ -197,8 +178,9 @@ export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, start
   const mock = (n) => add('mock', mockCount > 1 ? `full exam ${n}` : 'full exam', {
     minutes: examMinutes,
     detail: `Full length (${examMinutes} min), timed, no notes.`,
+    round: n,
   });
-  const review = (n) => add('review', mockCount > 1 ? `mock ${n}` : 'the mock');
+  const review = (n) => add('review', mockCount > 1 ? `mock ${n}` : 'the mock', { round: n });
   mock(1);
   review(1);
   for (let k = 1; k <= remediationCount; k++) add('remediate', remediationCount > 1 ? `weak spots (${k}/${remediationCount})` : 'weak spots');
@@ -207,18 +189,112 @@ export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, start
     review(2);
   }
   add('final', 'review and logistics');
+  return items;
+}
 
-  const dates = studyDates(start, days, items.length + 1);
+/**
+ * Drop order when sessions have to be left out, lowest first: practice, remediation, a second mock
+ * and its review, extra learning sessions on a topic that has another one, the baseline, the first
+ * mock's review, the remaining learning sessions, the mock, and the final review last of all.
+ */
+function dropRanks(list) {
+  const learned = new Set();
+  return list.map((s) => {
+    if (s.kind === 'practice') return 1;
+    if (s.kind === 'remediate') return 2;
+    if (s.kind === 'mock') return s.round > 1 ? 3 : 8;
+    if (s.kind === 'review') return s.round > 1 ? 3 : 6;
+    if (s.kind === 'baseline') return 5;
+    if (s.kind === 'learn') {
+      const key = s.topic || (s.topics || []).join(' + ') || s.name;
+      if (learned.has(key)) return 4;
+      learned.add(key);
+      return 7;
+    }
+    return 9;
+  });
+}
+
+/** The `count` most important sessions of `list`, in their order. Ties drop the later one first. */
+export function keepMost(list, count) {
+  if (list.length <= count) return list;
+  const rank = dropRanks(list);
+  const order = list.map((_, i) => i).sort((a, b) => rank[a] - rank[b] || b - a);
+  const out = new Set(order.slice(0, list.length - Math.max(0, count)));
+  return list.filter((_, i) => !out.has(i));
+}
+
+/** Sessions per kind that changed between two outlines, in KIND_LABEL order. */
+function kindChanges(before, after) {
+  const count = (list) => list.reduce((m, s) => m.set(s.kind, (m.get(s.kind) || 0) + 1), new Map());
+  const a = count(before);
+  const b = count(after);
+  return Object.keys(KIND_LABEL)
+    .map((kind) => ({ kind, from: a.get(kind) || 0, to: b.get(kind) || 0 }))
+    .filter((x) => x.from !== x.to);
+}
+
+/**
+ * Build a dated plan.
+ * opts: { cert, hours, start, days, sessionMinutes, startTime, confidence, targetDate }
+ * Returns { cert, hours, sessionMinutes, startTime, inferredTopics, topics, sessions[], examDate, weeks, deadline, cut }
+ * `examDate` is the earliest date the pace allows for the whole plan; `deadline` compares it with
+ * `targetDate` when given. A plan never runs past `targetDate`: when the whole plan does not fit
+ * before it, the sessions are cut to the study days there are and `cut` says what changed.
+ */
+export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, startTime = '19:00', confidence = {}, targetDate = null }) {
+  if (!(hours > 0)) throw new Error('Hours must be positive');
+  if (!(sessionMinutes >= 15)) throw new Error('Sessions must be at least 15 minutes');
+  const examMinutes = cert.exam.minutes || 90;
+  const { topics: baseTopics, inferred } = planTopics(cert);
+  const topics = weightTopics(baseTopics, confidence);
+
+  // Mocks run as long as the exam, so they get their own length. Regular sessions
+  // are 1 baseline, learning, practice, one review per mock, remediation and a final.
+  // A short budget keeps one mock, so the time goes to learning one domain per
+  // session; shorter still, a learning session covers several domains. The plan
+  // stays close to the hours asked instead of growing to fit a fixed outline.
+  const budget = hours * 60;
+  const reservedFor = (mocks) => 1 + mocks + 1;
+  const roomFor = (mocks) => mocks * examMinutes + (reservedFor(mocks) + topics.length) * sessionMinutes;
+  const mockCount = cert.exam.style === 'practical' || budget < roomFor(2) ? 1 : 2;
+  const fixedMinutes = mockCount * examMinutes;
+  const regularSlots = Math.max(reservedFor(mockCount) + 1, Math.round((budget - fixedMinutes) / sessionMinutes));
+  const full = outline(topics, regularSlots, mockCount, examMinutes);
+  const dates = studyDates(start, days, full.length + 1);
+  const minutesOf = (it) => it.minutes || sessionMinutes;
+
+  // With a booked exam, the plan ends before it. Too few study days: rebuild the outline for the
+  // days there are (one mock unless a learning session per topic still fits around two), and
+  // below five days keep only the most useful kinds.
+  let items = full;
+  let cut = null;
+  if (targetDate) {
+    const available = countStudyDays(start, targetDate, days);
+    if (!available) throw new Error('No study days before the exam date');
+    if (full.length > available) {
+      const mocks = mockCount > 1 && available - 6 >= topics.length ? 2 : 1;
+      items = keepMost(outline(topics, Math.max(4, available - mocks), mocks, examMinutes), available);
+      cut = {
+        sessions: full.length,
+        hours: Math.round((full.reduce((t, it) => t + minutesOf(it), 0) / 60) * 10) / 10,
+        kinds: kindChanges(full, items),
+        grouped: items.some((it) => it.topics) && !full.some((it) => it.topics),
+      };
+    }
+  }
+
   const sessions = items.map((it, i) => ({
     n: i + 1,
     date: dates[i],
     weekday: WEEKDAYS[parseDate(dates[i]).getUTCDay()],
-    minutes: it.minutes || sessionMinutes,
+    minutes: minutesOf(it),
     ...it,
   }));
   const totalMinutes = sessions.reduce((s, x) => s + x.minutes, 0);
-  const examDate = dates[items.length];
-  const weeks = Math.ceil((parseDate(examDate) - parseDate(start)) / (7 * 86400000)) || 1;
+  const examDate = dates[full.length];
+  const end = cut ? targetDate : examDate;
+  const weeks = Math.ceil((parseDate(end) - parseDate(start)) / (7 * 86400000)) || 1;
   return {
     cert: { id: cert.id, name: cert.name, provider: cert.provider, code: cert.code },
     hours: Math.round((totalMinutes / 60) * 10) / 10,
@@ -229,7 +305,8 @@ export function buildPlan({ cert, hours, start, days, sessionMinutes = 90, start
     sessions,
     examDate,
     weeks,
-    deadline: targetDate ? checkDeadline({ sessions, start, days, targetDate, sessionMinutes }) : null,
+    deadline: targetDate ? checkDeadline({ sessions: full.map((it) => ({ kind: it.kind, minutes: minutesOf(it) })), start, days, targetDate, sessionMinutes }) : null,
+    cut,
   };
 }
 
@@ -265,6 +342,60 @@ export function checkDeadline({ sessions, start, days, targetDate, sessionMinute
   return { targetDate, available, needed, fits, spare: available - needed, suggestedMinutes, weeks };
 }
 
+/** Sessions dated before `today` and not done: how many, and the date of the first one. */
+export function behind(sessions, done, today) {
+  const finished = new Set(done);
+  const missed = sessions.filter((s) => s.date < today && !finished.has(s.n));
+  return { count: missed.length, since: missed.length ? missed.reduce((a, s) => (s.date < a ? s.date : a), missed[0].date) : null };
+}
+
+/**
+ * Catch up after missed sessions. The sessions not done yet move, in their order, onto the study
+ * days from `today` on, before `targetDate` when there is one, skipping days that already hold a
+ * done session. When fewer days are left than sessions, the least important are left out (see
+ * keepMost). Done sessions keep their dates.
+ * Returns { dates: { n: date }, skipped: [n], available, remaining }.
+ */
+export function reschedule({ sessions, done = [], today, days, targetDate = null }) {
+  const finished = new Set(done);
+  const left = sessions.filter((s) => !finished.has(s.n));
+  const busy = new Set(sessions.filter((s) => finished.has(s.n)).map((s) => s.date));
+  const slots = [];
+  if (days.length && (!targetDate || today < targetDate)) {
+    for (const d = parseDate(today); targetDate ? formatDate(d) < targetDate : slots.length < left.length; d.setUTCDate(d.getUTCDate() + 1)) {
+      const date = formatDate(d);
+      if (days.includes(d.getUTCDay()) && !busy.has(date)) slots.push(date);
+    }
+  }
+  const keep = keepMost(left, slots.length);
+  const kept = new Set(keep.map((s) => s.n));
+  return {
+    dates: Object.fromEntries(keep.map((s, i) => [s.n, slots[i]])),
+    skipped: left.filter((s) => !kept.has(s.n)).map((s) => s.n),
+    available: slots.length,
+    remaining: left.length,
+  };
+}
+
+/**
+ * A plan with saved moves applied: sessions get their new dates, skipped ones go, and the order,
+ * hours and earliest exam date follow. Without a target date the earliest exam date is the next
+ * study day after the last session.
+ */
+export function applyMoves(plan, { dates = {}, skipped = [] } = {}, days = []) {
+  const skip = new Set(skipped);
+  const sessions = plan.sessions
+    .filter((s) => !skip.has(s.n))
+    .map((s) => (dates[s.n] ? { ...s, date: dates[s.n], weekday: WEEKDAYS[parseDate(dates[s.n]).getUTCDay()] } : s))
+    .sort((a, b) => a.date.localeCompare(b.date) || a.n - b.n);
+  if (!sessions.length) return { ...plan, sessions: plan.sessions };
+  const last = parseDate(sessions.at(-1).date);
+  last.setUTCDate(last.getUTCDate() + 1);
+  const examDate = !plan.deadline && days.length ? studyDates(formatDate(last), days, 1)[0] : plan.examDate;
+  const minutes = sessions.reduce((t, s) => t + s.minutes, 0);
+  return { ...plan, sessions, examDate, hours: Math.round((minutes / 60) * 10) / 10, skipped: plan.sessions.filter((s) => skip.has(s.n)) };
+}
+
 function fmtMinutes(m) {
   const h = Math.floor(m / 60);
   const r = m % 60;
@@ -278,11 +409,12 @@ const MARKDOWN_TEXT = {
   earliest: (p) => `Earliest exam date if you keep pace: **${p.examDate}**. Book it only after the last mock goes well.`,
   fits: (d) => `Target exam date ${d.targetDate}: fits, with ${d.spare} spare study day${d.spare === 1 ? '' : 's'} as buffer.`,
   noFit: (d) => `Target exam date ${d.targetDate}: does not fit. ${d.needed} sessions are needed and only ${d.available} study days are available.`,
+  cut: (p) => `The sessions below are cut to end before it: ${p.sessions.length} sessions and ${p.hours} h instead of ${p.cut.sessions} sessions and ${p.cut.hours} h.`,
   resources: 'Resources',
   sessions: 'Sessions',
   paid: ' (paid)',
   inferred: '> Topics were read from the scope summary. Replace them with the official exam objectives.',
-  footer: 'Generated by pathfinder: https://legiosai.github.io/pathfinder/',
+  footer: 'Generated by pathfinder: https://pathfinder.legios.com.ar/',
 };
 
 export function toMarkdown(plan, { resources = [], text = {} } = {}) {
@@ -291,6 +423,7 @@ export function toMarkdown(plan, { resources = [], text = {} } = {}) {
   if (plan.deadline) {
     const d = plan.deadline;
     lines.push(d.fits ? T.fits(d) : T.noFit(d), '');
+    if (plan.cut) lines.push(T.cut(plan), '');
   }
   if (resources.length) {
     lines.push(`## ${T.resources}`, '');
@@ -340,8 +473,11 @@ function icsLocal(date, time, addMinutes = 0) {
   return dt.toISOString().replace(/[-:]/g, '').slice(0, 15);
 }
 
-/** iCalendar export with floating local times (the calendar app's own time zone). */
-export function toICS(plan, now = new Date()) {
+/**
+ * iCalendar export with floating local times (the calendar app's own time zone). A booked exam
+ * date comes as an all-day event; `text.exam` names it in the interface language.
+ */
+export function toICS(plan, now = new Date(), text = {}) {
   const stamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//legiosai//pathfinder//EN', 'CALSCALE:GREGORIAN'];
   for (const s of plan.sessions) {
@@ -353,6 +489,21 @@ export function toICS(plan, now = new Date()) {
       `DTEND:${icsLocal(s.date, plan.startTime, s.minutes)}`,
       `SUMMARY:${icsEscape(`${plan.cert.code}: ${s.title}`)}`,
       `DESCRIPTION:${icsEscape(s.detail)}`,
+      'END:VEVENT',
+    );
+  }
+  if (plan.deadline) {
+    const day = plan.deadline.targetDate;
+    const next = parseDate(day);
+    next.setUTCDate(next.getUTCDate() + 1);
+    lines.push(
+      'BEGIN:VEVENT',
+      `UID:${plan.cert.id}-${day}-exam@pathfinder.legiosai`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${day.replace(/-/g, '')}`,
+      `DTEND;VALUE=DATE:${formatDate(next).replace(/-/g, '')}`,
+      `SUMMARY:${icsEscape(`${plan.cert.code}: ${text.exam || 'Exam'}`)}`,
+      'TRANSP:TRANSPARENT',
       'END:VEVENT',
     );
   }

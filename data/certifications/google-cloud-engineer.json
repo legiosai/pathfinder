@@ -1,0 +1,103 @@
+{
+  "id": "google-cloud-engineer",
+  "name": "Google Cloud Associate Cloud Engineer",
+  "provider": "Google Cloud",
+  "code": "ACE",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 125,
+    "basis": "Exam only",
+    "note": "USD list price plus tax where applicable. Every attempt is paid."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "50–60 multiple choice and multiple select questions in 2 hours, online-proctored or at a test center (Pearson VUE since March 2026). English, Japanese, Spanish and Portuguese. No prerequisites; Google recommends 6+ months of hands-on experience with Google Cloud.",
+    "questions": "50–60",
+    "question_count": 60,
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja",
+      "es",
+      "pt"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Setting up, deploying, operating and securing applications and infrastructure on Google Cloud: projects and billing, compute, GKE, storage, networking, monitoring, IAM.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Google reports pass/fail only and does not publish a passing score.",
+    "Certified holders can renew with a shorter renewal exam (1 hour, 20 questions, $75, with its own guide) or through designated courses and skill badges in Google Skills, which add one year."
+  ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third."
+  },
+  "skills": [
+    "gcp",
+    "kubernetes",
+    "networking",
+    "identity",
+    "security",
+    "observability",
+    "iac"
+  ],
+  "roles": [
+    "platform",
+    "developer"
+  ],
+  "domains": [
+    { "name": "Setting up a cloud solution environment", "weight": 20 },
+    { "name": "Planning and implementing a cloud solution", "weight": 30 },
+    { "name": "Ensuring the successful operation of a cloud solution", "weight": 30 },
+    { "name": "Configuring access and security", "weight": 20 }
+  ],
+  "sources": [
+    "P52",
+    "P53",
+    "P58",
+    "P59",
+    "P60",
+    "P61",
+    "D16"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Associate Cloud Engineer exam guide",
+      "url": "https://services.google.com/fh/files/misc/associate_cloud_engineer_exam_guide_english.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Google Skills: Cloud Engineer learning path",
+      "url": "https://www.skills.google/paths/11",
+      "kind": "course",
+      "cost": "free",
+      "note": "Google Skills (formerly Cloud Skills Boost) lists it as partially free, with the rest under a subscription."
+    },
+    {
+      "title": "Associate Cloud Engineer sample questions",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfexWKtXT2OSFJ-obA4iT3GmzgiOCGvjrT9OfxilWC1yPtmfQ/viewform",
+      "kind": "practice",
+      "cost": "free"
+    },
+    {
+      "title": "Google Skills: ruta Cloud Engineer en español",
+      "url": "https://www.skills.google/paths/11?locale=es",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same learning path with its courses in Latin American Spanish; Google Skills lists it as partially free, with the rest under a subscription."
+    }
+  ],
+  "domains_note": "Weights from the Google Cloud Associate Cloud Engineer exam guide (standard exam) linked from the certification page. Google marks each weight as approximate (~). Read 2026-11-17."
+}

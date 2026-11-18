@@ -10,17 +10,31 @@
   "fee": {
     "usd": 999,
     "basis": "Exam attempt only",
-    "note": ""
+    "note": "USD, excluding applicable sales tax. A retake is US$899, a 45-day extension US$479 and a practice exam US$399."
   },
   "exam": {
     "minutes": 120,
     "style": "hybrid",
-    "format": "Proctored 54-question, two-hour exam with CyberLive content described by the issuer. Current attempt terms govern the form."
+    "format": "One proctored web-based exam: 54 questions in 2 hours, remotely through ProctorU or at a Pearson VUE test centre, with CyberLive hands-on testing. The attempt must be completed within 120 days of activation.",
+    "questions": "54",
+    "question_count": 54,
+    "passing": "65%",
+    "validity": "4 years",
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "GenAI applications, agentic integrations, architecture, retrieval, model customization and development/deployment security.",
   "requirements": "",
   "ai_policy": "Confirm GIAC's current allowed-resource rules; do not infer AI permission from the AI subject.",
-  "caveats": [],
+  "caveats": [
+    "The 65% passing score applies to exam versions released on or after 25 July 2026; GIAC says to confirm the format and passing score for your attempt in your GIAC account.",
+    "Renewal every four years: 36 CPE credits or a retake, plus the US$499 renewal fee."
+  ],
+  "access": {
+    "retake": "After a failed attempt wait 30 days; a retake costs US$899 and can be bought until 30 days after the attempt deadline. After three failed attempts, wait one year."
+  },
   "skills": [
     "ai-security",
     "security"
@@ -31,11 +45,14 @@
   "domains": [],
   "sources": [
     "Y08",
-    "Y09"
+    "Y09",
+    "S71",
+    "S72",
+    "D14"
   ],
   "reports": [
     "W06"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": []
 }

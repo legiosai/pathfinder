@@ -1,0 +1,132 @@
+{
+  "id": "microsoft-dp-700",
+  "name": "Microsoft Fabric Data Engineer Associate",
+  "provider": "Microsoft",
+  "code": "DP-700",
+  "type": "certification",
+  "category": "Data & analytics",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. US price USD 165; USD 99 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America; EUR 126 in Spain (Microsoft's price list, 2026-11-17)."
+  },
+  "exam": {
+    "minutes": 100,
+    "style": "knowledge",
+    "format": "Proctored 100-minute exam through Pearson VUE; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online",
+    "languages": [
+      "en",
+      "ja",
+      "zh-Hans",
+      "zh-Hant",
+      "de",
+      "fr",
+      "it",
+      "ko",
+      "es",
+      "pt-BR"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Academic pricing for students in most countries (not India or China): identify as a student in your Microsoft Learn profile and verify your status before registering.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts"
+      },
+      {
+        "text": "Exam Replay (Pearson VUE): one exam plus one retake of the same exam, both within 12 months of purchase; USD 230 on the US store. Not valid for Fundamentals exams.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals"
+      }
+    ],
+    "retake": "After a failed attempt you wait 24 hours to retake, then 14 days between later attempts, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "You can request 30 extra minutes only when the exam is not offered in your preferred language (this one is offered in Spanish); other accommodations are requested through Pearson VUE before you schedule."
+  },
+  "scope": "Data engineering on Microsoft Fabric: workspace settings, lifecycle management, security, governance and orchestration; batch and streaming ingestion and transformation with SQL, PySpark and KQL; and monitoring and optimization.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Microsoft retired the Azure Data Engineer Associate certification, Exam DP-203 and its renewal on March 31, 2025, and recommends DP-700 to candidates starting out.",
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for DP-700."
+  ],
+  "skills": [
+    "data",
+    "python",
+    "observability"
+  ],
+  "roles": [
+    "data-engineer"
+  ],
+  "domains": [
+    {
+      "name": "Implement and manage an analytics solution",
+      "weight": 34
+    },
+    {
+      "name": "Ingest and transform data",
+      "weight": 33
+    },
+    {
+      "name": "Monitor and optimize an analytics solution",
+      "weight": 33
+    }
+  ],
+  "sources": [
+    "P35",
+    "P36",
+    "P37",
+    "Z12",
+    "Z13",
+    "Z14",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "DP-700 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Implement data engineering solutions using Microsoft Fabric (DP-700T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/dp-700t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Curso DP-700T00-A: Implementación de soluciones de ingeniería de datos mediante Microsoft Fabric",
+      "url": "https://learn.microsoft.com/es-es/training/courses/dp-700t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same course on Microsoft Learn in Spanish; the self-paced learning paths are free, the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official DP-700 practice assessment",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/practice/assessment?assessment-type=practice&assessmentId=1704375541&practice-assessment-type=certification",
+      "kind": "practice",
+      "cost": "free",
+      "note": "Free on Microsoft Learn. Microsoft no longer updates these Learn practice assessments and recommends the newer one on AI Skills Navigator, which needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn DP-700 study guide (30–35% each; the guide gives no 'skills measured as of' date), scaled to add up to 100 and rounded to whole numbers. The rounding tie goes to the domain listed first. Read 2026-11-17."
+}

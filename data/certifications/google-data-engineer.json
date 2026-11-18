@@ -1,0 +1,88 @@
+{
+  "id": "google-data-engineer",
+  "name": "Google Cloud Professional Data Engineer",
+  "provider": "Google Cloud",
+  "code": "PDE",
+  "type": "certification",
+  "category": "Data & analytics",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 200,
+    "basis": "Exam only",
+    "note": "USD list price plus tax where applicable. Every attempt is paid."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "40–50 multiple choice and multiple select questions in 2 hours, online-proctored or at a test center (Pearson VUE since March 2026). English and Japanese. No prerequisites; Google recommends 3+ years of industry experience including 1+ year designing and managing solutions on Google Cloud.",
+    "questions": "40–50",
+    "question_count": 50,
+    "validity": "2 years",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Designing, building, securing and operating data processing systems on Google Cloud: ingestion and processing, storage, preparing data for analysis, and automating data workloads.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Google reports pass/fail only and does not publish a passing score.",
+    "Certified holders can renew with a shorter renewal exam (1 hour, 20 questions, $100, with its own guide) or through designated courses and skill badges in Google Skills, which add one year."
+  ],
+  "access": {
+    "retake": "Up to four attempts in two years: wait 14 days after the first failure, 60 after the second and 365 after the third."
+  },
+  "skills": [
+    "gcp",
+    "data",
+    "security"
+  ],
+  "roles": [
+    "data-engineer"
+  ],
+  "domains": [
+    { "name": "Designing data processing systems", "weight": 22 },
+    { "name": "Ingesting and processing the data", "weight": 25 },
+    { "name": "Storing the data", "weight": 20 },
+    { "name": "Preparing and using data for analysis", "weight": 15 },
+    { "name": "Maintaining and automating data workloads", "weight": 18 }
+  ],
+  "sources": [
+    "P56",
+    "P57",
+    "P58",
+    "P59",
+    "P60",
+    "P61"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Professional Data Engineer exam guide",
+      "url": "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Google Skills: Data Engineer learning path",
+      "url": "https://www.skills.google/paths/16",
+      "kind": "course",
+      "cost": "free",
+      "note": "Google Skills (formerly Cloud Skills Boost) lists it as partially free, with the rest under a subscription."
+    },
+    {
+      "title": "Professional Data Engineer sample questions",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfkWEzBCP0wQ09ZuFm7G2_4qtkYbfmk_0getojdnPdCYmq37Q/viewform",
+      "kind": "practice",
+      "cost": "free"
+    }
+  ],
+  "domains_note": "Weights from the Google Cloud Professional Data Engineer exam guide v4.2 (standard exam) linked from the certification page. Google marks each weight as approximate (~). Read 2026-11-17."
+}

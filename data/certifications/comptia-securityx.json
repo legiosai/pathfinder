@@ -1,0 +1,110 @@
+{
+  "id": "comptia-securityx",
+  "name": "CompTIA SecurityX",
+  "provider": "CompTIA",
+  "code": "CAS-005",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": 544,
+    "basis": "Exam only",
+    "note": "US list price for one SecurityX voucher on CompTIA's store. Vouchers are country and currency specific, so the price differs by country. The same page lists a voucher with Retake Assurance at $709 and CertMaster bundles with a voucher from $748."
+  },
+  "exam": {
+    "minutes": 165,
+    "style": "knowledge",
+    "format": "Up to 90 multiple-choice and performance-based questions in up to 165 minutes, scored pass/fail with no scaled score. English and Japanese. CompTIA recommends at least ten years of hands-on IT experience, five of them in security, with Network+, Security+, CySA+, Cloud+ and PenTest+ or equivalent knowledge; it is a recommendation, not a prerequisite.",
+    "questions": "Maximum of 90",
+    "question_count": 90,
+    "passing": "Pass/fail only (no scaled score)",
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Advanced security architecture and engineering for the enterprise: governance, risk, compliance and threat modeling, resilient and Zero Trust architecture, cloud security, IAM, endpoint and network security, automation and advanced cryptography, and security operations.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "SecurityX is the former CompTIA Advanced Security Practitioner (CASP+); the rename came with exam CAS-005 (V5), launched on December 17, 2024. CompTIA estimates CAS-005 will retire about three years after launch (2027); no successor had been announced on 2026-11-17.",
+    "Renewal: the certification lasts three years. Renew with 75 CEUs plus a $150 CE fee per three-year cycle, or by passing the latest version of the exam."
+  ],
+  "access": {
+    "retake": "No wait between the first and second attempt; at least 14 days before the third and later ones. Every attempt is paid in full, unless you bought a voucher with Retake Assurance, which includes one retake.",
+    "accommodations": "In a non-English-speaking country, taking the exam in English when there is no localized version gives 30 extra minutes (ESL), added automatically at Pearson VUE."
+  },
+  "skills": [
+    "security",
+    "architecture",
+    "identity",
+    "networking"
+  ],
+  "roles": [
+    "security",
+    "architect",
+    "governance"
+  ],
+  "domains": [
+    {
+      "name": "Governance, Risk, and Compliance",
+      "weight": 20
+    },
+    {
+      "name": "Security Architecture",
+      "weight": 27
+    },
+    {
+      "name": "Security Engineering",
+      "weight": 31
+    },
+    {
+      "name": "Security Operations",
+      "weight": 22
+    }
+  ],
+  "sources": [
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "D09",
+    "D10",
+    "D11"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "SecurityX CAS-005 exam objectives",
+      "url": "https://lecbyo.files.cmp.optimizely.com/download/35cf5f02b73211efa0ca8e42e80f1a8f",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "CompTIA-hosted PDF, document version 7.0."
+    },
+    {
+      "title": "CompTIA CertMaster Perform",
+      "url": "https://www.comptia.org/en-us/resources/certmaster-training/perform/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "CompTIA's course with integrated labs; $984 for SecurityX on the certification page (no CertMaster Learn is listed for SecurityX)."
+    },
+    {
+      "title": "CompTIA CertMaster Practice",
+      "url": "https://www.comptia.org/en-us/resources/certmaster-training/practice/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "CompTIA's adaptive practice questions; $284 for SecurityX."
+    }
+  ],
+  "domains_note": "Weights from the CompTIA SecurityX (CAS-005) exam objectives, document version 7.0, read 2026-11-17; the SecurityX page shows the same four weights."
+}

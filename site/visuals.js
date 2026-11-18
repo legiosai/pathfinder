@@ -24,8 +24,31 @@ export const PROVIDERS = {
   'Cloud Security Alliance': { mono: 'CSA', color: '#0f5aa6' },
   Securiti: { mono: 'S', color: '#2446c6' },
   'TCM Security': { mono: 'TCM', color: '#0b8a5f' },
+  Cisco: { mono: 'CSCO', color: '#0b6fa4' },
+  Snowflake: { mono: 'SNOW', color: '#1f8fc8' },
+  CompTIA: { mono: 'CT', color: '#c8202f' },
+  ISC2: { mono: 'ISC2', color: '#11804a' },
+  ISACA: { mono: 'ISACA', color: '#0b5c80' },
+  'EC-Council': { mono: 'EC', color: '#8f1d24' },
+  INE: { mono: 'INE', color: '#d4561a' },
+  'Hack The Box': { mono: 'HTB', color: '#141d2b', fg: '#9fef00' },
 };
-const providerOf = (name) => PROVIDERS[name] || { mono: name.slice(0, 2).toUpperCase(), color: '#555555' };
+
+// An issuer without an entry still gets a deliberate mark: its initials on a colour picked from
+// this set by its name, so the same issuer always looks the same and never falls back to grey.
+const FALLBACK_COLORS = ['#3b5bdb', '#0b7285', '#5f3dc4', '#c2255c', '#2b8a3e', '#d9480f', '#1864ab', '#862e9c', '#495057', '#a61e4d'];
+function initials(name) {
+  const words = name.replace(/[^\p{L}\p{N}]+/gu, ' ').trim().split(' ').filter(Boolean);
+  if (!words.length) return '?';
+  if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
+  return words.slice(0, 3).map((w) => w[0]).join('').toUpperCase();
+}
+function fallback(name) {
+  let h = 0;
+  for (const ch of name) h = (h * 31 + ch.codePointAt(0)) >>> 0;
+  return { mono: initials(name), color: FALLBACK_COLORS[h % FALLBACK_COLORS.length] };
+}
+const providerOf = (name) => PROVIDERS[name] || fallback(String(name || ''));
 export const providerColor = (name) => providerOf(name).color;
 
 function shade(hex, amount) {
@@ -39,7 +62,7 @@ function shade(hex, amount) {
 
 function markContent(p, { x, y, size, fill }) {
   if (p.logo) return `<use href="#b-${p.logo}" x="${x}" y="${y}" width="${size}" height="${size}" fill="${fill}"/>`;
-  const fs = size * (p.mono.length <= 1 ? 0.8 : p.mono.length <= 2 ? 0.62 : p.mono.length === 3 ? 0.5 : 0.4);
+  const fs = size * (p.mono.length <= 1 ? 0.8 : p.mono.length <= 2 ? 0.62 : p.mono.length === 3 ? 0.5 : p.mono.length === 4 ? 0.4 : 0.33);
   return `<text x="${x + size / 2}" y="${y + size / 2}" dy="0.35em" text-anchor="middle" font-family="Bricolage, system-ui, sans-serif" font-weight="800" font-size="${fs.toFixed(1)}" fill="${fill}">${esc(p.mono)}</text>`;
 }
 
@@ -53,11 +76,12 @@ const LEVEL_PIPS = { entry: 1, associate: 2, professional: 3, expert: 4 };
 // Gradient ids must be unique per badge: a gradient defined inside a hidden view does not paint elsewhere.
 let uid = 0;
 
-/** The issuer's official badge when the catalog has one, otherwise a generated hexagon: issuer colour, logo, code ribbon and level pips. */
-export function badge(cert, size = 64, { label = true } = {}) {
+/** The issuer's official badge when the catalog has one, otherwise a generated hexagon: issuer colour, logo, code ribbon and level pips.
+ *  Official images load lazily; pass `eager` for the few that are visible as the page opens. */
+export function badge(cert, size = 64, { label = true, eager = false } = {}) {
   if (cert.badge && cert.badge.src) {
     const alt = label ? `${esc(cert.provider)} ${esc(cert.code)} badge` : '';
-    return `<img class="badge official" src="${esc(cert.badge.src)}" width="${size}" height="${(size * 112) / 100}" alt="${alt}" decoding="async" draggable="false">`;
+    return `<img class="badge official" src="${esc(cert.badge.src)}" width="${size}" height="${Math.round((size * 112) / 100)}" alt="${alt}"${eager ? '' : ' loading="lazy"'} decoding="async" draggable="false">`;
   }
   const p = providerOf(cert.provider);
   const id = `pfg${++uid}`;

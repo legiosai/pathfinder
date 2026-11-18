@@ -1,0 +1,143 @@
+{
+  "id": "microsoft-ai-200",
+  "name": "Microsoft Azure AI Cloud Developer Associate",
+  "provider": "Microsoft",
+  "code": "AI-200",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": null,
+    "basis": "Regional exam price",
+    "note": "Microsoft prices by exam country/region; the exam page shows the price for your location, before taxes. US price USD 165; USD 99 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America; EUR 126 in Spain (Microsoft's price list, 2026-11-17)."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Proctored 120-minute exam through Pearson VUE; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
+    "passing": "700 scaled (1–1,000)",
+    "validity": "1 year; renewable free online",
+    "languages": [
+      "en",
+      "ar-SA",
+      "zh-Hans",
+      "zh-Hant",
+      "fr",
+      "de",
+      "id-ID",
+      "it",
+      "ja",
+      "ko",
+      "pt-BR",
+      "ru",
+      "es"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Academic pricing for students in most countries (not India or China): identify as a student in your Microsoft Learn profile and verify your status before registering.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts"
+      },
+      {
+        "text": "Exam Replay (Pearson VUE): one exam plus one retake of the same exam, both within 12 months of purchase; USD 230 on the US store. Not valid for Fundamentals exams.",
+        "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals"
+      }
+    ],
+    "retake": "After a failed attempt you wait 24 hours to retake, then 14 days between later attempts, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "You can request 30 extra minutes only when the exam is not offered in your preferred language (this one is offered in Spanish); other accommodations are requested through Pearson VUE before you schedule."
+  },
+  "scope": "Back-end development of AI solutions on Azure: containerized apps on Container Apps and AKS, vector search and RAG with Cosmos DB, PostgreSQL and Redis, messaging, events and Functions, and Key Vault, OpenTelemetry and KQL for security and monitoring. It replaces the retired Azure Developer Associate (AZ-204).",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "AI-200 replaced the Azure Developer Associate certification (Exam AZ-204), which retired on July 31, 2026.",
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for AI-200."
+  ],
+  "skills": [
+    "azure",
+    "kubernetes",
+    "rag",
+    "python",
+    "observability",
+    "security"
+  ],
+  "roles": [
+    "developer"
+  ],
+  "domains": [
+    {
+      "name": "Develop containerized solutions on Azure",
+      "weight": 24
+    },
+    {
+      "name": "Develop AI solutions by using Azure data management services",
+      "weight": 29
+    },
+    {
+      "name": "Connect to and consume Azure services",
+      "weight": 24
+    },
+    {
+      "name": "Secure, monitor, troubleshoot Azure solutions",
+      "weight": 23
+    }
+  ],
+  "sources": [
+    "P38",
+    "P39",
+    "P40",
+    "P30",
+    "Z12",
+    "Z13",
+    "Z14",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "AI-200 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-200",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Microsoft Learn: Develop AI cloud solutions on Azure (AI-200T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/ai-200t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Curso AI-200T00-A: Desarrollo de soluciones en la nube de IA en Azure",
+      "url": "https://learn.microsoft.com/es-es/training/courses/ai-200t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same course on Microsoft Learn in Spanish; the self-paced learning paths are free, the instructor-led delivery is paid."
+    },
+    {
+      "title": "Official AI-200 practice assessment",
+      "url": "https://aiskillsnavigator.microsoft.com/credentials/cert-c8bca807654f6efc31cadb95ede6b0729abd1efb29cbb608f768b4de78edf92b",
+      "kind": "practice",
+      "cost": "free",
+      "note": "On AI Skills Navigator; needs a sign-in."
+    }
+  ],
+  "domains_note": "Weights are the midpoints of the ranges in the Microsoft Learn AI-200 study guide (20–25%, 25–30%, 20–25%, 20–25%; the guide gives no 'skills measured as of' date), scaled to add up to 100 and rounded to whole numbers. Rounding ties go to the domains listed first. Read 2026-11-17."
+}

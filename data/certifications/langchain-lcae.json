@@ -10,17 +10,33 @@
   "fee": {
     "usd": 99,
     "basis": "Exam only",
-    "note": "Published USD exam price; current page includes one free resit under its conditions. Platform usage is separate."
+    "note": "Published USD exam price; each purchase includes one free resit. Platform usage is separate."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "40 multiple-choice questions, 120 minutes, 24-month validity; issuer permits only its specified resources, including LangSmith."
+    "format": "40 multiple-choice questions, 120 minutes (about 135 minutes of seat time), live proctored online through Talview, in English; 24-month validity. Semi-open-book: only LangChain-owned resources (LangSmith, LangChain docs and LangChain Academy) may be used, and a dedicated LangSmith organization is provided for some questions.",
+    "questions": "40",
+    "question_count": 40,
+    "passing": "28 of 40 correct (70%)",
+    "validity": "24 months",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "retake": "Each exam purchase includes one free resit (request the code through Talview support); further resits are unlimited at the full fee, with any discount or partner codes applied, and last-minute cancellations or late joins do not earn an extra free resit.",
+    "accommodations": "Request accommodations through a Talview support ticket before scheduling the exam."
   },
   "scope": "Building, evaluating and operating agents with the LangChain and LangSmith stack. The issuer offers free courses and a practice assessment.",
   "requirements": "",
-  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "ai_policy": "AI assistants, the AI helper on docs.langchain.com, browser automation and general web search are not allowed; only LangSmith, LangChain docs and LangChain Academy may be consulted.",
+  "caveats": [
+    "The exam page lists six free prerequisite courses, while LangChain's support article (October 16, 2026) says five."
+  ],
   "skills": [
     "agents",
     "llm-apps",
@@ -50,14 +66,38 @@
   ],
   "sources": [
     "X01",
-    "X02"
+    "X02",
+    "E27",
+    "E28",
+    "E29"
   ],
   "reports": [
     "X20",
     "X21"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
+    {
+      "title": "LCAE exam guide (PDF)",
+      "url": "https://pub-dffa5f25c09c49488e245c43fcd4d0b5.r2.dev/exam_guide.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Exam rules, allowed resources, focus areas and recommended courses for each section, and the resit policy."
+    },
+    {
+      "title": "LCAE prerequisite courses",
+      "url": "https://academy.langchain.com/bundles/lcae-prerequisite-courses",
+      "kind": "course",
+      "cost": "free",
+      "note": "The six free LangChain Academy courses the exam page lists as prerequisites; LangChain says exam questions draw on them."
+    },
+    {
+      "title": "LCAE Practice Exam",
+      "url": "https://academy.langchain.com/courses/lcae-practice-exam",
+      "kind": "practice",
+      "cost": "free",
+      "note": "Official practice exam covering the four sections."
+    },
     {
       "title": "LangChain Academy",
       "url": "https://academy.langchain.com/",
@@ -66,5 +106,5 @@
       "note": "Free courses; the issuer also offers a practice assessment."
     }
   ],
-  "domains_note": "Weights from the LangChain Academy LCAE exam page ('Domains covered'), read 2026-11-03; the exam guide PDF linked there gives the same split (10 questions, 25% of score per domain)."
+  "domains_note": "Weights from the LangChain Academy LCAE exam page ('Domains covered'), read 2026-11-17; the exam guide PDF linked there gives the same split (10 questions, 25% of score per section)."
 }

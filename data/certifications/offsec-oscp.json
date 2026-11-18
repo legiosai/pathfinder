@@ -1,0 +1,77 @@
+{
+  "id": "offsec-oscp",
+  "name": "OffSec Certified Professional",
+  "provider": "OffSec",
+  "code": "OSCP+ / PEN-200",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "professional",
+  "status": "available",
+  "fee": {
+    "usd": 1699,
+    "basis": "Exam only (two attempts)",
+    "note": "OSCP+ Standalone Exam: two attempts within 90 days, no course material. The Course + Cert Bundle is $1,749 (90 days of PEN-200 and its labs, one attempt) and Learn One lists $2,749 a year (shown at $2,199 with $550 off on 2026-11-17) for a year of one course, its labs and two attempts. USD list prices; taxes and local payment options can change the total."
+  },
+  "exam": {
+    "minutes": null,
+    "style": "practical",
+    "format": "Proctored hands-on exam of 23 hours 45 minutes in a private VPN lab: three standalone machines graded on initial access and privilege escalation (60 points), plus one Active Directory set of three machines in a simulated breach (40 points). OffSec then gives 24 more hours to submit a penetration test report.",
+    "passing": "70 of 100 points for exams starting before 2026-12-01 08:00 GMT; from then, a scaled score of 400 on a 100–500 scale",
+    "validity": "3 years",
+    "delivery": [
+      "online"
+    ]
+  },
+  "scope": "Hands-on penetration testing of standalone Windows and Linux hosts and an Active Directory network: finding and exploiting vulnerabilities, escalating privileges and reporting the findings.",
+  "requirements": "",
+  "ai_policy": "LLMs and AI chatbots (ChatGPT, Gemini, OffSec KAI and the like) are strictly prohibited during the exam; tools with built-in AI features do not need to be disabled.",
+  "caveats": [
+    "OffSec moves the OSCP+ exam to equated scaled scoring for exams starting on or after 1 December 2026 at 08:00 GMT, including exams rescheduled past that time: raw points are converted to a 100–500 scale adjusted for each exam set's difficulty, and 400 passes on every set. Exams starting earlier pass at 70 of 100 points. OffSec says format, duration, content, proctoring, retake policy and fees stay the same.",
+    "Passing earns both OSCP and OSCP+. OSCP+ expires three years after issue unless renewed by a recertification exam within 6 months of the expiry date, another qualifying OffSec exam (OSEP, OSWA, OSED or OSEE) or OffSec's CPE program; the OSCP itself does not expire.",
+    "OffSec publishes no domain weights; the exam is scored per machine and per Active Directory set."
+  ],
+  "access": {
+    "discounts": [
+      {
+        "text": "Learn One (a year of one course, its labs and two exam attempts) was shown at $2,199 instead of $2,749 on 2026-11-17, as OffSec's 20th-anniversary offer; no end date was shown.",
+        "url": "https://www.offsec.com/courses/pen-200/"
+      }
+    ],
+    "retake": "The OSCP+ Standalone Exam and Learn One include two attempts; the Course + Cert Bundle includes one."
+  },
+  "timeline": [
+    {
+      "date": "2026-12-01",
+      "kind": "changes",
+      "text": "Scaled scoring starts for exams beginning at or after 08:00 GMT: results on a 100–500 scale with 400 to pass, instead of 70 of 100 raw points.",
+      "source": "D06"
+    }
+  ],
+  "skills": [
+    "security",
+    "networking"
+  ],
+  "roles": [
+    "security",
+    "pentester"
+  ],
+  "domains": [],
+  "sources": [
+    "S75",
+    "S76",
+    "S77",
+    "D06",
+    "D07"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "PEN-200: Penetration Testing with Kali Linux",
+      "url": "https://www.offsec.com/courses/pen-200/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "The official course for the exam; no formal prerequisites, OffSec recommends TCP/IP networking, Windows and Linux administration and basic Bash or Python."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "id": "aws-aif-c01",
-  "name": "AI Practitioner",
+  "name": "AWS Certified AI Practitioner",
   "provider": "AWS",
   "code": "AIF-C01",
   "type": "certification",
@@ -17,13 +17,48 @@
     "style": "knowledge",
     "format": "65 questions, 90 minutes, three-year validity. Question formats follow the current exam guide.",
     "questions": "65 (50 scored)",
+    "question_count": 65,
     "passing": "700 scaled (100–1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "ar",
+      "fr-FR",
+      "ja",
+      "ko",
+      "pt-BR",
+      "es-419",
+      "es-ES",
+      "zh-Hans",
+      "zh-Hant"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
   },
   "scope": "AI/ML foundations, generative AI, foundation-model applications, responsible AI and security/governance.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [],
+  "access": {
+    "discounts": [
+      {
+        "text": "After you earn an AWS Certification, AWS gives you a 50% discount voucher for recertification or any other AWS exam.",
+        "url": "https://aws.amazon.com/certification/benefits/"
+      }
+    ],
+    "retake": "After a failed attempt you wait 14 calendar days; there is no limit on attempts, but each one costs the full exam fee.",
+    "accommodations": "Non-native English speakers taking the exam in English can request 30 extra minutes (ESL +30) once in their AWS Certification account; it then applies to every booking."
+  },
+  "timeline": [
+    {
+      "date": "2026-10-15",
+      "kind": "retires",
+      "text": "The German and Italian versions were retired after this date; the exam page still lists them.",
+      "source": "A01"
+    }
+  ],
   "skills": [
     "aws",
     "ml-foundations",
@@ -59,7 +94,10 @@
   "sources": [
     "A01",
     "A02",
-    "A03"
+    "A03",
+    "P16",
+    "D08",
+    "D15"
   ],
   "reports": [
     "E05",
@@ -70,7 +108,7 @@
     "R03",
     "R13"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "domains_note": "Weights from the current AWS exam guide.",
   "prep": [
     {
@@ -91,6 +129,14 @@
       "url": "https://www.freecodecamp.org/news/prepare-to-pass-the-aws-certified-ai-practitioner-certification",
       "kind": "course",
       "cost": "free"
+    },
+    {
+      "title": "Exam Prep Plan: AWS Certified AI Practitioner (AIF-C01 - Español LATAM)",
+      "url": "https://skillbuilder.aws/learning-plan/3NRN71QZR2/exam-prep-plan-aws-certified-ai-practitioner-aifc01--espaol-latam/BBPA7ZZQ9J",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's 4-step exam prep plan in Latin American Spanish; some trainings in it need a Skill Builder subscription."
     }
   ]
 }

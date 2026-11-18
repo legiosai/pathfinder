@@ -8,19 +8,48 @@
   "level": "professional",
   "status": "available",
   "fee": {
-    "usd": null,
+    "usd": 799,
     "basis": "Exam only",
-    "note": "Current store pricing did not render in this check. Historical launch prices and third-party quotes were not treated as a current payable fee; maintenance costs also need checking."
+    "note": "USD 799 for non-members, which includes the first certification maintenance fee; IAPP members pay USD 649 (membership is USD 295 a year). The exam must be taken within one year of purchase."
   },
   "exam": {
-    "minutes": null,
+    "minutes": 165,
     "style": "knowledge",
-    "format": "Current fee and delivery details were not fully verified."
+    "format": "100 multiple-choice questions (some multi-select or scenario-based) in 2.75 hours, with an optional 15-minute break at the halfway point. Taken online through Pearson VUE OnVUE or at a Pearson VUE test center, in English. The certification term is two years; keeping it needs 20 continuing-education credits and a maintenance fee (USD 250 per term for non-members, covered by IAPP membership).",
+    "questions": "100",
+    "question_count": 100,
+    "passing": "300 on a 100–500 scale",
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "IAPP members pay USD 649 instead of USD 799.",
+        "url": "https://store.iapp.org/aigp-exam/"
+      },
+      {
+        "text": "Holders of another IAPP certification and candidates retaking AIGP get a discounted price (USD 625 for non-members in the IAPP store).",
+        "url": "https://store.iapp.org/aigp-exam/"
+      }
+    ],
+    "retake": "A retake is a new exam purchase at the discounted retake price, and it cannot be scheduled sooner than seven days after the previous attempt.",
+    "accommodations": "Request special accommodations (for example extra time or a separate room) when scheduling, with a form completed by a licensed health care provider; approval can take up to 30 days and not every accommodation works with online testing."
   },
   "scope": "Responsible AI governance, legal and framework context, lifecycle risk and organizational implementation.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-  "caveats": [],
+  "caveats": [
+    "The AIGP Body of Knowledge v2.1 (effective February 2, 2026) gives a minimum and maximum number of questions per domain instead of percentage weights: I, foundations of AI governance, 16–20; II, laws, standards and frameworks, 19–23; III, governing AI development, 21–25; IV, governing AI deployment and use, 21–25.",
+    "The IAPP's pages read for this entry don't say how many of the 100 questions are scored.",
+    "IAPP exams are updated every year, and the IAPP announces body of knowledge changes at least 90 days before they reach the exam."
+  ],
   "skills": [
     "governance"
   ],
@@ -32,11 +61,43 @@
   "sources": [
     "X18",
     "X19",
-    "Z05"
+    "Z05",
+    "E32",
+    "E33",
+    "E34",
+    "E35"
   ],
   "reports": [],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
+    {
+      "title": "AIGP Body of Knowledge and Exam Blueprint v2.1",
+      "url": "https://assets.contentstack.io/v3/assets/bltd4dd5b2d705252bc/blt0d33152fd20bc134/AIGP_Cert%20BOK.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "The topics the exam is built from, with the minimum and maximum number of questions per domain."
+    },
+    {
+      "title": "AIGP study guide",
+      "url": "https://iapp.org/l/aigp-study-guide-request",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Downloadable guide to the exam format with sample questions, sent after a short form."
+    },
+    {
+      "title": "AIGP training",
+      "url": "https://iapp.org/train/aigp-training",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Official online, live online, in-person and group training."
+    },
+    {
+      "title": "AIGP Practice Exam (digital)",
+      "url": "https://store.iapp.org/aigp-practice-exam-digital/",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "USD 60; 100 practice questions in a PDF, written from the AIGP body of knowledge."
+    },
     {
       "title": "NIST AI Risk Management Framework",
       "url": "https://www.nist.gov/itl/ai-risk-management-framework",

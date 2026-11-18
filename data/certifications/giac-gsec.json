@@ -1,0 +1,82 @@
+{
+  "id": "giac-gsec",
+  "name": "GIAC Security Essentials",
+  "provider": "GIAC",
+  "code": "GSEC",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 999,
+    "basis": "Certification attempt",
+    "note": "USD, excluding applicable sales tax. Practice tests are sold separately (US$399 each); a retake is US$899 and a 45-day extension US$479."
+  },
+  "exam": {
+    "minutes": 240,
+    "style": "hybrid",
+    "format": "One proctored web-based exam: 106 questions in 4 hours, remotely through ProctorU or at a Pearson VUE test centre, with CyberLive hands-on lab testing described on the exam page. Open book for printed material only. The attempt must be completed within 120 days of activation.",
+    "questions": "106",
+    "question_count": 106,
+    "passing": "72%",
+    "validity": "4 years",
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "scope": "Hands-on security essentials: access control and passwords, network architecture and protocols, cryptography, Linux and Windows security, AWS and Azure operations, endpoint and web security, incident handling, logging and SIEM, and vulnerability scanning.",
+  "requirements": "",
+  "ai_policy": "GIAC exams are open book for printed books and notes only (no digital items or extra devices). Its exam integrity policy forbids copying exam content into any web-based location, including AI sites such as ChatGPT.",
+  "caveats": [
+    "GIAC lists 26 exam objectives without weights, so no domain split is given here.",
+    "The 72% passing score applies to exam versions released on or after 6 April 2026; GIAC says to confirm the format and passing score for your attempt in your GIAC account.",
+    "The exam page describes CyberLive hands-on testing but does not say how many items are hands-on.",
+    "Renewal every four years: 36 CPE credits or a retake, plus the US$499 renewal fee (US$249 for additional renewals within two years of a full-price renewal)."
+  ],
+  "access": {
+    "retake": "After a failed attempt wait 30 days; a retake costs US$899 and can be bought until 30 days after the attempt deadline. After three failed attempts, wait one year."
+  },
+  "skills": [
+    "security",
+    "networking",
+    "identity"
+  ],
+  "roles": [
+    "security",
+    "soc-analyst"
+  ],
+  "domains": [],
+  "sources": [
+    "S70",
+    "S71",
+    "S72",
+    "S73",
+    "S74",
+    "D14"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "GSEC exam objectives",
+      "url": "https://www.giac.org/certifications/security-essentials-gsec/",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "SANS SEC401: Security Essentials",
+      "url": "https://www.sans.org/cyber-security-courses/security-essentials-bootcamp-style/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "The SANS course for GSEC."
+    },
+    {
+      "title": "GIAC practice tests",
+      "url": "https://www.giac.org/how-to-prepare/practitioner",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "US$399 each; the question bank is limited, so questions can repeat."
+    }
+  ]
+}

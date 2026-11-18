@@ -23,6 +23,8 @@
     { "id": "data-engineer", "label": "Data engineer" },
     { "id": "platform", "label": "Platform / DevOps" },
     { "id": "security", "label": "Security" },
+    { "id": "soc-analyst", "label": "SOC analyst" },
+    { "id": "pentester", "label": "Penetration tester" },
     { "id": "governance", "label": "Risk & governance" },
     { "id": "business", "label": "Business / non-technical" }
   ],
@@ -49,6 +51,7 @@
     { "id": "observability", "label": "Observability" },
     { "id": "gpu-infra", "label": "GPU & AI infrastructure" },
     { "id": "networking", "label": "Networking" },
+    { "id": "linux", "label": "Linux" },
     { "id": "security", "label": "Security engineering" },
     { "id": "identity", "label": "Identity & access" },
     { "id": "ai-security", "label": "AI security & red teaming" },
