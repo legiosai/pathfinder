@@ -1,0 +1,1871 @@
+{
+ "cert": "comptia-security-plus",
+ "license": "CC BY 4.0",
+ "note": "Original practice questions written for pathfinder from the CompTIA Security+ SY0-801 (V8) exam objectives (document version 2.0) and NIST and IETF documentation, checked on November 17, 2026. Not taken from any exam or question bank.",
+ "questions": [
+  {
+   "id": "secplus-001",
+   "domain": "General Security Concepts",
+   "prompt": {
+    "en": "A hospital runs an imaging workstation that the device vendor certifies only on an old operating system, so the security team can't apply the latest OS patches. The team moves the workstation to its own VLAN and allows traffic only to and from the imaging archive. What type of control has the team put in place?",
+    "es": "Un hospital usa una estación de diagnóstico por imágenes que el fabricante sólo certifica sobre un sistema operativo viejo, así que el equipo de seguridad no puede aplicarle los últimos parches. El equipo pasa la estación a su propia VLAN y sólo permite tráfico desde y hacia el archivo de imágenes. ¿Qué tipo de control implementó?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Compensating",
+      "es": "Compensatorio"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Directive",
+      "es": "Directivo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Deterrent",
+      "es": "Disuasivo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Corrective",
+      "es": "Correctivo"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "A compensating control is an alternative measure that lowers the risk when the expected control, here patching, can't be used. Isolating the workstation limits what an attacker could reach and who can reach it. A corrective control fixes or restores something after an incident, such as restoring from backup. A deterrent control discourages attackers, like a warning banner, and a directive control tells people what to do, like a policy.",
+    "es": "Un control compensatorio es una medida alternativa que baja el riesgo cuando no se puede aplicar el control esperado, en este caso el parcheo. Aislar la estación limita a qué podría llegar un atacante y quién puede llegar a ella. Un control correctivo arregla o restaura algo después de un incidente, como recuperar desde un backup. Uno disuasivo desalienta al atacante, como un cartel de advertencia, y uno directivo le indica a la gente qué hacer, como una política."
+   }
+  },
+  {
+   "id": "secplus-002",
+   "domain": "General Security Concepts",
+   "prompt": {
+    "en": "A change advisory board approved a firmware upgrade for the core switches during Saturday night's maintenance window. Halfway through, the new firmware drops the VLAN configuration and users can't reach the servers. Which part of the change request should tell the engineers how to return the switches to their previous working state?",
+    "es": "Un change advisory board aprobó actualizar el firmware de los switches de core en la ventana de mantenimiento del sábado a la noche. A mitad de camino, el firmware nuevo pierde la configuración de VLAN y los usuarios no llegan a los servidores. ¿Qué parte del pedido de cambio debería decirles a los ingenieros cómo volver los switches al estado anterior, que funcionaba?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The test results",
+      "es": "Los resultados de las pruebas"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The backout plan",
+      "es": "El plan de vuelta atrás (backout)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "The standard operating procedure for the switches",
+      "es": "El procedimiento operativo estándar (SOP) de los switches"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "The impact analysis",
+      "es": "El análisis de impacto"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "A backout plan describes how to undo a change and restore the previous configuration if the change fails, and the CAB should check that one exists before approving. The impact analysis estimates what the change affects, and how much, before it's made. Test results show how the change behaved in a lab or staging environment. An SOP covers routine, repeatable tasks, not rolling back one particular change.",
+    "es": "El plan de vuelta atrás (backout) describe cómo deshacer un cambio y restaurar la configuración anterior si el cambio falla, y el CAB debería verificar que exista antes de aprobar. El análisis de impacto estima qué afecta el cambio, y cuánto, antes de hacerlo. Los resultados de las pruebas muestran cómo se comportó el cambio en un laboratorio o en staging. Un SOP cubre tareas rutinarias y repetibles, no la reversión de un cambio puntual."
+   }
+  },
+  {
+   "id": "secplus-003",
+   "domain": "General Security Concepts",
+   "prompt": {
+    "en": "A company buys a certificate for *.example.com to use on several web servers. Which TWO hostnames will that certificate be valid for? (Select TWO.)",
+    "es": "Una empresa compra un certificado para *.example.com para usarlo en varios servidores web. ¿Para qué nombres de host va a ser válido ese certificado? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "shop.example.org",
+      "es": "shop.example.org"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "www.example.com",
+      "es": "www.example.com"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "dev.api.example.com",
+      "es": "dev.api.example.com"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "api.example.com",
+      "es": "api.example.com"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "example.com",
+      "es": "example.com"
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "D"
+   ],
+   "explanation": {
+    "en": "A wildcard replaces exactly one label, the leftmost one, so *.example.com covers www.example.com and api.example.com. It doesn't cover the bare domain example.com, which needs its own entry in the subject alternative name, or names two levels down such as dev.api.example.com. A different domain, like example.org, is never covered.",
+    "es": "Un comodín reemplaza exactamente una etiqueta, la de más a la izquierda, así que *.example.com cubre www.example.com y api.example.com. No cubre el dominio pelado example.com, que necesita su propia entrada en el subject alternative name, ni nombres dos niveles más abajo como dev.api.example.com. Un dominio distinto, como example.org, nunca queda cubierto."
+   }
+  },
+  {
+   "id": "secplus-004",
+   "domain": "General Security Concepts",
+   "prompt": {
+    "en": "After a breach, an analyst notices that several accounts in the stolen user table share exactly the same password hash, and the attackers cracked most hashes within hours using precomputed tables. The application stores an unsalted SHA-256 hash of each password. Which change best addresses both problems?",
+    "es": "Después de una filtración, un analista nota que varias cuentas de la tabla de usuarios robada tienen exactamente el mismo hash de contraseña, y los atacantes rompieron la mayoría de los hashes en pocas horas con tablas precalculadas. La aplicación guarda un hash SHA-256 sin sal de cada contraseña. ¿Qué cambio resuelve mejor los dos problemas?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Hash each password with its own random salt, using a slow function such as Argon2",
+      "es": "Hashear cada contraseña con su propia sal aleatoria, usando una función lenta como Argon2"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Encrypt the password column with AES-256 and keep the key on the database server",
+      "es": "Cifrar la columna de contraseñas con AES-256 y guardar la clave en el servidor de la base"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Encode the stored hashes in Base64 so they no longer match public lookup tables",
+      "es": "Codificar los hashes guardados en Base64 para que ya no coincidan con las tablas públicas"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Switch from SHA-256 to SHA-512 so the hashes are longer and harder to precompute",
+      "es": "Pasar de SHA-256 a SHA-512 para que los hashes sean más largos y más difíciles de precalcular"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "A unique salt per password makes identical passwords produce different hashes and makes precomputed tables useless, and a deliberately slow function such as Argon2, scrypt, bcrypt or PBKDF2 makes each guess expensive. SHA-512 without a salt still gives identical hashes for identical passwords and is fast to compute. Encryption with the key next to the data can be reversed by whoever steals both, and Base64 is just an encoding that anyone can undo.",
+    "es": "Una sal única por contraseña hace que contraseñas iguales den hashes distintos y deja inútiles las tablas precalculadas, y una función deliberadamente lenta como Argon2, scrypt, bcrypt o PBKDF2 encarece cada intento. SHA-512 sin sal sigue dando el mismo hash para contraseñas iguales y se calcula rápido. Un cifrado con la clave al lado de los datos lo revierte cualquiera que se lleve las dos cosas, y Base64 es sólo una codificación que cualquiera deshace."
+   }
+  },
+  {
+   "id": "secplus-005",
+   "domain": "General Security Concepts",
+   "prompt": {
+    "en": "Purchase orders over $50,000 need a manager's approval. Auditors want proof of which manager approved each order and that the order wasn't changed afterwards, in a form the manager can't later deny. What should the approval workflow use?",
+    "es": "Las órdenes de compra de más de USD 50.000 necesitan la aprobación de un gerente. Los auditores quieren una prueba de qué gerente aprobó cada orden y de que la orden no cambió después, de forma que el gerente no pueda negarlo más tarde. ¿Qué debería usar el flujo de aprobación?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A SHA-256 hash of the order, stored next to it in the database",
+      "es": "Un hash SHA-256 de la orden, guardado junto a ella en la base de datos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Encryption of each order with the auditors' public key",
+      "es": "El cifrado de cada orden con la clave pública de los auditores"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A digital signature made with the manager's private key",
+      "es": "Una firma digital hecha con la clave privada del gerente"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An HMAC computed with a key that the managers share with the purchasing system",
+      "es": "Un HMAC calculado con una clave que los gerentes comparten con el sistema de compras"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Only the manager holds the private key, so a valid signature, checked with the matching public key, proves who approved the order and that it hasn't changed since. That's non-repudiation. An HMAC proves integrity, but anyone holding the shared key could have produced it, so it doesn't point to one person. Encrypting for the auditors gives confidentiality, not proof of approval, and a plain hash stored next to the data can be recalculated by whoever edits the order.",
+    "es": "Sólo el gerente tiene la clave privada, así que una firma válida, que se verifica con la clave pública correspondiente, prueba quién aprobó la orden y que no cambió desde entonces. Eso es no repudio. Un HMAC prueba integridad, pero lo pudo generar cualquiera que tenga la clave compartida, así que no señala a una persona. Cifrar para los auditores da confidencialidad, no prueba de aprobación, y un hash guardado al lado de los datos lo puede recalcular quien edite la orden."
+   }
+  },
+  {
+   "id": "secplus-006",
+   "domain": "General Security Concepts",
+   "prompt": {
+    "en": "A database server already uses full-disk encryption. A new rule says database administrators must keep running backups and tuning queries, but must not be able to read the customers' national ID numbers stored in one column. Which control meets the rule?",
+    "es": "Un servidor de base de datos ya usa cifrado de disco completo. Una regla nueva dice que los administradores de la base tienen que seguir haciendo backups y optimizando consultas, pero no deben poder leer los números de documento de los clientes, guardados en una columna. ¿Qué control cumple con la regla?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Moving the database files to a separately encrypted volume",
+      "es": "Pasar los archivos de la base a un volumen cifrado por separado"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Full-disk encryption on the backup server as well as on the database server",
+      "es": "Cifrado de disco completo también en el servidor de backups, además del de la base"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Column-level encryption with keys that the database administrators don't control",
+      "es": "Cifrado a nivel de columna con claves que los administradores de la base no controlan"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "TLS between the application servers and the database server",
+      "es": "TLS entre los servidores de aplicación y el servidor de base de datos"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Full-disk and volume encryption protect data when a disk is stolen or the system is off; once the server is running, anyone with database access reads the data in clear. Encrypting the sensitive column or record, with keys held by the application or a key management service outside the DBAs' control, keeps the values unreadable even to administrators. TLS protects data in transit, not from the people who query the database.",
+    "es": "El cifrado de disco completo o de volumen protege los datos si roban un disco o el sistema está apagado; con el servidor en marcha, cualquiera con acceso a la base lee los datos en claro. Cifrar la columna o el registro sensible, con claves que maneja la aplicación o un servicio de gestión de claves fuera del control de los DBA, mantiene los valores ilegibles incluso para los administradores. TLS protege los datos en tránsito, no de quienes consultan la base."
+   }
+  },
+  {
+   "id": "secplus-007",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "Over several months, an intruder in a defense contractor's network used custom malware, moved slowly between systems to avoid detection and copied the design documents for a new radar, without demanding money or disrupting anything. Which threat actor and motivation does this activity most likely point to?",
+    "es": "Durante varios meses, un intruso en la red de un contratista de defensa usó malware hecho a medida, se movió despacio entre sistemas para no ser detectado y copió los documentos de diseño de un radar nuevo, sin pedir plata ni interrumpir nada. ¿A qué actor de amenaza y motivación apunta más probablemente esta actividad?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A hacktivist group motivated by ideological goals",
+      "es": "Un grupo hacktivista, motivado por objetivos ideológicos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A state-sponsored actor motivated by espionage",
+      "es": "Un actor patrocinado por un Estado, motivado por el espionaje"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An organized crime group motivated by extortion",
+      "es": "Un grupo de crimen organizado, motivado por la extorsión"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An unskilled attacker motivated by notoriety",
+      "es": "Un atacante sin experiencia, motivado por la notoriedad"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Custom tooling, patience, a long dwell time and the quiet theft of military designs fit a well-funded, sophisticated actor after intelligence, which is typical of state-sponsored groups. Organized crime wants money, often through ransomware or extortion, so it usually makes itself known. Hacktivists want visibility for a cause, through defacements or leaks, and an unskilled attacker relies on ready-made tools and seeks attention, not months of stealth.",
+    "es": "Herramientas a medida, paciencia, mucho tiempo dentro de la red y el robo silencioso de diseños militares encajan con un actor sofisticado y con recursos que busca inteligencia, algo típico de los grupos patrocinados por un Estado. El crimen organizado quiere plata, muchas veces con ransomware o extorsión, así que suele darse a conocer. Los hacktivistas buscan visibilidad para una causa, con defacements o filtraciones, y un atacante sin experiencia usa herramientas armadas y busca atención, no meses de sigilo."
+   }
+  },
+  {
+   "id": "secplus-008",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "An analyst sees that a workstation used certutil.exe to download a file and then ran PowerShell with a long Base64-encoded command. No new executable was written to disk, and the antivirus raised no alert. Which TWO controls would best help detect this kind of activity? (Select TWO.)",
+    "es": "Un analista ve que una estación de trabajo usó certutil.exe para descargar un archivo y después corrió PowerShell con un comando largo codificado en Base64. No se escribió ningún ejecutable nuevo en el disco y el antivirus no generó alertas. ¿Qué controles ayudarían más a detectar este tipo de actividad? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "An EDR agent that alerts on suspicious behavior of built-in tools",
+      "es": "Un agente EDR que alerte sobre comportamiento sospechoso de herramientas integradas"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Full-disk encryption on every workstation in the company",
+      "es": "Cifrado de disco completo en todas las estaciones de trabajo de la empresa"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "PowerShell script block logging forwarded to the SIEM",
+      "es": "El registro de script blocks de PowerShell, enviado al SIEM"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "More frequent signature updates for the antivirus on every workstation",
+      "es": "Actualizaciones de firmas más frecuentes para el antivirus de todas las estaciones de trabajo"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "A web application firewall in front of the intranet portal",
+      "es": "Un web application firewall delante del portal de la intranet"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "C"
+   ],
+   "explanation": {
+    "en": "Living-off-the-land attacks use signed tools that are already on the system, so there's no malicious file for a signature to match. EDR watches behavior, such as certutil fetching files or PowerShell decoding hidden commands, and script block logging records the decoded script so the SIEM can correlate it. More signatures don't help when nothing new lands on disk, disk encryption protects data at rest, and a WAF inspects web traffic to an application, not activity on endpoints.",
+    "es": "Los ataques living-off-the-land usan herramientas firmadas que ya están en el sistema, así que no hay un archivo malicioso que una firma pueda detectar. Un EDR mira el comportamiento, como certutil bajando archivos o PowerShell decodificando comandos ocultos, y el registro de script blocks guarda el script decodificado para que el SIEM lo correlacione. Más firmas no sirven si no llega nada nuevo al disco, el cifrado de disco protege datos en reposo y un WAF mira tráfico web, no lo que pasa en los equipos."
+   }
+  },
+  {
+   "id": "secplus-009",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "A privileged backup utility checks that a user owns a file and then, a moment later, opens that path and copies the file to a report folder. An attacker replaces the file with a symbolic link to /etc/shadow between the check and the copy. What kind of vulnerability is the attacker exploiting?",
+    "es": "Una utilidad de backup con privilegios verifica que un usuario sea dueño de un archivo y, un instante después, abre esa ruta y copia el archivo a una carpeta de reportes. Un atacante reemplaza el archivo por un enlace simbólico a /etc/shadow entre la verificación y la copia. ¿Qué tipo de vulnerabilidad está aprovechando?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A directory traversal in the requested file path",
+      "es": "Un directory traversal en la ruta de archivo pedida"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A malicious update of the backup utility itself",
+      "es": "Una actualización maliciosa de la propia utilidad de backup"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A buffer overflow in the utility's copy routine",
+      "es": "Un desbordamiento de búfer en la rutina de copia de la utilidad"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A time-of-check to time-of-use race condition",
+      "es": "Una condición de carrera entre la verificación y el uso (TOC/TOU)"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "The program checks a condition at one moment and acts on it later, assuming nothing changed in between. Swapping the file for a link in that gap is a time-of-check to time-of-use race condition; the fix is to check and use the same opened file handle, atomically. A buffer overflow writes past the end of a memory buffer, directory traversal injects ../ sequences into a path, and a malicious update would replace the program itself.",
+    "es": "El programa verifica una condición en un momento y actúa más tarde, suponiendo que nada cambió en el medio. Cambiar el archivo por un enlace en ese hueco es una condición de carrera TOC/TOU; la solución es verificar y usar el mismo descriptor de archivo abierto, de forma atómica. Un desbordamiento de búfer escribe más allá del final de un búfer, un directory traversal mete secuencias ../ en una ruta y una actualización maliciosa reemplazaría el propio programa."
+   }
+  },
+  {
+   "id": "secplus-010",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "A developer pushed a cloud API key to a public Git repository by mistake. Twenty minutes later, they pushed a new commit that deletes the file containing the key. What should the security team do first?",
+    "es": "Un desarrollador subió por error una API key de la nube a un repositorio público de Git. Veinte minutos después, subió un commit nuevo que borra el archivo con la clave. ¿Qué debería hacer primero el equipo de seguridad?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Make the repository private so that the key is no longer visible to anyone",
+      "es": "Hacer privado el repositorio para que la clave deje de estar a la vista"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Revoke the key, issue a new one and review what the old key was used for",
+      "es": "Revocar la clave, emitir una nueva y revisar para qué se usó la clave vieja"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Nothing, because the later commit already removed the file from the repository",
+      "es": "Nada, porque el commit posterior ya sacó el archivo del repositorio"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Turn on secrets scanning so that the next leaked key is blocked before the push",
+      "es": "Activar el escaneo de secretos para que la próxima clave filtrada se bloquee antes del push"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Anything pushed to a public repository has to be treated as compromised: the key stays in the history, and automated scanners harvest public repositories within minutes. Revoking and rotating the key is the only step that makes the leaked copy useless, and reviewing its activity shows whether it was abused. Deleting the file or hiding the repository doesn't take back copies already made. Secrets scanning is a good next step, but it prevents future leaks rather than fixing this one.",
+    "es": "Todo lo que se sube a un repositorio público hay que tratarlo como comprometido: la clave queda en el historial y hay escáneres automáticos que recorren los repositorios públicos en minutos. Revocar y rotar la clave es lo único que deja inútil la copia filtrada, y revisar su actividad muestra si alguien la usó. Borrar el archivo u ocultar el repositorio no recupera las copias que ya se hicieron. El escaneo de secretos es un buen paso siguiente, pero previene filtraciones futuras, no arregla esta."
+   }
+  },
+  {
+   "id": "secplus-011",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "Authentication logs show one failed sign-in for each of about 400 different accounts within ten minutes, all from the same IP address and all with the password Summer2026!. A few of those accounts then show successful sign-ins from that address. Which attack is this?",
+    "es": "Los logs de autenticación muestran un inicio de sesión fallido en cada una de unas 400 cuentas distintas en diez minutos, todos desde la misma dirección IP y todos con la contraseña Verano2026!. Después, algunas de esas cuentas muestran inicios de sesión exitosos desde esa dirección. ¿Qué ataque es?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Credential replay",
+      "es": "Replay de credenciales"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Password spraying",
+      "es": "Password spraying"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Brute force",
+      "es": "Fuerza bruta"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "User enumeration",
+      "es": "Enumeración de usuarios"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "Password spraying tries one or a few common passwords against many accounts, staying under each account's lockout threshold. That's the pattern here: one attempt per account, the same password, the same source. Brute force hammers a single account with many passwords and usually trips the lockout. User enumeration only tries to learn which usernames exist, and a replay reuses a captured credential or token instead of guessing.",
+    "es": "El password spraying prueba una o pocas contraseñas comunes contra muchas cuentas, sin pasar el umbral de bloqueo de cada una. Ese es el patrón acá: un intento por cuenta, la misma contraseña, el mismo origen. La fuerza bruta martilla una sola cuenta con muchas contraseñas y suele disparar el bloqueo. La enumeración de usuarios sólo busca saber qué nombres de usuario existen, y un replay reutiliza una credencial o un token capturado en lugar de adivinar."
+   }
+  },
+  {
+   "id": "secplus-012",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "Users of an internal finance app stay signed in through a session cookie. An attacker emails them a link to an external page that silently submits a form to the app's /transfer endpoint, and the browser sends the session cookie along with it. Which TWO controls would stop this attack? (Select TWO.)",
+    "es": "Los usuarios de una aplicación interna de finanzas mantienen la sesión con una cookie. Un atacante les manda por mail un link a una página externa que envía en silencio un formulario al endpoint /transfer de la aplicación, y el navegador manda la cookie de sesión junto con el pedido. ¿Qué controles frenarían este ataque? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Serve the whole application only over HTTPS with HSTS enabled",
+      "es": "Servir toda la aplicación sólo por HTTPS, con HSTS activado"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Set the HttpOnly attribute on the session cookie",
+      "es": "Poner el atributo HttpOnly en la cookie de sesión"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Encode every piece of user input before the application displays it in its pages",
+      "es": "Codificar toda entrada del usuario antes de mostrarla en las páginas de la aplicación"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Require an unpredictable anti-CSRF token in every form that changes state",
+      "es": "Exigir un token anti-CSRF impredecible en cada formulario que cambie estado"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Set the SameSite attribute of the session cookie to Lax or Strict",
+      "es": "Poner el atributo SameSite de la cookie de sesión en Lax o Strict"
+     }
+    }
+   ],
+   "correct": [
+    "D",
+    "E"
+   ],
+   "explanation": {
+    "en": "This is cross-site request forgery: the browser attaches the victim's cookie to a request the attacker built. An anti-CSRF token that the attacker's page can't read or guess makes the forged request fail, and SameSite keeps the browser from sending the cookie on cross-site POST requests. HttpOnly only stops scripts from reading the cookie, output encoding is a defense against cross-site scripting, and HTTPS protects the traffic but still carries the forged request.",
+    "es": "Esto es cross-site request forgery: el navegador adjunta la cookie de la víctima a un pedido que armó el atacante. Un token anti-CSRF que la página del atacante no puede leer ni adivinar hace fallar el pedido falsificado, y SameSite evita que el navegador mande la cookie en pedidos POST entre sitios. HttpOnly sólo impide que los scripts lean la cookie, la codificación de salida es una defensa contra cross-site scripting y HTTPS protege el tráfico, pero igual transporta el pedido falsificado."
+   }
+  },
+  {
+   "id": "secplus-013",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "Users at one branch office type their bank's correct address and land on a convincing fake site. Their hosts files are unchanged, and users at other offices reach the real site. All the branch PCs use the branch's own caching DNS server. What is the most likely cause?",
+    "es": "Los usuarios de una sucursal escriben la dirección correcta de su banco y terminan en un sitio falso muy convincente. Sus archivos hosts no cambiaron, y los usuarios de otras oficinas llegan al sitio real. Todas las PC de la sucursal usan el servidor DNS con caché propio de la sucursal. ¿Cuál es la causa más probable?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "The branch DNS server's cache was poisoned with a false record",
+      "es": "La caché del servidor DNS de la sucursal fue envenenada con un registro falso"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Malware on each of the PCs has rewritten its browser settings",
+      "es": "Un malware en cada una de las PC reescribió la configuración del navegador"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A typosquatted domain is being used in a phishing campaign",
+      "es": "Se está usando un dominio con typosquatting en una campaña de phishing"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "The bank's domain registration was hijacked at its registrar",
+      "es": "Secuestraron el registro del dominio del banco en su registrador"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Only the clients that rely on one resolver get the wrong answer, and their hosts files are clean, which points to a poisoned cache on that resolver. A registrar hijack would send every user to the fake site, not just one office. Typosquatting needs users to mistype or click a look-alike name, but they typed the correct one, and the same malware on every branch PC is far less likely than one shared resolver. DNSSEC validation on the resolver is the usual defense.",
+    "es": "Sólo reciben la respuesta errónea los clientes de un resolver, y sus archivos hosts están limpios, lo que apunta a una caché envenenada en ese resolver. Un secuestro en el registrador mandaría a todos los usuarios al sitio falso, no sólo a una oficina. El typosquatting necesita que el usuario escriba mal o haga clic en un nombre parecido, pero escribieron el correcto, y el mismo malware en cada PC es mucho menos probable que un resolver compartido. La defensa habitual es validar DNSSEC en el resolver."
+   }
+  },
+  {
+   "id": "secplus-014",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "A company's AI assistant reads incoming email and drafts replies. An attacker sends a message containing hidden text that tells the assistant to forward the last ten invoices to an outside address, and the assistant does it. Which AI threat does this describe?",
+    "es": "El asistente de IA de una empresa lee el correo entrante y prepara respuestas. Un atacante manda un mensaje con texto oculto que le indica al asistente reenviar las últimas diez facturas a una dirección externa, y el asistente lo hace. ¿Qué amenaza de IA describe esto?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Hallucination",
+      "es": "Alucinación"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Prompt injection",
+      "es": "Prompt injection"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Training data poisoning",
+      "es": "Envenenamiento de los datos de entrenamiento"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Model evasion",
+      "es": "Evasión del modelo"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "The attacker plants instructions in content that the model processes, and the model follows them as if they came from its user. That's indirect prompt injection. Limiting the assistant's permissions and requiring approval before it sends data out reduce the damage. Poisoning corrupts the data a model learns from, evasion crafts inputs so a classifier misses them, and a hallucination is a confident but invented answer, not an attacker's command.",
+    "es": "El atacante mete instrucciones en contenido que el modelo procesa, y el modelo las sigue como si vinieran de su usuario. Eso es prompt injection indirecta. Limitar los permisos del asistente y exigir aprobación antes de que mande datos afuera reduce el daño. El envenenamiento corrompe los datos con los que aprende un modelo, la evasión arma entradas para que un clasificador no las detecte y una alucinación es una respuesta segura pero inventada, no una orden del atacante."
+   }
+  },
+  {
+   "id": "secplus-015",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "An employee's password was phished. Over the next hour, the employee received more than thirty push notifications from the authenticator app and finally approved one to make them stop. Which change would best keep this from working again?",
+    "es": "A un empleado le robaron la contraseña con phishing. Durante la hora siguiente recibió más de treinta notificaciones push de la app de autenticación y al final aprobó una para que pararan. ¿Qué cambio evitaría mejor que esto vuelva a funcionar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Lengthen the lockout period after failed password attempts",
+      "es": "Alargar el bloqueo de la cuenta después de intentos fallidos de contraseña"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Require number matching on push prompts, or move to passkeys",
+      "es": "Exigir number matching en los push, o pasar a passkeys"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Send the one-time codes by SMS instead of by push",
+      "es": "Mandar los códigos de un solo uso por SMS en lugar de por push"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Force all users to change their passwords every 30 days",
+      "es": "Obligar a todos los usuarios a cambiar la contraseña cada 30 días"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "This is MFA fatigue: the attacker already has the password and floods the user with prompts until one is accepted. Number matching makes the user type a number shown on the sign-in screen the attacker is using, so a blind tap doesn't work, and passkeys can't be approved remotely at all. Lockouts don't trigger because the password is correct, periodic changes don't stop an attack already underway, and SMS codes can still be phished or intercepted.",
+    "es": "Esto es fatiga de MFA: el atacante ya tiene la contraseña e inunda al usuario de pedidos hasta que acepta uno. El number matching obliga a escribir un número que aparece en la pantalla de inicio de sesión que usa el atacante, así que tocar a ciegas no alcanza, y las passkeys directamente no se pueden aprobar a distancia. El bloqueo no se dispara porque la contraseña es correcta, los cambios periódicos no frenan un ataque en curso y los códigos por SMS también se pueden robar o interceptar."
+   }
+  },
+  {
+   "id": "secplus-016",
+   "domain": "Threats, Vulnerabilities, and Attacks",
+   "prompt": {
+    "en": "A vulnerability scan reports two findings. One has a CVSS base score of 9.8 on a lab server with no network connection. The other has a base score of 7.5 on the internet-facing VPN appliance, and that vulnerability is listed in CISA's Known Exploited Vulnerabilities catalog. How should the team prioritize them?",
+    "es": "Un escaneo de vulnerabilidades reporta dos hallazgos. Uno tiene un CVSS base de 9,8 en un servidor de laboratorio sin conexión a la red. El otro tiene un puntaje base de 7,5 en el appliance de VPN expuesto a internet, y esa vulnerabilidad figura en el catálogo Known Exploited Vulnerabilities de CISA. ¿Cómo debería priorizarlos el equipo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Accept both risks for now, since neither base score reaches 10.0",
+      "es": "Aceptar los dos riesgos por ahora, porque ninguno llega a un puntaje base de 10,0"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Fix the lab server first, since its base score is the higher of the two",
+      "es": "Arreglar primero el servidor de laboratorio, porque su puntaje base es el más alto"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Fix the VPN appliance first, since it's exposed and exploited in the wild",
+      "es": "Arreglar primero el appliance de VPN, porque está expuesto y se explota activamente"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Fix both in the next quarterly patch cycle, since both scores are high",
+      "es": "Arreglar los dos en el próximo ciclo trimestral de parches, porque ambos puntajes son altos"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "The CVSS base score describes how severe a vulnerability is in general; it doesn't know whether your instance is reachable or whether attackers are using it. An internet-facing system with a flaw from the KEV catalog combines high likelihood with high exposure, so it goes first. The isolated lab server still needs fixing, but an attacker can hardly reach it. Waiting for a quarterly cycle or accepting the risk ignores active exploitation.",
+    "es": "El puntaje base de CVSS describe qué tan grave es una vulnerabilidad en general; no sabe si tu instancia es accesible ni si los atacantes la están usando. Un sistema expuesto a internet con una falla del catálogo KEV combina alta probabilidad con alta exposición, así que va primero. El servidor de laboratorio aislado igual hay que arreglarlo, pero a un atacante le cuesta mucho llegar. Esperar al ciclo trimestral o aceptar el riesgo ignora que la falla se está explotando."
+   }
+  },
+  {
+   "id": "secplus-017",
+   "domain": "Security Architecture",
+   "prompt": {
+    "en": "A team moves an order-processing job to a serverless function platform in the public cloud. Which TWO security tasks remain the team's responsibility? (Select TWO.)",
+    "es": "Un equipo pasa un proceso de órdenes a una plataforma de funciones serverless en la nube pública. ¿Qué tareas de seguridad siguen siendo responsabilidad del equipo? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Keeping the function's code and its third-party libraries free of known flaws",
+      "es": "Mantener el código de la función y sus librerías de terceros sin fallas conocidas"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Limiting the permissions granted to the function's execution role",
+      "es": "Limitar los permisos que se le dan al rol de ejecución de la función"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Replacing failed hardware in the provider's data centers",
+      "es": "Reemplazar el hardware que falla en los datacenters del proveedor"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Adding servers to the underlying cluster when traffic spikes",
+      "es": "Sumar servidores al clúster subyacente cuando sube el tráfico"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Patching the operating system of the hosts that run the functions",
+      "es": "Parchear el sistema operativo de los hosts que corren las funciones"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "B"
+   ],
+   "explanation": {
+    "en": "In serverless, the provider runs and patches the servers and the operating system and handles scaling, so those tasks leave the team's list. What the team writes and configures stays with it: the code and its dependencies, the identity and permissions the function runs with, and the data it handles. An over-privileged execution role is one of the most common serverless weaknesses, because a flaw in the code then reaches everything that role can touch.",
+    "es": "En serverless, el proveedor opera y parchea los servidores y el sistema operativo y se ocupa del escalado, así que esas tareas salen de la lista del equipo. Lo que el equipo escribe y configura sigue siendo suyo: el código y sus dependencias, la identidad y los permisos con que corre la función y los datos que maneja. Un rol de ejecución con permisos de más es una de las debilidades más comunes en serverless, porque una falla en el código llega a todo lo que ese rol puede tocar."
+   }
+  },
+  {
+   "id": "secplus-018",
+   "domain": "Security Architecture",
+   "prompt": {
+    "en": "A factory's programmable logic controllers run firmware the vendor no longer updates, and replacing them would stop production for weeks. Which approach best reduces the risk while they stay in service?",
+    "es": "Los controladores lógicos programables (PLC) de una fábrica corren un firmware que el fabricante ya no actualiza, y reemplazarlos pararía la producción durante semanas. ¿Qué enfoque reduce mejor el riesgo mientras siguen en servicio?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Connect the PLCs to the corporate network so the vulnerability scanner reaches them daily",
+      "es": "Conectar los PLC a la red corporativa para que el escáner de vulnerabilidades los alcance todos los días"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Put the PLCs in their own zone and allow only the protocols the engineering stations need",
+      "es": "Poner los PLC en una zona propia y permitir sólo los protocolos que necesitan las estaciones de ingeniería"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Give the vendor a permanent VPN account with direct access to the PLC network",
+      "es": "Darle al fabricante una cuenta VPN permanente con acceso directo a la red de los PLC"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Install the corporate endpoint antivirus agent directly on each of the controllers",
+      "es": "Instalar el agente antivirus corporativo directamente en cada uno de los controladores"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "When an OT device can't be patched, the usual answer is to limit who can talk to it: a separate security zone, a firewall that allows only the protocols and hosts the process needs, and monitoring of that traffic. Joining the PLCs to the corporate network widens the attack surface, and aggressive scanning can even crash fragile controllers. PLCs generally can't run endpoint agents, and a permanent vendor VPN is an always-open path into the zone.",
+    "es": "Cuando un equipo OT no se puede parchear, la respuesta habitual es limitar quién puede hablar con él: una zona de seguridad aparte, un firewall que permita sólo los protocolos y los equipos que el proceso necesita, y monitoreo de ese tráfico. Unir los PLC a la red corporativa agranda la superficie de ataque, y un escaneo agresivo hasta puede colgar controladores frágiles. En general los PLC no pueden correr agentes de endpoint, y una VPN permanente del fabricante es un camino siempre abierto a la zona."
+   }
+  },
+  {
+   "id": "secplus-019",
+   "domain": "Security Architecture",
+   "prompt": {
+    "en": "Contractors need to use one internal web application from their own laptops. Today they get a full VPN tunnel into the internal network. Following Zero Trust principles, what should replace that setup?",
+    "es": "Unos contratistas necesitan usar una aplicación web interna desde sus propias notebooks. Hoy reciben un túnel VPN completo a la red interna. Siguiendo los principios de Zero Trust, ¿qué debería reemplazar ese esquema?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A firewall rule that lets the contractors' office IP range reach the internal network",
+      "es": "Una regla de firewall que deje al rango de IP de la oficina de los contratistas llegar a la red interna"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A split-tunnel VPN that routes only internal traffic but keeps the same network access",
+      "es": "Una VPN de túnel dividido que rutee sólo el tráfico interno pero mantenga el mismo acceso a la red"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "An access broker that checks MFA and device health, then exposes only that app",
+      "es": "Un broker de acceso que verifique la MFA y el estado del equipo y exponga sólo esa aplicación"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A shared jump server that all contractors sign in to with one common account",
+      "es": "Un jump server compartido al que todos los contratistas entren con una cuenta común"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Zero Trust grants access per user, per device and per application, after checking identity and device posture on each request, instead of trusting whoever is on the network. An access broker or Security Service Edge (SSE) service does that and exposes only the one application. A split tunnel changes routing but still gives network-level access, an IP allow list trusts a location rather than a person and a device, and a shared account loses accountability.",
+    "es": "Zero Trust da acceso por usuario, por dispositivo y por aplicación, después de verificar la identidad y el estado del dispositivo en cada pedido, en lugar de confiar en cualquiera que esté en la red. Un broker de acceso o un servicio de Security Service Edge (SSE) hace eso y expone sólo esa aplicación. Un túnel dividido cambia el ruteo pero sigue dando acceso a la red, una lista de IP confía en un lugar y no en una persona y un dispositivo, y una cuenta compartida pierde la trazabilidad."
+   }
+  },
+  {
+   "id": "secplus-020",
+   "domain": "Security Architecture",
+   "prompt": {
+    "en": "A Windows service on three servers runs under a domain user account whose password was set five years ago, never expires and is known to several former administrators. The service must keep running on all three servers. What should replace that account?",
+    "es": "Un servicio de Windows en tres servidores corre con una cuenta de usuario de dominio cuya contraseña se puso hace cinco años, nunca vence y la conocen varios ex administradores. El servicio tiene que seguir corriendo en los tres servidores. ¿Qué debería reemplazar esa cuenta?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A group managed service account (gMSA)",
+      "es": "Una group managed service account (gMSA)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "The built-in local Administrator account on each server",
+      "es": "La cuenta Administrator local integrada de cada servidor"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A new domain user account with a 30-character password",
+      "es": "Una cuenta de usuario de dominio nueva con una contraseña de 30 caracteres"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A domain administrator account set aside for services",
+      "es": "Una cuenta de administrador de dominio reservada para servicios"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "A gMSA is a domain account whose password Active Directory generates and rotates automatically, and only the servers allowed to retrieve it can use it, so no person ever knows it. It works across several servers, which a standalone managed service account doesn't. A new user account with a longer password still needs someone to set and rotate it, local Administrator is far too privileged, and a domain admin service account turns any compromise of the service into a domain compromise.",
+    "es": "Una gMSA es una cuenta de dominio cuya contraseña genera y rota sola Active Directory, y sólo la usan los servidores autorizados a obtenerla, así que nadie la conoce. Funciona en varios servidores, cosa que una managed service account común no hace. Una cuenta de usuario nueva con una contraseña más larga igual necesita que alguien la ponga y la rote, el Administrator local tiene privilegios de sobra y una cuenta de administrador de dominio hace que comprometer el servicio sea comprometer el dominio."
+   }
+  },
+  {
+   "id": "secplus-021",
+   "domain": "Security Architecture",
+   "prompt": {
+    "en": "An online store charges customers' cards for monthly subscriptions. It wants its order database to hold nothing useful to an attacker who steals it, while still being able to charge the same card next month. Which method fits best?",
+    "es": "Una tienda online cobra suscripciones mensuales a las tarjetas de sus clientes. Quiere que su base de órdenes no tenga nada útil para un atacante que la robe, pero seguir pudiendo cobrarle a la misma tarjeta el mes que viene. ¿Qué método encaja mejor?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Hashing",
+      "es": "Hashing"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Data masking",
+      "es": "Enmascaramiento de datos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Data transposition",
+      "es": "Transposición de datos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Tokenization",
+      "es": "Tokenización"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Tokenization replaces the card number with a random token that has no mathematical relation to it; only the token vault, usually run by the payment provider, can map it back, so the store keeps charging the card without storing it. Masking hides digits for display but leaves nothing to charge, and a hash can't be turned back into a card number. Transposing data only rearranges it, so whoever learns the pattern can rebuild the numbers.",
+    "es": "La tokenización reemplaza el número de tarjeta por un token aleatorio sin relación matemática con él; sólo la bóveda de tokens, que suele manejar el proveedor de pagos, puede volver al número original, así que la tienda sigue cobrando sin guardar la tarjeta. El enmascaramiento oculta dígitos al mostrarlos pero no deja nada con qué cobrar, y un hash no se puede revertir a un número de tarjeta. Transponer los datos sólo los reordena, así que quien descubra el patrón puede reconstruir los números."
+   }
+  },
+  {
+   "id": "secplus-022",
+   "domain": "Security Architecture",
+   "prompt": {
+    "en": "A company backs up its order database every 6 hours, and a full restore takes 2 hours. After a business impact analysis, management sets a recovery time objective (RTO) of 4 hours and a recovery point objective (RPO) of 1 hour for that database. What needs to change?",
+    "es": "Una empresa hace backup de su base de órdenes cada 6 horas, y una restauración completa tarda 2 horas. Después de un análisis de impacto en el negocio, la dirección fija para esa base un objetivo de tiempo de recuperación (RTO) de 4 horas y un objetivo de punto de recuperación (RPO) de 1 hora. ¿Qué tiene que cambiar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Nothing, since the 2-hour restore already meets both objectives",
+      "es": "Nada, porque restaurar en 2 horas ya cumple los dos objetivos"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Raise the mean time between failures of the database servers",
+      "es": "Aumentar el tiempo medio entre fallas (MTBF) de los servidores de la base"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Capture changes at least hourly, for example with log shipping",
+      "es": "Capturar los cambios al menos cada hora, por ejemplo con envío de logs"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Make restores faster, since the 2-hour restore exceeds the RTO",
+      "es": "Hacer más rápidas las restauraciones, porque 2 horas superan el RTO"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "The RPO is the most data you can afford to lose, measured in time. With backups every 6 hours, a failure just before the next backup loses almost 6 hours of orders, so the capture interval has to drop to an hour or less. The RTO is how long you can be down: a 2-hour restore fits within the 4 hours allowed. MTBF describes how often hardware fails, not how much data a failure costs you.",
+    "es": "El RPO es la cantidad máxima de datos que podés permitirte perder, medida en tiempo. Con backups cada 6 horas, una falla justo antes del siguiente backup pierde casi 6 horas de órdenes, así que el intervalo de captura tiene que bajar a una hora o menos. El RTO es cuánto tiempo podés estar caído: restaurar en 2 horas entra en las 4 permitidas. El MTBF describe cada cuánto falla el hardware, no cuántos datos te cuesta una falla."
+   }
+  },
+  {
+   "id": "secplus-023",
+   "domain": "Security Architecture",
+   "prompt": {
+    "en": "Ransomware recently encrypted a company's file servers and also its backup share, which was joined to the same domain and used the same administrator credentials. Which TWO changes would best keep the next backups recoverable? (Select TWO.)",
+    "es": "Un ransomware cifró hace poco los servidores de archivos de una empresa y también su recurso compartido de backups, que estaba unido al mismo dominio y usaba las mismas credenciales de administrador. ¿Qué cambios ayudarían más a que los próximos backups se puedan recuperar? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Take more frequent snapshots on the same file server volumes",
+      "es": "Sacar snapshots más frecuentes en los mismos volúmenes de los servidores"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Turn on deduplication on the backup share so it can hold more versions",
+      "es": "Activar la deduplicación en el recurso de backups para que entren más versiones"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Write backups to immutable storage that blocks changes until retention ends",
+      "es": "Guardar los backups en almacenamiento inmutable, que bloquea cambios hasta que vence la retención"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Mirror every file server's disks with RAID 1 so that a failed disk loses no data",
+      "es": "Espejar los discos de cada servidor de archivos con RAID 1 para que una falla de disco no pierda datos"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Keep an offline or separately administered copy with its own credentials",
+      "es": "Mantener una copia offline o administrada por separado, con credenciales propias"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "E"
+   ],
+   "explanation": {
+    "en": "Ransomware operators look for backups and use the same stolen admin credentials to wipe or encrypt them. Immutable (write-once) storage refuses changes until retention expires, and an offline or separately administered copy is out of reach of the compromised domain. RAID copies every change, encrypted blocks included, instantly. Snapshots on the same volume and a deduplicated share are still reachable with the same credentials, so the attacker can delete them too.",
+    "es": "Los operadores de ransomware buscan los backups y usan las credenciales de administrador robadas para borrarlos o cifrarlos. El almacenamiento inmutable (de escritura única) rechaza cambios hasta que vence la retención, y una copia offline o administrada por separado queda fuera del alcance del dominio comprometido. RAID copia al instante cada cambio, bloques cifrados incluidos. Los snapshots en el mismo volumen y un recurso deduplicado siguen al alcance de esas credenciales, así que el atacante también los borra."
+   }
+  },
+  {
+   "id": "secplus-024",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "Customers keep receiving phishing emails that appear to come from billing@example.com. The company already publishes an SPF record and signs its outbound mail with DKIM. It wants receiving servers to reject messages that fail those checks and to send it reports on who is sending mail as its domain. What should it publish?",
+    "es": "Los clientes siguen recibiendo mails de phishing que parecen venir de billing@example.com. La empresa ya publica un registro SPF y firma su correo saliente con DKIM. Quiere que los servidores que reciben rechacen los mensajes que fallan esos controles y que le manden reportes de quién está enviando correo con su dominio. ¿Qué debería publicar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A DMARC record with p=reject and a rua address",
+      "es": "Un registro DMARC con p=reject y una dirección rua"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A BIMI record that displays the company's verified logo",
+      "es": "Un registro BIMI que muestre el logo verificado de la empresa"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A second DKIM selector that signs with a longer key",
+      "es": "Un segundo selector DKIM que firme con una clave más larga"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An SPF record that ends in ~all instead of the current -all",
+      "es": "Un registro SPF que termine en ~all en lugar del -all actual"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "DMARC tells receivers what to do when a message passes neither SPF nor DKIM in alignment with the From domain (none, quarantine or reject) and where to send aggregate (rua) reports. SPF alone checks the envelope sender, not the From address users see, and ~all is a softer fail than -all. A longer DKIM key adds no policy. BIMI shows a logo only for domains that already enforce DMARC, so it depends on DMARC rather than replacing it.",
+    "es": "DMARC les dice a los receptores qué hacer cuando un mensaje no pasa ni SPF ni DKIM alineados con el dominio del From (none, quarantine o reject) y adónde mandar los reportes agregados (rua). SPF solo verifica el remitente del sobre, no la dirección From que ve el usuario, y ~all es un fallo más suave que -all. Una clave DKIM más larga no agrega ninguna política. BIMI muestra un logo sólo en dominios que ya aplican DMARC, así que depende de DMARC en lugar de reemplazarlo."
+   }
+  },
+  {
+   "id": "secplus-025",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "Anyone can plug a laptop into the wall ports in a company's meeting rooms and get on the internal network. The access switches support 802.1X. Which TWO components does the company also need so that only authenticated corporate devices get internal access? (Select TWO.)",
+    "es": "Cualquiera puede enchufar una notebook en las bocas de red de las salas de reuniones de una empresa y entrar a la red interna. Los switches de acceso soportan 802.1X. ¿Qué otros componentes necesita la empresa para que sólo los equipos corporativos autenticados tengan acceso interno? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A captive portal page where visitors must accept the terms of use before browsing",
+      "es": "Una página de portal cautivo donde los visitantes acepten las condiciones de uso antes de navegar"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "An 802.1X supplicant configured on each corporate device",
+      "es": "Un suplicante 802.1X configurado en cada equipo corporativo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A WPA3-Personal passphrase shared with all employees",
+      "es": "Una passphrase WPA3-Personal compartida con todos los empleados"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A DHCP reservation for every corporate laptop's MAC address",
+      "es": "Una reserva DHCP para la dirección MAC de cada notebook corporativa"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "A RADIUS server that checks each device's credentials or certificate",
+      "es": "Un servidor RADIUS que verifique las credenciales o el certificado de cada equipo"
+     }
+    }
+   ],
+   "correct": [
+    "B",
+    "E"
+   ],
+   "explanation": {
+    "en": "802.1X has three roles: the supplicant on the device, the authenticator (the switch, which keeps the port closed until authentication succeeds) and the authentication server, usually RADIUS, which checks the credentials or certificate and can assign a VLAN. A captive portal handles guest access through a web page, WPA3-Personal is a shared Wi-Fi key that doesn't apply to wired ports, and DHCP reservations hand out addresses without authenticating anything, since MAC addresses are easy to spoof.",
+    "es": "802.1X tiene tres roles: el suplicante en el equipo, el autenticador (el switch, que mantiene el puerto cerrado hasta que la autenticación sale bien) y el servidor de autenticación, normalmente RADIUS, que verifica las credenciales o el certificado y puede asignar una VLAN. Un portal cautivo es para invitados en una página web, WPA3-Personal es una clave compartida de Wi-Fi que no aplica a puertos cableados, y las reservas DHCP reparten direcciones sin autenticar nada: una MAC se falsifica fácil."
+   }
+  },
+  {
+   "id": "secplus-026",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "A company inserts a few fake customer records into its production customer database, each with a unique email address that the company controls. Any message that ever reaches those addresses would show that the table has leaked. What is this deception technique called?",
+    "es": "Una empresa mete algunos registros de clientes falsos en su base de clientes de producción, cada uno con una dirección de correo única que la empresa controla. Cualquier mensaje que llegue alguna vez a esas direcciones mostraría que la tabla se filtró. ¿Cómo se llama esta técnica de engaño?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Canary account",
+      "es": "Cuenta canario (canary account)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Honeyfile",
+      "es": "Honeyfile"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Honeytoken",
+      "es": "Honeytoken"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Honeypot",
+      "es": "Honeypot"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "A honeytoken is a piece of fake data, such as a record, a credential or an API key, that no legitimate process ever uses, so any use of it is a reliable alert. A honeypot is a decoy system built to attract attackers, a honeyfile is a decoy document that raises an alert when someone opens it, and a canary account is a fake user account whose sign-ins trigger an alert. Here the decoy is data hidden inside a real table, not a system, a file or an account.",
+    "es": "Un honeytoken es un dato falso, como un registro, una credencial o una API key, que ningún proceso legítimo usa, así que cualquier uso es una alerta confiable. Un honeypot es un sistema señuelo armado para atraer atacantes, un honeyfile es un documento señuelo que dispara una alerta cuando alguien lo abre y una cuenta canario es una cuenta de usuario falsa cuyos inicios de sesión disparan una alerta. Acá el señuelo es un dato escondido dentro de una tabla real, no un sistema, un archivo ni una cuenta."
+   }
+  },
+  {
+   "id": "secplus-027",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "Last quarter, the IT team patched a critical vulnerability and closed the tickets as soon as the patch was deployed. This quarter's scan shows the same vulnerability on 30% of the servers, because the patch needed a reboot that never happened. Which vulnerability management step was skipped?",
+    "es": "El trimestre pasado, el equipo de IT parchó una vulnerabilidad crítica y cerró los tickets en cuanto desplegó el parche. El escaneo de este trimestre muestra la misma vulnerabilidad en el 30 % de los servidores, porque el parche necesitaba un reinicio que nunca se hizo. ¿Qué paso de la gestión de vulnerabilidades se salteó?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Verification, such as a rescan after remediation",
+      "es": "La verificación, por ejemplo un nuevo escaneo después de remediar"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Identification through regular scheduled scanning",
+      "es": "La identificación mediante escaneos periódicos programados"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "External reporting through a disclosure policy",
+      "es": "El reporte externo mediante una política de divulgación"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Prioritization by severity before patching",
+      "es": "La priorización por severidad antes de parchear"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Remediation isn't finished until someone confirms it worked. A rescan or another check after patching would have shown that the vulnerable version was still loaded and caught the missing reboot months earlier. The team did prioritize, since it treated the flaw as critical, and identification clearly happened through the scans. Responsible disclosure and bug bounty programs are about reporting vulnerabilities to or from outside parties, not about confirming internal fixes.",
+    "es": "La remediación no termina hasta que alguien confirma que funcionó. Un nuevo escaneo u otro control después de parchear habría mostrado que seguía cargada la versión vulnerable y habría detectado el reinicio faltante meses antes. El equipo sí priorizó, porque trató la falla como crítica, y la identificación claramente ocurrió con los escaneos. La divulgación responsable y los programas de bug bounty sirven para reportar vulnerabilidades hacia o desde terceros, no para confirmar arreglos internos."
+   }
+  },
+  {
+   "id": "secplus-028",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "During an investigation, an analyst needs to know which internal hosts talked to a suspicious external IP address over the past two weeks, when, and how many bytes were sent. The network doesn't keep full packet captures. Which data source should the analyst use?",
+    "es": "En una investigación, un analista necesita saber qué equipos internos hablaron con una IP externa sospechosa durante las últimas dos semanas, cuándo y cuántos bytes se mandaron. La red no guarda capturas completas de paquetes. ¿Qué fuente de datos debería usar?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "SNMP polling data collected from the core switches",
+      "es": "Datos de sondeo SNMP recolectados de los switches de core"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "SCAP compliance results for the internal hosts",
+      "es": "Resultados de cumplimiento SCAP de los equipos internos"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "NetFlow or IPFIX records from the routers and firewalls",
+      "es": "Registros NetFlow o IPFIX de los routers y firewalls"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "The most recent authenticated vulnerability scan report",
+      "es": "El reporte más reciente de escaneo de vulnerabilidades autenticado"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "Flow records summarize each conversation: source and destination addresses and ports, protocol, start time, duration and byte and packet counts, without the payload. That answers who talked to the IP, when and how much, and flow data is cheap enough to keep for weeks. SNMP reports device status and interface counters, not individual conversations. A vulnerability scan lists weaknesses, and SCAP results show whether hosts match a configuration baseline.",
+    "es": "Los registros de flujo resumen cada conversación: direcciones y puertos de origen y destino, protocolo, hora de inicio, duración y cantidad de bytes y paquetes, sin el contenido. Eso responde quién habló con la IP, cuándo y cuánto, y guardar flujos durante semanas es barato. SNMP informa el estado de los equipos y los contadores de las interfaces, no conversaciones individuales. Un escaneo lista debilidades, y los resultados SCAP muestran si los equipos cumplen una línea base de configuración."
+   }
+  },
+  {
+   "id": "secplus-029",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "A scheduling startup's web app needs to add events to its users' work calendars. The users' employer doesn't want the startup to ever see or store their passwords, and wants to be able to revoke the startup's access at any time. Which technology fits?",
+    "es": "La aplicación web de una startup de agendas necesita agregar eventos en los calendarios laborales de sus usuarios. La empresa donde trabajan no quiere que la startup vea ni guarde nunca sus contraseñas, y quiere poder revocarle el acceso cuando quiera. ¿Qué tecnología encaja?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "LDAP, which lets the app bind to the company's directory",
+      "es": "LDAP, que deja a la aplicación hacer bind contra el directorio de la empresa"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "SAML, so that users sign in to the startup's app with SSO",
+      "es": "SAML, para que los usuarios entren a la aplicación de la startup con SSO"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Kerberos, which issues the app a ticket-granting ticket",
+      "es": "Kerberos, que le emite a la aplicación un ticket-granting ticket"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "OAuth, which gives the app a token with a limited scope",
+      "es": "OAuth, que le da a la aplicación un token con alcance limitado"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "OAuth is a delegated authorization framework: the user approves a limited scope, such as writing calendar events, and the app receives a token instead of the password; the token can expire or be revoked. An LDAP bind would mean handing the app directory credentials. SAML signs users in to the startup's app through SSO, but by itself doesn't let the app call the calendar API on their behalf. Kerberos tickets are for services inside the company's own domain.",
+    "es": "OAuth es un marco de autorización delegada: el usuario aprueba un alcance limitado, como escribir eventos en el calendario, y la aplicación recibe un token en lugar de la contraseña; el token puede vencer o revocarse. Un bind por LDAP implicaría darle credenciales del directorio. SAML hace que los usuarios entren a la aplicación de la startup con SSO, pero no le permite por sí solo llamar a la API del calendario por ellos. Los tickets de Kerberos son para servicios dentro del propio dominio de la empresa."
+   }
+  },
+  {
+   "id": "secplus-030",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "In a government agency's system, every document has a classification label, every user has a clearance, and the operating system decides access by comparing the two. A document's author can't give a colleague access to it if the document is above that colleague's clearance. Which access control model is in use?",
+    "es": "En el sistema de un organismo de gobierno, cada documento tiene una etiqueta de clasificación, cada usuario tiene una habilitación, y el sistema operativo decide el acceso comparando las dos. El autor de un documento no puede darle acceso a un colega si el documento está por encima de la habilitación de ese colega. ¿Qué modelo de control de acceso se usa?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Role-based access control",
+      "es": "Control de acceso basado en roles (RBAC)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Discretionary access control",
+      "es": "Control de acceso discrecional (DAC)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Rule-based access control",
+      "es": "Control de acceso basado en reglas"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Mandatory access control",
+      "es": "Control de acceso obligatorio (MAC)"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "In mandatory access control, the system enforces access by comparing labels with clearances, and users, owners included, can't override it. Under discretionary access control, the owner of a resource decides who gets access, which is exactly what this system prevents. Role-based access control grants permissions through job roles, and rule-based access control applies global rules, such as time of day or source network, rather than classification levels.",
+    "es": "En el control de acceso obligatorio, el sistema impone el acceso comparando etiquetas con habilitaciones, y los usuarios, dueños incluidos, no lo pueden pasar por alto. En el control de acceso discrecional, el dueño de un recurso decide quién accede, que es justo lo que este sistema impide. El control basado en roles da permisos según el puesto, y el basado en reglas aplica reglas globales, como el horario o la red de origen, en lugar de niveles de clasificación."
+   }
+  },
+  {
+   "id": "secplus-031",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "A company is rewriting its password policy, following NIST SP 800-63B, for accounts that use a password as their only sign-in factor. Which TWO requirements should the new policy include? (Select TWO.)",
+    "es": "Una empresa está reescribiendo su política de contraseñas, siguiendo la NIST SP 800-63B, para cuentas que usan una contraseña como único factor de inicio de sesión. ¿Qué requisitos debería incluir la política nueva? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Check each new password against a list of common and compromised passwords",
+      "es": "Comparar cada contraseña nueva con una lista de contraseñas comunes y comprometidas"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Let users store a hint to help them remember the password",
+      "es": "Permitir que los usuarios guarden una pista para recordar la contraseña"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Require a mix of uppercase letters, digits and symbols",
+      "es": "Exigir una mezcla de mayúsculas, números y símbolos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Require at least 15 characters and allow lengths of 64 or more",
+      "es": "Exigir al menos 15 caracteres y permitir largos de 64 o más"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Force every user to change their password every 90 days",
+      "es": "Obligar a cada usuario a cambiar la contraseña cada 90 días"
+     }
+    }
+   ],
+   "correct": [
+    "A",
+    "D"
+   ],
+   "explanation": {
+    "en": "The current SP 800-63B requires checking new passwords against a blocklist and, for passwords used as a single factor, a minimum of 15 characters, while allowing at least 64. It forbids composition rules, because they push people toward predictable patterns, and forbids forced periodic changes, which should happen only when there's evidence of compromise. Password hints are not allowed either, since they help attackers as much as users.",
+    "es": "La SP 800-63B vigente exige comparar las contraseñas nuevas con una lista de bloqueo y, para contraseñas que son el único factor, un mínimo de 15 caracteres, aceptando al menos 64. Prohíbe las reglas de composición, porque empujan a la gente hacia patrones previsibles, y prohíbe los cambios periódicos forzados, que sólo corresponden cuando hay evidencia de compromiso. Las pistas de contraseña tampoco están permitidas, porque ayudan al atacante tanto como al usuario."
+   }
+  },
+  {
+   "id": "secplus-032",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "A SOC deployed a playbook that automatically disables any account with an impossible-travel alert. A misconfigured VPN gateway made hundreds of users appear to sign in from another country, and the playbook disabled all of them, including the on-call engineers. Which consideration did the team neglect when building the automation?",
+    "es": "Un SOC desplegó un playbook que deshabilita automáticamente cualquier cuenta con una alerta de viaje imposible. Un gateway de VPN mal configurado hizo que cientos de usuarios parecieran entrar desde otro país, y el playbook los deshabilitó a todos, incluidos los ingenieros de guardia. ¿Qué consideración descuidó el equipo al armar la automatización?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Guardrails, such as caps on bulk actions and human approval",
+      "es": "Guardrails, como topes a las acciones masivas y aprobación humana"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Ticket management for the alerts that the playbook closes",
+      "es": "La gestión de tickets para las alertas que cierra el playbook"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Continuous integration for the playbook's source code",
+      "es": "La integración continua para el código fuente del playbook"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Desired state management for the VPN gateway's configuration",
+      "es": "La gestión de estado deseado para la configuración del gateway de VPN"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Automation does exactly what it's told, at machine speed, so it needs guardrails: caps on how many accounts one run can touch, exclusions for break-glass and critical accounts, and a human approval step for unusual volumes. Desired state management could have prevented the gateway misconfiguration, but not the playbook's blind reaction to it. Tickets and CI pipelines help track and test the playbook, but they don't stop a runaway action in production.",
+    "es": "La automatización hace exactamente lo que le dicen, a velocidad de máquina, así que necesita guardrails: topes a cuántas cuentas puede tocar una ejecución, exclusiones para cuentas críticas y de emergencia, y un paso de aprobación humana ante volúmenes raros. La gestión de estado deseado podría haber evitado la mala configuración del gateway, pero no la reacción ciega del playbook. Los tickets y los pipelines de CI ayudan a seguir y probar el playbook, pero no frenan una acción desbocada en producción."
+   }
+  },
+  {
+   "id": "secplus-033",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "An EDR alert shows ransomware starting to encrypt files on a single workstation in the accounting department. Nothing suggests it has spread yet. What should the responder do first?",
+    "es": "Una alerta del EDR muestra un ransomware que empieza a cifrar archivos en una sola estación de trabajo del área contable. Nada indica que se haya propagado todavía. ¿Qué debería hacer primero quien responde?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Email the whole company a warning about this ransomware",
+      "es": "Mandar un mail a toda la empresa avisando de este ransomware"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Reimage the workstation from the standard build right away",
+      "es": "Reinstalar la estación desde la imagen estándar enseguida"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Pull the power cord so that the encryption stops immediately",
+      "es": "Desenchufar la estación para que el cifrado se detenga de inmediato"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Isolate the workstation from the network through the EDR console",
+      "es": "Aislar la estación de la red desde la consola del EDR"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Containment comes first: network isolation keeps the ransomware from reaching shares and other hosts while leaving the machine running, so memory and other volatile evidence survive for the investigation. Reimaging is eradication and recovery, and doing it now destroys evidence before you know how the attack got in. Pulling the power also loses the memory contents. A company-wide email may be needed later, but it doesn't stop the encryption happening now.",
+    "es": "Primero va la contención: aislar el equipo de la red evita que el ransomware llegue a los recursos compartidos y a otros equipos, y lo deja encendido, así que la memoria y otra evidencia volátil sobreviven para la investigación. Reinstalar es erradicación y recuperación, y hacerlo ahora destruye evidencia antes de saber cómo entró el ataque. Desenchufar también pierde el contenido de la memoria. Un mail a toda la empresa puede hacer falta después, pero no frena el cifrado que está pasando ahora."
+   }
+  },
+  {
+   "id": "secplus-034",
+   "domain": "Security Operations",
+   "prompt": {
+    "en": "Investigators suspect that a server is running fileless malware that lives only in memory, and they need evidence that will hold up in court. Which acquisition should they make first?",
+    "es": "Los investigadores sospechan que un servidor corre malware sin archivos que vive sólo en memoria, y necesitan evidencia que sirva en un juicio. ¿Qué adquisición deberían hacer primero?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A memory dump, with its hash and the chain of custody recorded",
+      "es": "Un volcado de memoria, registrando su hash y la cadena de custodia"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A hypervisor snapshot taken after a clean reboot",
+      "es": "Un snapshot del hipervisor tomado después de reiniciar limpio"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A bit-level copy of the system disk after shutting the server down",
+      "es": "Una copia bit a bit del disco de sistema después de apagar el servidor"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "An export of the last 30 days of firewall logs",
+      "es": "Una exportación de los últimos 30 días de logs del firewall"
+     }
+    }
+   ],
+   "correct": [
+    "A"
+   ],
+   "explanation": {
+    "en": "Collect the most volatile evidence first. Fileless malware may leave nothing on disk, and RAM is lost at the next reboot, so the memory dump comes before the disk image. Hashing the capture and documenting every hand-off in the chain of custody lets you prove it wasn't altered. Shutting down to copy the disk throws the memory away, as does a snapshot taken after a reboot, and firewall logs are kept elsewhere and won't vanish if the server goes down.",
+    "es": "Primero se junta la evidencia más volátil. El malware sin archivos puede no dejar nada en disco, y la RAM se pierde con el próximo reinicio, así que el volcado de memoria va antes que la imagen del disco. Calcular el hash de la captura y documentar cada traspaso en la cadena de custodia permite probar que no se alteró. Apagar el servidor para copiar el disco tira la memoria, igual que un snapshot posterior a un reinicio, y los logs del firewall se guardan en otro lado y no desaparecen si el servidor se cae."
+   }
+  },
+  {
+   "id": "secplus-035",
+   "domain": "Security Program Management and Oversight",
+   "prompt": {
+    "en": "A warehouse's inventory system is valued at $400,000. A flood would damage 25% of it, and the company's risk analysis expects one such flood every four years. What is the annualized loss expectancy (ALE)?",
+    "es": "El sistema de inventario de un depósito está valuado en USD 400.000. Una inundación dañaría el 25 % del sistema, y el análisis de riesgo de la empresa espera una inundación así cada cuatro años. ¿Cuál es la expectativa de pérdida anualizada (ALE)?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "$100,000",
+      "es": "USD 100.000"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "$25,000",
+      "es": "USD 25.000"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "$6,250",
+      "es": "USD 6.250"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "$400,000",
+      "es": "USD 400.000"
+     }
+    }
+   ],
+   "correct": [
+    "B"
+   ],
+   "explanation": {
+    "en": "First the single loss expectancy: asset value times exposure factor, $400,000 × 0.25 = $100,000 per flood. One flood every four years is an annualized rate of occurrence of 0.25, so ALE = SLE × ARO = $100,000 × 0.25 = $25,000 a year. $100,000 is the SLE, not the yearly figure, $400,000 is the whole asset value, and $6,250 applies the 25% one time too many.",
+    "es": "Primero la expectativa de pérdida simple (SLE): valor del activo por factor de exposición, USD 400.000 × 0,25 = USD 100.000 por inundación. Una inundación cada cuatro años es una tasa anualizada de ocurrencia (ARO) de 0,25, así que ALE = SLE × ARO = USD 100.000 × 0,25 = USD 25.000 por año. USD 100.000 es la SLE, no la cifra anual, USD 400.000 es el valor total del activo y USD 6.250 aplica el 25 % una vez de más."
+   }
+  },
+  {
+   "id": "secplus-036",
+   "domain": "Security Program Management and Oversight",
+   "prompt": {
+    "en": "A risk assessment finds that storing customers' full card numbers for one-click checkout creates a large compliance and breach risk. Management decides to stop storing card numbers and drop the one-click feature. Which risk treatment is this?",
+    "es": "Una evaluación de riesgos concluye que guardar los números de tarjeta completos de los clientes para la compra en un clic genera un riesgo grande de cumplimiento y de filtración. La dirección decide dejar de guardar los números de tarjeta y sacar la función de compra en un clic. ¿Qué tratamiento del riesgo es este?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Acceptance",
+      "es": "Aceptarlo"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Transference",
+      "es": "Transferirlo"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Mitigation",
+      "es": "Mitigarlo"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Avoidance",
+      "es": "Evitarlo"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Avoiding a risk means stopping the activity that creates it, here storing card data, so the risk disappears along with the feature. Mitigation would keep the feature and add controls, such as tokenization, to lower likelihood or impact. Transference shifts the financial impact to someone else, for example through cyber insurance or a payment provider that takes on the liability. Acceptance keeps the activity and the risk as they are, usually because the risk falls within the risk appetite.",
+    "es": "Evitar un riesgo es dejar de hacer la actividad que lo genera, en este caso guardar datos de tarjetas, así que el riesgo desaparece junto con la función. Mitigar sería mantener la función y sumar controles, como la tokenización, para bajar la probabilidad o el impacto. Transferir pasa el impacto económico a otro, por ejemplo con un seguro o un proveedor de pagos que asume la responsabilidad. Aceptar deja la actividad y el riesgo como están, en general porque el riesgo entra en el apetito de riesgo."
+   }
+  },
+  {
+   "id": "secplus-037",
+   "domain": "Security Program Management and Oversight",
+   "prompt": {
+    "en": "A company already has a master services agreement (MSA) with a security consultancy covering payment terms, liability and confidentiality. It now wants the consultancy to run a penetration test of its new mobile app, with defined deliverables, dates and acceptance criteria. Which document should it sign for this engagement?",
+    "es": "Una empresa ya tiene un master services agreement (MSA) con una consultora de seguridad que cubre condiciones de pago, responsabilidad y confidencialidad. Ahora quiere que la consultora haga un pentest de su nueva aplicación móvil, con entregables, fechas y criterios de aceptación definidos. ¿Qué documento debería firmar para este trabajo?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "A memorandum of understanding (MOU)",
+      "es": "Un memorandum of understanding (MOU)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "A service-level agreement (SLA)",
+      "es": "Un service-level agreement (SLA)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "A non-disclosure agreement (NDA)",
+      "es": "Un acuerdo de confidencialidad (NDA)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "A statement of work (SOW)",
+      "es": "Un statement of work (SOW)"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Under an MSA, each project gets a statement of work that spells out the scope, deliverables, timeline and acceptance criteria, while the general legal terms stay in the MSA. An MOU records shared intentions and usually isn't binding enough for paid work. An SLA sets measurable service levels, such as uptime or response times, for an ongoing service. Confidentiality is already covered by the MSA, and an NDA wouldn't define the test anyway.",
+    "es": "Bajo un MSA, cada proyecto lleva un statement of work que detalla el alcance, los entregables, los plazos y los criterios de aceptación, mientras que las condiciones legales generales quedan en el MSA. Un MOU deja asentadas intenciones compartidas y en general no es lo bastante vinculante para un trabajo pago. Un SLA fija niveles de servicio medibles, como disponibilidad o tiempos de respuesta, para un servicio continuo. La confidencialidad ya está en el MSA, y un NDA tampoco definiría la prueba."
+   }
+  },
+  {
+   "id": "secplus-038",
+   "domain": "Security Program Management and Oversight",
+   "prompt": {
+    "en": "The legal department expects a lawsuit from a former supplier. The company's email retention policy automatically deletes messages after 90 days, and some relevant messages are about to reach that age. What should the company do?",
+    "es": "El área legal espera una demanda de un ex proveedor. La política de retención de correo de la empresa borra automáticamente los mensajes a los 90 días, y algunos mensajes relevantes están por llegar a esa edad. ¿Qué debería hacer la empresa?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Shorten the retention period so that less data exists if the lawsuit is filed",
+      "es": "Acortar el período de retención para que haya menos datos si se presenta la demanda"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Let the retention policy run, since it was approved before the dispute began",
+      "es": "Dejar que la política de retención siga corriendo, porque se aprobó antes del conflicto"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Export the messages to the general counsel's personal cloud drive for safekeeping",
+      "es": "Exportar los mensajes al disco personal en la nube del gerente de legales, para resguardarlos"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Place a legal hold on the relevant mailboxes so nothing in them is deleted",
+      "es": "Poner una retención legal (legal hold) sobre los buzones relevantes para que no se borre nada"
+     }
+    }
+   ],
+   "correct": [
+    "D"
+   ],
+   "explanation": {
+    "en": "Once litigation is reasonably expected, the company has a duty to preserve relevant information. A legal hold suspends deletion for the affected data, overriding the normal retention schedule, until legal releases it. Letting deletion continue, or shortening retention, can be treated as destruction of evidence and lead to sanctions. Copying messages to a personal drive breaks chain of custody and data handling rules without properly preserving the originals.",
+    "es": "Cuando un litigio es razonablemente previsible, la empresa tiene el deber de preservar la información relevante. Una retención legal suspende el borrado de los datos afectados, por encima del cronograma de retención normal, hasta que legales la libere. Dejar que siga el borrado, o acortar la retención, puede considerarse destrucción de evidencia y traer sanciones. Copiar los mensajes a un disco personal rompe la cadena de custodia y las reglas de manejo de datos sin preservar bien los originales."
+   }
+  },
+  {
+   "id": "secplus-039",
+   "domain": "Security Program Management and Oversight",
+   "prompt": {
+    "en": "A retailer uses a SaaS payroll provider that processes its employees' personal data on the retailer's behalf. The payroll provider stores that data with a cloud hosting company it has contracted. Under privacy laws such as the GDPR, what role does the hosting company play?",
+    "es": "Una cadena de comercios usa un proveedor SaaS de liquidación de sueldos que procesa por cuenta de ella los datos personales de sus empleados. Ese proveedor guarda los datos en una empresa de hosting en la nube que contrató. Según leyes de privacidad como el GDPR, ¿qué rol cumple la empresa de hosting?"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Data owner",
+      "es": "Propietario de los datos (data owner)"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Data controller",
+      "es": "Responsable del tratamiento (controller)"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Data subprocessor",
+      "es": "Subencargado del tratamiento (subprocessor)"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Data steward",
+      "es": "Administrador de datos (data steward)"
+     }
+    }
+   ],
+   "correct": [
+    "C"
+   ],
+   "explanation": {
+    "en": "The retailer decides why and how the data is processed, so it's the controller. The payroll provider processes the data on the retailer's behalf, so it's a processor, and a company the processor hires to handle that same data is a subprocessor, which usually needs the controller's authorization. The data owner is the executive accountable for a data set inside an organization, and a data steward looks after data quality and metadata.",
+    "es": "La cadena decide para qué y cómo se tratan los datos, así que es la responsable del tratamiento (controller). El proveedor de sueldos trata los datos por cuenta de ella, así que es encargado (processor), y una empresa que ese encargado contrata para manejar esos mismos datos es un subencargado, que en general necesita la autorización del responsable. El data owner es el directivo que responde por un conjunto de datos dentro de una organización, y el data steward cuida la calidad y los metadatos."
+   }
+  },
+  {
+   "id": "secplus-040",
+   "domain": "Security Program Management and Oversight",
+   "prompt": {
+    "en": "A penetration test's rules of engagement allow only passive reconnaissance during the first week. Which TWO activities can the testers carry out that week? (Select TWO.)",
+    "es": "Las reglas de compromiso (rules of engagement) de un pentest permiten sólo reconocimiento pasivo durante la primera semana. ¿Qué actividades pueden hacer los testers esa semana? (Elegí DOS.)"
+   },
+   "options": [
+    {
+     "key": "A",
+     "text": {
+      "en": "Grabbing the banner of the company's mail server on port 25",
+      "es": "Obtener el banner del servidor de correo de la empresa en el puerto 25"
+     }
+    },
+    {
+     "key": "B",
+     "text": {
+      "en": "Running an unauthenticated vulnerability scan of the website",
+      "es": "Correr un escaneo de vulnerabilidades sin autenticación sobre el sitio web"
+     }
+    },
+    {
+     "key": "C",
+     "text": {
+      "en": "Reading the company's job postings to learn which technologies it uses",
+      "es": "Leer las búsquedas laborales de la empresa para saber qué tecnologías usa"
+     }
+    },
+    {
+     "key": "D",
+     "text": {
+      "en": "Searching certificate transparency logs for the company's subdomains",
+      "es": "Buscar los subdominios de la empresa en los logs de certificate transparency"
+     }
+    },
+    {
+     "key": "E",
+     "text": {
+      "en": "Running a ping sweep across the company's public IP range",
+      "es": "Hacer un ping sweep sobre el rango de IP públicas de la empresa"
+     }
+    }
+   ],
+   "correct": [
+    "C",
+    "D"
+   ],
+   "explanation": {
+    "en": "Passive reconnaissance gathers information without sending traffic to the target's systems, using public sources such as job ads, social media, DNS history and certificate transparency logs, which list the names in every publicly trusted certificate. Ping sweeps, banner grabbing and vulnerability scans all send packets to the company's hosts, so they're active reconnaissance, can show up in its logs and have to wait until the rules of engagement allow them.",
+    "es": "El reconocimiento pasivo junta información sin mandar tráfico a los sistemas del objetivo, usando fuentes públicas como avisos de empleo, redes sociales, historial de DNS y los logs de certificate transparency, que listan los nombres de cada certificado de confianza pública. El ping sweep, el banner grabbing y los escaneos de vulnerabilidades mandan paquetes a los equipos de la empresa, así que son reconocimiento activo, pueden aparecer en sus logs y tienen que esperar a que las reglas de compromiso los permitan."
+   }
+  }
+ ]
+}
