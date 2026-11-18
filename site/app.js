@@ -1850,12 +1850,61 @@ async function init() {
   registerWorker();
 }
 
+// The offline copy (sw.js) is registered once the page has loaded, so it never competes with the
+// first visit's downloads. A newer build's worker waits instead of taking over an open page: if this
+// page already is that build (it came from the network), the worker takes over quietly; otherwise a
+// notice offers to refresh, and the page reloads once the new worker is in charge.
 function registerWorker() {
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
   if (!('serviceWorker' in navigator) || (location.protocol !== 'https:' && !local)) return;
-  navigator.serviceWorker.register('sw.js').catch(() => {
-    /* offline support is optional */
-  });
+  const sw = navigator.serviceWorker;
+  const build = new URL(import.meta.url).searchParams.get('v') || 'dev';
+  let reloading = false;
+  sw.addEventListener('controllerchange', () => reloading && location.reload());
+  const versionOf = (worker) =>
+    new Promise((resolve) => {
+      const channel = new MessageChannel();
+      channel.port1.onmessage = (e) => resolve(e.data);
+      worker.postMessage('version', [channel.port2]);
+      setTimeout(() => resolve(null), 2000);
+    });
+  const offer = async (worker) => {
+    if (!worker || !sw.controller) return; // a first install has nothing to replace
+    if ((await versionOf(worker)) === build) return worker.postMessage('activate');
+    if ($('#update')) return;
+    const note = document.createElement('div');
+    note.id = 'update';
+    note.className = 'update';
+    note.setAttribute('role', 'status');
+    note.innerHTML = `<span data-i18n="update.ready">${esc(t('update.ready'))}</span><button type="button" class="btn primary" data-i18n="update.reload">${esc(t('update.reload'))}</button>`;
+    $('button', note).addEventListener('click', () => {
+      reloading = true;
+      worker.postMessage('activate');
+    });
+    document.body.append(note);
+  };
+  const start = () =>
+    sw
+      .register('sw.js')
+      .then((reg) => {
+        offer(reg.waiting);
+        reg.addEventListener('updatefound', () => {
+          const worker = reg.installing;
+          worker?.addEventListener('statechange', () => worker.state === 'installed' && offer(worker));
+        });
+        // A tab left open for days still hears about new builds: look again when it comes back, at most hourly.
+        let checked = Date.now();
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState !== 'visible' || Date.now() - checked < 3600e3) return;
+          checked = Date.now();
+          reg.update().catch(() => {});
+        });
+      })
+      .catch(() => {
+        /* offline support is optional */
+      });
+  if (document.readyState === 'complete') start();
+  else addEventListener('load', start, { once: true });
 }
 
 init();
