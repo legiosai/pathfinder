@@ -79,6 +79,20 @@ test('history records attempts and mistakes, not unanswered questions', () => {
   assert.match(mistakesCsv([{ ...rows[0], question: { ...rows[0].question, prompt: { en: 'say "hi", ok' } } }], 'en'), /"say ""hi"", ok"/);
 });
 
+test('an attempt keeps what the run was, without letting it replace the result', () => {
+  const ids = ['A0', 'B0'];
+  const answers = { A0: ['A'], B0: ['B'] };
+  const from = { key: 'pathfinder:progress:c:2026-11-02', n: 4, ticked: true };
+  const h = record(emptyHistory(), grade({ questions, domains, ids, answers }), answers, 7, { mode: 'study', domain: 'A', from, ok: 99 });
+  const a = h.attempts[0];
+  assert.equal(a.mode, 'study');
+  assert.equal(a.domain, 'A');
+  assert.deepEqual(a.from, from);
+  assert.equal(a.ok, 1);
+  assert.equal(a.id, 'a7');
+  assert.equal(record(emptyHistory(), grade({ questions, domains, ids, answers }), answers, 8).attempts[0].mode, undefined);
+});
+
 test('validation catches broken practice questions', () => {
   const cert = { id: 'c', domains };
   const bad = { ...make('x', 'Nope', ['Z']), prompt: { en: 'only english' } };

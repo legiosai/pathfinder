@@ -1,5 +1,5 @@
 import { emptyProfile, rank } from './lib/match.js';
-import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
+import { applyMoves, behind, buildPlan, countStudyDays, estimateHours, planTopics, reschedule, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
 import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
 import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
@@ -18,6 +18,7 @@ const KEYS = {
   plans: 'pathfinder:plans',
   motion: 'pathfinder:motion',
   practice: 'pathfinder:practice:',
+  resched: 'pathfinder:resched:',
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -192,7 +193,6 @@ function renderRoute() {
   const certId = params.get('id');
   if (view === 'cert' && !BY_ID.has(certId)) view = 'list';
   const practiceId = params.get('cert');
-  if (view === 'practice' && !BY_ID.get(practiceId)?.practice_questions) view = 'list';
   if (view !== 'practice') stopPracticeTimer();
 
   if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
@@ -592,11 +592,13 @@ function readConfidence() {
 function enterPlan(params) {
   const f = $('#plan-form');
   const id = params.get('cert');
-  if (id && BY_ID.has(id) && f.cert.value !== id) {
+  // No certification asked for and none picked yet on this visit, or one the catalog doesn't
+  // have: ask, instead of planning for whichever comes first in the list.
+  if (id ? !BY_ID.has(id) : !f.dataset.init) return choosePlanCert(id);
+  showPlanForm(true);
+  if (id && f.cert.value !== id) {
     f.cert.value = id;
     hoursTouched = false;
-  } else if (!id && !f.dataset.init && compare.length) {
-    f.cert.value = compare[0];
   }
   if (params.get('hours')) {
     f.hours.value = params.get('hours');
@@ -614,6 +616,61 @@ function enterPlan(params) {
   setEstimate();
   renderConfidence();
   renderPlan();
+}
+
+function showPlanForm(on) {
+  $('#plan-choose').hidden = on;
+  $('#plan-form').hidden = !on;
+  $('#plan-output').hidden = !on;
+}
+
+/** Lowercase without accents, for matching what people type. */
+const fold = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+/** A link row with the certification's badge, for the choosers. */
+const certRow = (c, href, sub) =>
+  `<li><a class="choose-row" href="${esc(href)}">${badge(c, 34, { label: false })}<span><b>${esc(c.name)}</b><small>${esc(sub)}</small></span>${icon('arrow-right')}</a></li>`;
+
+function choosePlanCert(unknown) {
+  showPlanForm(false);
+  const plans = Object.values(trackedPlans()).filter((params) => BY_ID.has(params.cert));
+  const picks = compare.map((id) => BY_ID.get(id)).filter(Boolean);
+  const box = $('#plan-choose');
+  box.innerHTML = `
+    ${unknown ? `<div class="status warn">${icon('triangle-alert')}<span>${esc(t('plan.unknown', { x: unknown }))}</span></div>` : ''}
+    <section class="card panel choose">
+      <h2>${icon('search')}${t('plan.choose')}</h2>
+      <input type="search" id="plan-q" placeholder="${esc(t('plan.chooseSearch'))}" aria-label="${esc(t('plan.chooseSearch'))}" autocomplete="off" spellcheck="false">
+      <ul class="choose-list" id="plan-q-list"></ul>
+      <p class="hint" id="plan-q-hint"></p>
+    </section>
+    ${plans.length ? `<section class="card panel"><h2>${icon('activity')}${t('plan.yourPlans')}</h2><ul class="choose-list">${plans
+      .map((params) => {
+        const c = BY_ID.get(params.cert);
+        return certRow(c, `#plan?${new URLSearchParams(params)}`, `${c.provider} · ${c.code}${params.exam ? ` · ${t('progress.examOn', { d: day(params.exam) })}` : ''}`);
+      })
+      .join('')}</ul></section>` : ''}
+    ${picks.length ? `<section class="card panel"><h2>${icon('columns-3')}${t('plan.inCompare')}</h2><ul class="choose-list">${picks.map((c) => certRow(c, `#plan?cert=${c.id}`, `${c.provider} · ${c.code}`)).join('')}</ul></section>` : ''}`;
+  const input = $('#plan-q');
+  const paint = () => {
+    const q = fold(input.value.trim());
+    const words = q.split(/\s+/).filter(Boolean);
+    const hay = (c) => fold(`${c.name} ${c.code} ${c.provider}`);
+    // The exact code first, then the more words found in the code, then names that start with it.
+    const rank = (c) => (fold(c.code) === q ? -99 : 0) - 2 * words.filter((w) => fold(c.code).includes(w)).length - (fold(c.name).startsWith(q) ? 1 : 0);
+    const hits = words.length ? DATA.certifications.filter((c) => words.every((w) => hay(c).includes(w))).sort((a, b) => rank(a) - rank(b)).slice(0, 8) : [];
+    $('#plan-q-list').innerHTML = hits.map((c) => certRow(c, `#plan?cert=${c.id}`, `${c.provider} · ${c.code}`)).join('');
+    $('#plan-q-hint').innerHTML = words.length && !hits.length ? esc(t('plan.chooseNone')) : words.length ? '' : t('plan.chooseHint');
+  };
+  input.addEventListener('input', paint);
+  input.addEventListener('keydown', (e) => {
+    const first = $('#plan-q-list a');
+    if (e.key !== 'Enter' || !first) return;
+    e.preventDefault();
+    location.hash = first.getAttribute('href');
+  });
+  paint();
+  if (matchMedia('(pointer: fine)').matches) input.focus({ preventScroll: true });
 }
 
 // A shared or tracked plan can carry any length the list doesn't offer (2 h 15,
@@ -641,17 +698,57 @@ function planParams() {
   };
 }
 
-function statusHtml(p) {
+/** Sessions per kind as small chips: "Practice 2 · Fix 1". */
+const kindCounts = (sessions) => {
+  const n = new Map();
+  for (const s of sessions) n.set(s.kind, (n.get(s.kind) || 0) + 1);
+  return `<ul class="cut-kinds">${[...n].map(([k, c]) => `<li><span class="k ${kindN(k)}" ${kindStyle(k)}>${icon(KIND[k].icon)}</span>${esc(kindLabel(k))} <b>${c}</b></li>`).join('')}</ul>`;
+};
+
+/** Behind on the plan: how far, and what rescheduling from today would do. Empty when on track. */
+function behindHtml(p, done, days, key) {
+  const today = todayLocal();
+  const late = behind(p.sessions, [...done], today);
+  if (!late.count) return '';
+  const target = p.deadline?.targetDate || null;
+  const r = reschedule({ sessions: p.sessions, done: [...done], today, days, targetDate: target });
+  const skipped = p.sessions.filter((s) => r.skipped.includes(s.n));
+  const what = !r.available
+    ? `<p>${esc(t('plan.reschedNone', { d: day(target) }))}</p>`
+    : skipped.length
+      ? `<p>${esc(t('plan.reschedCut', { n: r.remaining, a: r.available }))}</p>${kindCounts(skipped)}`
+      : `<p>${esc(t(target ? 'plan.reschedFits' : 'plan.reschedOpen', { n: r.remaining, a: r.available }))}</p>`;
+  return `<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.behind', { n: late.count, d: day(late.since) }))}</b></p>${what}
+    ${r.available ? `<p><button type="button" class="btn" data-act="resched" data-key="${esc(key)}">${icon('calendar-clock')}${t('plan.reschedule')}</button></p>` : ''}</div></div>`;
+}
+
+function statusHtml(p, done, days, key) {
   const d = p.deadline;
-  if (!d) return `<div class="status info">${icon('flag')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>`;
+  const moved = p.rescheduled
+    ? `<div class="status info resched">${icon('calendar-clock')}<span>${esc(t('plan.rescheduled', { d: day(p.rescheduled.on) }))}${p.skipped?.length ? ` ${esc(t('plan.leftOut'))}` : ''}</span>${p.skipped?.length ? kindCounts(p.skipped) : ''}<button type="button" class="link" data-act="unresched" data-key="${esc(key)}">${t('plan.undo')}</button></div>`
+    : '';
+  // Behind replaces the "fits" line: it no longer holds until the plan is rescheduled.
+  const late = behindHtml(p, done, days, key);
+  if (late && (!d || d.fits)) return late + moved;
+  if (!d) return `<div class="status info">${icon('flag')}${esc(t('plan.statusInfo', { d: day(p.examDate) }))}</div>${moved}`;
   if (d.fits) {
-    return `<div class="status good">${icon('circle-check')}${esc(t('plan.fits', { d: day(d.targetDate), spare: d.spare }))}</div>`;
+    // After a reschedule the spare days are the ones left after the last session.
+    const next = utc(p.sessions.at(-1).date);
+    next.setUTCDate(next.getUTCDate() + 1);
+    const spare = p.rescheduled ? countStudyDays(iso(next), d.targetDate, days) : d.spare;
+    return `<div class="status good">${icon('circle-check')}${esc(t('plan.fits', { d: day(d.targetDate), spare }))}</div>${moved}`;
   }
   const fixes = [];
   if (d.suggestedMinutes) fixes.push(t('plan.fixLen', { x: len(d.suggestedMinutes) }));
   fixes.push(t('plan.fixDays'));
   fixes.push(t('plan.fixExam', { d: day(p.examDate) }));
-  return `<div class="status warn">${icon('triangle-alert')}${esc(t('plan.noFit', { d: day(d.targetDate), needed: d.needed, available: d.available, fixes }))}</div>`;
+  // The sessions stop before the exam anyway; say what was cut to get there.
+  const cut = p.cut
+    ? `<p>${esc(t('plan.cut', { n: p.sessions.length, h: p.hours, N: p.cut.sessions, H: p.cut.hours }))}</p>
+      <ul class="cut-kinds" aria-label="${esc(t('plan.cutAria'))}">${p.cut.kinds.map((k) => `<li><span class="k ${kindN(k.kind)}" ${kindStyle(k.kind)}>${icon(KIND[k.kind].icon)}</span>${esc(kindLabel(k.kind))} <b>${k.from} → ${k.to}</b></li>`).join('')}</ul>
+      ${p.cut.grouped ? `<p>${esc(t('plan.cutGrouped'))}</p>` : ''}`
+    : '';
+  return `${late}<div class="status warn stack">${icon('triangle-alert')}<div><p><b>${esc(t('plan.noFit', { d: day(d.targetDate), needed: d.needed, available: d.available, fixes }))}</b></p>${cut}</div></div>${moved}`;
 }
 
 function monthsHtml(p, done) {
@@ -713,7 +810,9 @@ function renderPlan() {
     out.innerHTML = `<p class="empty">${esc(lib(err.message))}.</p>`;
     return;
   }
-  const progressKey = `${KEYS.progress}${p.cert.id}:${p.sessions[0].date}`;
+  const planStart = p.sessions[0].date;
+  const progressKey = `${KEYS.progress}${p.cert.id}:${planStart}`;
+  p = movedPlan(p, progressKey, days);
   const done = new Set(store.get(progressKey, []));
   const tracked = isTracked(progressKey);
   if (tracked) setTracked(progressKey, trackParams(), true);
@@ -739,14 +838,24 @@ function renderPlan() {
   const today = todayLocal();
   const stopState = (s) => (done.has(s.n) ? ' done' : s.date < today ? ' missed' : s.date === today ? ' today' : '');
   const stopTag = (s) => (done.has(s.n) ? '' : s.date < today ? `<span class="tag warn">${t('progress.legendMissed')}</span>` : s.date === today ? `<span class="tag">${t('progress.today')}</span>` : '');
-  const PRACTICE_KINDS = ['baseline', 'practice', 'mock', 'remediate'];
+  // Sessions that have practice to go with them link to it: the session's domain, a full timed
+  // mock, a short diagnostic, or the review queue. The run ticks the session off when it ends.
+  const PRACTICE_LINK = { baseline: 'practice.linkBaseline', practice: 'practice.linkDomain', mock: 'practice.linkMock', remediate: 'practice.linkReview' };
+  const practiceHref = (s) => {
+    if (s.kind === 'remediate') return `#practice?cert=${cert.id}&tab=review`;
+    const q = new URLSearchParams({ cert: cert.id, plan: planStart, s: s.n });
+    if (s.kind === 'practice' && s.topic) q.set('domain', s.topic);
+    if (s.kind === 'mock') q.set('mode', 'mock');
+    if (s.kind === 'baseline') q.set('size', '10');
+    return `#practice?${q}`;
+  };
   const stop = (s) => `<li class="stop${stopState(s)}" data-kind="${s.kind}">
       <span class="node ${kindN(s.kind)}" ${kindStyle(s.kind)}>${icon(KIND[s.kind].icon)}</span>
       <div class="card body">
         <small>${day(s.date)} · ${kindLabel(s.kind)}${stopTag(s)}</small>
         <b>${esc(cap(sname(s)))}</b>
         <span class="len">${icon('clock')}${len(s.minutes)}</span>
-        ${cert.practice_questions && PRACTICE_KINDS.includes(s.kind) ? `<a class="pa-link" href="#practice?cert=${esc(cert.id)}">${icon('dumbbell')}${t('practice.planLink')}</a>` : ''}
+        ${cert.practice_questions && PRACTICE_LINK[s.kind] ? `<a class="pa-link" href="${esc(practiceHref(s))}">${icon('dumbbell')}${t(PRACTICE_LINK[s.kind])}</a>` : ''}
         <label class="check"><input type="checkbox" data-n="${s.n}" aria-label="${esc(t('plan.sessionDone', { n: s.n }))}" ${done.has(s.n) ? 'checked' : ''}><span>${icon('check')}</span></label>
       </div></li>`;
   const kinds = [...new Set(p.sessions.map((s) => s.kind))];
@@ -777,7 +886,7 @@ function renderPlan() {
       ${summaryStat('target', p.deadline ? t('plan.examDay') : t('plan.earliest'), day(examDay))}
       <div class="card progress-card" id="progress">${ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }))}<div><b id="progress-n">${t('plan.of', { a: done.size, b: p.sessions.length })}</b><small>${t('plan.done')}</small></div></div>
     </div>
-    ${statusHtml(p)}
+    <div id="plan-status">${statusHtml(p, done, days, progressKey)}</div>
     <div class="plan-actions">
       <button type="button" class="btn primary" id="dl-ics">${icon('calendar-plus')}${t('plan.calendar')}</button>
       <button type="button" class="btn" id="track-plan" aria-pressed="${tracked}">${icon('activity')}<span>${tracked ? t('plan.tracking') : t('plan.track')}</span></button>
@@ -824,13 +933,16 @@ function renderPlan() {
         cell.classList.toggle('missed', !box.checked && session.date < today);
       }
       $('#progress .ring').outerHTML = ring(pct(), 52, 'good pct', t('plan.pctDone', { p: pct() }));
+      $('#plan-status').innerHTML = statusHtml(p, done, days, progressKey);
       $('#progress-n').textContent = t('plan.of', { a: done.size, b: p.sessions.length });
       if (box.checked && !isTracked(progressKey)) setTracked(progressKey, trackParams(), true);
       const kind = p.sessions.find((s) => s.n === n)?.kind;
       if (box.checked && (done.size === p.sessions.length || kind === 'final' || kind === 'mock')) celebrate(done.size === p.sessions.length ? 220 : 90);
     }),
   );
-  $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(localPlan(p)), 'text/calendar'));
+  // Practice from a session counts for this plan, so it shows in Progress like a ticked session does.
+  $$('#plan-output .pa-link').forEach((a) => a.addEventListener('click', () => isTracked(progressKey) || setTracked(progressKey, trackParams(), true)));
+  $('#dl-ics').addEventListener('click', () => download(`${p.cert.id}-plan.ics`, toICS(localPlan(p), new Date(), { exam: t('plan.examDay') }), 'text/calendar'));
   $('#dl-md').addEventListener('click', () => download(`${p.cert.id}-plan.md`, toMarkdown(localPlan(p), { resources: cert.prep || [], text: markdownText() }), 'text/markdown'));
   $('#track-plan').addEventListener('click', () => setTracked(progressKey, trackParams(), !isTracked(progressKey)));
   $('#print-plan').addEventListener('click', () => window.print());
@@ -903,6 +1015,13 @@ function bind() {
       setTracked(btn.dataset.key, null, false);
       renderProgress();
     }
+    if (btn.dataset.act === 'resched' || btn.dataset.act === 'unresched') {
+      const onPlan = !$('#view-plan').hidden;
+      const params = onPlan ? trackParams() : trackedPlans()[btn.dataset.key];
+      if (params) (btn.dataset.act === 'resched' ? rescheduleFrom : undoReschedule)(btn.dataset.key, params);
+      if (onPlan) renderPlan();
+      else renderProgress();
+    }
     if (btn.dataset.act === 'use-hours') {
       hoursTouched = false;
       $('#plan-form').hours.value = suggested;
@@ -953,6 +1072,8 @@ function bind() {
       hoursTouched = false;
       setEstimate();
       renderConfidence();
+      // Keep the address on the certification shown, so back, reload and links agree with it.
+      history.replaceState(null, '', `#plan?cert=${encodeURIComponent(e.target.value)}`);
     }
     updateHint();
     renderPlan();
@@ -986,12 +1107,16 @@ function bind() {
 // ---------- practice ----------
 const PRACTICE = new Map();
 let practiceTimer = null;
+let practiceKey = null;
 let practiceState = null;
 const practiceKeys = (id) => ({ run: `${KEYS.practice}run:${id}`, history: `${KEYS.practice}${id}`, review: `${KEYS.practice}review:${id}` });
 const REVIEW_SIZE = 20;
+// A suggested accuracy to reach in practice before booking. pathfinder's suggestion, not an issuer rule.
+const TARGET = 80;
 const stopPracticeTimer = () => {
   clearInterval(practiceTimer);
   practiceTimer = null;
+  practiceKey = null;
 };
 
 async function loadPractice(id) {
@@ -1009,17 +1134,42 @@ const clock = (ms) => {
   const s = Math.max(0, Math.ceil(ms / 1000));
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 };
-const domainBars = (per) =>
+const domainBars = (per, target = null) =>
   `<ul class="pa-domains">${per
     .map(
-      (d, i) => `<li><span>${esc(d.name)} <small>${d.weight}%</small></span><span class="hb-track"><i style="width:${d.pct ?? 0}%;background:${domainColor(i)}"></i></span><b>${d.pct === null ? '—' : `${d.pct}%`}</b><small>${d.ok}/${d.n}</small></li>`,
+      (d, i) => `<li><span>${esc(d.name)} <small>${d.weight}%</small></span><span class="hb-track"><i style="width:${d.pct ?? 0}%;background:${domainColor(i)}"></i>${target ? `<span class="pa-mark" style="left:${target}%"></span>` : ''}</span><b>${d.pct === null ? '—' : `${d.pct}%`}</b><small>${d.ok}/${d.n}</small></li>`,
     )
     .join('')}</ul>`;
+
+/** A certification without practice questions, or none named: say so and list the ones that have them. */
+function practiceMissing(c) {
+  const sets = DATA.certifications.filter((x) => x.practice_questions);
+  $('#practice-body').innerHTML = `${c ? `<a class="back" href="#cert?id=${esc(c.id)}">${icon('arrow-left')}${esc(c.name)}</a>` : ''}
+    <div class="page-head"><span class="head-icon">${icon('dumbbell')}</span><h1>${t('practice.title')}</h1></div>
+    <div class="status info">${icon('info')}<span>${esc(c ? t('practice.noSet', { x: c.name }) : t('practice.pickSet'))}${c ? ` <a href="#cert?id=${esc(c.id)}">${esc(t('practice.toCert'))}</a>` : ''}</span></div>
+    <section class="card panel"><h2>${icon('dumbbell')}${t('practice.withSets')}</h2><ul class="choose-list">${sets
+      .map((x) => certRow(x, `#practice?cert=${x.id}`, `${x.provider} · ${x.code} · ${t('practice.count', { n: x.practice_questions })}`))
+      .join('')}</ul></section>`;
+}
+
+/** The tracked plan session a practice link came from (?plan=<first session date>&s=<n>). */
+function planSession(certId, params) {
+  const start = params.get('plan');
+  const n = Number(params.get('s'));
+  if (!start || !n) return null;
+  const key = `${KEYS.progress}${certId}:${start}`;
+  const tracked = trackedPlans()[key];
+  const session = tracked && planFrom(tracked, key)?.sessions.find((s) => s.n === n);
+  return session ? { key, n, session, params: tracked } : null;
+}
+
+const sessionName = (s) => `${kindLabel(s.kind)}: ${cap(sname(s))}`;
 
 async function renderPractice(id, params) {
   stopPracticeTimer();
   const body = $('#practice-body');
   const c = BY_ID.get(id);
+  if (!c?.practice_questions) return practiceMissing(c);
   let set;
   try {
     set = await loadPractice(id);
@@ -1032,7 +1182,7 @@ async function renderPractice(id, params) {
   const keys = practiceKeys(id);
   const history = () => store.get(keys.history, emptyHistory());
   const review = () => loadReview(store.get(keys.review, null), history(), Date.now());
-  const ctx = { id, c, set, keys, history, review, tab: params.get('tab') || 'start', attempt: params.get('attempt') };
+  const ctx = { id, c, set, keys, history, review, params, from: planSession(id, params), tab: params.get('tab') || 'start', attempt: params.get('attempt') };
   practiceState = ctx;
   const run = store.get(keys.run, null);
   if (run && run.timed && !run.paused && run.end <= Date.now()) return finishPractice(ctx, run);
@@ -1057,26 +1207,43 @@ function practiceHome(ctx, run) {
   if (ctx.tab === 'bank') return practiceBank(ctx);
   if (ctx.tab === 'mistakes') return practiceMistakes(ctx);
   if (ctx.tab === 'review') return practiceReviewTab(ctx);
-  const { c, set, id } = ctx;
-  const pool = set.questions.length;
+  const { c, set, id, from } = ctx;
   const full = examSize(c);
-  const sizes = pool >= full ? [[10, '10'], [full, t('practice.sizeFull', { n: full })]] : [[10, '10'], [pool, t('practice.sizeAll', { n: pool })]];
   const hist = ctx.history();
+  // From a plan session: its domain in study mode, a mock at full length with the clock, or 10 questions.
+  const preset = {
+    domain: c.domains.some((d) => d.name === ctx.params.get('domain')) ? ctx.params.get('domain') : '',
+    mock: ctx.params.get('mode') === 'mock',
+    size: Number(ctx.params.get('size')) || 0,
+  };
+  const studyFirst = !!preset.domain && !preset.mock;
+  const inDomain = (name) => set.questions.filter((q) => q.domain === name).length;
   const when = (ms) => new Date(ms).toLocaleDateString(getLang());
   const past = [...hist.attempts].reverse().slice(0, 10);
   const due = dueCount(ctx);
+  const radio = (name, value, label, on) => `<label><input type="radio" name="${name}" value="${esc(value)}" ${on ? 'checked' : ''}><span>${esc(label)}</span></label>`;
+  // One primary action: continue the run in progress, or start a new one.
   $('#practice-body').innerHTML = `${practiceHead(ctx, 'start')}
+    ${from ? `<div class="status info pa-resume">${icon('route')}<span>${esc(t('practice.fromPlan', { x: sessionName(from.session), d: day(from.session.date) }))}</span></div>` : ''}
     ${run ? `<div class="status pa-resume">${icon('timer')}<span>${esc(t('practice.resume', { a: Object.keys(run.answers).length, b: run.ids.length }))}</span>
       <a class="btn primary" href="#practice?cert=${esc(id)}&run=1">${t('practice.continue')}</a><button type="button" class="btn" id="pa-discard">${t('practice.discard')}</button></div>` : ''}
-    ${due ? `<div class="status pa-resume">${icon('refresh-cw')}<span>${esc(t('practice.reviewDue', { n: due }))}</span><a class="btn primary" href="#practice?cert=${esc(id)}&review=due">${t('practice.reviewStart')}</a></div>` : ''}
-    <section class="card panel">
-      <h2>${icon('play')}${t('practice.tabStart')}</h2>
-      <div class="pa-setup">
-        <div class="segmented" role="radiogroup" aria-label="${esc(t('practice.size'))}">${sizes.map(([n, label], i) => `<label><input type="radio" name="pa-size" value="${n}" ${i === sizes.length - 1 ? 'checked' : ''}><span>${esc(label)}</span></label>`).join('')}</div>
-        <label class="pa-check"><input type="checkbox" id="pa-timed" checked> <span id="pa-timed-label"></span></label>
-        <button type="button" class="btn primary" id="pa-start" ${run ? 'disabled' : ''}>${icon('play')}${t('practice.start')}</button>
+    ${due ? `<div class="status pa-resume">${icon('refresh-cw')}<span>${esc(t('practice.reviewDue', { n: due }))}</span><a class="btn" href="#practice?cert=${esc(id)}&review=due">${t('practice.reviewStart')}</a></div>` : ''}
+    <section class="card panel pa-start">
+      <div class="pa-form">
+        <span class="pa-label" id="pa-mode-l">${t('practice.mode')}</span>
+        <div class="pa-field"><div class="segmented" role="radiogroup" aria-labelledby="pa-mode-l">${radio('pa-mode', 'exam', t('practice.modeExam'), !studyFirst)}${radio('pa-mode', 'study', t('practice.modeStudy'), studyFirst)}</div><p class="hint" id="pa-mode-hint"></p></div>
+        <label class="pa-label" for="pa-domain-pick">${t('practice.domain')}</label>
+        <div class="pa-field"><select id="pa-domain-pick"><option value="">${esc(t('practice.allDomains'))} (${set.questions.length})</option>${c.domains
+          .filter((d) => inDomain(d.name))
+          .map((d) => `<option value="${esc(d.name)}" ${d.name === preset.domain ? 'selected' : ''}>${esc(d.name)} (${inDomain(d.name)})</option>`)
+          .join('')}</select></div>
+        <span class="pa-label" id="pa-size-l">${t('practice.size')}</span>
+        <div class="pa-field"><div class="segmented" role="radiogroup" aria-labelledby="pa-size-l" id="pa-sizes"></div></div>
+        <span class="pa-label" aria-hidden="true"></span>
+        <label class="pa-check" id="pa-timed-row"><input type="checkbox" id="pa-timed" checked> <span id="pa-timed-label"></span></label>
       </div>
-      ${pool < full ? `<p class="hint">${esc(t('practice.shortBank', { need: full, n: pool }))}</p>` : ''}
+      <div class="pa-go"><button type="button" class="btn${run ? '' : ' primary'}" id="pa-start" ${run ? 'disabled' : ''}>${icon('play')}${t('practice.start')}</button></div>
+      <p class="hint" id="pa-short" hidden></p>
     </section>
     ${hist.attempts.length
       ? `<div class="progress-cols">
@@ -1086,29 +1253,94 @@ function practiceHome(ctx, run) {
             .join('')}</ul></section>
         </div>`
       : `<p class="hint">${esc(t('practice.noHistory'))}</p>`}`;
+  const mode = () => $('input[name="pa-mode"]:checked').value;
+  const domain = () => $('#pa-domain-pick').value;
+  const pool = () => (domain() ? set.questions.filter((q) => q.domain === domain()) : set.questions);
   const size = () => Number($('input[name="pa-size"]:checked').value);
-  const label = () => ($('#pa-timed-label').textContent = t('practice.timed', { min: minutesFor({ minutes: c.exam.minutes, questions: full }, Math.min(size(), pool)) }));
-  label();
-  $$('input[name="pa-size"]').forEach((r) => r.addEventListener('change', label));
+  const minutes = () => minutesFor({ minutes: c.exam.minutes, questions: full }, Math.min(size(), pool().length));
+  const paintSizes = () => {
+    const n = pool().length;
+    const sizes = domain() ? (n > 10 ? [[10, '10'], [n, t('practice.sizeAll', { n })]] : [[n, t('practice.sizeAll', { n })]]) : n >= full ? [[10, '10'], [full, t('practice.sizeFull', { n: full })]] : [[10, '10'], [n, t('practice.sizeAll', { n })]];
+    const pick = sizes.some(([v]) => v === preset.size) ? preset.size : sizes.at(-1)[0];
+    $('#pa-sizes').innerHTML = sizes.map(([v, label]) => radio('pa-size', v, label, v === pick)).join('');
+    $('#pa-short').hidden = n >= full || !!domain();
+    $('#pa-short').textContent = t('practice.shortBank', { need: full, n });
+  };
+  const paint = () => {
+    $('#pa-mode-hint').textContent = t(mode() === 'study' ? 'practice.modeStudyHint' : 'practice.modeExamHint');
+    $('#pa-timed-row').hidden = mode() === 'study';
+    $('#pa-timed-label').textContent = t('practice.timed', { min: minutes() });
+  };
+  paintSizes();
+  paint();
+  $('#pa-domain-pick').addEventListener('change', paintSizes);
+  $('#practice-body .pa-start').addEventListener('change', paint);
   $('#pa-discard')?.addEventListener('click', () => {
     store.set(ctx.keys.run, null);
     practiceHome(ctx, null);
   });
   $('#pa-start').addEventListener('click', () => {
-    const count = Math.min(size(), pool);
-    const timed = $('#pa-timed').checked;
-    const minutes = minutesFor({ minutes: c.exam.minutes, questions: full }, count);
-    const ids = buildRun({ questions: set.questions, domains: c.domains, size: count, seen: new Set(Object.keys(hist.questions)) });
+    const count = Math.min(size(), pool().length);
+    const study = mode() === 'study';
+    const timed = !study && $('#pa-timed').checked;
+    const domains = domain() ? c.domains.filter((d) => d.name === domain()) : c.domains;
+    const ids = buildRun({ questions: pool(), domains, size: count, seen: new Set(Object.keys(hist.questions)) });
     const now = Date.now();
-    store.set(ctx.keys.run, { ids, answers: {}, marked: [], cur: 0, timed, minutes, end: now + minutes * 60000, paused: null });
+    store.set(ctx.keys.run, {
+      ids,
+      answers: {},
+      marked: [],
+      checked: [],
+      mode: study ? 'study' : 'exam',
+      domain: domain() || null,
+      from: from ? { key: from.key, n: from.n } : null,
+      cur: 0,
+      timed,
+      minutes: minutes(),
+      end: now + minutes() * 60000,
+      paused: null,
+    });
     location.hash = `#practice?cert=${id}&run=1`;
   });
 }
+
+// Keys for the question on screen (practiceKey): 1–9 or the option's letter picks it, Enter goes on.
+document.addEventListener('keydown', (e) => {
+  if (!practiceKey || e.ctrlKey || e.metaKey || e.altKey || e.isComposing || $('#view-practice').hidden) return;
+  if (e.target.closest('input, textarea, select, [contenteditable]')) return;
+  practiceKey(e);
+});
+
+/** A handler for practiceKey. A focused button or link handles Enter itself. */
+const optionKeys = (q, pick, enter) => (e) => {
+  if (e.key === 'Enter') {
+    if (e.target.closest('button, a, summary')) return;
+    e.preventDefault();
+    enter();
+    return;
+  }
+  if (e.key.length !== 1) return;
+  const k = e.key.toUpperCase();
+  const opt = /^[1-9]$/.test(k) ? q.options[Number(k) - 1] : q.options.find((o) => o.key.toUpperCase() === k);
+  if (!opt) return;
+  e.preventDefault();
+  pick(opt.key);
+};
+
+const keysHint = (q, key) => `<p class="hint pa-keys">${esc(t(key, { n: q.options.length, last: q.options.at(-1).key }))}</p>`;
+
+/** The answer just checked in study mode or review: right or not, then the explanation. */
+const verdictHtml = (q, right, text) =>
+  `<div class="status ${right ? 'good' : 'warn'} pa-verdict" role="status">${icon(right ? 'circle-check' : 'triangle-alert')}<span>${esc(text)}</span></div><p class="pa-why">${esc(pText(q.explanation))}</p>`;
 
 function practiceExam(ctx, run) {
   const byId = new Map(ctx.set.questions.map((q) => [q.id, q]));
   const save = () => store.set(ctx.keys.run, run);
   const left = () => run.ids.length - run.ids.filter((x) => run.answers[x]?.length).length;
+  // Study mode shows the answer and the explanation once a question is checked; exam mode waits for the end.
+  const study = run.mode === 'study';
+  run.checked ||= [];
+  const isChecked = (x) => study && run.checked.includes(x);
   let asking = false;
   const tick = () => {
     if (!run.timed || run.paused) return;
@@ -1123,16 +1355,31 @@ function practiceExam(ctx, run) {
       finishPractice(ctx, run);
     }
   };
+  const finishNow = () => {
+    if (run.paused) {
+      run.end += Date.now() - run.paused;
+      run.paused = null;
+    }
+    stopPracticeTimer();
+    finishPractice(ctx, run);
+  };
   const paint = () => {
     const q = byId.get(run.ids[run.cur]);
     const picked = run.answers[q.id] || [];
     const multi = q.correct.length > 1;
+    const shown = isChecked(q.id);
+    const last = run.cur === run.ids.length - 1;
     const grid = run.ids
-      .map((x, i) => `<button type="button" data-go="${i}" class="${run.answers[x]?.length ? 'ans' : ''}${run.marked.includes(x) ? ' mk' : ''}" ${i === run.cur ? 'aria-current="true"' : ''}>${i + 1}</button>`)
+      .map((x, i) => `<button type="button" data-go="${i}" class="${run.answers[x]?.length ? 'ans' : ''}${isChecked(x) ? (isCorrect(byId.get(x), run.answers[x]) ? ' ok' : ' no') : ''}${run.marked.includes(x) ? ' mk' : ''}" ${i === run.cur ? 'aria-current="true"' : ''}>${i + 1}</button>`)
       .join('');
+    const primary = study && !shown
+      ? `<button type="button" class="btn primary" id="pa-check" ${picked.length ? '' : 'disabled'}>${icon('check')}${t('practice.check')}</button>`
+      : study && last
+        ? `<button type="button" class="btn primary" id="pa-done">${t('practice.seeResult')}${icon('arrow-right')}</button>`
+        : `<button type="button" class="btn primary" id="pa-next" ${last ? 'disabled' : ''}>${t('practice.next')}${icon('arrow-right')}</button>`;
     $('#practice-body').innerHTML = `
       <div class="pa-bar">
-        ${run.timed ? `<b id="pa-clock" class="pa-clock" role="timer">${run.paused ? clock(run.end - run.paused) : clock(run.end - Date.now())}</b><button type="button" class="btn" id="pa-pause">${icon(run.paused ? 'play' : 'pause')}${t(run.paused ? 'practice.play' : 'practice.pause')}</button>` : ''}
+        ${run.timed ? `<b id="pa-clock" class="pa-clock" role="timer">${run.paused ? clock(run.end - run.paused) : clock(run.end - Date.now())}</b><button type="button" class="btn" id="pa-pause">${icon(run.paused ? 'play' : 'pause')}${t(run.paused ? 'practice.play' : 'practice.pause')}</button>` : `<span class="tag">${esc(t(study ? 'practice.modeStudy' : 'practice.modeExam'))}</span>`}
         <span class="pa-spacer"></span>
         <button type="button" class="btn" id="pa-finish">${icon('flag')}${t('practice.finish')}</button>
       </div>
@@ -1142,15 +1389,19 @@ function practiceExam(ctx, run) {
         : `<section class="card panel pa-q">
             <small class="pa-meta">${esc(t('practice.q', { a: run.cur + 1, b: run.ids.length }))} · ${esc(q.domain)}</small>
             <h2 class="pa-prompt">${esc(pText(q.prompt))}</h2>
-            ${multi ? `<p class="pa-pick">${esc(t('practice.selectN', { n: q.correct.length }))}</p>` : ''}
-            <div class="pa-options">${q.options
-              .map((o) => `<button type="button" class="pa-opt${multi ? ' multi' : ''}" data-key="${esc(o.key)}" aria-pressed="${picked.includes(o.key)}"><span class="k">${esc(o.key)}</span><span>${esc(pText(o.text))}</span></button>`)
-              .join('')}</div>
+            ${multi && !shown ? `<p class="pa-pick">${esc(t('practice.selectN', { n: q.correct.length }))}</p>` : ''}
+            <div class="pa-options">${shown
+              ? shownOptions(q, picked)
+              : q.options
+                  .map((o) => `<button type="button" class="pa-opt${multi ? ' multi' : ''}" data-key="${esc(o.key)}" aria-pressed="${picked.includes(o.key)}"><span class="k">${esc(o.key)}</span><span>${esc(pText(o.text))}</span></button>`)
+                  .join('')}</div>
+            ${shown ? verdictHtml(q, isCorrect(q, picked), t(isCorrect(q, picked) ? 'practice.studyRight' : 'practice.studyWrong')) : ''}
             <div class="pa-nav">
               <button type="button" class="btn" id="pa-prev" ${run.cur === 0 ? 'disabled' : ''}>${icon('arrow-left')}${t('practice.prev')}</button>
               <button type="button" class="btn" id="pa-mark" aria-pressed="${run.marked.includes(q.id)}">${icon('flag')}${t(run.marked.includes(q.id) ? 'practice.marked' : 'practice.mark')}</button>
-              <button type="button" class="btn primary" id="pa-next" ${run.cur === run.ids.length - 1 ? 'disabled' : ''}>${t('practice.next')}${icon('arrow-right')}</button>
+              ${primary}
             </div>
+            ${keysHint(q, study ? 'practice.keysStudy' : 'practice.keysExam')}
           </section>
           <nav class="pa-grid" aria-label="${esc(t('practice.grid'))}">${grid}</nav>`}`;
     const on = (sel, fn) => $(sel)?.addEventListener('click', fn);
@@ -1170,43 +1421,51 @@ function practiceExam(ctx, run) {
       asking = false;
       paint();
     });
-    on('#pa-yes', () => {
-      if (run.paused) {
-        run.end += Date.now() - run.paused;
-        run.paused = null;
-      }
-      stopPracticeTimer();
-      finishPractice(ctx, run);
-    });
+    on('#pa-yes', finishNow);
     const go = (i) => {
       run.cur = i;
       save();
       paint();
       window.scrollTo(0, 0);
     };
+    const choose = (k) => {
+      if (shown) return;
+      const now = run.answers[q.id] || [];
+      if (multi) run.answers[q.id] = now.includes(k) ? now.filter((x) => x !== k) : [...now, k];
+      else run.answers[q.id] = now[0] === k ? [] : [k];
+      save();
+      paint();
+    };
+    const check = () => {
+      if (!picked.length) return;
+      run.checked = [...run.checked, q.id];
+      save();
+      paint();
+      $('#pa-next:not(:disabled), #pa-done')?.focus({ preventScroll: true });
+    };
+    const done = () => {
+      if (left()) {
+        asking = true;
+        paint();
+      } else finishNow();
+    };
     on('#pa-prev', () => go(run.cur - 1));
     on('#pa-next', () => go(run.cur + 1));
+    on('#pa-check', check);
+    on('#pa-done', done);
     on('#pa-mark', () => {
       run.marked = run.marked.includes(q.id) ? run.marked.filter((x) => x !== q.id) : [...run.marked, q.id];
       save();
       paint();
     });
     $$('#practice-body [data-go]').forEach((b) => b.addEventListener('click', () => go(Number(b.dataset.go))));
-    $$('#practice-body .pa-opt').forEach((b) =>
-      b.addEventListener('click', () => {
-        const k = b.dataset.key;
-        const now = run.answers[q.id] || [];
-        if (multi) run.answers[q.id] = now.includes(k) ? now.filter((x) => x !== k) : [...now, k];
-        else run.answers[q.id] = now[0] === k ? [] : [k];
-        save();
-        paint();
-      }),
-    );
+    $$('#practice-body .pa-opt[data-key]').forEach((b) => b.addEventListener('click', () => choose(b.dataset.key)));
+    practiceKey = run.paused || asking ? null : optionKeys(q, choose, () => (study && !shown ? check() : study && last ? done() : !last && go(run.cur + 1)));
   };
   paint();
   // The interval exists before the first tick, so an expired run cannot leave one running.
   if (run.timed) {
-    stopPracticeTimer();
+    clearInterval(practiceTimer);
     practiceTimer = setInterval(tick, 1000);
     tick();
   }
@@ -1223,9 +1482,16 @@ function finishPractice(ctx, run) {
     return;
   }
   const when = Date.now();
+  const meta = { mode: run.mode || 'exam', ...(run.domain ? { domain: run.domain } : {}) };
+  if (run.from) {
+    // A run started from a plan session ticks it off once at least half of it was answered.
+    const ticked = result.n * 2 >= run.ids.length;
+    if (ticked) store.set(run.from.key, [...new Set([...store.get(run.from.key, []), run.from.n])]);
+    meta.from = { ...run.from, ticked };
+  }
   // Read the schedule before the history changes: with no schedule saved yet, it starts from the old history.
   const review = ctx.review();
-  store.set(keys.history, record(ctx.history(), result, answers, when));
+  store.set(keys.history, record(ctx.history(), result, answers, when, meta));
   store.set(keys.review, applyRun(review, result, run.marked || [], when));
   if (result.pct >= 70) celebrate(90);
   location.hash = `#practice?cert=${id}&attempt=a${when}`;
@@ -1245,7 +1511,7 @@ const reviewCard = (q, answer, state = '') =>
   `<details class="card pa-review"><summary><small class="pa-meta">${esc(q.domain)}${state ? ` · ${state}` : ''}</small><b>${esc(pText(q.prompt))}</b></summary><div class="pa-options">${shownOptions(q, answer || [])}</div><p class="pa-why">${esc(pText(q.explanation))}</p></details>`;
 
 function practiceResult(ctx) {
-  const { id, set } = ctx;
+  const { id, set, c } = ctx;
   const a = ctx.history().attempts.find((x) => x.id === ctx.attempt);
   if (!a) {
     location.hash = `#practice?cert=${id}`;
@@ -1254,22 +1520,50 @@ function practiceResult(ctx) {
   const missed = new Set(a.wrong);
   const answered = set.questions.filter((q) => a.answers[q.id]);
   const due = dueCount(ctx);
+  // The plan session this run came from: marked done (with undo), or offered when too little was answered.
+  const tracked = a.from && trackedPlans()[a.from.key];
+  const session = tracked && planFrom(tracked, a.from.key)?.sessions.find((s) => s.n === a.from.n);
+  const sessionHtml = () => {
+    if (!session) return '';
+    const done = store.get(a.from.key, []).includes(a.from.n);
+    const text = t(done ? 'practice.sessionDone' : a.from.ticked ? 'practice.sessionOpen' : 'practice.sessionOffer', { x: sessionName(session) });
+    return `<div class="status ${done ? 'good' : 'info'} pa-resume" id="pa-session" role="status">${icon(done ? 'circle-check' : 'route')}<span>${esc(text)}</span>
+      <button type="button" class="btn" id="pa-session-toggle">${t(done ? 'practice.undo' : 'practice.markDone')}</button>
+      <a class="btn" href="#plan?${esc(new URLSearchParams(tracked).toString())}">${icon('route')}${t('practice.toPlan')}</a></div>`;
+  };
+  const bindSession = () =>
+    $('#pa-session-toggle')?.addEventListener('click', () => {
+      const done = new Set(store.get(a.from.key, []));
+      if (done.has(a.from.n)) done.delete(a.from.n);
+      else done.add(a.from.n);
+      store.set(a.from.key, [...done]);
+      $('#pa-session').outerHTML = sessionHtml();
+      bindSession();
+      $('#pa-session-toggle').focus();
+    });
   const paint = (onlyWrong) => {
     const list = onlyWrong ? answered.filter((q) => missed.has(q.id)) : answered;
     $('#practice-body').innerHTML = `<a class="back" href="#practice?cert=${esc(id)}">${icon('arrow-left')}${t('practice.back')}</a>
       <div class="page-head"><span class="head-icon">${icon('target')}</span><h1>${t('practice.result')}</h1></div>
+      ${sessionHtml()}
       <section class="card panel pa-score">
         <b class="pa-big">${a.pct}%</b>
         <div><p>${esc(t('practice.resultOf', { ok: a.ok, n: a.n }))}</p>
         ${a.total > a.n ? `<p class="hint">${esc(t('practice.resultLeft', { n: a.total - a.n }))}</p>` : ''}
-        <p class="hint">${esc(t('practice.weighted', { p: a.weighted }))}</p><p class="hint">${esc(t('practice.notScore'))}</p></div>
+        <p class="hint">${esc(t('practice.weighted', { p: a.weighted }))}</p></div>
         <a class="btn primary" href="#practice?cert=${esc(id)}">${icon('play')}${t('practice.again')}</a>
         ${due ? `<a class="btn" href="#practice?cert=${esc(id)}&review=due">${icon('refresh-cw')}${t('practice.tabReview')} · ${due}</a>` : ''}
+        <dl class="pa-pass">
+          ${c.exam.passing ? `<div><dt>${t('practice.passing')}</dt><dd>${esc(c.exam.passing)}</dd></div>` : ''}
+          <div><dt>${t('practice.target')} <span class="tag">${t('practice.suggestion')}</span></dt><dd>${esc(t('practice.targetValue', { p: TARGET }))}</dd></div>
+        </dl>
+        <p class="hint pa-note">${esc(t('practice.notScore'))} ${esc(t('practice.scaled'))}</p>
       </section>
-      <section class="card panel"><h2>${icon('chart-bar')}${t('practice.byDomain')}</h2>${domainBars(a.per)}</section>
+      <section class="card panel"><h2>${icon('chart-bar')}${t('practice.byDomain')}</h2>${domainBars(a.per, TARGET)}<p class="hint pa-note">${esc(t('practice.targetLine', { p: TARGET }))}</p></section>
       <div class="pa-reviewhead"><h2>${t('practice.review')}</h2><div class="segmented"><label><input type="radio" name="pa-rev" value="all" ${onlyWrong ? '' : 'checked'}><span>${t('practice.reviewAll')}</span></label><label><input type="radio" name="pa-rev" value="wrong" ${onlyWrong ? 'checked' : ''}><span>${t('practice.reviewWrong')} (${missed.size})</span></label></div></div>
       ${list.map((q) => reviewCard(q, a.answers[q.id], missed.has(q.id) ? `<span class="tag warn">${icon('flag')}</span>` : '')).join('')}`;
     $$('input[name="pa-rev"]').forEach((r) => r.addEventListener('change', () => paint(r.value === 'wrong' && r.checked)));
+    bindSession();
   };
   paint(a.wrong.length > 0);
 }
@@ -1317,6 +1611,7 @@ function practiceReview(ctx, early) {
     <div class="page-head"><span class="head-icon">${icon('refresh-cw')}</span><h1>${t('practice.tabReview')}: ${esc(ctx.c.code)}</h1></div>`;
   const paint = () => {
     if (cur >= ids.length) {
+      practiceKey = null;
       const left = dueCount(ctx);
       $('#practice-body').innerHTML = `${head}
         <section class="card panel pa-score">
@@ -1342,21 +1637,22 @@ function practiceReview(ctx, early) {
         <h2 class="pa-prompt">${esc(pText(q.prompt))}</h2>
         ${multi && !verdict ? `<p class="pa-pick">${esc(t('practice.selectN', { n: q.correct.length }))}</p>` : ''}
         <div class="pa-options">${options}</div>
-        ${verdict ? `<div class="status ${verdict.right ? 'good' : 'warn'} pa-verdict" role="status">${icon(verdict.right ? 'circle-check' : 'triangle-alert')}<span>${esc(verdict.text)}</span></div><p class="pa-why">${esc(pText(q.explanation))}</p>` : ''}
+        ${verdict ? verdictHtml(q, verdict.right, verdict.text) : ''}
         <div class="pa-nav pa-nav-end">${
           verdict
             ? `<button type="button" class="btn primary" id="pa-next">${cur === ids.length - 1 ? t('practice.finish') : t('practice.next')}${icon('arrow-right')}</button>`
             : `<button type="button" class="btn primary" id="pa-check" ${picked.length ? '' : 'disabled'}>${icon('check')}${t('practice.check')}</button>`
         }</div>
+        ${keysHint(q, 'practice.keysStudy')}
       </section>`;
-    $$('#practice-body .pa-opt[data-key]').forEach((b) =>
-      b.addEventListener('click', () => {
-        const k = b.dataset.key;
-        if (multi) picked = picked.includes(k) ? picked.filter((x) => x !== k) : [...picked, k];
-        else picked = picked[0] === k ? [] : [k];
-        paint();
-      }),
-    );
+    const choose = (k) => {
+      if (verdict) return;
+      if (multi) picked = picked.includes(k) ? picked.filter((x) => x !== k) : [...picked, k];
+      else picked = picked[0] === k ? [] : [k];
+      paint();
+    };
+    $$('#practice-body .pa-opt[data-key]').forEach((b) => b.addEventListener('click', () => choose(b.dataset.key)));
+    practiceKey = optionKeys(q, choose, () => (verdict ? $('#pa-next').click() : picked.length && $('#pa-check').click()));
     $('#pa-check')?.addEventListener('click', () => {
       const now = Date.now();
       const right = isCorrect(q, picked);
@@ -1366,7 +1662,7 @@ function practiceReview(ctx, early) {
       if (right) ok += 1;
       verdict = {
         right,
-        text: !right ? t('practice.reviewWrong') : after === before ? t('practice.reviewRightEarly') : t('practice.reviewRight', { n: daysUntil(after.cards[q.id].due, now) }),
+        text: !right ? t('practice.reviewMiss') : after === before ? t('practice.reviewRightEarly') : t('practice.reviewRight', { n: daysUntil(after.cards[q.id].due, now) }),
       };
       paint();
       $('#pa-next')?.focus();
@@ -1441,11 +1737,17 @@ function practiceMistakes(ctx) {
 function practiceProgress() {
   const rows = DATA.certifications
     .filter((c) => c.practice_questions)
-    .map((c) => ({ c, attempts: store.get(practiceKeys(c.id).history, emptyHistory()).attempts }))
+    .map((c) => {
+      const keys = practiceKeys(c.id);
+      const history = store.get(keys.history, emptyHistory());
+      const now = Date.now();
+      const due = Object.values(loadReview(store.get(keys.review, null), history, now).cards).filter((card) => card.due <= now).length;
+      return { c, attempts: history.attempts, due };
+    })
     .filter((x) => x.attempts.length);
   if (!rows.length) return '';
   return `<section class="card panel"><h2>${icon('dumbbell')}${t('practice.progress')}</h2><ul class="pa-history">${rows
-    .map(({ c, attempts }) => `<li><span>${esc(c.code)}</span><small>${esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct }))}</small><a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
+    .map(({ c, attempts, due }) => `<li><span>${esc(c.code)}</span><small>${esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct }))}</small>${due ? `<a href="#practice?cert=${esc(c.id)}&tab=review">${icon('refresh-cw')}${esc(t('practice.progressDue', { n: due }))}</a>` : ''}<a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
     .join('')}</ul></section>`;
 }
 
@@ -1470,11 +1772,51 @@ function setTracked(key, params, on) {
   }
 }
 
-function planFrom(params) {
+// Rescheduling saves new dates (and sessions left out) per plan, next to its ticks. They belong to
+// the plan they were made on: a plan rebuilt with other settings drops them.
+const reschedKey = (key) => key.replace(KEYS.progress, KEYS.resched);
+const planSig = (p) => `${p.sessions.length}:${p.hours}:${p.sessions.at(-1).date}`;
+const daysOf = (params) => params.days.split(',').filter(Boolean).map(Number);
+
+function savedMoves(base, key) {
+  const saved = store.get(reschedKey(key), null);
+  return saved && saved.sig === planSig(base) ? saved : null;
+}
+
+function movedPlan(base, key, days) {
+  const saved = savedMoves(base, key);
+  return saved ? { ...applyMoves(base, saved, days), rescheduled: saved } : base;
+}
+
+/** Move what is left of a plan onto the study days from today, keeping one step of undo. */
+function rescheduleFrom(key, params) {
+  const base = planFrom(params);
+  if (!base) return;
+  const days = daysOf(params);
+  const saved = savedMoves(base, key);
+  const p = saved ? applyMoves(base, saved, days) : base;
+  const r = reschedule({ sessions: p.sessions, done: store.get(key, []), today: todayLocal(), days, targetDate: params.exam || null });
+  store.set(reschedKey(key), {
+    sig: planSig(base),
+    on: todayLocal(),
+    dates: { ...saved?.dates, ...r.dates },
+    skipped: [...(saved?.skipped || []), ...r.skipped],
+    prev: saved ? { on: saved.on, dates: saved.dates, skipped: saved.skipped } : null,
+  });
+  if (!isTracked(key)) setTracked(key, params, true);
+}
+
+function undoReschedule(key) {
+  const saved = store.get(reschedKey(key), null);
+  store.set(reschedKey(key), saved?.prev ? { sig: saved.sig, ...saved.prev, prev: null } : null);
+}
+
+/** A tracked plan rebuilt from its settings; with its key, its saved moves applied too. */
+function planFrom(params, key = null) {
   const cert = BY_ID.get(params.cert);
   if (!cert) return null;
   try {
-    return buildPlan({
+    const plan = buildPlan({
       cert,
       hours: Number(params.hours),
       start: params.start,
@@ -1484,6 +1826,7 @@ function planFrom(params) {
       confidence: store.get(confidenceKey(cert.id), {}),
       targetDate: params.exam || null,
     });
+    return key ? movedPlan(plan, key, daysOf(params)) : plan;
   } catch {
     return null;
   }
@@ -1493,7 +1836,7 @@ function planFrom(params) {
 function progressData() {
   const today = todayLocal();
   const plans = Object.entries(trackedPlans())
-    .map(([key, params]) => ({ key, params, plan: planFrom(params) }))
+    .map(([key, params]) => ({ key, params, plan: planFrom(params, key) }))
     .filter((x) => x.plan);
   const sessions = [];
   for (const x of plans) {
@@ -1553,10 +1896,13 @@ function renderProgress() {
     const pct = Math.round((x.done.size / total) * 100);
     const nextOne = x.plan.sessions.find((s) => !x.done.has(s.n) && s.date >= today) || x.plan.sessions.find((s) => !x.done.has(s.n));
     const examDay = x.plan.deadline ? x.plan.deadline.targetDate : x.plan.examDate;
+    const late = behind(x.plan.sessions, [...x.done], today);
+    const room = late.count && reschedule({ sessions: x.plan.sessions, done: [...x.done], today, days: daysOf(x.params), targetDate: x.params.exam || null }).available;
     return `<article class="card plan-card" style="--pc:${providerColor(c.provider)}">
       <div class="head">${badge(c, 52, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div>${ring(pct, 52, 'good pct', t('plan.pctDone', { p: pct }))}</div>
       <p class="meta"><span>${icon('calendar-days')}${t('plan.of', { a: x.done.size, b: total })} ${t('plan.done')}</span><span>${icon('target')}${esc(t('progress.examOn', { d: day(examDay) }))}</span></p>
       ${nextOne ? `<p class="meta next">${icon('arrow-right')}<span>${esc(t('progress.nextOne', { x: `${day(nextOne.date)} · ${kindLabel(nextOne.kind)}: ${cap(sname(nextOne))}` }))}</span></p>` : ''}
+      ${late.count ? `<p class="meta late">${icon('triangle-alert')}<span>${esc(t('progress.behindPlan', { n: late.count }))}${room ? '' : ` ${esc(t('plan.reschedNone', { d: day(examDay) }))}`}</span>${room ? `<button type="button" class="link" data-act="resched" data-key="${esc(x.key)}">${t('plan.reschedule')}</button>` : ''}</p>` : ''}
       <div class="plan-card-actions"><a class="btn" href="#plan?${esc(new URLSearchParams(x.params).toString())}">${icon('route')}${t('progress.open')}</a><button type="button" class="link" data-act="untrack" data-key="${esc(x.key)}">${t('progress.stop')}</button></div>
     </article>`;
   };
