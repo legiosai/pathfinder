@@ -1060,7 +1060,7 @@ details.more > summary:hover { color: var(--text); }
 /* Picks: one hairline-ruled list, a row per certification. The links sit at the right of the name on
    wide screens and under the reason on narrow ones. */
 .c-picks { list-style: none; margin: 14px 0 0; padding: 0; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
-.c-pick { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; grid-template-areas: "badge name links" "badge meta links" "badge why why"; align-items: center; column-gap: 12px; padding: 12px 14px; }
+.c-pick { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; grid-template-areas: "badge name links" "badge meta links" "badge why why" "badge warn warn"; align-items: center; column-gap: 12px; padding: 12px 14px; }
 .c-pick + .c-pick { border-top: 1px solid var(--line); }
 .c-badge { grid-area: badge; align-self: start; display: block; margin-top: 2px; }
 .c-badge .badge { width: 40px; height: auto; filter: drop-shadow(0 3px 6px color-mix(in srgb, var(--pc, #000) 28%, transparent)); }
@@ -1069,6 +1069,9 @@ details.more > summary:hover { color: var(--text); }
 .c-meta .lvl { font-size: var(--fs-sm); }
 .c-meta .pill { padding: 1px 8px; }
 .c-why { grid-area: why; margin: 6px 0 0; font-size: var(--fs-md); line-height: 1.45; }
+/* Something that could stop the person: eligibility, an exam not open yet, over budget. */
+.c-warn { grid-area: warn; display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; color: var(--warn-text); font-size: var(--fs-md); line-height: 1.45; }
+.c-warn .i { flex: none; width: 15px; height: 15px; margin-top: 2px; color: var(--warn); }
 .c-links { grid-area: links; display: flex; flex-wrap: wrap; justify-content: flex-end; margin: 0 -8px 0 0; }
 /* 44px tall to tap, drawn compact. */
 .c-links a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 0 8px; border-radius: var(--r-sm); color: var(--accent-text); font-size: var(--fs-sm); font-weight: 600; text-decoration: none; white-space: nowrap; }
@@ -1079,9 +1082,57 @@ details.more > summary:hover { color: var(--text); }
 .msg-note { display: inline-flex; align-items: flex-start; gap: 6px; }
 .msg-note .i { width: 14px; height: 14px; margin-top: 2px; }
 .msg-foot .link { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; margin: -10px 0; font-size: var(--fs-sm); }
+/* The plan hand-off is a link; it reads like the buttons next to it. */
+.msg-foot a.link { color: var(--muted); font-weight: 550; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
+.msg-foot a.link:hover { color: var(--text); text-decoration-color: currentColor; }
 .msg-foot .link .i { width: 14px; height: 14px; }
 .msg-foot .link:disabled { opacity: 0.6; text-decoration: none; }
 .msg-head { margin: 0 0 6px; }
+/* The text after the cards: the order, a caveat or the next step. */
+.msg-rest { margin-top: 14px; }
+
+/* Roadmap and comparison: a titled block under the cards, ruled like them. */
+.c-road, .c-compare { margin: 14px 0 0; padding: 12px 14px 10px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+.c-block-title { display: flex; align-items: center; gap: 7px; margin: 0 0 8px; color: var(--muted); font-size: var(--fs-sm); font-weight: 650; }
+.c-block-title .i { width: 15px; height: 15px; color: var(--accent-text); }
+.c-steps { list-style: none; margin: 0; padding: 0; }
+.c-step { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; align-items: start; column-gap: 10px; padding: 8px 0; }
+.c-step + .c-step { border-top: 1px solid var(--line); }
+/* A thin line joins the numbers, so the order reads at a glance. */
+.c-step:not(:last-child)::before { content: ""; position: absolute; left: 12px; top: 36px; bottom: -8px; width: 2px; background: var(--line); }
+.c-num { position: relative; display: grid; place-items: center; width: 26px; height: 26px; margin-top: 3px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-text); font-size: var(--fs-sm); font-weight: 700; font-variant-numeric: tabular-nums; }
+.c-step-main { display: flex; align-items: flex-start; gap: 10px; min-width: 0; color: inherit; text-decoration: none; border-radius: var(--r-sm); }
+.c-step-main .badge { flex: none; width: 32px; height: auto; margin-top: 2px; }
+.c-step-text { display: grid; gap: 2px; min-width: 0; }
+.c-step-name { font-weight: 650; line-height: 1.3; }
+.c-step-main:hover .c-step-name { text-decoration: underline; }
+.c-step .c-meta { grid-area: auto; margin: 0; }
+.c-step-note { font-size: var(--fs-md); line-height: 1.45; }
+.c-weeks { align-self: center; padding: 2px 9px; border-radius: var(--r-pill); background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); color: var(--text); font-size: var(--fs-xs); font-weight: 650; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.c-road-total { display: flex; align-items: center; gap: 7px; margin: 6px 0 0; padding-top: 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: var(--fs-sm); }
+.c-road-total .i { width: 15px; height: 15px; }
+
+.c-compare table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: var(--fs-md); line-height: 1.4; }
+.c-compare th, .c-compare td { padding: 7px 8px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.c-compare thead th { vertical-align: bottom; }
+.c-compare thead a { display: grid; gap: 4px; justify-items: start; color: inherit; font-weight: 650; text-decoration: none; line-height: 1.3; }
+.c-compare thead a:hover span { text-decoration: underline; }
+.c-compare thead .badge { width: 28px; height: auto; }
+.c-compare tbody th { width: 26%; color: var(--muted); font-size: var(--fs-sm); font-weight: 600; }
+.c-compare thead td { width: 26%; }
+.c-compare tbody tr { border-top: 1px solid var(--line); }
+.c-compare .lvl { white-space: normal; }
+.c-none { color: var(--faint); }
+.c-more { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-bottom: -6px; color: var(--accent-text); font-size: var(--fs-sm); font-weight: 600; text-decoration: none; }
+.c-more:hover { text-decoration: underline; }
+.c-more .i { width: 14px; height: 14px; }
+
+/* Suggested replies and the examples of an empty chat: tap to send. */
+.c-replies { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.c-reply { max-width: 100%; min-height: 40px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 20px; background: var(--raised); box-shadow: none; color: var(--text); font-size: var(--fs-md); font-weight: 550; line-height: 1.3; text-align: left; white-space: normal; cursor: pointer; }
+.c-reply:hover { border-color: var(--accent); background: var(--accent-soft); }
+.c-examples { margin-top: -8px; }
+.c-examples .c-replies { margin-top: 0; }
 
 /* The composer: one rounded field holding the text and the send (or stop) button. */
 .composer { display: flex; align-items: flex-end; gap: 8px; padding: 5px 5px 5px 16px; border: 1px solid var(--line-strong); border-radius: 26px; background: var(--raised); box-shadow: var(--e-inset); transition: border-color var(--t-fast), box-shadow var(--t-fast); }
@@ -1113,11 +1164,39 @@ details.more > summary:hover { color: var(--text); }
   .chat { padding: 14px 14px 10px; border-radius: var(--r-lg); margin-bottom: 40px; }
   .chat-log { max-height: 70vh; gap: 16px; }
   .msg.me { max-width: 88%; }
-  .c-pick { grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: "badge name" "badge meta" "badge why" "badge links"; column-gap: 10px; padding: 12px 12px 6px; }
+  .c-pick { grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: "badge name" "badge meta" "badge why" "badge warn" "badge links"; column-gap: 10px; padding: 12px 12px 6px; }
+  .c-road, .c-compare { padding: 10px 12px 8px; }
+  .c-step { grid-template-columns: 26px minmax(0, 1fr); }
+  .c-weeks { grid-column: 2; justify-self: start; margin: 6px 0 0 42px; }
+  /* The table turns into stacked rows: each label above its values, one column per certification. */
+  .c-compare table, .c-compare thead, .c-compare tbody { display: block; }
+  .c-compare tr { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); column-gap: 8px; }
+  .c-compare thead td { display: none; }
+  .c-compare th, .c-compare td { padding: 4px 0; }
+  .c-compare tbody th { grid-column: 1 / -1; width: auto; padding: 8px 0 0; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.04em; }
+  .c-compare tbody td { padding: 2px 0 8px; font-size: var(--fs-sm); }
+
+  /* On phones the chat page fills the visible height, above the on-screen keyboard too (chat.js
+     keeps --chat-vh at the visual viewport's height): the conversation is the only thing that
+     scrolls and the composer stays at the bottom. */
+  body:has(#view-ask:not([hidden])) { height: var(--chat-vh, 100dvh); min-height: 0; overflow: hidden; }
+  body:has(#view-ask:not([hidden])) .foot { display: none; }
+  body:has(#view-ask:not([hidden])) main { display: flex; flex-direction: column; min-height: 0; padding-top: 12px; padding-bottom: 0; }
+  #view-ask:not([hidden]) { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+  #view-ask .ask-wrap { display: flex; flex: 1; flex-direction: column; min-height: 0; width: 100%; }
+  #view-ask .ask-head { gap: 8px; margin-bottom: 8px; }
+  #view-ask .ask-head .head-icon { display: none; }
+  #view-ask .ask-head h1 { font-size: var(--fs-lg); letter-spacing: -0.01em; }
+  #view-ask .chat { flex: 1; min-height: 0; height: auto; margin: 0; padding: 0 0 max(8px, env(safe-area-inset-bottom)); gap: 8px; border: 0; border-radius: 0; background: none; animation: none; }
+  #view-ask .chat-log { padding-bottom: 8px; }
+  /* Short screens (or the keyboard is up): a one-line title, and the privacy note once the chat has started. */
+  :root.chat-short body:has(#view-ask:not([hidden])) main { padding-top: 4px; }
+  :root.chat-short #view-ask .ask-head { margin-bottom: 2px; }
+  :root.chat-short #view-ask .chat:not(.chat-empty) .chat-note { display: none; }
   .c-links { justify-content: flex-start; margin: 2px 0 0 -8px; }
   .chat-note { text-align: left; }
   #for-me { scroll-margin-top: 130px; }
 }
 @media (forced-colors: active) {
-  .msg.me, .composer, .c-picks { border: 1px solid CanvasText; }
+  .msg.me, .composer, .c-picks, .c-road, .c-compare, .c-reply { border: 1px solid CanvasText; }
 }

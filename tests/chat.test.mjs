@@ -1,7 +1,33 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { FIRST_BYTE_MS, LIMITS, RETRY_AFTER, STORE_VERSION, decide, formatText, fromStore, paused, resolveApi, secondsLeft, toRequest, toStore, userText } from '../site/lib/chat.js';
+import {
+  FIRST_BYTE_MS,
+  LIMITS,
+  RETRY_AFTER,
+  STORE_VERSION,
+  applyProfile,
+  decide,
+  formatText,
+  fromStore,
+  keepKnown,
+  paused,
+  planHref,
+  readComparison,
+  readPicks,
+  readProfile,
+  readReplies,
+  readRoadmap,
+  resolveApi,
+  secondsLeft,
+  shownIds,
+  splitLead,
+  toRequest,
+  toStore,
+  unknownIds,
+  userText,
+  weeklySchedule,
+} from '../site/lib/chat.js';
 import { STR } from '../site/i18n.js';
 
 const user = (content) => ({ role: 'user', content });
@@ -46,6 +72,132 @@ test('the request leaves out empty answers and trailing answers, and caps the us
     ['user'],
   );
   assert.equal(messages[0].content.length, LIMITS.chars, 'two user turns in a row: the later one stands, capped');
+});
+
+test('the request sends back what the answers showed and the kept profile', () => {
+  const answer = {
+    role: 'assistant',
+    content: 'Tres pasos.',
+    picks: [{ id: 'aws-clf-c02', why: 'x' }],
+    roadmap: { steps: [{ id: 'aws-clf-c02', weeks: 4, note: '' }, { id: 'aws-aif-c01', weeks: 5, note: '' }] },
+    comparison: ['aws-aif-c01', 'microsoft-az-900'],
+  };
+  assert.deepEqual(shownIds(answer), ['aws-clf-c02', 'aws-aif-c01', 'microsoft-az-900']);
+  const body = toRequest([user('Cloud, 5 h'), answer, user('¿Y después?')], 'es', { hours_per_week: 5, role: 'dev', junk: 1, budget_usd: 'x' });
+  assert.deepEqual(body.messages[1].picks, ['aws-clf-c02', 'aws-aif-c01', 'microsoft-az-900']);
+  assert.deepEqual(body.profile, { role: 'dev', hours_per_week: 5 });
+  assert.equal('profile' in toRequest([user('hola')], 'es', {}), false);
+  assert.equal('profile' in toRequest([user('hola')], 'es'), false);
+  // An answer that only compared still counts as shown.
+  assert.deepEqual(toRequest([user('a'), { role: 'assistant', content: '', comparison: ['a-b', 'c-d'] }, user('b')], 'en').messages[1], { role: 'assistant', content: '', picks: ['a-b', 'c-d'] });
+});
+
+// ---------- what the stream carries ----------
+
+test('picks keep a warning and drop bad items', () => {
+  assert.deepEqual(
+    readPicks({
+      picks: [
+        { id: 'aws-clf-c02', why: ' Base\n de nube ', warning: ' Se pasa ' },
+        { id: 'aws-clf-c02', why: 'again' },
+        { id: 'Not An Id', why: 'x' },
+        { id: 'microsoft-az-900', why: 7, warning: '' },
+        null,
+      ],
+    }),
+    [
+      { id: 'aws-clf-c02', why: 'Base de nube', warning: 'Se pasa' },
+      { id: 'microsoft-az-900', why: '' },
+    ],
+  );
+  assert.deepEqual(readPicks({ picks: 'x' }), []);
+  assert.equal(readPicks({ picks: Array.from({ length: 9 }, (_, i) => ({ id: `c-${i}`, why: 'x' })) }).length, 5);
+});
+
+test('a roadmap needs two steps; weeks are whole numbers or null', () => {
+  assert.deepEqual(readRoadmap({ hours_per_week: 4, steps: [{ id: 'a-b', weeks: 3.6, note: 'Base' }, { id: 'c-d', weeks: 'x' }, { id: 'a-b', weeks: 1 }, { id: 'BAD', weeks: 1 }] }), {
+    hours_per_week: 4,
+    steps: [
+      { id: 'a-b', weeks: 4, note: 'Base' },
+      { id: 'c-d', weeks: null, note: '' },
+    ],
+  });
+  assert.equal(readRoadmap({ steps: [{ id: 'a-b', weeks: 3 }] }), null);
+  assert.equal(readRoadmap(null), null);
+  assert.equal(readRoadmap({ hours_per_week: -2, steps: [{ id: 'a-b', weeks: 300 }, { id: 'c-d', weeks: 0 }] }).hours_per_week, undefined);
+  assert.deepEqual(readRoadmap({ steps: [{ id: 'a-b', weeks: 300 }, { id: 'c-d', weeks: 0 }] }).steps.map((s) => s.weeks), [104, null]);
+});
+
+test('a comparison takes two to four ids; replies up to four distinct ones', () => {
+  assert.deepEqual(readComparison({ ids: ['a-b', 'a-b', 'c-d', 'BAD'] }), ['a-b', 'c-d']);
+  assert.deepEqual(readComparison({ ids: ['a-b'] }), []);
+  assert.deepEqual(readComparison({ ids: ['a', 'b', 'c', 'd', 'e'] }), ['a', 'b', 'c', 'd']);
+  assert.deepEqual(readReplies({ replies: ['Sí', 'sí', '', 3, 'x'.repeat(200), 'No', 'Más', 'Otra'] }), ['Sí', 'x'.repeat(80), 'No', 'Más']);
+  assert.deepEqual(readReplies(null), []);
+});
+
+test('a profile keeps only valid fields', () => {
+  assert.deepEqual(readProfile({ profile: { role: ' dev ', experience: 'some', goal: 'IA', budget_usd: 99.6, hours_per_week: 5, prefers_spanish_exam: true, country: 'ar', x: 1 } }), {
+    role: 'dev',
+    experience: 'some',
+    goal: 'IA',
+    budget_usd: 100,
+    hours_per_week: 5,
+    prefers_spanish_exam: true,
+    country: 'AR',
+  });
+  assert.deepEqual(readProfile({ experience: 'senior', budget_usd: -1, hours_per_week: 0, country: 'ARG', prefers_spanish_exam: 'yes' }), {});
+  assert.deepEqual(readProfile(null), {});
+});
+
+test('certifications the page does not know are found, then left out', () => {
+  const has = (id) => id !== 'new-cert';
+  const m = {
+    picks: [{ id: 'new-cert', why: 'x' }, { id: 'aws-clf-c02', why: 'y' }],
+    roadmap: { steps: [{ id: 'new-cert', weeks: 1, note: '' }, { id: 'aws-clf-c02', weeks: 2, note: '' }] },
+    comparison: ['new-cert', 'aws-clf-c02'],
+  };
+  assert.deepEqual(unknownIds(m, has), ['new-cert']);
+  assert.deepEqual(keepKnown(m, has), { picks: [{ id: 'aws-clf-c02', why: 'y' }] });
+  assert.deepEqual(keepKnown({ picks: [{ id: 'new-cert', why: '' }] }, has), {});
+});
+
+test('the lead is the first paragraph; the rest follows the cards', () => {
+  assert.deepEqual(splitLead('Arrancá por X.\n\nDespués Y.\n\nY armá el plan.'), ['Arrancá por X.', 'Después Y.\n\nY armá el plan.']);
+  assert.deepEqual(splitLead('Una sola línea.'), ['Una sola línea.', '']);
+  assert.deepEqual(splitLead(''), ['', '']);
+});
+
+// ---------- hand-offs ----------
+
+test('weekly hours become study days and a session length', () => {
+  assert.deepEqual(weeklySchedule(1), { days: [6], len: 60 });
+  assert.deepEqual(weeklySchedule(4), { days: [1, 3, 5], len: 75 });
+  assert.deepEqual(weeklySchedule(5), { days: [1, 3, 5], len: 105 });
+  assert.deepEqual(weeklySchedule(40), { days: [1, 2, 3, 4, 5, 6], len: 240 });
+  assert.equal(weeklySchedule(0), null);
+  assert.equal(weeklySchedule(undefined), null);
+});
+
+test('the plan link carries the weekly schedule and, from a roadmap, the total hours', () => {
+  const road = { hours_per_week: 4, steps: [{ id: 'isc2-cc', weeks: 5, note: '' }, { id: 'x-y', weeks: 9, note: '' }] };
+  const href = planHref('isc2-cc', { hours_per_week: 6 }, road);
+  const params = new URLSearchParams(href.split('?')[1]);
+  assert.ok(href.startsWith('#plan?'));
+  assert.deepEqual(Object.fromEntries(params), { cert: 'isc2-cc', hours: '20', days: '1,3,5', len: '75' });
+  assert.equal(planHref('isc2-cc'), '#plan?cert=isc2-cc');
+  assert.deepEqual(Object.fromEntries(new URLSearchParams(planHref('isc2-cc', { hours_per_week: 3 }).split('?')[1])), { cert: 'isc2-cc', days: '3,6', len: '90' });
+});
+
+test('"For me" gets the conversation with the AI profile on top', () => {
+  const intent = { profile: { roles: ['developer'], known: [], want: ['security'], experience: 'some', budget: null }, levelStated: false, topical: 2 };
+  const fromProfile = { profile: { roles: ['security'], known: ['python'], want: ['cloud', 'security'] }, topical: 3 };
+  const out = applyProfile(intent, { experience: 'new', budget_usd: 0 }, fromProfile);
+  assert.deepEqual(out.profile, { roles: ['developer', 'security'], known: ['python'], want: ['security', 'cloud'], experience: 'new', budget: 0 });
+  assert.equal(out.levelStated, true);
+  assert.equal(out.topical, 6);
+  assert.deepEqual(applyProfile(intent, {}).profile, intent.profile);
+  assert.equal(applyProfile({ ...intent, topical: 0 }, {}).topical, 0);
 });
 
 // ---------- when the matcher answers ----------
@@ -119,6 +271,28 @@ test('the saved conversation is versioned, capped and cleaned', () => {
   assert.deepEqual(back.messages, saved.messages);
 });
 
+test('the saved conversation keeps warnings, roadmaps, comparisons, replies and the profile', () => {
+  const answer = {
+    role: 'assistant',
+    content: 'Tres pasos.',
+    source: 'ai',
+    picks: [{ id: 'aws-clf-c02', why: 'x', warning: 'Ojo' }],
+    roadmap: { hours_per_week: 5, steps: [{ id: 'aws-clf-c02', weeks: 4, note: '' }, { id: 'aws-aif-c01', weeks: 5, note: 'IA' }] },
+    comparison: ['aws-aif-c01', 'microsoft-az-900'],
+    replies: ['¿Algo más barato?'],
+    live: true,
+  };
+  const saved = toStore([user('hola'), answer], { hours_per_week: 5, bogus: true });
+  assert.deepEqual(saved.profile, { hours_per_week: 5 });
+  const back = fromStore(JSON.parse(JSON.stringify(saved)));
+  const { live, ...kept } = answer;
+  assert.deepEqual(back.messages[1], kept);
+  assert.deepEqual(back.profile, { hours_per_week: 5 });
+  assert.equal('profile' in toStore([user('hola')], {}), false);
+  // Only a comparison is still an answer worth keeping.
+  assert.equal(fromStore(toStore([user('a'), { role: 'assistant', content: '', comparison: ['a-b', 'c-d'] }])).messages.length, 2);
+});
+
 test('a question left without an answer goes back to the composer', () => {
   const { messages, draft } = fromStore(toStore([user('first'), bot('answer'), user('unanswered')]));
   assert.equal(draft, 'unanswered');
@@ -129,7 +303,7 @@ test('a question left without an answer goes back to the composer', () => {
 });
 
 test('anything unexpected in storage gives an empty conversation', () => {
-  for (const value of [null, undefined, 'text', {}, { v: 0, messages: [] }, { v: STORE_VERSION, messages: 'no' }]) assert.deepEqual(fromStore(value), { messages: [], draft: '' });
+  for (const value of [null, undefined, 'text', {}, { v: 0, messages: [] }, { v: STORE_VERSION, messages: 'no' }]) assert.deepEqual(fromStore(value), { messages: [], draft: '', profile: {} });
   const odd = fromStore({ v: STORE_VERSION, messages: [{ role: 'assistant', content: 'ok', reason: 'nope', key: '<b>', retryAt: 'soon' }, 5, { role: 'user', content: 3 }] });
   assert.deepEqual(odd.messages, [{ role: 'assistant', content: 'ok', source: 'ai' }]);
 });
@@ -177,6 +351,9 @@ test('every chat string exists in both languages', () => {
   for (const k of keys) assert.ok(k in STR.es, k);
   for (const reason of ['offline', 'timeout', 'busy', 'error', 'rate', 'disabled', 'rejected', 'refused']) assert.ok(`chat.why.${reason}` in STR.en, reason);
   for (const reason of ['stopped', 'cut', 'busy', 'error', 'refused']) assert.ok(`chat.end.${reason}` in STR.en, reason);
+  for (const key of ['chat.ex1', 'chat.ex2', 'chat.ex3', 'chat.ex4', 'chat.roadmap', 'chat.weeks', 'chat.compare', 'chat.makePlan', 'chat.repliesLabel']) assert.ok(key in STR.en && key in STR.es, key);
+  // Spanish examples are written in voseo, as people would type them.
+  assert.match(STR.es['chat.ex3'], /armame/);
 });
 
 test('the service worker never answers the chat request', async () => {

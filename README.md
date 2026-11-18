@@ -55,7 +55,7 @@ The chat's endpoint lives next to it, as `CHAT_API` (`https://pathfinder-api.leg
 
 ```sh
 node scripts/chat-mock.mjs 8813                # then open http://127.0.0.1:8080/?chat=http://127.0.0.1:8813
-# ?chat=http://127.0.0.1:8813/m/429 (or 503, disabled, slow, error, late, cut, refusal, 400, 403, 413, 500, lag)
+# ?chat=http://127.0.0.1:8813/m/tools (every event in one answer) or /m/429 (or 503, disabled, slow, error, late, cut, refusal, 400, 403, 413, 500, lag)
 ```
 
 `?chat=<url>` is remembered by that browser (`?chat=default` forgets it) and only accepts a loopback address, unless the page itself is served from loopback.
