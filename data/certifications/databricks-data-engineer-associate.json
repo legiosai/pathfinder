@@ -1,0 +1,79 @@
+{
+  "id": "databricks-data-engineer-associate",
+  "name": "Databricks Certified Data Engineer Associate",
+  "provider": "Databricks",
+  "code": "Data Engineer Associate",
+  "type": "certification",
+  "category": "Data & analytics",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 200,
+    "basis": "Exam only",
+    "note": "USD 200 plus applicable taxes as required by local law. No free retakes: each attempt, after a 14-day wait, costs the full fee."
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "45 scored multiple-choice questions plus up to 10 unscored items, 90 minutes, proctored online or at a test center through Kryterion, in English, Japanese, Brazilian Portuguese or Korean. No test aids. Code is in SQL where possible, otherwise Python.",
+    "questions": "45 scored (plus up to 10 unscored)",
+    "validity": "2 years"
+  },
+  "scope": "Foundational data engineering on the Databricks platform: ingestion and loading, transformation and modeling with Spark SQL and PySpark, Lakeflow Jobs, CI/CD, troubleshooting and optimization, and governance and security with Unity Catalog.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Databricks does not publish passing scores; it says they are set statistically and can change as the exam is updated.",
+    "This entry follows the exam version published May 4, 2026 (exam guide updated August 6, 2026). Databricks asks candidates to recheck the exam guide two weeks before their exam date.",
+    "Recertification is due every two years. The exam guide offers a Data Engineer Associate renewal exam or the current full exam, while the listing and the certification FAQ only mention retaking the current full exam."
+  ],
+  "skills": [
+    "data",
+    "python",
+    "devops",
+    "security"
+  ],
+  "roles": [
+    "data-engineer"
+  ],
+  "domains": [
+    { "name": "Databricks Intelligence Platform", "weight": 6 },
+    { "name": "Data Ingestion and Loading", "weight": 21 },
+    { "name": "Data Transformation and Modeling", "weight": 22 },
+    { "name": "Working with Lakeflow Jobs", "weight": 16 },
+    { "name": "Implementing CI/CD", "weight": 10 },
+    { "name": "Troubleshooting, Monitoring, and Optimization", "weight": 10 },
+    { "name": "Governance and Security", "weight": 15 }
+  ],
+  "sources": [
+    "P80",
+    "P81",
+    "P82"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Data Engineer Associate exam guide (August 2026)",
+      "url": "https://www.databricks.com/sites/default/files/2026-10/Databricks-Certified-Data-Engineer-Associate-Exam-Guide-August-2026.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Exam outline, recommended courses and sample questions."
+    },
+    {
+      "title": "Databricks training",
+      "url": "https://www.databricks.com/learn/training/home",
+      "kind": "course",
+      "cost": "free",
+      "note": "The guide lists self-paced Databricks Academy courses (Lakeflow Connect, Lakeflow Jobs, DevOps Essentials, Spark Declarative Pipelines, governance) and the paid instructor-led Data Engineering with Databricks."
+    },
+    {
+      "title": "AI Prep Guide for any Databricks certification",
+      "url": "https://www.databricks.com/sites/default/files/2026-06/ai-prep-guide-any-databricks-certification.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Linked from the exam page; includes a hands-on checklist that fits Databricks Free Edition."
+    }
+  ],
+  "domains_note": "Weights from the Databricks Certified Data Engineer Associate exam guide (exam published May 4, 2026; guide updated August 6, 2026), linked from the live listing, which shows the same seven weights. Read 2026-11-17."
+}

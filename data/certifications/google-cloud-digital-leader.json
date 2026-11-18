@@ -1,0 +1,83 @@
+{
+  "id": "google-cloud-digital-leader",
+  "name": "Google Cloud Digital Leader",
+  "provider": "Google Cloud",
+  "code": "CDL",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 99,
+    "basis": "Exam only",
+    "note": "USD list price plus tax where applicable. Every attempt is paid."
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "50–60 multiple choice and multiple select questions in 90 minutes, online-proctored or at a test center (Pearson VUE since March 2026). English, Japanese, Spanish, Portuguese and French. No prerequisites; Google recommends experience collaborating with technical professionals.",
+    "questions": "50–60",
+    "validity": "3 years"
+  },
+  "scope": "Cloud computing basics and how Google Cloud supports an organization: digital and data transformation, AI, infrastructure and application modernization, security, and cloud operations.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "Google reports pass/fail only and does not publish a passing score.",
+    "Certified holders can renew in the last part of their validity with a shorter renewal exam (45 minutes, 20 questions, $60) or through designated courses and skill badges in Google Skills, which add one year.",
+    "The current exam guide is dated August 12, 2026; it covers both the standard and renewal exams."
+  ],
+  "skills": [
+    "gcp",
+    "data",
+    "ml-foundations",
+    "security"
+  ],
+  "roles": [
+    "business",
+    "developer",
+    "architect",
+    "platform"
+  ],
+  "domains": [
+    { "name": "Digital Transformation with Google Cloud", "weight": 18 },
+    { "name": "Exploring Data Transformation with Google Cloud", "weight": 18 },
+    { "name": "Innovating with Google Cloud Artificial Intelligence", "weight": 18 },
+    { "name": "Modernize Infrastructure and Applications with Google Cloud", "weight": 18 },
+    { "name": "Trust and Security with Google Cloud", "weight": 18 },
+    { "name": "Scaling with Google Cloud Operations", "weight": 10 }
+  ],
+  "sources": [
+    "P50",
+    "P51",
+    "P58",
+    "P59",
+    "P60",
+    "P61"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "Cloud Digital Leader exam guide",
+      "url": "https://services.google.com/fh/files/misc/cloud_digital_leader_exam_guide_english.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Google Skills: Cloud Digital Leader learning path",
+      "url": "https://www.skills.google/paths/9",
+      "kind": "course",
+      "cost": "free",
+      "note": "Google Skills (formerly Cloud Skills Boost) lists it as partially free, with the rest under a subscription."
+    },
+    {
+      "title": "Cloud Digital Leader sample questions",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSedAmf77MGS7FGEaylFzY51KtBd7kkIZJIMDsV5zSRSmpKIOA/viewform",
+      "kind": "practice",
+      "cost": "free",
+      "note": "Untimed; Google says they do not represent the range or difficulty of the exam."
+    }
+  ],
+  "domains_note": "Weights from the Google Cloud Cloud Digital Leader exam guide (launched August 12, 2026), linked from the certification page. Google marks each weight as approximate (~). Read 2026-11-17."
+}

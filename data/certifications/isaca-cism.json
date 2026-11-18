@@ -1,0 +1,102 @@
+{
+  "id": "isaca-cism",
+  "name": "Certified Information Security Manager",
+  "provider": "ISACA",
+  "code": "CISM",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "expert",
+  "status": "available",
+  "fee": {
+    "usd": 760,
+    "basis": "Exam only, non-member",
+    "note": "US$575 for ISACA members (membership is a separate purchase). Certification adds a one-time US$50 application fee after passing, then a yearly maintenance fee of US$45 (members) or US$85 (non-members)."
+  },
+  "exam": {
+    "minutes": 240,
+    "style": "knowledge",
+    "format": "150 multiple-choice questions in 4 hours, at a PSI test centre or remotely proctored, in English, Chinese, Spanish, Japanese, French or German. Registration opens a six-month window to sit the exam. Scores are scaled; pretest items are not scored.",
+    "questions": "150",
+    "passing": "450 scaled (200–800)",
+    "validity": "1 year"
+  },
+  "scope": "Managing an enterprise information security program: governance and strategy, risk management, program development and management, and incident readiness and response.",
+  "requirements": "Anyone can sit the exam. To be certified: five or more years of CISM work experience across at least three of the four domains, gained within the 10 years before applying and verified by a supervisor; ISACA's candidate guide allows waivers for up to two of those years. Apply within five years of passing, pay the US$50 application fee and follow ISACA's Code of Professional Ethics and CPE policy.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The exam moved to a new content outline on 3 November 2026: more emphasis on security strategy and program development, plus enterprise architecture and information security architecture. The weights here are the new ones. ISACA released updated prep material on 1 September 2026; material written for the 2022 outline predates the new content areas.",
+    "Validity is yearly: ISACA renews the certification each calendar year with the maintenance fee and at least 20 CPE hours, and 120 over each three-year cycle. From 1 January 2027 at least 90 of those 120 hours must align with the exam content outline.",
+    "Up to four attempts in a rolling 12 months (waits of 30, 90 and 90 days), each paid in full."
+  ],
+  "skills": [
+    "security"
+  ],
+  "roles": [
+    "security",
+    "governance"
+  ],
+  "domains": [
+    {
+      "name": "Information Security Governance",
+      "weight": 18
+    },
+    {
+      "name": "Information Security Risk Management",
+      "weight": 20
+    },
+    {
+      "name": "Information Security Program",
+      "weight": 33
+    },
+    {
+      "name": "Incident Management",
+      "weight": 29
+    }
+  ],
+  "sources": [
+    "S50",
+    "S51",
+    "S52",
+    "S53",
+    "S54",
+    "S55",
+    "S56"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CISM exam content outline",
+      "url": "https://www.isaca.org/credentialing/cism/cism-exam-content-outline",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "ISACA free CISM practice quiz",
+      "url": "https://www.isaca.org/credentialing/cism/cism-practice-quiz",
+      "kind": "practice",
+      "cost": "free",
+      "note": "Ten sample questions."
+    },
+    {
+      "title": "CISM Review Manual",
+      "url": "https://www.isaca.org/store/items/cism_rm_c",
+      "kind": "official-guide",
+      "cost": "paid"
+    },
+    {
+      "title": "CISM Questions, Answers & Explanations Database",
+      "url": "https://www.isaca.org/store/items/cism_qae_c",
+      "kind": "practice",
+      "cost": "paid",
+      "note": "Six-month subscription."
+    },
+    {
+      "title": "CISM Online Review Course",
+      "url": "https://www.isaca.org/store/items/cism_orc_c",
+      "kind": "course",
+      "cost": "paid"
+    }
+  ],
+  "domains_note": "Weights from ISACA's CISM exam content outline, in force since 3 November 2026 and repeated in ISACA's 10 September 2026 announcement and its 2026 candidate guide; read 2026-11-17."
+}

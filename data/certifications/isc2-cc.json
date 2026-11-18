@@ -1,0 +1,99 @@
+{
+  "id": "isc2-cc",
+  "name": "Certified in Cybersecurity",
+  "provider": "ISC2",
+  "code": "CC",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 199,
+    "basis": "Exam only",
+    "note": "U.S. list price for the Americas, Asia Pacific, the Middle East and Africa; EMEA pays EUR 191.04 and the UK GBP 161.19. Taxes depend on the exam location."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Computerized adaptive test (CAT) at Pearson VUE test centers: 100–125 multiple choice and advanced items in 2 hours. Offered in English, Chinese, Japanese, German and Spanish (Chinese only in set windows).",
+    "questions": "100–125 (CAT)",
+    "passing": "700 scaled (out of 1,000)",
+    "validity": "3 years"
+  },
+  "scope": "Foundational security principles, security governance and risk, identity and access management, networking and cloud security concepts, and security operations and incident response, with foundational AI topics across the outline.",
+  "requirements": "No work experience or degree required; ISC2 recommends basic IT knowledge. After passing, candidates complete an application and pay the U.S. $50 annual maintenance fee; no endorsement is needed.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The exam moved to a new outline on September 1, 2026, the first major update since the 2022 launch: business continuity, disaster recovery and incident response concepts gave way to a Security Governance domain, incident response moved into Security Operations, and cloud, zero trust and AI topics were added. Prep material written for the earlier outline does not match.",
+    "ISC2's One Million Certified in Cybersecurity program (free course and exam) closed new enrollments on May 20, 2026; exam codes it already issued must be used by December 31, 2026. New candidates pay the regular fee.",
+    "Prices and taxes follow the exam location: ISC2 lists U.S. dollars for most regions, euros for EMEA and pounds for the UK. Pearson VUE charges U.S. $50 to reschedule and U.S. $100 to cancel. Confirm at checkout.",
+    "An exam-only purchase is one attempt that must be taken within 365 days. ISC2 also sells Peace of Mind Protection (two attempts within 180 days); its price is not on the pricing page.",
+    "Staying certified: U.S. $50 a year (members who hold only CC) and 45 CPE credits per three-year cycle."
+  ],
+  "skills": [
+    "security",
+    "identity",
+    "networking"
+  ],
+  "roles": [
+    "security"
+  ],
+  "domains": [
+    {
+      "name": "Security Principles",
+      "weight": 24
+    },
+    {
+      "name": "Security Governance",
+      "weight": 17.3
+    },
+    {
+      "name": "Identity And Access Management (IAM) Concepts",
+      "weight": 20
+    },
+    {
+      "name": "Networking and Cloud Security Concepts",
+      "weight": 21.3
+    },
+    {
+      "name": "Security Operations and Incident Response",
+      "weight": 17.3
+    }
+  ],
+  "sources": [
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29",
+    "S30",
+    "S31",
+    "S33"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "CC Certification Exam Outline",
+      "url": "https://www.isc2.org/certifications/cc/cc-certification-exam-outline",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Outline effective September 1, 2026, as PDF in five languages."
+    },
+    {
+      "title": "Inside the updated ISC2 CC exam",
+      "url": "https://www.isc2.org/insights/2026/08/inside-the-updated-isc2-cc-exam",
+      "kind": "docs",
+      "cost": "free",
+      "note": "What changed in the 2026 outline, domain by domain."
+    },
+    {
+      "title": "ISC2 official CC training",
+      "url": "https://www.isc2.org/training/3-ways-to-train/cc",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, online instructor-led or classroom."
+    }
+  ],
+  "domains_note": "Weights from the ISC2 CC Certification Exam Outline effective September 1, 2026 (English PDF revised 01-2026), read 2026-11-17. ISC2 publishes average weights with one decimal; they add up to 99.9 and are kept as published."
+}

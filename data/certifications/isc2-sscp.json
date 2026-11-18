@@ -1,0 +1,99 @@
+{
+  "id": "isc2-sscp",
+  "name": "Systems Security Certified Practitioner",
+  "provider": "ISC2",
+  "code": "SSCP",
+  "type": "certification",
+  "category": "Cybersecurity",
+  "level": "associate",
+  "status": "available",
+  "fee": {
+    "usd": 249,
+    "basis": "Exam only",
+    "note": "U.S. list price for the Americas, Asia Pacific, the Middle East and Africa; EMEA pays EUR 239.04 and the UK GBP 201.69. Taxes depend on the exam location."
+  },
+  "exam": {
+    "minutes": 120,
+    "style": "knowledge",
+    "format": "Computerized adaptive test (CAT) at Pearson VUE test centers: 100–125 multiple choice and advanced items in 2 hours. Offered in English, Japanese and Spanish.",
+    "questions": "100–125 (CAT)",
+    "passing": "700 scaled (out of 1,000)",
+    "validity": "3 years"
+  },
+  "scope": "Hands-on operational security: security concepts and practices, access controls, risk monitoring and analysis, incident response and recovery, cryptography, network and communications security, and systems and application security.",
+  "requirements": "To be certified: one year of full-time experience in one or more of the seven SSCP domains; a relevant bachelor's or master's degree can satisfy it, and part-time work and internships count. Without it, passing makes you an Associate of ISC2 with up to two years to earn the experience. Within nine months of passing, an ISC2-certified member (or ISC2, with proof of employment) must endorse the application.",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [
+    "The current outline took effect October 1, 2025; ISC2 has not announced a newer one.",
+    "Prices and taxes follow the exam location: ISC2 lists U.S. dollars for most regions, euros for EMEA and pounds for the UK. Pearson VUE charges U.S. $50 to reschedule and U.S. $100 to cancel. Confirm at checkout.",
+    "An exam-only purchase is one attempt that must be taken within 365 days. ISC2 also sells Peace of Mind Protection (two attempts within 180 days); its price is not on the pricing page.",
+    "Staying certified: U.S. $135 a year and 60 CPE credits per three-year cycle. Associates of ISC2 pay U.S. $50 a year and earn 15 CPE credits a year."
+  ],
+  "skills": [
+    "security",
+    "identity",
+    "networking"
+  ],
+  "roles": [
+    "security",
+    "platform"
+  ],
+  "domains": [
+    {
+      "name": "Security Concepts and Practices",
+      "weight": 16
+    },
+    {
+      "name": "Access Controls",
+      "weight": 15
+    },
+    {
+      "name": "Risk Identification, Monitoring and Analysis",
+      "weight": 15
+    },
+    {
+      "name": "Incident Response and Recovery",
+      "weight": 14
+    },
+    {
+      "name": "Cryptography",
+      "weight": 9
+    },
+    {
+      "name": "Network and Communications Security",
+      "weight": 16
+    },
+    {
+      "name": "Systems and Application Security",
+      "weight": 15
+    }
+  ],
+  "sources": [
+    "S34",
+    "S35",
+    "S29",
+    "S30",
+    "S31",
+    "S32",
+    "S33"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "SSCP Certification Exam Outline",
+      "url": "https://www.isc2.org/certifications/sscp/sscp-certification-exam-outline",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Outline effective October 1, 2025, as PDF in English, Japanese and Spanish."
+    },
+    {
+      "title": "ISC2 official SSCP training",
+      "url": "https://www.isc2.org/training/3-ways-to-train/sscp",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, online instructor-led or classroom."
+    }
+  ],
+  "domains_note": "Weights from the ISC2 SSCP Certification Exam Outline effective October 1, 2025, read 2026-11-17."
+}

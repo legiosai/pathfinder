@@ -6,6 +6,7 @@ import { providerMark, providerColor, badge, donut, hbars, columns, domainColor 
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
+import { mountChat } from './chat.js';
 
 const MAX_COMPARE = 4;
 const KEYS = {
@@ -55,6 +56,7 @@ let compare = [];
 let activeCat = '';
 let activeProvider = '';
 let fuse = null;
+let chat = null;
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- visual vocabulary ----------
@@ -65,6 +67,8 @@ const CATS = {
   'ML foundations': { icon: 'brain-circuit', c: '--cat-ml' },
   'AI security': { icon: 'shield-check', c: '--cat-sec' },
   'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
+  Cybersecurity: { icon: 'lock-keyhole', c: '--cat-cyber' },
+  'Data & analytics': { icon: 'database', c: '--cat-data' },
 };
 const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
 const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;
@@ -171,7 +175,7 @@ function parseHash() {
   return { name, params: new URLSearchParams(query) };
 }
 
-const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', cert: 'cert', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
+const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
 let lastView = null;
 let lastCert = null;
 let listScroll = 0;
@@ -210,13 +214,16 @@ function renderRoute() {
   if (view === 'plan') enterPlan(params);
   if (view === 'practice') renderPractice(practiceId, params);
   if (view === 'progress') renderProgress();
+  if (view === 'ask') chat?.shown();
 
   const moved = view !== lastView || (view === 'cert' && certId !== lastCert);
   if (moved) window.scrollTo(0, view === 'list' ? listScroll : 0);
+  // On a desktop the composer is ready to type in; on phones the keyboard would cover the page.
+  if (moved && view === 'ask' && matchMedia('(pointer: fine)').matches) $('#chat-input').focus({ preventScroll: true });
   lastView = view;
   lastCert = view === 'cert' ? certId : null;
 
-  const titles = { practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
+  const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
   document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : 'pathfinder';
 }
 
@@ -289,12 +296,11 @@ function renderCats() {
   const count = (cat) => all.filter((c) => c.category === cat).length;
   const btn = (id, label, ic, color, n) =>
     `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${activeCat === id}" style="--c:var(${color})">${tile(ic, color)}<span><b>${esc(label)}</b><small>${n}<span class="w">${t('cat.word')}</span></small></span></button>`;
-  $('#cats').innerHTML =
-    btn('', t('cat.all'), 'layout-grid', '--accent', all.length) +
-    Object.entries(CATS)
-      .filter(([cat]) => count(cat))
-      .map(([cat, m]) => btn(cat, catName(cat), m.icon, m.c, count(cat)))
-      .join('');
+  const shown = Object.entries(CATS).filter(([cat]) => count(cat));
+  // The layout needs the card count: one row on wide screens, "Everything" plus rows of half on narrow ones.
+  $('#cats').style.setProperty('--n', shown.length + 1);
+  $('#cats').style.setProperty('--half', Math.max(2, Math.ceil(shown.length / 2)));
+  $('#cats').innerHTML = btn('', t('cat.all'), 'layout-grid', '--accent', all.length) + shown.map(([cat, m]) => btn(cat, catName(cat), m.icon, m.c, count(cat))).join('');
 }
 
 function renderProviders() {
@@ -334,9 +340,7 @@ function renderList() {
   $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
   $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
   $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores });
-  const hint = $('#q-hint');
-  hint.hidden = !q;
-  if (q) hint.textContent = t('hero.matches', { n: list.length });
+  renderSuggest(f.q.value.trim(), list);
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
     : `<p class="empty">${t('list.empty')}</p>`;
@@ -909,12 +913,12 @@ function bind() {
   $('#filters').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
   $('#q').addEventListener('input', renderList);
-  $('#q').addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter') return;
-    e.preventDefault();
-    showResults();
-  });
-  $('#q-hint').addEventListener('click', showResults);
+  $('#q').addEventListener('keydown', onSearchKey);
+  $('#q').addEventListener('focus', openSuggest);
+  $('#q').addEventListener('blur', closeSuggest);
+  // Keep the focus in the box while a suggestion is pressed, so blur doesn't close the list first.
+  $('#q-pop').addEventListener('mousedown', (e) => e.preventDefault());
+  $('#q-pop').addEventListener('click', onSuggestClick);
   $('#mq-toggle').addEventListener('click', () => {
     const paused = !$('#marquee').classList.contains('paused');
     setMotionPaused(paused);
@@ -1606,25 +1610,6 @@ async function share(id) {
 }
 
 // ---------- hero ----------
-/** Faint contour lines around two summits, with the dashed trail climbing to the right-hand one. */
-function renderHeroArt() {
-  const ring = (cx, cy, k, step, i, cls = '') => {
-    const pts = [];
-    for (let a = 0; a <= 72; a++) {
-      const th = (a / 72) * Math.PI * 2;
-      const r = k * step * (1 + 0.13 * Math.sin(3 * th + k * 0.6) + 0.07 * Math.cos(5 * th - k));
-      pts.push(`${(cx + Math.cos(th) * r * 1.35).toFixed(1)},${(cy + Math.sin(th) * r).toFixed(1)}`);
-    }
-    return `<path pathLength="1" style="--k:${i}"${cls ? ` class="${cls}"` : ''} d="M${pts.join('L')}Z"/>`;
-  };
-  let out = '';
-  for (let k = 1; k <= 11; k++) out += ring(1075, 64, k, 30, k, k === 2 || k === 3 ? 'hi' : '');
-  for (let k = 1; k <= 7; k++) out += ring(70, 330, k, 30, k + 3);
-  out += '<path class="trail" pathLength="1" d="M1215 520 C 1150 470, 1185 400, 1125 350 S 1005 280, 1040 200 S 1100 120, 1075 64"/>';
-  out += '<circle class="peak" cx="1075" cy="64" r="6"/>';
-  $('#hero-topo').innerHTML = out;
-}
-
 /** Every certification as a badge, split over two rows that drift in opposite directions.
  *  Each row holds its set twice so the -50% shift loops without a seam. */
 function renderMarquee() {
@@ -1650,6 +1635,130 @@ function setMotionPaused(paused) {
   $('use', button).setAttribute('href', paused ? '#i-play' : '#i-pause');
 }
 
+// The chat (chat.js) hands what lib/intent.js reads in the conversation to the "For me" form, where
+// every choice can be changed. The budget becomes the price filter; the experience only if the text gave one.
+function refineFromIntent(intent) {
+  if ($('#view-list').hidden) {
+    // The chat has its own page: open the catalog first, without a hashchange that would
+    // restore the old scroll position after the jump below.
+    history.pushState(null, '', location.pathname + location.search);
+    renderRoute();
+  }
+  const p = intent.profile;
+  profile = { ...profile, roles: p.roles, known: p.known, want: p.want, experience: intent.levelStated ? p.experience : profile.experience };
+  store.set(KEYS.profile, profile);
+  fillProfile();
+  if (p.roles.length || p.known.length) $('#profile-more').open = true;
+  const price = $('#filters').price;
+  if (p.budget != null) {
+    if (![...price.options].some((o) => o.value === String(p.budget))) {
+      const after = [...price.options].find((o) => o.value !== '' && Number(o.value) > p.budget);
+      price.insertBefore(new Option(t('price.upto', { n: p.budget }), String(p.budget)), after || null);
+    }
+    price.value = String(p.budget);
+  }
+  setProfileOpen(true);
+  renderList();
+  $('#for-me').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+}
+
+// ---------- search suggestions ----------
+// The hero search lists its best matches right under the box, so nobody has to scroll past the
+// badges to see what they found. Enter or "See all" jumps to the full grid below.
+const SUGGEST = 6;
+let suggest = { ids: [], active: -1 };
+
+function renderSuggest(q, list) {
+  suggest = { ids: list.slice(0, SUGGEST).map((c) => c.id), active: -1 };
+  if (!q) return closeSuggest();
+  $('#q-list').innerHTML = list
+    .slice(0, SUGGEST)
+    .map(
+      (c, i) => `<li role="option" id="q-opt-${i}" aria-selected="false"><a class="q-opt" href="#cert?id=${esc(c.id)}" tabindex="-1">
+        ${badge(c, 36, { label: false })}
+        <span class="q-text"><span class="q-name">${esc(c.name)}</span><span class="q-meta">${esc(c.provider)} · ${esc(c.code)}</span></span>
+        <span class="q-fee">${esc(fee(c))}</span></a></li>`,
+    )
+    .join('');
+  $('#q-foot').innerHTML =
+    (list.length
+      ? `<button type="button" class="q-all" data-q="all">${esc(t('search.all', { n: list.length }))}</button>`
+      : `<p class="q-none">${esc(t('search.none'))}</p>`) +
+    `<a class="q-ask" href="#ask" data-q="ask">${icon('sparkles')}<span>${esc(t('search.askAi', { q }))}</span></a>`;
+  $('#q').removeAttribute('aria-activedescendant');
+  if (document.activeElement === $('#q')) openSuggest();
+}
+
+function openSuggest() {
+  if (!$('#q').value.trim()) return;
+  $('#q-pop').hidden = false;
+  $('#q').setAttribute('aria-expanded', 'true');
+}
+
+function closeSuggest() {
+  $('#q-pop').hidden = true;
+  $('#q').setAttribute('aria-expanded', 'false');
+  $('#q').removeAttribute('aria-activedescendant');
+  suggest.active = -1;
+  $$('#q-list [aria-selected="true"]').forEach((li) => li.setAttribute('aria-selected', 'false'));
+}
+
+function moveSuggest(step) {
+  const n = suggest.ids.length;
+  if (!n) return;
+  openSuggest();
+  // -1 means back in the box; past either end wraps around through it.
+  let next = suggest.active + step;
+  if (next < -1) next = n - 1;
+  if (next > n - 1) next = -1;
+  suggest.active = next;
+  $$('#q-list [role="option"]').forEach((li, i) => li.setAttribute('aria-selected', String(i === next)));
+  if (next < 0) return $('#q').removeAttribute('aria-activedescendant');
+  $('#q').setAttribute('aria-activedescendant', `q-opt-${next}`);
+  $(`#q-opt-${next}`).scrollIntoView({ block: 'nearest' });
+}
+
+function onSearchKey(e) {
+  if (e.isComposing) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    moveSuggest(e.key === 'ArrowDown' ? 1 : -1);
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    const id = suggest.ids[suggest.active];
+    closeSuggest();
+    if (id) location.hash = `#cert?id=${id}`;
+    else showResults();
+  } else if (e.key === 'Escape' && !$('#q-pop').hidden) {
+    // Without this the search box would also clear itself.
+    e.preventDefault();
+    closeSuggest();
+  }
+}
+
+function onSuggestClick(e) {
+  const act = e.target.closest('[data-q]')?.dataset.q;
+  if (act === 'all') {
+    closeSuggest();
+    showResults();
+  } else if (act === 'ask') {
+    e.preventDefault();
+    const q = $('#q').value.trim();
+    closeSuggest();
+    askAbout(q);
+  } else if (e.target.closest('.q-opt')) closeSuggest();
+}
+
+/** Opens the chat with the search words already typed, unless a message is half written. */
+function askAbout(text) {
+  const box = $('#chat-input');
+  if (text && !box.value.trim()) {
+    box.value = text;
+    box.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  location.hash = '#ask';
+}
+
 function showResults() {
   const head = $('#list-head');
   const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1672,12 +1781,8 @@ function renderSiteText() {
   const checkedDates = all.map((c) => c.checked_on).sort();
   const fmt = (d) => day(d, { weekday: false, year: true });
   const checked = checkedDates[0] === checkedDates.at(-1) ? t('about.checkedOn', { d: fmt(checkedDates[0]) }) : t('about.checkedBetween', { a: fmt(checkedDates[0]), b: fmt(checkedDates.at(-1)) });
-  const heroStat = (ic, n, lbl) => `<span class="stat-chip">${tile(ic, '--accent', 'sm')}<span><b>${n}</b><small>${lbl}</small></span></span>`;
-  $('#hero-stats').innerHTML =
-    heroStat('layers', all.length, t('hero.certs')) +
-    heroStat('building-2', providers, t('hero.providers')) +
-    heroStat('graduation-cap', withPrep, t('hero.prep')) +
-    (free ? heroStat('badge-dollar-sign', free, t('hero.free')) : '');
+  const heroStat = (n, lbl) => `<span><b>${n}</b> ${lbl}</span>`;
+  $('#hero-stats').innerHTML = heroStat(all.length, t('hero.certs')) + heroStat(providers, t('hero.providers')) + heroStat(withPrep, t('hero.prep')) + (free ? heroStat(free, t('hero.free')) : '');
   $('#level-key').innerHTML = tx.levels.map((l) => `<li>${lvl(l.id)}</li>`).join('');
   $('#hours-note').textContent = `${hoursNote(tx.hours_note)} ${t('about.ranges', { x: tx.levels.map((l) => `${label('levels', l).toLowerCase()} ${l.hours[0]}–${l.hours[1]} h`).join(', ') })}`;
   $('#data-note').textContent = t('about.dataNote', { n: all.length, p: providers, s: Object.keys(DATA.sources).length, r: Object.keys(DATA.reports).length, checked });
@@ -1696,6 +1801,7 @@ function localize() {
   labelDays();
   setRatedLabel(Object.keys(readConfidence()).length);
   setThemeButton();
+  chat?.localize();
 }
 
 async function init() {
@@ -1724,7 +1830,6 @@ async function init() {
       ignoreLocation: true,
     },
   );
-  renderHeroArt();
   renderMarquee();
   setMotionPaused(store.get(KEYS.motion, false) === 'paused');
 
@@ -1736,6 +1841,7 @@ async function init() {
   setThemeButton();
   fillPlanForm();
   bind();
+  chat = mountChat({ data: DATA, helpers: { icon, lvl, fee, flag }, onRefine: refineFromIntent });
   $('#loading').remove();
   route();
   registerWorker();

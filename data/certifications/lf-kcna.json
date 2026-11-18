@@ -1,0 +1,83 @@
+{
+  "id": "lf-kcna",
+  "name": "Kubernetes and Cloud Native Associate",
+  "provider": "Linux Foundation",
+  "code": "KCNA",
+  "type": "certification",
+  "category": "Cloud & platform",
+  "level": "entry",
+  "status": "available",
+  "fee": {
+    "usd": 250,
+    "basis": "Exam only",
+    "note": "Published exam-only price; includes two exam attempts and 12 months to schedule. Bundles with a course or a subscription cost more."
+  },
+  "exam": {
+    "minutes": 90,
+    "style": "knowledge",
+    "format": "Online, proctored multiple-choice exam: 60 questions in 90 minutes. No prerequisites. Passing CKA or CKAD renews the KCNA automatically.",
+    "questions": "60",
+    "passing": "75%",
+    "validity": "2 years"
+  },
+  "scope": "Foundational knowledge of Kubernetes and the cloud native ecosystem: Kubernetes fundamentals, container orchestration, cloud native application delivery and cloud native architecture.",
+  "requirements": "",
+  "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
+  "caveats": [],
+  "skills": [
+    "kubernetes",
+    "devops"
+  ],
+  "roles": [
+    "platform",
+    "developer"
+  ],
+  "domains": [
+    {
+      "name": "Kubernetes Fundamentals",
+      "weight": 44
+    },
+    {
+      "name": "Container Orchestration",
+      "weight": 28
+    },
+    {
+      "name": "Cloud Native Application Delivery",
+      "weight": 16
+    },
+    {
+      "name": "Cloud Native Architecture",
+      "weight": 12
+    }
+  ],
+  "sources": [
+    "P66",
+    "P71",
+    "P72",
+    "P74"
+  ],
+  "reports": [],
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "KCNA curriculum (CNCF)",
+      "url": "https://github.com/cncf/curriculum/blob/main/KCNA_Curriculum.pdf",
+      "kind": "official-guide",
+      "cost": "free"
+    },
+    {
+      "title": "Linux Foundation: Kubernetes and Cloud Native Essentials (LFS250)",
+      "url": "https://training.linuxfoundation.org/training/kubernetes-and-cloud-native-essentials-lfs250/",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Also sold in a bundle with the exam."
+    },
+    {
+      "title": "Linux Foundation: Introduction to Kubernetes (LFS158)",
+      "url": "https://training.linuxfoundation.org/training/introduction-to-kubernetes/",
+      "kind": "course",
+      "cost": "free"
+    }
+  ],
+  "domains_note": "Weights from the Linux Foundation certification page, 'Domains & Competencies' section, read 2026-11-17; the CNCF KCNA curriculum PDF gives the same weights."
+}

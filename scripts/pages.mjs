@@ -28,6 +28,8 @@ const CATS = {
   'ML foundations': { icon: 'brain-circuit', c: '--cat-ml' },
   'AI security': { icon: 'shield-check', c: '--cat-sec' },
   'Cloud & platform': { icon: 'cloud', c: '--cat-cloud' },
+  Cybersecurity: { icon: 'lock-keyhole', c: '--cat-cyber' },
+  'Data & analytics': { icon: 'database', c: '--cat-data' },
 };
 const catOf = (c) => CATS[c.category] || { icon: 'layers', c: '--accent' };
 const tile = (name, color, size = '') => `<span class="tile ${size}" style="--c:var(${color})">${icon(name)}</span>`;
@@ -105,7 +107,7 @@ function layout({ lang, path, title, description, alternates, image, jsonld, bod
 <header class="top">
   <div class="top-inner">
     <a class="brand" href="${up}${appQuery(lang)}">
-      <span class="brand-mark" aria-hidden="true">${icon('route')}</span>
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 25 13 12l5 7 7-12"/><circle cx="25" cy="7" r="2.4"/></svg></span>
       pathfinder
     </a>
     <nav aria-label="${esc(t('nav.aria', {}, lang))}">
@@ -142,8 +144,8 @@ ${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${esc(site + alt
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121318" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0f13" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="${up}icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="${up}icons/apple-touch-icon.png">

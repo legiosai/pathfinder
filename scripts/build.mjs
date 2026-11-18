@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundle, loadCatalog, validate } from './catalog.mjs';
 import { LANGS, certPage, certPath, indexPage, indexPath, robots, sitemap, symbolsFrom } from './pages.mjs';
-import { DEFAULT_SITE, SITE } from './site.mjs';
+import { CHAT_API, DEFAULT_CHAT_API, DEFAULT_SITE, SITE } from './site.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const data = await loadCatalog(root);
@@ -27,6 +27,9 @@ await cp(join(root, 'site'), dist, { recursive: true });
 if (SITE !== DEFAULT_SITE) {
   for (const f of ['index.html', 'i18n.js', 'lib/planner.js']) await writeFile(join(dist, f), (await readFile(join(dist, f), 'utf8')).replaceAll(DEFAULT_SITE, SITE));
 }
+// The same for the chat endpoint (see scripts/site.mjs), which site/chat.js carries as a constant.
+if (!/^https?:\/\/[\w.:[\]-]+(\/[\w./~-]*)?$/.test(CHAT_API)) throw new Error(`build: CHAT_API is not a plain http(s) address: ${CHAT_API}`);
+await rewrite('chat.js', [[new RegExp(`'${DEFAULT_CHAT_API.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'`), `'${CHAT_API}'`]]);
 const today = new Date().toISOString().slice(0, 10);
 // Official badge images (fetched by scripts/badges.mjs) replace the generated badge where present.
 const badgeFiles = new Set(await readdir(join(root, 'site', 'badges')).catch(() => []));
@@ -54,7 +57,8 @@ for (const set of data.practice) hash.update(await readFile(join(dist, 'practice
 for (const f of [...badgeFiles].sort()) if (f.endsWith('.webp')) hash.update(await readFile(join(dist, 'badges', f)));
 const v = hash.digest('hex').slice(0, 10);
 await rewrite('index.html', [[/(src|href)="(app\.js|styles\.css)"/g, `$1="$2?v=${v}"`]]);
-await rewrite('app.js', [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
+// chat.js imports the same modules as app.js; with the same URLs they load once and share state (the language).
+for (const f of ['app.js', 'chat.js']) await rewrite(f, [[/from '(\.\/[\w./-]+\.js)'/g, `from '$1?v=${v}'`]]);
 
 // Offline cache: the worker precaches the shell and every versioned asset of this build.
 const precache = ['./', 'catalog.json', 'manifest.webmanifest', 'icon.svg', 'icons/icon-192.png', 'fonts/bricolage-grotesque.woff2', 'fonts/inter-latin.woff2', ...data.practice.map((set) => `practice/${set._file}`), ...assets.map((f) => `${f}?v=${v}`)];
