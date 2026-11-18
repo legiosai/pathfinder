@@ -203,6 +203,8 @@ nav .short { display: none; }
 
 main { flex: 1; padding-top: var(--sp-8); padding-bottom: 88px; }
 .loading { color: var(--muted); }
+/* While the catalog loads, keep the footer below the fold, so it doesn't jump down once the view fills in. */
+main:has(> .loading) { min-height: 100vh; }
 
 /* ---------- footer ---------- */
 .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 24px; padding-top: 24px; padding-bottom: 36px; color: var(--subtle); font-size: var(--fs-sm); line-height: 1.6; border-top: 1px solid var(--line); }
@@ -464,6 +466,8 @@ img.badge.official { object-fit: contain; user-select: none; }
 .result-count { color: var(--muted); font-size: var(--fs-md); font-weight: 550; margin: 6px 0 14px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 .cert-card { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 20px; overflow: hidden; transition: transform var(--t) var(--ease), border-color var(--t), box-shadow var(--t); }
+/* The list holds every certification: cards far from the screen skip layout and paint until they near it. */
+#certs > .cert-card { content-visibility: auto; contain-intrinsic-size: auto 216px; }
 .cert-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 128px; background: radial-gradient(85% 100% at 0% 0%, color-mix(in srgb, var(--pc) 14%, transparent), transparent 72%); pointer-events: none; }
 .cert-card:hover { border-color: color-mix(in srgb, var(--pc) 38%, var(--line)); box-shadow: var(--e-3), 0 18px 40px -26px var(--pc); }
 .cert-card .row { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 14px; }

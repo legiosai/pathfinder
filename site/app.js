@@ -4,7 +4,6 @@ import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistake
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
 import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
 import Fuse from './vendor/fuse.js';
-import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
 import { mountChat } from './chat.js';
 
@@ -840,7 +839,10 @@ function celebrate(count) {
   if (reducedMotion()) return;
   const css = getComputedStyle(document.documentElement);
   const colors = ['--accent', '--k-learn', '--k-practice', '--k-mock', '--d4'].map((v) => css.getPropertyValue(v).trim()).filter(Boolean);
-  confetti({ particleCount: count, spread: 75, startVelocity: 38, origin: { y: 0.75 }, colors, disableForReducedMotion: true });
+  // Loaded on the first celebration, so the first visit doesn't wait for it.
+  import('./vendor/confetti.js')
+    .then(({ default: confetti }) => confetti({ particleCount: count, spread: 75, startVelocity: 38, origin: { y: 0.75 }, colors, disableForReducedMotion: true }))
+    .catch(() => {});
 }
 
 function effectiveTheme() {
@@ -1808,7 +1810,7 @@ function localize() {
 async function init() {
   applyStatic();
   try {
-    const res = await fetch('catalog.json', { cache: 'no-cache' });
+    const res = await fetch('catalog.json'); // the build adds ?v=<build>, like index.html's preload
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     DATA = await res.json();
   } catch (err) {
