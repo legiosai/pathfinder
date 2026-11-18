@@ -23,15 +23,33 @@ stays dependency-free.
 
 Messages alternate, start and end with `user`, at most 20. User content up to 1000 characters,
 assistant content up to 4000. An assistant message may carry `"picks": ["id", ...]`, the
-certifications its cards showed; the model sees them as `[Shown: id, id]`.
+certifications its cards, roadmap or table showed; the model sees them as `[Shown: id, id]`.
+
+An optional `profile` object sends back what an earlier `profile` event recorded (see below):
+`role`, `experience` (`new`, `some` or `experienced`), `goal`, `budget_usd`, `hours_per_week`,
+`prefers_spanish_exam`, `country` (two letters). Invalid fields are dropped, not refused; a
+`profile` that is not an object is a 400. It reaches the model as a `<profile>` tag on the last
+user message only, after the cache breakpoint.
 
 On success: `200`, `text/event-stream; charset=utf-8`, with these events in order:
 
 ```
-event: text      data: {"t":"<chunk>"}                       zero or more
-event: picks     data: {"picks":[{"id":"...","why":"..."}]}   at most one, 1-5 items
-event: done      data: {}
+event: text        data: {"t":"<chunk>"}                                    zero or more
+event: picks       data: {"picks":[{"id":"...","why":"...","warning":"..."}]} at most one, 1-5 items
+event: roadmap     data: {"steps":[{"id":"...","weeks":4,"note":"..."}],"hours_per_week":5}
+event: comparison  data: {"ids":["...","..."]}                               2-4 ids
+event: profile     data: {"profile":{"role":"...","hours_per_week":5}}
+event: replies     data: {"replies":["...","..."]}                           1-4 short replies
+event: done        data: {}
 ```
+
+Every event after `text` is optional and appears at most once, in this order. Every id is
+guaranteed to exist in the catalog. `warning` is optional (eligibility, an exam not open yet,
+experience required, over budget, English only). Roadmap steps are 2-6, in order; `weeks` is an
+integer from 1 to 104, or `null` when the model gave nothing usable; `hours_per_week` is optional.
+A `why` can be empty: when the model names catalog certifications in its text without calling
+`show_certifications`, the Worker shows them itself (see Tools). Clients should ignore events
+they don't know; the page has done so since the first version, so new kinds are safe to add.
 
 If something fails after the stream started, the last event is
 `event: error` with `data: {"code":"overloaded"|"refusal"|"internal"}`.
@@ -58,21 +76,32 @@ use out, the rate limit does the rest).
 
 - **Catalog.** Fetched from `CATALOG_URL` and kept for 10 minutes in memory and in the Cache API;
   if the site is unreachable, the last good copy keeps serving for up to a day. Each certification
-  becomes a small, sorted, deterministic text block (id, code, name, provider, category, level,
-  status, fee, exam facts, scope, skills, roles, weighted domains, prep resources and practice
-  question counts).
+  becomes a small, sorted, deterministic text block (see Catalog text below).
 - **Prompt.** Instructions plus that catalog form the `system` prompt, marked with
   `cache_control`. Nothing per-request comes before that breakpoint (the interface language is a
   `<ui_language>` tag inside each user message), so every visitor shares one cached prefix. A
   top-level cache marker also caches the conversation so far.
 - **Model call.** Streaming, `effort: low`, adaptive thinking (the model default), `max_tokens`
-  4096, `tool_choice: auto`, and server-side refusal fallback enabled (`fallbacks: "default"`
+  4096, `tool_choice: auto` with parallel tool calls, and server-side refusal fallback enabled (`fallbacks: "default"`
   with the `server-side-fallback-2026-07-01` beta), which re-runs `cyber` and `frontier_llm`
   refusals on Claude Sonnet 5. Other refusals end the reply with `error: refusal`.
-- **Tool.** The model recommends by calling `show_certifications` (strict schema, eager input
-  streaming). The Worker validates the input itself, drops unknown ids and duplicates, keeps at
-  most five and emits them as one `picks` event. The turn ends there; nothing goes back to the
-  model. A tool call cut off by `max_tokens` is never shown.
+- **Tools.** Five strict tools with eager input streaming, called in parallel at the end of a
+  reply: `show_certifications` (cards, each with a reason and an optional warning),
+  `show_roadmap` (an ordered path with weeks per step), `show_comparison` (2-4 ids; the page
+  builds the table from the catalog), `suggest_replies` (tappable next messages) and
+  `set_profile` (facts the person stated, which the page keeps and sends back as `profile`). The
+  Worker validates every input itself (`src/picks.ts`, `src/tools.ts`): unknown ids, duplicates,
+  bad shapes and items over the limits are dropped, and each tool becomes one event. The turn
+  ends there; nothing goes back to the model. Tool calls cut off by `max_tokens` are never shown.
+- **Safety net.** When a reply names catalog certifications (by exam code or a distinctive name,
+  `src/mentions.ts`) and has no valid `show_certifications` call, the Worker emits a `picks`
+  event for them with an empty `why`, leaving out any the roadmap or table already shows.
+- **Catalog text.** Besides the basics, each certification carries its fee note, passing score,
+  validity, caveats, exam languages and delivery, free routes and discounts, retake and
+  accommodation rules, dated changes still ahead (`timeline`, filtered by today's date) and the
+  titles and cost of its prep resources; the study paths by goal and the region notes come first.
+  Long free text is capped (`CAPS` in `src/catalog.ts`). With 85 certifications the system prompt
+  is about 112,000 characters, roughly 28-32K tokens.
 
 ## Privacy
 
@@ -119,7 +148,8 @@ curl -N http://127.0.0.1:8787/chat -H 'origin: http://localhost:5173' \
 
 With `MOCK=1` the reply is canned but follows the contract, with picks from the real catalog. A
 last user message of `mock:ask`, `mock:refusal`, `mock:overloaded`, `mock:internal` or
-`mock:upstream` produces that case, for testing the UI's error states.
+`mock:upstream` produces that case, for testing the UI's error states, and `mock:tools` a reply
+with every event.
 
 ## Deploy
 
@@ -166,13 +196,17 @@ set `CHAT_ENABLED = "0"` in `wrangler.toml` and deploy, or run
 Prices for Claude Sonnet 5.5: $2 per million input tokens, $10 per million output tokens, cache
 reads $0.10 and 5-minute cache writes $2.50 per million.
 
-- The cached prefix (instructions, tool and catalog) is roughly 10-14K tokens with 44
-  certifications and grows with the catalog. The exact figure shows up as `cacheRead` or
-  `cacheWrite` in the Worker's logs.
+- The cached prefix (instructions, tools and catalog) is roughly 28-32K tokens with 85
+  certifications and grows with the catalog and its access and timeline fields. The exact figure
+  shows up as `cacheRead` or `cacheWrite` in the Worker's logs.
 - A message while the cache is warm (another request in the last 5 minutes) costs about
   $0.005-0.01: the cached read, the new turn and a few hundred output tokens.
-- The first message after a quiet spell also writes the cache: about $0.03-0.04 more.
-- The ceiling for one request (20 long messages and the full 4096 output tokens) is under $0.10.
+- The first message after a quiet spell also writes the cache: about $0.07-0.08 more.
+- A `profile` changes the last user message on every turn, so with one only the system prompt
+  (tools, instructions and catalog) is read from cache; the conversation itself is re-read at the
+  normal input price, a few hundred tokens per turn.
+- The ceiling for one request (20 long messages, the full 4096 output tokens and a cache write) is
+  under $0.20.
 
 Through AI Gateway the token prices are the same as Anthropic's. Keep a monthly budget on the
 key (on Vercel) or a spend limit on the Anthropic workspace (on Cloudflare); the per-IP rate

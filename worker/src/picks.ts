@@ -6,14 +6,19 @@ import type { Pick } from './sse';
 
 export const MAX_PICKS = 5;
 export const MAX_WHY_CHARS = 240;
+export const MAX_WARNING_CHARS = 160;
 
-const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
+export const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
 
-function shorten(text: string): string {
-  if (text.length <= MAX_WHY_CHARS) return text;
-  const cut = text.slice(0, MAX_WHY_CHARS - 1);
+/** One line: no runs of whitespace, no line breaks. */
+export const oneLine = (text: string) => text.replace(/\s+/g, ' ').trim();
+
+/** Cuts at a word boundary and adds an ellipsis when the text is over `max` characters. */
+export function shorten(text: string, max = MAX_WHY_CHARS): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
   const space = cut.lastIndexOf(' ');
-  return `${(space > MAX_WHY_CHARS / 2 ? cut.slice(0, space) : cut).trimEnd()}…`;
+  return `${(space > max / 2 ? cut.slice(0, space) : cut).trimEnd()}…`;
 }
 
 export interface PicksResult {
@@ -22,7 +27,10 @@ export interface PicksResult {
   dropped: number;
 }
 
-/** Keeps well-formed picks whose id exists in the catalog, deduplicated, at most five. */
+/**
+ * Keeps well-formed picks whose id exists in the catalog, deduplicated, at most five. A warning
+ * is optional: kept when it is a non-empty string, dropped otherwise without losing the pick.
+ */
 export function validatePicks(input: unknown, known: ReadonlySet<string>): PicksResult {
   const items = isObject(input) && Array.isArray(input.picks) ? input.picks : [];
   const picks: Pick[] = [];
@@ -30,10 +38,13 @@ export function validatePicks(input: unknown, known: ReadonlySet<string>): Picks
   for (const item of items) {
     if (!isObject(item) || typeof item.id !== 'string' || typeof item.why !== 'string') continue;
     const id = item.id.trim();
-    const why = item.why.replace(/\s+/g, ' ').trim();
+    const why = oneLine(item.why);
     if (!known.has(id) || seen.has(id) || !why || picks.length >= MAX_PICKS) continue;
     seen.add(id);
-    picks.push({ id, why: shorten(why) });
+    const pick: Pick = { id, why: shorten(why) };
+    const warning = typeof item.warning === 'string' ? oneLine(item.warning) : '';
+    if (warning) pick.warning = shorten(warning, MAX_WARNING_CHARS);
+    picks.push(pick);
   }
   return { picks, dropped: items.length - picks.length };
 }

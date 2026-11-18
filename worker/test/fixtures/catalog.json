@@ -100,7 +100,16 @@
         "format": "65 questions, 90 minutes, three-year validity. Question formats follow the current exam guide.",
         "questions": "65 (50 scored)",
         "passing": "700 scaled (100–1,000)",
-        "validity": "3 years"
+        "validity": "3 years",
+        "languages": [
+          "en",
+          "es",
+          "ja"
+        ],
+        "delivery": [
+          "online",
+          "test-center"
+        ]
       },
       "scope": "AI/ML foundations, generative AI, foundation-model applications, responsible AI and security/governance.",
       "requirements": "",
@@ -179,7 +188,38 @@
       "badge": {
         "src": "badges/aws-aif-c01.webp",
         "source": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-ai-practitioner"
-      }
+      },
+      "access": {
+        "free_routes": [
+          {
+            "text": "Free voucher route (test entry).",
+            "url": "https://aws.amazon.com/certification/",
+            "until": "2026-12-31"
+          }
+        ],
+        "discounts": [
+          {
+            "text": "Discount route (test entry).",
+            "url": "https://aws.amazon.com/certification/benefits/"
+          }
+        ],
+        "retake": "Retake rule (test entry).",
+        "accommodations": "Accommodation rule (test entry)."
+      },
+      "timeline": [
+        {
+          "date": "2026-06-01",
+          "kind": "changes",
+          "text": "Past change (test entry).",
+          "source": "A01"
+        },
+        {
+          "date": "2027-03-01",
+          "kind": "retires",
+          "text": "Future change (test entry).",
+          "source": "A01"
+        }
+      ]
     },
     {
       "id": "aws-clf-c02",
@@ -193,7 +233,7 @@
       "fee": {
         "usd": 100,
         "basis": "Exam only",
-        "note": ""
+        "note": "Fee note (test entry)."
       },
       "exam": {
         "minutes": 90,
@@ -206,7 +246,9 @@
       "scope": "Overall knowledge of the AWS Cloud: its value, the shared responsibility model, security, core services, costs and billing.",
       "requirements": "",
       "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
-      "caveats": [],
+      "caveats": [
+        "Caveat (test entry)."
+      ],
       "skills": [
         "aws",
         "security",
@@ -612,5 +654,50 @@
         "label": "AI governance & risk"
       }
     ]
+  },
+  "paths": [
+    {
+      "id": "cloud-aws",
+      "category": "Cloud & platform",
+      "title": {
+        "en": "Cloud on AWS",
+        "es": "Nube en AWS"
+      },
+      "summary": {
+        "en": "x",
+        "es": "x"
+      },
+      "steps": [
+        {
+          "certs": [
+            "aws-clf-c02"
+          ],
+          "note": {
+            "en": "The basics first.",
+            "es": "Lo básico primero."
+          }
+        },
+        {
+          "certs": [
+            "aws-aif-c01",
+            "microsoft-az-900"
+          ],
+          "note": {
+            "en": "Then AI on AWS.",
+            "es": "Después IA en AWS."
+          }
+        }
+      ]
+    }
+  ],
+  "regions": {
+    "AR": {
+      "en": "Region note (test entry).",
+      "es": "Nota de región (entrada de prueba).",
+      "sources": [
+        "A01"
+      ],
+      "checked_on": "2026-11-17"
+    }
   }
 }

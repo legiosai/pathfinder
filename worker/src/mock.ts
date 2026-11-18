@@ -1,14 +1,23 @@
 // MOCK=1: a canned, contract-valid reply with picks from the real catalog, for building the
 // UI and for tests. Claude is never called. A last user message of "mock:ask",
-// "mock:refusal", "mock:overloaded", "mock:internal" or "mock:upstream" produces that case.
+// "mock:refusal", "mock:overloaded", "mock:internal" or "mock:upstream" produces that case, and
+// "mock:tools" a reply with every event (cards with a warning, roadmap, comparison, profile and
+// reply suggestions).
 
 import type { CatalogCert, CompiledCatalog } from './catalog';
-import type { ErrorCode, Pick } from './sse';
+import type { ErrorCode, Pick, Profile, Roadmap } from './sse';
 import type { ChatRequest, Lang } from './validate';
+
+export interface MockExtras {
+  roadmap?: Roadmap;
+  comparison?: string[];
+  profile?: Profile;
+  replies?: string[];
+}
 
 export type MockPlan =
   | { kind: 'upstream' }
-  | { kind: 'stream'; chunks: string[]; picks: Pick[]; error?: ErrorCode };
+  | { kind: 'stream'; chunks: string[]; picks: Pick[]; extras?: MockExtras; error?: ErrorCode };
 
 const TEXT: Record<Lang, { reply: string[]; ask: string[]; partial: string[] }> = {
   en: {
@@ -69,6 +78,22 @@ export function planMock(request: ChatRequest, catalog: CompiledCatalog): MockPl
       return { kind: 'stream', chunks: text.partial, picks: [], error: 'overloaded' };
     case 'mock:internal':
       return { kind: 'stream', chunks: [], picks: [], error: 'internal' };
+    case 'mock:tools': {
+      const picks = mockPicks('', catalog, request.lang);
+      const ids = picks.map((p) => p.id);
+      if (picks[1]) picks[1].warning = request.lang === 'es' ? 'Advertencia de prueba.' : 'Mock warning.';
+      return {
+        kind: 'stream',
+        chunks: text.reply,
+        picks,
+        extras: {
+          roadmap: { hours_per_week: 5, steps: ids.map((id, i) => ({ id, weeks: 3 + i, note: request.lang === 'es' ? `Paso ${i + 1}` : `Step ${i + 1}` })) },
+          comparison: ids.slice(0, 2),
+          profile: { role: 'mock', hours_per_week: 5 },
+          replies: request.lang === 'es' ? ['¿Algo más barato?', 'Armame el camino'] : ['Anything cheaper?', 'Plan the path'],
+        },
+      };
+    }
     default:
       return { kind: 'stream', chunks: text.reply, picks: mockPicks(last, catalog, request.lang) };
   }

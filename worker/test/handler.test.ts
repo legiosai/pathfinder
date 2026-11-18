@@ -79,15 +79,15 @@ describe('POST /chat with Claude', () => {
       fallbacks: 'default',
       output_config: { effort: 'low' },
       cache_control: { type: 'ephemeral' },
-      tool_choice: { type: 'auto', disable_parallel_tool_use: true },
+      tool_choice: { type: 'auto' },
     });
     // No sampling parameters, no disabled thinking: both are 400s on this model.
     for (const key of ['thinking', 'temperature', 'top_p', 'top_k']) expect(body).not.toHaveProperty(key);
     expect(body.system).toHaveLength(1);
     expect(body.system[0].cache_control).toEqual({ type: 'ephemeral' });
     expect(body.system[0].text).toContain('<catalog>');
-    expect(body.tools).toHaveLength(1);
-    expect(body.tools[0]).toMatchObject({ name: 'show_certifications', strict: true, eager_input_streaming: true });
+    expect(body.tools.map((t: { name: string }) => t.name)).toEqual(['show_certifications', 'show_roadmap', 'show_comparison', 'suggest_replies', 'set_profile']);
+    for (const tool of body.tools) expect(tool).toMatchObject({ strict: true, eager_input_streaming: true });
     expect(body.messages).toEqual([
       { role: 'user', content: [{ type: 'text', text: 'hello' }, { type: 'text', text: '<ui_language>en</ui_language>' }] },
     ]);
@@ -103,6 +103,98 @@ describe('POST /chat with Claude', () => {
     expect(h.calls[1].body.system).toEqual(h.calls[0].body.system);
     expect(h.calls[1].body.tools).toEqual(h.calls[0].body.tools);
     expect(h.calls[1].body.messages[1]).toEqual({ role: 'assistant', content: 'b\n\n[Shown: aws-clf-c02]' });
+  });
+
+  it('emits every tool as its own event, after the text and in a fixed order', async () => {
+    const h = harness({
+      reply: streamResponse([
+        ev.start(),
+        ...ev.text(0, ['Arrancá por Cloud Practitioner.']),
+        ...ev.tool(1, pieces(JSON.stringify({ replies: ['¿Algo más barato?', 'Armame el plan'] })), { name: 'suggest_replies' }),
+        ...ev.tool(2, pieces(JSON.stringify({ role: 'help desk', hours_per_week: 5, country: 'ar' })), { name: 'set_profile' }),
+        ...ev.tool(3, pieces(JSON.stringify({ ids: ['aws-clf-c02', 'microsoft-az-900', 'made-up'] })), { name: 'show_comparison' }),
+        ...ev.tool(
+          4,
+          pieces(JSON.stringify({ hours_per_week: 5, steps: [{ id: 'aws-clf-c02', weeks: 4, note: 'Base' }, { id: 'aws-aif-c01', weeks: 5, note: 'IA' }] })),
+          { name: 'show_roadmap' },
+        ),
+        ...ev.tool(5, pieces(picksJson([{ id: 'aws-clf-c02', why: 'Base de nube.' }, { id: 'claude-architect-professional', why: 'Más adelante.', warning: 'Pide ser partner.' }]))),
+        ev.delta('tool_use'),
+        ev.stop(),
+      ]),
+    });
+    const { events } = await send(h, ask('Trabajo en help desk, tengo 5 horas por semana'));
+    expect(events).toEqual([
+      { event: 'text', data: { t: 'Arrancá por Cloud Practitioner.' } },
+      {
+        event: 'picks',
+        data: {
+          picks: [
+            { id: 'aws-clf-c02', why: 'Base de nube.' },
+            { id: 'claude-architect-professional', why: 'Más adelante.', warning: 'Pide ser partner.' },
+          ],
+        },
+      },
+      { event: 'roadmap', data: { hours_per_week: 5, steps: [{ id: 'aws-clf-c02', weeks: 4, note: 'Base' }, { id: 'aws-aif-c01', weeks: 5, note: 'IA' }] } },
+      { event: 'comparison', data: { ids: ['aws-clf-c02', 'microsoft-az-900'] } },
+      { event: 'profile', data: { profile: { role: 'help desk', hours_per_week: 5, country: 'AR' } } },
+      { event: 'replies', data: { replies: ['¿Algo más barato?', 'Armame el plan'] } },
+      { event: 'done', data: {} },
+    ]);
+    expect(h.logs.find((l) => l.evt === 'chat')).toMatchObject({ picks: 2, named: 0, roadmap: 2, compared: 2, replies: 2, profile: true });
+  });
+
+  it('shows the certifications a reply names when the model called no show_certifications', async () => {
+    const h = harness({
+      reply: streamResponse([
+        ev.start(),
+        ...ev.text(0, ['Con un año no llegás; mirá AWS Certified Cloud Practitioner o AZ-900. ¿Qué rol tenés?']),
+        ...ev.tool(1, [JSON.stringify({ replies: ['Soy dev'] })], { name: 'suggest_replies' }),
+        ev.delta('tool_use'),
+        ev.stop(),
+      ]),
+    });
+    const { events } = await send(h, ask('¿Vale la pena el CISSP con 1 año?'));
+    expect(events.map((e) => e.event)).toEqual(['text', 'picks', 'replies', 'done']);
+    expect(events[1].data).toEqual({ picks: [{ id: 'aws-clf-c02', why: '' }, { id: 'microsoft-az-900', why: '' }] });
+    expect(h.logs.find((l) => l.evt === 'chat')).toMatchObject({ picks: 0, named: 2 });
+  });
+
+  it('leaves the safety net alone when cards, the roadmap or the table already show them', async () => {
+    const withPicks = harness({
+      reply: streamResponse([
+        ev.start(),
+        ...ev.text(0, ['AZ-900 primero, después CLF-C02.']),
+        ...ev.tool(1, [picksJson([{ id: 'microsoft-az-900', why: 'Base.' }])]),
+        ev.delta('tool_use'),
+        ev.stop(),
+      ]),
+    });
+    expect((await send(withPicks, ask('hola'))).events[1].data).toEqual({ picks: [{ id: 'microsoft-az-900', why: 'Base.' }] });
+
+    const withRoadmap = harness({
+      reply: streamResponse([
+        ev.start(),
+        ...ev.text(0, ['Primero CLF-C02 y después AIF-C01; el AZ-900 es opcional.']),
+        ...ev.tool(1, [JSON.stringify({ hours_per_week: 5, steps: [{ id: 'aws-clf-c02', weeks: 4, note: '' }, { id: 'aws-aif-c01', weeks: 4, note: '' }] })], { name: 'show_roadmap' }),
+        ev.delta('tool_use'),
+        ev.stop(),
+      ]),
+    });
+    const { events } = await send(withRoadmap, ask('armame el camino'));
+    expect(events.map((e) => e.event)).toEqual(['text', 'picks', 'roadmap', 'done']);
+    expect(events[1].data).toEqual({ picks: [{ id: 'microsoft-az-900', why: '' }] });
+
+    const plain = harness({ reply: streamResponse([ev.start(), ...ev.text(0, ['Acá solo ayudo con certificaciones.']), ev.delta('end_turn'), ev.stop()]) });
+    expect((await send(plain, ask('¿me ayudás con Python?'))).events.map((e) => e.event)).toEqual(['text', 'done']);
+  });
+
+  it('sends the kept profile with the last message and records nothing about it in the logs', async () => {
+    const h = harness({ reply: streamResponse([ev.start(), ...ev.text(0, ['ok']), ev.delta('end_turn'), ev.stop()]) });
+    await send(h, { lang: 'es', messages: [{ role: 'user', content: 'hola' }], profile: { role: 'secret role text', budget_usd: 150 } });
+    expect(h.calls[0].body.messages[0].content.at(-1)).toEqual({ type: 'text', text: '<profile>{"role":"secret role text","budget_usd":150}</profile>' });
+    expect(JSON.stringify(h.logs)).not.toContain('secret role text');
+    expect(h.logs.find((l) => l.evt === 'chat')).toMatchObject({ withProfile: true });
   });
 
   it('separates consecutive text blocks into paragraphs', async () => {
@@ -382,6 +474,13 @@ describe('MOCK=1', () => {
     expect((events[0].data as { t: string }).t).toMatch(/^This is a mock reply/);
     const { picks } = events.at(-2)!.data as { picks: { id: string }[] };
     expect(picks.map((p) => p.id)).toEqual(['aws-aif-c01', 'aws-clf-c02', 'microsoft-az-900']);
+  });
+
+  it('mock:tools streams every event', async () => {
+    const { events } = await send(harness(), ask('mock:tools'), mock);
+    expect(events.map((e) => e.event).filter((k) => k !== 'text')).toEqual(['picks', 'roadmap', 'comparison', 'profile', 'replies', 'done']);
+    const { picks } = events.find((e) => e.event === 'picks')!.data as { picks: { warning?: string }[] };
+    expect(picks.some((p) => p.warning)).toBe(true);
   });
 
   it.each([

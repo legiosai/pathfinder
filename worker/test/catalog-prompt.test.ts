@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { CatalogStore, compactCatalog, compileCatalog, parseCatalog } from '../src/catalog';
+import { CAPS, CatalogStore, compactCatalog, compileCatalog, parseCatalog } from '../src/catalog';
 import { INSTRUCTIONS, SHOW_TOOL, buildSystemPrompt, toApiMessages } from '../src/prompt';
+import { TOOLS } from '../src/tools';
 import { fixture } from './helpers';
 
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
@@ -40,11 +41,14 @@ describe('compactCatalog', () => {
     expect(clf).toContain('provider: AWS');
     expect(clf).toContain('level: entry');
     expect(clf).toContain('status: available');
-    expect(clf).toContain('fee: USD 100 (Exam only)');
-    expect(clf).toMatch(/exam: knowledge; 90 min; questions: 65 \(50 scored\); format: /);
-    expect(clf).toMatch(/prep resources: 2\npractice questions: 34$/);
+    expect(clf).toContain('fee: USD 100 (Exam only; Fee note (test entry).)');
+    expect(clf).toMatch(/exam: knowledge; 90 min; questions: 65 \(50 scored\); format: .*; passing: 700 scaled \(100–1,000\); valid: 3 years$/m);
+    expect(clf).toContain('caveats: Caveat (test entry).');
+    expect(clf).toMatch(/\nprep: .+ \(official, free\); .+\npractice questions: 34$/);
+    expect(clf).not.toContain('type: certification');
+    expect(clf).not.toContain('exam languages:');
 
-    expect(block('microsoft-az-900')).toContain('fee: varies (Regional exam price)');
+    expect(block('microsoft-az-900')).toContain('fee: varies (Regional exam price; Microsoft prices by exam country/region;');
     expect(block('claude-architect-professional')).toMatch(/status: restricted\n[\s\S]*requirements: Restricted to Claude Partner Network/);
 
     // Domains by weight, heaviest first, with their percentages.
@@ -54,6 +58,35 @@ describe('compactCatalog', () => {
     // Legend from the taxonomy.
     expect(text).toMatch(/^levels: entry = Entry, about 10-25 study hours; /m);
     expect(text).toMatch(/^skills: .*aws = /m);
+  });
+
+  it('writes languages, delivery, access, upcoming dates, study paths and regions', () => {
+    const text = compactCatalog(parseCatalog(fixture), '2026-11-18');
+    const aif = text.split('\n\n').find((b) => b.startsWith('id: aws-aif-c01\n'))!;
+    expect(aif).toContain('exam languages: en, es, ja\ndelivery: online, test-center\n');
+    expect(aif).toContain('free routes: Free voucher route (test entry). (until 2026-12-31)');
+    expect(aif).toContain('discounts: Discount route (test entry).');
+    expect(aif).toContain('retake: Retake rule (test entry).');
+    expect(aif).toContain('accommodations: Accommodation rule (test entry).');
+    // Only what is still ahead of `today`.
+    expect(aif).toContain('timeline: 2027-03-01 retires: Future change (test entry).');
+    expect(aif).not.toContain('Past change');
+    expect(compactCatalog(parseCatalog(fixture), '2027-03-02')).not.toContain('timeline:');
+    expect(text).toContain('regions (what paying from there adds to list prices): AR: Region note (test entry).');
+    expect(text).toContain('cloud-aws (Cloud on AWS; Cloud & platform): 1) aws-clf-c02: The basics first. 2) aws-aif-c01 or microsoft-az-900: Then AI on AWS.');
+    expect(text).not.toContain('Nube en AWS');
+    expect(text).not.toContain('https://');
+  });
+
+  it('caps long free text', () => {
+    const long = clone(fixture);
+    long.certifications[2].fee.note = 'word '.repeat(200);
+    long.certifications[2].caveats = ['caveat '.repeat(100), 'more'];
+    const clf = compactCatalog(parseCatalog(long)).split('\n\n').find((b) => b.startsWith('id: aws-clf-c02\n'))!;
+    const line = (key: string) => clf.split('\n').find((l) => l.startsWith(key))!;
+    expect(line('fee: ').length).toBeLessThan(CAPS.feeNote + 40);
+    expect(line('caveats: ').length).toBeLessThanOrEqual(CAPS.caveats + 'caveats: '.length);
+    expect(line('caveats: ').endsWith('…')).toBe(true);
   });
 
   it('rejects a catalog without certifications or with duplicate ids', () => {
@@ -83,16 +116,49 @@ describe('system prompt and tool', () => {
   });
 
   it('covers the rules the owner asked for', () => {
-    for (const phrase of ['only certifications that appear in it', 'Never invent', 'one or two short questions', 'vary by country', 'exam dumps', 'show_certifications', 'out of scope', 'without emojis', 'voseo']) {
+    for (const phrase of [
+      '"Ask AI" page',
+      'only certifications that appear in it',
+      'Never invent',
+      'Lead with the recommendation',
+      'under about 120 words',
+      'no markdown',
+      'Ask at most one short question',
+      'only when their goal is unknown',
+      'concrete next step on the site',
+      'even when you also ask a question',
+      'never call something over it cheap',
+      'free routes and discounts',
+      'languages include Spanish',
+      'exam dumps',
+      'out of scope',
+      'no emojis',
+      'voseo',
+      '<profile>',
+      'show_certifications',
+      'show_roadmap',
+      'show_comparison',
+      'suggest_replies',
+      'set_profile',
+    ]) {
       expect(INSTRUCTIONS).toContain(phrase);
     }
+    expect(INSTRUCTIONS).not.toContain('small chat panel');
   });
 
-  it('declares a strict, eagerly streamed tool', () => {
-    expect(SHOW_TOOL).toMatchObject({ name: 'show_certifications', strict: true, eager_input_streaming: true });
-    expect(SHOW_TOOL.input_schema).toMatchObject({ type: 'object', required: ['picks'], additionalProperties: false });
+  it('declares strict, eagerly streamed tools with closed schemas', () => {
+    expect(TOOLS.map((t) => t.name)).toEqual(['show_certifications', 'show_roadmap', 'show_comparison', 'suggest_replies', 'set_profile']);
+    for (const tool of TOOLS) {
+      expect(tool, tool.name).toMatchObject({ strict: true, eager_input_streaming: true });
+      expect(tool.input_schema, tool.name).toMatchObject({ type: 'object', additionalProperties: false });
+      for (const [key, prop] of Object.entries(tool.input_schema.properties as Record<string, any>)) {
+        if (prop.type === 'array' && prop.items.type === 'object') expect(prop.items.additionalProperties, `${tool.name}.${key}`).toBe(false);
+      }
+    }
+    expect(SHOW_TOOL.input_schema).toMatchObject({ required: ['picks'] });
     const items = (SHOW_TOOL.input_schema.properties as any).picks.items;
     expect(items).toMatchObject({ required: ['id', 'why'], additionalProperties: false });
+    expect(Object.keys(items.properties)).toEqual(['id', 'why', 'warning']);
   });
 });
 
@@ -121,6 +187,30 @@ describe('toApiMessages', () => {
     expect(reply).toEqual({ role: 'assistant', content: '(no reply)' });
     const [, cards] = toApiMessages([{ role: 'user', content: 'a' }, { role: 'assistant', content: '', picks: ['aws-aif-c01'] }, { role: 'user', content: 'b' }], 'en', known);
     expect(cards).toEqual({ role: 'assistant', content: '[Shown: aws-aif-c01]' });
+  });
+
+  it('puts the profile on the last user message only, after the language', () => {
+    const profile = { role: 'backend developer', hours_per_week: 5 };
+    const messages = toApiMessages(
+      [
+        { role: 'user', content: 'q1' },
+        { role: 'assistant', content: 'r1' },
+        { role: 'user', content: 'q2' },
+      ],
+      'es',
+      known,
+      profile,
+    );
+    expect(messages[0]).toEqual({ role: 'user', content: [{ type: 'text', text: 'q1' }, { type: 'text', text: '<ui_language>es</ui_language>' }] });
+    expect(messages[2]).toEqual({
+      role: 'user',
+      content: [
+        { type: 'text', text: 'q2' },
+        { type: 'text', text: '<ui_language>es</ui_language>' },
+        { type: 'text', text: '<profile>{"role":"backend developer","hours_per_week":5}</profile>' },
+      ],
+    });
+    expect(toApiMessages([{ role: 'user', content: 'a' }], 'en', known, {})[0].content).toHaveLength(2);
   });
 
   it('renders earlier turns the same way on every request', () => {

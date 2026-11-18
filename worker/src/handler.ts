@@ -7,7 +7,7 @@ import { CatalogStore, type CompiledCatalog } from './catalog';
 import { readConfig, type Env } from './config';
 import { corsHeaders, isAllowedOrigin, preflightHeaders } from './cors';
 import { planMock } from './mock';
-import { doneEvent, errorEvent, picksEvent, textEvent } from './sse';
+import { comparisonEvent, doneEvent, errorEvent, picksEvent, profileEvent, repliesEvent, roadmapEvent, textEvent } from './sse';
 import { LIMITS, validateChatRequest, type ChatRequest } from './validate';
 
 /** Seconds a client should wait after a 429; the limiter counts per minute. */
@@ -86,8 +86,16 @@ export function createHandler(deps: Deps) {
       if (plan.error) {
         await writer.write(encoder.encode(errorEvent(plan.error)));
       } else {
-        if (plan.picks.length) await writer.write(encoder.encode(picksEvent(plan.picks)));
-        await writer.write(encoder.encode(doneEvent()));
+        const x = plan.extras ?? {};
+        const events = [
+          plan.picks.length ? picksEvent(plan.picks) : '',
+          x.roadmap ? roadmapEvent(x.roadmap) : '',
+          x.comparison?.length ? comparisonEvent(x.comparison) : '',
+          x.profile ? profileEvent(x.profile) : '',
+          x.replies?.length ? repliesEvent(x.replies) : '',
+          doneEvent(),
+        ];
+        for (const event of events.filter(Boolean)) await writer.write(encoder.encode(event));
       }
       await writer.close();
     };
@@ -146,12 +154,14 @@ export function createHandler(deps: Deps) {
     const meta = {
       lang: chatRequest.lang,
       messages: chatRequest.messages.length,
+      withProfile: Boolean(chatRequest.profile),
       inChars: chatRequest.messages.reduce((n, m) => n + m.content.length, 0),
     };
     const turn = await startTurn({
       client: deps.createClient(env),
       params: buildParams(config, catalog, chatRequest),
       known: catalog.ids,
+      mentions: catalog.mentions,
       meta,
       now: deps.now,
       log: deps.log,

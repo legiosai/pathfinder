@@ -67,7 +67,7 @@ export const ev = {
   error: (type = 'overloaded_error') => ({ raw: `event: error\ndata: ${JSON.stringify({ type: 'error', error: { type, message: 'Overloaded' } })}\n\n` }),
 };
 
-export const picksJson = (picks: { id: string; why: string }[]) => JSON.stringify({ picks });
+export const picksJson = (picks: { id: string; why: string; warning?: string }[]) => JSON.stringify({ picks });
 
 /** Splits a string into pieces, as the API streams tool input. */
 export const pieces = (text: string, size = 17) => Array.from({ length: Math.ceil(text.length / size) }, (_, i) => text.slice(i * size, (i + 1) * size));

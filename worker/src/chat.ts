@@ -1,17 +1,19 @@
 // One chat turn against Claude: build the request, wait for the stream to open, then relay
-// text deltas as SSE and finish with the validated picks. The turn ends at the tool call;
-// nothing is sent back to the model.
+// text deltas as SSE and finish with the validated tool output (cards, roadmap, comparison,
+// profile, reply suggestions). The turn ends at the tool calls; nothing is sent back to the model.
 
 import Anthropic from '@anthropic-ai/sdk';
 import type { BetaMessageStreamParams } from '@anthropic-ai/sdk/resources/beta/messages';
 import type { CompiledCatalog } from './catalog';
 import type { Config } from './config';
-import { validatePicks } from './picks';
-import { SHOW_TOOL, TOOL_NAME, toApiMessages } from './prompt';
-import { doneEvent, errorEvent, picksEvent, textEvent, type ErrorCode, type Pick } from './sse';
+import type { Mentions } from './mentions';
+import { MAX_PICKS } from './picks';
+import { toApiMessages } from './prompt';
+import { comparisonEvent, doneEvent, errorEvent, picksEvent, profileEvent, repliesEvent, roadmapEvent, textEvent, type ErrorCode, type Pick } from './sse';
+import { TOOLS, collectOutputs, type ToolOutputs } from './tools';
 import type { ChatRequest } from './validate';
 
-/** Room for a short reply, a five-card tool call and the little thinking low effort does. */
+/** Room for a short reply, the tool calls and the little thinking low effort does. */
 export const MAX_TOKENS = 4096;
 /** Server-side refusal fallback; `fallbacks: "default"` lets Anthropic pick the model per refusal category. */
 export const FALLBACK_BETA = 'server-side-fallback-2026-07-01';
@@ -30,9 +32,10 @@ export function buildParams(config: Config, catalog: CompiledCatalog, request: C
     // caches them for every visitor. The top-level marker caches the conversation so far.
     system: [{ type: 'text', text: catalog.system, cache_control: { type: 'ephemeral' } }],
     cache_control: { type: 'ephemeral' },
-    tools: [SHOW_TOOL],
-    tool_choice: { type: 'auto', disable_parallel_tool_use: true },
-    messages: toApiMessages(request.messages, request.lang, catalog.ids),
+    tools: TOOLS,
+    // Parallel calls on: one reply can show cards, suggest replies and record the profile.
+    tool_choice: { type: 'auto' },
+    messages: toApiMessages(request.messages, request.lang, catalog.ids, request.profile),
   };
 }
 
@@ -52,21 +55,17 @@ export function describeError(err: unknown): Record<string, unknown> {
   return { error: err instanceof Error ? err.constructor.name : typeof err };
 }
 
-function picksFrom(final: Final, known: ReadonlySet<string>) {
-  // After a server-side fallback, tool calls before the last fallback block belong to the
-  // declined attempt and are discarded.
-  let start = 0;
-  final.content.forEach((block, i) => {
-    if (block.type === 'fallback') start = i + 1;
-  });
-  const items: unknown[] = [];
-  for (const block of final.content.slice(start)) {
-    if (block.type === 'tool_use' && block.name === TOOL_NAME) {
-      const input = block.input as { picks?: unknown };
-      if (Array.isArray(input?.picks)) items.push(...input.picks);
-    }
-  }
-  return validatePicks({ picks: items }, known);
+/**
+ * The safety net: a reply that names catalog certifications without calling show_certifications
+ * still gets their cards, without a reason, unless the roadmap or the table already shows them.
+ */
+export function namedPicks(text: string, outputs: ToolOutputs, mentions: Mentions): Pick[] {
+  if (outputs.picks.length || !text.trim()) return [];
+  const shown = new Set([...(outputs.roadmap?.steps.map((s) => s.id) ?? []), ...outputs.comparison]);
+  return mentions(text)
+    .filter((id) => !shown.has(id))
+    .slice(0, MAX_PICKS)
+    .map((id) => ({ id, why: '' }));
 }
 
 export type ModelStart = { ok: true; body: ReadableStream<Uint8Array>; finished: Promise<void> } | { ok: false };
@@ -75,6 +74,7 @@ export interface TurnContext {
   client: Anthropic;
   params: BetaMessageStreamParams;
   known: ReadonlySet<string>;
+  mentions: Mentions;
   /** Counts only, merged into the log line. */
   meta: Record<string, unknown>;
   now: () => number;
@@ -87,7 +87,7 @@ export interface TurnContext {
  * that settles when the turn is over (for ctx.waitUntil).
  */
 export async function startTurn(turn: TurnContext): Promise<ModelStart> {
-  const { client, params, known, meta, now, log } = turn;
+  const { client, params, known, mentions, meta, now, log } = turn;
   const startedAt = now();
   const stream = client.beta.messages.stream(params);
   const iterator = stream[Symbol.asyncIterator]();
@@ -118,6 +118,7 @@ export async function startTurn(turn: TurnContext): Promise<ModelStart> {
   const finished = (async () => {
     const textBlocks = new Set<number>();
     let textChars = 0;
+    let reply = '';
     let firstTextMs: number | undefined;
     let separator = false;
     let afterFallback = false;
@@ -147,6 +148,7 @@ export async function startTurn(turn: TurnContext): Promise<ModelStart> {
           separator = false;
           firstTextMs ??= now() - startedAt;
           textChars += event.delta.text.length;
+          reply += chunk;
           await write(textEvent(chunk));
         }
       }
@@ -157,8 +159,8 @@ export async function startTurn(turn: TurnContext): Promise<ModelStart> {
 
     let outcome = 'done';
     let code: ErrorCode | undefined;
-    let picks: Pick[] = [];
-    let dropped = 0;
+    let out: ToolOutputs | undefined;
+    let named: Pick[] = [];
     if (!open) {
       outcome = 'client_gone';
     } else if (failure !== undefined) {
@@ -170,9 +172,15 @@ export async function startTurn(turn: TurnContext): Promise<ModelStart> {
       code = 'refusal';
     } else if (final) {
       // A tool call cut off by max_tokens can still parse as a partial object: never show it.
-      if (final.stop_reason !== 'max_tokens') ({ picks, dropped } = picksFrom(final, known));
+      if (final.stop_reason !== 'max_tokens') out = collectOutputs(final.content, known);
+      if (out) named = namedPicks(reply, out, mentions);
+      const picks = out?.picks.length ? out.picks : named;
       if (picks.length) await write(picksEvent(picks));
-      if (!picks.length && textChars === 0) code = 'internal';
+      if (out?.roadmap) await write(roadmapEvent(out.roadmap));
+      if (out?.comparison.length) await write(comparisonEvent(out.comparison));
+      if (out?.profile) await write(profileEvent(out.profile));
+      if (out?.replies.length) await write(repliesEvent(out.replies));
+      if (!picks.length && !out?.roadmap && !out?.comparison.length && textChars === 0) code = 'internal';
     }
     if (open) {
       if (code) outcome = 'error';
@@ -192,8 +200,13 @@ export async function startTurn(turn: TurnContext): Promise<ModelStart> {
       refusal: final?.stop_details?.category ?? null,
       ...meta,
       outChars: textChars,
-      picks: picks.length,
-      dropped,
+      picks: out?.picks.length ?? 0,
+      named: named.length,
+      roadmap: out?.roadmap?.steps.length ?? 0,
+      compared: out?.comparison.length ?? 0,
+      replies: out?.replies.length ?? 0,
+      profile: Boolean(out?.profile),
+      dropped: out?.dropped ?? 0,
       ms: now() - startedAt,
       firstTextMs: firstTextMs ?? null,
       usage: usage

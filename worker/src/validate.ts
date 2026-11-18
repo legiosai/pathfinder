@@ -1,6 +1,9 @@
 // Request validation for POST /chat. Lengths are JavaScript string lengths (UTF-16 code
 // units), the same unit as a textarea's maxlength.
 
+import type { Profile } from './sse';
+import { isEmptyProfile, sanitizeProfile } from './tools';
+
 export const LIMITS = {
   maxMessages: 20,
   userChars: 1000,
@@ -21,6 +24,8 @@ export interface ChatMessage {
 export interface ChatRequest {
   messages: ChatMessage[];
   lang: Lang;
+  /** What set_profile recorded earlier, as the page kept it. Invalid fields are dropped, not refused. */
+  profile?: Profile;
 }
 
 export type Validation =
@@ -38,6 +43,7 @@ export function validateChatRequest(body: unknown): Validation {
   if (!isObject(body)) return bad('body must be a JSON object');
   const { messages, lang } = body;
   if (lang !== 'en' && lang !== 'es') return bad('lang must be "en" or "es"');
+  if (body.profile !== undefined && body.profile !== null && !isObject(body.profile)) return bad('profile must be an object');
   if (!Array.isArray(messages) || messages.length === 0) return bad('messages must be a non-empty array');
   if (messages.length > LIMITS.maxMessages) return tooLong();
 
@@ -66,5 +72,8 @@ export function validateChatRequest(body: unknown): Validation {
     out.push(msg);
   }
   if (out[out.length - 1].role !== 'user') return bad('the last message must be from the user');
-  return { ok: true, value: { messages: out, lang } };
+  const value: ChatRequest = { messages: out, lang };
+  const profile = sanitizeProfile(body.profile);
+  if (!isEmptyProfile(profile)) value.profile = profile;
+  return { ok: true, value };
 }
