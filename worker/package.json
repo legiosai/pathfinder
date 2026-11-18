@@ -1,0 +1,28 @@
+{
+  "name": "pathfinder-chat",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend of pathfinder's recommendation chat: a Cloudflare Worker, also deployable to Vercel behind AI Gateway",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "tsc --noEmit && vitest run && wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "deploy": "wrangler deploy",
+    "build:vercel": "esbuild vercel/entry.ts --bundle --platform=node --format=esm --target=node22 --outfile=api/index.mjs",
+    "deploy:vercel": "npm run build:vercel && vercel deploy --prod"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^1.9.0",
+    "@cloudflare/workers-types": "^5.20261117.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0",
+    "wrangler": "^4.164.0",
+    "esbuild": "^0.28.2"
+  }
+}

@@ -1,0 +1,5 @@
+# Deploys upload only the bundled function (npm run build:vercel) and this config.
+*
+!api
+!api/index.mjs
+!vercel.json
