@@ -38,6 +38,7 @@ function env(): Env {
     CATALOG_URL: process.env.CATALOG_URL,
     CHAT_ENABLED: process.env.CHAT_ENABLED,
     MOCK: process.env.MOCK,
+    EXTRA_ORIGINS: process.env.EXTRA_ORIGINS,
     ANTHROPIC_API_KEY: process.env.AI_GATEWAY_API_KEY,
     ANTHROPIC_BASE_URL: process.env.ANTHROPIC_BASE_URL || GATEWAY,
     CHAT_LIMITER: limiter as unknown as Env['CHAT_LIMITER'],

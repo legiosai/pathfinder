@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { corsHeaders, isAllowedOrigin, preflightHeaders } from '../src/cors';
+import { corsHeaders, isAllowedOrigin, preflightHeaders, setExtraOrigins } from '../src/cors';
+import { readConfig } from '../src/config';
 import { doneEvent, errorEvent, parseSse, picksEvent, sseEvent, textEvent } from '../src/sse';
 
 describe('CORS', () => {
@@ -69,5 +70,18 @@ describe('SSE encoding', () => {
   it('round-trips a whole reply', () => {
     const body = textEvent('A') + textEvent('B') + picksEvent([{ id: 'aws-clf-c02', why: 'Cloud basics.' }]) + doneEvent();
     expect(parseSse(body).map((e) => e.event)).toEqual(['text', 'text', 'picks', 'done']);
+  });
+});
+
+describe('extra origins', () => {
+  it('allows exactly the https origins listed in EXTRA_ORIGINS, and nothing else', () => {
+    const { extraOrigins } = readConfig({ EXTRA_ORIGINS: ' https://staging.example.app , http://plain.example, javascript:alert(1),' });
+    expect(extraOrigins).toEqual(['https://staging.example.app']);
+    setExtraOrigins(extraOrigins);
+    expect(isAllowedOrigin('https://staging.example.app')).toBe(true);
+    expect(isAllowedOrigin('https://staging.example.app.evil.example')).toBe(false);
+    expect(isAllowedOrigin('http://plain.example')).toBe(false);
+    setExtraOrigins([]);
+    expect(isAllowedOrigin('https://staging.example.app')).toBe(false);
   });
 });

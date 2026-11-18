@@ -5,7 +5,7 @@ import type Anthropic from '@anthropic-ai/sdk';
 import { buildParams, startTurn, type Log } from './chat';
 import { CatalogStore, type CompiledCatalog } from './catalog';
 import { readConfig, type Env } from './config';
-import { corsHeaders, isAllowedOrigin, preflightHeaders } from './cors';
+import { corsHeaders, isAllowedOrigin, preflightHeaders, setExtraOrigins } from './cors';
 import { planMock } from './mock';
 import { comparisonEvent, doneEvent, errorEvent, picksEvent, profileEvent, repliesEvent, roadmapEvent, textEvent } from './sse';
 import { LIMITS, validateChatRequest, type ChatRequest } from './validate';
@@ -175,6 +175,7 @@ export function createHandler(deps: Deps) {
     // Vercel may hand the function its own path (/api/chat) instead of the public one (/chat).
     const pathname = new URL(request.url).pathname.replace(/^\/api(?=\/)/, '');
     const origin = request.headers.get('origin');
+    setExtraOrigins(readConfig(env).extraOrigins);
     if (request.method === 'OPTIONS') {
       if (!isAllowedOrigin(origin)) return json(403, { error: 'origin' }, origin);
       return new Response(null, { status: 204, headers: preflightHeaders(origin) });

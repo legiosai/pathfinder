@@ -6,6 +6,8 @@ export interface Env {
   CATALOG_URL?: string;
   CHAT_ENABLED?: string;
   MOCK?: string;
+  /** Comma-separated https origins allowed besides the site, e.g. a staging copy. */
+  EXTRA_ORIGINS?: string;
   /** Secret. Never logged. */
   ANTHROPIC_API_KEY?: string;
   /** Optional, for local testing against a stub server. */
@@ -21,6 +23,7 @@ export interface Config {
   catalogUrl: string;
   enabled: boolean;
   mock: boolean;
+  extraOrigins: string[];
 }
 
 export const DEFAULT_MODEL = 'claude-sonnet-5-5';
@@ -42,5 +45,9 @@ export function readConfig(env: Env): Config {
     // Unset means enabled, so a missing var never takes the chat down by accident.
     enabled: !OFF.has(flag(env.CHAT_ENABLED)),
     mock: ON.has(flag(env.MOCK)),
+    extraOrigins: (env.EXTRA_ORIGINS ?? '')
+      .split(',')
+      .map((o) => o.trim())
+      .filter((o) => /^https:\/\/[a-z0-9.-]+$/.test(o)),
   };
 }
