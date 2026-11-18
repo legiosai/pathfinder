@@ -17,7 +17,10 @@
     "style": "practical",
     "format": "Proctored hands-on exam of 23 hours 45 minutes in a private VPN lab: three standalone machines graded on initial access and privilege escalation (60 points), plus one Active Directory set of three machines in a simulated breach (40 points). OffSec then gives 24 more hours to submit a penetration test report.",
     "passing": "70 of 100 points for exams starting before 2026-12-01 08:00 GMT; from then, a scaled score of 400 on a 100–500 scale",
-    "validity": "3 years"
+    "validity": "3 years",
+    "delivery": [
+      "online"
+    ]
   },
   "scope": "Hands-on penetration testing of standalone Windows and Linux hosts and an Active Directory network: finding and exploiting vulnerabilities, escalating privileges and reporting the findings.",
   "requirements": "",
@@ -27,6 +30,15 @@
     "Passing earns both OSCP and OSCP+. OSCP+ expires three years after issue unless renewed by a recertification exam within 6 months of the expiry date, another qualifying OffSec exam (OSEP, OSWA, OSED or OSEE) or OffSec's CPE program; the OSCP itself does not expire.",
     "OffSec publishes no domain weights; the exam is scored per machine and per Active Directory set."
   ],
+  "access": {
+    "discounts": [
+      {
+        "text": "Learn One (a year of one course, its labs and two exam attempts) was shown at $2,199 instead of $2,749 on 2026-11-17, as OffSec's 20th-anniversary offer; no end date was shown.",
+        "url": "https://www.offsec.com/courses/pen-200/"
+      }
+    ],
+    "retake": "The OSCP+ Standalone Exam and Learn One include two attempts; the Course + Cert Bundle includes one."
+  },
   "timeline": [
     {
       "date": "2026-12-01",

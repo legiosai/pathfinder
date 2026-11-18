@@ -405,7 +405,8 @@
     "title": "OffSec · AI-300 / OSAI",
     "url": "https://www.offsec.com/courses/ai-300/",
     "kind": "Issuer course/exam page",
-    "note": "Read 27 Oct 2026: course bundle starts at $1,749, 65 hours of content and 24-hour practical exam. Content duration is not total prep time."
+    "note": "Read 27 Oct 2026. Re-read 2026-11-17: AI-300 (65 hours of content) leads to a 24-hour proctored practical exam against an AI-enabled enterprise environment, earning OSAI and the three-year OSAI+. Course + Cert Bundle $1,749 (90 days, one attempt); Learn One $2,749 a year, shown at $2,199 with $550 off (one year, two attempts).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y14",
@@ -470,7 +471,8 @@
     "title": "OffSec · OSAI Exam Guide",
     "url": "https://help.offsec.com/hc/en-us/articles/46593096734612-OSAI-Exam-Guide",
     "kind": "Issuer exam guide",
-    "note": "Read 2026-11-03. Practical exam scored in points per target; pass at 75 of 100. No per-domain weights."
+    "note": "Read 2026-11-03. Re-read 2026-11-17 through the help center API (article edited 2026-10-05): 24 hours plus 24 more to upload the report; proctored; eight scored targets worth 100 points, 75 to pass. No tool restrictions, and OffSec strongly encourages using AI at every stage of the exam.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z08",
@@ -1482,14 +1484,16 @@
     "title": "OffSec · PEN-200 and OSCP+",
     "url": "https://www.offsec.com/courses/pen-200/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. OSCP+ Standalone Exam $1,699; Course + Cert Bundle $1,749 (90 days, one attempt); Learn One $2,749/year shown at $2,199 with $550 off (one year, two attempts). 24-hour proctored exam: three standalone machines graded on initial access and privilege escalation, one Active Directory set of three machines. Passing earns OSCP and OSCP+; OSCP+ expires three years from issuance (renewal by recertification exam, a qualifying OffSec exam or the CPE program), OSCP does not expire. No formal prerequisites."
+    "note": "Read 2026-11-17. OSCP+ Standalone Exam $1,699; Course + Cert Bundle $1,749 (90 days, one attempt); Learn One $2,749/year shown at $2,199 with $550 off (one year, two attempts). 24-hour proctored exam: three standalone machines graded on initial access and privilege escalation, one Active Directory set of three machines. Passing earns OSCP and OSCP+; OSCP+ expires three years from issuance (renewal by recertification exam, a qualifying OffSec exam or the CPE program), OSCP does not expire. No formal prerequisites.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S76",
     "title": "OffSec · OSCP+ Standalone Exam",
     "url": "https://www.offsec.com/products/oscp-plus/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. $1,699 for two exam attempts in a 90-day period, no course materials; entirely hands-on; an additional 24 hours after the exam to submit a penetration testing report."
+    "note": "Read 2026-11-17. $1,699 for two exam attempts in a 90-day period, no course materials; entirely hands-on; an additional 24 hours after the exam to submit a penetration testing report.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S77",

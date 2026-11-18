@@ -15,12 +15,26 @@
   "exam": {
     "minutes": null,
     "style": "practical",
-    "format": "Current course page starts at $1,749 and describes a 24-hour practical exam. FAQ requires report submission within the following 24 hours."
+    "format": "Proctored 24-hour practical exam against an AI-enabled enterprise network: two attack chains and a standalone AI-focused host, eight scored targets worth 100 points. Another 24 hours to upload the report.",
+    "passing": "75 of 100 points",
+    "validity": "3 years (OSAI+)",
+    "delivery": [
+      "online"
+    ]
   },
   "scope": "Advanced AI red teaming across LLMs, multi-agent systems, RAG, embeddings and infrastructure.",
   "requirements": "",
-  "ai_policy": "Official exam guide explicitly encourages AI/LLM use under its rules; external human assistance and confidentiality restrictions still apply.",
+  "ai_policy": "OffSec's OSAI exam guide sets no tool restrictions and strongly encourages using AI throughout the exam.",
   "caveats": [],
+  "access": {
+    "discounts": [
+      {
+        "text": "Learn One (a year of one course, its labs and two exam attempts) was shown at $2,199 instead of $2,749 on 2026-11-17, as OffSec's 20th-anniversary offer; no end date was shown.",
+        "url": "https://www.offsec.com/courses/ai-300/"
+      }
+    ],
+    "retake": "Learn One includes two exam attempts; the Course + Cert Bundle includes one."
+  },
   "skills": [
     "ai-security",
     "security"
@@ -38,7 +52,7 @@
     "W07",
     "W08"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
     {
       "title": "OffSec AI-300 course page",
