@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "Computerized adaptive test (CAT) in all five languages (English, Chinese, German, Japanese, Spanish): 100–150 multiple choice and advanced items in 3 hours at ISC2-authorized Pearson VUE centers. Chinese only in set windows.",
     "questions": "100–150 (CAT)",
+    "question_count": 150,
     "passing": "700 scaled (out of 1,000)",
     "validity": "3 years"
   },

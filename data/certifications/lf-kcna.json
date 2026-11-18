@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "Online, proctored multiple-choice exam: 60 questions in 90 minutes. No prerequisites. Passing CKA or CKAD renews the KCNA automatically.",
     "questions": "60",
+    "question_count": 60,
     "passing": "75%",
     "validity": "2 years"
   },

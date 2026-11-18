@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "Proctored 100-minute exam through Pearson VUE; interactive components may appear. Microsoft Learn can be opened during the exam, with no extra time. Microsoft does not publish the question count or question types per exam.",
     "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
     "passing": "700 scaled (1–1,000)",
     "validity": "1 year; renewable free online"
   },

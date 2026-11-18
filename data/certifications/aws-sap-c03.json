@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "75 multiple choice and multiple response questions, 180 minutes, at a Pearson VUE test center or online proctored. AWS recommends two or more years of experience using AWS services to design and implement cloud solutions.",
     "questions": "75 (65 scored)",
+    "question_count": 75,
     "passing": "720 scaled (100–1,000)",
     "validity": "3 years"
   },

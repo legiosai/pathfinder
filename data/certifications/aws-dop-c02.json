@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "75 multiple choice and multiple response questions, 180 minutes, at a Pearson VUE test center or online proctored. AWS recommends two or more years provisioning, operating and managing AWS environments, plus experience with the software development lifecycle and programming or scripting.",
     "questions": "75 (65 scored)",
+    "question_count": 75,
     "passing": "750 scaled (100–1,000)",
     "validity": "3 years"
   },

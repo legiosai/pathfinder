@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "60 multiple-choice and multiple-response items in 120 minutes, proctored online or at a Pearson VUE test center. 12-month validity; on-time renewal is a free, non-proctored assessment. Each sitting draws 4 scenarios from a bank of 6.",
     "questions": "60",
+    "question_count": 60,
     "passing": "720 scaled (100–1,000)",
     "validity": "12 months"
   },

@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "Up to 85 multiple-choice and performance-based questions in 165 minutes. English, with French, Japanese, Spanish and Portuguese announced as coming soon. CompTIA recommends about four years of hands-on experience as a SOC analyst (level 2) or vulnerability analyst; it is a recommendation, not a prerequisite.",
     "questions": "Maximum of 85",
+    "question_count": 85,
     "passing": "750 scaled (100–900)",
     "validity": "3 years"
   },

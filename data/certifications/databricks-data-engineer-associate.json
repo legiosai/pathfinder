@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "45 scored multiple-choice questions plus up to 10 unscored items, 90 minutes, proctored online or at a test center through Kryterion, in English, Japanese, Brazilian Portuguese or Korean. No test aids. Code is in SQL where possible, otherwise Python.",
     "questions": "45 scored (plus up to 10 unscored)",
+    "question_count": 45,
     "validity": "2 years"
   },
   "scope": "Foundational data engineering on the Databricks platform: ingestion and loading, transformation and modeling with Spark SQL and PySpark, Lakeflow Jobs, CI/CD, troubleshooting and optimization, and governance and security with Unity Catalog.",

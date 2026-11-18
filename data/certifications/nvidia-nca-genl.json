@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "50–60 questions listed; 60 minutes. Lab metadata: Not listed in reviewed metadata.",
     "questions": "50–60",
+    "question_count": 60,
     "validity": "2 years"
   },
   "scope": "LLM fundamentals: core machine learning, data analysis, experimentation, software development and trustworthy AI.",

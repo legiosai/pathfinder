@@ -177,7 +177,7 @@ export function certPage({ cert: c, catalog, lang, site, v, symbols, ogImages })
   const similar = related(c, catalog.certifications);
   const compareIds = [c.id, ...similar.slice(0, 3).map((x) => x.id)].join(',');
   const local = { ...c, badge: c.badge && { ...c.badge, src: up + c.badge.src } };
-  const questions = parseInt(c.exam.questions, 10) || null;
+  const questions = c.exam.question_count ?? (parseInt(c.exam.questions, 10) || null);
   const name = fullName(c);
 
   const title = `${t(practice ? 'page.titlePractice' : 'page.title', { name, code: c.code }, lang)} · pathfinder`;

@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "50–60 multiple choice and multiple select questions in 90 minutes, online-proctored or at a test center (Pearson VUE since March 2026). English, Japanese, Spanish, Portuguese and French. No prerequisites; Google recommends experience collaborating with technical professionals.",
     "questions": "50–60",
+    "question_count": 60,
     "validity": "3 years"
   },
   "scope": "Cloud computing basics and how Google Cloud supports an organization: digital and data transformation, AI, infrastructure and application modernization, security, and cloud operations.",

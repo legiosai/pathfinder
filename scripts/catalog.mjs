@@ -94,6 +94,7 @@ export function validate({ certifications, sources, reports, taxonomy, practice 
     if (!c.exam || !STYLES.includes(c.exam.style)) err(w, `exam.style must be one of ${STYLES.join(', ')}`);
     if (c.exam && !(c.exam.minutes === null || (Number.isInteger(c.exam.minutes) && c.exam.minutes > 0))) err(w, 'exam.minutes must be a positive integer or null');
     if (c.exam && (!str(c.exam.format) || !c.exam.format)) err(w, 'missing exam.format');
+    if (c.exam && 'question_count' in c.exam && !(Number.isInteger(c.exam.question_count) && c.exam.question_count > 0)) err(w, 'exam.question_count must be a positive integer');
     if (c.status === 'restricted' && !c.requirements) err(w, 'restricted certifications must explain requirements');
     if (!Array.isArray(c.skills) || !c.skills.length) err(w, 'needs at least one skill');
     for (const s of c.skills || []) if (!skills.has(s)) err(w, `unknown skill "${s}" (add it to taxonomy.json)`);
@@ -128,7 +129,7 @@ export function validate({ certifications, sources, reports, taxonomy, practice 
     const cert = certifications.find((c) => c.id === set.cert);
     for (const problem of validatePractice(set, cert)) err(w, problem);
     if (cert && !Number.isInteger(cert.exam.minutes)) err(w, 'the certification needs exam.minutes');
-    if (cert && !Number.isInteger(parseInt(cert.exam.questions, 10))) err(w, 'the certification needs exam.questions');
+    if (cert && !Number.isInteger(cert.exam.question_count)) err(w, 'the certification needs exam.question_count');
   }
   const pathIds = new Set();
   for (const p of paths) {

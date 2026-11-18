@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "65 questions, 90 minutes, three-year validity. Question formats follow the current exam guide.",
     "questions": "65 (50 scored)",
+    "question_count": 65,
     "passing": "700 scaled (100–1,000)",
     "validity": "3 years"
   },

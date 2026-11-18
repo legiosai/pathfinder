@@ -17,6 +17,7 @@
     "style": "practical",
     "format": "Hands-on practical exam: 45 questions answered from a lab within a 48-hour window. Auto-graded; results usually arrive within a few hours with a breakdown by section.",
     "questions": "45",
+    "question_count": 45,
     "validity": "3 years"
   },
   "scope": "Entry-level penetration testing: assessment methodologies and information gathering, host and network auditing, host and network penetration testing, and web application testing.",

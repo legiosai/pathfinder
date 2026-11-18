@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "65 multiple choice and multiple response questions, 130 minutes, at a Pearson VUE test center or online proctored. AWS recommends one or more years of hands-on experience developing and maintaining applications on AWS.",
     "questions": "65 (50 scored)",
+    "question_count": 65,
     "passing": "720 scaled (100–1,000)",
     "validity": "3 years"
   },

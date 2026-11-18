@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "Computerized adaptive test (CAT) at Pearson VUE test centers: 100–125 multiple choice and advanced items in 2 hours. Offered in English, Japanese and Spanish.",
     "questions": "100–125 (CAT)",
+    "question_count": 125,
     "passing": "700 scaled (out of 1,000)",
     "validity": "3 years"
   },

@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "100 multiple-choice and multiple-select questions (unscored items may be included), 115 minutes, online proctored or at a test center, in English, Japanese, Korean, French or Spanish.",
     "questions": "100",
+    "question_count": 100,
     "passing": "750 scaled (0–1,000)",
     "validity": "2 years"
   },

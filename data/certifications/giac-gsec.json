@@ -17,6 +17,7 @@
     "style": "hybrid",
     "format": "One proctored web-based exam: 106 questions in 4 hours, remotely through ProctorU or at a Pearson VUE test centre, with CyberLive hands-on lab testing described on the exam page. Open book for printed material only. The attempt must be completed within 120 days of activation.",
     "questions": "106",
+    "question_count": 106,
     "passing": "72%",
     "validity": "4 years"
   },

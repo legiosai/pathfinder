@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "125 multiple-choice questions in 4 hours, remotely proctored through EC-Council's exam portal or at a Pearson VUE test centre; not open book. The optional CEH (Practical) is a separate 6-hour exam with 20 hands-on challenges; holding both earns the CEH Master designation.",
     "questions": "125",
+    "question_count": 125,
     "passing": "60–85% (cut score set per exam form)",
     "validity": "3 years"
   },

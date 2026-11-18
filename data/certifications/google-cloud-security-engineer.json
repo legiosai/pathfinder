@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "Two-hour proctored exam, online or at a test center, with 50–60 multiple choice and multiple select questions, in English or Japanese. No prerequisites; Google recommends 3+ years of industry experience including more than one year designing and managing solutions on Google Cloud.",
     "questions": "50–60",
+    "question_count": 60,
     "validity": "2 years"
   },
   "scope": "Securing Google Cloud: identity and access, resource hierarchy and policies, network boundaries and private connectivity, data protection, security operations and automation, AI workload and software supply chain security, and compliance controls.",

@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "150 multiple-choice questions in 4 hours, at a PSI test centre or remotely proctored, in English, Chinese, Spanish, Japanese, French, German or Korean. Registration opens a six-month window to sit the exam. Scores are scaled; pretest items are not scored.",
     "questions": "150",
+    "question_count": 150,
     "passing": "450 scaled (200–800)",
     "validity": "1 year"
   },

@@ -1003,7 +1003,7 @@ async function loadPractice(id) {
 }
 
 const pText = (v) => v[getLang()] || v.en;
-const examSize = (c) => parseInt(c.exam.questions, 10);
+const examSize = (c) => c.exam.question_count ?? parseInt(c.exam.questions, 10);
 const clock = (ms) => {
   const s = Math.max(0, Math.ceil(ms / 1000));
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;

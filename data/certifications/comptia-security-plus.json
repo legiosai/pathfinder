@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "Up to 90 multiple-choice and performance-based questions in 90 minutes. English only at launch. CompTIA recommends two years of hands-on experience as a security administrator; it is a recommendation, not a prerequisite.",
     "questions": "Maximum of 90",
+    "question_count": 90,
     "passing": "750 scaled (100–900)",
     "validity": "3 years"
   },

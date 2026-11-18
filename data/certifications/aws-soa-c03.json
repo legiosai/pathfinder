@@ -17,6 +17,7 @@
     "style": "knowledge",
     "format": "65 multiple choice and multiple response questions, 130 minutes, at a Pearson VUE test center or online proctored; the SOA-C03 guide lists no other question types (no exam labs). AWS recommends one year of deploying, managing and operating workloads on AWS and one year in an operations role such as system administrator.",
     "questions": "65 (50 scored)",
+    "question_count": 65,
     "passing": "720 scaled (100–1,000)",
     "validity": "3 years"
   },
