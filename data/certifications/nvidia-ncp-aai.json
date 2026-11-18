@@ -1,6 +1,6 @@
 {
   "id": "nvidia-ncp-aai",
-  "name": "Agentic AI",
+  "name": "NVIDIA-Certified Professional: Agentic AI",
   "provider": "NVIDIA",
   "code": "NCP-AAI",
   "type": "certification",
@@ -10,18 +10,46 @@
   "fee": {
     "usd": 200,
     "basis": "Exam only",
-    "note": ""
+    "note": "Additional taxes may apply in some countries."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "60–70 questions listed; 120 minutes. Lab metadata: Not listed in reviewed metadata."
+    "format": "60–70 questions; 120 minutes; online, remotely proctored. Pass/fail; NVIDIA does not publish a passing score.",
+    "questions": "60–70",
+    "question_count": 70,
+    "validity": "2 years",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online"
+    ]
+  },
+  "access": {
+    "discounts": [
+      {
+        "text": "Attendees of NVIDIA's certification roadmap webinar on 19 November 2026 (one session for EMEA/APAC, one for the Americas and LATAM) receive a 50% discount code for an NVIDIA certification exam.",
+        "url": "https://www.nvidia.com/en-us/events/webinars/nvidia-certification-roadmap-ai-stack/",
+        "until": "2026-11-19"
+      }
+    ],
+    "retake": "After a failed attempt you buy the exam again and wait 14 days before retaking it, with at most five attempts per exam in 12 months.",
+    "accommodations": "Non-native English speakers can ask for extra time (approved case by case) and candidates can ask for disability accommodations, both through an NVIDIA support case opened before the exam."
   },
   "scope": "Designing, building and operating agentic AI systems.",
   "requirements": "",
   "ai_policy": "Check the current assessment rules. AI-assisted study does not imply permission during the exam.",
   "caveats": [
-    "NVIDIA's exam page and its study guide PDF list the same ten areas with different weights (they add up to 98% and 92%), so no split is shown here."
+    "NVIDIA's exam page and its study guide PDF list the same ten areas with different weights (they add up to 98% and 92%: Deployment and Scaling is 13% vs 5%, and Run, Monitor, and Maintain 5% vs 7%), so no split is shown here. Rechecked 2026-11-17."
+  ],
+  "timeline": [
+    {
+      "date": "2026-11-19",
+      "kind": "deadline",
+      "text": "NVIDIA's certification webinar sessions; attendees receive a 50% exam discount code.",
+      "source": "E15"
+    }
   ],
   "skills": [
     "agents",
@@ -35,11 +63,57 @@
   ],
   "domains": [],
   "sources": [
-    "N13"
+    "N13",
+    "E14",
+    "E15",
+    "E17"
   ],
   "reports": [
     "E10"
   ],
-  "checked_on": "2026-10-27",
-  "prep": []
+  "checked_on": "2026-11-17",
+  "prep": [
+    {
+      "title": "NVIDIA-Certified Professional: Agentic AI Exam Study Guide",
+      "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/64tei188l3tt132l265u1ipjoexdl1p5.pdf",
+      "kind": "official-guide",
+      "cost": "free",
+      "note": "Topics, recommended NVIDIA courses and readings; linked from the exam page. Its weights differ from the exam page (see caveats)."
+    },
+    {
+      "title": "NVIDIA DLI: Building RAG Agents With LLMs (S-FX-15)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-15+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, 8 hours, US$90 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Evaluating RAG and Semantic Search Systems (S-FX-32)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-32+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, 3 hours, US$30 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Building Agentic AI Applications With LLMs (S-FX-41)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-41+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, 8 hours, US$90 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Adding New Knowledge to LLMs (C-FX-26)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+C-FX-26+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Instructor-led, 8 hours, US$500 per the exam page."
+    },
+    {
+      "title": "NVIDIA DLI: Introduction to Deploying RAG Pipelines for Production at Scale (S-FX-19)",
+      "url": "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-19+V1",
+      "kind": "course",
+      "cost": "paid",
+      "note": "Self-paced, 8 hours, US$90 per the exam page."
+    }
+  ]
 }

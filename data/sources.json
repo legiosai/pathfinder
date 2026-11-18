@@ -74,91 +74,104 @@
     "title": "NVIDIA · NCA-GENL exam page and current blueprint",
     "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-associate/",
     "kind": "Provider / verified",
-    "note": "Exam facts, five domain weights, current preparation links. Live page inspected on 27 Oct 2026; use this as the syllabus authority."
+    "note": "Exam facts, five domain weights, current preparation links. Live page inspected on 27 Oct 2026; use this as the syllabus authority. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N10",
     "title": "NVIDIA · NCA-AMAD AI Models and Application Development",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-model-application-development-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested."
+    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested. Re-read 2026-11-17: the page now says hands-on lab 'No' and language 'Multiple' without naming languages; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N11",
     "title": "NVIDIA · NCA-GENM Generative AI Multimodal",
     "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-multimodal-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: the page gives 50–60 questions in one place and 50 in another.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N12",
     "title": "NVIDIA · NCP-GENL Generative AI LLMs",
     "url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N13",
     "title": "NVIDIA · NCP-AAI Agentic AI",
     "url": "https://www.nvidia.com/en-us/learn/certification/agentic-ai-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: the blueprint weights add up to 98%.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N14",
     "title": "NVIDIA · NCA-AIIO AI Infrastructure and Operations",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-infrastructure-operations-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N15",
     "title": "NVIDIA · NCP-AII AI Infrastructure",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-infrastructure-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N16",
     "title": "NVIDIA · NCP-AIO AI Operations",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-operations-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested."
+    "note": "Direct exam page read on 27 October: published price, time and format. Hands-on lab explicitly listed; actual lab workflow/time allocation not tested. Re-read 2026-11-17: 30 multiple-choice questions plus 3 lab challenges, each section worth 50%.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N17",
     "title": "NVIDIA · NCP-AIN AI Networking",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-networking-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: price now $500, hands-on lab 'Yes', English, valid two years.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N18",
     "title": "NVIDIA · NCP-ARI AI Rack and Interconnect",
     "url": "https://www.nvidia.com/en-us/learn/certification/ai-rack-and-interconnect-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged; free practice questions are embedded.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N19",
     "title": "NVIDIA · NCP-ADS Accelerated Data Science",
     "url": "https://www.nvidia.com/en-us/learn/certification/accelerated-data-science-professional/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N20",
     "title": "NVIDIA · NCA-ADS Accelerated Data Science",
     "url": "https://www.nvidia.com/en-us/learn/certification/accelerated-data-science-associate/",
     "kind": "Provider / directly read",
-    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked."
+    "note": "Direct exam page read on 27 October: published price, time and format. No account, appointment or final checkout checked. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "N21",
     "title": "NVIDIA · NCP-OUSD OpenUSD Development",
     "url": "https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/",
-    "kind": "Provider / catalog only; detail timeout",
-    "note": "Price/time from catalog; individual page timed out. Questions, lab and account availability unverified."
+    "kind": "Provider / directly read",
+    "note": "Price/time first taken from the catalog when the page timed out; the page itself was read 2026-11-17: 60–70 questions, 120 minutes, online, no hands-on lab listed.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X01",
@@ -456,7 +469,8 @@
     "title": "NVIDIA · NCA-ADS Exam Study Guide (PDF)",
     "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/328u55865k15h7h0r28e70o023andi0r.pdf",
     "kind": "Issuer exam guide",
-    "note": "Domain weights read 2026-11-03."
+    "note": "Domain weights read 2026-11-03. Re-read 2026-11-17: unchanged.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z07",
@@ -1653,6 +1667,54 @@
     "url": "https://docs.github.com/en/get-started/showcase-your-expertise-with-github-certifications/registering-for-a-github-certifications-exam",
     "kind": "Issuer docs",
     "note": "Read 2026-11-17. GitHub Certifications exams are scheduled through Pearson VUE at a local test center or online with a proctor, up to 90 days ahead, with a government ID.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E14",
+    "title": "NVIDIA · Certification Programs and certification FAQ",
+    "url": "https://www.nvidia.com/en-us/learn/certification/",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. FAQ: exams are pass/fail and no score is given; after a failed attempt the exam is bought again with a 14-day wait, at most five attempts per exam in 12 months; certifications are valid two years and are renewed by passing the exam again; exams are in English, some also in Simplified Chinese; extra time for non-native speakers (case by case) and disability accommodations are requested by support case before the exam; remotely proctored exams allow no breaks; taxes may apply in some countries. The catalog cards list NCP-AIN and NCP-AIO at $500 and promote the 19 Nov 2026 webinar with a 50% exam discount code.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E15",
+    "title": "NVIDIA · Webinar: NVIDIA Certification, Your Roadmap Across the AI Stack",
+    "url": "https://www.nvidia.com/en-us/events/webinars/nvidia-certification-roadmap-ai-stack/",
+    "kind": "Issuer announcement",
+    "note": "Read 2026-11-17. Registration form offers two sessions on Thursday 19 Nov 2026 (9 a.m. CET for EMEA/APAC; 9 a.m. PT / 2 p.m. BRT for the Americas and LATAM); all attendees receive a 50% discount code for an NVIDIA Certification exam. The page header still shows an older date (15 Jul 2026); localized sessions for China (25 Nov) and Japan (2 Dec) are linked separately.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E16",
+    "title": "NVIDIA · NVIDIA-Certified Professional: Accelerated Data Science Exam Study Guide (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/6ql1cb8q776an2012vu86kpjxrvysm3q.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-ADS exam page. Official name, six topic areas with the same weights as the exam page (14/19/17/16/15/19), recommended training and readings.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E17",
+    "title": "NVIDIA · NVIDIA-Certified Professional: Agentic AI Exam Study Guide (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/64tei188l3tt132l265u1ipjoexdl1p5.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-AAI exam page. Ten topic areas whose weights add up to 92% (Deployment and Scaling 5%, Run, Monitor, and Maintain 7%), while the exam page's blueprint adds up to 98% (13% and 5% for those two).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E18",
+    "title": "NVIDIA · NVIDIA-Certified Professional: Gen AI LLMs Exam Study Guide (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/a38r3688v26wf6u414c64805b8i6awa3.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-GENL exam page. Ten topic areas with the same weights as the exam page, recommended NVIDIA courses and readings.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E19",
+    "title": "NVIDIA · NCP: OpenUSD Development Exam Study Guide 1.1.0 (PDF)",
+    "url": "https://dam-cdn.nvd.orangelogic.com/AssetLink/sjrg2vjhic7285sph487x53f5e54erf7.pdf",
+    "kind": "Issuer exam guide",
+    "note": "Read 2026-11-17. Linked from the NCP-OUSD exam page. Eight topic areas with the same weights as the exam page, references per objective, and official sample questions with an answer key.",
     "checked_on": "2026-11-17"
   }
 ]
