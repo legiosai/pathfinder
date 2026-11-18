@@ -738,6 +738,24 @@ details.more > summary:hover { color: var(--text); }
 .pa-tabs a[aria-current] { color: var(--text); border-bottom-color: var(--accent); }
 .pa-tabs .pa-n { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; margin-left: 6px; border-radius: var(--r-pill); background: var(--accent); color: var(--accent-ink); font-size: var(--fs-2xs); font-weight: 700; }
 .pa-setup { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.pa-form { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 14px 20px; align-items: center; }
+.pa-label { font-size: var(--fs-sm); font-weight: 650; color: var(--muted); }
+.pa-field { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; min-width: 0; }
+.pa-field .segmented { max-width: 100%; }
+.pa-field select { width: auto; max-width: 100%; }
+.pa-check[hidden] { display: none; }
+.pa-go { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+.pa-go + .hint { margin-top: 12px; }
+.pa-keys { margin-top: 12px; font-size: var(--fs-xs); color: var(--subtle); }
+@media (pointer: coarse) { .pa-keys { display: none; } }
+.pa-pass { flex-basis: 100%; margin: 0; padding-top: 16px; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 24px; }
+.pa-pass dt { color: var(--muted); font-size: var(--fs-sm); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.pa-pass dd { margin: 4px 0 0; font-weight: 650; }
+.pa-note { flex-basis: 100%; }
+.pa-domains .hb-track { position: relative; }
+.pa-mark { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--text); opacity: 0.45; }
+.pa-grid .ok { background: color-mix(in srgb, var(--good) 12%, var(--surface)); border-color: color-mix(in srgb, var(--good) 50%, transparent); color: var(--text); }
+.pa-grid .no { background: color-mix(in srgb, var(--warn) 12%, var(--surface)); border-color: color-mix(in srgb, var(--warn) 55%, transparent); color: var(--text); }
 .pa-setup + .hint { margin-top: 14px; }
 .pa-check { display: inline-flex; align-items: center; gap: 8px; font-size: 0.94rem; }
 .pa-check input { width: 18px; height: 18px; margin: 0; }
@@ -928,6 +946,9 @@ details.more > summary:hover { color: var(--text); }
   .pa-q { padding: 20px; }
   .pa-domains li { grid-template-columns: minmax(0, 1fr) 44px 44px; }
   .pa-domains .hb-track { grid-column: 1 / -1; grid-row: 2; }
+  .pa-form { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .pa-form .pa-label:empty { display: none; }
+  .pa-form .pa-field + .pa-label { margin-top: 8px; }
   .foot { flex-direction: column; align-items: flex-start; gap: 10px; }
   .foot > span:first-child { flex: none; }
 
