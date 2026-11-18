@@ -338,5 +338,45 @@
     "id": "offsec-oscp",
     "image_url": "https://www.offsec.com/_astro/OSCP-plus.BZHuApYA_T49m1.svg",
     "page_url": "https://www.offsec.com/courses/pen-200/"
+  },
+  {
+    "id": "aws-mla-c02",
+    "image_url": "https://images.credly.com/images/1a634b4e-3d6b-4a74-b118-c0dcb429e8d2/image.png",
+    "page_url": "https://www.credly.com/org/amazon-web-services/badge/aws-certified-machine-learning-engineer-associate"
+  },
+  {
+    "id": "cisco-ccna-cybersecurity",
+    "image_url": "https://images.credly.com/images/99c33c3f-ab7e-46dc-9490-01837434c649/blob",
+    "page_url": "https://www.credly.com/org/cisco/badge/ccna-cybersecurity"
+  },
+  {
+    "id": "comptia-network-plus",
+    "image_url": "https://images.credly.com/images/c70ba73e-3c8a-46fa-9d60-4a9af94ad662/blob",
+    "page_url": "https://www.credly.com/org/comptia/badge/comptia-network-ce-certification.1"
+  },
+  {
+    "id": "fortinet-nse-1",
+    "image_url": "https://images.credly.com/images/0dc7965b-8507-4312-9c12-1add6c50fa49/blob",
+    "page_url": "https://www.credly.com/org/fortinet/badge/fortinet-nse-1-certified-in-cybersecurity"
+  },
+  {
+    "id": "fortinet-nse-3",
+    "image_url": "https://images.credly.com/images/7ca06297-1543-4ed2-b9fc-7f0af8635700/blob",
+    "page_url": "https://www.credly.com/org/fortinet/badge/fortinet-nse-3-certified-in-cybersecurity"
+  },
+  {
+    "id": "google-cybersecurity-certificate",
+    "image_url": "https://images.credly.com/images/ddcc63a4-8ee9-42ef-8a68-cb7e39cfbfef/blob",
+    "page_url": "https://www.credly.com/org/coursera/badge/google-cybersecurity-professional-certificate-v-2"
+  },
+  {
+    "id": "lpi-linux-essentials",
+    "image_url": "https://images.credly.com/images/1d36cb36-20fc-4961-8d70-6307c015d1aa/blob",
+    "page_url": "https://www.credly.com/org/linux-professional-institute/badge/linux-essentials-certificate"
+  },
+  {
+    "id": "redhat-rhcsa",
+    "image_url": "https://images.credly.com/images/572de0ba-2c59-4816-a59d-b0e1687e45ee/image.png",
+    "page_url": "https://www.credly.com/org/red-hat-inc/badge/red-hat-certified-system-administrator-rhcsa"
   }
 ]
