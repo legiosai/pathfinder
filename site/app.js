@@ -339,7 +339,7 @@ function fillFilters() {
   for (const [id, known] of [['#f-es', examInSpanish], ['#f-online', examOnline]]) {
     const n = DATA.certifications.filter((c) => known(c) === true).length;
     $(id).hidden = !n;
-    $('small', $(id)).textContent = n;
+    $(id).title = t('filter.known', { n });
   }
 }
 

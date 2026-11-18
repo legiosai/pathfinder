@@ -442,8 +442,6 @@ img.badge.official { object-fit: contain; user-select: none; }
 .toolbar select { width: auto; min-width: 172px; }
 .toolbar #for-me { margin-left: auto; }
 .toolbar .chip span { min-height: 44px; padding: 0 15px; font-weight: 550; }
-.toggle small { color: var(--subtle); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; }
-.toggle input:checked + span small { color: inherit; opacity: 0.7; }
 
 /* "Where to start": one compact card per study path, in a row that scrolls sideways. */
 /* The heading tucks in beside the badge wall's pause button, which hangs below the hero. */
@@ -1002,7 +1000,8 @@ mark.es { padding: 0; border-radius: 3px; background: color-mix(in srgb, var(--g
   .toolbar select { flex: 1 1 140px; min-width: 0; }
   .toolbar #for-me { flex: 1 1 140px; margin-left: 0; }
   .toolbar select { padding-left: 11px; padding-right: 30px; background-position: right 8px center; font-size: 0.9rem; }
-  .toolbar .chip { flex: 1 1 auto; }
+  /* Online sits beside the providers and the Spanish filter beside "For me", so three rows hold six controls. */
+  .toolbar .chip { flex: 0 1 auto; }
   .sort select { max-width: 170px; }
   .toolbar .chip span { justify-content: center; }
   .sort > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
