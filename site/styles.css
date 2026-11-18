@@ -779,6 +779,9 @@ mark.es { padding: 0; border-radius: 3px; background: color-mix(in srgb, var(--g
 .lang + .theme { margin-left: 0; }
 
 /* ---------- progress ---------- */
+.study-backup { margin-top: 16px; }
+.study-backup-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+#study-backup-status:not(:empty) { margin-top: 12px; }
 .empty-card + .panel { margin-top: 16px; }
 .progress-summary { grid-template-columns: repeat(4, 1fr); }
 .progress-cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: start; margin-bottom: 16px; }

@@ -9,19 +9,16 @@ import { examText } from './lib/examtext.js';
 import { createSearch } from './lib/search.js';
 import { SORTS, activeFilters, emptyFilters, examInSpanish, examOnline, filterCerts, filtersFromParams, filtersToParams, sortCerts } from './lib/listing.js';
 import { nextSteps, pathsFor, shortName, similar } from './lib/related.js';
+import { STUDY_KEYS, createStudyBackup, hasStudyData, parseStudyBackup, restoreStudyBackup } from './lib/backup.js';
 import { mountChat } from './chat.js';
 
 const MAX_COMPARE = 4;
 const KEYS = {
+  ...STUDY_KEYS,
   profile: 'pathfinder:profile',
   compare: 'pathfinder:compare',
-  progress: 'pathfinder:progress:',
-  confidence: 'pathfinder:confidence:',
   theme: 'pathfinder:theme',
-  plans: 'pathfinder:plans',
   motion: 'pathfinder:motion',
-  practice: 'pathfinder:practice:',
-  resched: 'pathfinder:resched:',
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -1470,6 +1467,7 @@ function bind() {
     renderRoute();
   });
 
+  bindStudyBackup();
   window.addEventListener('hashchange', route);
 }
 
@@ -2121,6 +2119,58 @@ function practiceProgress() {
 }
 
 // ---------- tracked plans and progress ----------
+function bindStudyBackup() {
+  const fileInput = $('#study-backup-file');
+  const restoreButton = $('#study-backup-restore');
+  const status = $('#study-backup-status');
+  const show = (key) => {
+    status.dataset.i18n = key;
+    status.textContent = t(key);
+  };
+  $('#study-backup-download').addEventListener('click', () => {
+    try {
+      download(`pathfinder-study-${todayLocal()}.json`, createStudyBackup(localStorage), 'application/json');
+      show('backup.downloaded');
+    } catch {
+      show('backup.downloadFailed');
+    }
+  });
+  restoreButton.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    fileInput.value = '';
+    if (!file) return;
+    if (file.size > 16 * 1024 * 1024) {
+      show('backup.tooLarge');
+      return;
+    }
+    restoreButton.disabled = true;
+    try {
+      let data;
+      try {
+        data = parseStudyBackup(await file.text());
+      } catch {
+        show('backup.invalid');
+        return;
+      }
+      const restore = () => {
+        if ($('#view-progress').hidden) return false;
+        if (hasStudyData(localStorage) && !window.confirm(t('backup.replace'))) return false;
+        restoreStudyBackup(localStorage, data);
+        return true;
+      };
+      // Coordinate two simultaneous restores in different tabs when Web Locks is available.
+      const restored = navigator.locks ? await navigator.locks.request('pathfinder:restore-study', restore) : restore();
+      if (restored) renderProgress();
+      show(restored ? 'backup.restored' : 'backup.canceled');
+    } catch {
+      show('backup.restoreFailed');
+    } finally {
+      restoreButton.disabled = false;
+    }
+  });
+}
+
 const trackedPlans = () => store.get(KEYS.plans, {});
 const isTracked = (key) => key in trackedPlans();
 
