@@ -567,7 +567,50 @@ function notFound(target, title, id) {
 }
 
 // ---------- certification page ----------
-// ---------- certification page ----------
+/** The planner's starting range for the level, "25–45 h". */
+function studyHours(c) {
+  const range = DATA.taxonomy.levels.find((l) => l.id === c.level)?.hours;
+  return range ? `${range[0]}–${range[1]} h` : '';
+}
+
+/** Exam languages by name in the interface language, Spanish first: { es: [...], other: [...] } or null when unknown. */
+function examLangs(c) {
+  const codes = c.exam.languages;
+  if (!Array.isArray(codes) || !codes.length) return null;
+  let names;
+  try {
+    names = new Intl.DisplayNames([getLang()], { type: 'language' });
+  } catch {
+    names = { of: (x) => x };
+  }
+  const name = (code) => {
+    try {
+      return cap(names.of(code) || code);
+    } catch {
+      return code;
+    }
+  };
+  const isEs = (code) => /^es(-|$)/i.test(code);
+  return { es: codes.filter(isEs).map(name), other: codes.filter((x) => !isEs(x)).map(name) };
+}
+
+/** "Spanish, English and 3 more" with Spanish marked, as HTML; plain text for a title. */
+function langsHtml(langs, shown = 2) {
+  const list = [...langs.es.map((n) => `<mark class="es">${esc(n)}</mark>`), ...langs.other.map(esc)];
+  const rest = list.length - shown;
+  return rest > 1 ? `${list.slice(0, shown).join(', ')} ${esc(t('stat.langsMore', { n: rest }))}` : list.join(', ');
+}
+
+function deliveryText(c) {
+  const d = c.exam.delivery;
+  if (!Array.isArray(d) || !d.length) return '';
+  return d.includes('online') && d.includes('test-center') ? t('delivery.both') : t(`delivery.${d[0]}`);
+}
+
+/** A certification as one compact linked row, for the next steps and related ones. */
+const mini = (c, note = '') =>
+  `<a class="mini" href="#cert?id=${esc(c.id)}">${badge(c, 40, { label: false })}<span class="mini-text"><b>${esc(c.name)}</b><small>${esc(c.provider)} · ${esc(c.code)}${note ? ` · ${esc(note)}` : ''}</small></span><span class="mini-meta">${esc(fee(c))}${lvl(c.level)}</span></a>`;
+
 function renderCert(id) {
   const c = BY_ID.get(id);
   const color = catOf(c).c;
@@ -578,8 +621,10 @@ function renderCert(id) {
   const mine = scores && scores.get(c.id);
   const inCompare = compare.includes(c.id);
   const full = !inCompare && compare.length >= MAX_COMPARE;
-  const stat = (ic, label, value, sub) =>
-    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>` : '';
+  const stat = (ic, label, value, sub, { html = false, title = '' } = {}) =>
+    value
+      ? `<div class="card stat"${title ? ` title="${esc(title)}"` : ''}>${tile(ic, color, 'sm')}<div><small>${label}</small><b>${html ? value : esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>`
+      : '';
   const notes = [
     c.requirements && c.status === 'restricted' ? ['lock', c.requirements] : null,
     c.exam.format ? ['pen-line', c.exam.format] : null,
@@ -587,8 +632,33 @@ function renderCert(id) {
     c.ai_policy ? ['bot', t('cert.ai', { x: c.ai_policy })] : null,
     ...c.caveats.map((x) => ['info', x]),
   ].filter(Boolean);
+  const langs = examLangs(c);
+  const when = (d) => day(d, { weekday: false, year: true });
+  const today = todayLocal();
+
+  // Dated changes: a version retiring, a new outline, a deadline.
+  const timeline = (c.timeline || []).filter((e) => e && e.date && e.text);
+  const timelineHtml = timeline.length
+    ? `<section class="card panel"><h2>${icon('calendar-clock')}${t('cert.timeline')}</h2><ul class="timeline">${timeline
+        .map(
+          (e) => `<li class="${e.date < today ? 'past' : ''}"><span class="tl-date">${esc(when(e.date))}</span><span class="tl-body"><span class="tag${e.kind === 'retires' || e.kind === 'deadline' ? ' warn' : ''}">${esc(e.date < today ? t('timeline.past') : t(`timeline.${e.kind}`))}</span> ${esc(e.text)}</span></li>`,
+        )
+        .join('')}</ul></section>`
+    : '';
+
+  // Free routes, discounts, retakes and accommodations, as the issuer publishes them.
+  const access = c.access || {};
+  const accessItem = (kind, x) =>
+    `<li><span class="tag${kind === 'free_routes' ? ' good' : ''}">${esc(t(`access.${kind}`))}</span> <span>${esc(x.text)}${x.until ? ` <span class="muted">(${esc(t('access.until', { d: when(x.until) }))})</span>` : ''}${x.url ? ` ${ext(x.url, `${icon('external-link')}<span class="sr">${esc(t('cert.issuer'))}</span>`, 'ext-ic')}` : ''}</span></li>`;
+  const accessRows = [
+    ...(access.free_routes || []).map((x) => accessItem('free_routes', x)),
+    ...(access.discounts || []).map((x) => accessItem('discounts', x)),
+    ...['retake', 'accommodations'].filter((k) => access[k]).map((k) => accessItem(k, { text: access[k] })),
+  ];
+  const accessHtml = accessRows.length ? `<section class="card panel"><h2>${icon('badge-dollar-sign')}${t('cert.access')}</h2><ul class="access">${accessRows.join('')}</ul></section>` : '';
 
   const left = [
+    timelineHtml,
     c.domains.length
       ? `<section class="card panel"><h2>${icon('layers')}${t('cert.domains')}</h2><div class="donut-wrap">${donut(c.domains, 168, { label: t('donut.label'), aria: t('donut.aria') })}${legend(c)}</div>${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>`
       : '',
@@ -600,18 +670,21 @@ function renderCert(id) {
     notes.length
       ? `<section class="card panel"><h2>${icon('info')}${t('cert.good')}</h2><ul class="notes">${notes.map(([ic, t]) => `<li>${icon(ic)}<span>${esc(t)}</span></li>`).join('')}</ul></section>`
       : '',
+    accessHtml,
   ].join('');
   const resource = (r) => {
     const k = prepKind(r);
+    const spanish = /^es(-|$)/i.test(r.lang || '');
     return ext(
       r.url,
-      `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`,
+      `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}${spanish ? ` · <mark class="es">${esc(t('res.spanish'))}</mark>` : ''}</span></span>`,
       'res',
     );
   };
   // The first few resources show; the rest fold away so the column stays near the length of the other one.
+  // In Spanish, resources in Spanish come first.
   const PREP_SHOWN = 5;
-  const prep = c.prep || [];
+  const prep = [...(c.prep || [])].sort((a, b) => (getLang() === 'es' ? Number(/^es/i.test(b.lang || '')) - Number(/^es/i.test(a.lang || '')) : 0));
   const prepHtml = prep.length
     ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep')}</h2><div class="resources">${prep.slice(0, PREP_SHOWN).map(resource).join('')}</div>${
         prep.length > PREP_SHOWN
@@ -619,19 +692,52 @@ function renderCert(id) {
           : ''
       }</section>`
     : '';
+  const reportsHtml = reports.length
+    ? `<section class="card panel"><h2>${icon('book-open')}${t('cert.reports')}</h2><p class="hint">${t('cert.reportsHint')}</p>${reports
+        .map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`)
+        .join('')}</section>`
+    : '';
   const sourcesHtml = `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
-      <p class="hint">${esc(t('cert.checked', { d: day(c.checked_on, { weekday: false, year: true }) }))}</p>
+      <p class="hint">${esc(t('cert.checked', { d: when(c.checked_on) }))}</p>
       ${c.badge && c.badge.source ? `<p class="hint">${ext(c.badge.source, esc(t('cert.badgeFrom')))}</p>` : ''}
       <details class="more"><summary>${t('cert.nSources', { n: sources.length })}</summary>${sources
         .map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src'))
         .join('')}</details>
-      ${reports.length ? `<details class="more"><summary>${t('cert.nReports', { n: reports.length })}</summary>
-        <p class="hint">${t('cert.reportsHint')}</p>
-        ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
     </section>`;
-  // With resources on the right, sources sit under the left column on wide screens and come last on narrow ones.
-  const right = prepHtml || sourcesHtml;
-  const tail = prepHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
+  // Resources and reports on the right; sources sit under the left column on wide screens.
+  const right = prepHtml + reportsHtml || sourcesHtml;
+  const tail = prepHtml + reportsHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
+
+  // What follows it in the study paths, then others of its area one level around it.
+  const next = nextSteps(c.id, DATA.paths);
+  const nextIds = next.flatMap((s) => s.certs);
+  const near = similar(c, DATA.certifications, { exclude: nextIds });
+  const nextHtml = next.length
+    ? `<section class="card panel"><h2>${icon('route')}${t('cert.next')}</h2><div class="minis">${next
+        .flatMap((s) => s.certs.map((x) => BY_ID.get(x)).filter(Boolean).map((x) => mini(x)))
+        .join('')}</div><p class="hint next-in">${next.map((s) => `<a href="#path?id=${esc(s.path.id)}">${esc(t('cert.nextIn', { x: pathText(s.path.title) }))}</a>`).join(' · ')}</p></section>`
+    : '';
+  const nearHtml = near.length ? `<section class="card panel"><h2>${icon('layout-grid')}${t('cert.related')}</h2><div class="minis">${near.map((x) => mini(x)).join('')}</div></section>` : '';
+
+  // In Spanish, what paying from Argentina adds to a US dollar price.
+  const ar = getLang() === 'es' && c.fee.usd !== 0 ? DATA.regions?.AR?.es : '';
+  // Its first sentence says what changes; the rest (taxes, refunds) folds away.
+  const [arLead, arRest] = ar ? [ar.split(/(?<=\.)\s+/)[0], ar.split(/(?<=\.)\s+/).slice(1).join(' ')] : ['', ''];
+
+  const stats = [
+    stat('badge-dollar-sign', t('stat.price'), fee(c), ex(c.fee.basis)),
+    stat('clock', t('stat.length'), duration(c)),
+    stat('list-checks', t('stat.questions'), ex(c.exam.questions)),
+    stat('target', t('stat.passing'), ex(c.exam.passing)),
+    stat('calendar-check', t('stat.valid'), ex(c.exam.validity)),
+    stat('pen-line', t('stat.format'), LABELS[c.exam.style]),
+    stat('book-open', t('stat.hours'), studyHours(c), t('stat.hoursSub')),
+    langs ? stat('languages', t('stat.langs'), langsHtml(langs), '', { html: true, title: [...langs.es, ...langs.other].join(', ') }) : '',
+    stat('building-2', t('stat.delivery'), deliveryText(c)),
+    stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status]),
+  ].filter(Boolean);
+  // One row when they fit, otherwise two even rows on wide screens.
+  const cols = stats.length <= 7 ? stats.length : Math.ceil(stats.length / 2);
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}${t('cert.back')}</a>
@@ -639,7 +745,7 @@ function renderCert(id) {
       <div class="hero-badge">${badge(c, 128)}</div>
       <div>
         <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}${catPill(c)}${flag(c)}</p>
-        <h1>${esc(c.name)}</h1>
+        <h1 tabindex="-1">${esc(c.name)}</h1>
         <p class="scope">${esc(c.scope)}</p>
         <div class="cert-actions">
           <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('cert.plan')}</a>
@@ -650,19 +756,31 @@ function renderCert(id) {
         </div>
       </div>
     </div>
-    <div class="stat-grid">
-      ${stat('badge-dollar-sign', t('stat.price'), fee(c), ex(c.fee.basis))}
-      ${stat('clock', t('stat.length'), duration(c))}
-      ${stat('list-checks', t('stat.questions'), ex(c.exam.questions))}
-      ${stat('target', t('stat.passing'), ex(c.exam.passing))}
-      ${stat('calendar-check', t('stat.valid'), ex(c.exam.validity))}
-      ${stat('pen-line', t('stat.format'), LABELS[c.exam.style])}
-      ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status])}
-    </div>
-    <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>`;
+    <div class="stat-grid" style="--cols:${cols}">${stats.join('')}</div>
+    ${ar ? `<div class="ar-note">${icon('info')}<div><p><b>${esc(t('cert.ar'))}.</b> ${esc(arLead)}</p>${arRest ? `<details><summary>${t('cert.arMore')}</summary><p>${esc(arRest)}</p></details>` : ''}</div></div>` : ''}
+    <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>
+    ${nextHtml || nearHtml ? `<div class="cols cert-next">${nextHtml}${nearHtml}</div>` : ''}
+    <div class="cta-bar" id="cta-bar">
+      <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('cert.plan')}</a>
+      ${c.practice_questions ? `<a class="btn" href="#practice?cert=${esc(c.id)}">${icon('dumbbell')}${t('practice.btn')}</a>` : ''}
+    </div>`;
+  watchCta();
+}
+
+// On phones a bar with the plan and practice buttons stays at the bottom once the ones at the top scroll away.
+let ctaWatch = null;
+function watchCta() {
+  ctaWatch?.disconnect();
+  const actions = $('#cert-body .cert-actions');
+  const bar = $('#cta-bar');
+  if (!actions || !bar || !('IntersectionObserver' in window)) return;
+  ctaWatch = new IntersectionObserver(([e]) => bar.classList.toggle('on', !e.isIntersecting && e.boundingClientRect.top < 0));
+  ctaWatch.observe(actions);
 }
 
 // ---------- compare page ----------
+// One table: a row per fact, a column per certification. The names stay in a header that sticks
+// under the top bar, so on a phone, where the columns get narrow, you always see which is which.
 function renderCompare() {
   const certs = compare.map((id) => BY_ID.get(id)).filter(Boolean);
   const body = $('#compare-body');
@@ -671,35 +789,79 @@ function renderCompare() {
     return;
   }
   const link = `${location.origin}${location.pathname}#compare?ids=${certs.map((c) => c.id).join(',')}`;
-  const row = (ic, label, value) => `<div class="cmp-row">${icon(ic)}<div><small>${label}</small>${value}</div></div>`;
+  const dash = '<span class="muted">—</span>';
+  const row = (ic, label, value, cls = '') =>
+    `<div class="cmp-r${cls ? ` ${cls}` : ''}" role="row"><div class="cmp-label" role="rowheader">${icon(ic)}<span>${label}</span></div>${certs
+      .map((c) => `<div class="cmp-v" role="cell">${value(c) || dash}</div>`)
+      .join('')}</div>`;
+  const text = (s) => (s ? esc(s) : '');
+  const sub = (s) => (s ? `<small>${esc(s)}</small>` : '');
   body.innerHTML = `
     <div class="compare-tools">
       <button type="button" class="btn" id="copy-compare">${icon('link')}${t('copyLink')}</button>
       <button type="button" class="btn" id="clear-compare">${icon('x')}${t('clear')}</button>
     </div>
-    <div class="cmp" style="--n:${certs.length}">${certs
-      .map(
-        (c) => `<article class="card cmp-col">
-          <div class="head">${badge(c, 46, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div></div>
-          ${row('badge-dollar-sign', t('stat.price'), esc(fee(c)))}
-          ${row('clock', t('stat.length'), esc(duration(c)))}
-          ${row('list-checks', t('stat.questions'), esc(ex(c.exam.questions) || '—'))}
-          ${row('target', t('stat.passing'), esc(ex(c.exam.passing) || '—'))}
-          ${row('calendar-check', t('stat.valid'), esc(ex(c.exam.validity) || '—'))}
-          ${row('gauge', t('stat.level'), lvl(c.level))}
-          ${row('pen-line', t('stat.format'), esc(LABELS[c.exam.style]))}
-          ${row(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), esc(LABELS[c.status]))}
-          ${row('layers', t('stat.domains'), c.domains.length ? dbar(c) + legend(c) : '—')}
-          ${row('bot', t('stat.ai'), esc(c.ai_policy || '—'))}
-          <button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button>
-        </article>`,
-      )
-      .join('')}</div>`;
-  $('#copy-compare').addEventListener('click', (e) => copy(link, e.currentTarget));
+    <p class="copy-spot" id="copy-spot" hidden></p>
+    <div class="cmp" role="table" aria-label="${esc(t('compare.title'))}" style="--n:${certs.length}">
+      <div class="cmp-r cmp-head" role="row"><div class="cmp-label" role="columnheader"></div>${certs
+        .map(
+          (c) => `<div class="cmp-cert" role="columnheader">${badge(c, 40, { label: false })}<div><h2><a href="#cert?id=${esc(c.id)}"><span class="long">${esc(c.name)}</span><span class="short">${esc(shortName(c))}</span></a></h2><small>${esc(c.provider)} · ${esc(c.code)}</small></div></div>`,
+        )
+        .join('')}</div>
+      ${row('badge-dollar-sign', t('stat.price'), (c) => `${text(fee(c))}${sub(ex(c.fee.basis))}`)}
+      ${row('clock', t('stat.length'), (c) => text(duration(c)))}
+      ${row('list-checks', t('stat.questions'), (c) => text(ex(c.exam.questions)))}
+      ${row('target', t('stat.passing'), (c) => text(ex(c.exam.passing)))}
+      ${row('calendar-check', t('stat.valid'), (c) => text(ex(c.exam.validity)))}
+      ${row('gauge', t('stat.level'), (c) => lvl(c.level))}
+      ${row('book-open', t('stat.hours'), (c) => text(studyHours(c)))}
+      ${row('languages', t('stat.langs'), (c) => {
+        const langs = examLangs(c);
+        return langs ? langsHtml(langs, 3) : '';
+      })}
+      ${row('building-2', t('stat.delivery'), (c) => text(deliveryText(c)))}
+      ${row('pen-line', t('stat.format'), (c) => text(LABELS[c.exam.style]))}
+      ${row('dumbbell', t('stat.practice'), (c) => (c.practice_questions ? `<a href="#practice?cert=${esc(c.id)}">${esc(t('compare.practiceN', { n: c.practice_questions }))}</a>` : `<span class="muted">${esc(t('compare.noPractice'))}</span>`))}
+      ${row(certs.some((c) => c.status === 'restricted') ? 'lock' : 'clipboard-list', t('stat.registration'), (c) => text(LABELS[c.status]))}
+      ${row('layers', t('stat.domains'), (c) => (c.domains.length ? dbar(c) + legend(c) : ''), 'cmp-domains')}
+      ${row('bot', t('stat.ai'), (c) => text(c.ai_policy))}
+      <div class="cmp-r cmp-actions" role="row"><div class="cmp-label" role="rowheader"></div>${certs
+        .map(
+          (c) => `<div class="cmp-v" role="cell"><a class="btn" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('compare.plan')}</a><button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button></div>`,
+        )
+        .join('')}</div>
+    </div>`;
+  $('#copy-compare').addEventListener('click', (e) => copyOrShare(link, e.currentTarget, $('#copy-spot')));
   $('#clear-compare').addEventListener('click', () => {
     setCompare([]);
     renderCompare();
   });
+}
+
+/** Copies a link; where the clipboard is blocked, offers the share sheet, and failing that the link itself, selected. */
+async function copyOrShare(text, button, spot) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const before = button.innerHTML;
+    button.innerHTML = `${icon('check')}${t('copied')}`;
+    setTimeout(() => (button.innerHTML = before), 1500);
+    return;
+  } catch {
+    /* blocked: try the next way */
+  }
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: `${t('compare.title')} · pathfinder`, url: text });
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
+  }
+  spot.hidden = false;
+  spot.innerHTML = `<label>${esc(t('copy.manual'))} <input type="text" readonly value="${esc(text)}"></label>`;
+  const input = $('input', spot);
+  input.focus();
+  input.select();
 }
 
 // ---------- plan ----------
@@ -2029,6 +2191,11 @@ async function init() {
   setThemeButton();
   fillPlanForm();
   bind();
+  // Sticky parts of a view (the compare header) sit under the top bar, whose height changes on phones.
+  const top = $('.top');
+  const topHeight = () => document.documentElement.style.setProperty('--top-h', `${top.offsetHeight}px`);
+  topHeight();
+  if ('ResizeObserver' in window) new ResizeObserver(topHeight).observe(top);
   chat = mountChat({ data: DATA, helpers: { icon, lvl, fee, flag }, onRefine: refineFromIntent });
   $('#loading').remove();
   route();

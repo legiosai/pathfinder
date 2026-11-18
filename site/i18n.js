@@ -156,6 +156,7 @@ const en = {
   'prep.course': 'Course',
   'prep.docs': 'Docs',
   'prep.practice': 'Practice',
+  'res.spanish': 'In Spanish',
   paid: 'Paid',
   free: 'Free',
 
@@ -179,6 +180,7 @@ const en = {
   'cert.timeline': 'Upcoming changes',
   'cert.access': 'Discounts and access',
   'cert.ar': 'Paying from Argentina',
+  'cert.arMore': 'More detail',
   'cert.next': 'Next step',
   'cert.nextIn': 'In the path “{x}”',
   'cert.related': 'Related certifications',
@@ -566,6 +568,7 @@ const es = {
   'prep.course': 'Curso',
   'prep.docs': 'Documentación',
   'prep.practice': 'Práctica',
+  'res.spanish': 'En español',
   paid: 'Pago',
   free: 'Gratis',
 
@@ -589,6 +592,7 @@ const es = {
   'cert.timeline': 'Cambios próximos',
   'cert.access': 'Descuentos y acceso',
   'cert.ar': 'Si pagás desde Argentina',
+  'cert.arMore': 'Más detalle',
   'cert.next': 'Siguiente paso',
   'cert.nextIn': 'En el camino «{x}»',
   'cert.related': 'Certificaciones relacionadas',
