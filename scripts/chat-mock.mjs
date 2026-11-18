@@ -2,6 +2,12 @@
 // the real one (POST /chat, server-sent events) with canned answers that recommend real catalog ids,
 // and can act out every failure the page has to handle.
 //
+// Answers carry every event the real endpoint sends: text, picks (with a warning for restricted,
+// upcoming or over-budget certifications), roadmap (when the message asks for an order or a path),
+// comparison (when it names two or more certifications, or says "compare"/"vs"), profile (hours a
+// week, budget, role, country and Spanish exam when the message says them) and replies. A message of
+// "mock:unknown" adds a pick the catalog doesn't have, to see the page drop it.
+//
 // Usage: node scripts/chat-mock.mjs [port] [--mode=<mode>]   (port 8813 by default)
 // Then open the site with ?chat=http://127.0.0.1:8813. A mode can also go in the address, per request:
 // ?chat=http://127.0.0.1:8813/m/429 posts to /m/429/chat.
@@ -16,6 +22,7 @@
 //   refusal     an `error` event (refusal) before any text
 //   late        some text, then an `error` event (internal)
 //   cut         some text, then the connection closes without `done`
+//   tools       every event on every answer
 import { createServer } from 'node:http';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -38,8 +45,8 @@ const TOPICS = [
       ['comptia-security-plus', { en: 'The usual first step for a security job; vendor-neutral.', es: 'El primer paso típico para un puesto de seguridad; no depende de un proveedor.' }],
       ['aws-scs-c03', { en: 'Cloud security on AWS, once the basics are in place.', es: 'Seguridad en AWS, cuando ya tengas la base.' }],
     ],
-    en: 'Good goal. Since you are starting in security, I would build the base first and then specialise:\n\n- **ISC2 CC** gives you the vocabulary and core ideas.\n- **Security+** is what most job posts ask for.\n- If cloud is where you want to end up, **AWS Security Specialty** comes after.\n\nWith 5 hours a week, plan about two months for each of the first two.',
-    es: 'Buen objetivo. Como arrancás en seguridad, armaría primero la base y después me especializaría:\n\n- **ISC2 CC** te da el vocabulario y las ideas centrales.\n- **Security+** es la que más piden los avisos.\n- Si querés terminar en la nube, después viene **AWS Security Specialty**.\n\nCon 5 horas por semana, calculá unos dos meses para cada una de las dos primeras.',
+    en: 'Start with ISC2 CC: it gives you the vocabulary every security role expects, and Security+ is what most job posts ask for next.\n\nIf cloud is where you want to end up, AWS Security Specialty comes after those two. Build the plan from the first card to see the weeks.',
+    es: 'Arrancá por ISC2 CC: te da el vocabulario que pide cualquier rol de seguridad, y después Security+, que es la que más piden los avisos.\n\nSi querés terminar en la nube, AWS Security Specialty viene después de esas dos. Armá el plan desde la primera tarjeta para ver las semanas.',
   },
   {
     words: /\bai\b|\bia\b|llm|agent|genai|generativ|claude|machine learning/,
@@ -48,8 +55,8 @@ const TOPICS = [
       ['claude-architect-foundations', { en: 'Hands-on with building on Claude, a step up from the basics.', es: 'Práctica construyendo con Claude, un paso después de lo básico.' }],
       ['langchain-lcae', { en: 'Agents and LLM apps with LangChain, under US$100.', es: 'Agentes y apps con LLM usando LangChain, por menos de US$100.' }],
     ],
-    en: 'For generative AI I would start broad and then pick a stack. **AWS AI Practitioner** is cheap and covers the concepts; after that, one of the builder certifications depending on the tools you want to use.',
-    es: 'Para IA generativa empezaría por algo amplio y después elegiría un stack. **AWS AI Practitioner** es barata y cubre los conceptos; después, una de las certificaciones para construir, según las herramientas que quieras usar.',
+    en: 'AWS AI Practitioner is the best first step: entry level, US$100, and it covers the concepts before you pick a stack.\n\nAfter it, take one of the builder certifications depending on the tools you want to use.',
+    es: 'AWS AI Practitioner es el mejor primer paso: nivel inicial, US$100, y cubre los conceptos antes de elegir un stack.\n\nDespués, una de las certificaciones para construir, según las herramientas que quieras usar.',
   },
   {
     words: /data|datos|sql|analyt|analist|analyst/,
@@ -73,20 +80,96 @@ const TOPICS = [
   },
 ];
 for (const t of TOPICS) for (const [id] of t.picks) if (!ids.has(id)) throw new Error(`chat-mock: ${id} is not in the catalog`);
+const COMPARE_TEXT = {
+  en: 'They cover the same ground at the same level; pick the provider your target jobs use. The table has the details.',
+  es: 'Cubren lo mismo y al mismo nivel; elegí el proveedor que usan los trabajos que buscás. La tabla tiene el detalle.',
+};
+const REPLIES = {
+  en: ['Anything cheaper?', 'Plan the path in order', 'I have 5 hours a week'],
+  es: ['¿Algo más barato?', 'Armame el camino en orden', 'Tengo 5 horas por semana'],
+};
+const WARN = {
+  restricted: { en: 'Only for people who meet its eligibility rules.', es: 'Solo si cumplís los requisitos de elegibilidad.' },
+  upcoming: { en: 'Announced but not open for registration yet.', es: 'Anunciada, pero la inscripción todavía no abrió.' },
+  budget: { en: 'Over your budget.', es: 'Se pasa de tu presupuesto.' },
+};
+const byId = new Map(catalog.certifications.map((c) => [c.id, c]));
+const LEVEL_HOURS = Object.fromEntries(catalog.taxonomy.levels.map((l) => [l.id, l.hours]));
+
+/** What the message says about the person, the way set_profile would record it. */
+function profileFrom(text) {
+  const p = {};
+  const hours = text.match(/(\d+(?:[.,]\d+)?)\s*(?:h|horas?|hours?)\b(?:\s*(?:a la|por|a|per|each)\s*(?:semana|week))?/);
+  if (hours) p.hours_per_week = Number(hours[1].replace(',', '.'));
+  const budget = text.match(/(?:us\$|usd\s*|\$)\s*(\d+)|(\d+)\s*(?:usd|d[oó]lares|dollars)/);
+  if (budget) p.budget_usd = Number(budget[1] || budget[2]);
+  if (/argentin/.test(text)) p.country = 'AR';
+  if (/en español|in spanish|inglés (es )?(muy )?flojo/.test(text)) p.prefers_spanish_exam = true;
+  const role = text.match(/\b(dev(?:eloper)? backend|backend dev(?:eloper)?|soporte técnico|help ?desk|estudiante|student|sysadmin)\b/);
+  if (role) p.role = role[1];
+  return p;
+}
+
+/** Certifications the message names by exam code or by name (for the comparison). */
+function named(text) {
+  const found = [];
+  for (const c of catalog.certifications) {
+    const code = c.code.toLowerCase();
+    const short = c.name.replace(/^(AWS Certified|Microsoft|Google Cloud|CompTIA)\s+/, '').toLowerCase();
+    if ((code.length >= 4 && text.includes(code)) || (short.split(' ').length >= 2 && text.includes(short))) found.push(c.id);
+  }
+  return found;
+}
+
 const ASK = {
   en: 'Happy to help. What do you do today, and what would you like to work on? A budget and the hours you have each week help too.',
   es: 'Con gusto. ¿A qué te dedicás hoy y en qué te gustaría trabajar? También ayuda saber tu presupuesto y cuántas horas por semana tenés.',
 };
 
-function answerFor(messages, lang) {
+/** The canned answer and its events. `everything` (mode tools) adds a roadmap and a table to any answer. */
+function answerFor(messages, lang, kept = {}, everything = false) {
   const text = messages
     .filter((m) => m.role === 'user')
     .map((m) => m.content)
     .join(' ')
     .toLowerCase();
-  const topic = TOPICS.find((t) => t.words.test(text));
-  if (!topic) return { text: ASK[lang], picks: [] };
-  return { text: topic[lang], picks: topic.picks.map(([id, why]) => ({ id, why: why[lang] })) };
+  const last = messages.at(-1).content.toLowerCase();
+  const profile = { ...kept, ...profileFrom(last) };
+  const said = Object.keys(profileFrom(last)).length ? profileFrom(last) : null;
+  const answer = { text: ASK[lang], picks: [], roadmap: null, comparison: [], profile: said, replies: REPLIES[lang].slice(0, 2) };
+
+  const compared = named(last);
+  if (compared.length >= 2 || /compar|\bvs\.?\b/.test(last)) {
+    answer.comparison = (compared.length >= 2 ? compared : ['aws-clf-c02', 'microsoft-az-900']).slice(0, 4);
+    answer.text = COMPARE_TEXT[lang];
+    answer.replies = REPLIES[lang].slice(1);
+    if (!everything) return answer;
+  }
+  const topic = TOPICS.find((t) => t.words.test(text)) || (everything || last === 'mock:unknown' ? TOPICS.at(-1) : null);
+  if (!topic) return answer;
+  answer.text = answer.comparison.length ? `${COMPARE_TEXT[lang]}\n\n${topic[lang]}` : topic[lang];
+  answer.picks = topic.picks.map(([id, why]) => {
+    const c = byId.get(id);
+    const pick = { id, why: why[lang] };
+    const reason = c.status === 'restricted' || c.status === 'upcoming' ? c.status : profile.budget_usd != null && c.fee.usd > profile.budget_usd ? 'budget' : null;
+    if (reason) pick.warning = WARN[reason][lang];
+    return pick;
+  });
+  if (last === 'mock:unknown') answer.picks.unshift({ id: 'made-up-cert', why: 'Not in the catalog.' });
+  if (everything || /camino|orden|path|order|roadmap|paso a paso|step by step/.test(last)) {
+    const hpw = profile.hours_per_week || 5;
+    answer.roadmap = {
+      hours_per_week: hpw,
+      steps: topic.picks.map(([id]) => {
+        const [lo, hi] = LEVEL_HOURS[byId.get(id).level] || [25, 45];
+        return { id, weeks: Math.max(1, Math.round((lo + hi) / 2 / hpw)), note: '' };
+      }),
+    };
+    answer.roadmap.steps[0].note = lang === 'es' ? 'La base' : 'The basics';
+    answer.picks = answer.picks.slice(0, 1);
+  }
+  if (everything && !answer.comparison.length) answer.comparison = topic.picks.slice(0, 2).map(([id]) => id);
+  return answer;
 }
 
 // The endpoint's checks (worker/src/validate.ts), so the page is tested against the same rules.
@@ -104,6 +187,7 @@ function check(body) {
     if (m.picks !== undefined && (m.role !== 'assistant' || !Array.isArray(m.picks) || m.picks.length > 10 || m.picks.some((id) => !ids.has(id)))) return [400, `picks at ${i}`];
   }
   if (messages.at(-1).role !== 'user') return [400, 'last'];
+  if (body.profile != null && (typeof body.profile !== 'object' || Array.isArray(body.profile))) return [400, 'profile'];
   return null;
 }
 
@@ -163,7 +247,8 @@ createServer(async (req, res) => {
     send('error', { code: mode === 'error' ? 'overloaded' : 'refusal' });
     return res.end();
   }
-  const { text, picks } = answerFor(body.messages, body.lang);
+  const answer = answerFor(body.messages, body.lang, body.profile || {}, mode === 'tools');
+  const { text, picks } = answer;
   const words = text.match(/\S+\s*/g) || [];
   const stopAt = mode === 'late' || mode === 'cut' ? Math.ceil(words.length / 3) : words.length;
   await sleep(500);
@@ -178,6 +263,10 @@ createServer(async (req, res) => {
   }
   if (mode === 'cut') return res.destroy();
   if (picks.length) send('picks', { picks });
+  if (answer.roadmap) send('roadmap', answer.roadmap);
+  if (answer.comparison.length) send('comparison', { ids: answer.comparison });
+  if (answer.profile) send('profile', { profile: answer.profile });
+  if (answer.replies.length) send('replies', { replies: answer.replies });
   send('done', {});
   res.end();
 }).listen(port, '127.0.0.1', () => console.log(`chat mock (${defaultMode}) on http://127.0.0.1:${port}/chat`));
