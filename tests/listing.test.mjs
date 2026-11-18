@@ -112,6 +112,7 @@ test('short names for the badges of a path chain', async () => {
     'securiti-ai-governance': 'AI Security & Governance',
     'google-cloud-digital-leader': 'CDL',
     'nvidia-ncp-aai': 'NCP-AAI',
+    'google-cybersecurity-certificate': 'Google Cybersecurity',
   };
   for (const [id, short] of Object.entries(expect)) assert.equal(shortName(all.find((c) => c.id === id)), short, id);
   // Every certification in a path gets a short label.

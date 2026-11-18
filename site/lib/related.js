@@ -58,6 +58,13 @@ export function shortName(cert) {
   const first = code.split(/\s*\/\s*/)[0].trim();
   const words = first.split(/\s+/).filter(Boolean);
   if (words.length && /[a-z]/i.test(first) && words.every(codeLike)) return words.length > 1 ? words.filter((w) => /[a-z]/i.test(w)).at(-1) : first;
-  if (words.length && /[a-z]/i.test(first) && words.every((w) => /^[A-Z]/.test(w))) return first;
-  return bare;
+  if (words.length && /[a-z]/i.test(first) && words.every((w) => /^[A-Z]/.test(w))) return withoutCertificate(first, cert);
+  return withoutCertificate(bare, cert);
+}
+
+// "Cybersecurity Certificate" → "Google Cybersecurity": the issuer says more than the word "Certificate".
+function withoutCertificate(short, cert) {
+  const plain = short.replace(/\s+(professional\s+)?certificate$/i, '');
+  if (plain === short) return short;
+  return cert.provider && `${cert.provider} ${plain}`.length <= 24 ? `${cert.provider} ${plain}` : plain;
 }
