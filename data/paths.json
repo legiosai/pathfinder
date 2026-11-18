@@ -1,0 +1,247 @@
+{
+  "note": "Suggested orders of certifications by goal, written for people who don't know where to start. They are an editorial suggestion, not an issuer's official path: each step lists alternatives, best known first.",
+  "paths": [
+    {
+      "id": "security-analyst",
+      "category": "Cybersecurity",
+      "title": { "en": "Security analyst (SOC)", "es": "Analista de seguridad (SOC)" },
+      "summary": {
+        "en": "Defend networks and respond to incidents: the most common first job in cybersecurity.",
+        "es": "Defender redes y responder incidentes: el primer trabajo más común en ciberseguridad."
+      },
+      "steps": [
+        {
+          "certs": ["isc2-cc", "microsoft-sc-900"],
+          "note": { "en": "Vocabulary and core concepts, no experience needed.", "es": "Vocabulario y conceptos base, sin experiencia previa." }
+        },
+        {
+          "certs": ["comptia-security-plus"],
+          "note": { "en": "The baseline many security job posts ask for.", "es": "La base que piden muchas búsquedas laborales de seguridad." }
+        },
+        {
+          "certs": ["comptia-cysa-plus", "microsoft-sc-200"],
+          "note": { "en": "Detection, analysis and response, the daily work of a SOC.", "es": "Detección, análisis y respuesta: el trabajo diario de un SOC." }
+        },
+        {
+          "certs": ["isc2-cissp", "isaca-cism"],
+          "note": { "en": "Senior and management roles; both require years of paid experience.", "es": "Roles senior y de gestión; las dos piden años de experiencia laboral." }
+        }
+      ]
+    },
+    {
+      "id": "pentester",
+      "category": "Cybersecurity",
+      "title": { "en": "Penetration tester", "es": "Pentester" },
+      "summary": {
+        "en": "Attack systems with permission to find what defenders missed.",
+        "es": "Atacar sistemas con permiso para encontrar lo que se le escapó a la defensa."
+      },
+      "steps": [
+        {
+          "certs": ["ine-ejpt"],
+          "note": { "en": "A hands-on first exam: real machines, not multiple choice.", "es": "Un primer examen práctico: máquinas reales, no multiple choice." }
+        },
+        {
+          "certs": ["comptia-pentest-plus"],
+          "note": { "en": "Method, scoping and reporting, recognised by HR filters.", "es": "Método, alcance e informes, y la reconocen los filtros de RR. HH." }
+        },
+        {
+          "certs": ["htb-cpts", "offsec-oscp"],
+          "note": { "en": "Long practical exams that employers in offensive security ask for.", "es": "Exámenes prácticos largos que piden en seguridad ofensiva." }
+        }
+      ]
+    },
+    {
+      "id": "cloud-security",
+      "category": "Cybersecurity",
+      "title": { "en": "Cloud security", "es": "Seguridad en la nube" },
+      "summary": {
+        "en": "Secure workloads on AWS, Azure or Google Cloud.",
+        "es": "Asegurar cargas de trabajo en AWS, Azure o Google Cloud."
+      },
+      "steps": [
+        {
+          "certs": ["microsoft-sc-900", "isc2-cc"],
+          "note": { "en": "Security fundamentals first.", "es": "Primero, los fundamentos de seguridad." }
+        },
+        {
+          "certs": ["aws-saa", "microsoft-az-104", "google-cloud-engineer"],
+          "note": { "en": "Learn to build on one cloud before securing it.", "es": "Aprender a construir en una nube antes de asegurarla." }
+        },
+        {
+          "certs": ["aws-scs-c03", "google-cloud-security-engineer"],
+          "note": { "en": "The cloud provider's own security exam.", "es": "El examen de seguridad del propio proveedor." }
+        },
+        {
+          "certs": ["isc2-ccsp"],
+          "note": { "en": "Vendor-neutral and senior; requires paid experience.", "es": "Neutral y senior; pide experiencia laboral." }
+        }
+      ]
+    },
+    {
+      "id": "cloud-aws",
+      "category": "Cloud & platform",
+      "title": { "en": "Cloud on AWS", "es": "Cloud en AWS" },
+      "summary": {
+        "en": "The most requested cloud in job posts.",
+        "es": "La nube que más aparece en las búsquedas laborales."
+      },
+      "steps": [
+        {
+          "certs": ["aws-clf-c02"],
+          "note": { "en": "What each service is for, and how billing works.", "es": "Para qué sirve cada servicio y cómo se cobra." }
+        },
+        {
+          "certs": ["aws-saa"],
+          "note": { "en": "Design real architectures: the most valued AWS associate.", "es": "Diseñar arquitecturas reales: la associate de AWS más valorada." }
+        },
+        {
+          "certs": ["aws-sap-c03", "aws-dop-c02"],
+          "note": { "en": "Professional level, for architects or DevOps engineers.", "es": "Nivel profesional, para arquitectura o DevOps." }
+        }
+      ]
+    },
+    {
+      "id": "cloud-azure",
+      "category": "Cloud & platform",
+      "title": { "en": "Cloud on Azure", "es": "Cloud en Azure" },
+      "summary": {
+        "en": "Common in companies that already run Microsoft.",
+        "es": "Habitual en empresas que ya usan Microsoft."
+      },
+      "steps": [
+        {
+          "certs": ["microsoft-az-900"],
+          "note": { "en": "Cloud and Azure fundamentals.", "es": "Fundamentos de la nube y de Azure." }
+        },
+        {
+          "certs": ["microsoft-az-104"],
+          "note": { "en": "Day-to-day Azure administration.", "es": "Administración diaria de Azure." }
+        },
+        {
+          "certs": ["microsoft-az-305", "microsoft-az-400"],
+          "note": { "en": "Architecture or DevOps; both need AZ-104-level skills.", "es": "Arquitectura o DevOps; las dos asumen el nivel de AZ-104." }
+        }
+      ]
+    },
+    {
+      "id": "cloud-google",
+      "category": "Cloud & platform",
+      "title": { "en": "Cloud on Google Cloud", "es": "Cloud en Google Cloud" },
+      "summary": {
+        "en": "Strong in data and AI workloads.",
+        "es": "Fuerte en datos e inteligencia artificial."
+      },
+      "steps": [
+        {
+          "certs": ["google-cloud-digital-leader"],
+          "note": { "en": "What Google Cloud offers, without hands-on work.", "es": "Qué ofrece Google Cloud, sin práctica técnica." }
+        },
+        {
+          "certs": ["google-cloud-engineer"],
+          "note": { "en": "Deploy and run workloads.", "es": "Desplegar y operar cargas de trabajo." }
+        },
+        {
+          "certs": ["google-cloud-architect"],
+          "note": { "en": "Design solutions end to end.", "es": "Diseñar soluciones de punta a punta." }
+        }
+      ]
+    },
+    {
+      "id": "devops-kubernetes",
+      "category": "Cloud & platform",
+      "title": { "en": "DevOps and Kubernetes", "es": "DevOps y Kubernetes" },
+      "summary": {
+        "en": "Automate infrastructure and run containers in production.",
+        "es": "Automatizar infraestructura y correr contenedores en producción."
+      },
+      "steps": [
+        {
+          "certs": ["lf-kcna"],
+          "note": { "en": "Cloud-native concepts, multiple choice.", "es": "Conceptos cloud native, multiple choice." }
+        },
+        {
+          "certs": ["hashicorp-terraform-associate", "lf-cka"],
+          "note": { "en": "Infrastructure as code, and running a cluster hands-on.", "es": "Infraestructura como código, y operar un clúster con las manos." }
+        },
+        {
+          "certs": ["lf-cks", "lf-ckad"],
+          "note": { "en": "Specialise: cluster security or application development.", "es": "Especializarse: seguridad del clúster o desarrollo de aplicaciones." }
+        }
+      ]
+    },
+    {
+      "id": "ai-engineering",
+      "category": "AI engineering",
+      "title": { "en": "Build with AI", "es": "Construir con IA" },
+      "summary": {
+        "en": "Build applications and agents on top of language models.",
+        "es": "Construir aplicaciones y agentes sobre modelos de lenguaje."
+      },
+      "steps": [
+        {
+          "certs": ["aws-aif-c01", "microsoft-ai-901"],
+          "note": { "en": "What models can and can't do, and the vocabulary.", "es": "Qué pueden y qué no pueden hacer los modelos, y el vocabulario." }
+        },
+        {
+          "certs": ["microsoft-ai-103", "databricks-genai-engineer", "langchain-lcae"],
+          "note": { "en": "Build retrieval and agent applications on one platform.", "es": "Construir aplicaciones con búsqueda y agentes sobre una plataforma." }
+        },
+        {
+          "certs": ["aws-aip-c01", "nvidia-ncp-aai"],
+          "note": { "en": "Professional level: production AI systems.", "es": "Nivel profesional: sistemas de IA en producción." }
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "category": "Data & analytics",
+      "title": { "en": "Data and analytics", "es": "Datos y analítica" },
+      "summary": {
+        "en": "Move, model and analyse data for the business.",
+        "es": "Mover, modelar y analizar datos para el negocio."
+      },
+      "steps": [
+        {
+          "certs": ["microsoft-dp-900"],
+          "note": { "en": "Data fundamentals: relational, non-relational and analytics.", "es": "Fundamentos de datos: relacional, no relacional y analítica." }
+        },
+        {
+          "certs": ["microsoft-pl-300", "microsoft-dp-700", "aws-dea-c01", "databricks-data-engineer-associate"],
+          "note": { "en": "Analyst (Power BI) or data engineer, on the platform you use.", "es": "Analista (Power BI) o ingeniería de datos, en la plataforma que uses." }
+        },
+        {
+          "certs": ["google-data-engineer"],
+          "note": { "en": "Professional data engineering.", "es": "Ingeniería de datos a nivel profesional." }
+        }
+      ]
+    },
+    {
+      "id": "ai-security",
+      "category": "AI security",
+      "title": { "en": "AI security", "es": "Seguridad de IA" },
+      "summary": {
+        "en": "Attack, defend and govern AI systems.",
+        "es": "Atacar, defender y gobernar sistemas de IA."
+      },
+      "steps": [
+        {
+          "certs": ["securiti-ai-governance", "aws-aif-c01"],
+          "note": { "en": "How AI systems work and the rules around them.", "es": "Cómo funcionan los sistemas de IA y las reglas que los rodean." }
+        },
+        {
+          "certs": ["comptia-security-plus"],
+          "note": { "en": "General security comes first.", "es": "Primero, seguridad general." }
+        },
+        {
+          "certs": ["tcm-papa", "csa-taise"],
+          "note": { "en": "Test and secure AI applications.", "es": "Probar y asegurar aplicaciones de IA." }
+        },
+        {
+          "certs": ["giac-gaips", "offsec-osai"],
+          "note": { "en": "Expert, hands-on and expensive.", "es": "Experto, práctico y caro." }
+        }
+      ]
+    }
+  ]
+}

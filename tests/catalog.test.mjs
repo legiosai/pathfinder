@@ -49,3 +49,15 @@ test('the Claude exams carry the official guide as a resource and official weigh
     assert.match(c.domains_note, /official exam guide/, id);
   }
 });
+
+test('study paths only name certifications from the catalog, with notes in both languages', async () => {
+  const data = await loadCatalog(root);
+  assert.ok(data.paths.length >= 5);
+  const paths = structuredClone(data.paths);
+  paths[0].steps[0].certs.push('not-a-cert');
+  paths[0].steps[1].note = { en: 'only English' };
+  const errors = validate({ ...data, paths });
+  assert.ok(errors.some((e) => e.includes('unknown certification not-a-cert')));
+  assert.ok(errors.some((e) => e.includes('note needs en and es')));
+  assert.ok(bundle(data, '2026-11-17').paths.length === data.paths.length);
+});

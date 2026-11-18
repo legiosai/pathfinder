@@ -31,6 +31,7 @@ export async function loadCatalog(root) {
     sources: await read('sources.json'),
     reports: await read('reports.json'),
     taxonomy: await read('taxonomy.json'),
+    paths: (await read('paths.json').catch(() => ({ paths: [] }))).paths,
   };
 }
 
@@ -44,7 +45,7 @@ function isUrl(u) {
 }
 
 /** Returns a list of human-readable problems. Empty means valid. */
-export function validate({ certifications, sources, reports, taxonomy, practice = [] }) {
+export function validate({ certifications, sources, reports, taxonomy, practice = [], paths = [] }) {
   const errors = [];
   const err = (where, msg) => errors.push(`${where}: ${msg}`);
   const str = (v) => typeof v === 'string';
@@ -129,11 +130,26 @@ export function validate({ certifications, sources, reports, taxonomy, practice 
     if (cert && !Number.isInteger(cert.exam.minutes)) err(w, 'the certification needs exam.minutes');
     if (cert && !Number.isInteger(parseInt(cert.exam.questions, 10))) err(w, 'the certification needs exam.questions');
   }
+  const pathIds = new Set();
+  for (const p of paths) {
+    const w = `paths.json ${p.id}`;
+    if (!ID.test(p.id || '')) err(w, 'bad id');
+    if (pathIds.has(p.id)) err(w, 'duplicate id');
+    pathIds.add(p.id);
+    for (const k of ['title', 'summary']) if (!str(p[k]?.en) || !str(p[k]?.es)) err(w, `${k} needs en and es`);
+    if (!certifications.some((c) => c.category === p.category)) err(w, `unknown category ${p.category}`);
+    if (!Array.isArray(p.steps) || p.steps.length < 2) err(w, 'needs at least two steps');
+    for (const [i, step] of (p.steps || []).entries()) {
+      if (!Array.isArray(step.certs) || !step.certs.length) err(w, `step ${i + 1} has no certifications`);
+      for (const id of step.certs || []) if (!certIds.has(id)) err(w, `step ${i + 1}: unknown certification ${id}`);
+      if (!str(step.note?.en) || !str(step.note?.es)) err(w, `step ${i + 1} note needs en and es`);
+    }
+  }
   return errors;
 }
 
 /** The single JSON file the site loads. */
-export function bundle({ certifications, sources, reports, taxonomy, practice = [] }, generatedOn) {
+export function bundle({ certifications, sources, reports, taxonomy, practice = [], paths = [] }, generatedOn) {
   const counts = new Map(practice.map((set) => [set.cert, set.questions.length]));
   return {
     generated_on: generatedOn,
@@ -141,5 +157,6 @@ export function bundle({ certifications, sources, reports, taxonomy, practice = 
     sources: Object.fromEntries(sources.map((s) => [s.id, s])),
     reports,
     taxonomy,
+    paths,
   };
 }
