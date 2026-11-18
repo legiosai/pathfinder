@@ -9,7 +9,7 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 - **Each certification:** price, exam format, passing score, validity, exam domains, prep resources and sources.
 - **Compare:** up to four side by side, with a shareable link.
 - **Plan:** dated sessions weighted by the exam domains, with timed mocks. Set an exam date and the plan ends before it (when it doesn't fit, it says what was cut), rate your topics to shift time, tick sessions off, reschedule what is left from today when you fall behind, and export to your calendar (`.ics`, with the exam day) or Markdown. Practice and mock sessions open the matching practice and are ticked off when you finish it.
-- **Practice:** original questions for some certifications (AWS Cloud Practitioner, AWS AI Practitioner, AWS Solutions Architect Associate, Microsoft Azure Fundamentals and Claude Architect Foundations for now), picked by exam domain, in exam mode (a timer you can pause, results at the end) or study mode (the answer and its explanation after each question), with keyboard keys, marked questions, accuracy by domain next to the exam's passing score, review with explanations and a list of your mistakes. Questions you miss or mark come back in **Review**, spaced out further each time you get them right.
+- **Practice:** original questions for some certifications (CompTIA Security+, ISC2 CC, AWS Cloud Practitioner, AWS AI Practitioner, AWS Solutions Architect Associate, Microsoft Azure Fundamentals, Microsoft Security Fundamentals and Claude Architect Foundations for now), picked by exam domain, in exam mode (a timer you can pause, results at the end) or study mode (the answer and its explanation after each question), with keyboard keys, marked questions, accuracy by domain next to the exam's passing score, review with explanations and a list of your mistakes. Questions you miss or mark come back in **Review**, spaced out further each time you get them right.
 - **Progress:** every plan you track in one place: streak, hours done, what comes next, how far behind you are, questions due for review and five weeks of sessions at a glance.
 - **English and Spanish**, light and dark, installable and usable offline. When a new version is out, a notice offers to refresh instead of swapping files under an open page.
 - **A page per certification** (`c/<id>/`, and `es/c/<id>/` in Spanish) with its facts as plain HTML, readable without JavaScript and by search engines, with links into the plan, practice and compare views. It is also the certification's share link, with its own preview image. `c/` lists them all, and the build writes `sitemap.xml` and `robots.txt`.
@@ -18,7 +18,7 @@ Pick an IT certification and plan the study. Open source, runs in your browser.
 
 ## Privacy
 
-No tracking. Messages you type in the chat go to pathfinder's server on Vercel, which passes them through Vercel AI Gateway to Claude (Anthropic); pathfinder does not store the conversations, and your browser keeps the transcript until you start a new chat. Everything else (plans, progress, practice) stays in your browser. If the AI is unavailable, an on-device matcher answers instead.
+No cookies and no personal data. The site counts visits with Vercel Web Analytics, which records the page, the country, the browser and where the visit came from, without cookies and without anything that identifies you; for the app it records which view or certification was open, never what you searched or typed. Messages you type in the chat go to pathfinder's server on Vercel, which passes them through Vercel AI Gateway to Claude (Anthropic); pathfinder does not store the conversations, and your browser keeps the transcript until you start a new chat. Everything else (plans, progress, practice) stays in your browser. If the AI is unavailable, an on-device matcher answers instead.
 
 ## The catalog
 
@@ -32,7 +32,7 @@ The catalog lists 94 certifications in AI engineering, ML foundations, AI securi
 - `data/paths.json`: suggested study paths by goal, an editorial order rather than any issuer's official path.
 - `data/comparisons.json`: the pairs that get a comparison page. Both ids must exist in the catalog.
 
-Provider facts were checked in October and November 2026; exam domain weights for 75 of the 94 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
+Provider facts were checked in November 2026; exam domain weights for 75 of the 94 come from the issuers' own guides. Prices change and vary by country: confirm with the issuer before paying or booking. Certification names and codes belong to their issuers; pathfinder is not affiliated with any of them.
 
 ## Run it locally
 
@@ -70,4 +70,4 @@ Corrections and new certifications are welcome. See [CONTRIBUTING.md](CONTRIBUTI
 
 [MIT](LICENSE)
 
-Icons from [Lucide](https://lucide.dev) v1.59.0 (ISC, see `site/LICENSE-lucide.txt`). Headings use [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) and body text uses [Inter](https://github.com/rsms/inter), Latin subset (both SIL Open Font License, see `site/fonts/OFL.txt` and `site/fonts/OFL-inter.txt`). Everything is bundled: the only request that leaves the site is the chat's, to pathfinder's own endpoint.
+Icons from [Lucide](https://lucide.dev) v1.59.0 (ISC, see `site/LICENSE-lucide.txt`). Headings use [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) and body text uses [Inter](https://github.com/rsms/inter), Latin subset (both SIL Open Font License, see `site/fonts/OFL.txt` and `site/fonts/OFL-inter.txt`). Everything is bundled: the only requests that leave the page are the chat's, to pathfinder's own endpoint, and the anonymous visit count, to the site's own address.

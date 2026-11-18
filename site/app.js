@@ -254,6 +254,18 @@ function renderRoute() {
   if (view === 'cert' && BY_ID.has(certId)) document.title = `${BY_ID.get(certId).name} · pathfinder`;
   else if (!['cert', 'path'].includes(view)) document.title = titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
   if (moved && from.view !== null) arrive(view, from, !composer);
+  countView(view, certId || params.get('cert'));
+}
+
+// Anonymous page counts (Vercel Web Analytics, loaded by index.html on the public site only). One
+// count per view or certification shown; search words and filters never leave the page.
+let counted = '';
+function countView(view, certId) {
+  const id = ['cert', 'path', 'plan', 'practice'].includes(view) && /^[a-z0-9-]{2,60}$/.test(certId || '') ? certId : '';
+  const path = `/#${view}${id ? `/${id}` : ''}`;
+  if (path === counted) return;
+  counted = path;
+  window.va?.('pageview', { route: `/#${view}`, path });
 }
 
 /** After a route change, move focus to the new view's heading (or back to the card it came from) and announce its title. */

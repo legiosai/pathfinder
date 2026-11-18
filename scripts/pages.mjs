@@ -321,6 +321,7 @@ ${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${esc(site + alt
 <link rel="preload" href="${up}fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${up}styles.css?v=${v}">
 <script>try { const t = JSON.parse(localStorage.getItem("pathfinder:theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); }; if (/(^|\\.)pathfinder\\.legios\\.com\\.ar$|\\.vercel\\.app$/.test(location.hostname)) { const s = document.createElement("script"); s.defer = true; s.src = "/_vercel/insights/script.js"; document.head.append(s); }</script>
 <script type="application/ld+json">${jsonScript(jsonld)}</script>
 </head>
 <body>

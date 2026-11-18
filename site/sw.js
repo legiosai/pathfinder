@@ -77,6 +77,8 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+  // Vercel's analytics script and endpoint are left to the network.
+  if (url.pathname.startsWith('/_vercel/')) return;
   const scope = new URL(self.registration.scope);
   if (request.mode === 'navigate') {
     // Static pages (c/<id>/, c/vs/<a>-vs-<b>/, p/<id>/ and their es/ copies) load from the network;
