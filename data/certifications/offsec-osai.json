@@ -24,7 +24,7 @@
   },
   "scope": "Advanced AI red teaming across LLMs, multi-agent systems, RAG, embeddings and infrastructure.",
   "requirements": "",
-  "ai_policy": "OffSec's OSAI exam guide sets no tool restrictions and strongly encourages using AI throughout the exam.",
+  "ai_policy": "OffSec's OSAI exam guide sets no tool restrictions and strongly encourages using AI throughout the exam; asking other people for help is still forbidden.",
   "caveats": [],
   "access": {
     "discounts": [
