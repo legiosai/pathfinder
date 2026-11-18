@@ -1538,5 +1538,45 @@
     "url": "https://cloud.google.com/certification/terms",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Professional certifications are valid for two years from issue; renewal by passing the exam again from 60 days before expiry; up to four attempts in two years (14, 60 and 365-day waits); using any AI software during the exam is prohibited."
+  },
+  {
+    "id": "D01",
+    "title": "ARCA · Percepción: operaciones alcanzadas y excluidas",
+    "url": "https://www.arca.gob.ar/regimen-devolucion-percepciones/percepcion/operaciones.asp",
+    "kind": "Government / directly read",
+    "note": "Read 2026-11-17. RG 5617/2024 (which replaced RG 4815/2020) covers card payments for goods and services abroad and for services from non-residents, including online purchases settled in foreign currency. It applies only to the part paid in pesos that needs dollars bought on the official exchange market. Lists exclusions (health, books, educational platforms and software, gaming platforms since 16 April 2025).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D02",
+    "title": "ARCA · Percepción: importe",
+    "url": "https://www.arca.gob.ar/regimen-devolucion-percepciones/percepcion/importe.asp",
+    "kind": "Government / directly read",
+    "note": "Read 2026-11-17. The percepción is 30% of each covered operation, converted at the Banco Nación selling rate of the business day before the statement date.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D03",
+    "title": "ARCA · Percepción: cómputo",
+    "url": "https://www.arca.gob.ar/regimen-devolucion-percepciones/percepcion/computo.asp",
+    "kind": "Government / directly read",
+    "note": "Read 2026-11-17. The percepción is a payment on account of Ganancias, or of Bienes Personales for monotributistas and people not registered for Ganancias, credited in the annual return for the year it was charged.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D04",
+    "title": "ARCA · Devolución de percepciones: solicitud",
+    "url": "https://www.arca.gob.ar/regimen-devolucion-percepciones/devolucion/solicitud.asp",
+    "kind": "Government / directly read",
+    "note": "Read 2026-11-17. People who are not (and need not be) registered for Ganancias or Bienes Personales can ask for a refund with clave fiscal in the \"Devolución de percepciones\" service from 1 January of the year after the charge; ARCA pays into the registered bank account (CBU).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D05",
+    "title": "iProfesional · El dólar tarjeta está más caro de lo esperado (9 November 2026)",
+    "url": "https://www.iprofesional.com/finanzas/468686-dolar-tarjeta-caro-recargo-extra-golpea-consumos-noviembre-2026",
+    "kind": "Press / directly read",
+    "note": "Read 2026-11-17. The card dollar in November 2026 is the official retail rate plus the 30% percepción on account of Ganancias; paying the card balance with your own dollars avoids the surcharge.",
+    "checked_on": "2026-11-17"
   }
 ]
