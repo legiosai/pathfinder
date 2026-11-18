@@ -411,7 +411,8 @@
     "title": "Red Hat · EX267 Certified Developer in AI",
     "url": "https://www.redhat.com/en/services/training/ex267-red-hat-certified-developer-in-ai",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026 via old URL redirect. Current title/scope and OpenShift versions; regional fee and exam duration not verified. AI267LS offer includes an attempt."
+    "note": "Read 27 Oct 2026 via old URL redirect. Current title/scope and OpenShift versions; regional fee and exam duration not verified. AI267LS offer includes an attempt. Re-read 2026-11-17: no exam length, passing score or languages stated; parts of the page still use the former name, Red Hat Certified Specialist in OpenShift AI.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y11",
@@ -1969,6 +1970,38 @@
     "url": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/9677396620941-Recertification-policies-and-processes",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17 (updated 2026-09-01). Credentials expire 2 years after issuance; recertification can begin 18 months after earning; Associate credentials renew by retaking the same exam or passing a Professional or Advanced exam for the same product.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E49",
+    "title": "Red Hat · Training and certification FAQ",
+    "url": "https://www.redhat.com/en/services/training-and-certification/faq",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Testing options: remote exams, testing centers and on-site/classroom; a free retake after an unsuccessful first individual exam attempt, further attempts paid; certifications are current for 3 years from the date earned and must be renewed before expiry (retake, level up or advance).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E50",
+    "title": "Red Hat · Red Hat Training Policies",
+    "url": "https://www.redhat.com/en/about/red-hat-training-policies",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17. Individual exams are delivered at a Red Hat testing center or online as a Remote Exam; one year from purchase to take the exam; one free retake after a NO PASS or NO SHOW, to be scheduled and taken within one year of the original purchase; the same exam cannot be taken twice in a day; special accommodation requests (disabilities, head coverings) at least two weeks in advance.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E51",
+    "title": "Red Hat · Ways to test",
+    "url": "https://www.redhat.com/en/services/certification/ways-to-test",
+    "kind": "Issuer page",
+    "note": "Read 2026-11-17. All Red Hat exams are available as individual exams taken remotely or on a preconfigured testing station at a Red Hat or Red Hat partner location; classroom exams at Red Hat testing facilities.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E52",
+    "title": "Red Hat · AI267 Developing and Deploying AI/ML Applications on Red Hat OpenShift AI",
+    "url": "https://www.redhat.com/en/services/training/ai267-developing-and-deploying-ai/ml-applications-on-red-hat-openshift-ai",
+    "kind": "Issuer course page",
+    "note": "Read 2026-11-17. The AI267LS Red Hat Learning Subscription Course is 50% off local MSRP through December 31, 2026 (discount applied at checkout, AI267LS only); course based on OpenShift 4.20 and OpenShift AI 3.3; EX267 listed as the next exam.",
     "checked_on": "2026-11-17"
   }
 ]
