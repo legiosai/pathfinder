@@ -81,7 +81,8 @@ async function main() {
 /** The first page target of the browser on `port`, with send() and a stream of events. */
 async function connect(port) {
   let target;
-  for (let i = 0; i < 100 && !target; i++) {
+  // A cold runner can take well over 15 s to start Chrome the first time; wait up to a minute.
+  for (let i = 0; i < 400 && !target; i++) {
     try {
       target = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find((t) => t.type === 'page');
     } catch {
