@@ -1365,7 +1365,7 @@ function practiceReview(ctx, early) {
       if (right) ok += 1;
       verdict = {
         right,
-        text: !right ? t('practice.reviewWrong') : after === before ? t('practice.reviewRightEarly') : t('practice.reviewRight', { n: daysUntil(after.cards[q.id].due, now) }),
+        text: !right ? t('practice.reviewMiss') : after === before ? t('practice.reviewRightEarly') : t('practice.reviewRight', { n: daysUntil(after.cards[q.id].due, now) }),
       };
       paint();
       $('#pa-next')?.focus();
