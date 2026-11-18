@@ -87,11 +87,15 @@ self.addEventListener('fetch', (event) => {
     const path = url.pathname.slice(scope.pathname.length);
     event.respondWith(
       networkFirst(event, { fallbackUrl: path ? null : home, timeout: PAGE_TIMEOUT_MS }).catch(() => {
-        const lang = path.startsWith('es/') ? '?lang=es' : '';
+        if (!path) return caches.match(home);
+        const app = path.startsWith('es/') ? `${home}?lang=es` : home;
         const vs = path.match(/^(?:es\/)?c\/vs\/([\w.-]+?)-vs-([\w.-]+?)\/?$/);
-        const id = path.match(/^(?:es\/)?c\/([\w.-]+)\/?$/)?.[1];
-        if (path) return Response.redirect(`${home}${lang}${vs ? `#compare?ids=${vs[1]},${vs[2]}` : id ? `#cert?id=${id}` : ''}`, 302);
-        return caches.match(home);
+        if (vs) return Response.redirect(`${app}#compare?ids=${vs[1]},${vs[2]}`, 302);
+        const detail = path.match(/^(?:es\/)?(c|p)\/([\w.-]+)\/?$/);
+        if (!detail) return Response.redirect(app, 302);
+        const [, collection, id] = detail;
+        const view = collection === 'c' ? 'cert' : 'path';
+        return Response.redirect(`${app}#${view}?id=${id}`, 302);
       }),
     );
     return;

@@ -32,6 +32,7 @@ createServer(async (req, res) => {
     const body = await readFile(file);
     res.writeHead(200, { 'content-type': TYPES[extname(file)] || 'application/octet-stream' }).end(body);
   } catch {
-    res.writeHead(404).end('Not found');
+    const body = await readFile(join(dist, '404.html')).catch(() => 'Not found');
+    res.writeHead(404, { 'content-type': TYPES['.html'] }).end(body);
   }
 }).listen(port, '127.0.0.1', () => console.log(`pathfinder on http://127.0.0.1:${port}/`));

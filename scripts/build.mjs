@@ -5,7 +5,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundle, loadCatalog, validate } from './catalog.mjs';
-import { LANGS, certPage, certPath, indexPage, indexPath, pathIndexPage, pathIndexPath, pathPage, pathPath, robots, sitemap, symbolsFrom, vsPage, vsPath } from './pages.mjs';
+import { LANGS, certPage, certPath, indexPage, indexPath, notFoundPage, pathIndexPage, pathIndexPath, pathPage, pathPath, robots, sitemap, symbolsFrom, vsPage, vsPath } from './pages.mjs';
 import { CHAT_API, DEFAULT_CHAT_API, DEFAULT_SITE, SITE } from './site.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -103,6 +103,7 @@ for (const [path, html] of pages) {
   await mkdir(join(dist, path), { recursive: true });
   await writeFile(join(dist, path, 'index.html'), html);
 }
+await writeFile(join(dist, '404.html'), notFoundPage({ catalog, site: SITE, v }));
 await writeFile(join(dist, 'sitemap.xml'), sitemap({ catalog, site: SITE, comparisons }));
 await writeFile(join(dist, 'robots.txt'), robots({ site: SITE }));
 console.log(`${pages.length} static pages for ${SITE}`);

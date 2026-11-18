@@ -1,5 +1,5 @@
 // Builds the site into a temporary folder and checks what the build writes: the offline cache list,
-// the hints in index.html and every page's title and structured data.
+// the hints in index.html, the error page and the indexable pages' titles and structured data.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
@@ -8,6 +8,7 @@ import { access, mkdtemp, readFile, readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
+import { runInNewContext } from 'node:vm';
 import { TITLE_MAX } from '../scripts/pages.mjs';
 
 const root = new URL('..', import.meta.url).pathname;
@@ -61,8 +62,8 @@ test('index.html announces the module graph and the catalog the way the app asks
   assert.match(html, /hreflang="es" href="https:\/\/example\.test\/\?lang=es"/);
 });
 
-test('every page has a short title and structured data that parses', async () => {
-  const files = await htmlFiles();
+test('every indexable page has a short title and structured data that parses', async () => {
+  const files = (await htmlFiles()).filter((file) => file !== '404.html');
   assert.ok(files.length > 200);
   for (const file of files) {
     const html = await read(file);
@@ -76,4 +77,52 @@ test('every page has a short title and structured data that parses', async () =>
   const sitemap = await read('sitemap.xml');
   assert.ok(sitemap.includes('<loc>https://example.test/c/vs/aws-saa-vs-microsoft-az-104/</loc>'));
   assert.ok(sitemap.includes('<loc>https://example.test/es/p/cloud-aws/</loc>'));
+});
+
+test('the 404 page gives visitors working recovery links from a nested URL', async () => {
+  const html = await read('404.html');
+  assert.match(html, /<meta name="robots" content="noindex">/);
+  assert.match(html, /<h1>Page not found<\/h1>/);
+  assert.match(html, /<h1>Página no encontrada<\/h1>/);
+  for (const path of ['/c/', '/es/c/', '/p/', '/es/p/']) {
+    assert.ok(html.includes(`href="${path}"`), path);
+    assert.ok(await exists(`${path.slice(1)}index.html`), path);
+  }
+  assert.match(html, /href="\/styles\.css\?v=\w+"/);
+  assert.doesNotMatch(await read('sitemap.xml'), /404\.html/);
+});
+
+test('uncached study path links open the study path offline', async () => {
+  const scope = 'https://example.test/sub/';
+  let onFetch;
+  runInNewContext(await read('sw.js'), {
+    self: {
+      location: new URL(scope),
+      registration: { scope },
+      addEventListener(name, handler) {
+        if (name === 'fetch') onFetch = handler;
+      },
+    },
+    URL,
+    Response,
+    caches: { open: async () => ({ match: async () => undefined }) },
+    fetch: async () => { throw new Error('offline'); },
+    setTimeout() {},
+  });
+  for (const [path, target] of [
+    ['p/cloud-aws/', '#path?id=cloud-aws'],
+    ['es/p/cloud-aws/', '?lang=es#path?id=cloud-aws'],
+    ['c/aws-saa/', '#cert?id=aws-saa'],
+    ['es/c/vs/aws-saa-vs-microsoft-az-104/', '?lang=es#compare?ids=aws-saa,microsoft-az-104'],
+  ]) {
+    let response;
+    onFetch({
+      request: { method: 'GET', mode: 'navigate', url: scope + path },
+      waitUntil() {},
+      respondWith(result) { response = result; },
+    });
+    const result = await response;
+    assert.equal(result.status, 302, path);
+    assert.equal(result.headers.get('location'), scope + target, path);
+  }
 });
