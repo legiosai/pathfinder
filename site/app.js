@@ -2,9 +2,13 @@ import { emptyProfile, rank } from './lib/match.js';
 import { applyMoves, behind, buildPlan, countStudyDays, estimateHours, planTopics, reschedule, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
 import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
-import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
+import { providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
 import Fuse from './vendor/fuse.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
+import { examText } from './lib/examtext.js';
+import { createSearch } from './lib/search.js';
+import { SORTS, activeFilters, emptyFilters, examInSpanish, examOnline, filterCerts, filtersFromParams, filtersToParams, sortCerts } from './lib/listing.js';
+import { nextSteps, pathsFor, shortName, similar } from './lib/related.js';
 import { mountChat } from './chat.js';
 
 const MAX_COMPARE = 4;
@@ -53,9 +57,8 @@ let BY_ID = new Map();
 let LABELS = {};
 let profile = emptyProfile();
 let compare = [];
-let activeCat = '';
-let activeProvider = '';
-let fuse = null;
+let filters = emptyFilters();
+let search = () => ({ ids: [], exact: [] });
 let chat = null;
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -160,6 +163,9 @@ function fee(cert) {
   return `US$${usd % 1 ? usd.toFixed(2) : usd}`;
 }
 
+/** An exam or fee fact as the issuer writes it, in the interface language when its shape is known. */
+const ex = (text) => examText(text, getLang());
+
 function duration(cert) {
   const m = cert.exam.minutes;
   if (!m) return cert.exam.style === 'practical' ? t('dur.practical') : '—';
@@ -176,36 +182,51 @@ function parseHash() {
   return { name, params: new URLSearchParams(query) };
 }
 
-const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
+const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', path: 'path', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
 let lastView = null;
 let lastCert = null;
 let listScroll = 0;
+let jumpToResults = false;
 
 function route() {
-  if (document.startViewTransition && lastView !== null && !reducedMotion()) document.startViewTransition(renderRoute);
-  else renderRoute();
+  if (document.startViewTransition && lastView !== null && !reducedMotion()) {
+    const vt = document.startViewTransition(renderRoute);
+    // A transition cut short (a resize, a second click) only skips the animation.
+    vt.ready.catch(() => {});
+  } else renderRoute();
 }
 
 function renderRoute() {
   const { name, params } = parseHash();
   let view = VIEWS[name] || 'list';
   const certId = params.get('id');
-  if (view === 'cert' && !BY_ID.has(certId)) view = 'list';
   const practiceId = params.get('cert');
   if (view !== 'practice') stopPracticeTimer();
 
   if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
   $$('.view').forEach((v) => (v.hidden = v.id !== `view-${view}`));
   $$('nav a').forEach((a) => {
-    if (a.dataset.route === (view === 'cert' ? 'list' : view)) a.setAttribute('aria-current', 'page');
+    if (a.dataset.route === (['cert', 'path'].includes(view) ? 'list' : view)) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
 
   if (view === 'list') {
     if (name === 'match') setProfileOpen(true);
+    // A link with filters (#list?cat=…&max=…) sets them; a bare one keeps what was chosen.
+    if (name === 'list' && [...params.keys()].length) {
+      filters = filtersFromParams(params, { categories: DATA.certifications.map((c) => c.category), providers: DATA.certifications.map((c) => c.provider) });
+      // A filter the catalog has no data for yet (its control is hidden) would only empty the list.
+      if ($('#f-es').hidden) filters.es = false;
+      if ($('#f-online').hidden) filters.online = false;
+      syncControls();
+    }
     renderList();
   }
-  if (view === 'cert') renderCert(certId);
+  if (view === 'cert') {
+    if (BY_ID.has(certId)) renderCert(certId);
+    else notFound('#cert-body', t('cert.notFound'), certId);
+  }
+  if (view === 'path') renderPath(certId);
   if (view === 'compare') {
     const ids = (params.get('ids') || '').split(',').filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE);
     if (ids.length) setCompare(ids);
@@ -216,15 +237,38 @@ function renderRoute() {
   if (view === 'progress') renderProgress();
   if (view === 'ask') chat?.shown();
 
-  const moved = view !== lastView || (view === 'cert' && certId !== lastCert);
+  const from = { view: lastView, cert: lastCert };
+  const moved = view !== lastView || (['cert', 'path'].includes(view) && certId !== lastCert);
   if (moved) window.scrollTo(0, view === 'list' ? listScroll : 0);
+  if (view === 'list' && jumpToResults) {
+    jumpToResults = false;
+    showResults();
+  }
   // On a desktop the composer is ready to type in; on phones the keyboard would cover the page.
-  if (moved && view === 'ask' && matchMedia('(pointer: fine)').matches) $('#chat-input').focus({ preventScroll: true });
+  const composer = moved && view === 'ask' && matchMedia('(pointer: fine)').matches;
+  if (composer) $('#chat-input').focus({ preventScroll: true });
   lastView = view;
-  lastCert = view === 'cert' ? certId : null;
+  lastCert = ['cert', 'path'].includes(view) ? certId : null;
 
   const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
-  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
+  if (view === 'cert' && BY_ID.has(certId)) document.title = `${BY_ID.get(certId).name} · pathfinder`;
+  else if (!['cert', 'path'].includes(view)) document.title = titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
+  if (moved && from.view !== null) arrive(view, from, !composer);
+}
+
+/** After a route change, move focus to the new view's heading (or back to the card it came from) and announce its title. */
+function arrive(view, from, focus) {
+  const section = $(`#view-${view}`);
+  let target = null;
+  if (view === 'list' && from.view === 'cert' && from.cert) target = $(`#certs a[href="#cert?id=${CSS.escape(from.cert)}"]`);
+  target ||= $('h1', section);
+  if (focus && target) {
+    if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+  const status = $('#route-status');
+  status.textContent = '';
+  setTimeout(() => (status.textContent = view === 'list' ? t('route.home') : document.title.replace(/ · pathfinder$/, '')), 60);
 }
 
 // ---------- compare state ----------
@@ -289,26 +333,70 @@ function fillFilters() {
   f.level.innerHTML = opt('', t('filter.allLevels')) + DATA.taxonomy.levels.map((l) => opt(l.id, label('levels', l))).join('');
   f.level.value = keep;
   for (const o of f.price.options) if (Number(o.value) > 0) o.textContent = t('price.upto', { n: o.value });
+  const sort = $('#sort');
+  const keepSort = sort.value || filters.sort;
+  sort.innerHTML = SORTS.map((k) => opt(k, t(`sort.${k}`))).join('');
+  sort.value = keepSort;
+  // The Spanish and online filters show once the catalog says, for some certification, how its exam is taken.
+  for (const [id, known] of [['#f-es', examInSpanish], ['#f-online', examOnline]]) {
+    const n = DATA.certifications.filter((c) => known(c) === true).length;
+    $(id).hidden = !n;
+    $(id).title = t('filter.known', { n });
+  }
+}
+
+/** A price ceiling the list doesn't offer (from a shared link or the chat) gets its own option. */
+function setPriceOption(max) {
+  const price = $('#filters').price;
+  if (max != null && ![...price.options].some((o) => o.value === String(max))) {
+    const after = [...price.options].find((o) => o.value !== '' && Number(o.value) > max);
+    price.insertBefore(new Option(t('price.upto', { n: max }), String(max)), after || null);
+  }
+  price.value = max == null ? '' : String(max);
+}
+
+function readControls() {
+  const f = $('#filters');
+  filters = { ...filters, q: f.q.value.trim(), level: f.level.value, prov: f.prov.value, max: f.price.value === '' ? null : Number(f.price.value), sort: $('#sort').value || 'recommended', es: f.es.checked, online: f.online.checked };
+}
+
+function syncControls() {
+  const f = $('#filters');
+  f.q.value = filters.q;
+  f.level.value = filters.level;
+  f.prov.value = filters.prov;
+  setPriceOption(filters.max);
+  $('#sort').value = filters.sort;
+  f.es.checked = filters.es;
+  f.online.checked = filters.online;
+}
+
+/** Puts the filters in the address, so a filtered list can be shared and comes back on reload. */
+function syncListUrl() {
+  if ($('#view-list').hidden) return;
+  const params = filtersToParams(filters).toString();
+  if (!params && !['list', 'browse'].includes(parseHash().name)) return;
+  const hash = params ? `#list?${params}` : '#list';
+  if (location.hash !== hash) history.replaceState(history.state, '', `${location.pathname}${location.search}${hash}`);
 }
 
 function renderCats() {
   const all = DATA.certifications;
   const count = (cat) => all.filter((c) => c.category === cat).length;
   const btn = (id, label, ic, color, n) =>
-    `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${activeCat === id}" style="--c:var(${color})">${tile(ic, color)}<span><b>${esc(label)}</b><small>${n}<span class="w">${t('cat.word')}</span></small></span></button>`;
+    `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${filters.cat === id}" style="--c:var(${color})">${tile(ic, color, 'xs')}<b>${esc(label)}</b><small>${n}</small></button>`;
   const shown = Object.entries(CATS).filter(([cat]) => count(cat));
-  // The layout needs the card count: one row on wide screens, "Everything" plus rows of half on narrow ones.
-  $('#cats').style.setProperty('--n', shown.length + 1);
-  $('#cats').style.setProperty('--half', Math.max(2, Math.ceil(shown.length / 2)));
   $('#cats').innerHTML = btn('', t('cat.all'), 'layout-grid', '--accent', all.length) + shown.map(([cat, m]) => btn(cat, catName(cat), m.icon, m.c, count(cat))).join('');
 }
 
+/** Providers, the busiest first, with how many certifications each has. */
 function renderProviders() {
   const all = DATA.certifications;
-  const names = [...new Set(all.map((c) => c.provider))].sort((a, b) => all.filter((c) => c.provider === b).length - all.filter((c) => c.provider === a).length || a.localeCompare(b));
-  $('#providers').innerHTML = names
-    .map((n) => `<button type="button" class="prov" data-prov="${esc(n)}" aria-pressed="${activeProvider === n}">${providerMark(n)}<span>${esc(n)}</span><small>${all.filter((c) => c.provider === n).length}</small></button>`)
-    .join('');
+  const count = (n) => all.filter((c) => c.provider === n).length;
+  const names = [...new Set(all.map((c) => c.provider))].sort((a, b) => count(b) - count(a) || a.localeCompare(b));
+  const select = $('#filters').prov;
+  select.innerHTML = `<option value="">${esc(t('filter.allProviders'))}</option>${names.map((n) => `<option value="${esc(n)}">${esc(n)} (${count(n)})</option>`).join('')}`;
+  select.value = filters.prov;
 }
 
 function scoring() {
@@ -317,36 +405,52 @@ function scoring() {
   return new Map(results.map((r) => [r.id, r]));
 }
 
+/** The active filters in words, for the empty state. */
+function filterWords() {
+  const words = { q: `“${filters.q}”`, cat: catName(filters.cat), prov: filters.prov, level: LABELS[filters.level], max: filters.max === 0 ? t('price.free') : t('price.upto', { n: filters.max }), es: t('filter.es'), online: t('filter.online') };
+  return activeFilters(filters).map((k) => words[k]);
+}
+
+let lastSearch = { ids: [], exact: [] };
+
 function renderList() {
-  const f = $('#filters');
-  const q = f.q.value.trim().toLowerCase();
-  const maxFee = f.price.value === '' ? null : Number(f.price.value);
+  readControls();
   const scores = scoring();
   const all = DATA.certifications;
-  const hits = q ? new Map(fuse.search(q).map((r, i) => [r.item.id, i])) : null;
-  let list = all.filter((c) => {
-    if (activeCat && c.category !== activeCat) return false;
-    if (activeProvider && c.provider !== activeProvider) return false;
-    if (f.level.value && c.level !== f.level.value) return false;
-    if (maxFee != null && (c.fee.usd == null || c.fee.usd > maxFee)) return false;
-    if (hits && !hits.has(c.id)) return false;
-    return true;
-  });
-  list = list.sort((a, b) => {
-    if (scores) return scores.get(b.id).score - scores.get(a.id).score || a.name.localeCompare(b.name);
-    if (hits) return hits.get(a.id) - hits.get(b.id);
-    return a.name.localeCompare(b.name);
-  });
-  $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
-  $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
-  $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores });
-  renderSuggest(f.q.value.trim(), list);
+  lastSearch = filters.q ? search(filters.q) : { ids: [], exact: [] };
+  const hits = filters.q ? new Map(lastSearch.ids.map((id, i) => [id, i])) : null;
+  const list = sortCerts(filterCerts(all, filters, { hits }), filters.sort, { hits, scores });
+  $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === filters.cat)));
+  $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores && !hits && filters.sort === 'recommended' });
+  // A price ceiling keeps the certifications priced by country; say so next to the filter.
+  const varies = filters.max ? list.filter((c) => c.fee.usd == null).length : 0;
+  $('#list-note').hidden = !varies;
+  $('#list-note').innerHTML = varies ? `${icon('info')}<span>${esc(t('list.varies', { n: varies }))}</span>` : '';
+  renderSuggest(filters.q, list);
+  renderPaths();
+  syncListUrl();
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
-    : `<p class="empty">${t('list.empty')}</p>`;
+    : `<div class="empty"><p>${esc(t('list.empty'))}</p>${
+        activeFilters(filters).length
+          ? `<p class="empty-filters">${filterWords().map((w) => `<span class="pill">${esc(w)}</span>`).join('')}</p><button type="button" class="btn" data-act="clear-filters">${icon('x')}${t('list.clear')}</button>`
+          : ''
+      }</div>`;
+}
+
+function clearFilters() {
+  filters = { ...emptyFilters(), sort: filters.sort };
+  syncControls();
+  renderList();
 }
 
 const catPill = (c) => `<span class="pill catp" style="--c:var(${catOf(c).c})">${icon(catOf(c).icon)}${esc(catName(c.category))}</span>`;
+
+/** The price on a card; a price set by country says so instead of a number. */
+const feeFact = (c) =>
+  c.fee.usd == null
+    ? `<span class="varies" title="${esc(t('fee.variesHint'))}">${icon('badge-dollar-sign')}${esc(fee(c))}</span>`
+    : `<span>${icon('badge-dollar-sign')}${esc(fee(c))}</span>`;
 
 function card(c, score, i = 0) {
   const inCompare = compare.includes(c.id);
@@ -366,14 +470,149 @@ function card(c, score, i = 0) {
     <div class="tags">${catPill(c)}${flag(c)}</div>
     ${c.domains.length ? dbar(c) : ''}
     <div class="facts-inline">
-      <span>${icon('badge-dollar-sign')}${esc(fee(c))}</span>
+      ${feeFact(c)}
       <span>${icon('clock')}${esc(duration(c))}</span>
       ${lvl(c.level)}
     </div>
   </article>`;
 }
 
+// ---------- study paths ----------
+// data/paths.json: suggested orders by goal. The home page shows one compact card per path of the
+// chosen category, and each opens #path?id=… with its steps.
+const pathText = (v) => (v ? v[getLang()] || v.en : '');
+const pathById = (id) => (DATA.paths || []).find((p) => p.id === id);
+
+function chain(p) {
+  const step = (s) => {
+    const [first, ...alts] = s.certs.map((id) => BY_ID.get(id)).filter(Boolean);
+    return first ? `<span class="step-b">${esc(shortName(first))}${alts.length ? `<small>+${alts.length}</small>` : ''}</span>` : '';
+  };
+  return p.steps.map(step).join(`<span class="step-arrow" aria-hidden="true">${icon('arrow-right')}</span>`);
+}
+
+function renderPaths() {
+  const shown = pathsFor(DATA.paths, filters.cat);
+  $('#paths').hidden = !shown.length;
+  $('#path-strip').innerHTML = shown
+    .map((p) => {
+      const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
+      const names = p.steps.map((s) => s.certs.map((id) => BY_ID.get(id)).filter(Boolean).map(shortName).reduce((a, b) => t('paths.or', { a, b }))).join(', ');
+      return `<a class="card path-card" href="#path?id=${esc(p.id)}" style="--c:var(${m.c})" title="${esc(pathText(p.summary))}">
+        <span class="path-top">${tile(m.icon, m.c, 'xs')}<b>${esc(pathText(p.title))}</b></span>
+        <span class="path-sum">${esc(pathText(p.summary))}</span>
+        <span class="path-chain" role="img" aria-label="${esc(t('paths.chain', { x: names }))}">${chain(p)}</span>
+      </a>`;
+    })
+    .join('');
+}
+
+function renderPath(id) {
+  const p = pathById(id);
+  if (!p) return notFound('#path-body', t('paths.notFound'), id);
+  const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
+  const first = p.steps[0].certs.find((c) => BY_ID.has(c));
+  $('#path-body').innerHTML = `
+    <a class="back" href="#list">${icon('arrow-left')}${t('cert.back')}</a>
+    <div class="page-head path-head">${tile(m.icon, m.c)}<div><p class="eyebrow">${esc(t('paths.title'))} · ${esc(catName(p.category))}</p><h1 tabindex="-1">${esc(pathText(p.title))}</h1></div></div>
+    <p class="path-lede">${esc(pathText(p.summary))}</p>
+    <ol class="path-steps">${p.steps
+      .map(
+        (s, i) => `<li class="path-step">
+          <span class="path-node" aria-hidden="true">${i + 1}</span>
+          <div class="path-step-body">
+            <h2>${esc(t('paths.step', { n: i + 1 }))}</h2>
+            <p class="hint">${esc(pathText(s.note))}</p>
+            <div class="grid">${s.certs.map((c) => BY_ID.get(c)).filter(Boolean).map((c, k) => card(c, null, k)).join('')}</div>
+          </div>
+        </li>`,
+      )
+      .join('')}</ol>
+    <div class="path-cta">
+      ${first ? `<a class="btn primary" href="#plan?cert=${esc(first)}">${icon('route')}${t('paths.planFirst')}</a>` : ''}
+      <p class="hint">${esc(t('paths.note'))}</p>
+    </div>`;
+  document.title = `${pathText(p.title)} · pathfinder`;
+}
+
+// ---------- not found ----------
+/** A link to a certification or path that isn't in the catalog: say so, offer close matches and a search. */
+function notFound(target, title, id) {
+  // Close matches: the whole id first, else its words, codes before the rest ("aws-saa-c09" → SAA).
+  const words = String(id || '').replace(/[-_]+/g, ' ').trim();
+  let found = search(words).ids;
+  if (!found.length) {
+    const parts = words.split(' ').filter((w) => /[a-z]{2}/i.test(w)).map((w) => search(w));
+    found = [...new Set([...parts.flatMap((r) => r.exact), ...parts.flatMap((r) => r.ids)])];
+  }
+  const guess = found.slice(0, 3).map((x) => BY_ID.get(x));
+  $(target).innerHTML = `<div class="card not-found">
+      <span class="head-icon">${icon('scan-search')}</span>
+      <h1 tabindex="-1">${esc(title)}</h1>
+      <p class="hint">${esc(t('notFound.text'))}</p>
+      <form class="nf-search" role="search">
+        <label class="search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input type="search" name="q" value="${esc(words)}" aria-label="${esc(t('search.aria'))}" placeholder="${esc(t('search.placeholder'))}"></label>
+        <button type="submit" class="btn">${t('notFound.search')}</button>
+      </form>
+      ${guess.length ? `<div class="nf-guess"><p class="label">${esc(t('notFound.maybe'))}</p><ul>${guess.map((c) => `<li><a href="#cert?id=${esc(c.id)}">${badge(c, 32, { label: false })}<span><b>${esc(c.name)}</b><small>${esc(c.provider)} · ${esc(c.code)}</small></span></a></li>`).join('')}</ul></div>` : ''}
+      <a class="btn primary" href="#list">${icon('layout-grid')}${t('notFound.catalog')}</a>
+    </div>`;
+  $('form', $(target)).addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = e.currentTarget.q.value.trim();
+    filters = { ...emptyFilters(), q };
+    syncControls();
+    jumpToResults = !!q;
+    location.hash = q ? `#list?${filtersToParams(filters)}` : '#list';
+  });
+  document.title = `${title} · pathfinder`;
+}
+
 // ---------- certification page ----------
+/** The planner's starting range for the level, "25–45 h". */
+function studyHours(c) {
+  const range = DATA.taxonomy.levels.find((l) => l.id === c.level)?.hours;
+  return range ? `${range[0]}–${range[1]} h` : '';
+}
+
+/** Exam languages by name in the interface language, Spanish first: { es: [...], other: [...] } or null when unknown. */
+function examLangs(c) {
+  const codes = c.exam.languages;
+  if (!Array.isArray(codes) || !codes.length) return null;
+  let names;
+  try {
+    names = new Intl.DisplayNames([getLang()], { type: 'language' });
+  } catch {
+    names = { of: (x) => x };
+  }
+  const name = (code) => {
+    try {
+      return cap(names.of(code) || code);
+    } catch {
+      return code;
+    }
+  };
+  const isEs = (code) => /^es(-|$)/i.test(code);
+  return { es: codes.filter(isEs).map(name), other: codes.filter((x) => !isEs(x)).map(name) };
+}
+
+/** "Spanish, English and 3 more" with Spanish marked, as HTML; plain text for a title. */
+function langsHtml(langs, shown = 2) {
+  const list = [...langs.es.map((n) => `<mark class="es">${esc(n)}</mark>`), ...langs.other.map(esc)];
+  const rest = list.length - shown;
+  return rest > 1 ? `${list.slice(0, shown).join(', ')} ${esc(t('stat.langsMore', { n: rest }))}` : list.join(', ');
+}
+
+function deliveryText(c) {
+  const d = c.exam.delivery;
+  if (!Array.isArray(d) || !d.length) return '';
+  return d.includes('online') && d.includes('test-center') ? t('delivery.both') : t(`delivery.${d[0]}`);
+}
+
+/** A certification as one compact linked row, for the next steps and related ones. */
+const mini = (c, note = '') =>
+  `<a class="mini" href="#cert?id=${esc(c.id)}">${badge(c, 40, { label: false })}<span class="mini-text"><b>${esc(c.name)}</b><small>${esc(c.provider)} · ${esc(c.code)}${note ? ` · ${esc(note)}` : ''}</small></span><span class="mini-meta">${esc(fee(c))}${lvl(c.level)}</span></a>`;
+
 function renderCert(id) {
   const c = BY_ID.get(id);
   const color = catOf(c).c;
@@ -384,8 +623,10 @@ function renderCert(id) {
   const mine = scores && scores.get(c.id);
   const inCompare = compare.includes(c.id);
   const full = !inCompare && compare.length >= MAX_COMPARE;
-  const stat = (ic, label, value, sub) =>
-    value ? `<div class="card stat">${tile(ic, color, 'sm')}<div><small>${label}</small><b>${esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>` : '';
+  const stat = (ic, label, value, sub, { html = false, title = '' } = {}) =>
+    value
+      ? `<div class="card stat"${title ? ` title="${esc(title)}"` : ''}>${tile(ic, color, 'sm')}<div><small>${label}</small><b>${html ? value : esc(value)}</b>${sub ? `<small class="sub">${esc(sub)}</small>` : ''}</div></div>`
+      : '';
   const notes = [
     c.requirements && c.status === 'restricted' ? ['lock', c.requirements] : null,
     c.exam.format ? ['pen-line', c.exam.format] : null,
@@ -393,8 +634,33 @@ function renderCert(id) {
     c.ai_policy ? ['bot', t('cert.ai', { x: c.ai_policy })] : null,
     ...c.caveats.map((x) => ['info', x]),
   ].filter(Boolean);
+  const langs = examLangs(c);
+  const when = (d) => day(d, { weekday: false, year: true });
+  const today = todayLocal();
+
+  // Dated changes: a version retiring, a new outline, a deadline.
+  const timeline = (c.timeline || []).filter((e) => e && e.date && e.text);
+  const timelineHtml = timeline.length
+    ? `<section class="card panel"><h2>${icon('calendar-clock')}${t('cert.timeline')}</h2><ul class="timeline">${timeline
+        .map(
+          (e) => `<li class="${e.date < today ? 'past' : ''}"><span class="tl-date">${esc(when(e.date))}</span><span class="tl-body"><span class="tag${e.kind === 'retires' || e.kind === 'deadline' ? ' warn' : ''}">${esc(e.date < today ? t('timeline.past') : t(`timeline.${e.kind}`))}</span> ${esc(e.text)}</span></li>`,
+        )
+        .join('')}</ul></section>`
+    : '';
+
+  // Free routes, discounts, retakes and accommodations, as the issuer publishes them.
+  const access = c.access || {};
+  const accessItem = (kind, x) =>
+    `<li><span class="tag${kind === 'free_routes' ? ' good' : ''}">${esc(t(`access.${kind}`))}</span> <span>${esc(x.text)}${x.until ? ` <span class="muted">(${esc(t('access.until', { d: when(x.until) }))})</span>` : ''}${x.url ? ` ${ext(x.url, `${icon('external-link')}<span class="sr">${esc(t('cert.issuer'))}</span>`, 'ext-ic')}` : ''}</span></li>`;
+  const accessRows = [
+    ...(access.free_routes || []).map((x) => accessItem('free_routes', x)),
+    ...(access.discounts || []).map((x) => accessItem('discounts', x)),
+    ...['retake', 'accommodations'].filter((k) => access[k]).map((k) => accessItem(k, { text: access[k] })),
+  ];
+  const accessHtml = accessRows.length ? `<section class="card panel"><h2>${icon('badge-dollar-sign')}${t('cert.access')}</h2><ul class="access">${accessRows.join('')}</ul></section>` : '';
 
   const left = [
+    timelineHtml,
     c.domains.length
       ? `<section class="card panel"><h2>${icon('layers')}${t('cert.domains')}</h2><div class="donut-wrap">${donut(c.domains, 168, { label: t('donut.label'), aria: t('donut.aria') })}${legend(c)}</div>${c.domains_note ? `<p class="hint domains-note">${esc(c.domains_note)}</p>` : ''}</section>`
       : '',
@@ -406,18 +672,21 @@ function renderCert(id) {
     notes.length
       ? `<section class="card panel"><h2>${icon('info')}${t('cert.good')}</h2><ul class="notes">${notes.map(([ic, t]) => `<li>${icon(ic)}<span>${esc(t)}</span></li>`).join('')}</ul></section>`
       : '',
+    accessHtml,
   ].join('');
   const resource = (r) => {
     const k = prepKind(r);
+    const spanish = /^es(-|$)/i.test(r.lang || '');
     return ext(
       r.url,
-      `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}</span></span>`,
+      `${tile(k.icon, color, 'sm')}<span><b>${esc(r.title)}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}<span class="res-kind">${esc(k.label)} · ${r.cost === 'paid' ? t('paid') : t('free')}${spanish ? ` · <mark class="es">${esc(t('res.spanish'))}</mark>` : ''}</span></span>`,
       'res',
     );
   };
   // The first few resources show; the rest fold away so the column stays near the length of the other one.
+  // In Spanish, resources in Spanish come first.
   const PREP_SHOWN = 5;
-  const prep = c.prep || [];
+  const prep = [...(c.prep || [])].sort((a, b) => (getLang() === 'es' ? Number(/^es/i.test(b.lang || '')) - Number(/^es/i.test(a.lang || '')) : 0));
   const prepHtml = prep.length
     ? `<section class="card panel"><h2>${icon('graduation-cap')}${t('cert.prep')}</h2><div class="resources">${prep.slice(0, PREP_SHOWN).map(resource).join('')}</div>${
         prep.length > PREP_SHOWN
@@ -425,19 +694,52 @@ function renderCert(id) {
           : ''
       }</section>`
     : '';
+  const reportsHtml = reports.length
+    ? `<section class="card panel"><h2>${icon('book-open')}${t('cert.reports')}</h2><p class="hint">${t('cert.reportsHint')}</p>${reports
+        .map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`)
+        .join('')}</section>`
+    : '';
   const sourcesHtml = `<section class="card panel"><h2>${icon('file-text')}${t('cert.sources')}</h2>
-      <p class="hint">${esc(t('cert.checked', { d: day(c.checked_on, { weekday: false, year: true }) }))}</p>
+      <p class="hint">${esc(t('cert.checked', { d: when(c.checked_on) }))}</p>
       ${c.badge && c.badge.source ? `<p class="hint">${ext(c.badge.source, esc(t('cert.badgeFrom')))}</p>` : ''}
       <details class="more"><summary>${t('cert.nSources', { n: sources.length })}</summary>${sources
         .map((s) => ext(s.url, `${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}`, 'src'))
         .join('')}</details>
-      ${reports.length ? `<details class="more"><summary>${t('cert.nReports', { n: reports.length })}</summary>
-        <p class="hint">${t('cert.reportsHint')}</p>
-        ${reports.map((r) => `<div class="report">${ext(r.url, esc(r.title))} <span class="muted">· ${esc(r.platform)}</span><p>${esc(r.summary)}</p></div>`).join('')}</details>` : ''}
     </section>`;
-  // With resources on the right, sources sit under the left column on wide screens and come last on narrow ones.
-  const right = prepHtml || sourcesHtml;
-  const tail = prepHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
+  // Resources and reports on the right; sources sit under the left column on wide screens.
+  const right = prepHtml + reportsHtml || sourcesHtml;
+  const tail = prepHtml + reportsHtml ? `<div class="col-tail">${sourcesHtml}</div>` : '';
+
+  // What follows it in the study paths, then others of its area one level around it.
+  const next = nextSteps(c.id, DATA.paths);
+  const nextIds = next.flatMap((s) => s.certs);
+  const near = similar(c, DATA.certifications, { exclude: nextIds });
+  const nextHtml = next.length
+    ? `<section class="card panel"><h2>${icon('route')}${t('cert.next')}</h2><div class="minis">${next
+        .flatMap((s) => s.certs.map((x) => BY_ID.get(x)).filter(Boolean).map((x) => mini(x)))
+        .join('')}</div><p class="hint next-in">${next.map((s) => `<a href="#path?id=${esc(s.path.id)}">${esc(t('cert.nextIn', { x: pathText(s.path.title) }))}</a>`).join(' · ')}</p></section>`
+    : '';
+  const nearHtml = near.length ? `<section class="card panel"><h2>${icon('layout-grid')}${t('cert.related')}</h2><div class="minis">${near.map((x) => mini(x)).join('')}</div></section>` : '';
+
+  // In Spanish, what paying from Argentina adds to a US dollar price.
+  const ar = getLang() === 'es' && c.fee.usd !== 0 ? DATA.regions?.AR?.es : '';
+  // Its first sentence says what changes; the rest (taxes, refunds) folds away.
+  const [arLead, arRest] = ar ? [ar.split(/(?<=\.)\s+/)[0], ar.split(/(?<=\.)\s+/).slice(1).join(' ')] : ['', ''];
+
+  const stats = [
+    stat('badge-dollar-sign', t('stat.price'), fee(c), ex(c.fee.basis)),
+    stat('clock', t('stat.length'), duration(c)),
+    stat('list-checks', t('stat.questions'), ex(c.exam.questions)),
+    stat('target', t('stat.passing'), ex(c.exam.passing)),
+    stat('calendar-check', t('stat.valid'), ex(c.exam.validity)),
+    stat('pen-line', t('stat.format'), LABELS[c.exam.style]),
+    stat('book-open', t('stat.hours'), studyHours(c), t('stat.hoursSub')),
+    langs ? stat('languages', t('stat.langs'), langsHtml(langs), '', { html: true, title: [...langs.es, ...langs.other].join(', ') }) : '',
+    stat('building-2', t('stat.delivery'), deliveryText(c)),
+    stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status]),
+  ].filter(Boolean);
+  // One row when they fit, otherwise two even rows on wide screens.
+  const cols = stats.length <= 7 ? stats.length : Math.ceil(stats.length / 2);
 
   $('#cert-body').innerHTML = `
     <a class="back" href="#">${icon('arrow-left')}${t('cert.back')}</a>
@@ -445,7 +747,7 @@ function renderCert(id) {
       <div class="hero-badge">${badge(c, 128)}</div>
       <div>
         <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}${catPill(c)}${flag(c)}</p>
-        <h1>${esc(c.name)}</h1>
+        <h1 tabindex="-1">${esc(c.name)}</h1>
         <p class="scope">${esc(c.scope)}</p>
         <div class="cert-actions">
           <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('cert.plan')}</a>
@@ -456,19 +758,31 @@ function renderCert(id) {
         </div>
       </div>
     </div>
-    <div class="stat-grid">
-      ${stat('badge-dollar-sign', t('stat.price'), fee(c), c.fee.basis)}
-      ${stat('clock', t('stat.length'), duration(c))}
-      ${stat('list-checks', t('stat.questions'), c.exam.questions)}
-      ${stat('target', t('stat.passing'), c.exam.passing)}
-      ${stat('calendar-check', t('stat.valid'), c.exam.validity)}
-      ${stat('pen-line', t('stat.format'), LABELS[c.exam.style])}
-      ${stat(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), LABELS[c.status])}
-    </div>
-    <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>`;
+    <div class="stat-grid" style="--cols:${cols}">${stats.join('')}</div>
+    ${ar ? `<div class="ar-note">${icon('info')}<div><p><b>${esc(t('cert.ar'))}.</b> ${esc(arLead)}</p>${arRest ? `<details><summary>${t('cert.arMore')}</summary><p>${esc(arRest)}</p></details>` : ''}</div></div>` : ''}
+    <div class="cols cert-cols"><div>${left}</div><div class="col-side">${right}</div>${tail}</div>
+    ${nextHtml || nearHtml ? `<div class="cols cert-next">${nextHtml}${nearHtml}</div>` : ''}
+    <div class="cta-bar" id="cta-bar">
+      <a class="btn primary" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('cert.plan')}</a>
+      ${c.practice_questions ? `<a class="btn" href="#practice?cert=${esc(c.id)}">${icon('dumbbell')}${t('practice.btn')}</a>` : ''}
+    </div>`;
+  watchCta();
+}
+
+// On phones a bar with the plan and practice buttons stays at the bottom once the ones at the top scroll away.
+let ctaWatch = null;
+function watchCta() {
+  ctaWatch?.disconnect();
+  const actions = $('#cert-body .cert-actions');
+  const bar = $('#cta-bar');
+  if (!actions || !bar || !('IntersectionObserver' in window)) return;
+  ctaWatch = new IntersectionObserver(([e]) => bar.classList.toggle('on', !e.isIntersecting && e.boundingClientRect.top < 0));
+  ctaWatch.observe(actions);
 }
 
 // ---------- compare page ----------
+// One table: a row per fact, a column per certification. The names stay in a header that sticks
+// under the top bar, so on a phone, where the columns get narrow, you always see which is which.
 function renderCompare() {
   const certs = compare.map((id) => BY_ID.get(id)).filter(Boolean);
   const body = $('#compare-body');
@@ -477,35 +791,79 @@ function renderCompare() {
     return;
   }
   const link = `${location.origin}${location.pathname}#compare?ids=${certs.map((c) => c.id).join(',')}`;
-  const row = (ic, label, value) => `<div class="cmp-row">${icon(ic)}<div><small>${label}</small>${value}</div></div>`;
+  const dash = '<span class="muted">—</span>';
+  const row = (ic, label, value, cls = '') =>
+    `<div class="cmp-r${cls ? ` ${cls}` : ''}" role="row"><div class="cmp-label" role="rowheader">${icon(ic)}<span>${label}</span></div>${certs
+      .map((c) => `<div class="cmp-v" role="cell">${value(c) || dash}</div>`)
+      .join('')}</div>`;
+  const text = (s) => (s ? esc(s) : '');
+  const sub = (s) => (s ? `<small>${esc(s)}</small>` : '');
   body.innerHTML = `
     <div class="compare-tools">
       <button type="button" class="btn" id="copy-compare">${icon('link')}${t('copyLink')}</button>
       <button type="button" class="btn" id="clear-compare">${icon('x')}${t('clear')}</button>
     </div>
-    <div class="cmp" style="--n:${certs.length}">${certs
-      .map(
-        (c) => `<article class="card cmp-col">
-          <div class="head">${badge(c, 46, { label: false })}<div><h3><a href="#cert?id=${esc(c.id)}">${esc(c.name)}</a></h3><div class="who">${esc(c.provider)} · ${esc(c.code)}</div></div></div>
-          ${row('badge-dollar-sign', t('stat.price'), esc(fee(c)))}
-          ${row('clock', t('stat.length'), esc(duration(c)))}
-          ${row('list-checks', t('stat.questions'), esc(c.exam.questions || '—'))}
-          ${row('target', t('stat.passing'), esc(c.exam.passing || '—'))}
-          ${row('calendar-check', t('stat.valid'), esc(c.exam.validity || '—'))}
-          ${row('gauge', t('stat.level'), lvl(c.level))}
-          ${row('pen-line', t('stat.format'), esc(LABELS[c.exam.style]))}
-          ${row(c.status === 'restricted' ? 'lock' : 'clipboard-list', t('stat.registration'), esc(LABELS[c.status]))}
-          ${row('layers', t('stat.domains'), c.domains.length ? dbar(c) + legend(c) : '—')}
-          ${row('bot', t('stat.ai'), esc(c.ai_policy || '—'))}
-          <button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button>
-        </article>`,
-      )
-      .join('')}</div>`;
-  $('#copy-compare').addEventListener('click', (e) => copy(link, e.currentTarget));
+    <p class="copy-spot" id="copy-spot" hidden></p>
+    <div class="cmp" role="table" aria-label="${esc(t('compare.title'))}" style="--n:${certs.length}">
+      <div class="cmp-r cmp-head" role="row"><div class="cmp-label" role="columnheader"></div>${certs
+        .map(
+          (c) => `<div class="cmp-cert" role="columnheader">${badge(c, 40, { label: false })}<div><h2><a href="#cert?id=${esc(c.id)}"><span class="long">${esc(c.name)}</span><span class="short">${esc(shortName(c))}</span></a></h2><small>${esc(c.provider)} · ${esc(c.code)}</small></div></div>`,
+        )
+        .join('')}</div>
+      ${row('badge-dollar-sign', t('stat.price'), (c) => `${text(fee(c))}${sub(ex(c.fee.basis))}`)}
+      ${row('clock', t('stat.length'), (c) => text(duration(c)))}
+      ${row('list-checks', t('stat.questions'), (c) => text(ex(c.exam.questions)))}
+      ${row('target', t('stat.passing'), (c) => text(ex(c.exam.passing)))}
+      ${row('calendar-check', t('stat.valid'), (c) => text(ex(c.exam.validity)))}
+      ${row('gauge', t('stat.level'), (c) => lvl(c.level))}
+      ${row('book-open', t('stat.hours'), (c) => text(studyHours(c)))}
+      ${row('languages', t('stat.langs'), (c) => {
+        const langs = examLangs(c);
+        return langs ? langsHtml(langs, 3) : '';
+      })}
+      ${row('building-2', t('stat.delivery'), (c) => text(deliveryText(c)))}
+      ${row('pen-line', t('stat.format'), (c) => text(LABELS[c.exam.style]))}
+      ${row('dumbbell', t('stat.practice'), (c) => (c.practice_questions ? `<a href="#practice?cert=${esc(c.id)}">${esc(t('compare.practiceN', { n: c.practice_questions }))}</a>` : `<span class="muted">${esc(t('compare.noPractice'))}</span>`))}
+      ${row(certs.some((c) => c.status === 'restricted') ? 'lock' : 'clipboard-list', t('stat.registration'), (c) => text(LABELS[c.status]))}
+      ${row('layers', t('stat.domains'), (c) => (c.domains.length ? dbar(c) + legend(c) : ''), 'cmp-domains')}
+      ${row('bot', t('stat.ai'), (c) => text(c.ai_policy))}
+      <div class="cmp-r cmp-actions" role="row"><div class="cmp-label" role="rowheader"></div>${certs
+        .map(
+          (c) => `<div class="cmp-v" role="cell"><a class="btn" href="#plan?cert=${esc(c.id)}">${icon('route')}${t('compare.plan')}</a><button type="button" class="link" data-act="compare" data-id="${esc(c.id)}">${t('compare.removeOne')}</button></div>`,
+        )
+        .join('')}</div>
+    </div>`;
+  $('#copy-compare').addEventListener('click', (e) => copyOrShare(link, e.currentTarget, $('#copy-spot')));
   $('#clear-compare').addEventListener('click', () => {
     setCompare([]);
     renderCompare();
   });
+}
+
+/** Copies a link; where the clipboard is blocked, offers the share sheet, and failing that the link itself, selected. */
+async function copyOrShare(text, button, spot) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const before = button.innerHTML;
+    button.innerHTML = `${icon('check')}${t('copied')}`;
+    setTimeout(() => (button.innerHTML = before), 1500);
+    return;
+  } catch {
+    /* blocked: try the next way */
+  }
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: `${t('compare.title')} · pathfinder`, url: text });
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
+  }
+  spot.hidden = false;
+  spot.innerHTML = `<label>${esc(t('copy.manual'))} <input type="text" readonly value="${esc(text)}"></label>`;
+  const input = $('input', spot);
+  input.focus();
+  input.select();
 }
 
 // ---------- plan ----------
@@ -992,18 +1350,14 @@ async function copy(text, button) {
 // ---------- wiring ----------
 function bind() {
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-act], button[data-cat], button[data-prov]');
+    const btn = e.target.closest('button[data-act], button[data-cat]');
     if (!btn) return;
-    if (btn.dataset.prov !== undefined) {
-      activeProvider = activeProvider === btn.dataset.prov ? '' : btn.dataset.prov;
-      renderList();
-      return;
-    }
     if (btn.dataset.cat !== undefined) {
-      activeCat = btn.dataset.cat;
+      filters.cat = btn.dataset.cat;
       renderList();
       return;
     }
+    if (btn.dataset.act === 'clear-filters') clearFilters();
     if (btn.dataset.act === 'compare') {
       toggleCompare(btn.dataset.id);
       const { name, params } = parseHash();
@@ -1033,6 +1387,7 @@ function bind() {
   });
 
   $('#filters').addEventListener('input', renderList);
+  $('#sort').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
   $('#q').addEventListener('input', renderList);
   $('#q').addEventListener('keydown', onSearchKey);
@@ -1999,14 +2354,7 @@ function refineFromIntent(intent) {
   store.set(KEYS.profile, profile);
   fillProfile();
   if (p.roles.length || p.known.length) $('#profile-more').open = true;
-  const price = $('#filters').price;
-  if (p.budget != null) {
-    if (![...price.options].some((o) => o.value === String(p.budget))) {
-      const after = [...price.options].find((o) => o.value !== '' && Number(o.value) > p.budget);
-      price.insertBefore(new Option(t('price.upto', { n: p.budget }), String(p.budget)), after || null);
-    }
-    price.value = String(p.budget);
-  }
+  if (p.budget != null) setPriceOption(p.budget);
   setProfileOpen(true);
   renderList();
   $('#for-me').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
@@ -2075,7 +2423,9 @@ function onSearchKey(e) {
     moveSuggest(e.key === 'ArrowDown' ? 1 : -1);
   } else if (e.key === 'Enter') {
     e.preventDefault();
-    const id = suggest.ids[suggest.active];
+    // A code or nickname typed whole ("az 900", "sec+") opens its certification.
+    const exact = lastSearch.exact.length === 1 && suggest.ids.includes(lastSearch.exact[0]) ? lastSearch.exact[0] : null;
+    const id = suggest.ids[suggest.active] || exact;
     closeSuggest();
     if (id) location.hash = `#cert?id=${id}`;
     else showResults();
@@ -2116,6 +2466,13 @@ function showResults() {
 }
 
 // ---------- language ----------
+/** The catalog search, with category and skill names in both languages. */
+function buildSearch() {
+  search = createSearch(DATA.certifications, Fuse, {
+    doc: (c) => ({ category: `${c.category} ${t(`cat.${c.category}`)}`, skills: DATA.taxonomy.skills.filter((s) => c.skills.includes(s.id)).map((s) => `${s.label} ${label('skills', s)}`).join(' ') }),
+  });
+}
+
 function buildLabels() {
   LABELS = {};
   const tx = DATA.taxonomy;
@@ -2144,10 +2501,12 @@ function renderSiteText() {
 function localize() {
   applyStatic();
   buildLabels();
+  buildSearch();
   renderSiteText();
   fillProfile();
   fillFilters();
   renderCats();
+  renderProviders();
   labelDays();
   setRatedLabel(Object.keys(readConfidence()).length);
   setThemeButton();
@@ -2172,14 +2531,7 @@ async function init() {
   profile = { ...emptyProfile(), ...store.get(KEYS.profile, {}) };
   setCompare(store.get(KEYS.compare, []).filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE));
 
-  fuse = new Fuse(
-    all.map((c) => ({ id: c.id, name: c.name, code: c.code, provider: c.provider, category: `${c.category} ${t(`cat.${c.category}`)}`, skills: DATA.taxonomy.skills.filter((s) => c.skills.includes(s.id)).map((s) => `${s.label} ${label('skills', s)}`).join(' '), scope: c.scope })),
-    {
-      keys: [{ name: 'name', weight: 3 }, { name: 'code', weight: 3 }, { name: 'provider', weight: 2 }, { name: 'skills', weight: 1.5 }, 'category', 'scope'],
-      threshold: 0.25,
-      ignoreLocation: true,
-    },
-  );
+  buildSearch();
   renderMarquee();
   setMotionPaused(store.get(KEYS.motion, false) === 'paused');
 
@@ -2191,6 +2543,11 @@ async function init() {
   setThemeButton();
   fillPlanForm();
   bind();
+  // Sticky parts of a view (the compare header) sit under the top bar, whose height changes on phones.
+  const top = $('.top');
+  const topHeight = () => document.documentElement.style.setProperty('--top-h', `${top.offsetHeight}px`);
+  topHeight();
+  if ('ResizeObserver' in window) new ResizeObserver(topHeight).observe(top);
   chat = mountChat({ data: DATA, helpers: { icon, lvl, fee, flag }, onRefine: refineFromIntent });
   $('#loading').remove();
   route();
