@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { emptyProfile, rank, scoreCert } from '../site/lib/match.js';
+import { emptyProfile, estimateHours, rank, scoreCert } from '../site/lib/match.js';
 
 const cert = (over = {}) => ({
   id: 'x',
@@ -12,6 +12,13 @@ const cert = (over = {}) => ({
   exam: { style: 'knowledge' },
   requirements: '',
   ...over,
+});
+
+test('estimate shrinks with known skills and grows for newcomers', () => {
+  const none = estimateHours(cert(), { known: [], experience: 'some' }).hours;
+  const most = estimateHours(cert(), { known: ['agents'], experience: 'some' }).hours;
+  const fresh = estimateHours(cert(), { known: [], experience: 'new' }).hours;
+  assert.ok(most < none && none < fresh, `${most} < ${none} < ${fresh}`);
 });
 
 test('wanted skills and role raise the score', () => {

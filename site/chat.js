@@ -6,7 +6,7 @@
 // Besides text, an answer can carry certification cards (with a warning when something could stop
 // the person), an ordered roadmap with weeks per step, a comparison table built here from the
 // catalog, buttons with suggested replies, and a profile (role, budget, hours a week...) that is kept
-// with the conversation, sent back with every message and used by the "For me" and plan hand-offs.
+// with the conversation, sent back with every message and used to prefill "For me".
 //
 // When the endpoint cannot answer (offline, too slow, rate limited, turned off), lib/intent.js reads
 // the conversation on the device and answers instead, and the answer says so. The transcript is kept
@@ -24,7 +24,6 @@ import {
   fromStore,
   keepKnown,
   paused,
-  planHref,
   readComparison,
   readPicks,
   readProfile,
@@ -39,8 +38,7 @@ import {
   userText,
 } from './lib/chat.js';
 import { json, readEvents } from './lib/sse.js';
-import { rank } from './lib/match.js';
-import { estimateHours } from './lib/planner.js';
+import { estimateHours, rank } from './lib/match.js';
 import { t, getLang, label, lib } from './i18n.js';
 import { badge, providerColor } from './visuals.js';
 
@@ -198,7 +196,7 @@ export function mountChat({ data, helpers, onRefine }) {
       <p class="c-meta"><span>${esc(c.provider)} · ${esc(c.code)}</span>${lvl(c.level)}<span>${esc(fee(c))}</span>${flag(c)}</p>
       ${why ? `<p class="c-why">${esc(why)}</p>` : ''}
       ${p.warning ? `<p class="c-warn">${icon('triangle-alert')}<span><span class="sr">${esc(t('chat.warning'))}: </span>${esc(p.warning)}</span></p>` : ''}
-      <p class="c-links"><a href="${certHref(c)}">${icon('info')}${t('chat.details')}${name}</a>${own ? `<a href="#plan?cert=${id}">${icon('route')}${t('chat.plan')}${name}</a>` : ''}${
+      <p class="c-links"><a href="${certHref(c)}">${icon('info')}${t('chat.details')}${name}</a>${
         own && c.practice_questions ? `<a href="#practice?cert=${id}">${icon('dumbbell')}${t('chat.practice')}${name}</a>` : ''
       }</p>
     </li>`;
@@ -279,18 +277,11 @@ export function mountChat({ data, helpers, onRefine }) {
     return `<div class="msg-foot msg-head"><span class="msg-note">${icon('info')}<span>${t('chat.local', { why: t(`chat.why.${m.reason}`) })}</span></span>${last && m.retry ? retryButton(m) : ''}</div>`;
   }
 
-  // The first certification the answer puts forward: its roadmap's first step, else its first card.
-  const firstShown = (m) => [m.roadmap?.steps?.[0]?.id, m.picks?.[0]?.id].find((id) => id && inApp.has(id));
-
-  function foot(m, last, handoff) {
+  function foot(m, last, refine) {
     const parts = [];
     if (m.source !== 'local' && m.reason) parts.push(`<span class="msg-note">${t(`chat.end.${m.reason}`)}</span>`);
     if (m.source !== 'local' && last && m.retry) parts.push(retryButton(m));
-    if (handoff) {
-      const first = firstShown(m);
-      if (first) parts.push(`<a class="link" href="${esc(planHref(first, profile, m.roadmap))}">${icon('calendar-plus')}<span>${t('chat.makePlan')}</span></a>`);
-      if (handoff.refine) parts.push(`<button type="button" class="link" data-act="refine">${icon('sliders-horizontal')}<span>${t('chat.refine')}</span></button>`);
-    }
+    if (refine) parts.push(`<button type="button" class="link" data-act="refine">${icon('sliders-horizontal')}<span>${t('chat.refine')}</span></button>`);
     return parts.length ? `<div class="msg-foot">${parts.join('')}</div>` : '';
   }
 
@@ -311,7 +302,7 @@ export function mountChat({ data, helpers, onRefine }) {
     const replies = last && !m.live && !isBusy() && m.replies?.length ? chips(m.replies, 'reply', 'chat.repliesLabel') : '';
     return `<li class="msg bot${m.live ? ' live' : ''}">${m.live ? '' : head(m, last)}<div class="msg-text">${body}</div>${cards}${
       rest ? `<div class="msg-text msg-rest">${formatText(rest)}</div>` : ''
-    }${m.live ? '' : foot(m, last, i === handoffAt.at ? handoffAt : null)}${replies}</li>`;
+    }${m.live ? '' : foot(m, last, i === handoffAt.at && handoffAt.refine)}${replies}</li>`;
   }
 
   /** What "For me" gets: the conversation as lib/intent.js reads it, with the AI's profile on top. */
@@ -323,8 +314,7 @@ export function mountChat({ data, helpers, onRefine }) {
   function render() {
     cancelAnimationFrame(frame);
     frame = 0;
-    // The plan and "For me" hand-offs go with the latest answer when it shows certifications;
-    // "For me" only when there is something to fill it with.
+    // Offer "For me" after the latest recommendation when there is something to prefill.
     const handoff = { at: -1, refine: false };
     const lastShown = messages.findLastIndex((m) => m.role === 'assistant' && !m.live && (m.picks?.length || m.roadmap));
     if (lastShown >= 0 && lastShown === messages.findLastIndex((m) => m.role === 'assistant')) {

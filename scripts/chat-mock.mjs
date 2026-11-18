@@ -45,8 +45,8 @@ const TOPICS = [
       ['comptia-security-plus', { en: 'The usual first step for a security job; vendor-neutral.', es: 'El primer paso típico para un puesto de seguridad; no depende de un proveedor.' }],
       ['aws-scs-c03', { en: 'Cloud security on AWS, once the basics are in place.', es: 'Seguridad en AWS, cuando ya tengas la base.' }],
     ],
-    en: 'Start with ISC2 CC: it gives you the vocabulary every security role expects, and Security+ is what most job posts ask for next.\n\nIf cloud is where you want to end up, AWS Security Specialty comes after those two. Build the plan from the first card to see the weeks.',
-    es: 'Arrancá por ISC2 CC: te da el vocabulario que pide cualquier rol de seguridad, y después Security+, que es la que más piden los avisos.\n\nSi querés terminar en la nube, AWS Security Specialty viene después de esas dos. Armá el plan desde la primera tarjeta para ver las semanas.',
+    en: 'Start with ISC2 CC: it gives you the vocabulary every security role expects, and Security+ is what most job posts ask for next.\n\nIf cloud is where you want to end up, AWS Security Specialty comes after those two. Open the ISC2 CC card for exam details and practice questions.',
+    es: 'Arrancá por ISC2 CC: te da el vocabulario que pide cualquier rol de seguridad, y después Security+, que es la que más piden los avisos.\n\nSi querés terminar en la nube, AWS Security Specialty viene después de esas dos. Abrí la tarjeta de ISC2 CC para ver el examen y las preguntas de práctica.',
   },
   {
     words: /\bai\b|\bia\b|llm|agent|genai|generativ|claude|machine learning/,

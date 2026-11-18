@@ -22,11 +22,11 @@ const freePort = () =>
 
 // Each check opens `path` and waits until `ready` (an expression run in the page) is true.
 const VIEWS = [
-  ['home', '', `document.querySelectorAll('#certs > *').length > 10 && !document.querySelector('#view-list').hidden && !!document.querySelector('#view-list h1')?.offsetHeight`],
+  ['home', '', `document.querySelectorAll('#certs > *').length > 10 && !document.querySelector('#view-list').hidden && !!document.querySelector('#view-list h1')?.offsetHeight && !document.querySelector('nav a[href="#plan"], nav a[href="#progress"], #view-plan, #view-progress')`],
   ['certification', '#cert?id=aws-saa', `!document.querySelector('#view-cert').hidden && /Solutions Architect/.test(document.querySelector('#cert-body h1')?.textContent || '')`],
-  ['plan', '#plan?cert=aws-saa', `!document.querySelector('#view-plan').hidden && document.querySelector('#plan-output').children.length > 0`],
+  ['old plan link', '#plan?cert=aws-saa&hours=40', `location.hash === '#cert?id=aws-saa' && !document.querySelector('#view-cert').hidden && /Solutions Architect/.test(document.querySelector('#cert-body h1')?.textContent || '')`],
   ['practice', '#practice?cert=aws-clf-c02', `!document.querySelector('#view-practice').hidden && !!document.querySelector('#practice-body button')`],
-  ['progress backup', '#progress', `!document.querySelector('#view-progress').hidden && document.querySelector('#study-backup-download').offsetHeight > 0 && document.querySelector('#study-backup-restore').offsetHeight > 0`],
+  ['old Progress link and backup', '#progress', `location.hash === '#about' && !document.querySelector('#view-about').hidden && document.querySelector('#study-backup-download').offsetHeight > 0 && document.querySelector('#study-backup-restore').offsetHeight > 0`],
   ['compare', '#compare?ids=aws-saa,microsoft-az-104', `!document.querySelector('#view-compare').hidden && document.querySelectorAll('#compare-body .cmp-cert').length === 2`],
   // The chat page only: nothing is sent, so the test never reaches the chat's endpoint.
   ['ask', '#ask', `!document.querySelector('#view-ask').hidden && document.querySelectorAll('#chat-log > li').length > 0 && !!document.querySelector('#chat-input')`],

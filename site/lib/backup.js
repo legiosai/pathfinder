@@ -1,4 +1,4 @@
-// Study data uses the same keys in a backup and in browser storage so older plans can be restored.
+// Preserve the version 1 file format, including data from the retired Plan and Progress views.
 export const STUDY_KEYS = {
   plans: 'pathfinder:plans',
   progress: 'pathfinder:progress:',
@@ -41,7 +41,7 @@ function planSettings(value, id) {
   if (!object(value) || value.cert !== id || !date(value.start)) return false;
   const hours = Number(value.hours);
   const minutes = Number(value.len) || 90;
-  // Bound untrusted input before the planner allocates its session list.
+  // Keep the same limits as the original backup format.
   return hours > 0 && Number.isFinite(hours * 60) && session(minutes) && minutes >= 15 &&
     hours * 60 / minutes <= MAX_PLAN_SESSIONS && test(/^[0-6](?:,[0-6]){0,6}$/, value.days) &&
     (!value.time || test(/^(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$/, value.time)) &&

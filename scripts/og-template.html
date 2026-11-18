@@ -62,7 +62,7 @@ if (!id) {
   const featured = ['claude-architect-foundations', 'nvidia-nca-genl', 'aws-aif-c01', 'google-agentic-architect', 'lf-mcpa', 'databricks-genai-engineer', 'redhat-ex267', 'github-gh-600', 'microsoft-ai-103'];
   const certs = featured.map((f) => catalog.certifications.find((c) => c.id === f)).filter(Boolean);
   root.className = 'home';
-  root.innerHTML = `<div><h1>Pick a certification. Plan the climb.</h1><p>${catalog.certifications.length} IT certifications, each one a dated study plan away.</p></div><div class="wall">${certs.map((c) => badge(c, 116, { label: false })).join('')}</div>`;
+  root.innerHTML = `<div><h1>Find your next IT certification</h1><p>${catalog.certifications.length} IT certifications, with exam details and study resources.</p></div><div class="wall">${certs.map((c) => badge(c, 116, { label: false })).join('')}</div>`;
 } else {
   const c = catalog.certifications.find((x) => x.id === id);
   document.body.style.setProperty('--pc', providerColor(c.provider));

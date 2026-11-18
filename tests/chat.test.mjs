@@ -12,7 +12,6 @@ import {
   fromStore,
   keepKnown,
   paused,
-  planHref,
   readComparison,
   readPicks,
   readProfile,
@@ -26,7 +25,6 @@ import {
   toStore,
   unknownIds,
   userText,
-  weeklySchedule,
 } from '../site/lib/chat.js';
 import { STR } from '../site/i18n.js';
 
@@ -169,25 +167,6 @@ test('the lead is the first paragraph; the rest follows the cards', () => {
 });
 
 // ---------- hand-offs ----------
-
-test('weekly hours become study days and a session length', () => {
-  assert.deepEqual(weeklySchedule(1), { days: [6], len: 60 });
-  assert.deepEqual(weeklySchedule(4), { days: [1, 3, 5], len: 75 });
-  assert.deepEqual(weeklySchedule(5), { days: [1, 3, 5], len: 105 });
-  assert.deepEqual(weeklySchedule(40), { days: [1, 2, 3, 4, 5, 6], len: 240 });
-  assert.equal(weeklySchedule(0), null);
-  assert.equal(weeklySchedule(undefined), null);
-});
-
-test('the plan link carries the weekly schedule and, from a roadmap, the total hours', () => {
-  const road = { hours_per_week: 4, steps: [{ id: 'isc2-cc', weeks: 5, note: '' }, { id: 'x-y', weeks: 9, note: '' }] };
-  const href = planHref('isc2-cc', { hours_per_week: 6 }, road);
-  const params = new URLSearchParams(href.split('?')[1]);
-  assert.ok(href.startsWith('#plan?'));
-  assert.deepEqual(Object.fromEntries(params), { cert: 'isc2-cc', hours: '20', days: '1,3,5', len: '75' });
-  assert.equal(planHref('isc2-cc'), '#plan?cert=isc2-cc');
-  assert.deepEqual(Object.fromEntries(new URLSearchParams(planHref('isc2-cc', { hours_per_week: 3 }).split('?')[1])), { cert: 'isc2-cc', days: '3,6', len: '90' });
-});
 
 test('"For me" gets the conversation with the AI profile on top', () => {
   const intent = { profile: { roles: ['developer'], known: [], want: ['security'], experience: 'some', budget: null }, levelStated: false, topical: 2 };
@@ -351,7 +330,7 @@ test('every chat string exists in both languages', () => {
   for (const k of keys) assert.ok(k in STR.es, k);
   for (const reason of ['offline', 'timeout', 'busy', 'error', 'rate', 'disabled', 'rejected', 'refused']) assert.ok(`chat.why.${reason}` in STR.en, reason);
   for (const reason of ['stopped', 'cut', 'busy', 'error', 'refused']) assert.ok(`chat.end.${reason}` in STR.en, reason);
-  for (const key of ['chat.ex1', 'chat.ex2', 'chat.ex3', 'chat.ex4', 'chat.roadmap', 'chat.weeks', 'chat.compare', 'chat.makePlan', 'chat.repliesLabel']) assert.ok(key in STR.en && key in STR.es, key);
+  for (const key of ['chat.ex1', 'chat.ex2', 'chat.ex3', 'chat.ex4', 'chat.roadmap', 'chat.weeks', 'chat.compare', 'chat.refine', 'chat.repliesLabel']) assert.ok(key in STR.en && key in STR.es, key);
   // Spanish examples are written in voseo, as people would type them.
   assert.match(STR.es['chat.ex3'], /armame/);
 });
