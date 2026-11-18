@@ -1,11 +1,11 @@
-// Validate the catalog and write the static site to dist/.
+// Validate the catalog and write the static site to dist/ (DIST=<dir> writes it elsewhere; the tests do).
 // Usage: node scripts/build.mjs [--check]   (--check validates without writing)
 import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
-import { dirname, join, posix } from 'node:path';
+import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundle, loadCatalog, validate } from './catalog.mjs';
-import { LANGS, certPage, certPath, indexPage, indexPath, robots, sitemap, symbolsFrom } from './pages.mjs';
+import { LANGS, certPage, certPath, indexPage, indexPath, pathIndexPage, pathIndexPath, pathPage, pathPath, robots, sitemap, symbolsFrom, vsPage, vsPath } from './pages.mjs';
 import { CHAT_API, DEFAULT_CHAT_API, DEFAULT_SITE, SITE } from './site.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,7 +19,8 @@ if (errors.length) {
 console.log(`Catalog OK: ${data.certifications.length} certifications, ${data.sources.length} sources, ${data.reports.length} reports.`);
 if (process.argv.includes('--check')) process.exit(0);
 
-const dist = join(root, 'dist');
+const dist = process.env.DIST ? resolve(process.env.DIST) : join(root, 'dist');
+if (dist === root || dist === dirname(dist)) throw new Error(`build: refusing to write the site over ${dist}`);
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 await cp(join(root, 'site'), dist, { recursive: true });
@@ -83,19 +84,26 @@ await rewrite('sw.js', [
 
 // Search engines get no content from the app's single page, so every certification also gets a
 // plain HTML page per language (c/<id>/ and es/c/<id>/) with its facts and links into the app.
-// c/<id>/ is also the share link, so link previews keep their per-certification image.
+// c/<id>/ is also the share link, so link previews keep their per-certification image. Curated
+// pairs get a comparison page (c/vs/<a>-vs-<b>/) and each study path its own (p/<id>/).
 const symbols = symbolsFrom(await readFile(join(dist, 'index.html'), 'utf8'));
 const ogImages = new Set(await readdir(join(dist, 'og')).catch(() => []));
+const { comparisons } = data;
+const byId = new Map(catalog.certifications.map((c) => [c.id, c]));
 const pages = [];
 for (const lang of LANGS) {
-  pages.push([indexPath(lang), indexPage({ catalog, lang, site: SITE, v, symbols })]);
-  for (const cert of catalog.certifications) pages.push([certPath(cert.id, lang), certPage({ cert, catalog, lang, site: SITE, v, symbols, ogImages })]);
+  const common = { catalog, lang, site: SITE, v, symbols, comparisons };
+  pages.push([indexPath(lang), indexPage(common)]);
+  for (const cert of catalog.certifications) pages.push([certPath(cert.id, lang), certPage({ ...common, cert, ogImages })]);
+  for (const [a, b] of comparisons) pages.push([vsPath(a, b, lang), vsPage({ ...common, pair: [byId.get(a), byId.get(b)] })]);
+  if (catalog.paths.length) pages.push([pathIndexPath(lang), pathIndexPage(common)]);
+  for (const path of catalog.paths) pages.push([pathPath(path.id, lang), pathPage({ ...common, path })]);
 }
 for (const [path, html] of pages) {
   await mkdir(join(dist, path), { recursive: true });
   await writeFile(join(dist, path, 'index.html'), html);
 }
-await writeFile(join(dist, 'sitemap.xml'), sitemap({ catalog, site: SITE }));
+await writeFile(join(dist, 'sitemap.xml'), sitemap({ catalog, site: SITE, comparisons }));
 await writeFile(join(dist, 'robots.txt'), robots({ site: SITE }));
 console.log(`${pages.length} static pages for ${SITE}`);
 

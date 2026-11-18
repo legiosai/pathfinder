@@ -32,6 +32,7 @@ export async function loadCatalog(root) {
     reports: await read('reports.json'),
     taxonomy: await read('taxonomy.json'),
     paths: (await read('paths.json').catch(() => ({ paths: [] }))).paths,
+    comparisons: (await read('comparisons.json').catch(() => ({ pairs: [] }))).pairs,
   };
 }
 
@@ -45,7 +46,7 @@ function isUrl(u) {
 }
 
 /** Returns a list of human-readable problems. Empty means valid. */
-export function validate({ certifications, sources, reports, taxonomy, practice = [], paths = [] }) {
+export function validate({ certifications, sources, reports, taxonomy, practice = [], paths = [], comparisons = [] }) {
   const errors = [];
   const err = (where, msg) => errors.push(`${where}: ${msg}`);
   const str = (v) => typeof v === 'string';
@@ -145,6 +146,18 @@ export function validate({ certifications, sources, reports, taxonomy, practice 
       for (const id of step.certs || []) if (!certIds.has(id)) err(w, `step ${i + 1}: unknown certification ${id}`);
       if (!str(step.note?.en) || !str(step.note?.es)) err(w, `step ${i + 1} note needs en and es`);
     }
+  }
+  const pairs = new Set();
+  for (const pair of comparisons) {
+    const w = `comparisons.json ${JSON.stringify(pair)}`;
+    if (!Array.isArray(pair) || pair.length !== 2 || pair[0] === pair[1]) {
+      err(w, 'each pair needs two different certification ids');
+      continue;
+    }
+    for (const id of pair) if (!certIds.has(id)) err(w, `unknown certification ${id}`);
+    const key = [...pair].sort().join(' ');
+    if (pairs.has(key)) err(w, 'duplicate pair');
+    pairs.add(key);
   }
   return errors;
 }

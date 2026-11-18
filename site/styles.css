@@ -803,6 +803,34 @@ details.more > summary:hover { color: var(--text); }
 .idx a { font-weight: 600; text-decoration: none; }
 .idx a:hover { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
 .idx small { color: var(--muted); font-size: var(--fs-md); font-variant-numeric: tabular-nums; }
+/* Comparison pages (c/vs/…): one fact per row, one certification per column. */
+.vs-scroll { overflow-x: auto; }
+.vs-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.94rem; line-height: 1.45; }
+.vs-table th, .vs-table td { text-align: left; vertical-align: top; padding: 11px 12px 11px 0; border-top: 1px solid var(--line); }
+.vs-table thead th, .vs-table thead td { border-top: 0; padding-top: 0; }
+.vs-table th[scope="row"] { width: 24%; color: var(--muted); font-weight: 600; }
+.vs-table td { width: 38%; }
+.vs-table thead a { display: flex; align-items: center; gap: 10px; font-weight: 650; text-decoration: none; }
+.vs-table thead a:hover span { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
+.vs-table small { display: block; margin-top: 2px; color: var(--muted); font-size: var(--fs-sm); }
+.vs-table ol { margin: 0; padding-left: 18px; }
+.vs-table ol li + li { margin-top: 4px; }
+.vs-table ol b { font-weight: 650; font-variant-numeric: tabular-nums; }
+.vs-actions { margin: 0 0 20px; }
+/* Study path pages (p/…). */
+.path-note { max-width: 70ch; margin: -8px 0 20px; }
+.path-step .idx { margin: 10px 0 16px; }
+/* Narrow screens: each fact's name on its own line, the two values side by side under it. */
+@media (max-width: 640px) {
+  .vs-table, .vs-table thead, .vs-table tbody { display: block; min-width: 0; }
+  .vs-table tr { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; border-top: 1px solid var(--line); }
+  .vs-table thead tr { border-top: 0; padding-bottom: 8px; }
+  .vs-table thead td { display: none; }
+  .vs-table th, .vs-table td { width: auto; padding: 3px 0; border-top: 0; overflow-wrap: anywhere; }
+  .vs-table th[scope="row"] { grid-column: 1 / -1; width: auto; padding-top: 11px; font-size: var(--fs-sm); }
+  .vs-table tbody td { padding-bottom: 11px; }
+  .vs-table thead a { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
 
 /* ---------- motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
