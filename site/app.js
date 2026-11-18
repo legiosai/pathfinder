@@ -2,11 +2,14 @@ import { emptyProfile, rank } from './lib/match.js';
 import { buildPlan, estimateHours, planTopics, toICS, toMarkdown, KIND_DETAIL } from './lib/planner.js';
 import { buildRun, emptyHistory, grade, isCorrect, minutesFor, mistakes, mistakesCsv, record, totals } from './lib/practice.js';
 import { INTERVALS, answer as answerReview, applyRun, daysUntil, loadReview, queue } from './lib/review.js';
-import { providerMark, providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
+import { providerColor, badge, donut, hbars, columns, domainColor } from './visuals.js';
 import Fuse from './vendor/fuse.js';
 import confetti from './vendor/confetti.js';
 import { t, getLang, setLang, dates, label, hoursNote, lib, kindDetail, markdownText, applyStatic } from './i18n.js';
 import { examText } from './lib/examtext.js';
+import { createSearch } from './lib/search.js';
+import { SORTS, activeFilters, emptyFilters, examInSpanish, examOnline, filterCerts, filtersFromParams, filtersToParams, sortCerts } from './lib/listing.js';
+import { nextSteps, pathsFor, shortName, similar } from './lib/related.js';
 import { mountChat } from './chat.js';
 
 const MAX_COMPARE = 4;
@@ -54,9 +57,8 @@ let BY_ID = new Map();
 let LABELS = {};
 let profile = emptyProfile();
 let compare = [];
-let activeCat = '';
-let activeProvider = '';
-let fuse = null;
+let filters = emptyFilters();
+let search = () => ({ ids: [], exact: [] });
 let chat = null;
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -179,21 +181,24 @@ function parseHash() {
   return { name, params: new URLSearchParams(query) };
 }
 
-const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
+const VIEWS = { '': 'list', list: 'list', browse: 'list', match: 'list', ask: 'ask', cert: 'cert', path: 'path', compare: 'compare', plan: 'plan', practice: 'practice', progress: 'progress', about: 'about' };
 let lastView = null;
 let lastCert = null;
 let listScroll = 0;
+let jumpToResults = false;
 
 function route() {
-  if (document.startViewTransition && lastView !== null && !reducedMotion()) document.startViewTransition(renderRoute);
-  else renderRoute();
+  if (document.startViewTransition && lastView !== null && !reducedMotion()) {
+    const vt = document.startViewTransition(renderRoute);
+    // A transition cut short (a resize, a second click) only skips the animation.
+    vt.ready.catch(() => {});
+  } else renderRoute();
 }
 
 function renderRoute() {
   const { name, params } = parseHash();
   let view = VIEWS[name] || 'list';
   const certId = params.get('id');
-  if (view === 'cert' && !BY_ID.has(certId)) view = 'list';
   const practiceId = params.get('cert');
   if (view === 'practice' && !BY_ID.get(practiceId)?.practice_questions) view = 'list';
   if (view !== 'practice') stopPracticeTimer();
@@ -201,15 +206,24 @@ function renderRoute() {
   if (lastView === 'list' && view !== 'list') listScroll = window.scrollY;
   $$('.view').forEach((v) => (v.hidden = v.id !== `view-${view}`));
   $$('nav a').forEach((a) => {
-    if (a.dataset.route === (view === 'cert' ? 'list' : view)) a.setAttribute('aria-current', 'page');
+    if (a.dataset.route === (['cert', 'path'].includes(view) ? 'list' : view)) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
 
   if (view === 'list') {
     if (name === 'match') setProfileOpen(true);
+    // A link with filters (#list?cat=…&max=…) sets them; a bare one keeps what was chosen.
+    if (name === 'list' && [...params.keys()].length) {
+      filters = filtersFromParams(params, { categories: DATA.certifications.map((c) => c.category), providers: DATA.certifications.map((c) => c.provider) });
+      syncControls();
+    }
     renderList();
   }
-  if (view === 'cert') renderCert(certId);
+  if (view === 'cert') {
+    if (BY_ID.has(certId)) renderCert(certId);
+    else notFound('#cert-body', t('cert.notFound'), certId);
+  }
+  if (view === 'path') renderPath(certId);
   if (view === 'compare') {
     const ids = (params.get('ids') || '').split(',').filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE);
     if (ids.length) setCompare(ids);
@@ -220,15 +234,38 @@ function renderRoute() {
   if (view === 'progress') renderProgress();
   if (view === 'ask') chat?.shown();
 
-  const moved = view !== lastView || (view === 'cert' && certId !== lastCert);
+  const from = { view: lastView, cert: lastCert };
+  const moved = view !== lastView || (['cert', 'path'].includes(view) && certId !== lastCert);
   if (moved) window.scrollTo(0, view === 'list' ? listScroll : 0);
+  if (view === 'list' && jumpToResults) {
+    jumpToResults = false;
+    showResults();
+  }
   // On a desktop the composer is ready to type in; on phones the keyboard would cover the page.
-  if (moved && view === 'ask' && matchMedia('(pointer: fine)').matches) $('#chat-input').focus({ preventScroll: true });
+  const composer = moved && view === 'ask' && matchMedia('(pointer: fine)').matches;
+  if (composer) $('#chat-input').focus({ preventScroll: true });
   lastView = view;
-  lastCert = view === 'cert' ? certId : null;
+  lastCert = ['cert', 'path'].includes(view) ? certId : null;
 
   const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
-  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : 'pathfinder';
+  if (view === 'cert' && BY_ID.has(certId)) document.title = `${BY_ID.get(certId).name} · pathfinder`;
+  else if (!['cert', 'path'].includes(view)) document.title = titles[view] ? `${titles[view]} · pathfinder` : 'pathfinder';
+  if (moved && from.view !== null) arrive(view, from, !composer);
+}
+
+/** After a route change, move focus to the new view's heading (or back to the card it came from) and announce its title. */
+function arrive(view, from, focus) {
+  const section = $(`#view-${view}`);
+  let target = null;
+  if (view === 'list' && from.view === 'cert' && from.cert) target = $(`#certs a[href="#cert?id=${CSS.escape(from.cert)}"]`);
+  target ||= $('h1', section);
+  if (focus && target) {
+    if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+  const status = $('#route-status');
+  status.textContent = '';
+  setTimeout(() => (status.textContent = view === 'list' ? t('route.home') : document.title.replace(/ · pathfinder$/, '')), 60);
 }
 
 // ---------- compare state ----------
@@ -293,26 +330,70 @@ function fillFilters() {
   f.level.innerHTML = opt('', t('filter.allLevels')) + DATA.taxonomy.levels.map((l) => opt(l.id, label('levels', l))).join('');
   f.level.value = keep;
   for (const o of f.price.options) if (Number(o.value) > 0) o.textContent = t('price.upto', { n: o.value });
+  const sort = $('#sort');
+  const keepSort = sort.value || filters.sort;
+  sort.innerHTML = SORTS.map((k) => opt(k, t(`sort.${k}`))).join('');
+  sort.value = keepSort;
+  // The Spanish and online filters show once the catalog says, for some certification, how its exam is taken.
+  for (const [id, known] of [['#f-es', examInSpanish], ['#f-online', examOnline]]) {
+    const n = DATA.certifications.filter((c) => known(c) === true).length;
+    $(id).hidden = !n;
+    $('small', $(id)).textContent = n;
+  }
+}
+
+/** A price ceiling the list doesn't offer (from a shared link or the chat) gets its own option. */
+function setPriceOption(max) {
+  const price = $('#filters').price;
+  if (max != null && ![...price.options].some((o) => o.value === String(max))) {
+    const after = [...price.options].find((o) => o.value !== '' && Number(o.value) > max);
+    price.insertBefore(new Option(t('price.upto', { n: max }), String(max)), after || null);
+  }
+  price.value = max == null ? '' : String(max);
+}
+
+function readControls() {
+  const f = $('#filters');
+  filters = { ...filters, q: f.q.value.trim(), level: f.level.value, prov: f.prov.value, max: f.price.value === '' ? null : Number(f.price.value), sort: $('#sort').value || 'recommended', es: f.es.checked, online: f.online.checked };
+}
+
+function syncControls() {
+  const f = $('#filters');
+  f.q.value = filters.q;
+  f.level.value = filters.level;
+  f.prov.value = filters.prov;
+  setPriceOption(filters.max);
+  $('#sort').value = filters.sort;
+  f.es.checked = filters.es;
+  f.online.checked = filters.online;
+}
+
+/** Puts the filters in the address, so a filtered list can be shared and comes back on reload. */
+function syncListUrl() {
+  if ($('#view-list').hidden) return;
+  const params = filtersToParams(filters).toString();
+  if (!params && !['list', 'browse'].includes(parseHash().name)) return;
+  const hash = params ? `#list?${params}` : '#list';
+  if (location.hash !== hash) history.replaceState(history.state, '', `${location.pathname}${location.search}${hash}`);
 }
 
 function renderCats() {
   const all = DATA.certifications;
   const count = (cat) => all.filter((c) => c.category === cat).length;
   const btn = (id, label, ic, color, n) =>
-    `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${activeCat === id}" style="--c:var(${color})">${tile(ic, color)}<span><b>${esc(label)}</b><small>${n}<span class="w">${t('cat.word')}</span></small></span></button>`;
+    `<button type="button" class="cat" data-cat="${esc(id)}" aria-pressed="${filters.cat === id}" style="--c:var(${color})">${tile(ic, color, 'xs')}<b>${esc(label)}</b><small>${n}</small></button>`;
   const shown = Object.entries(CATS).filter(([cat]) => count(cat));
-  // The layout needs the card count: one row on wide screens, "Everything" plus rows of half on narrow ones.
-  $('#cats').style.setProperty('--n', shown.length + 1);
-  $('#cats').style.setProperty('--half', Math.max(2, Math.ceil(shown.length / 2)));
   $('#cats').innerHTML = btn('', t('cat.all'), 'layout-grid', '--accent', all.length) + shown.map(([cat, m]) => btn(cat, catName(cat), m.icon, m.c, count(cat))).join('');
 }
 
+/** Providers, the busiest first, with how many certifications each has. */
 function renderProviders() {
   const all = DATA.certifications;
-  const names = [...new Set(all.map((c) => c.provider))].sort((a, b) => all.filter((c) => c.provider === b).length - all.filter((c) => c.provider === a).length || a.localeCompare(b));
-  $('#providers').innerHTML = names
-    .map((n) => `<button type="button" class="prov" data-prov="${esc(n)}" aria-pressed="${activeProvider === n}">${providerMark(n)}<span>${esc(n)}</span><small>${all.filter((c) => c.provider === n).length}</small></button>`)
-    .join('');
+  const count = (n) => all.filter((c) => c.provider === n).length;
+  const names = [...new Set(all.map((c) => c.provider))].sort((a, b) => count(b) - count(a) || a.localeCompare(b));
+  const select = $('#filters').prov;
+  select.innerHTML = `<option value="">${esc(t('filter.allProviders'))}</option>${names.map((n) => `<option value="${esc(n)}">${esc(n)} (${count(n)})</option>`).join('')}`;
+  select.value = filters.prov;
 }
 
 function scoring() {
@@ -321,36 +402,52 @@ function scoring() {
   return new Map(results.map((r) => [r.id, r]));
 }
 
+/** The active filters in words, for the empty state. */
+function filterWords() {
+  const words = { q: `“${filters.q}”`, cat: catName(filters.cat), prov: filters.prov, level: LABELS[filters.level], max: filters.max === 0 ? t('price.free') : t('price.upto', { n: filters.max }), es: t('filter.es'), online: t('filter.online') };
+  return activeFilters(filters).map((k) => words[k]);
+}
+
+let lastSearch = { ids: [], exact: [] };
+
 function renderList() {
-  const f = $('#filters');
-  const q = f.q.value.trim().toLowerCase();
-  const maxFee = f.price.value === '' ? null : Number(f.price.value);
+  readControls();
   const scores = scoring();
   const all = DATA.certifications;
-  const hits = q ? new Map(fuse.search(q).map((r, i) => [r.item.id, i])) : null;
-  let list = all.filter((c) => {
-    if (activeCat && c.category !== activeCat) return false;
-    if (activeProvider && c.provider !== activeProvider) return false;
-    if (f.level.value && c.level !== f.level.value) return false;
-    if (maxFee != null && (c.fee.usd == null || c.fee.usd > maxFee)) return false;
-    if (hits && !hits.has(c.id)) return false;
-    return true;
-  });
-  list = list.sort((a, b) => {
-    if (scores) return scores.get(b.id).score - scores.get(a.id).score || a.name.localeCompare(b.name);
-    if (hits) return hits.get(a.id) - hits.get(b.id);
-    return a.name.localeCompare(b.name);
-  });
-  $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === activeCat)));
-  $$('#providers .prov').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.prov === activeProvider)));
-  $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores });
-  renderSuggest(f.q.value.trim(), list);
+  lastSearch = filters.q ? search(filters.q) : { ids: [], exact: [] };
+  const hits = filters.q ? new Map(lastSearch.ids.map((id, i) => [id, i])) : null;
+  const list = sortCerts(filterCerts(all, filters, { hits }), filters.sort, { hits, scores });
+  $$('#cats .cat').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === filters.cat)));
+  $('#list-head').textContent = t('list.head', { shown: list.length, total: all.length, scored: !!scores && !hits && filters.sort === 'recommended' });
+  // A price ceiling keeps the certifications priced by country; say so next to the filter.
+  const varies = filters.max ? list.filter((c) => c.fee.usd == null).length : 0;
+  $('#list-note').hidden = !varies;
+  $('#list-note').innerHTML = varies ? `${icon('info')}<span>${esc(t('list.varies', { n: varies }))}</span>` : '';
+  renderSuggest(filters.q, list);
+  renderPaths();
+  syncListUrl();
   $('#certs').innerHTML = list.length
     ? list.map((c, i) => card(c, scores && scores.get(c.id), i)).join('')
-    : `<p class="empty">${t('list.empty')}</p>`;
+    : `<div class="empty"><p>${esc(t('list.empty'))}</p>${
+        activeFilters(filters).length
+          ? `<p class="empty-filters">${filterWords().map((w) => `<span class="pill">${esc(w)}</span>`).join('')}</p><button type="button" class="btn" data-act="clear-filters">${icon('x')}${t('list.clear')}</button>`
+          : ''
+      }</div>`;
+}
+
+function clearFilters() {
+  filters = { ...emptyFilters(), sort: filters.sort };
+  syncControls();
+  renderList();
 }
 
 const catPill = (c) => `<span class="pill catp" style="--c:var(${catOf(c).c})">${icon(catOf(c).icon)}${esc(catName(c.category))}</span>`;
+
+/** The price on a card; a price set by country says so instead of a number. */
+const feeFact = (c) =>
+  c.fee.usd == null
+    ? `<span class="varies" title="${esc(t('fee.variesHint'))}">${icon('badge-dollar-sign')}${esc(fee(c))}</span>`
+    : `<span>${icon('badge-dollar-sign')}${esc(fee(c))}</span>`;
 
 function card(c, score, i = 0) {
   const inCompare = compare.includes(c.id);
@@ -370,13 +467,105 @@ function card(c, score, i = 0) {
     <div class="tags">${catPill(c)}${flag(c)}</div>
     ${c.domains.length ? dbar(c) : ''}
     <div class="facts-inline">
-      <span>${icon('badge-dollar-sign')}${esc(fee(c))}</span>
+      ${feeFact(c)}
       <span>${icon('clock')}${esc(duration(c))}</span>
       ${lvl(c.level)}
     </div>
   </article>`;
 }
 
+// ---------- study paths ----------
+// data/paths.json: suggested orders by goal. The home page shows one compact card per path of the
+// chosen category, and each opens #path?id=… with its steps.
+const pathText = (v) => (v ? v[getLang()] || v.en : '');
+const pathById = (id) => (DATA.paths || []).find((p) => p.id === id);
+
+function chain(p) {
+  const step = (s) => {
+    const [first, ...alts] = s.certs.map((id) => BY_ID.get(id)).filter(Boolean);
+    return first ? `<span class="step-b">${esc(shortName(first))}${alts.length ? `<small>+${alts.length}</small>` : ''}</span>` : '';
+  };
+  return p.steps.map(step).join(`<span class="step-arrow" aria-hidden="true">${icon('arrow-right')}</span>`);
+}
+
+function renderPaths() {
+  const shown = pathsFor(DATA.paths, filters.cat);
+  $('#paths').hidden = !shown.length;
+  $('#path-strip').innerHTML = shown
+    .map((p) => {
+      const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
+      const names = p.steps.map((s) => s.certs.map((id) => BY_ID.get(id)).filter(Boolean).map(shortName).reduce((a, b) => t('paths.or', { a, b }))).join(', ');
+      return `<a class="card path-card" href="#path?id=${esc(p.id)}" style="--c:var(${m.c})" title="${esc(pathText(p.summary))}">
+        <span class="path-top">${tile(m.icon, m.c, 'xs')}<b>${esc(pathText(p.title))}</b></span>
+        <span class="path-sum">${esc(pathText(p.summary))}</span>
+        <span class="path-chain" role="img" aria-label="${esc(t('paths.chain', { x: names }))}">${chain(p)}</span>
+      </a>`;
+    })
+    .join('');
+}
+
+function renderPath(id) {
+  const p = pathById(id);
+  if (!p) return notFound('#path-body', t('paths.notFound'), id);
+  const m = CATS[p.category] || { icon: 'layers', c: '--accent' };
+  const first = p.steps[0].certs.find((c) => BY_ID.has(c));
+  $('#path-body').innerHTML = `
+    <a class="back" href="#list">${icon('arrow-left')}${t('cert.back')}</a>
+    <div class="page-head path-head">${tile(m.icon, m.c)}<div><p class="eyebrow">${esc(t('paths.title'))} · ${esc(catName(p.category))}</p><h1 tabindex="-1">${esc(pathText(p.title))}</h1></div></div>
+    <p class="path-lede">${esc(pathText(p.summary))}</p>
+    <ol class="path-steps">${p.steps
+      .map(
+        (s, i) => `<li class="path-step">
+          <span class="path-node" aria-hidden="true">${i + 1}</span>
+          <div class="path-step-body">
+            <h2>${esc(t('paths.step', { n: i + 1 }))}</h2>
+            <p class="hint">${esc(pathText(s.note))}</p>
+            <div class="grid">${s.certs.map((c) => BY_ID.get(c)).filter(Boolean).map((c, k) => card(c, null, k)).join('')}</div>
+          </div>
+        </li>`,
+      )
+      .join('')}</ol>
+    <div class="path-cta">
+      ${first ? `<a class="btn primary" href="#plan?cert=${esc(first)}">${icon('route')}${t('paths.planFirst')}</a>` : ''}
+      <p class="hint">${esc(t('paths.note'))}</p>
+    </div>`;
+  document.title = `${pathText(p.title)} · pathfinder`;
+}
+
+// ---------- not found ----------
+/** A link to a certification or path that isn't in the catalog: say so, offer close matches and a search. */
+function notFound(target, title, id) {
+  // Close matches: the whole id first, else its words, codes before the rest ("aws-saa-c09" → SAA).
+  const words = String(id || '').replace(/[-_]+/g, ' ').trim();
+  let found = search(words).ids;
+  if (!found.length) {
+    const parts = words.split(' ').filter((w) => /[a-z]{2}/i.test(w)).map((w) => search(w));
+    found = [...new Set([...parts.flatMap((r) => r.exact), ...parts.flatMap((r) => r.ids)])];
+  }
+  const guess = found.slice(0, 3).map((x) => BY_ID.get(x));
+  $(target).innerHTML = `<div class="card not-found">
+      <span class="head-icon">${icon('scan-search')}</span>
+      <h1 tabindex="-1">${esc(title)}</h1>
+      <p class="hint">${esc(t('notFound.text'))}</p>
+      <form class="nf-search" role="search">
+        <label class="search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input type="search" name="q" value="${esc(words)}" aria-label="${esc(t('search.aria'))}" placeholder="${esc(t('search.placeholder'))}"></label>
+        <button type="submit" class="btn">${t('notFound.search')}</button>
+      </form>
+      ${guess.length ? `<div class="nf-guess"><p class="label">${esc(t('notFound.maybe'))}</p><ul>${guess.map((c) => `<li><a href="#cert?id=${esc(c.id)}">${badge(c, 32, { label: false })}<span><b>${esc(c.name)}</b><small>${esc(c.provider)} · ${esc(c.code)}</small></span></a></li>`).join('')}</ul></div>` : ''}
+      <a class="btn primary" href="#list">${icon('layout-grid')}${t('notFound.catalog')}</a>
+    </div>`;
+  $('form', $(target)).addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = e.currentTarget.q.value.trim();
+    filters = { ...emptyFilters(), q };
+    syncControls();
+    jumpToResults = !!q;
+    location.hash = q ? `#list?${filtersToParams(filters)}` : '#list';
+  });
+  document.title = `${title} · pathfinder`;
+}
+
+// ---------- certification page ----------
 // ---------- certification page ----------
 function renderCert(id) {
   const c = BY_ID.get(id);
@@ -881,18 +1070,14 @@ async function copy(text, button) {
 // ---------- wiring ----------
 function bind() {
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-act], button[data-cat], button[data-prov]');
+    const btn = e.target.closest('button[data-act], button[data-cat]');
     if (!btn) return;
-    if (btn.dataset.prov !== undefined) {
-      activeProvider = activeProvider === btn.dataset.prov ? '' : btn.dataset.prov;
-      renderList();
-      return;
-    }
     if (btn.dataset.cat !== undefined) {
-      activeCat = btn.dataset.cat;
+      filters.cat = btn.dataset.cat;
       renderList();
       return;
     }
+    if (btn.dataset.act === 'clear-filters') clearFilters();
     if (btn.dataset.act === 'compare') {
       toggleCompare(btn.dataset.id);
       const { name, params } = parseHash();
@@ -915,6 +1100,7 @@ function bind() {
   });
 
   $('#filters').addEventListener('input', renderList);
+  $('#sort').addEventListener('input', renderList);
   $('#filters').addEventListener('submit', (e) => e.preventDefault());
   $('#q').addEventListener('input', renderList);
   $('#q').addEventListener('keydown', onSearchKey);
@@ -1653,14 +1839,7 @@ function refineFromIntent(intent) {
   store.set(KEYS.profile, profile);
   fillProfile();
   if (p.roles.length || p.known.length) $('#profile-more').open = true;
-  const price = $('#filters').price;
-  if (p.budget != null) {
-    if (![...price.options].some((o) => o.value === String(p.budget))) {
-      const after = [...price.options].find((o) => o.value !== '' && Number(o.value) > p.budget);
-      price.insertBefore(new Option(t('price.upto', { n: p.budget }), String(p.budget)), after || null);
-    }
-    price.value = String(p.budget);
-  }
+  if (p.budget != null) setPriceOption(p.budget);
   setProfileOpen(true);
   renderList();
   $('#for-me').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
@@ -1729,7 +1908,9 @@ function onSearchKey(e) {
     moveSuggest(e.key === 'ArrowDown' ? 1 : -1);
   } else if (e.key === 'Enter') {
     e.preventDefault();
-    const id = suggest.ids[suggest.active];
+    // A code or nickname typed whole ("az 900", "sec+") opens its certification.
+    const exact = lastSearch.exact.length === 1 && suggest.ids.includes(lastSearch.exact[0]) ? lastSearch.exact[0] : null;
+    const id = suggest.ids[suggest.active] || exact;
     closeSuggest();
     if (id) location.hash = `#cert?id=${id}`;
     else showResults();
@@ -1770,6 +1951,13 @@ function showResults() {
 }
 
 // ---------- language ----------
+/** The catalog search, with category and skill names in both languages. */
+function buildSearch() {
+  search = createSearch(DATA.certifications, Fuse, {
+    doc: (c) => ({ category: `${c.category} ${t(`cat.${c.category}`)}`, skills: DATA.taxonomy.skills.filter((s) => c.skills.includes(s.id)).map((s) => `${s.label} ${label('skills', s)}`).join(' ') }),
+  });
+}
+
 function buildLabels() {
   LABELS = {};
   const tx = DATA.taxonomy;
@@ -1798,10 +1986,12 @@ function renderSiteText() {
 function localize() {
   applyStatic();
   buildLabels();
+  buildSearch();
   renderSiteText();
   fillProfile();
   fillFilters();
   renderCats();
+  renderProviders();
   labelDays();
   setRatedLabel(Object.keys(readConfidence()).length);
   setThemeButton();
@@ -1826,14 +2016,7 @@ async function init() {
   profile = { ...emptyProfile(), ...store.get(KEYS.profile, {}) };
   setCompare(store.get(KEYS.compare, []).filter((id) => BY_ID.has(id)).slice(0, MAX_COMPARE));
 
-  fuse = new Fuse(
-    all.map((c) => ({ id: c.id, name: c.name, code: c.code, provider: c.provider, category: `${c.category} ${t(`cat.${c.category}`)}`, skills: DATA.taxonomy.skills.filter((s) => c.skills.includes(s.id)).map((s) => `${s.label} ${label('skills', s)}`).join(' '), scope: c.scope })),
-    {
-      keys: [{ name: 'name', weight: 3 }, { name: 'code', weight: 3 }, { name: 'provider', weight: 2 }, { name: 'skills', weight: 1.5 }, 'category', 'scope'],
-      threshold: 0.25,
-      ignoreLocation: true,
-    },
-  );
+  buildSearch();
   renderMarquee();
   setMotionPaused(store.get(KEYS.motion, false) === 'paused');
 
