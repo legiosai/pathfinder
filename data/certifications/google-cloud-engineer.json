@@ -65,7 +65,8 @@
     "P58",
     "P59",
     "P60",
-    "P61"
+    "P61",
+    "D16"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
@@ -88,6 +89,14 @@
       "url": "https://docs.google.com/forms/d/e/1FAIpQLSfexWKtXT2OSFJ-obA4iT3GmzgiOCGvjrT9OfxilWC1yPtmfQ/viewform",
       "kind": "practice",
       "cost": "free"
+    },
+    {
+      "title": "Google Skills: ruta Cloud Engineer en español",
+      "url": "https://www.skills.google/paths/11?locale=es",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same learning path with its courses in Latin American Spanish; Google Skills lists it as partially free, with the rest under a subscription."
     }
   ],
   "domains_note": "Weights from the Google Cloud Associate Cloud Engineer exam guide (standard exam) linked from the certification page. Google marks each weight as approximate (~). Read 2026-11-17."

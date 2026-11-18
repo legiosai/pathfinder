@@ -1707,5 +1707,29 @@
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. After any failed exam, a 30-day wait before the next sitting (an emergency waiver still leaves 14 days); a retake can be bought for 30 days after the attempt deadline and extends it by 60 days; after three failed attempts, wait one year before a new certification attempt.",
     "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D15",
+    "title": "AWS Skill Builder · Spanish (Latin America) catalog",
+    "url": "https://skillbuilder.aws/search?searchText=Exam+Prep+Plan&languageCode=es-419",
+    "kind": "Issuer catalog",
+    "note": "Read 2026-11-17 in a browser. Exam Prep Plans in Español LATAM exist for CLF-C02, AIF-C01, SAA-C03 and SCS-C03 (each says some trainings need a subscription); the DVA-C02 plan is available until 1 December 2026 and there is none yet for DVA-C03; SAP-C03 has only SimuLearn domain practice. AWS Cloud Practitioner Essentials (Español LATAM) is free, about 12 h 45 min, updated September 30, 2026.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D16",
+    "title": "Google Skills · Cloud Digital Leader and Cloud Engineer paths in Spanish",
+    "url": "https://www.skills.google/paths/9?locale=es",
+    "kind": "Issuer catalog",
+    "note": "Read 2026-11-17 in a browser. With locale=es, the Cloud Digital Leader path (paths/9) and the Cloud Engineer path (paths/11) list their courses in Latin American Spanish, and the course lessons are in Spanish.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "D17",
+    "title": "Cisco Networking Academy · Conceptos básicos de redes",
+    "url": "https://www.netacad.com/courses/networking-basics?courseLang=es-XL",
+    "kind": "Issuer course page",
+    "note": "Read 2026-11-17 in a browser. Networking Basics in Spanish: free, self-paced, 22 hours, 13 labs; covers network types, media, IPv4 and IPv6 addressing, DHCP, ARP, routing between networks, TCP/UDP and application services. CCNA: Introduction to Networks is offered in Spanish only instructor-led through an academy.",
+    "checked_on": "2026-11-17"
   }
 ]

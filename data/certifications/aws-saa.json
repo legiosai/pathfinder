@@ -93,7 +93,8 @@
     "Z01",
     "A02",
     "P16",
-    "D08"
+    "D08",
+    "D15"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
@@ -109,6 +110,14 @@
       "url": "https://skillbuilder.aws/",
       "kind": "course",
       "cost": "free"
+    },
+    {
+      "title": "Exam Prep Plan: AWS Certified Solutions Architect - Associate (SAA-C03 - Español LATAM)",
+      "url": "https://skillbuilder.aws/learning-plan/UYRXS2DF85/exam-prep-plan-aws-certified-solutions-architect--associate-saac03--espaol-latam/QFKBUHE7QG",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's 4-step exam prep plan in Latin American Spanish; some trainings in it need a Skill Builder subscription."
     }
   ],
   "domains_note": "Weights from the AWS Certification Exam Guide (SAA-C03), the guide linked from the live SAA listing, read 2026-11-03."

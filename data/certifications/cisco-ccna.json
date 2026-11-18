@@ -89,7 +89,8 @@
     "P76",
     "P77",
     "P78",
-    "P79"
+    "P79",
+    "D17"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
@@ -113,6 +114,14 @@
       "kind": "course",
       "cost": "free",
       "note": "Cisco's free prep program: webinars, lab activities, a learning path and a practice exam. It does not say which exam version it targets."
+    },
+    {
+      "title": "Cisco Networking Academy: Conceptos básicos de redes",
+      "url": "https://www.netacad.com/courses/networking-basics?courseLang=es-XL",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "Free, self-paced Networking Basics course in Spanish (22 hours, 13 labs): the addressing, routing and protocol basics CCNA builds on, not a full CCNA course."
     }
   ],
   "domains_note": "Weights from Cisco's CCNA Exam v1.1 (200-301) exam topics PDF, linked from the CCNA certification page, read 2026-11-17. Version 2.0 (from February 3, 2027) has different domains; see the caveats."

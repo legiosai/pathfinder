@@ -96,10 +96,20 @@
     "Z02",
     "A02",
     "P16",
-    "D08"
+    "D08",
+    "D15"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
-  "prep": [],
+  "prep": [
+    {
+      "title": "Exam Prep Plan: AWS Certified Security - Specialty (SCS-C03 - Español LATAM)",
+      "url": "https://skillbuilder.aws/learning-plan/2D57DTTB9T/exam-prep-plan-security--specialty-scsc03--espaol-latam/BM513MEW66",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's 4-step exam prep plan in Latin American Spanish; some trainings in it need a Skill Builder subscription."
+    }
+  ],
   "domains_note": "Weights from the AWS Certification Exam Guide (SCS-C03), read 2026-11-03."
 }

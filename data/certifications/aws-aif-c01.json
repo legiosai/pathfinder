@@ -96,7 +96,8 @@
     "A02",
     "A03",
     "P16",
-    "D08"
+    "D08",
+    "D15"
   ],
   "reports": [
     "E05",
@@ -128,6 +129,14 @@
       "url": "https://www.freecodecamp.org/news/prepare-to-pass-the-aws-certified-ai-practitioner-certification",
       "kind": "course",
       "cost": "free"
+    },
+    {
+      "title": "Exam Prep Plan: AWS Certified AI Practitioner (AIF-C01 - Español LATAM)",
+      "url": "https://skillbuilder.aws/learning-plan/3NRN71QZR2/exam-prep-plan-aws-certified-ai-practitioner-aifc01--espaol-latam/BBPA7ZZQ9J",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's 4-step exam prep plan in Latin American Spanish; some trainings in it need a Skill Builder subscription."
     }
   ]
 }

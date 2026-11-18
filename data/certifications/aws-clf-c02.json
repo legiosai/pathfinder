@@ -82,7 +82,8 @@
     "Z09",
     "A02",
     "P16",
-    "D08"
+    "D08",
+    "D15"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
@@ -99,6 +100,22 @@
       "kind": "course",
       "cost": "free",
       "note": "Free and subscription content, including exam prep."
+    },
+    {
+      "title": "AWS Cloud Practitioner Essentials (Español LATAM)",
+      "url": "https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials-espaol-latam/RX7XZB6CTM",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's free foundational course in Latin American Spanish, about 13 hours."
+    },
+    {
+      "title": "Exam Prep Plan: AWS Certified Cloud Practitioner (CLF-C02 - Español LATAM)",
+      "url": "https://skillbuilder.aws/learning-plan/8UUCEZGNX4/exam-prep-plan-aws-certified-cloud-practitioner-clfc02--espaol-latam/FGAP4A4FXZ",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "AWS's 4-step exam prep plan in Latin American Spanish; some trainings in it need a Skill Builder subscription."
     }
   ],
   "domains_note": "Weights from the AWS Certification Exam Guide (CLF-C02), read 2026-11-05."
