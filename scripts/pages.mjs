@@ -220,7 +220,7 @@ export function certPage({ cert: c, catalog, lang, site, v, symbols, ogImages })
 
   const body = `  <a class="back" href="../">${icon('arrow-left')}${t('cert.back', {}, lang)}</a>
   <div class="card cert-hero" style="--pc:${providerColor(c.provider)}">
-    <div class="hero-badge">${badge(local, 128)}</div>
+    <div class="hero-badge">${badge(local, 128, { eager: true })}</div>
     <div>
       <p class="who"><span>${esc(c.provider)} · ${esc(c.code)}</span><span class="lvl">${SIGN[c.level] || ''}${esc(taxonomyLabel(tx, 'levels', c.level, lang))}</span><span class="pill catp" style="--c:var(${color})">${icon(catOf(c).icon)}${esc(t(`cat.${c.category}`, {}, lang))}</span>${flag}</p>
       <h1>${esc(c.name)}</h1>
