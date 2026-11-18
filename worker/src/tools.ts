@@ -22,6 +22,7 @@ export const LIMITS = {
   compareMax: 4,
   replies: 4,
   replyChars: 80,
+  leadChars: 400,
   roleChars: 80,
   goalChars: 160,
   maxBudget: 100_000,
@@ -61,8 +62,13 @@ export const SHOW_TOOL: Tool = {
           additionalProperties: false,
         },
       },
+      lead: {
+        type: 'string',
+        description:
+          "One or two sentences to the person, in their language: the best option for them and why. The page shows it only when your reply has no text of its own, so still write your reply before calling this tool.",
+      },
     },
-    required: ['picks'],
+    required: ['picks', 'lead'],
     additionalProperties: false,
   },
 };
@@ -233,6 +239,8 @@ export interface ToolOutputs {
   profile: Profile | null;
   /** Whether show_certifications was called at all, valid or not. */
   calledShow: boolean;
+  /** show_certifications' lead sentence, used only when the reply has no text. */
+  lead: string;
   /** Picks, steps or other items that did not pass validation. */
   dropped: number;
 }
@@ -253,7 +261,7 @@ export function collectOutputs(content: readonly Block[], known: ReadonlySet<str
   content.forEach((block, i) => {
     if (block.type === 'fallback') start = i + 1;
   });
-  const out: ToolOutputs = { picks: [], roadmap: null, comparison: [], replies: [], profile: null, calledShow: false, dropped: 0 };
+  const out: ToolOutputs = { picks: [], roadmap: null, comparison: [], replies: [], profile: null, calledShow: false, lead: '', dropped: 0 };
   const picks: unknown[] = [];
   for (const block of content.slice(start)) {
     if (block.type !== 'tool_use') continue;
@@ -262,6 +270,7 @@ export function collectOutputs(content: readonly Block[], known: ReadonlySet<str
       case TOOL_NAMES.show:
         out.calledShow = true;
         if (isObject(input) && Array.isArray(input.picks)) picks.push(...input.picks);
+        if (isObject(input) && typeof input.lead === 'string') out.lead = input.lead.trim().slice(0, LIMITS.leadChars);
         break;
       case TOOL_NAMES.roadmap: {
         const roadmap = validateRoadmap(input, known);

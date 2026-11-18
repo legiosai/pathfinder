@@ -105,6 +105,24 @@ describe('POST /chat with Claude', () => {
     expect(h.calls[1].body.messages[1]).toEqual({ role: 'assistant', content: 'b\n\n[Shown: aws-clf-c02]' });
   });
 
+  it('stands the lead sentence in for the text when Claude only calls the tool', async () => {
+    const h = harness({
+      reply: streamResponse([
+        ev.start(),
+        ...ev.thinking(0),
+        ...ev.tool(1, pieces(picksJson([{ id: 'aws-clf-c02', why: 'Te da la base de AWS.' }], 'Arrancá por Cloud Practitioner.'))),
+        ev.delta('tool_use', {}, { cache_read_input_tokens: 9100, cache_creation_input_tokens: 0, input_tokens: 40 }),
+        ev.stop(),
+      ]),
+    });
+    const { events } = await send(h, ask(USER_TEXT));
+    expect(events).toEqual([
+      { event: 'text', data: { t: 'Arrancá por Cloud Practitioner.' } },
+      { event: 'picks', data: { picks: [{ id: 'aws-clf-c02', why: 'Te da la base de AWS.' }] } },
+      { event: 'done', data: {} },
+    ]);
+  });
+
   it('emits every tool as its own event, after the text and in a fixed order', async () => {
     const h = harness({
       reply: streamResponse([

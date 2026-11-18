@@ -211,7 +211,7 @@ describe('the other tools', () => {
         tool('show_certifications', { picks: [{ id: 'g-seven', why: 'declined attempt' }] }),
         { type: 'fallback' },
         { type: 'text' },
-        tool('show_certifications', { picks: [{ id: 'a-one', why: 'one' }] }),
+        tool('show_certifications', { picks: [{ id: 'a-one', why: 'one' }], lead: '  Start with one.  ' }),
         tool('show_certifications', { picks: [{ id: 'b-two', why: 'two' }, { id: 'nope', why: 'x' }] }),
         tool('show_roadmap', { hours_per_week: 4, steps: [{ id: 'a-one', weeks: 2, note: 'n' }, { id: 'b-two', weeks: 3, note: 'n' }] }),
         tool('show_comparison', { ids: ['a-one', 'b-two'] }),
@@ -232,6 +232,7 @@ describe('the other tools', () => {
       replies: ['Sí', 'No'],
       profile: { role: 'dev', hours_per_week: 4 },
       calledShow: true,
+      lead: 'Start with one.',
       dropped: 2,
     });
     expect(collectOutputs([{ type: 'text' }], known)).toMatchObject({ picks: [], roadmap: null, comparison: [], replies: [], profile: null, calledShow: false });
