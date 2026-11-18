@@ -119,6 +119,8 @@ const TEXT = {
     'path.indexDesc': ({ n }) => `${n} suggested orders of IT certifications by goal, from a first exam to senior roles, with the facts of each certification.`,
     'path.all': 'Study paths',
     'index.titleShort': 'IT certifications: prices, domains and study plans',
+    'error.title': 'Page not found',
+    'error.text': 'Check the address or browse the catalog to find a certification.',
     'cat.Networking': 'Networking',
   },
   es: {
@@ -183,6 +185,8 @@ const TEXT = {
     'path.indexDesc': ({ n }) => `${n} órdenes sugeridos de certificaciones de IT por objetivo, desde un primer examen hasta roles senior, con los datos de cada certificación.`,
     'path.all': 'Rutas de estudio',
     'index.titleShort': 'Certificaciones de IT: precios, dominios y planes de estudio',
+    'error.title': 'Página no encontrada',
+    'error.text': 'Revisá la dirección o buscá una certificación en el catálogo.',
     'cat.Networking': 'Redes',
   },
 };
@@ -259,6 +263,8 @@ function sprite(body, symbols) {
   return `${symbols.notice}\n<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">\n${used.map((id) => symbols.map.get(id)).join('\n')}\n</svg>`;
 }
 
+const themeScript = `<script>try { const t = JSON.parse(localStorage.getItem("pathfinder:theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>`;
+
 function layout({ lang, path, title, description, alternates, image, jsonld, body, site, v, symbols, inIndex = true }) {
   const up = upFrom(path);
   const url = site + path;
@@ -320,13 +326,63 @@ ${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${esc(site + alt
 <link rel="apple-touch-icon" href="${up}icons/apple-touch-icon.png">
 <link rel="preload" href="${up}fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${up}styles.css?v=${v}">
-<script>try { const t = JSON.parse(localStorage.getItem("pathfinder:theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
+${themeScript}
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); }; if (/(^|\\.)pathfinder\\.legios\\.com\\.ar$|\\.vercel\\.app$/.test(location.hostname)) { const s = document.createElement("script"); s.defer = true; s.src = "/_vercel/insights/script.js"; document.head.append(s); }</script>
 <script type="application/ld+json">${jsonScript(jsonld)}</script>
 </head>
 <body>
 ${sprite(content, symbols)}
 ${content}
+</body>
+</html>
+`;
+}
+
+/** Hosts serve this file at the missing URL, so asset and recovery links include the site's base path. */
+export function notFoundPage({ catalog, site, v }) {
+  const base = new URL(site).pathname;
+  const href = (path) => esc(base + path);
+  const cards = LANGS.map((lang) => `<section class="card not-found" lang="${lang}">
+  <a class="brand" href="${href(appQuery(lang))}"><img src="${href('icon.svg')}" width="32" height="32" alt="">pathfinder</a>
+  <h1>${esc(say('error.title', {}, lang))}</h1>
+  <p class="hint">${esc(say('error.text', {}, lang))}</p>
+  <a class="btn primary" href="${href(indexPath(lang))}">${esc(t('notFound.catalog', {}, lang))}</a>
+  ${catalog.paths.length ? `<a class="link" href="${href(pathIndexPath(lang))}">${esc(say('path.all', {}, lang))}</a>` : ''}
+</section>`).join('\n');
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<title>${esc(say('error.title'))} · pathfinder</title>
+<link rel="icon" href="${href('icon.svg')}" type="image/svg+xml">
+<link rel="stylesheet" href="${href(`styles.css?v=${v}`)}">
+${themeScript}
+</head>
+<body>
+<main>
+${cards}
+</main>
+<script>
+  // A single error file serves both languages. Both recovery links work without JavaScript.
+  (() => {
+    const path = location.pathname.slice(${base.length});
+    const requested = new URLSearchParams(location.search).get('lang');
+    let saved;
+    try { saved = JSON.parse(localStorage.getItem('pathfinder:lang')); } catch {}
+    const isLanguage = (value) => value === 'en' || value === 'es';
+    let lang;
+    if (isLanguage(requested)) lang = requested;
+    else if (/^es(?:\\/|$)/.test(path)) lang = 'es';
+    else if (isLanguage(saved)) lang = saved;
+    else lang = navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en';
+    document.documentElement.lang = lang;
+    document.querySelector('main > section:not([lang="' + lang + '"])').remove();
+    document.title = document.querySelector('h1').textContent + ' · pathfinder';
+  })();
+</script>
 </body>
 </html>
 `;
