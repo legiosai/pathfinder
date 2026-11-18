@@ -216,6 +216,9 @@ function renderRoute() {
     // A link with filters (#list?cat=…&max=…) sets them; a bare one keeps what was chosen.
     if (name === 'list' && [...params.keys()].length) {
       filters = filtersFromParams(params, { categories: DATA.certifications.map((c) => c.category), providers: DATA.certifications.map((c) => c.provider) });
+      // A filter the catalog has no data for yet (its control is hidden) would only empty the list.
+      if ($('#f-es').hidden) filters.es = false;
+      if ($('#f-online').hidden) filters.online = false;
       syncControls();
     }
     renderList();
