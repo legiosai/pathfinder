@@ -731,6 +731,9 @@ details.more > summary:hover { color: var(--text); }
 .plan-card .meta.late .link { font-size: var(--fs-md); color: var(--warn-text); }
 .status.resched { flex-wrap: wrap; font-weight: 500; }
 .status.resched .link { margin-left: auto; font-size: var(--fs-md); }
+.pa-history a { display: inline-flex; align-items: center; gap: 5px; }
+.pa-history a .i { width: 14px; height: 14px; }
+.plan-cards + .panel { margin-top: 16px; }
 .plan-card-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line); }
 #track-plan[aria-pressed="true"] { background: color-mix(in srgb, var(--good) 11%, var(--surface)); color: var(--good); border-color: color-mix(in srgb, var(--good) 35%, transparent); }
 

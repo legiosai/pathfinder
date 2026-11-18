@@ -1736,11 +1736,17 @@ function practiceMistakes(ctx) {
 function practiceProgress() {
   const rows = DATA.certifications
     .filter((c) => c.practice_questions)
-    .map((c) => ({ c, attempts: store.get(practiceKeys(c.id).history, emptyHistory()).attempts }))
+    .map((c) => {
+      const keys = practiceKeys(c.id);
+      const history = store.get(keys.history, emptyHistory());
+      const now = Date.now();
+      const due = Object.values(loadReview(store.get(keys.review, null), history, now).cards).filter((card) => card.due <= now).length;
+      return { c, attempts: history.attempts, due };
+    })
     .filter((x) => x.attempts.length);
   if (!rows.length) return '';
   return `<section class="card panel"><h2>${icon('dumbbell')}${t('practice.progress')}</h2><ul class="pa-history">${rows
-    .map(({ c, attempts }) => `<li><span>${esc(c.code)}</span><small>${esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct }))}</small><a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
+    .map(({ c, attempts, due }) => `<li><span>${esc(c.code)}</span><small>${esc(t('practice.progressRow', { a: attempts.length, p: attempts.at(-1).pct }))}</small>${due ? `<a href="#practice?cert=${esc(c.id)}&tab=review">${icon('refresh-cw')}${esc(t('practice.progressDue', { n: due }))}</a>` : ''}<a href="#practice?cert=${esc(c.id)}">${t('practice.open')}</a></li>`)
     .join('')}</ul></section>`;
 }
 
