@@ -342,6 +342,7 @@ const en = {
   offline: 'Offline: showing the saved copy.',
   'update.ready': 'New version',
   'update.reload': 'Refresh',
+  'home.title': 'Choose an IT certification and plan your study · pathfinder',
 
   // Static certification pages, written at build time by scripts/pages.mjs.
   'page.title': '{name} ({code}): exam domains, price and study plan',
@@ -696,6 +697,7 @@ const es = {
   offline: 'Sin conexión: mostrando la copia guardada.',
   'update.ready': 'Hay una versión nueva',
   'update.reload': 'Actualizar',
+  'home.title': 'Elegí una certificación de IT y planificá tu estudio · pathfinder',
 
   'page.title': '{name} ({code}): dominios del examen, precio y plan de estudio',
   'page.titlePractice': '{name} ({code}): preguntas de práctica, dominios del examen y plan de estudio',

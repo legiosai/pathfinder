@@ -84,7 +84,6 @@ await rewrite('sw.js', [
 // Search engines get no content from the app's single page, so every certification also gets a
 // plain HTML page per language (c/<id>/ and es/c/<id>/) with its facts and links into the app.
 // c/<id>/ is also the share link, so link previews keep their per-certification image.
-await rewrite('index.html', [[/(<meta name="description"[^>]*>)/, `$1\n<link rel="canonical" href="${SITE}">`]]);
 const symbols = symbolsFrom(await readFile(join(dist, 'index.html'), 'utf8'));
 const ogImages = new Set(await readdir(join(dist, 'og')).catch(() => []));
 const pages = [];

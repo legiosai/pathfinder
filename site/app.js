@@ -223,7 +223,7 @@ function renderRoute() {
   lastCert = view === 'cert' ? certId : null;
 
   const titles = { ask: t('chat.title'), practice: t('practice.title'), compare: t('compare.title'), plan: t('plan.title'), progress: t('progress.title'), about: t('about.title') };
-  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : 'pathfinder';
+  document.title = view === 'cert' ? `${BY_ID.get(certId).name} · pathfinder` : titles[view] ? `${titles[view]} · pathfinder` : t('home.title');
 }
 
 // ---------- compare state ----------

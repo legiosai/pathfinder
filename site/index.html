@@ -3,10 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>pathfinder</title>
-<meta name="description" content="Compare IT certifications and plan your study. Open source.">
+<title>Choose an IT certification and plan your study · pathfinder</title>
+<meta name="description" content="Compare IT certifications from AWS, Microsoft, Google Cloud, CompTIA, ISC2 and more: price, exam format and domains, with a dated study plan and practice questions. Free and open source.">
+<link rel="alternate" hreflang="en" href="https://pathfinder.legios.com.ar/">
+<link rel="alternate" hreflang="es" href="https://pathfinder.legios.com.ar/?lang=es">
+<link rel="alternate" hreflang="x-default" href="https://pathfinder.legios.com.ar/">
+<!-- ?lang=es is the Spanish alternate: it gets its own canonical address and description. -->
+<script>(() => { const es = new URLSearchParams(location.search).get("lang") === "es"; document.head.append(Object.assign(document.createElement("link"), { rel: "canonical", href: "https://pathfinder.legios.com.ar/" + (es ? "?lang=es" : "") })); if (es) document.querySelector('meta[name="description"]').content = "Compará certificaciones de IT de AWS, Microsoft, Google Cloud, CompTIA, ISC2 y más: precio, formato y dominios del examen, con un plan de estudio con fechas y preguntas de práctica. Gratis y de código abierto."; })();</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="pathfinder">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_AR">
 <meta property="og:title" content="pathfinder · pick a certification, plan the climb">
 <meta property="og:description" content="Compare IT certifications and turn any of them into a dated study plan. Open source, runs in your browser.">
 <meta property="og:url" content="https://pathfinder.legios.com.ar/">
@@ -24,6 +31,7 @@
 <link rel="stylesheet" href="styles.css">
 <script>try { const t = JSON.parse(localStorage.getItem("pathfinder:theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
 <script type="module" src="app.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"pathfinder","url":"https://pathfinder.legios.com.ar/","description":"Compare IT certifications and plan your study: price, exam format and domains, a dated study plan and practice questions. Free and open source.","inLanguage":["en","es"],"isAccessibleForFree":true}</script>
 </head>
 <body>
 <!-- UI icons: Lucide v1.59.0 (ISC License, Copyright (c) 2026 Lucide Icons and Contributors), full text in LICENSE-lucide.txt. Brand logos: Simple Icons v16.35.0 (CC0); trademarks of their owners. -->
