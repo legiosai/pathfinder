@@ -193,14 +193,16 @@
     "title": "Microsoft · Azure AI Apps and Agents Developer AI-103",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 27 Oct 2026. Current credential, Python/Foundry scope, 120-minute assessment, possible interactive components and country-based pricing."
+    "note": "Read 27 Oct 2026 and again 2026-11-17. Current credential (Intermediate level), Python/Foundry scope, 120-minute proctored exam with possible interactive components, price by country or region; offered in English, Chinese (Simplified and Traditional), French, German, Japanese, Korean, Italian, Portuguese (Brazil) and Spanish.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X06",
     "title": "Microsoft · AI-103 study guide",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103",
     "kind": "Provider / current page read",
-    "note": "Objective text read 27 Oct 2026 despite a generic authorization banner. Includes agents, operations/identity, vision, text/speech and extraction; objectives dated 16 Apr 2026. No account-only practice assessment was taken."
+    "note": "Read 27 Oct 2026 and again 2026-11-17. Skills measured as of April 16, 2026: plan and manage an Azure AI solution 25–30%, generative AI and agentic solutions 30–35%, computer vision 10–15%, text analysis 10–15%, information extraction 10–15%; 700 to pass; associate certifications expire annually and renew through a free online assessment; 30 extra minutes can be requested when the exam isn't offered in your preferred language.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "X07",
@@ -319,14 +321,16 @@
     "title": "GitHub · Agentic AI Developer GH-600",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/",
     "kind": "Issuer page",
-    "note": "Read 27 Oct 2026: current role, 120 minutes, proctored assessment and regional pricing. Generic page success UI is not an earned credential."
+    "note": "Read 27 Oct 2026 and again 2026-11-17: 120-minute proctored exam with possible interactive components, scheduled through Pearson VUE, offered only in English, price by country or region. The page states no renewal period.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y03",
     "title": "GitHub · GH-600 guide",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-600",
     "kind": "Issuer guide",
-    "note": "Objective text read 27 Oct 2026: SDLC, tools, state, evaluation, coordination and guardrails. Generic renewal text is not used as proof of this credential's exact renewal policy."
+    "note": "Objective text read 27 Oct 2026 and again 2026-11-17: six domains with weight ranges, 700 to pass, 30 extra minutes when the exam isn't offered in your preferred language. Its renewal paragraph is Microsoft's general text for associate certifications, not a GH-600 rule.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Y04",
@@ -480,7 +484,8 @@
     "title": "Microsoft · Azure Fundamentals AZ-900",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Current certification (page updated 2026-11-13), 45-minute proctored exam with possible interactive components, regional pricing, Pearson VUE or Certiport scheduling, 13 languages."
+    "note": "Read 2026-11-17. Current certification (page updated 2026-11-13), 45-minute proctored exam with possible interactive components, regional pricing, Pearson VUE or Certiport scheduling, 13 languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "Z11",
@@ -641,7 +646,8 @@
     "title": "Microsoft · Azure Administrator Associate (AZ-104)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, price by country or region, 12-month renewal; last updated 04/17/2026."
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, price by country or region, 12-month renewal; last updated 04/17/2026. Offered in 10 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P21",
@@ -718,7 +724,8 @@
     "title": "Microsoft · Azure Data Fundamentals (DP-900)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-data-fundamentals/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 45-minute proctored exam, interactive components possible, Pearson VUE or Certiport scheduling, price by country or region; last updated 07/21/2026; not a prerequisite for other certifications."
+    "note": "Read 2026-11-17. 45-minute proctored exam, interactive components possible, Pearson VUE or Certiport scheduling, price by country or region; last updated 07/21/2026; not a prerequisite for other certifications. Offered in 13 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P32",
@@ -732,7 +739,8 @@
     "title": "Microsoft · Power BI Data Analyst Associate (PL-300)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, Power Query and DAX expected, price by country or region, 12-month renewal; last updated 04/20/2026."
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, Power Query and DAX expected, price by country or region, 12-month renewal; last updated 04/20/2026. Offered in 10 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P34",
@@ -746,7 +754,8 @@
     "title": "Microsoft · Fabric Data Engineer Associate (DP-700)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, SQL, PySpark and KQL expected, price by country or region, renewable; last updated 10/19/2026."
+    "note": "Read 2026-11-17. 100-minute proctored exam through Pearson VUE, interactive components possible, SQL, PySpark and KQL expected, price by country or region, renewable; last updated 10/19/2026. Offered in 10 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P36",
@@ -767,7 +776,8 @@
     "title": "Microsoft · Azure AI Cloud Developer Associate (AI-200)",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. 120-minute proctored exam through Pearson VUE, interactive components possible, Python, containers, vector databases and Azure SDKs expected, price by country or region; last updated 10/07/2026."
+    "note": "Read 2026-11-17. 120-minute proctored exam through Pearson VUE, interactive components possible, Python, containers, vector databases and Azure SDKs expected, price by country or region; last updated 10/07/2026. Offered in 13 languages, Spanish included.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P39",
@@ -1495,7 +1505,8 @@
     "title": "Microsoft · Security, Compliance, and Identity Fundamentals SC-900",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/security-compliance-and-identity-fundamentals/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Current certification (Beginner level, last updated 10/21/2026); 45-minute proctored exam with possible interactive components; price by country or region; Pearson VUE or Certiport scheduling; 13 languages."
+    "note": "Read 2026-11-17. Current certification (Beginner level, last updated 10/21/2026); 45-minute proctored exam with possible interactive components; price by country or region; Pearson VUE or Certiport scheduling; 13 languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S84",
@@ -1509,7 +1520,8 @@
     "title": "Microsoft · Security Operations Analyst Associate SC-200",
     "url": "https://learn.microsoft.com/en-us/credentials/certifications/security-operations-analyst/",
     "kind": "Provider / current page read",
-    "note": "Read 2026-11-17. Current certification (Intermediate level, last updated 10/21/2026); 100-minute proctored exam with possible interactive components; price by country or region; renewal every 12 months; 10 languages."
+    "note": "Read 2026-11-17. Current certification (Intermediate level, last updated 10/21/2026); 100-minute proctored exam with possible interactive components; price by country or region; renewal every 12 months; 10 languages.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "S86",
@@ -1538,5 +1550,109 @@
     "url": "https://cloud.google.com/certification/terms",
     "kind": "Issuer policy",
     "note": "Read 2026-11-17. Professional certifications are valid for two years from issue; renewal by passing the exam again from 60 days before expiry; up to four attempts in two years (14, 60 and 365-day waits); using any AI software during the exam is prohibited."
+  },
+  {
+    "id": "E01",
+    "title": "Microsoft · Exam retake policy",
+    "url": "https://learn.microsoft.com/en-us/credentials/support/retake-policy",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (page updated 2026-07-27). Role-based, specialty and fundamentals exams: wait 24 hours after a first failed attempt, then 14 days between later attempts; at most five attempts in 12 months; a passed exam can't be retaken until the certification expires; retakes are paid. Renewal assessments can be retried without limit (24 hours apart after the second try).",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E02",
+    "title": "Microsoft · Exam price list behind the country selector",
+    "url": "https://learn.microsoft.com/en-us/credentials/exam-pricing.json",
+    "kind": "Issuer price data",
+    "note": "Read 2026-11-17. The data the exam pages use to show the price for each country. AZ-900, AI-901, DP-900 and SC-900: USD 99 in the US, USD 59 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America, EUR 76 in Spain. AZ, AI, DP, PL and SC role-based exams (and GH-600, priced as AZ): USD 165 in the US, USD 99 in those Latin American countries, EUR 126 in Spain. Prices exclude taxes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E03",
+    "title": "Microsoft · Certification exam offers",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/deals",
+    "kind": "Issuer offer page",
+    "note": "Read 2026-11-17. Exam Replay with Pearson VUE: one Microsoft Certification exam voucher plus one retake of the same exam, both taken within 12 months of purchase, online allowed; the retake can only be scheduled after a failed first attempt. Links the student discount page.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E04",
+    "title": "Pearson VUE MindHub · Microsoft Exam Replay",
+    "url": "https://www.mindhub.com/p/Microsoft-Exam-Replay",
+    "kind": "Exam provider store",
+    "note": "Read 2026-11-17. US store price USD 230 for one exam voucher plus one retake; vouchers expire 12 months after purchase; valid for role-based exams, not for Fundamentals, MOS or beta exams.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E05",
+    "title": "Microsoft · Student discounts",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/student-discounts",
+    "kind": "Issuer offer page",
+    "note": "Read 2026-11-17 (page updated 2025-06-30). Academic pricing on Microsoft Certification exams in most countries except India and China, after identifying as a student in the Microsoft Learn profile and verifying academic status.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E06",
+    "title": "Microsoft · Available exam accommodations and documentation requirements",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/available-exam-accommodations-document-requirements",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (page updated 2026-11-09). Extra time for English as a second language only when the exam is not available in the candidate's preferred language; no extra time when the exam is offered in that language but taken in another. Five minutes were added to every exam for unscheduled breaks. The study guides put the language extra time at 30 minutes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E07",
+    "title": "Microsoft · About online exams with Pearson VUE",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/online-exams",
+    "kind": "Issuer policy",
+    "note": "Read 2026-11-17 (page updated 2026-07-23). Online proctored exams from home or office in most countries, or at a Pearson VUE test center; greeters, proctors and the proctoring software work in English even when the exam is in another language.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E08",
+    "title": "Microsoft · Practice assessments for Microsoft Certifications",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications",
+    "kind": "Issuer prep index",
+    "note": "Read 2026-11-17. Official list of each exam's free practice assessment. AZ-104, AZ-305, AZ-400, AZ-900, DP-700, DP-900, PL-300, SC-200 and SC-900 link to Microsoft Learn; AI-103 and AI-200 link to AI Skills Navigator; AI-901 and GH-600 are not listed. The aka.ms/AZ900-PA short link sent to the DP-900 page on AI Skills Navigator.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E09",
+    "title": "Microsoft · Exam AZ-305 page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/az-305/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Ten languages: English, Japanese, Chinese (Simplified), Korean, German, French, Spanish, Portuguese (Brazil), Chinese (Traditional), Italian; no retirement date; price by country before taxes.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E10",
+    "title": "Microsoft · Exam AZ-400 page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/az-400/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Ten languages: English, Japanese, Chinese (Simplified), Korean, German, French, Spanish, Portuguese (Brazil), Chinese (Traditional), Italian. The exam page still shows no retirement date, while the certification page and study guide announce February 1, 2027.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E11",
+    "title": "Microsoft · Exam AI-901 page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-901/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Thirteen languages: English, Arabic (Saudi Arabia), Chinese (Simplified), Chinese (Traditional), French, German, Indonesian (Indonesia), Italian, Japanese, Korean, Portuguese (Brazil), Russian, Spanish; no retirement date.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E12",
+    "title": "Microsoft · GitHub Copilot certification page",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/github-copilot/",
+    "kind": "Provider / current page read",
+    "note": "Read 2026-11-17. Notice shared by the GitHub certification pages: GitHub certifications are valid for 2 years; GitHub is moving to Microsoft's renewal process, and certifications that expire before it is available are extended by 6 months.",
+    "checked_on": "2026-11-17"
+  },
+  {
+    "id": "E13",
+    "title": "GitHub Docs · Registering for a GitHub Certifications exam",
+    "url": "https://docs.github.com/en/get-started/showcase-your-expertise-with-github-certifications/registering-for-a-github-certifications-exam",
+    "kind": "Issuer docs",
+    "note": "Read 2026-11-17. GitHub Certifications exams are scheduled through Pearson VUE at a local test center or online with a proctor, up to 90 days ahead, with a government ID.",
+    "checked_on": "2026-11-17"
   }
 ]

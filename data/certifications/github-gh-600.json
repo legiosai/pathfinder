@@ -10,17 +10,34 @@
   "fee": {
     "usd": null,
     "basis": "Regional exam price",
-    "note": ""
+    "note": "Microsoft prices GitHub exams by exam country/region; the exam page shows the price for your location, before taxes. US price USD 165; USD 99 in Argentina, Mexico, Chile, Colombia, Peru and most of Latin America; EUR 126 in Spain (Microsoft's price list, 2026-11-17)."
   },
   "exam": {
     "minutes": 120,
     "style": "knowledge",
-    "format": "Proctored 120-minute assessment; the issuer says interactive components may occur."
+    "format": "Proctored 120-minute exam through Pearson VUE, online or at a test center; interactive components may appear. Microsoft does not publish the question count or question types per exam.",
+    "questions": "40–60 (Microsoft's usual range)",
+    "question_count": 60,
+    "passing": "700 scaled (1–1,000)",
+    "languages": [
+      "en"
+    ],
+    "delivery": [
+      "online",
+      "test-center"
+    ]
+  },
+  "access": {
+    "retake": "After a failed attempt you wait 24 hours to retake, then 14 days between later attempts, with at most five attempts in 12 months; each retake is paid.",
+    "accommodations": "The exam is only in English, so non-native speakers can request 30 extra minutes (English as a second language) before scheduling; other accommodations are requested through Pearson VUE."
   },
   "scope": "Agent architecture, tool use, memory/state, evaluation, multi-agent coordination and accountability inside production SDLC workflows.",
   "requirements": "",
   "ai_policy": "Check the current exam resource policy. A coding-agent certification does not itself permit AI during the assessment.",
-  "caveats": [],
+  "caveats": [
+    "Microsoft says most of its exams have 40–60 questions but does not publish the count for GH-600.",
+    "The GH-600 page gives no validity period. The other GitHub certification pages on Microsoft Learn say GitHub certifications are valid for 2 years while GitHub moves to Microsoft's renewal process; the GH-600 study guide only carries Microsoft's general note that associate certifications expire every year and renew free online."
+  ],
   "skills": [
     "agents",
     "devops",
@@ -58,7 +75,14 @@
   ],
   "sources": [
     "Y02",
-    "Y03"
+    "Y03",
+    "Z12",
+    "Z13",
+    "E01",
+    "E02",
+    "E06",
+    "E12",
+    "E13"
   ],
   "reports": [
     "U01",
@@ -68,7 +92,7 @@
     "V04",
     "V07"
   ],
-  "checked_on": "2026-10-27",
+  "checked_on": "2026-11-17",
   "prep": [
     {
       "title": "GH-600 study guide",
@@ -77,11 +101,26 @@
       "cost": "free"
     },
     {
+      "title": "Microsoft Learn: Developing in Agentic AI Systems (GH-600T00)",
+      "url": "https://learn.microsoft.com/en-us/training/courses/gh-600t00",
+      "kind": "course",
+      "cost": "free",
+      "note": "Self-paced learning paths are free; the instructor-led delivery is paid."
+    },
+    {
+      "title": "Curso GH-600T00-A: Desarrollo en sistemas de IA agente",
+      "url": "https://learn.microsoft.com/es-es/training/courses/gh-600t00",
+      "kind": "course",
+      "cost": "free",
+      "lang": "es",
+      "note": "The same course on Microsoft Learn in Spanish; the self-paced learning paths are free, the instructor-led delivery is paid."
+    },
+    {
       "title": "Microsoft Reactor: GH-600 technical roadmap (video)",
       "url": "https://www.youtube.com/live/bgj20o0kYKg",
       "kind": "course",
       "cost": "free"
     }
   ],
-  "domains_note": "Weights are midpoints of the published ranges (15–20%, 20–25%, 10–15%, 15–20%, 15–20%, 10–15%) from the Microsoft Learn GH-600 study guide (page updated 2026-05-13), read 2026-11-03."
+  "domains_note": "Weights are midpoints of the published ranges (15–20%, 20–25%, 10–15%, 15–20%, 15–20%, 10–15%) from the Microsoft Learn GH-600 study guide (page updated 2026-05-13), read 2026-11-03 and again 2026-11-17."
 }
