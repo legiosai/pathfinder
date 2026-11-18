@@ -173,23 +173,31 @@ when any check fails; `--only id,id` runs a subset.
 
 ### Vercel (production)
 
-Needs `VERCEL_TOKEN` with access to the team that owns the `pathfinder-chat` project. The project
-has one secret, `AI_GATEWAY_API_KEY`: an AI Gateway key with its own monthly budget, so a
-traffic spike stops at the budget instead of running up the bill. `MODEL` defaults to
+The `pathfinder-chat` project is connected to this repository with `worker` as its root directory:
+a push to `main` that changes `worker/` deploys to production, and a pull request that changes it gets
+a preview (`ignoreCommand` in `vercel.json` skips the rest). Vercel runs `npm ci` and
+`npm run build:vercel`, which bundles `vercel/entry.ts` behind `vercel/node-adapter.mjs` and writes
+the function in Build Output API form to `.vercel/output` (`scripts/build-vercel.mjs`). The project
+has one secret, `AI_GATEWAY_API_KEY`: an AI Gateway key with its own monthly budget, so a traffic
+spike stops at the budget instead of running up the bill. `MODEL` defaults to
 `anthropic/claude-sonnet-5-5`; `EFFORT`, `CATALOG_URL`, `CHAT_ENABLED`, `MOCK` and `EXTRA_ORIGINS` work as below.
+
+To deploy by hand (needs `VERCEL_TOKEN` with access to the team that owns the project):
 
 ```sh
 cd worker
-npm ci
 npx vercel link --project pathfinder-chat     # once, writes .vercel/project.json
-npm run deploy:vercel                         # bundles vercel/entry.ts into api/index.mjs, deploys to production
+npm run deploy:vercel                         # uploads the sources; Vercel builds and deploys to production
 curl https://pathfinder-api.legios.com.ar/health
 ```
 
 `pathfinder-api.legios.com.ar` is a DNS-only CNAME to `cname.vercel-dns.com` in Cloudflare.
 Vercel has no rate-limit binding, so `vercel/limiter.ts` counts requests per IP in each function
-instance's memory: it stops one visitor's burst, not traffic spread across instances; the key's
-budget is the hard ceiling. To switch the chat off, set `CHAT_ENABLED=0` in the project's
+instance's memory, 8 a minute and 40 an hour: it stops one visitor's burst, not traffic spread across instances. The address
+is the one Vercel sets (`x-real-ip`); `cf-connecting-ip` is never read there, since on Vercel a
+client can send any value in it. The project's firewall rule (10 a minute per IP on POST `/chat`) counts across instances,
+and the key's monthly budget is the hard ceiling: when it runs out, model calls fail and the
+site falls back to its on-device matcher until the budget resets. To switch the chat off, set `CHAT_ENABLED=0` in the project's
 environment variables and redeploy.
 
 ### Cloudflare Workers (alternative)

@@ -21,6 +21,8 @@ export interface Deps {
   log: Log;
   /** Pause between mock chunks, so the UI sees a stream. */
   mockDelayMs: number;
+  /** The address the rate limit counts by. Defaults to clientIp, which trusts Cloudflare's header. */
+  clientIp?: (request: Request) => string;
 }
 
 interface Ctx {
@@ -41,12 +43,24 @@ function json(status: number, body: unknown, origin: string | null, extra: Recor
 }
 
 /**
- * The visitor's address as the platform reports it: Cloudflare sets cf-connecting-ip; Vercel sets
- * x-real-ip and puts the client first in x-forwarded-for.
+ * The visitor's address on Cloudflare, which sets cf-connecting-ip itself. Elsewhere that header
+ * is whatever the client sent, so other platforms pass their own reader as Deps.clientIp.
  */
 export function clientIp(request: Request): string {
   const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
   return request.headers.get('cf-connecting-ip') ?? request.headers.get('x-real-ip') ?? (forwarded || 'unknown');
+}
+
+/**
+ * The visitor's address on Vercel. Vercel overwrites x-real-ip and x-forwarded-for with the
+ * address it sees, so a client cannot choose them; cf-connecting-ip passes through untouched
+ * there and is never read, or one visitor could count as a new address on every request.
+ */
+export function vercelClientIp(request: Request): string {
+  const forwarded = (request.headers.get('x-vercel-forwarded-for') ?? request.headers.get('x-forwarded-for'))
+    ?.split(',')[0]
+    ?.trim();
+  return request.headers.get('x-real-ip')?.trim() || forwarded || 'unknown';
 }
 
 const sleep = (ms: number) => (ms > 0 ? new Promise((resolve) => setTimeout(resolve, ms)) : Promise.resolve());
@@ -110,7 +124,7 @@ export function createHandler(deps: Deps) {
 
     // The limit protects the API budget; mock replies cost nothing, so UI work isn't throttled.
     if (env.CHAT_LIMITER && !config.mock) {
-      const key = clientIp(request);
+      const key = (deps.clientIp ?? clientIp)(request);
       const allowed = await env.CHAT_LIMITER.limit({ key }).then(
         (r) => r.success,
         () => true, // fail open: a limiter outage should not take the chat down
