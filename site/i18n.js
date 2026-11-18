@@ -54,6 +54,7 @@ const en = {
   'cat.Cloud & platform': 'Cloud & platform',
   'cat.Cybersecurity': 'Cybersecurity',
   'cat.Data & analytics': 'Data & analytics',
+  'cat.Networking': 'Networking',
 
   'search.placeholder': 'Search name, code or topic',
   'search.aria': 'Search certifications',
@@ -464,6 +465,7 @@ const es = {
   'cat.Cloud & platform': 'Cloud y plataforma',
   'cat.Cybersecurity': 'Ciberseguridad',
   'cat.Data & analytics': 'Datos y analítica',
+  'cat.Networking': 'Redes',
 
   'search.placeholder': 'Buscá por nombre, código o tema',
   'search.aria': 'Buscar certificaciones',
