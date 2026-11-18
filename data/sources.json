@@ -962,14 +962,16 @@
     "title": "Cisco · CCNA certification",
     "url": "https://www.cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. One exam (200-301 CCNA), no prerequisites, $300 or Cisco Learning Credits; valid three years, recertified by passing the current CCNA or a higher-level exam or with 30 CE credits; v1.1 last date to test February 2, 2027, v2.0 first date to test February 3, 2027."
+    "note": "Read 2026-11-17. One exam (200-301 CCNA), no prerequisites, $300 or Cisco Learning Credits, graded pass/fail; valid three years, recertified by passing the current CCNA or a higher-level exam or with 30 CE credits; v1.1 last date to test February 2, 2027 (languages: English), v2.0 first date to test February 3, 2027 (languages: English, Japanese).",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P76",
     "title": "Cisco · Implementing and Administering Cisco Solutions (200-301 CCNA) exam",
     "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccna.html",
     "kind": "Issuer page",
-    "note": "Read 2026-11-17. 120 minutes; English and Japanese; $300 or Cisco Learning Credits; links the v1.1 exam topics, Cisco U. training and a practice exam. Question count not stated."
+    "note": "Read 2026-11-17. 120 minutes; English and Japanese; $300 or Cisco Learning Credits; links the v1.1 exam topics, Cisco U. training and a practice exam. Question count and passing score not stated.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P77",
@@ -990,7 +992,8 @@
     "title": "Cisco · Certification exams overview",
     "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/index.html",
     "kind": "Issuer policy",
-    "note": "Read 2026-11-17. Prices in USD plus tax, with Pearson VUE listing other countries and currencies; CCNA 200-301 at $300; associate exams offered in person and online; score reports include the passing score; five-day wait before retaking a failed associate exam."
+    "note": "Read 2026-11-17. Prices in USD plus tax, with Pearson VUE listing other countries and currencies; CCNA 200-301 at $300; all associate, professional and expert written exams offered in person and online; after a failed associate exam, wait five calendar days to retake; after passing, wait 180 days to take the same exam again; no extra fee for testing accommodations.",
+    "checked_on": "2026-11-17"
   },
   {
     "id": "P80",
