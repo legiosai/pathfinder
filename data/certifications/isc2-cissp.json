@@ -19,7 +19,17 @@
     "questions": "100–150 (CAT)",
     "question_count": 150,
     "passing": "700 scaled (out of 1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "zh",
+      "de",
+      "ja",
+      "es"
+    ],
+    "delivery": [
+      "test-center"
+    ]
   },
   "scope": "Designing, engineering and managing an organization's security program: security and risk management, asset security, architecture and engineering, network security, identity and access management, assessment and testing, security operations and software development security.",
   "requirements": "To be certified: five years of cumulative full-time experience in two or more of the eight CISSP domains; a relevant degree or a credential on ISC2's approved list can satisfy one year, and part-time work and internships count. Without the experience, passing makes you an Associate of ISC2 with six years to earn it. Within nine months of passing, an ISC2-certified member (or ISC2, with proof of employment) must endorse the application.",
@@ -29,6 +39,17 @@
     "Prices and taxes follow the exam location: ISC2 lists U.S. dollars for most regions, euros for EMEA and pounds for the UK. Pearson VUE charges U.S. $50 to reschedule and U.S. $100 to cancel. Confirm at checkout.",
     "An exam-only purchase is one attempt that must be taken within 365 days. ISC2 also sells Peace of Mind Protection (two attempts within 180 days); its price is not on the pricing page.",
     "Staying certified: U.S. $135 a year and 120 CPE credits per three-year cycle (40 a year suggested). Associates of ISC2 pay U.S. $50 a year and earn 15 CPE credits a year."
+  ],
+  "access": {
+    "retake": "Wait 30 days after a failed first attempt, 60 after the second and 90 after later ones; at most four attempts in 12 months. An exam-only purchase covers one attempt (Peace of Mind Protection covers two)."
+  },
+  "timeline": [
+    {
+      "date": "2027-04-15",
+      "kind": "changes",
+      "text": "New exam outline: Domain 1 becomes Security Governance and Risk Management, AI ethics is added and all eight weights change; length and item range stay the same.",
+      "source": "S37"
+    }
   ],
   "skills": [
     "security",
@@ -83,7 +104,8 @@
     "S30",
     "S31",
     "S32",
-    "S33"
+    "S33",
+    "D12"
   ],
   "reports": [],
   "checked_on": "2026-11-17",

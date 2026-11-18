@@ -19,7 +19,17 @@
     "questions": "100–125 (CAT)",
     "question_count": 125,
     "passing": "700 scaled (out of 1,000)",
-    "validity": "3 years"
+    "validity": "3 years",
+    "languages": [
+      "en",
+      "zh",
+      "ja",
+      "de",
+      "es"
+    ],
+    "delivery": [
+      "test-center"
+    ]
   },
   "scope": "Foundational security principles, security governance and risk, identity and access management, networking and cloud security concepts, and security operations and incident response, with foundational AI topics across the outline.",
   "requirements": "No work experience or degree required; ISC2 recommends basic IT knowledge. After passing, candidates complete an application and pay the U.S. $50 annual maintenance fee; no endorsement is needed.",
@@ -38,7 +48,8 @@
         "url": "https://www.isc2.org/landing/1mcc",
         "until": "2026-12-31"
       }
-    ]
+    ],
+    "retake": "Wait 30 days after a failed first attempt, 60 after the second and 90 after later ones; at most four attempts in 12 months. An exam-only purchase covers one attempt (Peace of Mind Protection covers two)."
   },
   "timeline": [
     {
@@ -86,7 +97,8 @@
     "S29",
     "S30",
     "S31",
-    "S33"
+    "S33",
+    "D12"
   ],
   "reports": [],
   "checked_on": "2026-11-17",
